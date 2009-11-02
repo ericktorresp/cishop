@@ -1,0 +1,5 @@
+Options +FollowSymLinks
+RewriteEngine on
+RewriteBase /~darkmoon/
+RewriteCond $1 !^(index\.php|images|css|javascript|robots\.txt)
+RewriteRule ^(.*)$ index.php/$1 [L]
