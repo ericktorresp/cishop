@@ -21,7 +21,7 @@ class Stylemodel extends Model {
 		$this->name = $this->input->post('name');
 		$this->aid = $this->input->post('aid');
 		$this->time = gmdate('Y-m-d H:i:s');
-		$this->db->insert('style',$this);
+		return $this->db->insert('style',$this);
 	}
 	
 	function update()

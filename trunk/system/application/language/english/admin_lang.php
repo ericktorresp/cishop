@@ -4,7 +4,9 @@ $lang['ui_reset'] = 'Reset';
 $lang['ui_manage'] = 'Manage';
 $lang['ui_edit'] = 'Edit';
 $lang['ui_remove'] = 'Delete';
-$lang['ui_oprate'] = 'Opration';
+$lang['ui_operate'] = 'Operation';
+$lang['ui_first'] = 'First';
+$lang['ui_last'] = 'Last';
 /**
  * language for style admin UI
  **/

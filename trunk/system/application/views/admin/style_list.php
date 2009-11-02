@@ -1,5 +1,5 @@
 <h1>
-<span class="action-span"><a href="<?php print current_url()?>/add"><?php print $this->lang->line('ui_style_add')?></a></span>
+<span class="action-span"><a href="<?php print config_item('base_url')?>admin/style/add"><?php print $this->lang->line('ui_style_add')?></a></span>
 <span class="action-span1"><a href="<?php print config_item('base_url')?>admin/"><?php print $this->lang->line('ui_manage')?></a>  - <?php print $this->lang->line('ui_style_manage')?></span>
 <div style="clear:both"></div>
 </h1>
@@ -9,7 +9,7 @@
 		  <th><?php print $this->lang->line('ui_style_code')?></th>
 		  <th><?php print $this->lang->line('ui_style_name')?></th>
 		  <th><?php print $this->lang->line('ui_style_time')?></th>
-		  <th><?php print $this->lang->line('ui_oprate')?></th>
+		  <th><?php print $this->lang->line('ui_operate')?></th>
 		</tr>
 
 <?php

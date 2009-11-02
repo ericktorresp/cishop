@@ -11,15 +11,15 @@ print form_open(current_url(),$attributes);
 <table cellspacing="1" cellpadding="3" width="100%">
   <tr>
     <td class="label"><?php print $this->lang->line('ui_style_code')?></td>
-
-    <td><input type="text" name="style_code" maxlength="15" value=""  /><span class="require-field">*</span></td>
+    <td><input type="text" name="code" maxlength="15" value=""  /><span class="require-field">*</span></td>
+	<td class="warning"><?php print form_error('code','<span>','</span>')?></td>
   </tr>
   <tr>
     <td class="label"><?php print $this->lang->line('ui_style_name')?></td>
-    <td><input type="text" name="style_name" maxlength="60" size="40" value=""  /><span class="require-field">*</span></td>
+    <td><input type="text" name="name" maxlength="60" size="40" value=""  /><span class="require-field">*</span></td>
+	<td class="warning"><?php print form_error('name','<span>','</span>')?></td>
   </tr>
   <tr>
-
     <td colspan="2" align="center"><br />
       <input type="submit" class="button" value="<?php print $this->lang->line('ui_submit')?>"  />
       <input type="reset" class="button" value="<?php print $this->lang->line('ui_reset')?>"  />

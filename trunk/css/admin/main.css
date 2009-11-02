@@ -249,6 +249,12 @@ td.micro-label {
   *width: 150px;
 }
 
+td.warning {
+	color: red;
+	text-align: left;
+	font-weight: bold;
+}
+
 .button-div {
   text-align: center;
   padding: 3px 0;

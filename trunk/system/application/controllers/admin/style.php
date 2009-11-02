@@ -14,19 +14,21 @@ class Style extends Controller {
 	{
 		parent::Controller();
 		$this->lang->load('admin');
+		$this->load->model('Stylemodel');
 	}
 
 	function index($page=0)
 	{
 		$per_page = 1;
 		$this->load->library(array('pagination','jquery'));
-		$this->load->model('Stylemodel');
 		$styles = $this->Stylemodel->get_styles($page,$per_page);
 		$data['style_list'] = $styles['rows'];
 		$config['base_url'] = $this->config->item('base_url').'admin/style/index/';
 		$config['total_rows'] = $styles['count'];
 		$config['per_page'] = $per_page;
 		$config['uri_segment'] = 4;
+		$config['first_link'] = $this->lang->line('ui_first');
+		$config['last_link'] = $this->lang->line('ui_last');
 
 		$this->pagination->initialize($config);
 
@@ -41,10 +43,19 @@ class Style extends Controller {
 	{
 		$this->load->library('form_validation');
 		$this->load->helper('form');
-		
-		$this->load->view('admin/header');
-		$this->load->view('admin/style_form');
-		$this->load->view('admin/footer');
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->load->view('admin/header');
+			$this->load->view('admin/style_form');
+			$this->load->view('admin/footer');
+		}
+		else
+		{
+			if($this->Stylemodel->add())
+			{
+				$this->load->view('global_message');
+			}
+		}
 	}
 	
 	function edit($id)
