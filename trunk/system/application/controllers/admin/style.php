@@ -47,12 +47,12 @@ class Style extends Controller {
 		$this->load->view('admin/footer');
 	}
 	
-	function del()
+	function edit($id)
 	{
 		
 	}
 	
-	function edit()
+	function delete($id)
 	{
 		
 	}
