@@ -70,9 +70,9 @@
     <fieldset>
         <ol>
 			<li>
-				<?=form_label('Gender','gender')?>
-				<?php print $this->lang->line('userlib_user_male')?> <?=form_radio('gender','m',$this->validation->set_radio('gender','m'),'id="gender"')?>
-				<?php print $this->lang->line('userlib_user_female')?> <?=form_radio('gender','f',$this->validation->set_radio('gender','f'))?>
+				<?php print form_label('Gender','gender')?>
+				<?php print $this->lang->line('userlib_user_male')?> <?php print form_radio('gender','m',$this->validation->set_radio('gender','m'),'id="gender"')?>
+				<?php print $this->lang->line('userlib_user_female')?> <?php print form_radio('gender','f',$this->validation->set_radio('gender','f'))?>
 			</li>
             <li class="submit">
                 <div class="buttons">
