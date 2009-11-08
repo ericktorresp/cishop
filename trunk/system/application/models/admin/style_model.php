@@ -4,7 +4,7 @@
  * @author floyd
  */
 
-class Stylemodel extends Model {
+class Style_model extends Model {
 	var $code = '';
 	var $name = '';
 	var $aid = 0;
@@ -33,7 +33,7 @@ class Stylemodel extends Model {
 	
 	function get_styles($page=0,$per_page=20)
 	{
-		$query = $this->db->get('style',$per_page,$page*$per_page);
-		return array('rows'=>$query->result(),'count'=>$this->db->count_all_results('style'));
+		$query = $this->db->get('cs_style',$per_page,$page*$per_page);
+		return array('rows'=>$query->result(),'count'=>$this->db->count_all_results('cs_style'));
 	}
 }
