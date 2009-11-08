@@ -64,8 +64,8 @@ $config['asset'][] = array('file'=>'FlashStatus.css');
 $config['asset'][] = array('file'=>'bep_icons.php','type'=>'css');
 
 // BackendPro JS
-$config['asset'][] = array('file'=>'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js', 'name'=>'jquery');
-$config['asset'][] = array('file'=>'http://ajax.googleapis.com/ajax/libs/jqueryui/1.5.3/jquery-ui.min.js', 'name' => 'jquery_ui', 'needs'=>'jquery');
+$config['asset'][] = array('file'=>'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js', 'name'=>'jquery');
+$config['asset'][] = array('file'=>'http://ajax.googleapis.com/ajax/libs/jqueryui/1.5.3/jquery-ui.js', 'name' => 'jquery_ui', 'needs'=>'jquery');
 $config['asset'][] = array('file'=>'jquery.cookie.js', 'needs'=>'jquery');
 $config['asset'][] = array('file'=>'jquery.treeview.js', 'needs'=>'jquery.cookie');
 $config['asset'][] = array('file'=>'bep_dashboard.js', 'needs'=>'jquery_ui|jquery.cookie');
@@ -112,7 +112,7 @@ $config['asset_group']['GENERATE_PASSWORD'] = "bep_generate_password.css|bep_gen
  * 
  * @var string
  */
-$config['csstidy']['path'] = "";
+$config['csstidy']['path'] = APPPATH . "plugins/class.csstidy.php";
 
 /**
  * CSS Tidy Template
@@ -153,7 +153,7 @@ $config['csstidy']['config'] = array(
 	'discard_invalid_properties' 	=> FALSE,	
 	'css_level'            			=> 'CSS2.1',
 	'preserve_css'         			=> FALSE,
-	'timestamp'            			=> FALSE);
+	'timestamp'            			=> TRUE);
 
 
 /**
@@ -176,7 +176,7 @@ $config['csstidy']['config'] = array(
  * 
  * @var string
  */
-$config['packer']['path'] = "";
+// $config['packer']['path'] = APPPATH . "plugins/class.JavaScriptPacker.php";
 
 /**
  * Optimise Assets
@@ -188,7 +188,7 @@ $config['packer']['path'] = "";
  * 
  * @var bool
  */
-$config['optimise_assets'] = FALSE;
+$config['optimise_assets'] = TRUE;
 
 /**
  * Asset Cache Expire Time

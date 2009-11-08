@@ -285,7 +285,7 @@ class Nested_sets_model extends Model {
         $table                  =       $this->table_name;
         
         $sql = "SELECT      *
-                FROM        $table
+            	FROM ". $this->db->dbprefix($table) . "
                 WHERE       $whereArg";
                 
         $query = $this->db->query($sql);
@@ -548,7 +548,7 @@ class Nested_sets_model extends Model {
         $rightval       = (int) $node[$this->right_column_name];
         
         $sql = "SELECT      COUNT(*) AS level 
-                FROM        $table  
+                FROM " .    $this->db->dbprefix($table) . "  
                 WHERE       $leftcol < $leftval 
                 AND         $rightcol > $rightval
                 ";
@@ -577,7 +577,7 @@ class Nested_sets_model extends Model {
         $rightval   = (int) $node[$rightcol];
         
         $sql = "SELECT      *
-                FROM        $table
+                FROM " .    $this->db->dbprefix($table) . "  
                 WHERE       $leftcol >= $leftval
                 AND         $rightcol <= $rightval
                 ORDER BY    $leftcol ASC";
@@ -681,7 +681,7 @@ class Nested_sets_model extends Model {
         $leftval        = (int) $node[$this->left_column_name];
         
         $sql = "SELECT      *
-                FROM        $table
+                FROM " .    $this->db->dbprefix($table) . "  
                 WHERE       $leftcol = $leftval";
         
         $query = $this->db->query($sql);
@@ -776,7 +776,7 @@ class Nested_sets_model extends Model {
             $extraValuesArg = ",'" . join("','",$values) . "'";
         }
         
-        $sql = "INSERT INTO $table ( 
+        $sql = "INSERT INTO " . $this->db->dbprefix($table) . " ( 
                     `$leftcol`,
                     `$rightcol`
                      $extraFieldsArg)
@@ -844,15 +844,15 @@ class Nested_sets_model extends Model {
         $rightcol       =       $this->right_column_name;
         $table          =       $this->table_name;
         
-        $sql =  "UPDATE     $table " .
-                "SET        $leftcol = $leftcol + $changeVal ".
+        $sql =  "UPDATE " . $this->db->dbprefix($table) . 
+                " SET        $leftcol = $leftcol + $changeVal ".
                 "WHERE      $leftcol >= $node_int";
         
         $this->db->query($sql);
         
-        $sql =  "UPDATE     $table " .
-                "SET        $rightcol = $rightcol + $changeVal ".
-                "WHERE      $rightcol >= $node_int";
+        $sql =  "UPDATE " . $this->db->dbprefix($table) . 
+                " SET $rightcol = $rightcol + $changeVal ".
+                "WHERE $rightcol >= $node_int";
         
         $this->db->query($sql);
         
@@ -874,15 +874,15 @@ class Nested_sets_model extends Model {
         $rightcol       =       $this->right_column_name;
         $table          =       $this->table_name;
         
-        $sql = "UPDATE      $table 
-                SET         $leftcol    =   $leftcol    +   $changeVal 
+        $sql = "UPDATE " . $this->db->dbprefix($table) . 
+               " SET         $leftcol    =   $leftcol    +   $changeVal 
                 WHERE       $leftcol    >=  $lowerbound  
                 AND         $leftcol    <=  $upperbound";
         
         $this->db->query($sql);
         
-        $sql = "UPDATE      $table
-                SET         $rightcol   =   $rightcol   +   $changeVal
+        $sql = "UPDATE " . $this->db->dbprefix($table) . 
+               " SET         $rightcol   =   $rightcol   +   $changeVal
                 WHERE       $rightcol   >=  $lowerbound
                 AND         $rightcol   <=  $upperbound";
         

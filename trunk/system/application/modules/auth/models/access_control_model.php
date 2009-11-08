@@ -37,10 +37,9 @@ class access_control_model extends Base_Model
 		// Setup allowed tables
 		$this->load->config('khaos', true, true);
 		$options = $this->config->item('acl', 'khaos');
-		$this->_TABLES = $options['tables'];
+		
 
-		$this->_TABLES['groups'] = $this->config->item('backendpro_table_prefix')."groups";
-		$this->_TABLES['resources'] = $this->config->item('backendpro_table_prefix')."resources";
+		$this->_TABLES = $options['tables'];
 
 		// Setup ACO Model
 		$this->resource = new Nested_sets_model();

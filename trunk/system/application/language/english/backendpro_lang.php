@@ -52,6 +52,8 @@ $lang['backendpro_members'] = 'Members';
 $lang['backendpro_access_control'] = 'Access Control';
 $lang['backendpro_settings'] = 'Settings';
 $lang['backendpro_utilities'] = 'Utilities';
+$lang['ui_product'] = "Product";
+$lang['ui_style'] = 'Styles';
 
 /* Setup Preference Groups */
 $lang['preference_page_general_configuration'] = "General Configuration";

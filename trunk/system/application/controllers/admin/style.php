@@ -1,70 +1,59 @@
-<?php
-if (! defined('BASEPATH')) exit('No direct script access');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * shop style manage controller
+ * BackendPro
  *
- * @author darkmoon
- * @version $Id$
- * @copyright darkmoon, 2 November, 2009
- * @package default
- **/
-class Style extends Controller {
+ * A website backend system for developers for PHP 4.3.2 or newer
+ *
+ * @package         BackendPro
+ * @author          Adam Price
+ * @copyright       Copyright (c) 2008
+ * @license         http://www.gnu.org/licenses/lgpl.html
+ * @link            http://www.kaydoo.co.uk/projects/backendpro
+ * @filesource
+ */
 
+// ---------------------------------------------------------------------------
+
+/**
+ * Home
+ *
+ * @package         BackendPro
+ * @subpackage      Controllers
+ */
+class Style extends Admin_Controller
+{
 	function Style()
 	{
-		parent::Controller();
-		$this->lang->load('admin');
-		$this->load->model('Stylemodel');
+		parent::Admin_Controller();
+		
+		check('Styles');
+
+		log_message('debug','BackendPro : Style class loaded');
 	}
 
-	function index($page=0)
-	{
-		$per_page = 1;
-		$this->load->library(array('pagination','jquery'));
-		$styles = $this->Stylemodel->get_styles($page,$per_page);
-		$data['style_list'] = $styles['rows'];
-		$config['base_url'] = $this->config->item('base_url').'admin/style/index/';
-		$config['total_rows'] = $styles['count'];
-		$config['per_page'] = $per_page;
-		$config['uri_segment'] = 4;
-		$config['first_link'] = $this->lang->line('ui_first');
-		$config['last_link'] = $this->lang->line('ui_last');
+function index()
+{
+	// Include dashboard Javascript code
+	$this->bep_assets->load_asset('bep_dashboard');
 
-		$this->pagination->initialize($config);
+	// Load the dashboard library
+	$this->load->module_library('dashboard','dashboard');
 
-		$data['paginate'] = $this->pagination->create_links();
-		
-		$this->load->view('admin/header');
-		$this->load->view('admin/style_list',$data);
-		$this->load->view('admin/footer');
-	}
-	
-	function add()
-	{
-		$this->load->library('form_validation');
-		$this->load->helper('form');
-		if ($this->form_validation->run() == FALSE)
-		{
-			$this->load->view('admin/header');
-			$this->load->view('admin/style_form');
-			$this->load->view('admin/footer');
-		}
-		else
-		{
-			if($this->Stylemodel->add())
-			{
-				$this->load->view('global_message');
-			}
-		}
-	}
-	
-	function edit($id)
-	{
-		
-	}
-	
-	function delete($id)
-	{
-		
-	}
+	// Load any widget libraries
+	$this->load->module_library('dashboard','Statistic_widget');
+
+	// Assign widgets to dashboard
+	$this->dashboard->assign_widget(new widget($this->lang->line('dashboard_example'),$this->lang->line('dashboard_example_body')),'left');
+	$this->dashboard->assign_widget(new widget($this->lang->line('dashboard_statistics'),$this->statistic_widget->create()),'right');
+
+	// Load dashboard onto page
+	$data['dashboard'] = $this->dashboard->output();
+
+	// Display Page
+	$data['header'] = $this->lang->line('backendpro_dashboard');
+	$data['page'] = $this->config->item('backendpro_template_admin') . "style_list";
+	$this->load->view($this->_container,$data);
 }
+}
+/* End of file home.php */
+/* Location: ./system/application/controllers/admin/home.php */

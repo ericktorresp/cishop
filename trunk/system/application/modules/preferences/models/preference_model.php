@@ -48,7 +48,7 @@ class Preference_model extends Base_model
 	function Preference_model()
 	{
 		parent::Base_model();
-		$this->_TABLES['Option'] = $this->config->item('backendpro_table_prefix') . 'preferences';
+		$this->_TABLES['Option'] = $this->config->item('dbprefix') . 'preferences';
 		log_message('debug','BackendPro : Preference_model class loaded');
 	}
 

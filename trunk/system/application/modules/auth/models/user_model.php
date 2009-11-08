@@ -29,9 +29,9 @@ class User_model extends Base_model
 	{
 		parent::Base_model();
 
-		$this->_prefix = $this->config->item('backendpro_table_prefix');
-		$this->_TABLES = array(    'Users' => $this->_prefix . 'users',
-                                    'UserProfiles' => $this->_prefix . 'user_profiles');
+		$this->_prefix = $this->config->item('dbprefix');
+		$this->_TABLES = array('Users' => $this->_prefix . 'users',
+                               'UserProfiles' => $this->_prefix . 'user_profiles');
 
 		log_message('debug','BackendPro : User_model class loaded');
 	}

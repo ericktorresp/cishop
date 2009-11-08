@@ -15,4 +15,11 @@ Examples can be seen below for menu_bep_system
         </ul>
     </li>
     <?php endif;?>
+    <?php if(check('Product',NULL,FALSE)):?>
+    <li id="menu_bep_product"><span class="icon_computer"><?php print $this->lang->line('ui_product')?></span>
+        <ul>
+            <?php if(check('Styles',NULL,FALSE)):?><li><?php print anchor('admin/style',$this->lang->line('ui_style'),array('class'=>'icon_group'))?></li><?php endif;?>
+        </ul>
+    </li>
+    <?php endif;?>
 </ul>
