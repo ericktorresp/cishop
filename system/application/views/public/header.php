@@ -14,19 +14,18 @@
         <h1><?php print $this->preference->item('site_name')?></h1>
     </div>
 -->
-
 <!--top-->
 <div id="header" class="top">
 	<div class="kj">
 		<div class="logo">
-			<a href="<?php print base_url(); ?>"><img src="assets/images/logo.gif" /></a>
+			<a href="<?php print config_item('base_url')?>"><img src="assets/images/logo.gif" /></a>
 		</div>
         <div class="mypanli">
             <ul>
-                <li><a href="<?php base_url();?>my/cart" class="gouwu" target="_blank">购物车(0)</a>|</li>
-                <li><a href="<?php base_url();?>my" target="_blank">我的 <?php print $this->preference->item('site_name')?></a>|</li>
-                <li><a href="<?php base_url();?>my/order" target="_blank">我的送货车</a>|</li>
-                <li><a href="<?php base_url();?>help">帮助中心</a></li>
+                <li><a href="<?php print config_item('base_url')?>my/cart" class="gouwu" target="_blank">购物车(0)</a>|</li>
+                <li><a href="<?php print config_item('base_url')?>my" target="_blank">我的 <?php print $this->preference->item('site_name')?></a>|</li>
+                <li><a href="<?php print config_item('base_url')?>my/order" target="_blank">我的送货车</a>|</li>
+                <li><a href="<?php print config_item('base_url')?>help">帮助中心</a></li>
             </ul>
             <p>
 			<?php
@@ -48,16 +47,16 @@
     <div class="nav">
 
         <ul id="allPages">
-            <li id="default" class="xt"><a href="<?php base_url();?>" onclick="this.blur();">首页</a></li>
-            <li id="explore"><a href="<?php base_url();?>explore" onclick="this.blur();">随便逛逛</a></li>
-            <li id="recommend"><a href="<?php base_url();?>recommend" onclick="this.blur();">推荐</a></li>
+            <li id="default" class="xt"><a href="<?php print config_item('base_url')?>" onclick="this.blur();">首页</a></li>
+            <li id="explore"><a href="<?php print config_item('base_url')?>explore" onclick="this.blur();">随便逛逛</a></li>
+            <li id="recommend"><a href="<?php print config_item('base_url')?>recommend" onclick="this.blur();">推荐</a></li>
             
             
-            <li id="special"><a href="<?php base_url();?>special" onclick="this.blur();">专题活动</a></li>
-            <li id="free_shipping"><a href="<?php base_url();?>free_shipping" onclick="this.blur();">免邮商家</a></li>
+            <li id="special"><a href="<?php print config_item('base_url')?>special" onclick="this.blur();">专题活动</a></li>
+            <li id="free_shipping"><a href="<?php print config_item('base_url')?>free_shipping" onclick="this.blur();">免邮商家</a></li>
 
-            <li id="discount"><a href="<?php base_url();?>discount" onclick="this.blur();">折扣信息</a></li>
-            <li id="forum"><a href="<?php base_url();?>forum" onclick="this.blur();">论坛</a></li>
+            <li id="discount"><a href="<?php print config_item('base_url')?>discount" onclick="this.blur();">折扣信息</a></li>
+            <li id="forum"><a href="<?php print config_item('base_url')?>forum" onclick="this.blur();">论坛</a></li>
         </ul>
     </div>
 </div>
