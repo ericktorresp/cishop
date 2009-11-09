@@ -1,4 +1,4 @@
-﻿$(function() {
+$(function() {
     $(document).pngFix();
     $(".kuaijie li>a").each(function() {
         var pos = $(this).position();

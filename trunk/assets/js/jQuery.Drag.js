@@ -1,4 +1,4 @@
-﻿/// <reference path="../jquery-1.2.6.js" />
+/// <reference path="../jquery-1.2.6.js" />
 /// <reference path="jQuery.extend.js" />
 
 $.fn.Drag = function(options) {

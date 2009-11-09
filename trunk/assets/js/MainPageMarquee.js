@@ -1,4 +1,4 @@
-﻿(function($) {
+(function($) {
     $.fn.Marqee = function(speeds, timeout) {
         var flag = true;
         var $scroll = $(this);

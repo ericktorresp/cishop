@@ -1,4 +1,4 @@
-﻿$.fn.PopMenu = function(options) {
+$.fn.PopMenu = function(options) {
     var $this = $(this);
     var defaults = { pup: null, left: 0, top: 0 };
     var opts = $.extend(defaults, options);

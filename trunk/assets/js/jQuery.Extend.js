@@ -1,4 +1,4 @@
-﻿$.fn.setLocation = function(options) {
+$.fn.setLocation = function(options) {
     var defaults = {
         position: "absolute",
         zIndex: 1000,
