@@ -369,7 +369,7 @@ class CI_Profiler {
 	 */	
 	function run()
 	{
-		$output = "<div id='codeigniter_profiler' style='clear:both;background-color:#fff;padding:10px;'>";
+		$output = "<br /><br /><div id='codeigniter_profiler' style='clear:both;background-color:#fff;padding:10px;'>";
 
 		$output .= $this->_compile_uri_string();
 		$output .= $this->_compile_controller_info();

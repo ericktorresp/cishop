@@ -58,7 +58,7 @@
                             如何代购？</h3>
                         <center>
 
-                            <img src="/images20090801/lct.gif" /></center>
+                            <img src="assets/images/lct.gif" /></center>
                         <dl>
                             <dd>
                                 <a href="/shopping_demo/buy_step1.aspx" target="_blank">代购演示</a></dd>

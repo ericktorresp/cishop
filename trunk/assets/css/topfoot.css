@@ -78,7 +78,7 @@ ul li
 }
 .gouwu
 {
-    background: url(/images20090801/gwc.gif) no-repeat left;
+    background: url(../images/gwc.gif) no-repeat left;
     padding-left: 23px;
 }
 .kj dl
@@ -186,7 +186,7 @@ ul li
 
 .yuanjiao
 {
-    background: #F9F9F9 url(/images20090801/help.gif) no-repeat left top;
+    background: #F9F9F9 url(../images/help.gif) no-repeat left top;
     height: 5px;
     position: relative;
     width: 950px;

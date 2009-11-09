@@ -66,7 +66,7 @@
     </div>
     <div class="addpanel_inlay">
         <div id="p0">
-            <img src="/images20090801/AddItemPanel/loading.gif" alt="加载中。。。" />
+            <img src="assets/images/loading.gif" alt="加载中。。。" />
             <p>
                 加&nbsp;载&nbsp;中……
             </p>
