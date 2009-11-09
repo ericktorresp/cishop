@@ -17,24 +17,22 @@
 
 <!--top-->
 <div id="header" class="top">
-
-    <div class="kj">
-        <div class="logo">
-            <a href="<?php print base_url(); ?>"><img src="assets/images/logo.gif" /></a></div>
+	<div class="kj">
+		<div class="logo">
+			<a href="<?php print base_url(); ?>"><img src="assets/images/logo.gif" /></a>
+		</div>
         <div class="mypanli">
             <ul>
                 <li><a href="/mypanli/ShoppingCart.aspx" class="gouwu" target="_blank">购物车(0)</a>|</li>
                 <li><a href="/mypanli/" target="_blank">我的panli</a>|</li>
-
                 <li><a href="/mypanli/OrderCart.aspx" target="_blank">我的送货车</a>|</li>
                 <li><a href="/Help.aspx">帮助中心</a></li>
             </ul>
             <p>
-                您好！游客 请 <a href="/login/">[登录]</a> 或 <a href="/Register/">[免费注册]</a></p>
-
+                您好！游客 请 <a href="/login/">[登录]</a> 或 <a href="/Register/">[免费注册]</a>
+            </p>
         </div>
         <dl>
-            
             <dt><a id="A1" onclick="AddItemShow()" title="一键填单"></a></dt>
             <dd>
                 <a href="javascript:;" onclick="window.open('/CustomerService/kefu.html','在线客服','height=315,width=615,status=no,toolbar=no,resizable=no,menubar=no,location=no');"

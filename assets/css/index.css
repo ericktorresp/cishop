@@ -1,0 +1,765 @@
+.indexpic
+{
+    height: 226px;
+    width: 950px;
+    margin: auto;
+}
+
+.kuaijie
+{
+    padding: 25px 0 0 10px;
+    float: left;
+    width: 700px;
+}
+.kuaijie ul li
+{
+    height: 55px;
+    overflow: hidden;
+    margin-bottom: 2px;
+}
+.kuaijie ul .sq, .kuaijie ul .pp, .kuaijie ul .dg
+{
+    display: block;
+    height: 52px;
+    width: 147px;
+    background: url(../images/kuaijie.gif) no-repeat;
+}
+.kuaijie ul .sq
+{
+    background-position: 0 1px;
+}
+.kuaijie ul .pp
+{
+    background-position: 0 -57px;
+}
+.kuaijie ul .dg
+{
+    background-position: 0 -113px;
+}
+.kuaijie ul .sq:hover, .kuaijie ul .tl .sq
+{
+    background-position: 0 -169px;
+}
+.kuaijie ul .pp:hover, .kuaijie ul .tl .pp
+{
+    background-position: 0 -227px;
+}
+.kuaijie ul .dg:hover, .kuaijie ul .tl .dg
+{
+    background-position: 0 -284px;
+}
+.kuaijie div
+{
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    overflow: hidden;
+    display: none;
+}
+.kjbox
+{
+    background: url(../images/tm1.png) no-repeat;
+    width: 400px;
+    height: 80px;
+}
+.kjbox2
+{
+    background: url(../images/tm2.png) no-repeat;
+    width: 400px;
+    height: 80px;
+}
+.kjbox3
+{
+    background: url(../images/tm3.png) no-repeat;
+    width: 400px;
+    height: 80px;
+}
+.kuaijie h3
+{
+    color: #c98139;
+    font-size: 20px;
+    font-weight: normal;
+    font-family: "simhei";
+    margin: 15px 0 0 35px;
+}
+.kuaijie p
+{
+    margin: 8px 0 0 35px;
+    width: 390px;
+    line-height: 18px;
+    background: url(../images/fk.gif) no-repeat left 8px;
+    padding-left: 10px;
+    color: #666;
+}
+.kuaijie dl
+{
+    margin: 8px 0 0 35px;
+}
+.kuaijie center
+{
+    margin: 10px 0 0 35px;
+    text-align: left;
+}
+.kuaijie center img
+{
+    display: block;
+}
+.kuaijie dd, .kuaijie dt
+{
+    padding-left: 15px;
+    background: url(../images/jt.gif) no-repeat left;
+    float: left;
+    margin-right: 20px;
+}
+.kuaijie dd a, .kuaijie dt a
+{
+    color: #FF9900;
+}
+.kkbox
+{
+    width: 400px;
+    height: 80px;
+}
+
+.zhuce
+{
+    float: right;
+    margin: 180px 15px 0 0;
+    display: inline;
+}
+.zhuce a
+{
+    background: url(../images/zhuce.gif) no-repeat;
+    height: 45px;
+    width: 168px;
+    display: block;
+}
+.zhuce a:hover
+{
+    background-position: 0 -45px;
+}
+.center
+{
+    width: 950px;
+    margin: auto;
+    margin-top: 10px;
+}
+.left
+{
+    float: left;
+    width: 705px;
+}
+.lm_1
+{
+    background: url(../images/box1.gif) no-repeat;
+    width: 386px;
+    height: 37px;
+}
+.mc
+{
+    border-bottom: #C2C6CD solid 1px;
+    margin: 0 12px;
+    height: 36px;
+}
+.mc h2
+{
+    font-size: 14px;
+    padding-left: 12px;
+    background: url(../images/tubiao.gif) no-repeat left;
+    margin-top: 12px;
+    float: left;
+}
+.mc h2 a
+{
+    color: #333;
+    text-decoration: none;
+}
+.mc h2 a:hover
+{
+    text-decoration: underline;
+    color: #FF6600;
+}
+.mc span
+{
+    float: right;
+    margin: 10px 0 0 0;
+}
+.mc span a
+{
+    color: #FE940A;
+    text-decoration: none;
+}
+
+.box_1
+{
+    background: url(../images/box1.gif) no-repeat bottom;
+    width: 386px;
+    height: 235px;
+    float: left;
+}
+.img
+{
+    float: left;
+    width: 85px;
+}
+.img img
+{
+    height: 80px;
+    width: 80px;
+}
+.img a
+{
+    border: #E6E6E6 solid 1px;
+    float: left;
+}
+
+.xiangxi
+{
+    float: right;
+    width: 270px;
+}
+.xiangxi h1
+{
+    font-size: 12px;
+    height: 40px;
+    line-height: 20px;
+    width: 268px;
+}
+.xiangxi h1 a
+{
+    color: #333;
+    text-decoration: none;
+}
+.xiangxi h1 a:hover
+{
+    color: #F60;
+    text-decoration: underline;
+}
+.xiangxi li
+{
+    float: left;
+    color: #999;
+    line-height: 22px;
+}
+.xiangxi .w1
+{
+    width: 130px;
+}
+.xiangxi .w2
+{
+    width: 135px;
+}
+.xiangxi .w3 a
+{
+    text-decoration: none;
+    float: left;
+    height: 18px;
+    overflow: hidden;
+    text-align: center;
+    line-height: 18px;
+}
+.xiangxi .w3 b
+{
+    float: left;
+    font-weight: 100;
+}
+.xiangxi .wz
+{
+    color: #fff;
+    background: #666 url(../images/wz.gif) no-repeat left;
+}
+.xiangxi .wz i
+{
+    display: block;
+    background: url(../images/wz.gif) no-repeat right;
+    padding: 0 3px;
+    font-style: normal;
+}
+.xiangxi .dm
+{
+    background: url(../images/dm.gif) no-repeat left 0;
+    color: #999;
+    font-family: "simsun";
+    margin-left: 5px;
+}
+.xiangxi .dm i
+{
+    font-style: normal;
+    display: block;
+    background: url(../images/dm.gif) no-repeat right 0;
+    padding: 0 12px;
+}
+.xiangxi li span
+{
+    color: #F00;
+    font-size: 16px;
+    font-weight: bold;
+}
+.zuo
+{
+    float: left;
+    margin-bottom: 10px;
+}
+.you
+{
+    float: right;
+    margin-bottom: 10px;
+}
+
+.lm_2
+{
+    background: url(../images/box2.gif) no-repeat;
+    width: 310px;
+    height: 37px;
+}
+.box_2
+{
+    background: url(../images/box2.gif) no-repeat bottom;
+    width: 310px;
+    height: 235px;
+    float: left;
+    clear: both;
+}
+.retie
+{
+    margin: 10px 12px 0 12px;
+}
+.retie dl
+{
+    height: 90px;
+    background: url(../images/d.gif) repeat-x bottom;
+    padding-top: 8px;
+    display: block;
+}
+.retie dl dt
+{
+    float: left;
+    width: 90px;
+}
+.retie dl dt img
+{
+    height: 80px;
+    width: 80px;
+}
+.retie dl dt a
+{
+    border: #E6E6E6 solid 1px;
+    float: left;
+}
+
+.retie dl dd
+{
+    width: 195px;
+    display: inline;
+    float: left;
+}
+.retie dl dd h1
+{
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    margin-bottom: 3px;
+}
+.retie dl dd h1 a
+{
+    color: #333;
+    text-decoration: none;
+}
+.retie dl dd h1 a:hover
+{
+    text-decoration: underline;
+    color: #F60;
+}
+.retie dl dd p
+{
+    color: #999;
+    line-height: 20px;
+}
+.retie dl dd p a
+{
+    color: #F90;
+}
+.retie ul a
+{
+    color: #333;
+    padding-left: 15px;
+    background: url(../images/retie.gif) no-repeat 2px;
+    text-decoration: none;
+}
+.retie ul li
+{
+    background: url(../images/d.gif) repeat-x bottom;
+    line-height: 28px;
+    height: 28px;
+}
+.retie ul a:hover
+{
+    text-decoration: underline;
+    color: #FF6600;
+}
+
+.tuijian
+{
+    border-bottom: #FFA75B solid 1px;
+    height: 24px;
+    margin: 15px 12px 0 12px;
+}
+.tuijian ul
+{
+    margin-left: 5px;
+}
+.tuijian li
+{
+    float: left;
+    margin: 0 1px;
+}
+.tuijian li a
+{
+    display: block;
+    width: 85px;
+    text-align: center;
+    color: #999;
+    text-decoration: none;
+    background: url(../images/tuijian.gif) no-repeat;
+    height: 24px;
+    line-height: 24px;
+}
+.tuijian .xz a
+{
+    background: url(../images/tuijian.gif) no-repeat 0 -40px;
+    position: relative;
+    height: 25px;
+    line-height: 25px;
+    margin: 0px 0 -1px 0;
+    color: #FF6600;
+}
+
+.shangpin
+{
+    float: left;
+    margin: 15px 0 0 10px;
+    display: inline;
+    display: none;
+}
+.shangpin dl
+{
+    float: left;
+    width: 120px;
+    margin-right: 4px;
+}
+.shangpin dl h1
+{
+    font-size: 12px;
+    height: 35px;
+}
+.shangpin dl dt a
+{
+    border: #ddd solid 1px;
+    float: left;
+    width: 80px;
+    height: 80px;
+}
+.shangpin dl dt img
+{
+    width: 80px;
+    height: 80px;
+}
+.shangpin dl dt
+{
+    width: 95px;
+    padding-left: 20px;
+    margin-bottom: 5px;
+    float: left;
+}
+.shangpin dl dd
+{
+    width: 115px;
+    float: left;
+    text-align: center;
+}
+.shangpin dl dd h1
+{
+    margin-bottom: 5px;
+    line-height: 18px;
+}
+.shangpin dl dd h1 a
+{
+    color: #333;
+    text-decoration: none;
+}
+.shangpin dl dd h1 a:hover, .qingbao h2 a:hover
+{
+    color: #F60;
+    text-decoration: underline;
+}
+.shangpin dl dd p
+{
+    margin-bottom: 5px;
+}
+.shangpin dl dd p a
+{
+    color: #999;
+}
+.shangpin dl dd span
+{
+    display: block;
+}
+.shangpin dl dd b
+{
+    color: #F00;
+}
+
+.qingbao
+{
+    padding: 10px 0 0 12px;
+}
+.qingbao dl
+{
+    height: 110px;
+}
+.qingbao dt
+{
+    float: left;
+    width: 102px;
+}
+.qingbao dd
+{
+    float: left;
+    width: 180px;
+    margin-left: 8px;
+}
+.qingbao dt a
+{
+    border: #ddd solid 1px;
+    float: left;
+}
+.qingbao h2
+{
+    font-size: 12px;
+    margin: 5px 0 10px 0;
+}
+.qingbao h2 a
+{
+    color: #333;
+    text-decoration: none;
+}
+.qingbao p
+{
+    color: #999;
+    line-height: 20px;
+}
+.qingbao p a
+{
+    color: #F00;
+    text-decoration: none;
+}
+
+.right
+{
+    float: right;
+    width: 235px;
+    background: #FCEBB7 url(../images/r_bj.gif) no-repeat left top;
+}
+.box
+{
+    overflow: hidden;
+    height: 555px;
+    background: url(../images/r_bj.gif) no-repeat right bottom;
+}
+.fl
+{
+    background: #FEFAF1 url(../images/r_bj2.gif) no-repeat left top;
+    width: 225px;
+    margin: 5px 0 0 5px;
+}
+.fl h2
+{
+    height: 32px;
+    font-size: 14px;
+    color: #333;
+    line-height: 32px;
+    padding-left: 10px;
+}
+.fl h2 a
+{
+    color: #333;
+    text-decoration: none;
+}
+.fl h2 a:hover
+{
+    color: #ff6600;
+    text-decoration: underline;
+}
+
+.hezi
+{
+    background: #FEFAF1 url(../images/r_bj2.gif) no-repeat right bottom;
+    width: 225px;
+    margin: 1px 0 5px 5px;
+}
+.gonggao
+{
+    height: 95px;
+    padding-top: 5px;
+}
+.gonggao ul
+{
+    margin-left: 10px;
+}
+.gonggao ul li
+{
+    line-height: 22px;
+    padding-left: 10px;
+    background: url(../images/fk.gif) no-repeat left;
+}
+.gonggao ul li a
+{
+    color: #666;
+    text-decoration: none;
+}
+.gonggao ul li a:hover
+{
+    color: #F60;
+    text-decoration: underline;
+}
+.gonggao ul li .red
+{
+    color: #F00;
+}
+.more ul
+{
+    margin-left: 10px;
+}
+.more li
+{
+    float: left;
+    width: 95px;
+    line-height: 22px;
+    padding-left: 10px;
+    background: url(../images/gg.gif) no-repeat left;
+}
+.more li a
+{
+    color: #666;
+}
+.more li a:hover
+{
+    color: #F60;
+}
+.more
+{
+    height: 74px;
+    padding-top: 8px;
+    overflow: hidden;
+}
+
+.wenti
+{
+    height: 120px;
+    padding-top: 10px;
+}
+.wenti ul
+{
+    margin-left: 10px;
+}
+.wenti li
+{
+    line-height: 22px;
+    padding-left: 15px;
+    background: url(../images/wenti.gif) no-repeat left;
+}
+.wenti a
+{
+    color: #666;
+    text-decoration: none;
+}
+.wenti a:hover
+{
+    color: #F60;
+    text-decoration: underline;
+}
+.fl_
+{
+    height: 4px;
+    overflow: hidden;
+}
+.kefu
+{
+    margin-top: 0;
+    height: 100px;
+    font-family: "simsun";
+    padding-top: 15px;
+}
+.kefu ul
+{
+    margin-left: 10px;
+}
+.kefu li
+{
+    line-height: 22px;
+}
+.kefu li span
+{
+    color: #F00;
+}
+.kefu li p
+{
+    margin-left: 55px;
+    color: #F60;
+}
+
+.close
+{
+    display: block;
+    background: url(../images/close.gif) no-repeat;
+    height: 15px;
+    width: 15px;
+    float: right;
+    margin: 15px 15px 0 0;
+    display: inline;
+}
+
+/*---------------------------------------*/
+
+.what
+{
+    padding: 0px;
+    margin: 10px 0 0 0;
+    overflow: hidden;
+    height: 210px;
+    border-width: 0px;
+}
+.what dl
+{
+    margin: 0 12px 0 12px;
+}
+.what dt
+{
+    height: 90px;
+    background: url(../images/d.gif) repeat-x bottom;
+    padding-top: 8px;
+}
+.what dd
+{
+    background: url(../images/d.gif) repeat-x bottom;
+    line-height: 28px;
+    height: 28px;
+}
+.what dd a
+{
+    color: #333;
+    text-decoration: none;
+    padding-left: 15px;
+    background: url(../images/sj.gif) no-repeat 5px;
+    float: left;
+}
+.what dd a:hover
+{
+    text-decoration: underline;
+    color: #FF6600;
+}
+.what dd span
+{
+    float: right;
+    color: #aaa;
+}
