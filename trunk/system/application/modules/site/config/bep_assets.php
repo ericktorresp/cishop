@@ -49,7 +49,7 @@
  */
 $config['asset'] = array();
 
-// BackendPro CSS
+// CSS
 $config['asset'][] = array('file'=>'reset.css');
 $config['asset'][] = array('file'=>'typography.css');
 $config['asset'][] = array('file'=>'bep_front_layout.css');
@@ -62,10 +62,11 @@ $config['asset'][] = array('file'=>'treeview.css');
 $config['asset'][] = array('file'=>'bep_generate_password.css', 'name'=>'bep_generate_password.css');
 $config['asset'][] = array('file'=>'FlashStatus.css');
 $config['asset'][] = array('file'=>'bep_icons.php','type'=>'css');
+$config['asset'][] = array('file'=>'topfoot.css');
 
-// BackendPro JS
-$config['asset'][] = array('file'=>'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js', 'name'=>'jquery');
-$config['asset'][] = array('file'=>'http://ajax.googleapis.com/ajax/libs/jqueryui/1.5.3/jquery-ui.js', 'name' => 'jquery_ui', 'needs'=>'jquery');
+// JS
+$config['asset'][] = array('file'=>'jquery.1.3.2.js', 'name'=>'jquery');
+$config['asset'][] = array('file'=>'jquery-ui.1.5.3.js', 'name' => 'jquery_ui', 'needs'=>'jquery');
 $config['asset'][] = array('file'=>'jquery.cookie.js', 'needs'=>'jquery');
 $config['asset'][] = array('file'=>'jquery.treeview.js', 'needs'=>'jquery.cookie');
 $config['asset'][] = array('file'=>'bep_dashboard.js', 'needs'=>'jquery_ui|jquery.cookie');
@@ -73,8 +74,17 @@ $config['asset'][] = array('file'=>'bep_navigation.js','needs'=>'jquery.cookie|j
 $config['asset'][] = array('file'=>'bep_generate_password.js', 'needs'=>'jquery', 'name'=>'bep_generate_password.js');
 $config['asset'][] = array('file'=>'bep_access_control.js', 'needs'=>'jquery.treeview');
 $config['asset'][] = array('file'=>'bep_select_all.js', 'needs'=>'jquery');
-
-
+/**
+ * from panli
+ */
+$config['asset'][] = array('file'=>'top_form.js', 'name'=>'TopForm', 'needs'=>'jquery');
+$config['asset'][] = array('file'=>'jQuery.Extend.js', 'needs'=>'jquery');
+$config['asset'][] = array('file'=>'jQuery.HoverMenu.js', 'needs'=>'jquery');
+$config['asset'][] = array('file'=>'jQuery.Drag.js', 'needs'=>'jquery');
+$config['asset'][] = array('file'=>'pluginpage.js', 'needs'=>'jquery');
+$config['asset'][] = array('file'=>'jquery.pngFix.pack.js', 'needs'=>'jquery');
+$config['asset'][] = array('file'=>'MainPageMarquee.js', 'needs'=>'jquery');
+$config['asset'][] = array('file'=>'default.js', 'needs'=>'jquery');
 /**
  * Asset Groups
  * 
@@ -87,7 +97,7 @@ $config['asset'][] = array('file'=>'bep_select_all.js', 'needs'=>'jquery');
  * Where <asset_n> is the name of the asset file specified in the array above.
  */
 $config['asset_group']['SITE'] = 'reset|typography';
-$config['asset_group']['PUBLIC'] = 'bep_front_layout|FlashStatus';
+$config['asset_group']['PUBLIC'] = 'bep_front_layout|topfoot|FlashStatus|TopForm|jQuery.Extend|jQuery.HoverMenu|jQuery.Drag|jquery.pngFix.pack';
 $config['asset_group']['ADMIN'] = 'bep_admin_layout|bep_admin_style|FlashStatus|forms|buttons|bep_navigation|treeview|bep_icons|bep_select_all';
 
 $config['asset_group']['FORMS'] = "buttons|forms";
@@ -188,7 +198,7 @@ $config['csstidy']['config'] = array(
  * 
  * @var bool
  */
-$config['optimise_assets'] = TRUE;
+$config['optimise_assets'] = FALSE;
 
 /**
  * Asset Cache Expire Time
