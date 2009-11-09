@@ -1,14 +1,14 @@
 
 body {
-    background: transparent url(../images/background.gif);
+    background: #003D4C url(../images/body_bg.gif) repeat-x scroll 0 0;
 }
 
 #wrapper {
     background-color: #FFF;
-    width: 800px;
-    margin: 100px auto auto auto;
+    width: 860px;
+    margin: 0 auto;
     padding: 2em;
-    border: 1px solid #808080;
+    /*border: 1px solid #808080;*/
 }
 
 #header h1 {
