@@ -22,20 +22,20 @@
  * @package  	BackendPro
  * @subpackage  Controllers
  */
-class Welcome extends Public_Controller
+class Explore extends Public_Controller
 {
-	function Welcome()
+	function Explore()
 	{
 		parent::Public_Controller();
 	}
 
 	function index()
 	{
-		$this->bep_assets->load_asset_group('INDEX');
+		$this->bep_assets->load_asset_group('EXPLORE');
 		// Display Page
-		$data['header'] = "Welcome";
-		$data['page'] = $this->config->item('backendpro_template_public') . 'welcome';
-		$data['module'] = 'welcome';
+		$data['header'] = "Explore";
+		$data['page'] = $this->config->item('backendpro_template_public') . 'explore';
+		//$data['module'] = 'explore';
 		$this->load->view($this->_container,$data);
 	}
 }
