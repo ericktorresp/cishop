@@ -65,6 +65,7 @@ $config['asset'][] = array('file'=>'bep_icons.php','type'=>'css');
 $config['asset'][] = array('file'=>'topfoot.css');
 $config['asset'][] = array('file'=>'index.css');
 $config['asset'][] = array('file'=>'AddItemPanel.css');
+$config['asset'][] = array('file'=>'explore.css');
 
 // JS
 $config['asset'][] = array('file'=>'jquery.1.3.2.js', 'name'=>'jquery');
@@ -87,7 +88,7 @@ $config['asset'][] = array('file'=>'pluginpage.js', 'needs'=>'jquery');
 $config['asset'][] = array('file'=>'jquery.pngFix.pack.js', 'needs'=>'jquery');
 $config['asset'][] = array('file'=>'MainPageMarquee.js', 'needs'=>'jquery');
 $config['asset'][] = array('file'=>'default.js', 'needs'=>'jquery');
-
+$config['asset'][] = array('file'=>'explore.js', 'needs'=>'jquery', 'name'=>'explore.js');
 /**
  * Asset Groups
  * 
@@ -100,13 +101,13 @@ $config['asset'][] = array('file'=>'default.js', 'needs'=>'jquery');
  * Where <asset_n> is the name of the asset file specified in the array above.
  */
 $config['asset_group']['SITE'] = 'reset|typography';
-$config['asset_group']['PUBLIC'] = 'bep_front_layout|topfoot|index|AddItemPanel|FlashStatus|TopForm|jQuery.Extend|jQuery.HoverMenu|jQuery.Drag|jquery.pngFix.pack|pluginpage|MainPageMarquee|default';
+$config['asset_group']['PUBLIC'] = 'bep_front_layout|FlashStatus';
 $config['asset_group']['ADMIN'] = 'bep_admin_layout|bep_admin_style|FlashStatus|forms|buttons|bep_navigation|treeview|bep_icons|bep_select_all';
 
 $config['asset_group']['FORMS'] = "buttons|forms";
 $config['asset_group']['GENERATE_PASSWORD'] = "bep_generate_password.css|bep_generate_password.js";
-
-
+$config['asset_group']['INDEX'] = 'topfoot|index|AddItemPanel|TopForm|jQuery.Extend|jQuery.HoverMenu|jQuery.Drag|jquery.pngFix.pack|pluginpage|MainPageMarquee|default';
+$config['asset_group']['EXPLORE'] = 'topfoot|explore|AddItemPanel|TopForm|jQuery.Extend|jQuery.HoverMenu|jQuery.Drag|jquery.pngFix.pack|pluginpage|MainPageMarquee|default';
 
 // -----------------------------------------------------------------------
 

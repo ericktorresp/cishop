@@ -23,13 +23,18 @@
 		</div>
         <div class="mypanli">
             <ul>
-                <li><a href="/mypanli/ShoppingCart.aspx" class="gouwu" target="_blank">购物车(0)</a>|</li>
-                <li><a href="/mypanli/" target="_blank">我的panli</a>|</li>
-                <li><a href="/mypanli/OrderCart.aspx" target="_blank">我的送货车</a>|</li>
-                <li><a href="/Help.aspx">帮助中心</a></li>
+                <li><a href="<?php base_url();?>my/cart" class="gouwu" target="_blank">购物车(0)</a>|</li>
+                <li><a href="<?php base_url();?>my" target="_blank">我的 <?php print $this->preference->item('site_name')?></a>|</li>
+                <li><a href="<?php base_url();?>my/order" target="_blank">我的送货车</a>|</li>
+                <li><a href="<?php base_url();?>help">帮助中心</a></li>
             </ul>
             <p>
-                您好！游客 请 <a href="/login/">[登录]</a> 或 <a href="/Register/">[免费注册]</a>
+			<?php
+			    if(is_user())
+			        print "您好！darkmoon[" . anchor('auth/logout','退出') . "]";
+			    else
+			        print "您好！游客 请 " . anchor('auth/login','[登录]') . " 或 " . anchor('auth/register','[免费注册]');
+			?>
             </p>
         </div>
         <dl>
@@ -43,16 +48,16 @@
     <div class="nav">
 
         <ul id="allPages">
-            <li id="Default" class="xt"><a href="/" onclick="this.blur();">首页</a></li>
-            <li id="see"><a href="/See/" onclick="this.blur();">随便逛逛</a></li>
-            <li id="PanliRecommend"><a href="/PanliRecommend/" onclick="this.blur();">Panli推荐</a></li>
+            <li id="default" class="xt"><a href="<?php base_url();?>" onclick="this.blur();">首页</a></li>
+            <li id="explore"><a href="<?php base_url();?>explore" onclick="this.blur();">随便逛逛</a></li>
+            <li id="recommend"><a href="<?php base_url();?>recommend" onclick="this.blur();">推荐</a></li>
             
             
-            <li id="Special"><a href="/Special/" onclick="this.blur();">专题活动</a></li>
-            <li id="Free_postage"><a href="/Free_postage/" onclick="this.blur();">免邮商家</a></li>
+            <li id="special"><a href="<?php base_url();?>special" onclick="this.blur();">专题活动</a></li>
+            <li id="free_shipping"><a href="<?php base_url();?>free_shipping" onclick="this.blur();">免邮商家</a></li>
 
-            <li id="Discount"><a href="/Discount/" onclick="this.blur();">折扣信息</a></li>
-            <li><a href="http://bbs.panli.com" target="_blank" onclick="this.blur();">论坛</a></li>
+            <li id="discount"><a href="<?php base_url();?>discount" onclick="this.blur();">折扣信息</a></li>
+            <li id="forum"><a href="<?php base_url();?>forum" onclick="this.blur();">论坛</a></li>
         </ul>
     </div>
 </div>

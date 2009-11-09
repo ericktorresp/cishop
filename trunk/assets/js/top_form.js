@@ -77,20 +77,20 @@ try {
     var url = uri.href;
     url = url.toLowerCase();
     $("#allPages li").removeClass();
-    if (url.indexOf("/free_postage/") > 0) {
-        $("#Free_postage").addClass("xt");
-    } else if (url.indexOf("/see/") > 0) {
-        $("#see").addClass("xt");
-    } else if (url.indexOf("/panlirecommend/") > 0) {
-        $("#PanliRecommend").addClass("xt");
-    } else if (url.indexOf("/special/") > 0) {
-        $("#Special").addClass("xt");
-    } else if (url.indexOf("/discount/") > 0) {
-        $("#Discount").addClass("xt");
+    if (url.indexOf("free_shipping") > 0) {
+        $("#free_shipping").addClass("xt");
+    } else if (url.indexOf("explore") > 0) {
+        $("#explore").addClass("xt");
+    } else if (url.indexOf("recommend") > 0) {
+        $("#recommend").addClass("xt");
+    } else if (url.indexOf("special") > 0) {
+        $("#special").addClass("xt");
+    } else if (url.indexOf("discount") > 0) {
+        $("#discount").addClass("xt");
     } else if (url.indexOf("localhost/~darkmoon") > 0 || url.length - url.indexOf("panli.com") <= 10) {
-        $("#Default").addClass("xt");
-    } else if (url.indexOf("/piece/") > 0) {
-        $("#Piece").addClass("xt");
+        $("#default").addClass("xt");
+    } else if (url.indexOf("forum") > 0) {
+        $("#forum").addClass("xt");
     } else {
 
     }
