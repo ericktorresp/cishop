@@ -21,19 +21,19 @@ function InitP2() {
 }
 
 function p3Init() {
-    $("#p3_img").attr("src", "/images20090801/noimg/noimg80.gif");
+    $("#p3_img").attr("src", "../images/noimg80.gif");
 }
 
 function AddItemShow() {
     $(".addpanel_overlay").height($(document).height()).show();
     $(".addpanel_dialog").show();
     if ($("#p1 div").length == 0)
-        $("#p1").load("/AddItemPanel/AddItemPanel1.html", function() { $("#p0").remove(); $("#p1").show(); $("#itemUrl").focus(); });
+        $("#p1").load("assets/html/AddItemPanel1.html", function() { $("#p0").remove(); $("#p1").show(); $("#itemUrl").focus(); });
     else $("#itemUrl").focus();
     if ($("#p2 div").length == 0)
-        $("#p2").load("/AddItemPanel/AddItemPanel2.html", function() { $("#p2").hide(); });
+        $("#p2").load("assets/html/AddItemPanel2.html", function() { $("#p2").hide(); });
     if ($("#p3 div").length == 0)
-        $("#p3").load("/AddItemPanel/AddItemPanel3.html", function() { $("#p3").hide(); });
+        $("#p3").load("assets/html/AddItemPanel3.html", function() { $("#p3").hide(); });
 }
 function AddItemClose() {
     $(".addpanel_dialog").hide();

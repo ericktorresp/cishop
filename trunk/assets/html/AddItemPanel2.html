@@ -1,0 +1,175 @@
+<script type="text/javascript">
+
+    function bulidP3() {
+        $.ajax({
+            type: "POST",
+            url: "/App_Services/wsAddItem.asmx/ShoppingCartInfo",
+            dataType: "text",
+            contentType: "application/json;utf-8",
+            data: "{}",
+            timeout: 20000,
+            error: function(a, b, c) { alert(b); },
+            success: function(data) {
+                value = data.split("#"); $("#p3_cartNum").text(value[1].toString()); $("#p3_total").text(value[2].toString());
+            }
+        });
+
+        $("#p3_img").attr("src", $("#productImg img").attr("src"));
+        $("#p3_proName").text($("#productName").val());
+        $("#p3_price").text($("#productPrice").val());
+        $("#p3_sendPrice").text($("#productSendPrice").val());
+        $("#p3_num").text($("#productNum").val());
+    }
+
+    function btnClsClick() {
+        $("#p2").hide();
+        InitP2();
+        if ($("#p3 div").length >= 1) {
+            $("#p3").hide();
+        }
+        $(".address_").attr("class", "addpanel_address");
+        $("#itemUrl").removeAttr("disabled").val("");
+
+        $("#promptInfo").attr("class", "addpanel_dhk").find("img").remove();
+        $("#promptInfo p").text("请将您想代购商品的详细页网址粘贴到输入框中提交!");
+        $("#addpanel_submit").removeAttr("disabled").attr("class", "addpanel_tijiao");
+        $("#p1").show();
+    }
+
+    $(document).ready(function() {
+        $("#productRemark").blur(function() { if ($.trim($(this).val()).length <= 0 || $(this).val() == "请选填颜色、尺寸等要求！") $(this).attr("class", "addpanel_still").val("请选填颜色、尺寸等要求！"); }).focus(function() { if ($(this).attr("class") == "addpanel_still") $(this).select().removeAttr("class"); }).click(function() { if ($(this).val() == "请选填颜色、尺寸等要求！") $(this).val(""); });
+
+        $("#btnCls").click(btnClsClick);
+
+        var OnFail = function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("网络错误，请稍后再试");
+        };
+        var OnSuccess = function(resault) {
+            $("#p2").hide();
+            if (resault) {
+                if ($("#p3 div").length >= 1) {
+                    p3Init();
+                    bulidP3();
+                    $("#p3").show();
+                }
+                else {
+                    $("#p3").load("/AddItemPanel/AddItemPanel3.html", function() {
+                        p3Init(); bulidP3(); $("#p3").show();
+                    });
+                }
+            }
+            else {
+                alert("添加商品失败");
+            }
+        }
+
+        $("#successBtn").click(function() {
+       
+            if ($(".still").length > 0)
+                $("#productRemark").val("")
+            if ($("#productPrice").attr("class") != "addpanel_hui") {
+                addItem_productInfo.mPrice = $("#productPrice").val();
+            }
+            if ($.trim($("#productName").val()).length <= 0) {
+                //TODO...
+            }
+            if ($.trim($("#productPrice").val()).length <= 0) {
+                //TODO...
+            }
+
+            var datasource = addItem_productInfo;
+            
+            $.ajax({
+                type: "POST",
+                url: "/App_Services/wsAddItem.asmx/SaveItem",
+                dataType: "json",
+                contentType: "application/json;utf-8",
+                data: "{szProductName:'" + HtmlEncode($("#productName").val()) + "',szProductURL:'" + $("#productUrl").val() + "',szProPIC:'" + datasource.szProPIC + "',szCategory:'" + datasource.szCategory + "',szShopName:'" + datasource.szShopName + "',szProShopURL:'" + datasource.szProShopURL + "',mPrice:" + datasource.mPrice + ",mVipPrice1:" + datasource.mVipPrice1 + ",mVipPrice2:" + datasource.mVipPrice2 + ",mVipPrice3:" + datasource.mVipPrice3 + ",nBuyNum:" + $("#productNum").val() + ",mSendPrice:" + $("#productSendPrice").val() + ",isAuction:" + datasource.isAuction + ",szProRemark:'" + $("#productRemark").val() + "'}",
+                timeout: 10000,
+                error: OnFail,
+                success: OnSuccess
+            });
+        });
+    });
+</script>
+
+<div class="addpanel_procedure">
+    <img src="assets/images/procedure.gif" alt="一键填单" />
+</div>
+<div class="addpanel_wangzhi">
+    <dl>
+        <dt>购买商品页网址：</dt>
+        <dd>
+            <input id="productUrl" class="addpanel_hui" name="" type="text" value="" disabled="disabled" /></dd>
+    </dl>
+    <p id="proAlert">
+        恭喜您！商品信息抓取成功，您可以修改购买数量和填写商品备注！</p>
+</div>
+<div class="addpanel_data">
+    <div id="productImg" class="addpanel_img">
+        <img src="" onerror="this.src='assets/images/noimg80.gif'" alt="" /></div>
+    <label id="isAuction">
+        <input name="" type="checkbox" checked="checked" value="" disabled="disabled" /><b>拍卖</b></label>
+    <table>
+        <tr>
+            <td class="addpanel_zuo">
+                商品名称：
+            </td>
+            <td>
+                <input class="addpanel_k" id="productName" type="text" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td class="addpanel_zuo">
+                商品价格：
+            </td>
+            <td>
+                <input class="" maxlength="7" id="productPrice" type="text" onkeyup="value=value.replace(/[^\d\.]/g,'')" /><span>RMB</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="addpanel_zuo">
+                国内运费：
+            </td>
+            <td>
+                <div id="question" class="addpanel_fare">
+                    <div>
+                        <h2>
+                            关于商品运费的问题</h2>
+                        <a href="javascript:;" onclick='$("#question").hide();' title="关闭"></a>
+                    </div>
+                    <p>
+                        因为系统未能抓取到商品的运费，统一默认为RMB&nbsp;10元，如果与实际金额有出入，请在提交代购单后，与客服人员联系，修改运费！
+                    </p>
+                    <p>
+                    给您带来不便，请见谅；祝您在panli代购愉快！
+                </div>
+                <input class="" id="productSendPrice" type="text" readonly="readonly" /><span>RMB</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="addpanel_zuo">
+                购买数量：
+            </td>
+            <td>
+                <input id="productNum" onblur="if(this.value.length<=0) this.value=1;" type="text"
+                    value="1" maxlength="6" onkeyup="value=value.replace(/[^\d]/g,'')" /><a id="numAdd"
+                        href="javascript:void('0')" title="增加数量" onclick="$('#productNum').val(parseInt($('#productNum').val())+1);"></a><a
+                            id="numMis" class="addpanel_jian" href="javascript:void('0')" title="减少数量" onclick="var tb=$('#productNum'); parseInt(tb.val())<2?1:tb.val(parseInt(tb.val())-1);"></a>
+            </td>
+        </tr>
+        <tr>
+            <td class="addpanel_zuo">
+                商品备注：
+            </td>
+            <td>
+                <textarea class="addpanel_still" id="productRemark" cols="" rows="">请选填颜色、尺寸等要求！</textarea>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="addpanel_go">
+    <input disabled="disabled" class="addpanel_next_no" id="successBtn" name="" type="button"
+        onmouseover="this.className='addpanel_next_'" onmouseout="this.className='addpanel_next'" />
+    <a href="javascript:void('0')" id="btnCls">[清空]</a>
+</div>

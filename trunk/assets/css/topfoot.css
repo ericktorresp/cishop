@@ -103,18 +103,18 @@ ul li
 .kj dl dt a
 {
     cursor: pointer;
-    background: url(/images20090801/yjtd.gif) no-repeat 0 -49px;
+    background: url(../images/yjtd.gif) no-repeat 0 -49px;
     height: 38px;
     width: 132px;
 }
 .kj dl dt a:hover
 {
     cursor: pointer;
-    background: url(/images20090801/yjtd.gif) no-repeat 0 0;
+    background: url(../images/yjtd.gif) no-repeat 0 0;
 }
 .kj dl dd a
 {
-    background: url(/images20090801/kefu.gif) no-repeat;
+    background: url(../images/kefu.gif) no-repeat;
     height: 28px;
     width: 100px;
 }
