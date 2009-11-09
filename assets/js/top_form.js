@@ -1,4 +1,4 @@
-﻿function getViewportHeight() {
+function getViewportHeight() {
     if (window.innerHeight != window.undefined) return window.innerHeight;
     if (document.compatMode == 'CSS1Compat') return document.documentElement.clientHeight;
     if (document.body) return document.body.clientHeight;
@@ -87,7 +87,7 @@ try {
         $("#Special").addClass("xt");
     } else if (url.indexOf("/discount/") > 0) {
         $("#Discount").addClass("xt");
-    } else if (url.indexOf(".com/default.aspx") > 0 || url.length - url.indexOf("panli.com") <= 10) {
+    } else if (url.indexOf("localhost/~darkmoon") > 0 || url.length - url.indexOf("panli.com") <= 10) {
         $("#Default").addClass("xt");
     } else if (url.indexOf("/piece/") > 0) {
         $("#Piece").addClass("xt");
