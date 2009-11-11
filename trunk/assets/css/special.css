@@ -1,0 +1,44 @@
+.lm{background:url(../images/special/h_bj.gif) repeat-x 0 35px;height:63px;}
+.special{border:#C5C5C5 solid 1px;width:948px;margin:auto;margin-bottom:10px}
+.qj{background:url(../images/special/zsj.gif) no-repeat;height:22px;width:22px;margin:-5px 0 -17px -7px;position:relative}
+.lm{margin:0 10px;}
+.lm h2{background:#FFF;padding:0 10px 0 5px;float:left;margin:15px 0 0 0;display:inline}
+.lm span{display:inline;float:right;height:63px;width:63px;background:url(../images/special/h.gif) no-repeat;margin:8px -3px -8px 0;position:relative}
+
+.new{padding:10px 15px 0 15px;height:280px;border-bottom:#c5c5c5 solid 1px;}
+.zuo{float:left;width:510px;} 
+.zuo a{border:#666 solid 1px;float:left;}
+.you{float:right;width:400px;}
+.you h1{font-size:20px;font-family:"simhei";font-weight:normal;height:30px}
+.you h1 a{text-decoration:none;color:#333;}
+.you a:hover{color:#F60;text-decoration:underline;}
+
+.js{border-bottom:#aaa solid 1px;height:80px;margin-top:5px}
+.js p{color:#aaa;line-height:20px;}
+.js p a{color:#3398FF;}
+
+.you ul{height:98px;}
+.you li{line-height:28px;background:url(../images/d.gif) repeat-x bottom;font-size:14px;}
+.you li a{color:#333;background:url(../images/fk.gif) no-repeat left;padding-left:10px;text-decoration:none;}
+.you .noLogin a{background:url(../images/special/noLoginBtn.gif) no-repeat 0 0;height:46px;width:166px;display:block;}
+.you .noLogin a:hover{background-position: 0 -56px}
+
+.you .login a{background:url(../images/special/loginBtn.gif) no-repeat 0 0;height:46px;width:166px;display:block;}
+.you .login a:hover{background-position: 0 -56px}
+
+
+.you dl dd{margin-left:120px;}
+.you dl dt{margin-left:5px}
+
+.hdlb{margin:15px 0 0 15px}
+.hdlb a:hover{color:#F60;text-decoration:underline;}
+.hdlb dl{float:left;border:#aaa dashed 1px;padding:3px;width:445px;height:120px;margin:0 13px 20px 0;display:inline}
+.hdlb dl h1{font-size:12px;margin:5px 0 8px 0;}
+.hdlb dl h1 a{color:#666;text-decoration:none;}
+.hdlb dt{float:left;width:228px;}
+.hdlb dt img{display:block;height:120px;width:225px;}
+.hdlb dd{float:right;width:212px}
+.hdlb p{color:#999;line-height:20px;height:55px}
+.hdlb span a{color:#3497FF;}
+.hdlb span{text-align:right;display:block;margin-right:10px;margin-top:10px}
+

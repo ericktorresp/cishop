@@ -67,7 +67,7 @@ $config['asset'][] = array('file'=>'index.css');
 $config['asset'][] = array('file'=>'AddItemPanel.css');
 $config['asset'][] = array('file'=>'explore.css');
 $config['asset'][] = array('file'=>'recommend.css');
-
+$config['asset'][] = array('file'=>'special.css');
 // JS
 $config['asset'][] = array('file'=>'jquery.1.3.2.js', 'name'=>'jquery');
 $config['asset'][] = array('file'=>'jquery-ui.1.5.3.js', 'name' => 'jquery_ui', 'needs'=>'jquery');
@@ -111,6 +111,7 @@ $config['asset_group']['GENERATE_PASSWORD'] = "bep_generate_password.css|bep_gen
 $config['asset_group']['INDEX'] = 'topfoot|index|AddItemPanel|TopForm|jQuery.Extend|jQuery.HoverMenu|jQuery.Drag|jquery.pngFix.pack|pluginpage|MainPageMarquee|default';
 $config['asset_group']['EXPLORE'] = 'topfoot|explore|AddItemPanel|TopForm|jQuery.Extend|jQuery.HoverMenu|jQuery.Drag|jquery.pngFix.pack|explore.js';
 $config['asset_group']['RECOMMEND'] = 'topfoot|recommend|AddItemPanel|TopForm|jQuery.Extend|jQuery.HoverMenu|jQuery.Drag|jquery.pngFix.pack|recommend|recommend.js';
+$config['asset_group']['SPECIAL'] = 'topfoot|recommend|AddItemPanel|TopForm|jQuery.Extend|jQuery.HoverMenu|jQuery.Drag|jquery.pngFix.pack|special';
 // -----------------------------------------------------------------------
 
 
