@@ -1,4 +1,4 @@
-﻿$(document).ready(function() {
+$(document).ready(function() {
 
     $("#searchbtn").click(function() {
         var typeid = $("#categoryID").attr("categoryid");
@@ -19,7 +19,7 @@
         $(".tongji").show();
     }
 
-    if ($("#categoryID").val() != "所有分类") {
+    if ($("#categoryID").val() != "鎵�鏈夊垎绫�") {
         $(".tongji").show();
     }
 
@@ -37,7 +37,7 @@
         $(this).hover(function() {
 
             var offset = $(".s_left").eq(i).offset();
-            if ($(this).find("img").attr("src") == "/images20090801/noimg/noimg80.gif") {
+            if ($(this).find("img").attr("src") == "assets/images/noimg80.gif") {
             } else {
                 $("#LargePicDiv").find("img").attr("src", $(this).find("img").attr("largesrc").toString());
                 $("#PicTitle").empty();
