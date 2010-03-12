@@ -1,8 +1,8 @@
 from django.conf.urls.defaults import patterns
-from mysite.channels.models import Channel
+from mysite.lotteries.models import Lottery
 
 info_dict = {
-    'queryset': Channel.objects.all(),
+    'queryset': Lottery.objects.all(),
 }
 
 urlpatterns = patterns('',
