@@ -1,5 +1,6 @@
 from django.db import models
 from lotteries.models.lottery import Lottery
+from django.contrib.auth.models import User
 #=================
 # Method Model
 #=================
@@ -17,6 +18,7 @@ class Method(models.Model):
     lock_table_name = models.CharField('Lock Table', max_length=30)
     max_lost = models.DecimalField(decimal_places=2, max_digits=14)
     total_price = models.DecimalField(decimal_places=4, max_digits=8)
+    usersets = models.ManyToManyField(User)
     
     def __unicode__(self):
         return self.title
