@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50142
 File Encoding         : 65001
 
-Date: 2010-03-15 17:41:17
+Date: 2010-03-17 16:52:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -59,7 +59,7 @@ CREATE TABLE `auth_message` (
   PRIMARY KEY (`id`),
   KEY `auth_message_user_id` (`user_id`),
   CONSTRAINT `user_id_refs_id_650f49a6` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_message
@@ -287,7 +287,7 @@ CREATE TABLE `django_admin_log` (
   KEY `django_admin_log_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_288599e6` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `user_id_refs_id_c8665aa` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_admin_log
@@ -323,6 +323,18 @@ INSERT INTO `django_admin_log` VALUES ('28', '2010-03-15 17:32:11', '1', '18', '
 INSERT INTO `django_admin_log` VALUES ('29', '2010-03-15 17:35:24', '1', '18', '4', '王建硕: 关于两个机房的讨论', '1', '');
 INSERT INTO `django_admin_log` VALUES ('30', '2010-03-15 17:37:47', '1', '18', '4', '王建硕: 关于两个机房的讨论', '2', '没有字段被修改。');
 INSERT INTO `django_admin_log` VALUES ('31', '2010-03-15 17:38:06', '1', '18', '3', '[转]上海世博至少落后广州亚运一百年！', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('32', '2010-03-15 17:54:23', '1', '17', '4', '王建硕: 关于两个机房的讨论', '2', '已修改 subject 。');
+INSERT INTO `django_admin_log` VALUES ('33', '2010-03-17 09:31:28', '1', '13', 'None', 'CQSSC', '1', '');
+INSERT INTO `django_admin_log` VALUES ('34', '2010-03-17 09:32:36', '1', '13', 'None', 'CQSSC', '1', '');
+INSERT INTO `django_admin_log` VALUES ('35', '2010-03-17 09:38:38', '1', '13', '1', 'CQSSC', '1', '');
+INSERT INTO `django_admin_log` VALUES ('36', '2010-03-17 13:30:10', '1', '13', '1', 'CQSSC', '2', '已修改 week_cycle 。');
+INSERT INTO `django_admin_log` VALUES ('37', '2010-03-17 13:30:55', '1', '13', '1', 'CQSSC', '2', '已修改 week_cycle 。');
+INSERT INTO `django_admin_log` VALUES ('38', '2010-03-17 13:48:55', '1', '13', '1', 'CQSSC', '2', '已修改 week_cycle 。');
+INSERT INTO `django_admin_log` VALUES ('39', '2010-03-17 13:49:50', '1', '13', '1', 'CQSSC', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('40', '2010-03-17 13:50:24', '1', '13', '1', 'CQSSC', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('41', '2010-03-17 13:51:05', '1', '13', '1', 'CQSSC', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('42', '2010-03-17 13:52:22', '1', '13', '1', 'CQSSC', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('43', '2010-03-17 14:04:46', '1', '13', '1', 'CQSSC', '2', '已修改 week_cycle 。');
 
 -- ----------------------------
 -- Table structure for `django_content_type`
@@ -416,7 +428,7 @@ CREATE TABLE `helps_help` (
 -- Records of helps_help
 -- ----------------------------
 INSERT INTO `helps_help` VALUES ('3', '1', 'bank', '[转]上海世博至少落后广州亚运一百年！', 'if not self.id:', '1', '2010-03-15 16:49:54', '0', '0');
-INSERT INTO `helps_help` VALUES ('4', '1', 'bank', '王建硕: 关于两个机房的讨论', '王建硕: 关于两个机房的讨论\r\n\r\n王建硕: 关于两个机房的讨论\r\n\r\n王建硕: 关于两个机房的讨论', '1', '2010-03-15 16:50:50', '0', '0');
+INSERT INTO `helps_help` VALUES ('4', '1', 'faq', '王建硕: 关于两个机房的讨论', '王建硕: 关于两个机房的讨论\r\n\r\n王建硕: 关于两个机房的讨论\r\n\r\n王建硕: 关于两个机房的讨论', '1', '2010-03-15 16:50:50', '0', '0');
 
 -- ----------------------------
 -- Table structure for `lotteries_issue`
@@ -467,7 +479,7 @@ CREATE TABLE `lotteries_lottery` (
   `sort` smallint(6) NOT NULL,
   `lotterytype_id` int(11) NOT NULL,
   `issue_set` longtext NOT NULL,
-  `week_cycle` smallint(6) NOT NULL,
+  `week_cycle` varchar(20) NOT NULL,
   `yearly_break_start` date NOT NULL,
   `yearly_break_end` date NOT NULL,
   `min_commission_gap` decimal(3,3) NOT NULL,
@@ -476,16 +488,18 @@ CREATE TABLE `lotteries_lottery` (
   `description` longtext NOT NULL,
   `number_rule` longtext NOT NULL,
   `channel_id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `lotteries_lottery_lotterytype_id` (`lotterytype_id`),
   KEY `lotteries_lottery_channel_id` (`channel_id`),
   CONSTRAINT `channel_id_refs_id_34b3d5bf` FOREIGN KEY (`channel_id`) REFERENCES `channels_channel` (`id`),
   CONSTRAINT `lotterytype_id_refs_id_1c8112f1` FOREIGN KEY (`lotterytype_id`) REFERENCES `lotteries_lotterytype` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lotteries_lottery
 -- ----------------------------
+INSERT INTO `lotteries_lottery` VALUES ('1', 'CQSSC', 'CQSSC', '0', '1', 'CQSSC', '1,2,3,5,6,7,4', '2010-02-13', '2010-02-19', '0.040', '0.005', '(y)(M)(D)(N3)', 'CQSSC', 'CQSSC', '3', '2010-03-17 13:52:22');
 
 -- ----------------------------
 -- Table structure for `lotteries_lotterytype`
