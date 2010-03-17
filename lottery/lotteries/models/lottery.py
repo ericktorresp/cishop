@@ -25,7 +25,7 @@ class Lottery(models.Model):
     description = models.TextField()
     number_rule = models.TextField()
     channel = models.ForeignKey(Channel)
-    created = models.DateTimeField(editable=False)
+    created = models.DateTimeField(auto_now_add=True,editable=False)
 
     def __unicode__(self):
         return self.title
