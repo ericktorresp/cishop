@@ -16,7 +16,7 @@ class Lottery(models.Model):
     sort = models.SmallIntegerField('Sort', default=0, blank=True)
     lotterytype = models.ForeignKey(LotteryType)
     issue_set = models.TextField()
-    week_cycle = models.CommaSeparatedIntegerField(max_length=20, choices=WEEK_CHOICES)
+    week_cycle = models.CharField(max_length=100)
     yearly_break_start = models.DateField('Yearly Break Start')
     yearly_break_end = models.DateField('Yearly Break End')
     min_commission_gap = models.DecimalField(decimal_places=3, max_digits=3)
@@ -25,7 +25,7 @@ class Lottery(models.Model):
     description = models.TextField()
     number_rule = models.TextField()
     channel = models.ForeignKey(Channel)
-    created = models.DateTimeField(auto_now_add=True,editable=False)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
 
     def __unicode__(self):
         return self.title
