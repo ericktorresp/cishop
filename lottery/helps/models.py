@@ -8,7 +8,7 @@ class Help(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     author = models.ForeignKey(User, editable=False)
-    created = models.DateTimeField(editable=False)
+    created = models.DateTimeField(editable=False, auto_now_add=True)
     is_deleted = models.BooleanField('delete?', default=False)
     sort = models.SmallIntegerField(default=0, blank=True)
     

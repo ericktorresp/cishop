@@ -1,6 +1,16 @@
 from django.db import models
 from lotteries.models import Lottery, PrizeGroup
 from django.contrib.auth.models import User
+
+class Mode(models.Model):
+    title = models.CharField(max_length=20)
+    rate = models.DecimalField(decimal_places=2, max_digits=4)
+    
+    def __unicode__(self):
+        return self.title
+    class Meta:
+        app_label = 'lotteries'
+
 #=================
 # Method Model
 #=================
@@ -19,21 +29,12 @@ class Method(models.Model):
     lock_table_name = models.CharField('Lock Table', max_length=30)
     max_lost = models.DecimalField(decimal_places=2, max_digits=14)
     total_price = models.DecimalField(decimal_places=4, max_digits=8)
-    modes = models.ManyToManyField('Mode')
+    mode = models.ManyToManyField(Mode)
     usersets = models.ManyToManyField(User, through='UserMethodSet')
     
     def __unicode__(self):
         return self.title
     
-    class Meta:
-        app_label = 'lotteries'
-
-class Mode(models.Model):
-    title = models.CharField(max_length=20)
-    rate = models.FloatField()
-    
-    def __unicode__(self):
-        return self.title
     class Meta:
         app_label = 'lotteries'
         

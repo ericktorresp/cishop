@@ -7,7 +7,7 @@ class Order(models.Model):
     created = models.DateTimeField(editable=False, auto_now_add=True)
     
     def __unicode__(self):
-        return self.user.username + '\'s Order #' + self.id;
+        return unicode(self.created)
 
     class Meta:
         app_label = 'records'

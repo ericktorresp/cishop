@@ -2,7 +2,7 @@ from django.db import models
 from mysite.lotteries.models import Issue
 from records.models import Task, Project
 
-class TaskDetails(models.Model):
+class TaskDetail(models.Model):
     task = models.ForeignKey(Task)
     project = models.ForeignKey(Project)
     multiple = models.SmallIntegerField(max_length=6)
