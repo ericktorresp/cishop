@@ -28,7 +28,7 @@ class Task(models.Model):
     supperior_point = models.DecimalField(decimal_places=3, max_digits=4)
     status = models.SmallIntegerField(max_length=1, choices=((0, 'inprogress'), (1, 'canceled'), (2, 'finished')))
     stop_on_win = models.BooleanField()
-    client_ip = models.IPAddressField()
+    client_ip = models.IPAddressField(db_index=True)
     proxy_ip = models.IPAddressField()
 
     def __unicode__(self):

@@ -1,4 +1,4 @@
 from mysite.records.models import *
 from django.contrib import admin
 
-admin.site.register(Task)
+#admin.site.register(Task)

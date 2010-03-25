@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class Method(models.Model):
     title = models.CharField(max_length=200)
     lottery = models.ForeignKey(Lottery)
-    parent = models.ForeignKey('self', blank=True, null=True)
+    parent = models.ForeignKey('self', blank=True, null=True, related_name='belongs_to_method')
     function_name = models.CharField('Check Prized Function Name', max_length=20)
     init_lock_func = models.CharField('Init Lock Function Name', max_length=100)
     level_count = models.SmallIntegerField('Total Levels', max_length=1)

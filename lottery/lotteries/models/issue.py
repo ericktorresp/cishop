@@ -16,9 +16,9 @@ class Issue(models.Model):
     cancel_deadline = models.DateTimeField()
     official_time = models.DateTimeField()
     write_time = models.DateTimeField(editable=False)
-    write_user_id = models.ForeignKey(User, related_name='code_writer', editable=False)
+    write_user = models.ForeignKey(User, related_name='code_writer', editable=False)
     verify_time = models.DateTimeField(editable=False)
-    verify_user_id = models.ForeignKey(User, related_name='code_verifier', editable=False)
+    verify_user = models.ForeignKey(User, related_name='code_verifier', editable=False)
     status_code = models.SmallIntegerField('Prize Status', editable=False)
     status_deduct = models.SmallIntegerField('Deduct Status', editable=False)
     status_point = models.SmallIntegerField('Return Point Status', editable=False)
@@ -40,7 +40,7 @@ class Issue(models.Model):
 class IssueHistory(models.Model):
     lottery = models.ForeignKey(Lottery)
     code = models.CharField(max_length=30)
-    issue = models.ForeignKey(Issue, db_column='issue', to_field='title')
+    issue = models.ForeignKey(Issue)
     missed = models.TextField()
     total_missed = models.TextField()
     series = models.TextField()
@@ -52,7 +52,12 @@ class IssueHistory(models.Model):
     class Meta:
         app_label = 'lotteries'
 
+#================
+# Issue Error Model
+#================
+
 class IssueError(models.Model):
+    
     
     def __unicode__(self):
         return self.title

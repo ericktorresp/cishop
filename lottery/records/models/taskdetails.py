@@ -6,7 +6,7 @@ class TaskDetails(models.Model):
     task = models.ForeignKey(Task)
     project = models.ForeignKey(Project)
     multiple = models.SmallIntegerField(max_length=6)
-    issue = models.ForeignKey(Issue, db_column='issue', to_field='title')
+    issue = models.ForeignKey(Issue)
     status = models.SmallIntegerField(max_length=2, default=0, editable=False, choices=((0, 0), (1, 1), (2, 2)))
 
     def __unicode__(self):
