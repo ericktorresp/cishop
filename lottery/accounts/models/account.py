@@ -13,7 +13,7 @@ class Account(models.Model):
     order = models.ForeignKey(Order, blank=True, null=True)
     task = models.ForeignKey(Task, blank=True, null=True)
     project = models.ForeignKey(Project, blank=True, null=True)
-    mode = models.ForeignKey(Mode, db_column='mode', to_field='rate')
+    mode = models.ForeignKey(Mode)
     from_user = models.ForeignKey(User, blank=True, null=True, related_name='from_user')
     to_user = models.ForeignKey(User, blank=True, null=True, related_name='to_user')
     type = models.ForeignKey(AccountType)

@@ -10,7 +10,7 @@ class TaskDetail(models.Model):
     status = models.SmallIntegerField(max_length=2, default=0, editable=False, choices=((0, 0), (1, 1), (2, 2)))
 
     def __unicode__(self):
-        return self.title
+        return self.task.title + ' ' + self.issue.title
 
     class Meta:
         app_label = 'records'

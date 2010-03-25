@@ -31,7 +31,7 @@ class Project(models.Model):
     hash = models.CharField(max_length=32)
     
     def __unicode__(self):
-        return self.title
+        return self.code_type + ' ' + self.code
 
     class Meta:
         app_label = 'records'

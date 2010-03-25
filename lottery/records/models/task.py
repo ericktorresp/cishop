@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from mysite.lotteries.models import Lottery, Method, Issue
+from mysite.lotteries.models import Lottery, Method, Issue, Mode
 from records.models import Order
 
 class Task(models.Model):
@@ -14,6 +14,7 @@ class Task(models.Model):
     total_issues = models.SmallIntegerField(max_length=2)
     finished_issues = models.SmallIntegerField(max_length=2)
     canceled_issues = models.SmallIntegerField(max_length=2)
+    mode = models.ForeignKey(Mode)
     price = models.DecimalField(decimal_places=4, max_digits=14)
     total_amount = models.DecimalField(decimal_places=4, max_digits=14)
     finished_amount = models.DecimalField(decimal_places=4, max_digits=14)
