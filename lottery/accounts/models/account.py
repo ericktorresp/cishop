@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from accounts.models.account_type import AccountType
 from mysite.lotteries.models import Lottery, Method, Mode
 from mysite.channels.models import Channel
+from mysite.records.models import Order, Task, Project
 
 class Account(models.Model):
     title = models.CharField(max_length=40)
@@ -23,15 +24,15 @@ class Account(models.Model):
     suf_balance = models.DecimalField(decimal_places=4, max_digits=14)
     suf_hold = models.DecimalField(decimal_places=4, max_digits=14)
     suf_available = models.DecimalField(decimal_places=4, max_digits=14)
-    client_ip = models.IPAddressField(editable=False)
+    client_ip = models.IPAddressField(editable=False, db_index=True, blank=True, null=True)
     proxy_ip = models.IPAddressField(editable=False)
     db_time = models.DateTimeField(editable=False, auto_now_add=True)
-    action_time = models.DateTimeField(editable=False)
+    action_time = models.DateTimeField(editable=False, auto_now_add=True)
     source_channel = models.ForeignKey(Channel, blank=True, null=True, related_name='source_channel')
     dest_channel = models.ForeignKey(Channel, blank=True, null=True, related_name='dest_channel')
     operator = models.ForeignKey(User, blank=True, null=True, related_name='operator')
     status = models.SmallIntegerField(max_length=1, default=0, choices=((1, 1), (2, 2), (3, 3)), editable=False)
-    hashvar = models.CharField(max_length=32, editable=False)
+    hashvar = models.CharField(max_length=32, editable=False, db_index=True)
     
     def __unicode__(self):
         return self.title
