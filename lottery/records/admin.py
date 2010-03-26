@@ -18,4 +18,3 @@ class TaskAdmin(admin.ModelAdmin):
 admin.site.register(Order)
 admin.site.register(Task, TaskAdmin)
 admin.site.register(Project, ProjectAdmin)
-#admin.site.register(TaskDetail)
