@@ -1,7 +1,8 @@
 """
-MySQL database backend for Django.
+MySQL_POOL database backend for Django.
 
 Requires MySQLdb: http://sourceforge.net/projects/mysql-python
+Requires sqlalchemy: http://www.sqlalchemy.org/download.html
 """
 try:
     from settings import DATABASE_WAIT_TIMEOUT
@@ -15,7 +16,7 @@ import re
 
 try:
     import MySQLdb as Database
-    Database = pool.manage(Database, recycle=DATABASE_WAIT_TIMEOUT - 1)
+    Database = pool.manage(Database, recycle=DATABASE_WAIT_TIMEOUT - 1, pool_size=20, echo=True)
 except ImportError, e:
     from django.core.exceptions import ImproperlyConfigured
     raise ImproperlyConfigured("Error loading MySQLdb module: %s" % e)
