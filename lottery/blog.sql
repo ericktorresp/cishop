@@ -10,10 +10,66 @@ Target Server Type    : MYSQL
 Target Server Version : 50142
 File Encoding         : 65001
 
-Date: 2010-03-25 17:59:35
+Date: 2010-03-26 18:07:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+-- ----------------------------
+-- Table structure for `accounts_account`
+-- ----------------------------
+DROP TABLE IF EXISTS `accounts_account`;
+CREATE TABLE `accounts_account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(40) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `amount` decimal(14,4) NOT NULL,
+  `lottery_id` int(11) DEFAULT NULL,
+  `method_id` int(11) DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `task_id` int(11) DEFAULT NULL,
+  `project_id` int(11) DEFAULT NULL,
+  `mode_id` int(11) NOT NULL,
+  `from_user_id` int(11) DEFAULT NULL,
+  `to_user_id` int(11) DEFAULT NULL,
+  `type_id` int(11) NOT NULL,
+  `pre_balance` decimal(14,4) NOT NULL,
+  `pre_hold` decimal(14,4) NOT NULL,
+  `pre_available` decimal(14,4) NOT NULL,
+  `suf_balance` decimal(14,4) NOT NULL,
+  `suf_hold` decimal(14,4) NOT NULL,
+  `suf_available` decimal(14,4) NOT NULL,
+  `client_ip` char(15) NOT NULL,
+  `proxy_ip` char(15) NOT NULL,
+  `db_time` datetime NOT NULL,
+  `action_time` datetime NOT NULL,
+  `source_channel_id` int(11) DEFAULT NULL,
+  `dest_channel_id` int(11) DEFAULT NULL,
+  `operator_id` int(11) DEFAULT NULL,
+  `status` smallint(6) NOT NULL,
+  `hashvar` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `accounts_account_lottery_id` (`lottery_id`),
+  KEY `accounts_account_method_id` (`method_id`),
+  KEY `accounts_account_order_id` (`order_id`),
+  KEY `accounts_account_task_id` (`task_id`),
+  KEY `accounts_account_project_id` (`project_id`),
+  KEY `accounts_account_mode_id` (`mode_id`),
+  KEY `accounts_account_from_user_id` (`from_user_id`),
+  KEY `accounts_account_to_user_id` (`to_user_id`),
+  KEY `accounts_account_type_id` (`type_id`),
+  KEY `accounts_account_client_ip` (`client_ip`),
+  KEY `accounts_account_source_channel_id` (`source_channel_id`),
+  KEY `accounts_account_dest_channel_id` (`dest_channel_id`),
+  KEY `accounts_account_operator_id` (`operator_id`),
+  KEY `accounts_account_hashvar` (`hashvar`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of accounts_account
+-- ----------------------------
+INSERT INTO `accounts_account` VALUES ('1', '加入游戏', '加入游戏', '250.0000', '1', '2', '1', null, '2', '1', '1', null, '3', '35898.9200', '11918.0000', '23980.9200', '35898.9200', '12168.0000', '23730.9200', 'localhost:8000', 'localhost:8000', '2010-03-26 16:31:09', '2010-03-26 16:31:09', '3', null, null, '0', '');
+INSERT INTO `accounts_account` VALUES ('3', '加入游戏', '加入游戏', '250.0000', '1', '2', '1', null, '2', '1', '1', null, '3', '35898.9200', '11918.0000', '23980.9200', '35898.9200', '12168.0000', '23730.9200', '127.0.0.1', '', '2010-03-26 17:45:42', '2010-03-26 17:45:42', '3', null, null, '0', '');
+
 -- ----------------------------
 -- Table structure for `accounts_accounttype`
 -- ----------------------------
@@ -95,7 +151,7 @@ CREATE TABLE `auth_message` (
   PRIMARY KEY (`id`),
   KEY `auth_message_user_id` (`user_id`),
   CONSTRAINT `user_id_refs_id_650f49a6` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_message
@@ -114,7 +170,7 @@ CREATE TABLE `auth_permission` (
   UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
   KEY `auth_permission_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_728de91f` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -218,6 +274,9 @@ INSERT INTO `auth_permission` VALUES ('96', 'Can delete task detail', '32', 'del
 INSERT INTO `auth_permission` VALUES ('97', 'Can add expand code', '33', 'add_expandcode');
 INSERT INTO `auth_permission` VALUES ('98', 'Can change expand code', '33', 'change_expandcode');
 INSERT INTO `auth_permission` VALUES ('99', 'Can delete expand code', '33', 'delete_expandcode');
+INSERT INTO `auth_permission` VALUES ('100', 'Can add account', '34', 'add_account');
+INSERT INTO `auth_permission` VALUES ('101', 'Can change account', '34', 'change_account');
+INSERT INTO `auth_permission` VALUES ('102', 'Can delete account', '34', 'delete_account');
 
 -- ----------------------------
 -- Table structure for `auth_user`
@@ -301,7 +360,7 @@ CREATE TABLE `channels_channel` (
 -- ----------------------------
 INSERT INTO `channels_channel` VALUES ('1', 'Passport', '/', '0', '2010-03-25 16:58:24', '2010-03-25 16:58:24');
 INSERT INTO `channels_channel` VALUES ('2', 'Low', 'low', '0', '2010-03-25 16:58:30', '2010-03-25 16:58:30');
-INSERT INTO `channels_channel` VALUES ('3', 'High', 'high', '0', '2010-03-25 16:58:35', '2010-03-25 16:58:35');
+INSERT INTO `channels_channel` VALUES ('3', 'High', 'high', '0', '2010-03-25 16:58:35', '2010-03-26 14:29:01');
 
 -- ----------------------------
 -- Table structure for `channels_configure`
@@ -324,11 +383,12 @@ CREATE TABLE `channels_configure` (
   KEY `channels_configure_channel_id` (`channel_id`),
   CONSTRAINT `channel_id_refs_id_24dbfbd4` FOREIGN KEY (`channel_id`) REFERENCES `channels_channel` (`id`),
   CONSTRAINT `parent_id_refs_id_43dec625` FOREIGN KEY (`parent_id`) REFERENCES `channels_configure` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of channels_configure
 -- ----------------------------
+INSERT INTO `channels_configure` VALUES ('1', null, 'operation', '', '', '', '', '3', '运营参数', '运营参数', '0');
 
 -- ----------------------------
 -- Table structure for `channels_userchannelset`
@@ -368,7 +428,7 @@ CREATE TABLE `django_admin_log` (
   KEY `django_admin_log_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_288599e6` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `user_id_refs_id_c8665aa` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_admin_log
@@ -387,6 +447,14 @@ INSERT INTO `django_admin_log` VALUES ('11', '2010-03-25 17:41:40', '1', '31', '
 INSERT INTO `django_admin_log` VALUES ('12', '2010-03-25 17:46:27', '1', '30', '1', '前三直选_直选 追号2期', '1', '');
 INSERT INTO `django_admin_log` VALUES ('13', '2010-03-25 17:53:00', '1', '30', '1', '前三直选_直选 追号2期', '2', '已修改 mode 。');
 INSERT INTO `django_admin_log` VALUES ('14', '2010-03-25 17:57:45', '1', '30', '1', '前三直选_直选 追号2期', '2', '已添加 task detail \"前三直选_直选 追号2期 100315001\".');
+INSERT INTO `django_admin_log` VALUES ('15', '2010-03-26 14:29:01', '1', '11', '3', 'High', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('16', '2010-03-26 15:33:09', '1', '13', '1', 'operation', '1', '');
+INSERT INTO `django_admin_log` VALUES ('17', '2010-03-26 15:34:47', '1', '13', '1', '运营参数', '2', '已修改 config_key 和 title 。');
+INSERT INTO `django_admin_log` VALUES ('18', '2010-03-26 16:31:09', '1', '34', '1', '加入游戏', '1', '');
+INSERT INTO `django_admin_log` VALUES ('19', '2010-03-26 16:36:44', '1', '34', '2', '加入游戏', '1', '');
+INSERT INTO `django_admin_log` VALUES ('20', '2010-03-26 17:28:13', '1', '34', '2', '加入游戏', '3', '');
+INSERT INTO `django_admin_log` VALUES ('21', '2010-03-26 17:37:13', '1', '26', '1', '[转]上海世博至少落后广州亚运一百年！', '1', '');
+INSERT INTO `django_admin_log` VALUES ('22', '2010-03-26 17:45:42', '1', '34', '3', '加入游戏', '1', '');
 
 -- ----------------------------
 -- Table structure for `django_content_type`
@@ -399,7 +467,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_label` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_content_type
@@ -437,6 +505,7 @@ INSERT INTO `django_content_type` VALUES ('30', 'task', 'records', 'task');
 INSERT INTO `django_content_type` VALUES ('31', 'project', 'records', 'project');
 INSERT INTO `django_content_type` VALUES ('32', 'task detail', 'records', 'taskdetail');
 INSERT INTO `django_content_type` VALUES ('33', 'expand code', 'records', 'expandcode');
+INSERT INTO `django_content_type` VALUES ('34', 'account', 'accounts', 'account');
 
 -- ----------------------------
 -- Table structure for `django_session`
@@ -489,11 +558,12 @@ CREATE TABLE `helps_help` (
   KEY `helps_help_author_id` (`author_id`),
   CONSTRAINT `author_id_refs_id_5a79d9ac` FOREIGN KEY (`author_id`) REFERENCES `auth_user` (`id`),
   CONSTRAINT `channel_id_refs_id_4b899895` FOREIGN KEY (`channel_id`) REFERENCES `channels_channel` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of helps_help
 -- ----------------------------
+INSERT INTO `helps_help` VALUES ('1', '3', 'bank', '[转]上海世博至少落后广州亚运一百年！', '[转]上海世博至少落后广州亚运一百年！', '1', '2010-03-26 17:37:13', '0', '0');
 
 -- ----------------------------
 -- Table structure for `lotteries_issue`
