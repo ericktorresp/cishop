@@ -1,7 +1,6 @@
 from django.conf.urls.defaults import patterns, include
-
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from django.views.generic.simple import direct_to_template
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -16,8 +15,10 @@ urlpatterns = patterns('',
 #    (r'^polls/(?P<poll_id>\d+)/results/$', 'results'),
 #    (r'^polls/(?P<poll_id>\d+)/vote/$', 'vote'),
     # Uncomment the next line to enable the admin:
+    (r'^registration/', include('registration.backends.default.urls')),
     (r'^polls/', include('mysite.polls.urls')),
     (r'^channels/', include('mysite.channels.urls')),
     (r'^lotteries/', include('mysite.lotteries.urls')),
     (r'^admin/', include(admin.site.urls)),
+    (r'^$', direct_to_template, { 'template': 'index.html' }, 'index'),
 )
