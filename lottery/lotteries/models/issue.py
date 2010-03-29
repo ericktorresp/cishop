@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from lotteries.models.lottery import Lottery
 from django.contrib.auth.models import User
@@ -47,19 +48,7 @@ class IssueHistory(models.Model):
     total_series = models.TextField()
     
     def __unicode__(self):
-        return self
+        return self.lottery.title + ' - ' + self.issue.title + ': ' + self.code
     
-    class Meta:
-        app_label = 'lotteries'
-
-#================
-# Issue Error Model
-#================
-
-class IssueError(models.Model):
-    
-    
-    def __unicode__(self):
-        return self.title
     class Meta:
         app_label = 'lotteries'

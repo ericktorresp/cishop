@@ -283,15 +283,17 @@ class DatabaseWrapper(BaseDatabaseWrapper):
                 kwargs['host'] = settings_dict['DATABASE_HOST']
             if settings_dict['DATABASE_PORT']:
                 kwargs['port'] = int(settings_dict['DATABASE_PORT'])
+            if settings_dict['DATABASE_OPTIONS'].has_key('init_command'):
+                kwargs['init_command'] = settings_dict['DATABASE_OPTIONS'].get('init_command', '')
             # We need the number of potentially affected rows after an
             # "UPDATE", not the number of changed rows.
             kwargs['client_flag'] = CLIENT.FOUND_ROWS
             kwargs.update(settings_dict['DATABASE_OPTIONS'])
 #            self.connection = Database.connect(**kwargs)
             if settings.DATABASE_HOST.startswith('/'):
-                self.connection = Database.connect(port=kwargs['port'], unix_socket=kwargs['unix_socket'], user=kwargs['user'], db=kwargs['db'], passwd=kwargs['passwd'], use_unicode=kwargs['use_unicode'], charset='utf8')
+                self.connection = Database.connect(port=kwargs['port'], unix_socket=kwargs['unix_socket'], user=kwargs['user'], db=kwargs['db'], passwd=kwargs['passwd'], use_unicode=kwargs['use_unicode'], charset='utf8', init_command=kwargs['init_command'])
             else:
-                self.connection = Database.connect(host=kwargs['host'], port=kwargs['port'], user=kwargs['user'], db=kwargs['db'], passwd=kwargs['passwd'], use_unicode=kwargs['use_unicode'], charset='utf8') 
+                self.connection = Database.connect(host=kwargs['host'], port=kwargs['port'], user=kwargs['user'], db=kwargs['db'], passwd=kwargs['passwd'], use_unicode=kwargs['use_unicode'], charset='utf8', init_command=kwargs['init_command']) 
             self.connection.encoders[SafeUnicode] = self.connection.encoders[unicode]
             self.connection.encoders[SafeString] = self.connection.encoders[str]
             connection_created.send(sender=self.__class__)
