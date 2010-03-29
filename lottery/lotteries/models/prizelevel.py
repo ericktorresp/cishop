@@ -13,7 +13,7 @@ class PrizeLevel(models.Model):
     userset = models.ManyToManyField(User, through='UserPrizeLevel')
 
     def __unicode__(self):
-        return self.level
+        return self.description
     
     class Meta:
         app_label = 'lotteries'
