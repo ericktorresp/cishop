@@ -5,3 +5,4 @@ from lotteries.models.method import Mode, Method, UserMethodSet
 from lotteries.models.issue import Issue, IssueHistory
 from lotteries.models.issueerror import IssueError
 from lotteries.models.prizelevel import PrizeLevel, UserPrizeLevel
+from lotteries.models.lock import Lock
