@@ -16,9 +16,11 @@ urlpatterns = patterns('',
 #    (r'^polls/(?P<poll_id>\d+)/vote/$', 'vote'),
     # Uncomment the next line to enable the admin:
     (r'^registration/', include('registration.backends.default.urls')),
+    (r'^grappelli/', include('grappelli.urls')),
     (r'^polls/', include('mysite.polls.urls')),
     (r'^channels/', include('mysite.channels.urls')),
     (r'^lotteries/', include('mysite.lotteries.urls')),
+    (r'^admin/filebrowser/', include('filebrowser.urls')),
     (r'^admin/', include(admin.site.urls)),
     (r'^$', direct_to_template, { 'template': 'index.html' }, 'index'),
 )
