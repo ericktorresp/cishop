@@ -24,9 +24,13 @@ class Configure(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255, blank=True)
     is_disabled = models.BooleanField('Disabled?', default=False)
-    
+
+    def top_configs(self):
+        return self.parent is None
+        
     def __unicode__(self):
         return self.title
 
     class Meta:
         app_label = 'channels'
+        ordering = ('id',)
