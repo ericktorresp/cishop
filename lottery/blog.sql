@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50142
 File Encoding         : 65001
 
-Date: 2010-03-30 17:33:04
+Date: 2010-04-01 18:18:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -162,7 +162,7 @@ CREATE TABLE `auth_message` (
   PRIMARY KEY (`id`),
   KEY `auth_message_user_id` (`user_id`),
   CONSTRAINT `user_id_refs_id_650f49a6` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_message
@@ -181,7 +181,7 @@ CREATE TABLE `auth_permission` (
   UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
   KEY `auth_permission_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_728de91f` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -294,6 +294,24 @@ INSERT INTO `auth_permission` VALUES ('111', 'Can delete registration profile', 
 INSERT INTO `auth_permission` VALUES ('112', 'Can add lock', '38', 'add_lock');
 INSERT INTO `auth_permission` VALUES ('113', 'Can change lock', '38', 'change_lock');
 INSERT INTO `auth_permission` VALUES ('114', 'Can delete lock', '38', 'delete_lock');
+INSERT INTO `auth_permission` VALUES ('115', 'Can add Navigation', '39', 'add_navigation');
+INSERT INTO `auth_permission` VALUES ('116', 'Can change Navigation', '39', 'change_navigation');
+INSERT INTO `auth_permission` VALUES ('117', 'Can delete Navigation', '39', 'delete_navigation');
+INSERT INTO `auth_permission` VALUES ('118', 'Can add Navigation Item', '40', 'add_navigationitem');
+INSERT INTO `auth_permission` VALUES ('119', 'Can change Navigation Item', '40', 'change_navigationitem');
+INSERT INTO `auth_permission` VALUES ('120', 'Can delete Navigation Item', '40', 'delete_navigationitem');
+INSERT INTO `auth_permission` VALUES ('121', 'Can add Bookmark', '41', 'add_bookmark');
+INSERT INTO `auth_permission` VALUES ('122', 'Can change Bookmark', '41', 'change_bookmark');
+INSERT INTO `auth_permission` VALUES ('123', 'Can delete Bookmark', '41', 'delete_bookmark');
+INSERT INTO `auth_permission` VALUES ('124', 'Can add Bookmark Item', '42', 'add_bookmarkitem');
+INSERT INTO `auth_permission` VALUES ('125', 'Can change Bookmark Item', '42', 'change_bookmarkitem');
+INSERT INTO `auth_permission` VALUES ('126', 'Can delete Bookmark Item', '42', 'delete_bookmarkitem');
+INSERT INTO `auth_permission` VALUES ('127', 'Can add Help', '43', 'add_help');
+INSERT INTO `auth_permission` VALUES ('128', 'Can change Help', '43', 'change_help');
+INSERT INTO `auth_permission` VALUES ('129', 'Can delete Help', '43', 'delete_help');
+INSERT INTO `auth_permission` VALUES ('130', 'Can add Help Entry', '44', 'add_helpitem');
+INSERT INTO `auth_permission` VALUES ('131', 'Can change Help Entry', '44', 'change_helpitem');
+INSERT INTO `auth_permission` VALUES ('132', 'Can delete Help Entry', '44', 'delete_helpitem');
 
 -- ----------------------------
 -- Table structure for `auth_user`
@@ -318,7 +336,7 @@ CREATE TABLE `auth_user` (
 -- ----------------------------
 -- Records of auth_user
 -- ----------------------------
-INSERT INTO `auth_user` VALUES ('1', 'root', '', '', 'kirinse@gmail.com', 'sha1$8ae46$39e846d47d4b08e3ca664356a74d87a3bca14a3b', '1', '1', '1', '2010-03-30 10:46:49', '2010-03-25 16:56:01');
+INSERT INTO `auth_user` VALUES ('1', 'root', '', '', 'kirinse@gmail.com', 'sha1$8ae46$39e846d47d4b08e3ca664356a74d87a3bca14a3b', '1', '1', '1', '2010-04-01 17:27:27', '2010-03-25 16:56:01');
 INSERT INTO `auth_user` VALUES ('3', 'floyd', '', '', '', 'sha1$3b259$a780f347dee2c43488ac5dbd18698fd8d59df60e', '0', '0', '0', '2010-03-29 17:12:32', '2010-03-29 17:11:55');
 INSERT INTO `auth_user` VALUES ('8', 'darkmoon', '', '', '142620@qq.com', 'sha1$6f2c4$5ba68913a87284448bf9ae6b7a3e31daea3f683c', '0', '1', '0', '2010-03-29 18:06:40', '2010-03-29 18:04:06');
 
@@ -423,7 +441,7 @@ INSERT INTO `channels_configure` VALUES ('13', '9', 'orderscleardate', '3', '14'
 INSERT INTO `channels_configure` VALUES ('14', '9', 'ordersclearstarttime', '03:00:01', '02:00:00', 'string', 'text', '3', '帐变清理的最早时间', '帐变清理的最早时间', '0');
 INSERT INTO `channels_configure` VALUES ('15', '9', 'ordersclearendtime', '04:00:01', '03:00:00', 'string', 'text', '3', '帐变清理最晚时间', '帐变清理最晚时间', '0');
 INSERT INTO `channels_configure` VALUES ('16', '9', 'logclearrun', '1', '1', 'num', 'checkbox', '3', '日志是否清理', '日志是否清理', '0');
-INSERT INTO `channels_configure` VALUES ('17', '9', 'ordersclearrun', '1', '1', 'num', 'checkbox', '2', '是否运行帐变清理', '是否运行帐变清理', '0');
+INSERT INTO `channels_configure` VALUES ('17', '9', 'ordersclearrun', '1', '1', 'num', 'checkbox', '3', '是否运行帐变清理', '是否运行帐变清理', '0');
 INSERT INTO `channels_configure` VALUES ('18', '9', 'issuecleardate', '3', '5', 'num', 'text', '3', '奖期清理天数', '奖期清理几天前的数据', '0');
 INSERT INTO `channels_configure` VALUES ('19', '9', 'issueclearstarttime', '03:00:01', '02:00:00', 'string', 'text', '3', '奖期清理最早时间', '奖期清理最早时间', '0');
 INSERT INTO `channels_configure` VALUES ('20', '9', 'issueclearendtime', '04:00:00', '03:00:00', 'string', 'text', '3', '奖期清理最晚时间', '奖期清理最晚时间', '0');
@@ -484,7 +502,7 @@ CREATE TABLE `django_admin_log` (
   KEY `django_admin_log_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_288599e6` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `user_id_refs_id_c8665aa` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_admin_log
@@ -579,6 +597,20 @@ INSERT INTO `django_admin_log` VALUES ('87', '2010-03-30 15:53:17', '1', '13', '
 INSERT INTO `django_admin_log` VALUES ('88', '2010-03-30 15:54:08', '1', '13', '38', '是否启用信任IP控制登录', '1', '');
 INSERT INTO `django_admin_log` VALUES ('89', '2010-03-30 15:57:34', '1', '29', '1', '2010-03-25 17:01:21', '2', '没有字段被修改。');
 INSERT INTO `django_admin_log` VALUES ('90', '2010-03-30 15:58:23', '1', '7', '1', 'localhost', '2', '已修改 domain 和 name 。');
+INSERT INTO `django_admin_log` VALUES ('91', '2010-03-31 17:59:18', '1', '38', '12', 'lock_cqssc_qszhixuan', '3', '');
+INSERT INTO `django_admin_log` VALUES ('92', '2010-04-01 09:17:16', '1', '38', '13', 'lock_cqssc_qszhixuan', '1', '');
+INSERT INTO `django_admin_log` VALUES ('93', '2010-04-01 09:39:35', '1', '38', '13', 'deleted ??dsjkf?', '3', '');
+INSERT INTO `django_admin_log` VALUES ('94', '2010-04-01 09:41:23', '1', '38', '14', 'lock_cqssc_qszhixuan', '1', '');
+INSERT INTO `django_admin_log` VALUES ('95', '2010-04-01 09:42:36', '1', '38', '15', 'lock_cqssc_qszhixuan', '1', '');
+INSERT INTO `django_admin_log` VALUES ('96', '2010-04-01 09:42:53', '1', '38', '15', 'lock_cqssc_qszhixuan', '3', '');
+INSERT INTO `django_admin_log` VALUES ('97', '2010-04-01 09:42:53', '1', '38', '14', 'lock_cqssc_qszhixuan', '3', '');
+INSERT INTO `django_admin_log` VALUES ('98', '2010-04-01 09:43:12', '1', '38', '16', 'lock_cqssc_qszhixuan', '1', '');
+INSERT INTO `django_admin_log` VALUES ('99', '2010-04-01 09:56:31', '1', '38', '16', 'lock_cqssc_qszhixuan', '2', '已修改 title 。');
+INSERT INTO `django_admin_log` VALUES ('100', '2010-04-01 09:57:37', '1', '38', '17', 'lock_cqssc_qszhixuan', '1', '');
+INSERT INTO `django_admin_log` VALUES ('101', '2010-04-01 10:50:57', '1', '13', '1', '运营参数', '2', '已修改 is_disabled 。');
+INSERT INTO `django_admin_log` VALUES ('102', '2010-04-01 10:51:09', '1', '13', '1', '运营参数', '2', '已修改 is_disabled 。');
+INSERT INTO `django_admin_log` VALUES ('103', '2010-04-01 10:52:29', '1', '13', '17', '是否运行帐变清理', '2', '已修改 channel 。');
+INSERT INTO `django_admin_log` VALUES ('104', '2010-04-01 15:45:02', '1', '39', '4', 'Documentation', '2', '已删除 Navigation Item \"Technical Documentation\".');
 
 -- ----------------------------
 -- Table structure for `django_content_type`
@@ -591,7 +623,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_label` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_content_type
@@ -632,6 +664,12 @@ INSERT INTO `django_content_type` VALUES ('34', 'account', 'accounts', 'account'
 INSERT INTO `django_content_type` VALUES ('36', 'issue error', 'lotteries', 'issueerror');
 INSERT INTO `django_content_type` VALUES ('37', 'registration profile', 'registration', 'registrationprofile');
 INSERT INTO `django_content_type` VALUES ('38', 'lock', 'lotteries', 'lock');
+INSERT INTO `django_content_type` VALUES ('39', 'Navigation', 'grappelli', 'navigation');
+INSERT INTO `django_content_type` VALUES ('40', 'Navigation Item', 'grappelli', 'navigationitem');
+INSERT INTO `django_content_type` VALUES ('41', 'Bookmark', 'grappelli', 'bookmark');
+INSERT INTO `django_content_type` VALUES ('42', 'Bookmark Item', 'grappelli', 'bookmarkitem');
+INSERT INTO `django_content_type` VALUES ('43', 'Help', 'grappelli', 'help');
+INSERT INTO `django_content_type` VALUES ('44', 'Help Entry', 'grappelli', 'helpitem');
 
 -- ----------------------------
 -- Table structure for `django_session`
@@ -647,8 +685,9 @@ CREATE TABLE `django_session` (
 -- ----------------------------
 -- Records of django_session
 -- ----------------------------
-INSERT INTO `django_session` VALUES ('28ee9853b0ceadab8dea314372035d6c', 'gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEBdS4zZDMyNGVhYWFkYTkwYWVhODNk\nZTI4NGY4MzIwNzgyZQ==\n', '2010-04-13 10:46:49');
+INSERT INTO `django_session` VALUES ('28ee9853b0ceadab8dea314372035d6c', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UHbWVzc2FnZXEEXXEFKFUHc3VjY2Vzc3EGWBwAAABTaXRl\nIHdhcyBhZGRlZCB0byBCb29rbWFya3MucQdlc1UNX2F1dGhfdXNlcl9pZHEIigEBVRJfYXV0aF91\nc2VyX2JhY2tlbmRxCVUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRx\nCnUuYWU4N2Q5NTRmMmFhNjNmNDk2Zjc2ODBmYjQxYTY1ZmM=\n', '2010-04-15 15:40:01');
 INSERT INTO `django_session` VALUES ('bf2b70d55d555d853feb43406050fb87', 'gAJ9cQEuODZmNTc2NTBjZDBmZDYxNGU1OGFmMTNjZTg4ZGUyYzE=\n', '2010-04-12 17:12:03');
+INSERT INTO `django_session` VALUES ('c71edff6ef6b77ccfd0ce8ab6ed8f1c0', 'gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEBdS4zZDMyNGVhYWFkYTkwYWVhODNk\nZTI4NGY4MzIwNzgyZQ==\n', '2010-04-15 17:27:27');
 
 -- ----------------------------
 -- Table structure for `django_site`
@@ -665,6 +704,162 @@ CREATE TABLE `django_site` (
 -- Records of django_site
 -- ----------------------------
 INSERT INTO `django_site` VALUES ('1', 'localhost', 'localhost');
+
+-- ----------------------------
+-- Table structure for `grappelli_bookmark`
+-- ----------------------------
+DROP TABLE IF EXISTS `grappelli_bookmark`;
+CREATE TABLE `grappelli_bookmark` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `grappelli_bookmark_user_id` (`user_id`),
+  CONSTRAINT `user_id_refs_id_35a9d129` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of grappelli_bookmark
+-- ----------------------------
+INSERT INTO `grappelli_bookmark` VALUES ('1', '1');
+
+-- ----------------------------
+-- Table structure for `grappelli_bookmarkitem`
+-- ----------------------------
+DROP TABLE IF EXISTS `grappelli_bookmarkitem`;
+CREATE TABLE `grappelli_bookmarkitem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `bookmark_id` int(11) NOT NULL,
+  `title` varchar(80) NOT NULL,
+  `link` varchar(200) NOT NULL,
+  `order` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `grappelli_bookmarkitem_bookmark_id` (`bookmark_id`),
+  CONSTRAINT `bookmark_id_refs_id_56415fac` FOREIGN KEY (`bookmark_id`) REFERENCES `grappelli_bookmark` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of grappelli_bookmarkitem
+-- ----------------------------
+INSERT INTO `grappelli_bookmarkitem` VALUES ('1', '1', '文件浏览器', '/admin/filebrowser/browse/', '0');
+
+-- ----------------------------
+-- Table structure for `grappelli_help`
+-- ----------------------------
+DROP TABLE IF EXISTS `grappelli_help`;
+CREATE TABLE `grappelli_help` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) NOT NULL,
+  `order` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of grappelli_help
+-- ----------------------------
+INSERT INTO `grappelli_help` VALUES ('1', 'Admin-Interface', '0');
+
+-- ----------------------------
+-- Table structure for `grappelli_helpitem`
+-- ----------------------------
+DROP TABLE IF EXISTS `grappelli_helpitem`;
+CREATE TABLE `grappelli_helpitem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `help_id` int(11) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `link` varchar(200) NOT NULL,
+  `body` longtext NOT NULL,
+  `order` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `grappelli_helpitem_help_id` (`help_id`),
+  CONSTRAINT `help_id_refs_id_4924e98e` FOREIGN KEY (`help_id`) REFERENCES `grappelli_help` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of grappelli_helpitem
+-- ----------------------------
+INSERT INTO `grappelli_helpitem` VALUES ('1', '1', 'Main Admin', '/admin/', '<p>This is just a test entry.</p>', '0');
+
+-- ----------------------------
+-- Table structure for `grappelli_navigation`
+-- ----------------------------
+DROP TABLE IF EXISTS `grappelli_navigation`;
+CREATE TABLE `grappelli_navigation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(30) NOT NULL,
+  `order` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of grappelli_navigation
+-- ----------------------------
+INSERT INTO `grappelli_navigation` VALUES ('1', 'Media Management', '0');
+INSERT INTO `grappelli_navigation` VALUES ('2', 'Contents', '1');
+INSERT INTO `grappelli_navigation` VALUES ('3', 'External', '2');
+INSERT INTO `grappelli_navigation` VALUES ('4', 'Documentation', '3');
+
+-- ----------------------------
+-- Table structure for `grappelli_navigationitem`
+-- ----------------------------
+DROP TABLE IF EXISTS `grappelli_navigationitem`;
+CREATE TABLE `grappelli_navigationitem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `navigation_id` int(11) NOT NULL,
+  `title` varchar(30) NOT NULL,
+  `link` varchar(200) NOT NULL,
+  `category` varchar(1) NOT NULL,
+  `order` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `grappelli_navigationitem_navigation_id` (`navigation_id`),
+  CONSTRAINT `navigation_id_refs_id_d37cf34` FOREIGN KEY (`navigation_id`) REFERENCES `grappelli_navigation` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of grappelli_navigationitem
+-- ----------------------------
+INSERT INTO `grappelli_navigationitem` VALUES ('1', '1', 'FileBrowser', '/admin/filebrowser/browse/', '1', '0');
+INSERT INTO `grappelli_navigationitem` VALUES ('2', '2', 'Main', '/admin/', '1', '0');
+INSERT INTO `grappelli_navigationitem` VALUES ('3', '2', 'Grappelli', '/admin/grappelli/', '1', '1');
+INSERT INTO `grappelli_navigationitem` VALUES ('4', '3', 'Grappelli GoogleCode', 'http://code.google.com/p/django-grappelli/', '2', '0');
+INSERT INTO `grappelli_navigationitem` VALUES ('5', '4', 'CMS Help', '/grappelli/help/', '1', '0');
+
+-- ----------------------------
+-- Table structure for `grappelli_navigationitem_groups`
+-- ----------------------------
+DROP TABLE IF EXISTS `grappelli_navigationitem_groups`;
+CREATE TABLE `grappelli_navigationitem_groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `navigationitem_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `navigationitem_id` (`navigationitem_id`,`group_id`),
+  KEY `group_id_refs_id_6daaacb1` (`group_id`),
+  CONSTRAINT `group_id_refs_id_6daaacb1` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
+  CONSTRAINT `navigationitem_id_refs_id_70d32bfd` FOREIGN KEY (`navigationitem_id`) REFERENCES `grappelli_navigationitem` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of grappelli_navigationitem_groups
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `grappelli_navigationitem_users`
+-- ----------------------------
+DROP TABLE IF EXISTS `grappelli_navigationitem_users`;
+CREATE TABLE `grappelli_navigationitem_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `navigationitem_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `navigationitem_id` (`navigationitem_id`,`user_id`),
+  KEY `user_id_refs_id_3c693949` (`user_id`),
+  CONSTRAINT `user_id_refs_id_3c693949` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `navigationitem_id_refs_id_422f604` FOREIGN KEY (`navigationitem_id`) REFERENCES `grappelli_navigationitem` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of grappelli_navigationitem_users
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `helps_help`
@@ -858,12 +1053,12 @@ CREATE TABLE `lotteries_lock` (
   KEY `lotteries_lock_title` (`title`),
   KEY `lotteries_lock_lottery_id` (`lottery_id`),
   CONSTRAINT `lottery_id_refs_id_606795c2` FOREIGN KEY (`lottery_id`) REFERENCES `lotteries_lottery` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lotteries_lock
 -- ----------------------------
-INSERT INTO `lotteries_lock` VALUES ('12', 'lock_cqssc_qszhixuan', '1', '100000.0000', 'ssc_qszhixuan');
+INSERT INTO `lotteries_lock` VALUES ('17', 'lock_cqssc_qszhixuan', '1', '100000.0000', 'ssc_qszhixuan');
 
 -- ----------------------------
 -- Table structure for `lotteries_lottery`
