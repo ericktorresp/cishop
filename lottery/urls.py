@@ -16,6 +16,7 @@ urlpatterns = patterns('',
 #    (r'^polls/(?P<poll_id>\d+)/vote/$', 'vote'),
     # Uncomment the next line to enable the admin:
     (r'^registration/', include('registration.backends.default.urls')),
+    (r'^tinymce/', include('tinymce.urls')),
     (r'^grappelli/', include('grappelli.urls')),
     (r'^polls/', include('mysite.polls.urls')),
     (r'^channels/', include('mysite.channels.urls')),
