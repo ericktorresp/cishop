@@ -44,17 +44,17 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = 'E:/AppServ/pys/mysite/assets/'
+MEDIA_ROOT = '/Users/darkmoon/pys/mysite/assets/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = 'http://myhoney.cn/assets/'
+MEDIA_URL = 'http://myhoney.cn:8000/assets/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = 'http://myhoney.cn/assets/admin/'
+ADMIN_MEDIA_PREFIX = 'http://myhoney.cn:8000/assets/admin/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'fzvjnx44s24aq%_kn&x(bys42l9^(0=^w7&5jgtpsjtpvj_ke='
@@ -69,12 +69,12 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.contrib.csrf.middleware.CsrfMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
-    'django.middleware.cache.UpdateCacheMiddleware',
+#    'django.middleware.cache.UpdateCacheMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware'
+#    'django.middleware.cache.FetchFromCacheMiddleware'
 )
 # 
 import re
@@ -92,9 +92,9 @@ TEMPLATE_DIRS = (
      'E:/AppServ/pys/mysite/templates'
 )
 # Memcache
-CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
-CACHE_MIDDLEWARE_SECONDS = 3
-CACHE_MIDDLEWARE_KEY_PREFIX = 'mysite_'
+#CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+#CACHE_MIDDLEWARE_SECONDS = 3
+#CACHE_MIDDLEWARE_KEY_PREFIX = 'mysite_'
 
 # Registration
 ACCOUNT_ACTIVATION_DAYS = 2
@@ -137,7 +137,7 @@ INSTALLED_APPS = (
     'records',
     'registration',
     'grappelli',
-#    'filebrowser',
+    'filebrowser',
     'tinymce',
     'django.contrib.admin'
 )
