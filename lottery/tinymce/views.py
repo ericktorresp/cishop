@@ -122,7 +122,8 @@ def render_to_js_vardef(var_name, var_value):
     return HttpResponse(output, content_type='application/x-javascript')
 
 def filebrowser(request):
-    fb_url = "%s://%s%s" % (request.is_secure() and 'https' or 'http',
-            request.get_host(), urlresolvers.reverse('filebrowser-index'))
+#    fb_url = "%s://%s%s" % (request.is_secure() and 'https' or 'http',
+#            request.get_host(), urlresolvers.reverse('filebrowser-index'))
+    fb_url = urlresolvers.reverse('filebrowser.views.browse')
     return render_to_response('tinymce/filebrowser.js', {'fb_url': fb_url},
             context_instance=RequestContext(request))

@@ -73,7 +73,7 @@ class TinyMCE(forms.Textarea):
             }
             compressor_json = simplejson.dumps(compressor_config)
             html.append(u'<script type="text/javascript">tinyMCE_GZ.init(%s)</script>' % compressor_json)
-        html.append(u'<script type="text/javascript">document.domain = "' + mce_config.get('static_domain', '') + '";tinyMCE.init(%s)</script>' % mce_json)
+        html.append(u'<script type="text/javascript">tinyMCE.init(%s)</script>' % mce_json)
 
         return mark_safe(u'\n'.join(html))
 

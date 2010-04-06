@@ -16,7 +16,7 @@ urlpatterns = patterns('',
 #    (r'^polls/(?P<poll_id>\d+)/vote/$', 'vote'),
     # Uncomment the next line to enable the admin:
     (r'^assets/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': '/Users/darkmoon/pys/mysite/assets'}),
+        {'document_root': 'e:/AppServ/pys/mysite/assets'}),
     (r'^registration/', include('registration.backends.default.urls')),
     (r'^tinymce/', include('tinymce.urls')),
     (r'^grappelli/', include('grappelli.urls')),

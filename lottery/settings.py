@@ -44,7 +44,7 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/Users/darkmoon/pys/mysite/assets/'
+MEDIA_ROOT = 'e:/AppServ/pys/mysite/assets/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -92,9 +92,9 @@ TEMPLATE_DIRS = (
      'E:/AppServ/pys/mysite/templates'
 )
 # Memcache
-#CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
-#CACHE_MIDDLEWARE_SECONDS = 3
-#CACHE_MIDDLEWARE_KEY_PREFIX = 'mysite_'
+CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+CACHE_MIDDLEWARE_SECONDS = 3
+CACHE_MIDDLEWARE_KEY_PREFIX = 'mysite_'
 
 # Registration
 ACCOUNT_ACTIVATION_DAYS = 2
@@ -118,10 +118,15 @@ FILEBROWSER_DIRECTORY = 'uploads/'
 TINYMCE_DEFAULT_CONFIG = {
                           'theme': "advanced",
                           'relative_urls':True,
-                          'theme_advanced_toolbar_align':'left',
+                          'plugins':"style,searchreplace,paste,visualchars,pagebreak,table,emotions,inlinepopups,media,advhr,advimage,advlink,fullscreen,layer,contextmenu,noneditable,nonbreaking,insertdatetime",
+                          'theme_advanced_buttons1':"newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+                          'theme_advanced_buttons2':"cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+                          'theme_advanced_buttons3':"tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,media,advhr,|,fullscreen",
+                          'theme_advanced_buttons4':"insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,blockquote,pagebreak,|,insertfile,insertimage",
                           'theme_advanced_toolbar_location':"top",
-                          'static_domain':'myhoney.cn',
-                          'plugins':'table,contextmenu,paste',
+                          'theme_advanced_toolbar_align':"left",
+                          'theme_advanced_statusbar_location':"bottom",
+                          'theme_advanced_resizing':True,
                           }
 INSTALLED_APPS = (
     'django.contrib.auth',
