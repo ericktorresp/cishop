@@ -69,12 +69,12 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.contrib.csrf.middleware.CsrfMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
-#    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-#    'django.middleware.cache.FetchFromCacheMiddleware'
+    'django.middleware.cache.FetchFromCacheMiddleware',
 )
 # 
 import re
@@ -144,6 +144,7 @@ INSTALLED_APPS = (
     'grappelli',
     'filebrowser',
     'tinymce',
+    'captcha',
     'django.contrib.admin'
 )
 TEMPLATE_CONTEXT_PROCESSORS = (
