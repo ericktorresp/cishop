@@ -221,7 +221,7 @@ option:last-child {
 
 input[type=checkbox], input[type=radio] {
     position: relative;
-    margin: 0 0 0 130px;
+    /*margin: 0 0 0 130px;*/
     vertical-align: top;
 }
 input[type=checkbox] {
