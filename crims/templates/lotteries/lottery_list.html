@@ -1,0 +1,1 @@
+{% if object_list %}    <ul>    {% for lottery in object_list %}        <li>{{ lottery.title }} - {{lottery.code}}</li>    {% endfor %}    </ul>{% else %}    <p>No lottery are available.</p>{% endif %}
