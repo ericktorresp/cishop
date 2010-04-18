@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.utils.translation import ugettext as _
 from django import forms
 from django.conf import settings
+from tinymce.widgets import TinyMCE
 
 from grappelli.models.navigation import Navigation, NavigationItem
 from grappelli.models.bookmarks import Bookmark, BookmarkItem
