@@ -41,7 +41,7 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/Users/darkmoon/pys/crims/assets/'
+MEDIA_ROOT = 'e:/AppServ/pys/crims/assets/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -77,12 +77,12 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'crims.urls'
 
 TEMPLATE_DIRS = (
-    '/Users/darkmoon/pys/crims/templates',
+    'e:/AppServ/pys/crims/templates',
 )
 # Memcache
-#CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
-#CACHE_MIDDLEWARE_SECONDS = 3
-#CACHE_MIDDLEWARE_KEY_PREFIX = 'mysite_'
+CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+CACHE_MIDDLEWARE_SECONDS = 3
+CACHE_MIDDLEWARE_KEY_PREFIX = 'crims_'
 
 # Registration
 ACCOUNT_ACTIVATION_DAYS = 2
@@ -96,12 +96,13 @@ LOGIN_REDIRECT_URL = '/'
 REGISTRATION_OPEN = True
 FILEBROWSER_DIRECTORY = ''
 # FileBrowser
-FILEBROWSER_DEBUG = True 
+FILEBROWSER_DEBUG = False 
 FILEBROWSER_MEDIA_ROOT = MEDIA_ROOT 
 FILEBROWSER_MEDIA_URL = MEDIA_URL 
 FILEBROWSER_URL_FILEBROWSER_MEDIA = MEDIA_URL + 'filebrowser/' 
 FILEBROWSER_PATH_FILEBROWSER_MEDIA = MEDIA_ROOT + 'filebrowser/' 
 FILEBROWSER_DIRECTORY = 'uploads/'
+FILEBROWSER_SAVE_FULL_URL = False
 #TinyMCE
 TINYMCE_DEFAULT_CONFIG = {
                           'theme': "advanced",
@@ -126,5 +127,6 @@ INSTALLED_APPS = (
     'filebrowser',
     'tinymce',
     'captcha',
+    'system',
     'django.contrib.admin',
 )

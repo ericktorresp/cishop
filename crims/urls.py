@@ -11,6 +11,6 @@ urlpatterns = patterns('',
     (r'^grappelli/', include('grappelli.urls')),
     (r'^admin/filebrowser/', include('filebrowser.urls')),
     (r'^assets/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': '/Users/darkmoon/pys/crims/assets'}),
+        {'document_root': 'e:/AppServ/pys/crims/assets'}),
      (r'^admin/', include(admin.site.urls)),
 )
