@@ -16,3 +16,4 @@ class Character(models.Model):
     
     class Meta:
         app_label = 'system'
+        ordering = ['id']

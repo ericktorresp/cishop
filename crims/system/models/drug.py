@@ -16,6 +16,7 @@ class Drug(models.Model):
     
     class Meta:
         app_label = 'system'
+        ordering = ['id']
 
 class UserDrug(models.Model):
     user = models.ForeignKey(User)

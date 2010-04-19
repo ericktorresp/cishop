@@ -18,6 +18,7 @@ class Building(models.Model):
     
     class Meta:
         app_label = 'system'
+        ordering = ['id']
 
 class UserBuilding(models.Model):
     user = models.ForeignKey(User)

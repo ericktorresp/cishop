@@ -19,6 +19,7 @@ class Business(models.Model):
     
     class Meta:
         app_label = 'system'
+        ordering = ['id']
 
 class UserBusiness(models.Model):
     user = models.ForeignKey(User)
