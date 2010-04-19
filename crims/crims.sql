@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50142
 File Encoding         : 65001
 
-Date: 2010-04-19 15:47:10
+Date: 2010-04-19 17:55:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -59,7 +59,7 @@ CREATE TABLE `auth_message` (
   PRIMARY KEY (`id`),
   KEY `auth_message_user_id` (`user_id`),
   CONSTRAINT `user_id_refs_id_9af0b65a` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_message
@@ -78,7 +78,7 @@ CREATE TABLE `auth_permission` (
   UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
   KEY `auth_permission_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_728de91f` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -179,6 +179,12 @@ INSERT INTO `auth_permission` VALUES ('93', 'Can delete weapon', '31', 'delete_w
 INSERT INTO `auth_permission` VALUES ('94', 'Can add user weapon', '32', 'add_userweapon');
 INSERT INTO `auth_permission` VALUES ('95', 'Can change user weapon', '32', 'change_userweapon');
 INSERT INTO `auth_permission` VALUES ('96', 'Can delete user weapon', '32', 'delete_userweapon');
+INSERT INTO `auth_permission` VALUES ('97', 'Can add province', '33', 'add_province');
+INSERT INTO `auth_permission` VALUES ('98', 'Can change province', '33', 'change_province');
+INSERT INTO `auth_permission` VALUES ('99', 'Can delete province', '33', 'delete_province');
+INSERT INTO `auth_permission` VALUES ('100', 'Can add event', '34', 'add_event');
+INSERT INTO `auth_permission` VALUES ('101', 'Can change event', '34', 'change_event');
+INSERT INTO `auth_permission` VALUES ('102', 'Can delete event', '34', 'delete_event');
 
 -- ----------------------------
 -- Table structure for `auth_user`
@@ -203,7 +209,7 @@ CREATE TABLE `auth_user` (
 -- ----------------------------
 -- Records of auth_user
 -- ----------------------------
-INSERT INTO `auth_user` VALUES ('1', 'root', '', '', 'c-mtv@163.com', 'sha1$df48b$97ce6e8393b8ff135c3e794d6e847d6962ea6da8', '1', '1', '1', '2010-04-19 09:55:31', '2010-04-18 20:07:26');
+INSERT INTO `auth_user` VALUES ('1', 'root', '', '', 'c-mtv@163.com', 'sha1$df48b$97ce6e8393b8ff135c3e794d6e847d6962ea6da8', '1', '1', '1', '2010-04-19 15:59:06', '2010-04-18 20:07:26');
 
 -- ----------------------------
 -- Table structure for `auth_user_groups`
@@ -279,7 +285,7 @@ CREATE TABLE `django_admin_log` (
   KEY `django_admin_log_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_288599e6` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `user_id_refs_id_c8665aa` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_admin_log
@@ -295,6 +301,8 @@ INSERT INTO `django_admin_log` VALUES ('8', '2010-04-19 10:52:32', '1', '17', '2
 INSERT INTO `django_admin_log` VALUES ('9', '2010-04-19 10:57:07', '1', '17', '3', '2010-04-19 10:57:07.109000', '1', '');
 INSERT INTO `django_admin_log` VALUES ('10', '2010-04-19 10:57:24', '1', '17', '4', '2010-04-19 10:57:24.718000', '1', '');
 INSERT INTO `django_admin_log` VALUES ('11', '2010-04-19 10:57:36', '1', '17', '5', '2010-04-19 10:57:36.250000', '1', '');
+INSERT INTO `django_admin_log` VALUES ('12', '2010-04-19 16:13:30', '1', '33', '1', '帝都', '1', '');
+INSERT INTO `django_admin_log` VALUES ('13', '2010-04-19 16:13:54', '1', '33', '1', '帝都', '3', '');
 
 -- ----------------------------
 -- Table structure for `django_content_type`
@@ -307,7 +315,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_label` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_content_type
@@ -344,6 +352,8 @@ INSERT INTO `django_content_type` VALUES ('29', 'guard', 'system', 'guard');
 INSERT INTO `django_content_type` VALUES ('30', 'user guard', 'system', 'userguard');
 INSERT INTO `django_content_type` VALUES ('31', 'weapon', 'system', 'weapon');
 INSERT INTO `django_content_type` VALUES ('32', 'user weapon', 'system', 'userweapon');
+INSERT INTO `django_content_type` VALUES ('33', 'province', 'system', 'province');
+INSERT INTO `django_content_type` VALUES ('34', 'event', 'system', 'event');
 
 -- ----------------------------
 -- Table structure for `django_session`
@@ -363,9 +373,9 @@ INSERT INTO `django_session` VALUES ('23d64587c0070ce0dc9dae8aa27f6053', 'gAJ9cQ
 INSERT INTO `django_session` VALUES ('5286edf50ae8d76c4766ee5d9ed97aac', 'gAJ9cQEuODg5ZDEzMzAzNmNlMzJkNDIzZGQzMGM1ZWJhYmFlMGQ=\n', '2010-05-02 20:19:21');
 INSERT INTO `django_session` VALUES ('72428d3f08e0427f6a8850ba47a4f659', 'gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEBdS5jYTU4MjIzN2FhYzE0NGI0ZWMw\nMDIxNzMwY2ZhZTQ3Mw==\n', '2010-05-02 20:12:55');
 INSERT INTO `django_session` VALUES ('86cac61cc2a7f010c3d465c913cab99a', 'gAJ9cQFVCnRlc3Rjb29raWVxAlUGd29ya2VkcQNzLmJmMjBjODVkMTkwZTExMWEzMTkxMjFhNzIz\nZWI2NGJm\n', '2010-05-02 20:09:30');
+INSERT INTO `django_session` VALUES ('93809efc9d4685d520b0c9272d2f9931', 'gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEBdS5jYTU4MjIzN2FhYzE0NGI0ZWMw\nMDIxNzMwY2ZhZTQ3Mw==\n', '2010-05-03 15:59:06');
 INSERT INTO `django_session` VALUES ('9f005bf1fd11cc2e8ff354a75ee459b1', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UHbWVzc2FnZXEEXXEFKFUHc3VjY2Vzc3EGWBwAAABTaXRl\nIHdhcyBhZGRlZCB0byBCb29rbWFya3MucQdlc1UNX2F1dGhfdXNlcl9pZHEIigEBVRJfYXV0aF91\nc2VyX2JhY2tlbmRxCVUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRx\nCnUuMGI4YzhlNzg1MzY0NTc2ZjJlZDQyNTgzMzZkMmNlNmU=\n', '2010-05-02 20:39:45');
 INSERT INTO `django_session` VALUES ('d81e95756a970d5eba5f0681d1d55287', 'gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEBdS5jYTU4MjIzN2FhYzE0NGI0ZWMw\nMDIxNzMwY2ZhZTQ3Mw==\n', '2010-05-02 20:09:08');
-INSERT INTO `django_session` VALUES ('f517e253a8eb629ee198c74f2258d978', 'gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEBdS5jYTU4MjIzN2FhYzE0NGI0ZWMw\nMDIxNzMwY2ZhZTQ3Mw==\n', '2010-05-03 09:55:31');
 
 -- ----------------------------
 -- Table structure for `django_site`
@@ -678,6 +688,24 @@ CREATE TABLE `system_drug` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `system_event`
+-- ----------------------------
+DROP TABLE IF EXISTS `system_event`;
+CREATE TABLE `system_event` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `section` varchar(20) NOT NULL,
+  `photo` varchar(200) NOT NULL,
+  `change` decimal(4,4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of system_event
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `system_guard`
 -- ----------------------------
 DROP TABLE IF EXISTS `system_guard`;
@@ -717,6 +745,21 @@ CREATE TABLE `system_hooker` (
 
 -- ----------------------------
 -- Records of system_hooker
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `system_province`
+-- ----------------------------
+DROP TABLE IF EXISTS `system_province`;
+CREATE TABLE `system_province` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `icon` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of system_province
 -- ----------------------------
 
 -- ----------------------------

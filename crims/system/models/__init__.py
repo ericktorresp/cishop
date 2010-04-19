@@ -7,3 +7,5 @@ from system.models.hooker import Hooker, UserHooker
 from system.models.business import Business, UserBusiness
 from system.models.guard import Guard, UserGuard
 from system.models.weapon import Weapon, UserWeapon
+from system.models.province import Province
+from system.models.event import Event
