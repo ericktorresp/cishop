@@ -2,11 +2,11 @@ from django.db import models
 from filebrowser.fields import FileBrowseField
 
 SECTIONS = (
-           ('', ''),
-           ('robbery', 'Robbery'),
-           ('drug', 'Drug'),
-           ('dock', 'Dock'),
-           )
+   ('', ''),
+   ('robbery', 'Robbery'),
+   ('drug', 'Drug'),
+   ('dock', 'Dock'),
+)
 class Event(models.Model):
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=255)
