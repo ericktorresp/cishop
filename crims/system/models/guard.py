@@ -15,6 +15,7 @@ class Guard(models.Model):
     
     class Meta:
         app_label = 'system'
+        ordering = ['id', ]
 
 class UserGuard(models.Model):
     user = models.ForeignKey(User)

@@ -9,3 +9,6 @@ from system.models.guard import Guard, UserGuard
 from system.models.weapon import Weapon, UserWeapon
 from system.models.province import Province
 from system.models.event import Event
+from system.models.benefit import Benefit
+from system.models.hospital import Hospital
+from system.models.randomevent import *

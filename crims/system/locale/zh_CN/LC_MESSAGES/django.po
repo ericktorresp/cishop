@@ -1,0 +1,156 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-21 17:42+0800\n"
+"PO-Revision-Date: 2008-03-20 23:22+0800\n"
+"Last-Translator: hutuworm <hutuworm@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\models\armor.py:7 .\models\hospital.py:13 .\models\robbery.py:9
+msgid "title"
+msgstr "名称"
+
+#: .\models\armor.py:8
+msgid "tolerance"
+msgstr "耐力"
+
+#: .\models\armor.py:9 .\models\hospital.py:15
+msgid "price"
+msgstr "价格"
+
+#: .\models\armor.py:10
+msgid "photo"
+msgstr "图片"
+
+#: .\models\armor.py:11 .\models\armor.py:27
+msgid "created"
+msgstr "创建于"
+
+#: .\models\armor.py:18
+msgid "Armor"
+msgstr "盔甲"
+
+#: .\models\armor.py:19
+msgid "Armors"
+msgstr "盔甲"
+
+#: .\models\armor.py:26
+msgid "actived"
+msgstr "启用"
+
+#: .\models\benefit.py:5
+msgid "Condom"
+msgstr "避孕套"
+
+#: .\models\benefit.py:6
+msgid "Hooker"
+msgstr "妓女"
+
+#: .\models\benefit.py:7
+msgid "Weapon"
+msgstr "武器"
+
+#: .\models\benefit.py:8 .\models\event.py:10
+msgid "Building"
+msgstr "物业"
+
+#: .\models\event.py:7
+msgid "Robbery"
+msgstr "抢劫"
+
+#: .\models\event.py:8
+msgid "Drug"
+msgstr "毒品"
+
+#: .\models\event.py:9
+msgid "Dock"
+msgstr "码头"
+
+#: .\models\event.py:11
+msgid "Business"
+msgstr "生意"
+
+#: .\models\hospital.py:5
+msgid "Intelligence"
+msgstr "智力"
+
+#: .\models\hospital.py:6
+msgid "Charisma"
+msgstr "防御"
+
+#: .\models\hospital.py:7
+msgid "Tolerance"
+msgstr "防御"
+
+#: .\models\hospital.py:8
+msgid "Strength"
+msgstr "力量"
+
+#: .\models\hospital.py:9
+msgid "Addiction"
+msgstr "戒毒"
+
+#: .\models\hospital.py:14
+msgid "type"
+msgstr "类型"
+
+#: .\models\hospital.py:22
+msgid "Hospital"
+msgstr "医院"
+
+#: .\models\hospital.py:23
+msgid "Hospitals"
+msgstr "医院"
+
+#: .\models\robbery.py:5
+msgid "Single"
+msgstr "单人"
+
+#: .\models\robbery.py:6
+msgid "Gang"
+msgstr "帮派"
+
+#: .\models\robbery.py:10
+msgid "stamina"
+msgstr "耐力"
+
+#: .\models\robbery.py:11
+msgid "difficulty"
+msgstr "难度"
+
+#: .\models\robbery.py:12
+msgid "Min intelligence"
+msgstr "智力(低)"
+
+#: .\models\robbery.py:13
+msgid "Max intelligence"
+msgstr "智力(高)"
+
+#: .\models\weapon.py:7
+msgid "Melee"
+msgstr "肉搏"
+
+#: .\models\weapon.py:8
+msgid "Rifle"
+msgstr "长枪"
+
+#: .\models\weapon.py:9
+msgid "Handgun"
+msgstr "短枪"
+
+#: .\models\weapon.py:10
+msgid "Heavy"
+msgstr "重武器"
+
+#: .\models\weapon.py:27
+msgid "Damage"
+msgstr ""

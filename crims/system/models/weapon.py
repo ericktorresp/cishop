@@ -1,7 +1,14 @@
 from django.db import models
 from filebrowser.fields import FileBrowseField
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext_lazy, ugettext as _
 
+WEAPON_CATS = (
+    ('melee', _('Melee')),
+    ('rifle', _('Rifle')),
+    ('handgun', _('Handgun')),
+    ('heavy', _('Heavy')),
+)
 class Weapon(models.Model):
     title = models.CharField(max_length=100)
     photo = FileBrowseField(u'Photo', max_length=200, directory="weapon/", format="Image", extensions=['.jpg', '.gif', '.png'])
@@ -10,16 +17,21 @@ class Weapon(models.Model):
     damage_max = models.SmallIntegerField()
     skill = models.SmallIntegerField()
     proficiency = models.SmallIntegerField()
-    type = models.CharField(max_length=20, choices=(('Melee', 'Melee'), ('Rifle', 'Rifle'), ('Handgun', 'Handgun'), ('Heavy', 'Heavy')))
+    type = models.CharField(max_length=20, choices=WEAPON_CATS)
     durability = models.SmallIntegerField()
     created = models.DateTimeField('Created', editable=False, auto_now_add=True)
     user_weapon = models.ManyToManyField(User, through='UserWeapon')
+
+    def damages(self):
+        return "%s - %s" % (self.damage_min, self.damage_max)
+    damages.short_description = _('Damage')
     
     def __unicode__(self):
         return self.title
     
     class Meta:
         app_label = 'system'
+        ordering = ['id', ]
 
 class UserWeapon(models.Model):
     user = models.ForeignKey(User)

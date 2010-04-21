@@ -21,6 +21,7 @@ class Hooker(models.Model):
     
     class Meta:
         app_label = 'system'
+        ordering = ['id', ]
 
 class UserHooker(models.Model):
     user = models.ForeignKey(User)
