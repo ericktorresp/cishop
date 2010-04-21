@@ -1,12 +1,15 @@
 from django.db import models
 from filebrowser.fields import FileBrowseField
+from django.utils.translation import ugettext_lazy as _
 
 class Avatar(models.Model):
-    filename = FileBrowseField(u'Image', max_length=200, directory="avatar/", format="Image", extensions=['.jpg', '.gif', '.png'])
-    created = models.DateTimeField('Created at', editable=False, auto_now_add=True)
+    filename = FileBrowseField(_('photo'), max_length=200, directory="avatar/", format="Image", extensions=['.jpg', '.gif', '.png'])
+    created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
     
     def __unicode__(self):
         return str(self.filename)
     
     class Meta:
+        verbose_name = _('Avatar')
+        verbose_name_plural = _('Avatars')
         app_label = 'system'

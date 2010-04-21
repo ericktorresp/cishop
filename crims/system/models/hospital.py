@@ -13,7 +13,7 @@ class Hospital(models.Model):
     title = models.CharField(_('title'), max_length=100)
     type = models.CharField(_('type'), max_length=20, choices=ATTRIBUTES)
     price = models.SmallIntegerField(_('price'))
-    created = models.DateTimeField(editable=False, auto_now_add=True)
+    created = models.DateTimeField(_('created'),editable=False, auto_now_add=True)
     
     def __unicode__(self):
         return self.title

@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.translation import ugettext_lazy, ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 TYPES = (
    ('condom', _('Condom')),
@@ -8,15 +8,17 @@ TYPES = (
    ('building', _('Building')),
 )
 class Benefit(models.Model):
-    title = models.CharField(max_length=100)
-    description = models.TextField()
-    type = models.CharField(max_length=100, choices=TYPES)
-    credits = models.SmallIntegerField()
-    created = models.DateTimeField(editable=False, auto_now_add=True)
+    title = models.CharField(_('title'),max_length=100)
+    description = models.TextField(_('description'))
+    type = models.CharField(_('type'),max_length=100, choices=TYPES)
+    credits = models.SmallIntegerField(_('credits'))
+    created = models.DateTimeField(_('created'),editable=False, auto_now_add=True)
     
     def __unicode__(self):
         return self.title
     
     class Meta:
+        verbose_name = _('Benefit')
+        verbose_name_plural = _('Benefits')
         app_label = 'system'
         ordering = ['id', ]

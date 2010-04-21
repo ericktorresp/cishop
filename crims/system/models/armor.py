@@ -30,5 +30,7 @@ class UserArmor(models.Model):
         return self.user.username + '\'s' + self.armor.title
     
     class Meta:
+        verbose_name = _('User\'s Armor')
+        verbose_name_plural = _('User\'s Armors')
         db_table = 'user_armor'
         app_label = 'system'
