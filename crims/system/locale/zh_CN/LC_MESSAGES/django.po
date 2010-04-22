@@ -8,44 +8,78 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-22 09:41+0800\n"
-"PO-Revision-Date: 2010-04-21 18:37+0830\n"
+"PO-Revision-Date: 2010-04-22 11:19+0830\n"
 "Last-Translator: darkmoon <darkmoon@hxxps.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\models\armor.py:7 .\models\benefit.py:11 .\models\building.py:8
-#: .\models\building.py:29 .\models\business.py:8 .\models\business.py:30
-#: .\models\character.py:6 .\models\drug.py:6 .\models\event.py:14
-#: .\models\guard.py:7 .\models\hooker.py:7 .\models\hospital.py:13
-#: .\models\province.py:5 .\models\randomevent.py:6 .\models\randomevent.py:20
-#: .\models\robbery.py:9 .\models\weapon.py:13
+#: .\models\armor.py:7
+#: .\models\benefit.py:11
+#: .\models\building.py:8
+#: .\models\building.py:29
+#: .\models\business.py:8
+#: .\models\business.py:30
+#: .\models\character.py:6
+#: .\models\drug.py:6
+#: .\models\event.py:14
+#: .\models\guard.py:7
+#: .\models\hooker.py:7
+#: .\models\hospital.py:13
+#: .\models\province.py:5
+#: .\models\randomevent.py:6
+#: .\models\randomevent.py:20
+#: .\models\robbery.py:9
+#: .\models\weapon.py:13
 msgid "title"
 msgstr "名称"
 
-#: .\models\armor.py:8 .\models\character.py:12
+#: .\models\armor.py:8
+#: .\models\character.py:12
 msgid "tolerance"
 msgstr "耐力"
 
-#: .\models\armor.py:9 .\models\building.py:11 .\models\business.py:11
-#: .\models\drug.py:7 .\models\guard.py:10 .\models\hooker.py:9
-#: .\models\hospital.py:15 .\models\weapon.py:15
+#: .\models\armor.py:9
+#: .\models\building.py:11
+#: .\models\business.py:11
+#: .\models\drug.py:7
+#: .\models\guard.py:10
+#: .\models\hooker.py:9
+#: .\models\hospital.py:15
+#: .\models\weapon.py:15
 msgid "price"
 msgstr "价格"
 
-#: .\models\armor.py:10 .\models\avatar.py:6 .\models\building.py:12
-#: .\models\business.py:9 .\models\character.py:8 .\models\event.py:17
-#: .\models\guard.py:9 .\models\hooker.py:8 .\models\randomevent.py:7
-#: .\models\randomevent.py:35 .\models\weapon.py:14
+#: .\models\armor.py:10
+#: .\models\avatar.py:6
+#: .\models\building.py:12
+#: .\models\business.py:9
+#: .\models\character.py:8
+#: .\models\event.py:17
+#: .\models\guard.py:9
+#: .\models\hooker.py:8
+#: .\models\randomevent.py:7
+#: .\models\randomevent.py:35
+#: .\models\weapon.py:14
 msgid "photo"
 msgstr "图片"
 
-#: .\models\armor.py:11 .\models\armor.py:27 .\models\avatar.py:7
-#: .\models\benefit.py:15 .\models\building.py:14 .\models\building.py:30
-#: .\models\business.py:15 .\models\business.py:34 .\models\character.py:13
-#: .\models\drug.py:11 .\models\guard.py:11 .\models\guard.py:26
-#: .\models\hooker.py:16 .\models\hospital.py:16 .\models\weapon.py:22
+#: .\models\armor.py:11
+#: .\models\armor.py:27
+#: .\models\avatar.py:7
+#: .\models\benefit.py:15
+#: .\models\building.py:14
+#: .\models\building.py:30
+#: .\models\business.py:15
+#: .\models\business.py:34
+#: .\models\character.py:13
+#: .\models\drug.py:11
+#: .\models\guard.py:11
+#: .\models\guard.py:26
+#: .\models\hooker.py:16
+#: .\models\hospital.py:16
+#: .\models\weapon.py:22
 #: .\models\weapon.py:43
 msgid "created"
 msgstr "创建于"
@@ -58,18 +92,10 @@ msgstr "盔甲"
 msgid "Armors"
 msgstr "盔甲"
 
-#: .\models\armor.py:26 .\models\weapon.py:41
+#: .\models\armor.py:26
+#: .\models\weapon.py:41
 msgid "actived"
 msgstr "启用"
-
-#: .\models\armor.py:33
-msgid "User's Armor"
-msgstr "用户盔甲"
-
-#: .\models\armor.py:34
-#, fuzzy
-msgid "User's Armors"
-msgstr "用户盔甲"
 
 #: .\models\avatar.py:13
 msgid "Avatar"
@@ -83,24 +109,32 @@ msgstr "头像"
 msgid "Condom"
 msgstr "避孕套"
 
-#: .\models\benefit.py:6 .\models\hooker.py:24
+#: .\models\benefit.py:6
+#: .\models\hooker.py:24
 msgid "Hooker"
 msgstr "妓女"
 
-#: .\models\benefit.py:7 .\models\weapon.py:35
+#: .\models\benefit.py:7
+#: .\models\weapon.py:35
 msgid "Weapon"
 msgstr "武器"
 
-#: .\models\benefit.py:8 .\models\building.py:21 .\models\event.py:10
+#: .\models\benefit.py:8
+#: .\models\building.py:21
+#: .\models\event.py:10
 msgid "Building"
 msgstr "物业"
 
-#: .\models\benefit.py:12 .\models\business.py:31 .\models\event.py:15
+#: .\models\benefit.py:12
+#: .\models\business.py:31
+#: .\models\event.py:15
 #, fuzzy
 msgid "description"
 msgstr "描述"
 
-#: .\models\benefit.py:13 .\models\business.py:13 .\models\hospital.py:14
+#: .\models\benefit.py:13
+#: .\models\business.py:13
+#: .\models\hospital.py:14
 #: .\models\weapon.py:20
 msgid "type"
 msgstr "类型"
@@ -121,7 +155,9 @@ msgstr "大礼包"
 msgid "output"
 msgstr "产出"
 
-#: .\models\building.py:10 .\models\business.py:12 .\models\hooker.py:10
+#: .\models\building.py:10
+#: .\models\business.py:12
+#: .\models\hooker.py:10
 #: .\models\hooker.py:33
 msgid "expend"
 msgstr "每日支出"
@@ -131,12 +167,15 @@ msgstr "每日支出"
 msgid "Buildings"
 msgstr "物业"
 
-#: .\models\building.py:31 .\models\business.py:35 .\models\drug.py:12
+#: .\models\building.py:31
+#: .\models\business.py:35
+#: .\models\drug.py:12
 #: .\models\weapon.py:44
 msgid "modified"
 msgstr "更新于"
 
-#: .\models\building.py:32 .\models\drug.py:27
+#: .\models\building.py:32
+#: .\models\drug.py:27
 msgid "units"
 msgstr "数量"
 
@@ -170,7 +209,8 @@ msgstr "妓院"
 msgid "limit"
 msgstr "容纳限制"
 
-#: .\models\business.py:22 .\models\event.py:11
+#: .\models\business.py:22
+#: .\models\event.py:11
 msgid "Business"
 msgstr "生意"
 
@@ -187,7 +227,8 @@ msgstr "声望限制"
 msgid "entrance_fee"
 msgstr "门票价格"
 
-#: .\models\business.py:36 .\models\hooker.py:34
+#: .\models\business.py:36
+#: .\models\hooker.py:34
 msgid "income"
 msgstr "收入"
 
@@ -214,7 +255,8 @@ msgstr "头像"
 msgid "intelligence"
 msgstr "智力"
 
-#: .\models\character.py:10 .\models\guard.py:8
+#: .\models\character.py:10
+#: .\models\guard.py:8
 #, fuzzy
 msgid "strength"
 msgstr "力量"
@@ -237,15 +279,19 @@ msgstr "角色"
 msgid "stock"
 msgstr "库存"
 
-#: .\models\drug.py:9 .\models\hooker.py:14 .\models\robbery.py:10
+#: .\models\drug.py:9
+#: .\models\hooker.py:14
+#: .\models\robbery.py:10
 msgid "stamina"
 msgstr "耐力"
 
-#: .\models\drug.py:10 .\models\hooker.py:15
+#: .\models\drug.py:10
+#: .\models\hooker.py:15
 msgid "spirit"
-msgstr ""
+msgstr "精力"
 
-#: .\models\drug.py:19 .\models\event.py:8
+#: .\models\drug.py:19
+#: .\models\event.py:8
 msgid "Drug"
 msgstr "毒品"
 
@@ -304,7 +350,8 @@ msgstr "用户保镖"
 msgid "User's Guards"
 msgstr "用户保镖"
 
-#: .\models\hooker.py:11 .\models\hooker.py:32
+#: .\models\hooker.py:11
+#: .\models\hooker.py:32
 #, fuzzy
 msgid "visit price"
 msgstr "嫖资"
@@ -329,7 +376,7 @@ msgstr "妓女"
 
 #: .\models\hooker.py:35
 msgid "freetime"
-msgstr ""
+msgstr "下次接客时间"
 
 #: .\models\hooker.py:41
 #, fuzzy
@@ -448,12 +495,10 @@ msgid "Heavy"
 msgstr "重武器"
 
 #: .\models\weapon.py:16
-#, fuzzy
 msgid "damage min"
 msgstr "伤害(低)"
 
 #: .\models\weapon.py:17
-#, fuzzy
 msgid "damage max"
 msgstr "伤害(高)"
 
@@ -492,3 +537,4 @@ msgstr "用户武器"
 #, fuzzy
 msgid "User's Weapons"
 msgstr "用户武器"
+
