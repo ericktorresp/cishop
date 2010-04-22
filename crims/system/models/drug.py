@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 class Drug(models.Model):
-    title = models.CharField(_('title'),max_length=100)
+    title = models.CharField(_('title'), max_length=100)
     price = models.IntegerField(_('price'))
-    stock = models.IntegerField(_('stock'))
+    stock = models.IntegerField(_('Stock'))
     stamina = models.SmallIntegerField(_('stamina'))
     spirit = models.SmallIntegerField(_('spirit'))
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
@@ -16,8 +16,8 @@ class Drug(models.Model):
         return self.title
     
     class Meta:
-        verbose_name = _('Drug')
-        verbose_name_plural = _('Drugs')
+        verbose_name = _('drug')
+        verbose_name_plural = _('drugs')
         app_label = 'system'
         ordering = ['id']
 

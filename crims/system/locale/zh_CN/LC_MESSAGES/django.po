@@ -128,8 +128,7 @@ msgstr "物业"
 #: .\models\benefit.py:12
 #: .\models\business.py:31
 #: .\models\event.py:15
-#, fuzzy
-msgid "description"
+msgid "Description"
 msgstr "描述"
 
 #: .\models\benefit.py:13
@@ -163,7 +162,6 @@ msgid "expend"
 msgstr "每日支出"
 
 #: .\models\building.py:22
-#, fuzzy
 msgid "Buildings"
 msgstr "物业"
 
@@ -184,12 +182,10 @@ msgid "outputs"
 msgstr "产出"
 
 #: .\models\building.py:39
-#, fuzzy
 msgid "User's Building"
 msgstr "用户物业"
 
 #: .\models\building.py:40
-#, fuzzy
 msgid "User's Buildings"
 msgstr "用户物业"
 
@@ -214,11 +210,6 @@ msgstr "容纳限制"
 msgid "Business"
 msgstr "生意"
 
-#: .\models\business.py:23
-#, fuzzy
-msgid "Businesses"
-msgstr "生意"
-
 #: .\models\business.py:32
 msgid "max_respect"
 msgstr "声望限制"
@@ -237,13 +228,7 @@ msgid "closed"
 msgstr "已关闭"
 
 #: .\models\business.py:43
-#, fuzzy
 msgid "User's Business"
-msgstr "用户生意"
-
-#: .\models\business.py:44
-#, fuzzy
-msgid "User's Businesses"
 msgstr "用户生意"
 
 #: .\models\character.py:7
@@ -251,19 +236,16 @@ msgid "avatar"
 msgstr "头像"
 
 #: .\models\character.py:9
-#, fuzzy
-msgid "intelligence"
+msgid "Intelligence"
 msgstr "智力"
 
 #: .\models\character.py:10
 #: .\models\guard.py:8
-#, fuzzy
-msgid "strength"
+msgid "Strength"
 msgstr "力量"
 
 #: .\models\character.py:11
-#, fuzzy
-msgid "charisma"
+msgid "Charisma"
 msgstr "魅力"
 
 #: .\models\character.py:19
@@ -275,8 +257,7 @@ msgid "Characters"
 msgstr "角色"
 
 #: .\models\drug.py:8
-#, fuzzy
-msgid "stock"
+msgid "Stock"
 msgstr "库存"
 
 #: .\models\drug.py:9
@@ -292,12 +273,11 @@ msgstr "精力"
 
 #: .\models\drug.py:19
 #: .\models\event.py:8
-msgid "Drug"
+msgid "drug"
 msgstr "毒品"
 
 #: .\models\drug.py:20
-#, fuzzy
-msgid "Drugs"
+msgid "drugs"
 msgstr "毒品"
 
 #: .\models\drug.py:33
@@ -317,13 +297,11 @@ msgid "Dock"
 msgstr "码头"
 
 #: .\models\event.py:16
-#, fuzzy
-msgid "section"
+msgid "Section"
 msgstr "作用域"
 
 #: .\models\event.py:18
-#, fuzzy
-msgid "change"
+msgid "Change"
 msgstr "变化"
 
 #: .\models\event.py:25
@@ -352,8 +330,7 @@ msgstr "用户保镖"
 
 #: .\models\hooker.py:11
 #: .\models\hooker.py:32
-#, fuzzy
-msgid "visit price"
+msgid "visit_price"
 msgstr "嫖资"
 
 #: .\models\hooker.py:12
@@ -361,16 +338,14 @@ msgid "sick probability"
 msgstr "得病几率"
 
 #: .\models\hooker.py:13
-#, fuzzy
-msgid "random"
-msgstr "随机"
+msgid "system"
+msgstr "系统"
 
 #: .\models\hooker.py:17
 msgid "updated"
 msgstr "更新于"
 
 #: .\models\hooker.py:25
-#, fuzzy
 msgid "Hookers"
 msgstr "妓女"
 
@@ -379,30 +354,16 @@ msgid "freetime"
 msgstr "下次接客时间"
 
 #: .\models\hooker.py:41
-#, fuzzy
 msgid "User's Hooker"
 msgstr "用户妓女"
 
 #: .\models\hooker.py:42
-#, fuzzy
 msgid "User's Hookers"
 msgstr "用户妓女"
-
-#: .\models\hospital.py:5
-msgid "Intelligence"
-msgstr "智力"
-
-#: .\models\hospital.py:6
-msgid "Charisma"
-msgstr "魅力"
 
 #: .\models\hospital.py:7
 msgid "Tolerance"
 msgstr "耐力"
-
-#: .\models\hospital.py:8
-msgid "Strength"
-msgstr "力量"
 
 #: .\models\hospital.py:9
 msgid "Addiction"
@@ -417,12 +378,10 @@ msgid "Hospitals"
 msgstr "医院"
 
 #: .\models\province.py:6
-#, fuzzy
 msgid "icon"
 msgstr "图标"
 
 #: .\models\province.py:14
-#, fuzzy
 msgid "Province"
 msgstr "省份"
 
@@ -507,7 +466,6 @@ msgid "skill"
 msgstr "技能"
 
 #: .\models\weapon.py:19
-#, fuzzy
 msgid "proficiency"
 msgstr "精通"
 
@@ -520,7 +478,6 @@ msgid "Damage"
 msgstr "伤害"
 
 #: .\models\weapon.py:36
-#, fuzzy
 msgid "Weapons"
 msgstr "武器"
 
@@ -529,12 +486,10 @@ msgid "used"
 msgstr "已使用次数"
 
 #: .\models\weapon.py:52
-#, fuzzy
 msgid "User's Weapon"
 msgstr "用户武器"
 
 #: .\models\weapon.py:53
-#, fuzzy
 msgid "User's Weapons"
 msgstr "用户武器"
 

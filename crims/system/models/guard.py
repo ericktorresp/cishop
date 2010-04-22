@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 class Guard(models.Model):
-    title = models.CharField(_('title'),max_length=100)
-    strength = models.SmallIntegerField(_('strength'),)
+    title = models.CharField(_('title'), max_length=100)
+    strength = models.SmallIntegerField(_('Strength'),)
     photo = FileBrowseField(_('photo'), max_length=200, directory="guard/", format="Image", extensions=['.jpg', '.gif', '.png'])
     price = models.IntegerField(_('price'),)
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)

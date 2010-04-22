@@ -4,13 +4,13 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 class Hooker(models.Model):
-    title = models.CharField(_('title'),max_length=100)
+    title = models.CharField(_('title'), max_length=100)
     photo = FileBrowseField(_('photo'), max_length=200, directory="hooker/", format="Image", extensions=['.jpg', '.gif', '.png'])
     price = models.IntegerField(_('price'))
     expend = models.IntegerField(_('expend'))
-    visitprice = models.IntegerField(_('visit price'))
-    sickprobability = models.DecimalField(_('sick probability'),decimal_places=4, max_digits=4)
-    is_random = models.BooleanField(_('random'),default=False)
+    visitprice = models.IntegerField(_('visit_price'))
+    sickprobability = models.DecimalField(_('sick probability'), decimal_places=4, max_digits=4)
+    is_random = models.BooleanField(_('system'), default=False)
     stamina = models.IntegerField(_('stamina'))
     spirit = models.SmallIntegerField(_('spirit'))
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
@@ -32,7 +32,7 @@ class UserHooker(models.Model):
     visitprice = models.SmallIntegerField(_('visit price'))
     expend = models.SmallIntegerField(_('expend'))
     income = models.IntegerField(_('income'))
-    freetime = models.DateTimeField(_('freetime'),blank=True, null=True)
+    freetime = models.DateTimeField(_('freetime'), blank=True, null=True)
     
     def __unicode__(self):
         return self.user.username + '\'s ' + self.hooker.title
