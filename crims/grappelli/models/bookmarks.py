@@ -1,7 +1,7 @@
 # coding: utf-8
 
 from django.db import models, transaction
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from grappelli.fields import PositionField
 
@@ -16,7 +16,7 @@ class Bookmark(models.Model):
         app_label = "grappelli"
         verbose_name = _('Bookmark')
         verbose_name_plural = _('Bookmarks')
-        ordering = ['user',]
+        ordering = ['user', ]
     
     def __unicode__(self):
         return u"%s" % (self.user)

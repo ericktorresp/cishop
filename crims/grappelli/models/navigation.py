@@ -1,13 +1,13 @@
 # coding: utf-8
 
 from django.db import models, transaction
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from grappelli.fields import PositionField
 
 ITEM_CATEGORY_CHOICES = (
-    ('1', 'internal'),
-    ('2', 'external'),
+    ('1', _('internal')),
+    ('2', _('external')),
 )
 
 class Navigation(models.Model):
@@ -24,7 +24,7 @@ class Navigation(models.Model):
         app_label = "grappelli"
         verbose_name = _('Navigation')
         verbose_name_plural = _('Navigation')
-        ordering = ['order',]
+        ordering = ['order', ]
     
     def __unicode__(self):
         return u"%s" % (self.title)

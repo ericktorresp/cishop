@@ -32,6 +32,9 @@ msgstr ""
 #: .\models\randomevent.py:20
 #: .\models\robbery.py:9
 #: .\models\weapon.py:13
+msgid "System"
+msgstr "系统"
+
 msgid "title"
 msgstr "名称"
 
@@ -207,7 +210,7 @@ msgstr "容纳限制"
 
 #: .\models\business.py:22
 #: .\models\event.py:11
-msgid "Business"
+msgid "business"
 msgstr "生意"
 
 #: .\models\business.py:32
@@ -390,19 +393,19 @@ msgid "Provinces"
 msgstr "省份"
 
 #: .\models\randomevent.py:14
-msgid "Random Event"
+msgid "random event"
 msgstr "随机事件"
 
 #: .\models\randomevent.py:15
-msgid "Random Events"
+msgid "random events"
 msgstr "随机事件"
 
 #: .\models\randomevent.py:27
-msgid "Random Event Question"
+msgid "random event question"
 msgstr "随机事件提问"
 
 #: .\models\randomevent.py:28
-msgid "Random Event Questions"
+msgid "random event questions"
 msgstr "随机事件提问"
 
 #: .\models\randomevent.py:34
@@ -410,11 +413,11 @@ msgid "answer"
 msgstr "回答"
 
 #: .\models\randomevent.py:41
-msgid "Random Event Choice"
+msgid "random event choice"
 msgstr "随机事件选项"
 
 #: .\models\randomevent.py:42
-msgid "Random Event Choices"
+msgid "random event choices"
 msgstr "随机事件选项"
 
 #: .\models\robbery.py:5

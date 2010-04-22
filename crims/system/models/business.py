@@ -19,8 +19,8 @@ class Business(models.Model):
         return self.title
     
     class Meta:
-        verbose_name = _('Business')
-        verbose_name_plural = _('Business')
+        verbose_name = _('business')
+        verbose_name_plural = _('business')
         app_label = 'system'
         ordering = ['id']
 
