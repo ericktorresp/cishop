@@ -10,7 +10,7 @@ class Building(models.Model):
     expend = models.IntegerField(_('expend'))
     price = models.IntegerField(_('price'))
     photo = FileBrowseField(_('photo'), max_length=200, directory="building/", format="Image", extensions=['.jpg', '.gif', '.png'])
-    drug = models.ForeignKey(Drug)
+    drug = models.ForeignKey(Drug, verbose_name=_('drug'))
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
     user_building = models.ManyToManyField(User, through='UserBuilding')
     

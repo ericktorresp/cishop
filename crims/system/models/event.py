@@ -16,7 +16,7 @@ class Event(models.Model):
     section = models.CharField(_('Section'), max_length=20, choices=SECTIONS)
     photo = FileBrowseField(_('photo'), max_length=200, directory="event/", format="Image", extensions=['.jpg', '.gif', '.png'])
     change = models.DecimalField(_('Change'), decimal_places=4, max_digits=4)
-    drug = models.ForeignKey(Drug, blank=True, null=True)
+    drug = models.ForeignKey(Drug, verbose_name=_('drug'), blank=True, null=True)
     
     def __unicode__(self):
         return self.title
