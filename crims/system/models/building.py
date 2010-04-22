@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 class Building(models.Model):
-    title = models.CharField(_('title'),max_length=100)
+    title = models.CharField(_('title'), max_length=100)
     output = models.IntegerField(_('output'))
     expend = models.IntegerField(_('expend'))
     price = models.IntegerField(_('price'))
@@ -26,9 +26,9 @@ class Building(models.Model):
 class UserBuilding(models.Model):
     user = models.ForeignKey(User)
     building = models.ForeignKey(Building)
-    title = models.CharField(_('title'),max_length=200, blank=True, null=True)
-    created = models.DateTimeField(_('created'),editable=False, auto_now_add=True)
-    modified = models.DateTimeField(_('modified'),editable=False, auto_now=True)
+    title = models.CharField(_('title'), max_length=200, blank=True, null=True)
+    created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
+    modified = models.DateTimeField(_('modified'), editable=False, auto_now=True)
     units = models.IntegerField(_('units'))
     outputs = models.IntegerField(_('outputs'))
     
