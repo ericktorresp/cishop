@@ -9,7 +9,7 @@ class Robbery(models.Model):
     title = models.CharField(_('title'), max_length=100)
     stamina = models.SmallIntegerField(_('stamina'))
     difficulty = models.SmallIntegerField(_('difficulty'))
-    type = models.CharField(_('type'), max_length=10, choices=ROBBERY_TYPE)
+    type = models.CharField(_('type'), max_length=10, choices=ROBBERY_TYPE, default='single')
     intelligence_min = models.DecimalField(_('intelligence min'), decimal_places=4, max_digits=4)
     intelligence_max = models.DecimalField(_('intelligence max'), decimal_places=4, max_digits=4)
     strength_min = models.DecimalField(_('strength min'), decimal_places=4, max_digits=4)
@@ -35,4 +35,4 @@ class Robbery(models.Model):
         app_label = 'system'
         ordering = ['id']
         verbose_name = _('Robbery')
-        verbose_name_plural = _('Robbery')
+        verbose_name_plural = _('Robberies')

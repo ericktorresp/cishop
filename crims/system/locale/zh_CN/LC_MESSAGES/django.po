@@ -295,6 +295,10 @@ msgstr "用户毒品"
 msgid "Robbery"
 msgstr "抢劫"
 
+#: .\models\event.py:7
+msgid "Robberies"
+msgstr "抢劫"
+
 #: .\models\event.py:9
 msgid "Dock"
 msgstr "码头"

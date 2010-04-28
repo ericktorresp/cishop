@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50142
 File Encoding         : 65001
 
-Date: 2010-04-23 11:49:31
+Date: 2010-04-28 18:23:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -59,7 +59,7 @@ CREATE TABLE `auth_message` (
   PRIMARY KEY (`id`),
   KEY `auth_message_user_id` (`user_id`),
   CONSTRAINT `user_id_refs_id_9af0b65a` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_message
@@ -78,7 +78,7 @@ CREATE TABLE `auth_permission` (
   UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
   KEY `auth_permission_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_728de91f` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -200,6 +200,9 @@ INSERT INTO `auth_permission` VALUES ('114', 'Can delete random event question',
 INSERT INTO `auth_permission` VALUES ('115', 'Can add random event choice', '39', 'add_randomeventchoice');
 INSERT INTO `auth_permission` VALUES ('116', 'Can change random event choice', '39', 'change_randomeventchoice');
 INSERT INTO `auth_permission` VALUES ('117', 'Can delete random event choice', '39', 'delete_randomeventchoice');
+INSERT INTO `auth_permission` VALUES ('118', 'Can add Robberies', '40', 'add_robbery');
+INSERT INTO `auth_permission` VALUES ('119', 'Can change Robberies', '40', 'change_robbery');
+INSERT INTO `auth_permission` VALUES ('120', 'Can delete Robberies', '40', 'delete_robbery');
 
 -- ----------------------------
 -- Table structure for `auth_user`
@@ -576,7 +579,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_label` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_content_type
@@ -620,6 +623,7 @@ INSERT INTO `django_content_type` VALUES ('36', 'hospital', 'system', 'hospital'
 INSERT INTO `django_content_type` VALUES ('37', 'random event', 'system', 'randomevent');
 INSERT INTO `django_content_type` VALUES ('38', 'random event question', 'system', 'randomeventquestion');
 INSERT INTO `django_content_type` VALUES ('39', 'random event choice', 'system', 'randomeventchoice');
+INSERT INTO `django_content_type` VALUES ('40', 'Robberies', 'system', 'robbery');
 
 -- ----------------------------
 -- Table structure for `django_session`
@@ -639,7 +643,7 @@ INSERT INTO `django_session` VALUES ('23d64587c0070ce0dc9dae8aa27f6053', 'gAJ9cQ
 INSERT INTO `django_session` VALUES ('5286edf50ae8d76c4766ee5d9ed97aac', 'gAJ9cQEuODg5ZDEzMzAzNmNlMzJkNDIzZGQzMGM1ZWJhYmFlMGQ=\n', '2010-05-02 20:19:21');
 INSERT INTO `django_session` VALUES ('72428d3f08e0427f6a8850ba47a4f659', 'gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEBdS5jYTU4MjIzN2FhYzE0NGI0ZWMw\nMDIxNzMwY2ZhZTQ3Mw==\n', '2010-05-02 20:12:55');
 INSERT INTO `django_session` VALUES ('86cac61cc2a7f010c3d465c913cab99a', 'gAJ9cQFVCnRlc3Rjb29raWVxAlUGd29ya2VkcQNzLmJmMjBjODVkMTkwZTExMWEzMTkxMjFhNzIz\nZWI2NGJm\n', '2010-05-02 20:09:30');
-INSERT INTO `django_session` VALUES ('93809efc9d4685d520b0c9272d2f9931', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xAyhVBGhvbWVxBFgHAAAAL2FkbWluL3EFVQdtZXNzYWdlcQZd\ncQcoVQdzdWNjZXNzcQhYIQAAAOWcsOWdgOW3sue7j+S7juS5puetvuS4reenu+mZpOOAgnEJZXVV\nEl9hdXRoX3VzZXJfYmFja2VuZHEKVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVs\nQmFja2VuZHELVQ1fYXV0aF91c2VyX2lkcQyKAQF1LmRiMDM1OTI0NmIyZTIyZmRlZjhiZWI5ODlh\nNGJmMTAz\n', '2010-05-06 15:18:03');
+INSERT INTO `django_session` VALUES ('93809efc9d4685d520b0c9272d2f9931', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xAyhVBGhvbWVxBFgHAAAAL2FkbWluL3EFVQdtZXNzYWdlcQZd\ncQcoVQdzdWNjZXNzcQhYIQAAAOWcsOWdgOW3sue7j+S7juS5puetvuS4reenu+mZpOOAgnEJZXVV\nDV9hdXRoX3VzZXJfaWRxCooBAVUSX2F1dGhfdXNlcl9iYWNrZW5kcQtVKWRqYW5nby5jb250cmli\nLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kcQx1LmI0NzliMWFmODRiMjQ1NWQ0N2VjNDc4ZGFl\nOTI5ODRj\n', '2010-05-12 16:15:12');
 INSERT INTO `django_session` VALUES ('9f005bf1fd11cc2e8ff354a75ee459b1', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UHbWVzc2FnZXEEXXEFKFUHc3VjY2Vzc3EGWBwAAABTaXRl\nIHdhcyBhZGRlZCB0byBCb29rbWFya3MucQdlc1UNX2F1dGhfdXNlcl9pZHEIigEBVRJfYXV0aF91\nc2VyX2JhY2tlbmRxCVUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRx\nCnUuMGI4YzhlNzg1MzY0NTc2ZjJlZDQyNTgzMzZkMmNlNmU=\n', '2010-05-02 20:39:45');
 INSERT INTO `django_session` VALUES ('d81e95756a970d5eba5f0681d1d55287', 'gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEBdS5jYTU4MjIzN2FhYzE0NGI0ZWMw\nMDIxNzMwY2ZhZTQ3Mw==\n', '2010-05-02 20:09:08');
 
@@ -689,7 +693,7 @@ CREATE TABLE `grappelli_bookmarkitem` (
   PRIMARY KEY (`id`),
   KEY `grappelli_bookmarkitem_bookmark_id` (`bookmark_id`),
   CONSTRAINT `bookmark_id_refs_id_a9bea054` FOREIGN KEY (`bookmark_id`) REFERENCES `grappelli_bookmark` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of grappelli_bookmarkitem
@@ -1357,6 +1361,35 @@ INSERT INTO `system_randomeventquestion` VALUES ('3', '欧！我忘记相片里�
 INSERT INTO `system_randomeventquestion` VALUES ('4', '我阿姨那个老巫婆，正在环游世界。她突然寄给我张明信片，拜托告诉我这里是哪里好吗？', '2010-04-21 18:54:37');
 INSERT INTO `system_randomeventquestion` VALUES ('5', '我只会偷好车和炫丽的物体，但我有时会听到人们谈论运送自己与别人。我有点好奇，私下偷偷问你。这些人所谓的大众交通是长怎样？', '2010-04-21 18:54:46');
 INSERT INTO `system_randomeventquestion` VALUES ('6', '我只是一个喜欢玩闹嬉戏的小鬼头，但是以前念书不太用功。可以告诉我这是什么吗？', '2010-04-21 18:54:57');
+
+-- ----------------------------
+-- Table structure for `system_robbery`
+-- ----------------------------
+DROP TABLE IF EXISTS `system_robbery`;
+CREATE TABLE `system_robbery` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `stamina` smallint(6) NOT NULL,
+  `difficulty` smallint(6) NOT NULL,
+  `type` varchar(10) NOT NULL,
+  `intelligence_min` decimal(4,4) NOT NULL,
+  `intelligence_max` decimal(4,4) NOT NULL,
+  `strength_min` decimal(4,4) NOT NULL,
+  `strength_max` decimal(4,4) NOT NULL,
+  `charisma_min` decimal(4,4) NOT NULL,
+  `charisma_max` decimal(4,4) NOT NULL,
+  `tolerance_min` decimal(4,4) NOT NULL,
+  `tolerance_max` decimal(4,4) NOT NULL,
+  `cash_min` decimal(4,4) NOT NULL,
+  `cash_max` decimal(4,4) NOT NULL,
+  `members` smallint(6) DEFAULT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of system_robbery
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `system_weapon`
