@@ -12,3 +12,4 @@ from system.models.event import Event
 from system.models.benefit import Benefit
 from system.models.hospital import Hospital
 from system.models.randomevent import *
+from system.models.robbery import Robbery

@@ -39,7 +39,8 @@ class HospitalAdmin(admin.ModelAdmin):
 
 class RandomEventChoiceInline(admin.StackedInline):
     model = RandomEventChoice
-    extra = 5
+    classes = ('collapse-open',)
+    allow_add = False
 class RandomEventQuestionAdmin(admin.ModelAdmin):
     inlines = [RandomEventChoiceInline]
 
@@ -58,3 +59,4 @@ admin.site.register(Benefit, BenefitAdmin)
 admin.site.register(Hospital, HospitalAdmin)
 admin.site.register(RandomEvent)
 admin.site.register(RandomEventQuestion, RandomEventQuestionAdmin)
+admin.site.register(Robbery)

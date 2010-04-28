@@ -433,11 +433,11 @@ msgid "difficulty"
 msgstr "难度"
 
 #: .\models\robbery.py:12
-msgid "Min intelligence"
+msgid "intelligence min"
 msgstr "智力(低)"
 
 #: .\models\robbery.py:13
-msgid "Max intelligence"
+msgid "intelligence max"
 msgstr "智力(高)"
 
 #: .\models\weapon.py:7
