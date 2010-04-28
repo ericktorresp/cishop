@@ -44,6 +44,9 @@ class RandomEventChoiceInline(admin.StackedInline):
 class RandomEventQuestionAdmin(admin.ModelAdmin):
     inlines = [RandomEventChoiceInline]
 
+class RobberyAdmin(admin.ModelAdmin):
+    list_display = ('title','difficulty','type','created',)
+
 admin.site.register(Avatar)
 admin.site.register(Armor, ArmorAdmin)
 admin.site.register(Character, CharacterAdmin)
@@ -59,4 +62,4 @@ admin.site.register(Benefit, BenefitAdmin)
 admin.site.register(Hospital, HospitalAdmin)
 admin.site.register(RandomEvent)
 admin.site.register(RandomEventQuestion, RandomEventQuestionAdmin)
-admin.site.register(Robbery)
+admin.site.register(Robbery, RobberyAdmin)

@@ -10,26 +10,22 @@ class Robbery(models.Model):
     stamina = models.SmallIntegerField(_('stamina'))
     difficulty = models.SmallIntegerField(_('difficulty'))
     type = models.CharField(_('type'), max_length=10, choices=ROBBERY_TYPE, default='single')
-    intelligence_min = models.DecimalField(_('intelligence min'), decimal_places=4, max_digits=4)
-    intelligence_max = models.DecimalField(_('intelligence max'), decimal_places=4, max_digits=4)
-    strength_min = models.DecimalField(_('strength min'), decimal_places=4, max_digits=4)
-    strength_max = models.DecimalField(_('strength max'), decimal_places=4, max_digits=4)
-    charisma_min = models.DecimalField(_('charisma min'), decimal_places=4, max_digits=4)
-    charisma_max = models.DecimalField(_('charisma max'), decimal_places=4, max_digits=4)
-    tolerance_min = models.DecimalField(_('tolerance min'), decimal_places=4, max_digits=4)
-    tolerance_max = models.DecimalField(_('tolerance max'), decimal_places=4, max_digits=4)
-    cash_min = models.DecimalField(_('cash min'), decimal_places=4, max_digits=4)
-    cash_max = models.DecimalField(_('cash max'), decimal_places=4, max_digits=4)
+    intelligence_min = models.DecimalField(_('intelligence min'), decimal_places=4, max_digits=10)
+    intelligence_max = models.DecimalField(_('intelligence max'), decimal_places=4, max_digits=10)
+    strength_min = models.DecimalField(_('strength min'), decimal_places=4, max_digits=10)
+    strength_max = models.DecimalField(_('strength max'), decimal_places=4, max_digits=10)
+    charisma_min = models.DecimalField(_('charisma min'), decimal_places=4, max_digits=10)
+    charisma_max = models.DecimalField(_('charisma max'), decimal_places=4, max_digits=10)
+    tolerance_min = models.DecimalField(_('tolerance min'), decimal_places=4, max_digits=10)
+    tolerance_max = models.DecimalField(_('tolerance max'), decimal_places=4, max_digits=10)
+    cash_min = models.FloatField(_('cash min'))
+    cash_max = models.FloatField(_('cash max'))
     members = models.SmallIntegerField(blank=True, null=True, default=0)
-    created = models.DateTimeField(editable=False, auto_now_add=True)
+    created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
+    preperty_range = models.CommaSeparatedIntegerField(_('preperty range'), max_length=50)
     
     def __unicode__(self):
         return self.title
-    def range(self, field):
-        min_field = field + '_min'
-        max_field = field + '_max'
-        return "%s - %s" % (self.min_field, self.max_field)
-    #range.short_description = _(field)
         
     class Meta:
         app_label = 'system'
