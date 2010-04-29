@@ -184,6 +184,6 @@ class HelpItemOptions(admin.ModelAdmin):
 admin.site.register(Navigation, NavigationOptions)
 admin.site.register(Bookmark, BookmarkOptions)
 admin.site.register(Help, HelpOptions)
-admin.site.register(HelpItem, HelpItemOptions)
+#admin.site.register(HelpItem, HelpItemOptions)
 
 

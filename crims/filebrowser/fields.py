@@ -22,7 +22,7 @@ class FileBrowseWidget(Input):
     input_type = 'text'
     
     class Media:
-        js = (os.path.join(URL_FILEBROWSER_MEDIA, 'js/AddFileBrowser.js'), )
+        js = (os.path.join(URL_FILEBROWSER_MEDIA, 'js/AddFileBrowser.js'),)
     
     def __init__(self, attrs=None):
         self.directory = attrs.get('directory', '')

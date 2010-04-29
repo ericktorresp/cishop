@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from system.fields import SeparatedValuesField
 
 ROBBERY_TYPE = (
     ('single', _('Single')),
@@ -22,8 +23,9 @@ class Robbery(models.Model):
     cash_max = models.FloatField(_('cash max'))
     members = models.SmallIntegerField(blank=True, null=True, default=0)
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
-    preperty_range = models.CommaSeparatedIntegerField(_('preperty range'), max_length=50)
-    
+    attribute_range = SeparatedValuesField(_('attribute range'), token=',', max_length=50)
+    cash_range = SeparatedValuesField(_('cash range'), token=',', max_length=50)
+        
     def __unicode__(self):
         return self.title
         

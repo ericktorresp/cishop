@@ -1,5 +1,7 @@
 from system.models import *
+from system.fields import SeparatedValuesWidget
 from django.contrib import admin
+from django import forms
 
 class DrugAdmin(admin.ModelAdmin):
     list_display = ('title', 'price', 'stamina', 'spirit')
@@ -45,7 +47,7 @@ class RandomEventQuestionAdmin(admin.ModelAdmin):
     inlines = [RandomEventChoiceInline]
 
 class RobberyAdmin(admin.ModelAdmin):
-    list_display = ('title','difficulty','type','created',)
+    list_display = ('title', 'difficulty', 'type', 'attribute_range', 'cash_range', 'created',)
 
 admin.site.register(Avatar)
 admin.site.register(Armor, ArmorAdmin)
