@@ -128,5 +128,6 @@ INSTALLED_APPS = (
     'tinymce',
     'captcha',
     'system',
+    'messages',
     'django.contrib.admin',
 )

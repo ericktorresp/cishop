@@ -37,6 +37,7 @@ admin.site.groups = {
 #}
 urlpatterns = patterns('',
     (r'^captcha/', include('captcha.urls')),
+    (r'^messages/', include('messages.urls')),
     (r'^registration/', include('registration.backends.default.urls')),
     (r'^tinymce/', include('tinymce.urls')),
     (r'^grappelli/', include('grappelli.urls')),

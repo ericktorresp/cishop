@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50142
 File Encoding         : 65001
 
-Date: 2010-04-29 16:33:21
+Date: 2010-04-29 17:40:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -78,7 +78,7 @@ CREATE TABLE `auth_permission` (
   UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
   KEY `auth_permission_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_728de91f` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -203,6 +203,9 @@ INSERT INTO `auth_permission` VALUES ('117', 'Can delete random event choice', '
 INSERT INTO `auth_permission` VALUES ('118', 'Can add Robberies', '40', 'add_robbery');
 INSERT INTO `auth_permission` VALUES ('119', 'Can change Robberies', '40', 'change_robbery');
 INSERT INTO `auth_permission` VALUES ('120', 'Can delete Robberies', '40', 'delete_robbery');
+INSERT INTO `auth_permission` VALUES ('121', 'Can add Message', '41', 'add_message');
+INSERT INTO `auth_permission` VALUES ('122', 'Can change Message', '41', 'change_message');
+INSERT INTO `auth_permission` VALUES ('123', 'Can delete Message', '41', 'delete_message');
 
 -- ----------------------------
 -- Table structure for `auth_user`
@@ -685,7 +688,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_label` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_content_type
@@ -730,6 +733,7 @@ INSERT INTO `django_content_type` VALUES ('37', 'random event', 'system', 'rando
 INSERT INTO `django_content_type` VALUES ('38', 'random event question', 'system', 'randomeventquestion');
 INSERT INTO `django_content_type` VALUES ('39', 'random event choice', 'system', 'randomeventchoice');
 INSERT INTO `django_content_type` VALUES ('40', 'Robberies', 'system', 'robbery');
+INSERT INTO `django_content_type` VALUES ('41', 'Message', 'messages', 'message');
 
 -- ----------------------------
 -- Table structure for `django_session`
@@ -922,6 +926,35 @@ CREATE TABLE `grappelli_navigationitem_users` (
 
 -- ----------------------------
 -- Records of grappelli_navigationitem_users
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `messages_message`
+-- ----------------------------
+DROP TABLE IF EXISTS `messages_message`;
+CREATE TABLE `messages_message` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `subject` varchar(120) NOT NULL,
+  `body` longtext NOT NULL,
+  `sender_id` int(11) NOT NULL,
+  `recipient_id` int(11) DEFAULT NULL,
+  `parent_msg_id` int(11) DEFAULT NULL,
+  `sent_at` datetime DEFAULT NULL,
+  `read_at` datetime DEFAULT NULL,
+  `replied_at` datetime DEFAULT NULL,
+  `sender_deleted_at` datetime DEFAULT NULL,
+  `recipient_deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `messages_message_sender_id` (`sender_id`),
+  KEY `messages_message_recipient_id` (`recipient_id`),
+  KEY `messages_message_parent_msg_id` (`parent_msg_id`),
+  CONSTRAINT `parent_msg_id_refs_id_54f43543` FOREIGN KEY (`parent_msg_id`) REFERENCES `messages_message` (`id`),
+  CONSTRAINT `recipient_id_refs_id_3acf8bb8` FOREIGN KEY (`recipient_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `sender_id_refs_id_3acf8bb8` FOREIGN KEY (`sender_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of messages_message
 -- ----------------------------
 
 -- ----------------------------
