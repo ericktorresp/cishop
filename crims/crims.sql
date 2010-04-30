@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50142
 File Encoding         : 65001
 
-Date: 2010-04-29 17:40:19
+Date: 2010-04-30 17:55:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,7 +23,7 @@ CREATE TABLE `auth_group` (
   `name` varchar(80) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_group
@@ -42,7 +42,7 @@ CREATE TABLE `auth_group_permissions` (
   KEY `permission_id_refs_id_a7792de1` (`permission_id`),
   CONSTRAINT `group_id_refs_id_3cea63fe` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
   CONSTRAINT `permission_id_refs_id_a7792de1` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_group_permissions
@@ -59,7 +59,7 @@ CREATE TABLE `auth_message` (
   PRIMARY KEY (`id`),
   KEY `auth_message_user_id` (`user_id`),
   CONSTRAINT `user_id_refs_id_9af0b65a` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_message
@@ -78,7 +78,7 @@ CREATE TABLE `auth_permission` (
   UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
   KEY `auth_permission_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_728de91f` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -206,6 +206,18 @@ INSERT INTO `auth_permission` VALUES ('120', 'Can delete Robberies', '40', 'dele
 INSERT INTO `auth_permission` VALUES ('121', 'Can add Message', '41', 'add_message');
 INSERT INTO `auth_permission` VALUES ('122', 'Can change Message', '41', 'change_message');
 INSERT INTO `auth_permission` VALUES ('123', 'Can delete Message', '41', 'delete_message');
+INSERT INTO `auth_permission` VALUES ('124', 'Can add Gang', '42', 'add_gang');
+INSERT INTO `auth_permission` VALUES ('125', 'Can change Gang', '42', 'change_gang');
+INSERT INTO `auth_permission` VALUES ('126', 'Can delete Gang', '42', 'delete_gang');
+INSERT INTO `auth_permission` VALUES ('127', 'Can add gang member', '43', 'add_gangmember');
+INSERT INTO `auth_permission` VALUES ('128', 'Can change gang member', '43', 'change_gangmember');
+INSERT INTO `auth_permission` VALUES ('129', 'Can delete gang member', '43', 'delete_gangmember');
+INSERT INTO `auth_permission` VALUES ('130', 'Can add Gang invite', '44', 'add_ganginvite');
+INSERT INTO `auth_permission` VALUES ('131', 'Can change Gang invite', '44', 'change_ganginvite');
+INSERT INTO `auth_permission` VALUES ('132', 'Can delete Gang invite', '44', 'delete_ganginvite');
+INSERT INTO `auth_permission` VALUES ('133', 'Can add Gang news', '45', 'add_gangnews');
+INSERT INTO `auth_permission` VALUES ('134', 'Can change Gang news', '45', 'change_gangnews');
+INSERT INTO `auth_permission` VALUES ('135', 'Can delete Gang news', '45', 'delete_gangnews');
 
 -- ----------------------------
 -- Table structure for `auth_user`
@@ -225,12 +237,13 @@ CREATE TABLE `auth_user` (
   `date_joined` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_user
 -- ----------------------------
-INSERT INTO `auth_user` VALUES ('1', 'root', '', '', 'c-mtv@163.com', 'sha1$df48b$97ce6e8393b8ff135c3e794d6e847d6962ea6da8', '1', '1', '1', '2010-04-19 15:59:06', '2010-04-18 20:07:26');
+INSERT INTO `auth_user` VALUES ('1', 'root', '', '', 'c-mtv@163.com', 'sha1$df48b$97ce6e8393b8ff135c3e794d6e847d6962ea6da8', '1', '1', '1', '2010-04-30 11:47:03', '2010-04-18 20:07:26');
+INSERT INTO `auth_user` VALUES ('2', 'darkmoon', 'Floyd', 'Joe', 'darkmoon@hxxps.com', 'sha1$a7df8$bf2cdb56d37cbe5cf9df54f19fa1b4b72949f111', '1', '1', '0', '2010-04-30 11:45:48', '2010-04-30 11:43:01');
 
 -- ----------------------------
 -- Table structure for `auth_user_groups`
@@ -245,7 +258,7 @@ CREATE TABLE `auth_user_groups` (
   KEY `group_id_refs_id_f0ee9890` (`group_id`),
   CONSTRAINT `group_id_refs_id_f0ee9890` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
   CONSTRAINT `user_id_refs_id_831107f1` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_user_groups
@@ -264,11 +277,83 @@ CREATE TABLE `auth_user_user_permissions` (
   KEY `permission_id_refs_id_67e79cb` (`permission_id`),
   CONSTRAINT `permission_id_refs_id_67e79cb` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
   CONSTRAINT `user_id_refs_id_f2045483` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_user_user_permissions
 -- ----------------------------
+INSERT INTO `auth_user_user_permissions` VALUES ('1', '2', '49');
+INSERT INTO `auth_user_user_permissions` VALUES ('2', '2', '50');
+INSERT INTO `auth_user_user_permissions` VALUES ('3', '2', '51');
+INSERT INTO `auth_user_user_permissions` VALUES ('4', '2', '52');
+INSERT INTO `auth_user_user_permissions` VALUES ('5', '2', '53');
+INSERT INTO `auth_user_user_permissions` VALUES ('6', '2', '54');
+INSERT INTO `auth_user_user_permissions` VALUES ('7', '2', '55');
+INSERT INTO `auth_user_user_permissions` VALUES ('8', '2', '56');
+INSERT INTO `auth_user_user_permissions` VALUES ('9', '2', '57');
+INSERT INTO `auth_user_user_permissions` VALUES ('10', '2', '58');
+INSERT INTO `auth_user_user_permissions` VALUES ('11', '2', '59');
+INSERT INTO `auth_user_user_permissions` VALUES ('12', '2', '60');
+INSERT INTO `auth_user_user_permissions` VALUES ('13', '2', '61');
+INSERT INTO `auth_user_user_permissions` VALUES ('14', '2', '62');
+INSERT INTO `auth_user_user_permissions` VALUES ('15', '2', '63');
+INSERT INTO `auth_user_user_permissions` VALUES ('16', '2', '64');
+INSERT INTO `auth_user_user_permissions` VALUES ('17', '2', '65');
+INSERT INTO `auth_user_user_permissions` VALUES ('18', '2', '66');
+INSERT INTO `auth_user_user_permissions` VALUES ('19', '2', '67');
+INSERT INTO `auth_user_user_permissions` VALUES ('20', '2', '68');
+INSERT INTO `auth_user_user_permissions` VALUES ('21', '2', '69');
+INSERT INTO `auth_user_user_permissions` VALUES ('22', '2', '70');
+INSERT INTO `auth_user_user_permissions` VALUES ('23', '2', '71');
+INSERT INTO `auth_user_user_permissions` VALUES ('24', '2', '72');
+INSERT INTO `auth_user_user_permissions` VALUES ('25', '2', '73');
+INSERT INTO `auth_user_user_permissions` VALUES ('26', '2', '74');
+INSERT INTO `auth_user_user_permissions` VALUES ('27', '2', '75');
+INSERT INTO `auth_user_user_permissions` VALUES ('28', '2', '76');
+INSERT INTO `auth_user_user_permissions` VALUES ('29', '2', '77');
+INSERT INTO `auth_user_user_permissions` VALUES ('30', '2', '78');
+INSERT INTO `auth_user_user_permissions` VALUES ('31', '2', '79');
+INSERT INTO `auth_user_user_permissions` VALUES ('32', '2', '80');
+INSERT INTO `auth_user_user_permissions` VALUES ('33', '2', '81');
+INSERT INTO `auth_user_user_permissions` VALUES ('34', '2', '82');
+INSERT INTO `auth_user_user_permissions` VALUES ('35', '2', '83');
+INSERT INTO `auth_user_user_permissions` VALUES ('36', '2', '84');
+INSERT INTO `auth_user_user_permissions` VALUES ('37', '2', '85');
+INSERT INTO `auth_user_user_permissions` VALUES ('38', '2', '86');
+INSERT INTO `auth_user_user_permissions` VALUES ('39', '2', '87');
+INSERT INTO `auth_user_user_permissions` VALUES ('40', '2', '88');
+INSERT INTO `auth_user_user_permissions` VALUES ('41', '2', '89');
+INSERT INTO `auth_user_user_permissions` VALUES ('42', '2', '90');
+INSERT INTO `auth_user_user_permissions` VALUES ('43', '2', '91');
+INSERT INTO `auth_user_user_permissions` VALUES ('44', '2', '92');
+INSERT INTO `auth_user_user_permissions` VALUES ('45', '2', '93');
+INSERT INTO `auth_user_user_permissions` VALUES ('46', '2', '94');
+INSERT INTO `auth_user_user_permissions` VALUES ('47', '2', '95');
+INSERT INTO `auth_user_user_permissions` VALUES ('48', '2', '96');
+INSERT INTO `auth_user_user_permissions` VALUES ('49', '2', '97');
+INSERT INTO `auth_user_user_permissions` VALUES ('50', '2', '98');
+INSERT INTO `auth_user_user_permissions` VALUES ('51', '2', '99');
+INSERT INTO `auth_user_user_permissions` VALUES ('52', '2', '100');
+INSERT INTO `auth_user_user_permissions` VALUES ('53', '2', '101');
+INSERT INTO `auth_user_user_permissions` VALUES ('54', '2', '102');
+INSERT INTO `auth_user_user_permissions` VALUES ('55', '2', '103');
+INSERT INTO `auth_user_user_permissions` VALUES ('56', '2', '104');
+INSERT INTO `auth_user_user_permissions` VALUES ('57', '2', '105');
+INSERT INTO `auth_user_user_permissions` VALUES ('58', '2', '106');
+INSERT INTO `auth_user_user_permissions` VALUES ('59', '2', '107');
+INSERT INTO `auth_user_user_permissions` VALUES ('60', '2', '108');
+INSERT INTO `auth_user_user_permissions` VALUES ('61', '2', '109');
+INSERT INTO `auth_user_user_permissions` VALUES ('62', '2', '110');
+INSERT INTO `auth_user_user_permissions` VALUES ('63', '2', '111');
+INSERT INTO `auth_user_user_permissions` VALUES ('64', '2', '112');
+INSERT INTO `auth_user_user_permissions` VALUES ('65', '2', '113');
+INSERT INTO `auth_user_user_permissions` VALUES ('66', '2', '114');
+INSERT INTO `auth_user_user_permissions` VALUES ('67', '2', '115');
+INSERT INTO `auth_user_user_permissions` VALUES ('68', '2', '116');
+INSERT INTO `auth_user_user_permissions` VALUES ('69', '2', '117');
+INSERT INTO `auth_user_user_permissions` VALUES ('70', '2', '118');
+INSERT INTO `auth_user_user_permissions` VALUES ('71', '2', '119');
+INSERT INTO `auth_user_user_permissions` VALUES ('72', '2', '120');
 
 -- ----------------------------
 -- Table structure for `captcha_captchastore`
@@ -306,7 +391,7 @@ CREATE TABLE `django_admin_log` (
   KEY `django_admin_log_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_288599e6` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `user_id_refs_id_c8665aa` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=366 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=394 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_admin_log
@@ -676,6 +761,34 @@ INSERT INTO `django_admin_log` VALUES ('362', '2010-04-29 16:04:39', '1', '40', 
 INSERT INTO `django_admin_log` VALUES ('363', '2010-04-29 16:05:36', '1', '40', '1', '偷窃', '2', '没有字段被修改。');
 INSERT INTO `django_admin_log` VALUES ('364', '2010-04-29 16:06:41', '1', '40', '1', '偷窃', '2', '没有字段被修改。');
 INSERT INTO `django_admin_log` VALUES ('365', '2010-04-29 16:06:49', '1', '40', '1', '偷窃', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('366', '2010-04-30 11:42:16', '1', '2', '1', '系统管理员', '1', '');
+INSERT INTO `django_admin_log` VALUES ('367', '2010-04-30 11:43:01', '1', '3', '2', 'darkmoon', '1', '');
+INSERT INTO `django_admin_log` VALUES ('368', '2010-04-30 11:43:28', '1', '3', '2', 'darkmoon', '2', '已修改 first_name, last_name, email 和 groups 。');
+INSERT INTO `django_admin_log` VALUES ('369', '2010-04-30 11:45:04', '1', '2', '1', '系统管理员', '3', '');
+INSERT INTO `django_admin_log` VALUES ('370', '2010-04-30 11:45:38', '1', '3', '2', 'darkmoon', '2', '已修改 is_staff 和 user_permissions 。');
+INSERT INTO `django_admin_log` VALUES ('371', '2010-04-30 11:46:43', '2', '34', '1', 'POLICE RAID', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('372', '2010-04-30 14:11:54', '1', '42', '1', 'CQSSC', '1', '');
+INSERT INTO `django_admin_log` VALUES ('373', '2010-04-30 14:45:57', '1', '42', '2', 'CQSSC', '1', '');
+INSERT INTO `django_admin_log` VALUES ('374', '2010-04-30 15:31:56', '1', '42', '2', 'CQSSC', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('375', '2010-04-30 15:41:41', '1', '42', '2', 'CQSSC', '3', '');
+INSERT INTO `django_admin_log` VALUES ('376', '2010-04-30 15:43:07', '1', '42', '3', 'CQSSC', '1', '');
+INSERT INTO `django_admin_log` VALUES ('377', '2010-04-30 15:43:33', '1', '42', '3', 'CQSSC', '3', '');
+INSERT INTO `django_admin_log` VALUES ('378', '2010-04-30 15:49:42', '1', '42', '1', 'CQSSC', '1', '');
+INSERT INTO `django_admin_log` VALUES ('379', '2010-04-30 16:31:11', '1', '42', '1', 'CQSSC', '1', '');
+INSERT INTO `django_admin_log` VALUES ('380', '2010-04-30 16:31:25', '1', '42', '1', 'CQSSC', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('381', '2010-04-30 16:31:55', '1', '42', '1', 'CQSSC', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('382', '2010-04-30 16:32:04', '1', '42', '1', 'CQSSC', '3', '');
+INSERT INTO `django_admin_log` VALUES ('383', '2010-04-30 16:33:56', '1', '42', '2', 'CQSSC', '1', '');
+INSERT INTO `django_admin_log` VALUES ('384', '2010-04-30 16:34:08', '1', '42', '2', 'CQSSC', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('385', '2010-04-30 16:36:08', '1', '42', '2', 'CQSSC', '3', '');
+INSERT INTO `django_admin_log` VALUES ('386', '2010-04-30 16:56:49', '1', '42', '1', 'CQSSC', '1', '');
+INSERT INTO `django_admin_log` VALUES ('387', '2010-04-30 17:00:09', '1', '42', '1', 'CQSSC', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('388', '2010-04-30 17:13:22', '1', '42', '1', 'CQSSC', '2', '已修改 vice_leader 。');
+INSERT INTO `django_admin_log` VALUES ('389', '2010-04-30 17:13:32', '1', '42', '1', 'CQSSC', '2', '已添加 帮会成员 \"root\".');
+INSERT INTO `django_admin_log` VALUES ('390', '2010-04-30 17:14:35', '1', '42', '1', 'CQSSC', '2', '已修改 vice_leader 。 已删除 帮会成员 \"root\".');
+INSERT INTO `django_admin_log` VALUES ('391', '2010-04-30 17:22:55', '1', '44', '1', 'darkmoon', '1', '');
+INSERT INTO `django_admin_log` VALUES ('392', '2010-04-30 17:23:08', '1', '44', '1', 'darkmoon', '3', '');
+INSERT INTO `django_admin_log` VALUES ('393', '2010-04-30 17:37:50', '1', '42', '1', 'CQSSC', '2', '已修改 vice_leader 。');
 
 -- ----------------------------
 -- Table structure for `django_content_type`
@@ -688,7 +801,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_label` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_content_type
@@ -734,6 +847,10 @@ INSERT INTO `django_content_type` VALUES ('38', 'random event question', 'system
 INSERT INTO `django_content_type` VALUES ('39', 'random event choice', 'system', 'randomeventchoice');
 INSERT INTO `django_content_type` VALUES ('40', 'Robberies', 'system', 'robbery');
 INSERT INTO `django_content_type` VALUES ('41', 'Message', 'messages', 'message');
+INSERT INTO `django_content_type` VALUES ('42', 'Gang', 'game', 'gang');
+INSERT INTO `django_content_type` VALUES ('43', 'gang member', 'game', 'gangmember');
+INSERT INTO `django_content_type` VALUES ('44', 'Gang invite', 'game', 'ganginvite');
+INSERT INTO `django_content_type` VALUES ('45', 'Gang news', 'game', 'gangnews');
 
 -- ----------------------------
 -- Table structure for `django_session`
@@ -753,8 +870,8 @@ INSERT INTO `django_session` VALUES ('23d64587c0070ce0dc9dae8aa27f6053', 'gAJ9cQ
 INSERT INTO `django_session` VALUES ('5286edf50ae8d76c4766ee5d9ed97aac', 'gAJ9cQEuODg5ZDEzMzAzNmNlMzJkNDIzZGQzMGM1ZWJhYmFlMGQ=\n', '2010-05-02 20:19:21');
 INSERT INTO `django_session` VALUES ('72428d3f08e0427f6a8850ba47a4f659', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVQ1fYXV0aF91c2Vy\nX2lkcQaKAQFVEl9hdXRoX3VzZXJfYmFja2VuZHEHVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tl\nbmRzLk1vZGVsQmFja2VuZHEIdS45NzY0OGNkZmI3YzMwY2EzM2UyYjlkYWE1OWJkZjBjYw==\n', '2010-05-12 18:51:41');
 INSERT INTO `django_session` VALUES ('86cac61cc2a7f010c3d465c913cab99a', 'gAJ9cQFVCnRlc3Rjb29raWVxAlUGd29ya2VkcQNzLmJmMjBjODVkMTkwZTExMWEzMTkxMjFhNzIz\nZWI2NGJm\n', '2010-05-02 20:09:30');
-INSERT INTO `django_session` VALUES ('93809efc9d4685d520b0c9272d2f9931', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xAyhVBGhvbWVxBFgHAAAAL2FkbWluL3EFVQdtZXNzYWdlcQZd\ncQcoVQdzdWNjZXNzcQhYIQAAAOWcsOWdgOW3sue7j+S7juS5puetvuS4reenu+mZpOOAgnEJZXVV\nDV9hdXRoX3VzZXJfaWRxCooBAVUSX2F1dGhfdXNlcl9iYWNrZW5kcQtVKWRqYW5nby5jb250cmli\nLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kcQx1LmI0NzliMWFmODRiMjQ1NWQ0N2VjNDc4ZGFl\nOTI5ODRj\n', '2010-05-13 16:32:22');
 INSERT INTO `django_session` VALUES ('9f005bf1fd11cc2e8ff354a75ee459b1', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UHbWVzc2FnZXEEXXEFKFUHc3VjY2Vzc3EGWBwAAABTaXRl\nIHdhcyBhZGRlZCB0byBCb29rbWFya3MucQdlc1UNX2F1dGhfdXNlcl9pZHEIigEBVRJfYXV0aF91\nc2VyX2JhY2tlbmRxCVUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRx\nCnUuMGI4YzhlNzg1MzY0NTc2ZjJlZDQyNTgzMzZkMmNlNmU=\n', '2010-05-02 20:39:45');
+INSERT INTO `django_session` VALUES ('d71173bd46cd82de4d4b4aa96fc80479', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVRJfYXV0aF91c2Vy\nX2JhY2tlbmRxBlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRxB1UN\nX2F1dGhfdXNlcl9pZHEIigEBdS42YzFiMDI5MGJhNjYzMjY0YzE1NWVhMWU3NmMwOTEyMQ==\n', '2010-05-14 17:55:24');
 INSERT INTO `django_session` VALUES ('d81e95756a970d5eba5f0681d1d55287', 'gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEBdS5jYTU4MjIzN2FhYzE0NGI0ZWMw\nMDIxNzMwY2ZhZTQ3Mw==\n', '2010-05-02 20:09:08');
 
 -- ----------------------------
@@ -774,6 +891,104 @@ CREATE TABLE `django_site` (
 INSERT INTO `django_site` VALUES ('1', 'example.com', 'example.com');
 
 -- ----------------------------
+-- Table structure for `game_gang`
+-- ----------------------------
+DROP TABLE IF EXISTS `game_gang`;
+CREATE TABLE `game_gang` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `presentation` longtext NOT NULL,
+  `photo` varchar(100) NOT NULL,
+  `created` datetime NOT NULL,
+  `province_id` int(11) NOT NULL,
+  `creater_id` int(11) NOT NULL,
+  `leader_id` int(11) NOT NULL,
+  `vice_leader_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `game_gang_province_id` (`province_id`),
+  KEY `game_gang_creater_id` (`creater_id`),
+  KEY `game_gang_leader_id` (`leader_id`),
+  KEY `game_gang_vice_leader_id` (`vice_leader_id`),
+  CONSTRAINT `creater_id_refs_id_45b3afd3` FOREIGN KEY (`creater_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `leader_id_refs_id_45b3afd3` FOREIGN KEY (`leader_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `province_id_refs_id_3b567f1f` FOREIGN KEY (`province_id`) REFERENCES `system_province` (`id`),
+  CONSTRAINT `vice_leader_id_refs_id_45b3afd3` FOREIGN KEY (`vice_leader_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of game_gang
+-- ----------------------------
+INSERT INTO `game_gang` VALUES ('1', 'CQSSC', 'as', 'uploads/gang/ccc0cb44eee81abc.jpg', '2010-04-30 16:56:49', '19', '2', '2', '1');
+
+-- ----------------------------
+-- Table structure for `game_ganginvite`
+-- ----------------------------
+DROP TABLE IF EXISTS `game_ganginvite`;
+CREATE TABLE `game_ganginvite` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `inviter_id` int(11) NOT NULL,
+  `accepter_id` int(11) NOT NULL,
+  `gang_id` int(11) NOT NULL,
+  `accepted` tinyint(1) NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `game_ganginvite_inviter_id` (`inviter_id`),
+  KEY `game_ganginvite_accepter_id` (`accepter_id`),
+  KEY `game_ganginvite_gang_id` (`gang_id`),
+  CONSTRAINT `accepter_id_refs_id_45300064` FOREIGN KEY (`accepter_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `gang_id_refs_id_161c6b44` FOREIGN KEY (`gang_id`) REFERENCES `game_gang` (`id`),
+  CONSTRAINT `inviter_id_refs_id_45300064` FOREIGN KEY (`inviter_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of game_ganginvite
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `game_gangmember`
+-- ----------------------------
+DROP TABLE IF EXISTS `game_gangmember`;
+CREATE TABLE `game_gangmember` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `gang_id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`,`gang_id`),
+  KEY `game_gangmember_user_id` (`user_id`),
+  KEY `game_gangmember_gang_id` (`gang_id`),
+  CONSTRAINT `gang_id_refs_id_5dcd1bfd` FOREIGN KEY (`gang_id`) REFERENCES `game_gang` (`id`),
+  CONSTRAINT `user_id_refs_id_678d86dd` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of game_gangmember
+-- ----------------------------
+INSERT INTO `game_gangmember` VALUES ('1', '2', '1', '2010-04-30 16:56:49');
+
+-- ----------------------------
+-- Table structure for `game_gangnews`
+-- ----------------------------
+DROP TABLE IF EXISTS `game_gangnews`;
+CREATE TABLE `game_gangnews` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `subject` varchar(200) NOT NULL,
+  `body` longtext NOT NULL,
+  `gang_id` int(11) NOT NULL,
+  `writer_id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `game_gangnews_gang_id` (`gang_id`),
+  KEY `game_gangnews_writer_id` (`writer_id`),
+  CONSTRAINT `gang_id_refs_id_36e815e8` FOREIGN KEY (`gang_id`) REFERENCES `game_gang` (`id`),
+  CONSTRAINT `writer_id_refs_id_2a050b08` FOREIGN KEY (`writer_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of game_gangnews
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `grappelli_bookmark`
 -- ----------------------------
 DROP TABLE IF EXISTS `grappelli_bookmark`;
@@ -783,12 +998,13 @@ CREATE TABLE `grappelli_bookmark` (
   PRIMARY KEY (`id`),
   KEY `grappelli_bookmark_user_id` (`user_id`),
   CONSTRAINT `user_id_refs_id_ca562ed7` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of grappelli_bookmark
 -- ----------------------------
 INSERT INTO `grappelli_bookmark` VALUES ('1', '1');
+INSERT INTO `grappelli_bookmark` VALUES ('2', '2');
 
 -- ----------------------------
 -- Table structure for `grappelli_bookmarkitem`
@@ -951,11 +1167,13 @@ CREATE TABLE `messages_message` (
   CONSTRAINT `parent_msg_id_refs_id_54f43543` FOREIGN KEY (`parent_msg_id`) REFERENCES `messages_message` (`id`),
   CONSTRAINT `recipient_id_refs_id_3acf8bb8` FOREIGN KEY (`recipient_id`) REFERENCES `auth_user` (`id`),
   CONSTRAINT `sender_id_refs_id_3acf8bb8` FOREIGN KEY (`sender_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of messages_message
 -- ----------------------------
+INSERT INTO `messages_message` VALUES ('1', 'test', 'test', '1', '1', null, '2010-04-29 17:44:16', '2010-04-29 17:44:28', '2010-04-29 17:44:35', null, null);
+INSERT INTO `messages_message` VALUES ('2', '回复: test', 'root 写道:\r\n> test\r\n\r\nsfdsf', '1', '1', '1', '2010-04-29 17:44:35', '2010-04-29 17:44:41', null, null, null);
 
 -- ----------------------------
 -- Table structure for `registration_registrationprofile`

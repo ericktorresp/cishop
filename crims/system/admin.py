@@ -1,7 +1,5 @@
 from system.models import *
-from system.fields import SeparatedValuesWidget
 from django.contrib import admin
-from django import forms
 
 class DrugAdmin(admin.ModelAdmin):
     list_display = ('title', 'price', 'stamina', 'spirit')

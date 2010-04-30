@@ -129,5 +129,6 @@ INSTALLED_APPS = (
     'captcha',
     'system',
     'messages',
+    'game',
     'django.contrib.admin',
 )

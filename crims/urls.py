@@ -11,20 +11,24 @@ admin.site.groups = {
     0: {
 #        'title': 'User Management Administration', # optional
         'name': _('User'),
-        'apps': ['auth', 'user', 'registration'],
+        'apps': ['auth', 'user'],
 #        'template': 'custom/index_group_usermanagement.html', # optional
 #        'classes': ['collapse-open'], # optional
 #        'show_apps': True, # optional
     },
     1: {
-        'name': _('System'),
-        'apps': ['system']
+        'name': _('Game'),
+        'apps': ['messages', 'registration', 'game'],
     },
     2: {
+        'name': _('System'),
+        'apps': ['system'],
+    },
+    3: {
         'name': _('Grappelli'),
         'apps': ['grappelli'],
     },
-    3: {
+    4: {
         'name': _('site'),
         'apps': ['sites'],
     },
