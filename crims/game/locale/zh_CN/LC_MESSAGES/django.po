@@ -16,26 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\models\gang.py:7
-msgid "title"
-msgstr ""
-
 #: .\models\gang.py:8
 msgid "presentation"
 msgstr "帮规"
-
-#: .\models\gang.py:9
-msgid "photo"
-msgstr ""
-
-#: .\models\gang.py:10 .\models\gang.py:36 .\models\gang.py:52
-#: .\models\gang.py:67
-msgid "created"
-msgstr ""
-
-#: .\models\gang.py:11
-msgid "Province"
-msgstr ""
 
 #: .\models\gang.py:12
 msgid "creater"
@@ -57,10 +40,6 @@ msgstr "帮会"
 #: .\models\gang.py:29
 msgid "Gangs"
 msgstr "帮会"
-
-#: .\models\gang.py:34
-msgid "User"
-msgstr ""
 
 #: .\models\gang.py:43
 msgid "Gang Member"
@@ -110,5 +89,56 @@ msgstr "帮派新闻"
 msgid "Gang newses"
 msgstr "帮派新闻"
 
-msgid "Game"
+msgid "game"
 msgstr "游戏"
+
+msgid "Bounty"
+msgstr "悬赏"
+
+msgid "Bounties"
+msgstr "悬赏"
+
+msgid "sponsor"
+msgstr "发起人"
+
+msgid "target"
+msgstr "目标"
+
+msgid "completed"
+msgstr "已完成"
+
+msgid "expired"
+msgstr "到期时间"
+
+msgid "%(sponsor)s put bounty on %(target)s, price is %(price)s credits."
+msgstr "%(sponsor)s 悬赏 %(price)s 银元干掉  %(target)s。"
+
+msgid "amount"
+msgstr "余额"
+
+msgid "%(user)s's bank account"
+msgstr "%(user)s 的银行账户"
+
+msgid "Bank"
+msgstr "银行"
+
+msgid "Banks"
+msgstr "银行"
+
+msgid "Relationship"
+msgstr "用户关系"
+
+msgid "Relationships"
+msgstr "用户关系"
+
+msgid "master"
+msgstr "主用户"
+
+msgid "relater"
+msgstr "相关用户"
+
+msgid "ignore?"
+msgstr "黑名单？"
+
+msgid "%(master)s relationship with %(relater)s"
+msgstr "%(master)s 与 %(relater)s 的关系"

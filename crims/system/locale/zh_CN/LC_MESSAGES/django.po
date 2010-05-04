@@ -51,11 +51,11 @@ msgid "created"
 msgstr "创建于"
 
 #: .\models\armor.py:18
-msgid "Armor"
+msgid "armor"
 msgstr "盔甲"
 
 #: .\models\armor.py:19
-msgid "Armors"
+msgid "armors"
 msgstr "盔甲"
 
 #: .\models\armor.py:26 .\models\weapon.py:41
@@ -63,37 +63,35 @@ msgid "actived"
 msgstr "启用"
 
 #: .\models\armor.py:33
-#, fuzzy
-msgid "User's Armor"
-msgstr "用户妓女"
+msgid "user's armor"
+msgstr "用户盔甲"
 
 #: .\models\armor.py:34
-#, fuzzy
-msgid "User's Armors"
-msgstr "用户妓女"
+msgid "user's armors"
+msgstr "用户盔甲"
 
 #: .\models\avatar.py:13
-msgid "Avatar"
+msgid "avatar"
 msgstr "头像"
 
 #: .\models\avatar.py:14
-msgid "Avatars"
+msgid "avatars"
 msgstr "头像"
 
 #: .\models\benefit.py:5
-msgid "Condom"
+msgid "condom"
 msgstr "避孕套"
 
 #: .\models\benefit.py:6 .\models\hooker.py:24
-msgid "Hooker"
+msgid "hooker"
 msgstr "妓女"
 
 #: .\models\benefit.py:7 .\models\weapon.py:35
-msgid "Weapon"
+msgid "weapon"
 msgstr "武器"
 
 #: .\models\benefit.py:8 .\models\building.py:21 .\models\event.py:10
-msgid "Building"
+msgid "building"
 msgstr "物业"
 
 #: .\models\benefit.py:12 .\models\business.py:31
@@ -110,11 +108,11 @@ msgid "credits"
 msgstr "银元"
 
 #: .\models\benefit.py:21
-msgid "Benefit"
+msgid "benefit"
 msgstr "大礼包"
 
 #: .\models\benefit.py:22
-msgid "Benefits"
+msgid "benefits"
 msgstr "大礼包"
 
 #: .\models\building.py:9
@@ -132,7 +130,7 @@ msgid "drug"
 msgstr "毒品"
 
 #: .\models\building.py:22
-msgid "Buildings"
+msgid "buildings"
 msgstr "物业"
 
 #: .\models\building.py:31 .\models\business.py:35 .\models\drug.py:12
@@ -149,23 +147,23 @@ msgid "outputs"
 msgstr "产出"
 
 #: .\models\building.py:39
-msgid "User's Building"
+msgid "user's building"
 msgstr "用户物业"
 
 #: .\models\building.py:40
-msgid "User's Buildings"
+msgid "user's buildings"
 msgstr "用户物业"
 
 #: .\models\business.py:10
-msgid "max_vistors"
+msgid "max vistors"
 msgstr "最大访客数"
 
 #: .\models\business.py:13
-msgid "Bar"
+msgid "bar"
 msgstr "酒吧"
 
 #: .\models\business.py:13
-msgid "Club"
+msgid "club"
 msgstr "妓院"
 
 #: .\models\business.py:14
@@ -193,39 +191,35 @@ msgid "closed"
 msgstr "已关闭"
 
 #: .\models\business.py:43
-msgid "User's Business"
+msgid "user's business"
 msgstr "用户生意"
 
-#: .\models\character.py:7
-msgid "avatar"
-msgstr "头像"
+#: .\models\business.py:43
+msgid "user's businesses"
+msgstr "用户生意"
 
 #: .\models\character.py:9 .\models\hospital.py:5
-msgid "Intelligence"
+msgid "intelligence"
 msgstr "智力"
 
 #: .\models\character.py:10 .\models\guard.py:8 .\models\hospital.py:8
-msgid "Strength"
+msgid "strength"
 msgstr "力量"
 
 #: .\models\character.py:11 .\models\hospital.py:6
-msgid "Charisma"
+msgid "charisma"
 msgstr "魅力"
 
-#: .\models\character.py:12 .\models\hospital.py:7
-msgid "Tolerance"
-msgstr "耐力"
-
 #: .\models\character.py:19
-msgid "Character"
+msgid "character"
 msgstr "角色"
 
 #: .\models\character.py:20
-msgid "Characters"
+msgid "characters"
 msgstr "角色"
 
 #: .\models\drug.py:8
-msgid "Stock"
+msgid "stock"
 msgstr "库存"
 
 #: .\models\drug.py:9 .\models\hooker.py:14 .\models\robbery.py:11
@@ -241,19 +235,19 @@ msgid "drugs"
 msgstr "毒品"
 
 #: .\models\drug.py:33
-msgid "User's Drug"
+msgid "user's drug"
 msgstr "用户毒品"
 
 #: .\models\drug.py:34
-msgid "User's Drugs"
+msgid "user's drugs"
 msgstr "用户毒品"
 
 #: .\models\event.py:7 .\models\robbery.py:35
-msgid "Robbery"
+msgid "robbery"
 msgstr "抢劫"
 
 #: .\models\event.py:9
-msgid "Dock"
+msgid "dock"
 msgstr "码头"
 
 #: .\models\event.py:16
@@ -265,31 +259,31 @@ msgid "change"
 msgstr "变化"
 
 #: .\models\event.py:25
-msgid "Event"
+msgid "event"
 msgstr "事件"
 
 #: .\models\event.py:26
-msgid "Events"
+msgid "events"
 msgstr "事件"
 
 #: .\models\guard.py:18
-msgid "Guard"
+msgid "guard"
 msgstr "保镖"
 
 #: .\models\guard.py:19
-msgid "Guards"
+msgid "guards"
 msgstr "保镖"
 
 #: .\models\guard.py:32
-msgid "User's Guard"
+msgid "user's guard"
 msgstr "用户保镖"
 
 #: .\models\guard.py:33
-msgid "User's Guards"
+msgid "user's guards"
 msgstr "用户保镖"
 
 #: .\models\hooker.py:11
-msgid "visit_price"
+msgid "visit price"
 msgstr "嫖资"
 
 #: .\models\hooker.py:12
@@ -305,36 +299,31 @@ msgid "updated"
 msgstr "更新于"
 
 #: .\models\hooker.py:25
-msgid "Hookers"
+msgid "hookers"
 msgstr "妓女"
 
-#: .\models\hooker.py:32
-#, fuzzy
-msgid "visit price"
-msgstr "嫖资"
-
 #: .\models\hooker.py:35
-msgid "freetime"
+msgid "free time"
 msgstr "下次接客时间"
 
 #: .\models\hooker.py:41
-msgid "User's Hooker"
+msgid "user's hooker"
 msgstr "用户妓女"
 
 #: .\models\hooker.py:42
-msgid "User's Hookers"
+msgid "user's hookers"
 msgstr "用户妓女"
 
 #: .\models\hospital.py:9
-msgid "Addiction"
+msgid "dddiction"
 msgstr "戒毒"
 
 #: .\models\hospital.py:22
-msgid "Hospital"
+msgid "hospital"
 msgstr "医院"
 
 #: .\models\hospital.py:23
-msgid "Hospitals"
+msgid "hospitals"
 msgstr "医院"
 
 #: .\models\province.py:6
@@ -342,11 +331,11 @@ msgid "icon"
 msgstr "图标"
 
 #: .\models\province.py:14
-msgid "Province"
+msgid "province"
 msgstr "省份"
 
 #: .\models\province.py:15
-msgid "Provinces"
+msgid "provinces"
 msgstr "省份"
 
 #: .\models\randomevent.py:14
@@ -378,11 +367,11 @@ msgid "random event choices"
 msgstr "随机事件选项"
 
 #: .\models\robbery.py:6
-msgid "Single"
+msgid "single"
 msgstr "单人"
 
 #: .\models\robbery.py:7
-msgid "Gang"
+msgid "gang"
 msgstr "帮派"
 
 #: .\models\robbery.py:12
@@ -406,23 +395,23 @@ msgid "cash range"
 msgstr "现金收入范围"
 
 #: .\models\robbery.py:36
-msgid "Robberies"
+msgid "robberies"
 msgstr "抢劫"
 
 #: .\models\weapon.py:7
-msgid "Melee"
+msgid "melee"
 msgstr "肉搏"
 
 #: .\models\weapon.py:8
-msgid "Rifle"
+msgid "rifle"
 msgstr "长枪"
 
 #: .\models\weapon.py:9
-msgid "Handgun"
+msgid "handgun"
 msgstr "短枪"
 
 #: .\models\weapon.py:10
-msgid "Heavy"
+msgid "heavy"
 msgstr "重武器"
 
 #: .\models\weapon.py:16
@@ -446,11 +435,11 @@ msgid "durability"
 msgstr "可用次数"
 
 #: .\models\weapon.py:27
-msgid "Damage"
+msgid "damage"
 msgstr "伤害"
 
 #: .\models\weapon.py:36
-msgid "Weapons"
+msgid "weapons"
 msgstr "武器"
 
 #: .\models\weapon.py:42
@@ -458,12 +447,15 @@ msgid "used"
 msgstr "已使用次数"
 
 #: .\models\weapon.py:52
-msgid "User's Weapon"
+msgid "user's weapon"
 msgstr "用户武器"
 
 #: .\models\weapon.py:53
-msgid "User's Weapons"
+msgid "user's weapons"
 msgstr "用户武器"
 
-msgid "System"
-msgstr "系统"
+msgid "sabotage"
+msgstr "破坏"
+
+msgid "sabotages"
+msgstr "破坏"

@@ -15,14 +15,14 @@ class Armor(models.Model):
         return self.title
     
     class Meta:
-        verbose_name = _('Armor')
-        verbose_name_plural = _('Armors')
+        verbose_name = _('armor')
+        verbose_name_plural = _('armors')
         app_label = 'system'
         ordering = ['id', ]
 
 class UserArmor(models.Model):
-    user = models.ForeignKey(User)
-    armor = models.ForeignKey(Armor)
+    user = models.ForeignKey(User, verbose_name=_('user'))
+    armor = models.ForeignKey(Armor, verbose_name=_('armor'), related_name='armor')
     actived = models.BooleanField(_('actived'), default=False)
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
     
@@ -30,7 +30,7 @@ class UserArmor(models.Model):
         return self.user.username + '\'s' + self.armor.title
     
     class Meta:
-        verbose_name = _('User\'s Armor')
-        verbose_name_plural = _('User\'s Armors')
+        verbose_name = _('user\'s armor')
+        verbose_name_plural = _('user\'s armors')
         db_table = 'user_armor'
         app_label = 'system'

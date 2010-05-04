@@ -10,6 +10,6 @@ class Avatar(models.Model):
         return str(self.filename)
     
     class Meta:
-        verbose_name = _('Avatar')
-        verbose_name_plural = _('Avatars')
+        verbose_name = _('avatar')
+        verbose_name_plural = _('avatars')
         app_label = 'system'

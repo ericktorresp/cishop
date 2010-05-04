@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class Guard(models.Model):
     title = models.CharField(_('title'), max_length=100)
-    strength = models.SmallIntegerField(_('Strength'),)
+    strength = models.SmallIntegerField(_('strength'),)
     photo = FileBrowseField(_('photo'), max_length=200, directory="guard/", format="Image", extensions=['.jpg', '.gif', '.png'])
     price = models.IntegerField(_('price'),)
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
@@ -15,21 +15,21 @@ class Guard(models.Model):
         return self.title
     
     class Meta:
-        verbose_name = _('Guard')
-        verbose_name_plural = _('Guards')
+        verbose_name = _('guard')
+        verbose_name_plural = _('guards')
         app_label = 'system'
         ordering = ['id', ]
 
 class UserGuard(models.Model):
     user = models.ForeignKey(User)
-    guard = models.ForeignKey(Guard)
+    guard = models.ForeignKey(Guard, verbose_name=_('guard'))
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
     
     def __unicode__(self):
         return self.user.username + "'s " + self.guard.title
     
     class Meta:
-        verbose_name = _('User\'s Guard')
-        verbose_name_plural = _('User\'s Guards')
+        verbose_name = _('user\'s guard')
+        verbose_name_plural = _('user\'s guards')
         db_table = 'user_guard'
         app_label = 'system'

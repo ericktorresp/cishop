@@ -10,22 +10,22 @@ admin.autodiscover()
 admin.site.groups = {
     0: {
 #        'title': 'User Management Administration', # optional
-        'name': _('User'),
-        'apps': ['auth', 'user'],
+        'name': _('user'),
+        'apps': ['auth', 'registration'],
 #        'template': 'custom/index_group_usermanagement.html', # optional
 #        'classes': ['collapse-open'], # optional
 #        'show_apps': True, # optional
     },
     1: {
-        'name': _('Game'),
-        'apps': ['messages', 'registration', 'game'],
+        'name': _('game'),
+        'apps': ['messages', 'game'],
     },
     2: {
-        'name': _('System'),
-        'apps': ['system'],
+        'name': _('system'),
+        'apps': ['system', 'notification'],
     },
     3: {
-        'name': _('Grappelli'),
+        'name': _('grappelli'),
         'apps': ['grappelli'],
     },
     4: {

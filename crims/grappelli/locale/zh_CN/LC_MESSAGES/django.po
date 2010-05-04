@@ -142,5 +142,5 @@ msgstr "保存书签"
 msgid "This section should explain the handling of the Admin-Interface/CMS. Permissions provided, you can change/add entries to this Section."
 msgstr "这个部分应该解释管理界面处理。权限已提供，你可以修改/添加条目到这个部分。"
 
-msgid "Grappelli"
+msgid "grappelli"
 msgstr "后台增强"

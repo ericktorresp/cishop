@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50142
 File Encoding         : 65001
 
-Date: 2010-04-30 17:55:47
+Date: 2010-05-04 17:54:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,7 +23,7 @@ CREATE TABLE `auth_group` (
   `name` varchar(80) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_group
@@ -42,7 +42,7 @@ CREATE TABLE `auth_group_permissions` (
   KEY `permission_id_refs_id_a7792de1` (`permission_id`),
   CONSTRAINT `group_id_refs_id_3cea63fe` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
   CONSTRAINT `permission_id_refs_id_a7792de1` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_group_permissions
@@ -59,7 +59,7 @@ CREATE TABLE `auth_message` (
   PRIMARY KEY (`id`),
   KEY `auth_message_user_id` (`user_id`),
   CONSTRAINT `user_id_refs_id_9af0b65a` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_message
@@ -78,7 +78,7 @@ CREATE TABLE `auth_permission` (
   UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
   KEY `auth_permission_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_728de91f` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=184 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -218,6 +218,51 @@ INSERT INTO `auth_permission` VALUES ('132', 'Can delete Gang invite', '44', 'de
 INSERT INTO `auth_permission` VALUES ('133', 'Can add Gang news', '45', 'add_gangnews');
 INSERT INTO `auth_permission` VALUES ('134', 'Can change Gang news', '45', 'change_gangnews');
 INSERT INTO `auth_permission` VALUES ('135', 'Can delete Gang news', '45', 'delete_gangnews');
+INSERT INTO `auth_permission` VALUES ('136', 'Can add Sabotage', '46', 'add_sabotage');
+INSERT INTO `auth_permission` VALUES ('137', 'Can change Sabotage', '46', 'change_sabotage');
+INSERT INTO `auth_permission` VALUES ('138', 'Can delete Sabotage', '46', 'delete_sabotage');
+INSERT INTO `auth_permission` VALUES ('139', 'Can add Bounty', '47', 'add_bounty');
+INSERT INTO `auth_permission` VALUES ('140', 'Can change Bounty', '47', 'change_bounty');
+INSERT INTO `auth_permission` VALUES ('141', 'Can delete Bounty', '47', 'delete_bounty');
+INSERT INTO `auth_permission` VALUES ('142', 'Can add Bank', '48', 'add_bank');
+INSERT INTO `auth_permission` VALUES ('143', 'Can change Bank', '48', 'change_bank');
+INSERT INTO `auth_permission` VALUES ('144', 'Can delete Bank', '48', 'delete_bank');
+INSERT INTO `auth_permission` VALUES ('148', 'Can add contact', '50', 'add_contact');
+INSERT INTO `auth_permission` VALUES ('149', 'Can change contact', '50', 'change_contact');
+INSERT INTO `auth_permission` VALUES ('150', 'Can delete contact', '50', 'delete_contact');
+INSERT INTO `auth_permission` VALUES ('151', 'Can add friendship', '51', 'add_friendship');
+INSERT INTO `auth_permission` VALUES ('152', 'Can change friendship', '51', 'change_friendship');
+INSERT INTO `auth_permission` VALUES ('153', 'Can delete friendship', '51', 'delete_friendship');
+INSERT INTO `auth_permission` VALUES ('154', 'Can add join invitation', '52', 'add_joininvitation');
+INSERT INTO `auth_permission` VALUES ('155', 'Can change join invitation', '52', 'change_joininvitation');
+INSERT INTO `auth_permission` VALUES ('156', 'Can delete join invitation', '52', 'delete_joininvitation');
+INSERT INTO `auth_permission` VALUES ('157', 'Can add friendship invitation', '53', 'add_friendshipinvitation');
+INSERT INTO `auth_permission` VALUES ('158', 'Can change friendship invitation', '53', 'change_friendshipinvitation');
+INSERT INTO `auth_permission` VALUES ('159', 'Can delete friendship invitation', '53', 'delete_friendshipinvitation');
+INSERT INTO `auth_permission` VALUES ('160', 'Can add friendship invitation history', '54', 'add_friendshipinvitationhistory');
+INSERT INTO `auth_permission` VALUES ('161', 'Can change friendship invitation history', '54', 'change_friendshipinvitationhistory');
+INSERT INTO `auth_permission` VALUES ('162', 'Can delete friendship invitation history', '54', 'delete_friendshipinvitationhistory');
+INSERT INTO `auth_permission` VALUES ('163', 'Can add notice type', '55', 'add_noticetype');
+INSERT INTO `auth_permission` VALUES ('164', 'Can change notice type', '55', 'change_noticetype');
+INSERT INTO `auth_permission` VALUES ('165', 'Can delete notice type', '55', 'delete_noticetype');
+INSERT INTO `auth_permission` VALUES ('166', 'Can add notice setting', '56', 'add_noticesetting');
+INSERT INTO `auth_permission` VALUES ('167', 'Can change notice setting', '56', 'change_noticesetting');
+INSERT INTO `auth_permission` VALUES ('168', 'Can delete notice setting', '56', 'delete_noticesetting');
+INSERT INTO `auth_permission` VALUES ('169', 'Can add notice', '57', 'add_notice');
+INSERT INTO `auth_permission` VALUES ('170', 'Can change notice', '57', 'change_notice');
+INSERT INTO `auth_permission` VALUES ('171', 'Can delete notice', '57', 'delete_notice');
+INSERT INTO `auth_permission` VALUES ('172', 'Can add notice queue batch', '58', 'add_noticequeuebatch');
+INSERT INTO `auth_permission` VALUES ('173', 'Can change notice queue batch', '58', 'change_noticequeuebatch');
+INSERT INTO `auth_permission` VALUES ('174', 'Can delete notice queue batch', '58', 'delete_noticequeuebatch');
+INSERT INTO `auth_permission` VALUES ('175', 'Can add observed item', '59', 'add_observeditem');
+INSERT INTO `auth_permission` VALUES ('176', 'Can change observed item', '59', 'change_observeditem');
+INSERT INTO `auth_permission` VALUES ('177', 'Can delete observed item', '59', 'delete_observeditem');
+INSERT INTO `auth_permission` VALUES ('178', 'Can add Relationship status', '60', 'add_relationshipstatus');
+INSERT INTO `auth_permission` VALUES ('179', 'Can change Relationship status', '60', 'change_relationshipstatus');
+INSERT INTO `auth_permission` VALUES ('180', 'Can delete Relationship status', '60', 'delete_relationshipstatus');
+INSERT INTO `auth_permission` VALUES ('181', 'Can add Relationship', '61', 'add_relationship');
+INSERT INTO `auth_permission` VALUES ('182', 'Can change Relationship', '61', 'change_relationship');
+INSERT INTO `auth_permission` VALUES ('183', 'Can delete Relationship', '61', 'delete_relationship');
 
 -- ----------------------------
 -- Table structure for `auth_user`
@@ -237,13 +282,13 @@ CREATE TABLE `auth_user` (
   `date_joined` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_user
 -- ----------------------------
-INSERT INTO `auth_user` VALUES ('1', 'root', '', '', 'c-mtv@163.com', 'sha1$df48b$97ce6e8393b8ff135c3e794d6e847d6962ea6da8', '1', '1', '1', '2010-04-30 11:47:03', '2010-04-18 20:07:26');
-INSERT INTO `auth_user` VALUES ('2', 'darkmoon', 'Floyd', 'Joe', 'darkmoon@hxxps.com', 'sha1$a7df8$bf2cdb56d37cbe5cf9df54f19fa1b4b72949f111', '1', '1', '0', '2010-04-30 11:45:48', '2010-04-30 11:43:01');
+INSERT INTO `auth_user` VALUES ('1', 'root', '', '', 'c-mtv@163.com', 'sha1$df48b$97ce6e8393b8ff135c3e794d6e847d6962ea6da8', '1', '1', '1', '2010-05-04 16:45:22', '2010-04-18 20:07:26');
+INSERT INTO `auth_user` VALUES ('3', 'darkmoon', 'Floyd', 'Joe', 'darkmoon@hxxps.com', 'sha1$62a35$6e7248a287a7d1c90519d91762fc0f45d4c62bea', '0', '1', '0', '2010-05-04 16:42:56', '2010-05-04 16:42:56');
 
 -- ----------------------------
 -- Table structure for `auth_user_groups`
@@ -258,7 +303,7 @@ CREATE TABLE `auth_user_groups` (
   KEY `group_id_refs_id_f0ee9890` (`group_id`),
   CONSTRAINT `group_id_refs_id_f0ee9890` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
   CONSTRAINT `user_id_refs_id_831107f1` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_user_groups
@@ -277,83 +322,11 @@ CREATE TABLE `auth_user_user_permissions` (
   KEY `permission_id_refs_id_67e79cb` (`permission_id`),
   CONSTRAINT `permission_id_refs_id_67e79cb` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
   CONSTRAINT `user_id_refs_id_f2045483` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=289 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_user_user_permissions
 -- ----------------------------
-INSERT INTO `auth_user_user_permissions` VALUES ('1', '2', '49');
-INSERT INTO `auth_user_user_permissions` VALUES ('2', '2', '50');
-INSERT INTO `auth_user_user_permissions` VALUES ('3', '2', '51');
-INSERT INTO `auth_user_user_permissions` VALUES ('4', '2', '52');
-INSERT INTO `auth_user_user_permissions` VALUES ('5', '2', '53');
-INSERT INTO `auth_user_user_permissions` VALUES ('6', '2', '54');
-INSERT INTO `auth_user_user_permissions` VALUES ('7', '2', '55');
-INSERT INTO `auth_user_user_permissions` VALUES ('8', '2', '56');
-INSERT INTO `auth_user_user_permissions` VALUES ('9', '2', '57');
-INSERT INTO `auth_user_user_permissions` VALUES ('10', '2', '58');
-INSERT INTO `auth_user_user_permissions` VALUES ('11', '2', '59');
-INSERT INTO `auth_user_user_permissions` VALUES ('12', '2', '60');
-INSERT INTO `auth_user_user_permissions` VALUES ('13', '2', '61');
-INSERT INTO `auth_user_user_permissions` VALUES ('14', '2', '62');
-INSERT INTO `auth_user_user_permissions` VALUES ('15', '2', '63');
-INSERT INTO `auth_user_user_permissions` VALUES ('16', '2', '64');
-INSERT INTO `auth_user_user_permissions` VALUES ('17', '2', '65');
-INSERT INTO `auth_user_user_permissions` VALUES ('18', '2', '66');
-INSERT INTO `auth_user_user_permissions` VALUES ('19', '2', '67');
-INSERT INTO `auth_user_user_permissions` VALUES ('20', '2', '68');
-INSERT INTO `auth_user_user_permissions` VALUES ('21', '2', '69');
-INSERT INTO `auth_user_user_permissions` VALUES ('22', '2', '70');
-INSERT INTO `auth_user_user_permissions` VALUES ('23', '2', '71');
-INSERT INTO `auth_user_user_permissions` VALUES ('24', '2', '72');
-INSERT INTO `auth_user_user_permissions` VALUES ('25', '2', '73');
-INSERT INTO `auth_user_user_permissions` VALUES ('26', '2', '74');
-INSERT INTO `auth_user_user_permissions` VALUES ('27', '2', '75');
-INSERT INTO `auth_user_user_permissions` VALUES ('28', '2', '76');
-INSERT INTO `auth_user_user_permissions` VALUES ('29', '2', '77');
-INSERT INTO `auth_user_user_permissions` VALUES ('30', '2', '78');
-INSERT INTO `auth_user_user_permissions` VALUES ('31', '2', '79');
-INSERT INTO `auth_user_user_permissions` VALUES ('32', '2', '80');
-INSERT INTO `auth_user_user_permissions` VALUES ('33', '2', '81');
-INSERT INTO `auth_user_user_permissions` VALUES ('34', '2', '82');
-INSERT INTO `auth_user_user_permissions` VALUES ('35', '2', '83');
-INSERT INTO `auth_user_user_permissions` VALUES ('36', '2', '84');
-INSERT INTO `auth_user_user_permissions` VALUES ('37', '2', '85');
-INSERT INTO `auth_user_user_permissions` VALUES ('38', '2', '86');
-INSERT INTO `auth_user_user_permissions` VALUES ('39', '2', '87');
-INSERT INTO `auth_user_user_permissions` VALUES ('40', '2', '88');
-INSERT INTO `auth_user_user_permissions` VALUES ('41', '2', '89');
-INSERT INTO `auth_user_user_permissions` VALUES ('42', '2', '90');
-INSERT INTO `auth_user_user_permissions` VALUES ('43', '2', '91');
-INSERT INTO `auth_user_user_permissions` VALUES ('44', '2', '92');
-INSERT INTO `auth_user_user_permissions` VALUES ('45', '2', '93');
-INSERT INTO `auth_user_user_permissions` VALUES ('46', '2', '94');
-INSERT INTO `auth_user_user_permissions` VALUES ('47', '2', '95');
-INSERT INTO `auth_user_user_permissions` VALUES ('48', '2', '96');
-INSERT INTO `auth_user_user_permissions` VALUES ('49', '2', '97');
-INSERT INTO `auth_user_user_permissions` VALUES ('50', '2', '98');
-INSERT INTO `auth_user_user_permissions` VALUES ('51', '2', '99');
-INSERT INTO `auth_user_user_permissions` VALUES ('52', '2', '100');
-INSERT INTO `auth_user_user_permissions` VALUES ('53', '2', '101');
-INSERT INTO `auth_user_user_permissions` VALUES ('54', '2', '102');
-INSERT INTO `auth_user_user_permissions` VALUES ('55', '2', '103');
-INSERT INTO `auth_user_user_permissions` VALUES ('56', '2', '104');
-INSERT INTO `auth_user_user_permissions` VALUES ('57', '2', '105');
-INSERT INTO `auth_user_user_permissions` VALUES ('58', '2', '106');
-INSERT INTO `auth_user_user_permissions` VALUES ('59', '2', '107');
-INSERT INTO `auth_user_user_permissions` VALUES ('60', '2', '108');
-INSERT INTO `auth_user_user_permissions` VALUES ('61', '2', '109');
-INSERT INTO `auth_user_user_permissions` VALUES ('62', '2', '110');
-INSERT INTO `auth_user_user_permissions` VALUES ('63', '2', '111');
-INSERT INTO `auth_user_user_permissions` VALUES ('64', '2', '112');
-INSERT INTO `auth_user_user_permissions` VALUES ('65', '2', '113');
-INSERT INTO `auth_user_user_permissions` VALUES ('66', '2', '114');
-INSERT INTO `auth_user_user_permissions` VALUES ('67', '2', '115');
-INSERT INTO `auth_user_user_permissions` VALUES ('68', '2', '116');
-INSERT INTO `auth_user_user_permissions` VALUES ('69', '2', '117');
-INSERT INTO `auth_user_user_permissions` VALUES ('70', '2', '118');
-INSERT INTO `auth_user_user_permissions` VALUES ('71', '2', '119');
-INSERT INTO `auth_user_user_permissions` VALUES ('72', '2', '120');
 
 -- ----------------------------
 -- Table structure for `captcha_captchastore`
@@ -391,7 +364,7 @@ CREATE TABLE `django_admin_log` (
   KEY `django_admin_log_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_288599e6` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `user_id_refs_id_c8665aa` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=394 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=449 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_admin_log
@@ -766,7 +739,6 @@ INSERT INTO `django_admin_log` VALUES ('367', '2010-04-30 11:43:01', '1', '3', '
 INSERT INTO `django_admin_log` VALUES ('368', '2010-04-30 11:43:28', '1', '3', '2', 'darkmoon', '2', '已修改 first_name, last_name, email 和 groups 。');
 INSERT INTO `django_admin_log` VALUES ('369', '2010-04-30 11:45:04', '1', '2', '1', '系统管理员', '3', '');
 INSERT INTO `django_admin_log` VALUES ('370', '2010-04-30 11:45:38', '1', '3', '2', 'darkmoon', '2', '已修改 is_staff 和 user_permissions 。');
-INSERT INTO `django_admin_log` VALUES ('371', '2010-04-30 11:46:43', '2', '34', '1', 'POLICE RAID', '2', '没有字段被修改。');
 INSERT INTO `django_admin_log` VALUES ('372', '2010-04-30 14:11:54', '1', '42', '1', 'CQSSC', '1', '');
 INSERT INTO `django_admin_log` VALUES ('373', '2010-04-30 14:45:57', '1', '42', '2', 'CQSSC', '1', '');
 INSERT INTO `django_admin_log` VALUES ('374', '2010-04-30 15:31:56', '1', '42', '2', 'CQSSC', '2', '没有字段被修改。');
@@ -789,6 +761,51 @@ INSERT INTO `django_admin_log` VALUES ('390', '2010-04-30 17:14:35', '1', '42', 
 INSERT INTO `django_admin_log` VALUES ('391', '2010-04-30 17:22:55', '1', '44', '1', 'darkmoon', '1', '');
 INSERT INTO `django_admin_log` VALUES ('392', '2010-04-30 17:23:08', '1', '44', '1', 'darkmoon', '3', '');
 INSERT INTO `django_admin_log` VALUES ('393', '2010-04-30 17:37:50', '1', '42', '1', 'CQSSC', '2', '已修改 vice_leader 。');
+INSERT INTO `django_admin_log` VALUES ('394', '2010-05-04 10:28:37', '1', '46', '1', '炸了他的工厂', '1', '');
+INSERT INTO `django_admin_log` VALUES ('395', '2010-05-04 10:28:58', '1', '46', '2', '抢走他的小姐', '1', '');
+INSERT INTO `django_admin_log` VALUES ('396', '2010-05-04 10:29:24', '1', '46', '3', '砸了他的场子', '1', '');
+INSERT INTO `django_admin_log` VALUES ('397', '2010-05-04 11:05:11', '1', '47', '4', 'root put bounty on darkmoon, price is 10 credits.', '1', '');
+INSERT INTO `django_admin_log` VALUES ('398', '2010-05-04 11:07:13', '1', '47', '4', 'root 悬赏 10 银圆干掉  darkmoon。', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('399', '2010-05-04 11:10:32', '1', '47', '4', 'root 悬赏 10 银圆干掉  darkmoon。', '2', '已修改 completed 。');
+INSERT INTO `django_admin_log` VALUES ('400', '2010-05-04 11:10:38', '1', '47', '4', 'root 悬赏 10 银圆干掉  darkmoon。', '2', '已修改 completed 。');
+INSERT INTO `django_admin_log` VALUES ('401', '2010-05-04 11:11:41', '1', '47', '4', 'root 悬赏 10 银元干掉  darkmoon。', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('402', '2010-05-04 11:38:09', '1', '48', '1', 'root\'s bank account.', '1', '');
+INSERT INTO `django_admin_log` VALUES ('403', '2010-05-04 11:38:22', '1', '48', '2', 'darkmoon\'s bank account.', '1', '');
+INSERT INTO `django_admin_log` VALUES ('413', '2010-05-04 14:12:33', '1', '51', '1', 'Friendship object', '1', '');
+INSERT INTO `django_admin_log` VALUES ('414', '2010-05-04 14:12:44', '1', '51', '2', 'Friendship object', '1', '');
+INSERT INTO `django_admin_log` VALUES ('415', '2010-05-04 14:13:35', '1', '51', '2', 'Friendship object', '3', '');
+INSERT INTO `django_admin_log` VALUES ('416', '2010-05-04 14:13:35', '1', '51', '1', 'Friendship object', '3', '');
+INSERT INTO `django_admin_log` VALUES ('417', '2010-05-04 14:27:19', '1', '51', '3', 'Friendship object', '1', '');
+INSERT INTO `django_admin_log` VALUES ('418', '2010-05-04 14:27:42', '1', '51', '4', 'Friendship object', '1', '');
+INSERT INTO `django_admin_log` VALUES ('419', '2010-05-04 14:43:23', '1', '3', '1', 'root', '2', '已添加 用户关系 \"Relationship from root to darkmoon\".');
+INSERT INTO `django_admin_log` VALUES ('420', '2010-05-04 14:44:27', '1', '3', '2', 'darkmoon', '2', '已添加 用户关系 \"Relationship from darkmoon to root\".');
+INSERT INTO `django_admin_log` VALUES ('421', '2010-05-04 14:47:01', '1', '3', '1', 'root', '2', '已删除 用户关系 \"Relationship from root to darkmoon\".');
+INSERT INTO `django_admin_log` VALUES ('422', '2010-05-04 14:55:16', '1', '7', '1', 'crims.info', '2', '已修改 domain 和 name 。');
+INSERT INTO `django_admin_log` VALUES ('423', '2010-05-04 14:55:29', '1', '7', '2', 'hxxps.com', '1', '');
+INSERT INTO `django_admin_log` VALUES ('424', '2010-05-04 14:55:47', '1', '7', '3', 'hxxps.info', '1', '');
+INSERT INTO `django_admin_log` VALUES ('425', '2010-05-04 15:27:29', '1', '60', '3', '黑名单', '1', '');
+INSERT INTO `django_admin_log` VALUES ('426', '2010-05-04 15:27:44', '1', '3', '1', 'root', '2', '已添加 用户关系 \"Relationship from root to darkmoon\".');
+INSERT INTO `django_admin_log` VALUES ('427', '2010-05-04 15:28:09', '1', '3', '2', 'darkmoon', '2', '已变更 status for 用户关系 \"Relationship from darkmoon to root\".');
+INSERT INTO `django_admin_log` VALUES ('428', '2010-05-04 15:29:53', '1', '60', '3', '黑名单', '3', '');
+INSERT INTO `django_admin_log` VALUES ('429', '2010-05-04 15:30:08', '1', '3', '1', 'root', '2', '已添加 用户关系 \"Relationship from root to root\".');
+INSERT INTO `django_admin_log` VALUES ('430', '2010-05-04 15:30:15', '1', '3', '1', 'root', '2', '已变更 to_user for 用户关系 \"Relationship from root to darkmoon\".');
+INSERT INTO `django_admin_log` VALUES ('431', '2010-05-04 15:30:25', '1', '3', '2', 'darkmoon', '2', '已添加 用户关系 \"Relationship from darkmoon to root\".');
+INSERT INTO `django_admin_log` VALUES ('432', '2010-05-04 16:16:23', '1', '3', '1', 'root', '2', '已删除 银行 \"root 的银行账户\".');
+INSERT INTO `django_admin_log` VALUES ('433', '2010-05-04 16:16:46', '1', '3', '1', 'root', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('434', '2010-05-04 16:17:05', '1', '3', '1', 'root', '2', '已添加 银行 \"root 的银行账户\".');
+INSERT INTO `django_admin_log` VALUES ('435', '2010-05-04 16:17:19', '1', '3', '1', 'root', '2', '已变更 amount for 银行 \"root 的银行账户\".');
+INSERT INTO `django_admin_log` VALUES ('436', '2010-05-04 16:18:19', '1', '3', '1', 'root', '2', '已删除 银行 \"root 的银行账户\".');
+INSERT INTO `django_admin_log` VALUES ('437', '2010-05-04 16:19:25', '1', '3', '1', 'root', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('438', '2010-05-04 16:19:44', '1', '3', '1', 'root', '2', '已添加 银行 \"root 的银行账户\".');
+INSERT INTO `django_admin_log` VALUES ('440', '2010-05-04 16:42:31', '1', '3', '2', 'darkmoon', '3', '');
+INSERT INTO `django_admin_log` VALUES ('441', '2010-05-04 16:42:56', '1', '3', '3', 'darkmoon', '1', '');
+INSERT INTO `django_admin_log` VALUES ('442', '2010-05-04 16:43:29', '1', '3', '3', 'darkmoon', '2', '已修改 first_name, last_name 和 email 。 已添加 银行 \"darkmoon 的银行账户\".');
+INSERT INTO `django_admin_log` VALUES ('443', '2010-05-04 16:50:56', '1', '3', '3', 'darkmoon', '2', '已变更 amount for 银行 \"darkmoon 的银行账户\".');
+INSERT INTO `django_admin_log` VALUES ('444', '2010-05-04 16:51:04', '1', '3', '3', 'darkmoon', '2', '已变更 amount for 银行 \"darkmoon 的银行账户\".');
+INSERT INTO `django_admin_log` VALUES ('445', '2010-05-04 17:15:13', '1', '3', '3', 'darkmoon', '2', '已删除 银行 \"darkmoon 的银行账户\".');
+INSERT INTO `django_admin_log` VALUES ('446', '2010-05-04 17:23:44', '1', '3', '3', 'darkmoon', '2', '已删除 银行 \"darkmoon 的银行账户\".');
+INSERT INTO `django_admin_log` VALUES ('447', '2010-05-04 17:24:09', '1', '3', '3', 'darkmoon', '2', '已删除 银行 \"darkmoon 的银行账户\".');
+INSERT INTO `django_admin_log` VALUES ('448', '2010-05-04 17:53:53', '1', '3', '3', 'darkmoon', '2', '已添加 用户盔甲 \"darkmoon\'s尿布\".');
 
 -- ----------------------------
 -- Table structure for `django_content_type`
@@ -801,7 +818,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_label` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_content_type
@@ -851,6 +868,21 @@ INSERT INTO `django_content_type` VALUES ('42', 'Gang', 'game', 'gang');
 INSERT INTO `django_content_type` VALUES ('43', 'gang member', 'game', 'gangmember');
 INSERT INTO `django_content_type` VALUES ('44', 'Gang invite', 'game', 'ganginvite');
 INSERT INTO `django_content_type` VALUES ('45', 'Gang news', 'game', 'gangnews');
+INSERT INTO `django_content_type` VALUES ('46', 'Sabotage', 'system', 'sabotage');
+INSERT INTO `django_content_type` VALUES ('47', 'Bounty', 'game', 'bounty');
+INSERT INTO `django_content_type` VALUES ('48', 'Bank', 'game', 'bank');
+INSERT INTO `django_content_type` VALUES ('50', 'contact', 'friends', 'contact');
+INSERT INTO `django_content_type` VALUES ('51', 'friendship', 'friends', 'friendship');
+INSERT INTO `django_content_type` VALUES ('52', 'join invitation', 'friends', 'joininvitation');
+INSERT INTO `django_content_type` VALUES ('53', 'friendship invitation', 'friends', 'friendshipinvitation');
+INSERT INTO `django_content_type` VALUES ('54', 'friendship invitation history', 'friends', 'friendshipinvitationhistory');
+INSERT INTO `django_content_type` VALUES ('55', 'notice type', 'notification', 'noticetype');
+INSERT INTO `django_content_type` VALUES ('56', 'notice setting', 'notification', 'noticesetting');
+INSERT INTO `django_content_type` VALUES ('57', 'notice', 'notification', 'notice');
+INSERT INTO `django_content_type` VALUES ('58', 'notice queue batch', 'notification', 'noticequeuebatch');
+INSERT INTO `django_content_type` VALUES ('59', 'observed item', 'notification', 'observeditem');
+INSERT INTO `django_content_type` VALUES ('60', 'Relationship status', 'relationships', 'relationshipstatus');
+INSERT INTO `django_content_type` VALUES ('61', 'Relationship', 'relationships', 'relationship');
 
 -- ----------------------------
 -- Table structure for `django_session`
@@ -866,12 +898,13 @@ CREATE TABLE `django_session` (
 -- ----------------------------
 -- Records of django_session
 -- ----------------------------
+INSERT INTO `django_session` VALUES ('1f09faf546ea25a3ab010adc2e585bea', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVQ1fYXV0aF91c2Vy\nX2lkcQaKAQFVEl9hdXRoX3VzZXJfYmFja2VuZHEHVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tl\nbmRzLk1vZGVsQmFja2VuZHEIdS45NzY0OGNkZmI3YzMwY2EzM2UyYjlkYWE1OWJkZjBjYw==\n', '2010-05-18 17:53:32');
 INSERT INTO `django_session` VALUES ('23d64587c0070ce0dc9dae8aa27f6053', 'gAJ9cQEuODg5ZDEzMzAzNmNlMzJkNDIzZGQzMGM1ZWJhYmFlMGQ=\n', '2010-05-02 20:19:21');
 INSERT INTO `django_session` VALUES ('5286edf50ae8d76c4766ee5d9ed97aac', 'gAJ9cQEuODg5ZDEzMzAzNmNlMzJkNDIzZGQzMGM1ZWJhYmFlMGQ=\n', '2010-05-02 20:19:21');
 INSERT INTO `django_session` VALUES ('72428d3f08e0427f6a8850ba47a4f659', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVQ1fYXV0aF91c2Vy\nX2lkcQaKAQFVEl9hdXRoX3VzZXJfYmFja2VuZHEHVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tl\nbmRzLk1vZGVsQmFja2VuZHEIdS45NzY0OGNkZmI3YzMwY2EzM2UyYjlkYWE1OWJkZjBjYw==\n', '2010-05-12 18:51:41');
 INSERT INTO `django_session` VALUES ('86cac61cc2a7f010c3d465c913cab99a', 'gAJ9cQFVCnRlc3Rjb29raWVxAlUGd29ya2VkcQNzLmJmMjBjODVkMTkwZTExMWEzMTkxMjFhNzIz\nZWI2NGJm\n', '2010-05-02 20:09:30');
 INSERT INTO `django_session` VALUES ('9f005bf1fd11cc2e8ff354a75ee459b1', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UHbWVzc2FnZXEEXXEFKFUHc3VjY2Vzc3EGWBwAAABTaXRl\nIHdhcyBhZGRlZCB0byBCb29rbWFya3MucQdlc1UNX2F1dGhfdXNlcl9pZHEIigEBVRJfYXV0aF91\nc2VyX2JhY2tlbmRxCVUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRx\nCnUuMGI4YzhlNzg1MzY0NTc2ZjJlZDQyNTgzMzZkMmNlNmU=\n', '2010-05-02 20:39:45');
-INSERT INTO `django_session` VALUES ('d71173bd46cd82de4d4b4aa96fc80479', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVRJfYXV0aF91c2Vy\nX2JhY2tlbmRxBlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRxB1UN\nX2F1dGhfdXNlcl9pZHEIigEBdS42YzFiMDI5MGJhNjYzMjY0YzE1NWVhMWU3NmMwOTEyMQ==\n', '2010-05-14 17:55:24');
+INSERT INTO `django_session` VALUES ('d71173bd46cd82de4d4b4aa96fc80479', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVQ1fYXV0aF91c2Vy\nX2lkcQaKAQFVEl9hdXRoX3VzZXJfYmFja2VuZHEHVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tl\nbmRzLk1vZGVsQmFja2VuZHEIdS45NzY0OGNkZmI3YzMwY2EzM2UyYjlkYWE1OWJkZjBjYw==\n', '2010-05-18 14:55:50');
 INSERT INTO `django_session` VALUES ('d81e95756a970d5eba5f0681d1d55287', 'gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEBdS5jYTU4MjIzN2FhYzE0NGI0ZWMw\nMDIxNzMwY2ZhZTQ3Mw==\n', '2010-05-02 20:09:08');
 
 -- ----------------------------
@@ -883,12 +916,58 @@ CREATE TABLE `django_site` (
   `domain` varchar(100) NOT NULL,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_site
 -- ----------------------------
-INSERT INTO `django_site` VALUES ('1', 'example.com', 'example.com');
+INSERT INTO `django_site` VALUES ('1', 'crims.info', 'crims.info');
+INSERT INTO `django_site` VALUES ('2', 'hxxps.com', 'hxxps.com');
+INSERT INTO `django_site` VALUES ('3', 'hxxps.info', 'hxxps.info');
+
+-- ----------------------------
+-- Table structure for `game_bank`
+-- ----------------------------
+DROP TABLE IF EXISTS `game_bank`;
+CREATE TABLE `game_bank` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`),
+  CONSTRAINT `user_id_refs_id_1e4ea07a` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of game_bank
+-- ----------------------------
+INSERT INTO `game_bank` VALUES ('4', '1', '100', '2010-05-04 16:19:44', '2010-05-04 16:19:44');
+INSERT INTO `game_bank` VALUES ('5', '3', '0', '2010-05-04 16:43:29', '2010-05-04 16:51:04');
+
+-- ----------------------------
+-- Table structure for `game_bounty`
+-- ----------------------------
+DROP TABLE IF EXISTS `game_bounty`;
+CREATE TABLE `game_bounty` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sponsor_id` int(11) NOT NULL,
+  `target_id` int(11) NOT NULL,
+  `credits` smallint(6) NOT NULL,
+  `created` datetime NOT NULL,
+  `expired` datetime NOT NULL,
+  `completed` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `game_bounty_sponsor_id` (`sponsor_id`),
+  KEY `game_bounty_target_id` (`target_id`),
+  CONSTRAINT `sponsor_id_refs_id_68ac4ee1` FOREIGN KEY (`sponsor_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `target_id_refs_id_68ac4ee1` FOREIGN KEY (`target_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of game_bounty
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `game_gang`
@@ -918,7 +997,6 @@ CREATE TABLE `game_gang` (
 -- ----------------------------
 -- Records of game_gang
 -- ----------------------------
-INSERT INTO `game_gang` VALUES ('1', 'CQSSC', 'as', 'uploads/gang/ccc0cb44eee81abc.jpg', '2010-04-30 16:56:49', '19', '2', '2', '1');
 
 -- ----------------------------
 -- Table structure for `game_ganginvite`
@@ -938,7 +1016,7 @@ CREATE TABLE `game_ganginvite` (
   CONSTRAINT `accepter_id_refs_id_45300064` FOREIGN KEY (`accepter_id`) REFERENCES `auth_user` (`id`),
   CONSTRAINT `gang_id_refs_id_161c6b44` FOREIGN KEY (`gang_id`) REFERENCES `game_gang` (`id`),
   CONSTRAINT `inviter_id_refs_id_45300064` FOREIGN KEY (`inviter_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_ganginvite
@@ -959,12 +1037,11 @@ CREATE TABLE `game_gangmember` (
   KEY `game_gangmember_gang_id` (`gang_id`),
   CONSTRAINT `gang_id_refs_id_5dcd1bfd` FOREIGN KEY (`gang_id`) REFERENCES `game_gang` (`id`),
   CONSTRAINT `user_id_refs_id_678d86dd` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_gangmember
 -- ----------------------------
-INSERT INTO `game_gangmember` VALUES ('1', '2', '1', '2010-04-30 16:56:49');
 
 -- ----------------------------
 -- Table structure for `game_gangnews`
@@ -1004,7 +1081,6 @@ CREATE TABLE `grappelli_bookmark` (
 -- Records of grappelli_bookmark
 -- ----------------------------
 INSERT INTO `grappelli_bookmark` VALUES ('1', '1');
-INSERT INTO `grappelli_bookmark` VALUES ('2', '2');
 
 -- ----------------------------
 -- Table structure for `grappelli_bookmarkitem`
@@ -1176,6 +1252,120 @@ INSERT INTO `messages_message` VALUES ('1', 'test', 'test', '1', '1', null, '201
 INSERT INTO `messages_message` VALUES ('2', '回复: test', 'root 写道:\r\n> test\r\n\r\nsfdsf', '1', '1', '1', '2010-04-29 17:44:35', '2010-04-29 17:44:41', null, null, null);
 
 -- ----------------------------
+-- Table structure for `notification_notice`
+-- ----------------------------
+DROP TABLE IF EXISTS `notification_notice`;
+CREATE TABLE `notification_notice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `message` longtext NOT NULL,
+  `notice_type_id` int(11) NOT NULL,
+  `added` datetime NOT NULL,
+  `unseen` tinyint(1) NOT NULL,
+  `archived` tinyint(1) NOT NULL,
+  `on_site` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notification_notice_user_id` (`user_id`),
+  KEY `notification_notice_notice_type_id` (`notice_type_id`),
+  CONSTRAINT `notice_type_id_refs_id_212d5727` FOREIGN KEY (`notice_type_id`) REFERENCES `notification_noticetype` (`id`),
+  CONSTRAINT `user_id_refs_id_690c45d1` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of notification_notice
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `notification_noticequeuebatch`
+-- ----------------------------
+DROP TABLE IF EXISTS `notification_noticequeuebatch`;
+CREATE TABLE `notification_noticequeuebatch` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pickled_data` longtext NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of notification_noticequeuebatch
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `notification_noticesetting`
+-- ----------------------------
+DROP TABLE IF EXISTS `notification_noticesetting`;
+CREATE TABLE `notification_noticesetting` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `notice_type_id` int(11) NOT NULL,
+  `medium` varchar(1) NOT NULL,
+  `send` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`,`notice_type_id`,`medium`),
+  KEY `notification_noticesetting_user_id` (`user_id`),
+  KEY `notification_noticesetting_notice_type_id` (`notice_type_id`),
+  CONSTRAINT `notice_type_id_refs_id_1024de5c` FOREIGN KEY (`notice_type_id`) REFERENCES `notification_noticetype` (`id`),
+  CONSTRAINT `user_id_refs_id_8c53966` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of notification_noticesetting
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `notification_noticetype`
+-- ----------------------------
+DROP TABLE IF EXISTS `notification_noticetype`;
+CREATE TABLE `notification_noticetype` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `label` varchar(40) NOT NULL,
+  `display` varchar(50) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `default` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of notification_noticetype
+-- ----------------------------
+INSERT INTO `notification_noticetype` VALUES ('1', 'messages_received', 'Message Received', 'you have received a message', '2');
+INSERT INTO `notification_noticetype` VALUES ('2', 'messages_sent', 'Message Sent', 'you have sent a message', '1');
+INSERT INTO `notification_noticetype` VALUES ('3', 'messages_replied', 'Message Replied', 'you have replied to a message', '1');
+INSERT INTO `notification_noticetype` VALUES ('4', 'messages_reply_received', 'Reply Received', 'you have received a reply to a message', '2');
+INSERT INTO `notification_noticetype` VALUES ('5', 'messages_deleted', 'Message Deleted', 'you have deleted a message', '1');
+INSERT INTO `notification_noticetype` VALUES ('6', 'messages_recovered', 'Message Recovered', 'you have undeleted a message', '1');
+INSERT INTO `notification_noticetype` VALUES ('7', 'friends_invite', 'Invitation Received', 'you have received an invitation', '2');
+INSERT INTO `notification_noticetype` VALUES ('8', 'friends_invite_sent', 'Invitation Sent', 'you have sent an invitation', '1');
+INSERT INTO `notification_noticetype` VALUES ('9', 'friends_accept', 'Acceptance Received', 'an invitation you sent has been accepted', '2');
+INSERT INTO `notification_noticetype` VALUES ('10', 'friends_accept_sent', 'Acceptance Sent', 'you have accepted an invitation you received', '1');
+INSERT INTO `notification_noticetype` VALUES ('11', 'friends_otherconnect', 'Other Connection', 'one of your friends has a new connection', '2');
+INSERT INTO `notification_noticetype` VALUES ('12', 'join_accept', 'Join Invitation Accepted', 'an invitation you sent to join this site has been accepted', '2');
+
+-- ----------------------------
+-- Table structure for `notification_observeditem`
+-- ----------------------------
+DROP TABLE IF EXISTS `notification_observeditem`;
+CREATE TABLE `notification_observeditem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `content_type_id` int(11) NOT NULL,
+  `object_id` int(10) unsigned NOT NULL,
+  `notice_type_id` int(11) NOT NULL,
+  `added` datetime NOT NULL,
+  `signal` longtext NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notification_observeditem_user_id` (`user_id`),
+  KEY `notification_observeditem_content_type_id` (`content_type_id`),
+  KEY `notification_observeditem_notice_type_id` (`notice_type_id`),
+  CONSTRAINT `content_type_id_refs_id_6c21f628` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
+  CONSTRAINT `notice_type_id_refs_id_4b098f3e` FOREIGN KEY (`notice_type_id`) REFERENCES `notification_noticetype` (`id`),
+  CONSTRAINT `user_id_refs_id_7555f7d4` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of notification_observeditem
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `registration_registrationprofile`
 -- ----------------------------
 DROP TABLE IF EXISTS `registration_registrationprofile`;
@@ -1191,6 +1381,55 @@ CREATE TABLE `registration_registrationprofile` (
 -- ----------------------------
 -- Records of registration_registrationprofile
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `relationships_relationship`
+-- ----------------------------
+DROP TABLE IF EXISTS `relationships_relationship`;
+CREATE TABLE `relationships_relationship` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `from_user_id` int(11) NOT NULL,
+  `to_user_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `site_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `from_user_id` (`from_user_id`,`to_user_id`,`status_id`),
+  KEY `relationships_relationship_from_user_id` (`from_user_id`),
+  KEY `relationships_relationship_to_user_id` (`to_user_id`),
+  KEY `relationships_relationship_status_id` (`status_id`),
+  KEY `relationships_relationship_site_id` (`site_id`),
+  CONSTRAINT `from_user_id_refs_id_59227730` FOREIGN KEY (`from_user_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `site_id_refs_id_78983d9` FOREIGN KEY (`site_id`) REFERENCES `django_site` (`id`),
+  CONSTRAINT `status_id_refs_id_4507d703` FOREIGN KEY (`status_id`) REFERENCES `relationships_relationshipstatus` (`id`),
+  CONSTRAINT `to_user_id_refs_id_59227730` FOREIGN KEY (`to_user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of relationships_relationship
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `relationships_relationshipstatus`
+-- ----------------------------
+DROP TABLE IF EXISTS `relationships_relationshipstatus`;
+CREATE TABLE `relationships_relationshipstatus` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `verb` varchar(100) NOT NULL,
+  `from_slug` varchar(100) NOT NULL,
+  `to_slug` varchar(100) NOT NULL,
+  `symmetrical_slug` varchar(100) NOT NULL,
+  `login_required` tinyint(1) NOT NULL,
+  `private` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of relationships_relationshipstatus
+-- ----------------------------
+INSERT INTO `relationships_relationshipstatus` VALUES ('1', 'Following', 'follow', 'following', 'followers', 'friends', '0', '0');
+INSERT INTO `relationships_relationshipstatus` VALUES ('2', 'Blocking', 'block', 'blocking', 'blockers', '!', '1', '1');
 
 -- ----------------------------
 -- Table structure for `system_armor`
@@ -1784,6 +2023,27 @@ INSERT INTO `system_robbery` VALUES ('32', '他妈的烂地方', '80', '8000', '
 INSERT INTO `system_robbery` VALUES ('33', '黄埔军校', '80', '15000', 'gang', '100.0000', '200.0000', '100.0000', '200.0000', '100.0000', '200.0000', '100.0000', '200.0000', '150000', '300000', '150000,300000', '100,200', '17', '2010-04-28 19:32:20');
 
 -- ----------------------------
+-- Table structure for `system_sabotage`
+-- ----------------------------
+DROP TABLE IF EXISTS `system_sabotage`;
+CREATE TABLE `system_sabotage` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `stamina` smallint(6) NOT NULL,
+  `difficulty` smallint(6) NOT NULL,
+  `expend` smallint(6) NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of system_sabotage
+-- ----------------------------
+INSERT INTO `system_sabotage` VALUES ('1', '炸了他的工厂', '15', '1000', '500', '2010-05-04 10:28:37');
+INSERT INTO `system_sabotage` VALUES ('2', '抢走他的小姐', '10', '200', '100', '2010-05-04 10:28:58');
+INSERT INTO `system_sabotage` VALUES ('3', '砸了他的场子', '20', '2500', '1250', '2010-05-04 10:29:24');
+
+-- ----------------------------
 -- Table structure for `system_weapon`
 -- ----------------------------
 DROP TABLE IF EXISTS `system_weapon`;
@@ -1839,11 +2099,12 @@ CREATE TABLE `user_armor` (
   KEY `user_armor_armor_id` (`armor_id`),
   CONSTRAINT `armor_id_refs_id_633aab41` FOREIGN KEY (`armor_id`) REFERENCES `system_armor` (`id`),
   CONSTRAINT `user_id_refs_id_7e8d3c95` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_armor
 -- ----------------------------
+INSERT INTO `user_armor` VALUES ('1', '3', '1', '1', '2010-05-04 17:53:53');
 
 -- ----------------------------
 -- Table structure for `user_building`

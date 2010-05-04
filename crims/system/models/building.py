@@ -18,14 +18,14 @@ class Building(models.Model):
         return self.title
     
     class Meta:
-        verbose_name = _('Building')
-        verbose_name_plural = _('Buildings')
+        verbose_name = _('building')
+        verbose_name_plural = _('buildings')
         app_label = 'system'
         ordering = ['id']
 
 class UserBuilding(models.Model):
-    user = models.ForeignKey(User)
-    building = models.ForeignKey(Building)
+    user = models.ForeignKey(User, verbose_name=_('user'))
+    building = models.ForeignKey(Building, verbose_name=_('building'))
     title = models.CharField(_('title'), max_length=200, blank=True, null=True)
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
     modified = models.DateTimeField(_('modified'), editable=False, auto_now=True)
@@ -36,7 +36,7 @@ class UserBuilding(models.Model):
         return self.title
     
     class Meta:
-        verbose_name = _('User\'s Building')
-        verbose_name_plural = _('User\'s Buildings')
+        verbose_name = _('user\'s building')
+        verbose_name_plural = _('user\'s buildings')
         db_table = 'user_building'
         app_label = 'system'

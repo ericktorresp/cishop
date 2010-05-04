@@ -4,11 +4,11 @@ from filebrowser.fields import FileBrowseField
 from django.utils.translation import ugettext_lazy as _
 
 SECTIONS = (
-   ('robbery', _('Robbery')),
+   ('robbery', _('robbery')),
    ('drug', _('drug')),
-   ('dock', _('Dock')),
-   ('building', _('Building')),
-   ('business', _('Business')),
+   ('dock', _('dock')),
+   ('building', _('building')),
+   ('business', _('business')),
 )
 class Event(models.Model):
     title = models.CharField(_('title'), max_length=200)
@@ -22,7 +22,7 @@ class Event(models.Model):
         return self.title
     
     class Meta:
-        verbose_name = _('Event')
-        verbose_name_plural = _('Events')
+        verbose_name = _('event')
+        verbose_name_plural = _('events')
         app_label = 'system'
         ordering = ['id', ]

@@ -8,7 +8,7 @@ class Hooker(models.Model):
     photo = FileBrowseField(_('photo'), max_length=200, directory="hooker/", format="Image", extensions=['.jpg', '.gif', '.png'])
     price = models.IntegerField(_('price'))
     expend = models.IntegerField(_('expend'))
-    visitprice = models.IntegerField(_('visit_price'))
+    visitprice = models.IntegerField(_('visit price'))
     sickprobability = models.DecimalField(_('sick probability'), decimal_places=4, max_digits=4)
     is_random = models.BooleanField(_('system'), default=False)
     stamina = models.IntegerField(_('stamina'))
@@ -21,14 +21,14 @@ class Hooker(models.Model):
         return self.title
     
     class Meta:
-        verbose_name = _('Hooker')
-        verbose_name_plural = _('Hookers')
+        verbose_name = _('hooker')
+        verbose_name_plural = _('hookers')
         app_label = 'system'
         ordering = ['id', ]
 
 class UserHooker(models.Model):
     user = models.ForeignKey(User)
-    hooker = models.ForeignKey(Hooker)
+    hooker = models.ForeignKey(Hooker, verbose_name=_('hooker'))
     visitprice = models.SmallIntegerField(_('visit price'))
     expend = models.SmallIntegerField(_('expend'))
     income = models.IntegerField(_('income'))
@@ -38,7 +38,7 @@ class UserHooker(models.Model):
         return self.user.username + '\'s ' + self.hooker.title
     
     class Meta:
-        verbose_name = _('User\'s Hooker')
-        verbose_name_plural = _('User\'s Hookers')
+        verbose_name = _('user\'s hooker')
+        verbose_name_plural = _('user\'s hookers')
         db_table = 'user_hooker'
         app_label = 'system'

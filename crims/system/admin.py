@@ -47,6 +47,8 @@ class RandomEventQuestionAdmin(admin.ModelAdmin):
 class RobberyAdmin(admin.ModelAdmin):
     list_display = ('title', 'difficulty', 'type', 'attribute_range', 'cash_range', 'created',)
 
+class SabotageAdmin(admin.ModelAdmin):
+    list_display = ('title', 'stamina', 'difficulty', 'expend',)
 admin.site.register(Avatar)
 admin.site.register(Armor, ArmorAdmin)
 admin.site.register(Character, CharacterAdmin)
@@ -63,3 +65,4 @@ admin.site.register(Hospital, HospitalAdmin)
 admin.site.register(RandomEvent)
 admin.site.register(RandomEventQuestion, RandomEventQuestionAdmin)
 admin.site.register(Robbery, RobberyAdmin)
+admin.site.register(Sabotage, SabotageAdmin)

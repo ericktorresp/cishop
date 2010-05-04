@@ -3,8 +3,8 @@ from django.utils.translation import ugettext_lazy as _
 from system.fields import SeparatedValuesField
 
 ROBBERY_TYPE = (
-    ('single', _('Single')),
-    ('gang', _('Gang')),
+    ('single', _('single')),
+    ('gang', _('gang')),
 )
 class Robbery(models.Model):
     title = models.CharField(_('title'), max_length=100)
@@ -32,5 +32,5 @@ class Robbery(models.Model):
     class Meta:
         app_label = 'system'
         ordering = ['id']
-        verbose_name = _('Robbery')
-        verbose_name_plural = _('Robberies')
+        verbose_name = _('robbery')
+        verbose_name_plural = _('robberies')
