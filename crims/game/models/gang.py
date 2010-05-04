@@ -8,7 +8,7 @@ class Gang(models.Model):
     presentation = models.TextField(_('presentation'))
     photo = models.FileField(_('photo'), upload_to='uploads/gang')
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
-    province = models.ForeignKey(Province, verbose_name=_('Province'))
+    province = models.ForeignKey(Province, verbose_name=_('province'))
     creater = models.ForeignKey(User, verbose_name=_('creater'), related_name='creater')
     leader = models.ForeignKey(User, verbose_name=_('leader'), related_name='leader', limit_choices_to={})
     vice_leader = models.ForeignKey(User, verbose_name=_('vice leader'), related_name='vice_leader', blank=True, null=True, limit_choices_to={})

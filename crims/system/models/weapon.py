@@ -37,7 +37,7 @@ class Weapon(models.Model):
 
 class UserWeapon(models.Model):
     user = models.ForeignKey(User)
-    weapon = models.ForeignKey(Weapon)
+    weapon = models.ForeignKey(Weapon, verbose_name=_('weapon'))
     actived = models.BooleanField(_('actived'), default=False)
     used = models.IntegerField(_('used'), default=0, blank=True, null=True)
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
