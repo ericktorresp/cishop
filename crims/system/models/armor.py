@@ -27,7 +27,7 @@ class UserArmor(models.Model):
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
     
     def __unicode__(self):
-        return self.user.username + '\'s' + self.armor.title
+        return self.armor.title
     
     class Meta:
         verbose_name = _('user\'s armor')

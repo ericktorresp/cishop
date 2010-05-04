@@ -22,12 +22,15 @@ class BankInline(admin.StackedInline):
     model = Bank
     fk_name = 'user'
     can_delete = False
+    classes = ('collapse-closed',)
 
 class ArmorInline(admin.StackedInline):
     model = UserArmor
     fk_name = 'user'
     can_delete = False
-
+    classes = ('collapse-closed',)
+    allow_add = True
+    
 class BankAdmin(UserAdmin):
     inlines = (BankInline, ArmorInline,)
         
