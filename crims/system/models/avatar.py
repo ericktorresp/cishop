@@ -7,7 +7,8 @@ class Avatar(models.Model):
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
     
     def __unicode__(self):
-        return str(self.filename)
+        return '<img src=%s border=0 />' % (self.filename)
+    __unicode__.allow_tags = True
     
     class Meta:
         verbose_name = _('avatar')

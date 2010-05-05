@@ -29,11 +29,11 @@ class UserBuilding(models.Model):
     title = models.CharField(_('title'), max_length=200, blank=True, null=True)
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
     modified = models.DateTimeField(_('modified'), editable=False, auto_now=True)
-    units = models.IntegerField(_('units'))
-    outputs = models.IntegerField(_('outputs'))
+    units = models.IntegerField(_('units'), default=1)
+    outputs = models.IntegerField(_('outputs'), default=0)
     
     def __unicode__(self):
-        return self.title
+        return self.building.title
     
     class Meta:
         verbose_name = _('user\'s building')

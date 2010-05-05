@@ -459,3 +459,6 @@ msgstr "破坏"
 
 msgid "sabotages"
 msgstr "破坏"
+
+msgid "freetime"
+msgstr "下次接客时间"

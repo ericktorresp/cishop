@@ -2,28 +2,59 @@ from game.models import *
 from system.models import *
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django import forms
 
-class MemberInline(admin.StackedInline):
+class GangMemberInline(admin.StackedInline):
     model = GangMember
     extra = 3
     raw_id_fields = ['user']
     classes = ('collapse-closed',)
 
-class NewsInline(admin.StackedInline):
+class GangNewsInlineForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(GangNewsInlineForm, self).__init__(*args, **kwargs)
+        self.fields['writer'].queryset = GangMember.objects.filter()
+
+class GangNewsInline(admin.StackedInline):
     model = GangNews
-    fk_name = 'gang'
     can_delete = False
     classes = ('collapse-closed',)
-    allow_add = True
+    form = GangNewsInlineForm
+#    allow_add = True
+#    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+#        if db_field.name == "writer":
+#            kwargs["queryset"] = GangMember.objects.filter(gang=gang)
+#            return db_field.formfield(**kwargs)
+#        return super(GangNewsInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
-class InviteInline(admin.StackedInline):
+class GangInviteInlineForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(GangInviteInlineForm, self).__init__(*args, **kwargs)
+        self.fields['inviter'].queryset = GangMember.objects.filter()
+        
+class GangInviteInline(admin.StackedInline):
+    form = GangInviteInlineForm
     model = GangInvite
     classes = ('collapse-closed',)
-    
+
+class GangChatInline(admin.StackedInline):
+    model = Chat
+    fk_name = 'gang'
+    classes = ('collapse-closed',)
+
+class GangRobberyInline(admin.StackedInline):
+    model = GangRobbery
+    classes = ('collapse-closed',)
+
+class GangAssaultInline(admin.StackedInline):
+    model = GangAssault
+    classes = ('collapse-closed',)
+
 class GangAdmin(admin.ModelAdmin):
-    inlines = (MemberInline, NewsInline, InviteInline,)
+    inlines = (GangMemberInline, GangNewsInline, GangInviteInline, GangChatInline, GangRobberyInline, GangAssaultInline,)
     raw_id_fields = ['creater', 'leader', 'vice_leader', ]
     list_display = ('title', 'creater', 'leader', 'vice_leader', 'created',)
+#    prepopulated_fields = {"title": ("title",)}
 
 class BountyAdmin(admin.ModelAdmin):
     raw_id_fields = ['sponsor', 'target']
@@ -55,9 +86,26 @@ class GuardInline(admin.StackedInline):
     can_delete = False
     classes = ('collapse-closed',)
     allow_add = True
+
+class DrugInline(admin.StackedInline):
+    model = UserDrug
+    classes = ('collapse-closed',)
+    allow_add = True
+
+class HookerInline(admin.StackedInline):
+    model = UserHooker
+    classes = ('collapse-closed',)
+
+class BuildingInline(admin.StackedInline):
+    model = UserBuilding
+    classes = ('collapse-closed',)
+
+class BusinessInline(admin.StackedInline):
+    model = UserBusiness
+    classes = ('collapse-closed',)
         
 class BankAdmin(UserAdmin):
-    inlines = (BankInline, ArmorInline, WeaponInline, GuardInline,)
+    inlines = (BankInline, ArmorInline, WeaponInline, GuardInline, DrugInline, HookerInline, BuildingInline, BusinessInline,)
         
 admin.site.register(Gang, GangAdmin)
 admin.site.register(Bounty, BountyAdmin)

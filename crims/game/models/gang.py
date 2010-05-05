@@ -1,7 +1,9 @@
 from django.db import models
-from system.models import Province
+from system.models import Province, Robbery
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+
+GANG_ACTION_STATUS = (('planning', _('planning')), ('done', _('done')), ('aborted', _('aborted')),)
 
 class Gang(models.Model):
     title = models.CharField(_('title'), max_length=100)
@@ -25,14 +27,14 @@ class Gang(models.Model):
         return self.title
     
     class Meta:
-        verbose_name = _('Gang')
-        verbose_name_plural = _('Gangs')
+        verbose_name = _('gang')
+        verbose_name_plural = _('gangs')
         app_label = 'game'
         ordering = ['id', ]
 
 class GangMember(models.Model):
-    user = models.ForeignKey(User, verbose_name=_('User'))
-    gang = models.ForeignKey(Gang, verbose_name=_('Gang'))
+    user = models.ForeignKey(User, verbose_name=_('user'))
+    gang = models.ForeignKey(Gang, verbose_name=_('gang'))
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
     
     def __unicode__(self):
@@ -40,14 +42,14 @@ class GangMember(models.Model):
     
     class Meta:
         app_label = 'game'
-        verbose_name = _('Gang Member')
-        verbose_name_plural = _('Gang Members')
+        verbose_name = _('member')
+        verbose_name_plural = _('members')
         unique_together = ("user", "gang")
         
 class GangInvite(models.Model):
     inviter = models.ForeignKey(User, verbose_name=_('inviter'), related_name='inviter')
     accepter = models.ForeignKey(User, verbose_name=_('accepter'), related_name='accepter')
-    gang = models.ForeignKey(Gang, verbose_name=_('Gang'), related_name='gang')
+    gang = models.ForeignKey(Gang, verbose_name=_('gang'), related_name='gang')
     accepted = models.BooleanField(_('accepted'), default=False)
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
     
@@ -56,13 +58,13 @@ class GangInvite(models.Model):
     
     class Meta:
         app_label = 'game'
-        verbose_name = _('Gang invite')
-        verbose_name_plural = _('Gang invites')
+        verbose_name = _('invite')
+        verbose_name_plural = _('invites')
         
 class GangNews(models.Model):
     subject = models.CharField(_('subject'), max_length=200)
     body = models.TextField(_('body'))
-    gang = models.ForeignKey(Gang, verbose_name=_('Gang'))
+    gang = models.ForeignKey(Gang, verbose_name=_('gang'))
     writer = models.ForeignKey(User, verbose_name=_('writer'))
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
     
@@ -71,8 +73,43 @@ class GangNews(models.Model):
     
     class Meta:
         app_label = 'game'
-        verbose_name = _('Gang news')
-        verbose_name_plural = _('Gang newses')
+        verbose_name = _('news')
+        verbose_name_plural = _('newses')
+
+class GangRobbery(models.Model):
+    gang = models.ForeignKey(Gang, verbose_name=_('gang'))
+    robbery = models.ForeignKey(Robbery, verbose_name=_('robbery'), limit_choices_to={'type':'gang'})
+    initiator = models.ForeignKey(User, verbose_name=_('initiator'))
+    status = models.CharField(_('status'), max_length=10, choices=GANG_ACTION_STATUS, default='planning')
+    created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
+    accepted = models.ManyToManyField(GangMember, verbose_name=_('accepted'), related_name='accepted', blank=True)
+    declined = models.ManyToManyField(GangMember, verbose_name=_('declined'), related_name='declined', blank=True)
+    
+    def __unicode__(self):
+        return self.robbery.title
+    
+    class Meta:
+        app_label = 'game'
+        verbose_name = _('robbery')
+        verbose_name_plural = _('robberies')
+
+class GangAssault(models.Model):
+    gang = models.ForeignKey(Gang, verbose_name=_('gang'))
+    victim = models.ForeignKey(User, verbose_name=_('victim'), related_name='victim')
+    initiator = models.ForeignKey(User, verbose_name=_('initiator'), related_name='initiator')
+    status = models.CharField(_('status'), max_length=10, choices=GANG_ACTION_STATUS, default='planning')
+    created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
+    accepted = models.ManyToManyField(GangMember, related_name='assault_accepted', verbose_name=_('accepted'), blank=True)
+    declined = models.ManyToManyField(GangMember, related_name='assault_declined', verbose_name=_('declined'), blank=True)
+    
+    def __unicode__(self):
+        return self.victim.username
+    
+    class Meta:
+        app_label = 'game'
+        verbose_name = _('assault')
+        verbose_name_plural = _('assaults')
+
 #def create_leader(sender, instance, **kwargs):
 #    leader = GangMember(gang_id=instance.id, user_id=instance.creater.id)
 #    leader.save()

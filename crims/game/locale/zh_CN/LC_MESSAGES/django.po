@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -34,20 +33,20 @@ msgstr "副帮主"
 
 #: .\models\gang.py:28 .\models\gang.py:35 .\models\gang.py:50
 #: .\models\gang.py:65
-msgid "Gang"
+msgid "gang"
 msgstr "帮会"
 
 #: .\models\gang.py:29
-msgid "Gangs"
+msgid "gangs"
 msgstr "帮会"
 
 #: .\models\gang.py:43
-msgid "Gang Member"
-msgstr "帮会成员"
+msgid "member"
+msgstr "成员"
 
 #: .\models\gang.py:44
-msgid "Gang Members"
-msgstr "帮会成员"
+msgid "members"
+msgstr "成员"
 
 #: .\models\gang.py:48
 msgid "inviter"
@@ -59,15 +58,15 @@ msgstr "接收人"
 
 #: .\models\gang.py:51
 msgid "accepted"
-msgstr "已接受?"
+msgstr "已接受"
 
 #: .\models\gang.py:59
-msgid "Gang invite"
-msgstr "帮会邀请"
+msgid "invite"
+msgstr "邀请"
 
 #: .\models\gang.py:60
-msgid "Gang invites"
-msgstr "帮会邀请"
+msgid "invites"
+msgstr "邀请"
 
 #: .\models\gang.py:63
 msgid "subject"
@@ -82,12 +81,12 @@ msgid "writer"
 msgstr "发布人"
 
 #: .\models\gang.py:74
-msgid "Gang news"
-msgstr "帮派新闻"
+msgid "news"
+msgstr "新闻"
 
 #: .\models\gang.py:75
-msgid "Gang newses"
-msgstr "帮派新闻"
+msgid "newses"
+msgstr "新闻"
 
 msgid "game"
 msgstr "游戏"
@@ -142,3 +141,48 @@ msgstr "黑名单？"
 
 msgid "%(master)s relationship with %(relater)s"
 msgstr "%(master)s 与 %(relater)s 的关系"
+
+msgid "chat"
+msgstr "聊天"
+
+msgid "chats"
+msgstr "聊天"
+
+msgid "square"
+msgstr "广场"
+
+msgid "fight"
+msgstr "打架"
+
+msgid "prison"
+msgstr "监狱"
+
+msgid "rip"
+msgstr "医院"
+
+msgid "initiator"
+msgstr "发起人"
+
+msgid "status"
+msgstr "状态"
+
+msgid "declined"
+msgstr "已拒绝"
+
+msgid "planning"
+msgstr "计划中"
+
+msgid "done"
+msgstr "已完成"
+
+msgid "aborted"
+msgstr "已终止"
+
+msgid "assault"
+msgstr "攻击"
+
+msgid "assaults"
+msgstr "攻击"
+
+msgid "victim"
+msgstr "敌人"

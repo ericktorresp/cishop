@@ -27,10 +27,11 @@ class UserDrug(models.Model):
     units = models.IntegerField(_('units'))
     
     def __unicode__(self):
-        return self.user.username + '\'s ' + self.drug.title
+        return self.drug.title
     
     class Meta:
         verbose_name = _('user\'s drug')
         verbose_name_plural = _('user\'s drugs')
         db_table = 'user_drug'
         app_label = 'system'
+        unique_together = ('user', 'drug')

@@ -2,6 +2,7 @@ from django.db import models
 from filebrowser.fields import FileBrowseField
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+import datetime
 
 class Hooker(models.Model):
     title = models.CharField(_('title'), max_length=100)
@@ -31,11 +32,11 @@ class UserHooker(models.Model):
     hooker = models.ForeignKey(Hooker, verbose_name=_('hooker'))
     visitprice = models.SmallIntegerField(_('visit price'))
     expend = models.SmallIntegerField(_('expend'))
-    income = models.IntegerField(_('income'))
-    freetime = models.DateTimeField(_('freetime'), blank=True, null=True)
+    income = models.IntegerField(_('income'), default=0)
+    freetime = models.DateTimeField(_('freetime'), blank=True, null=True, default=datetime.datetime.now() + datetime.timedelta(minutes=2))
     
     def __unicode__(self):
-        return self.user.username + '\'s ' + self.hooker.title
+        return self.hooker.title
     
     class Meta:
         verbose_name = _('user\'s hooker')
