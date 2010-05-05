@@ -13,7 +13,7 @@ class GangMemberInline(admin.StackedInline):
 class GangNewsInlineForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(GangNewsInlineForm, self).__init__(*args, **kwargs)
-        self.fields['writer'].queryset = GangMember.objects.filter()
+        self.fields['writer'].queryset = User.objects.filter(id__in=GangMember.objects.filter().values('user_id').query)
 
 class GangNewsInline(admin.StackedInline):
     model = GangNews
@@ -30,23 +30,43 @@ class GangNewsInline(admin.StackedInline):
 class GangInviteInlineForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(GangInviteInlineForm, self).__init__(*args, **kwargs)
-        self.fields['inviter'].queryset = GangMember.objects.filter()
+        self.fields['inviter'].queryset = User.objects.filter(id__in=GangMember.objects.filter().values('user_id').query)
+        self.fields['accepter'].queryset = User.objects.exclude(id__in=GangMember.objects.filter().values('user_id').query)
         
 class GangInviteInline(admin.StackedInline):
     form = GangInviteInlineForm
     model = GangInvite
     classes = ('collapse-closed',)
 
+class GangChatInlineForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(GangChatInlineForm, self).__init__(*args, **kwargs)
+        self.fields['sender'].queryset = User.objects.filter(id__in=GangMember.objects.filter().values('user_id').query)
+
 class GangChatInline(admin.StackedInline):
+    form = GangChatInlineForm
     model = Chat
     fk_name = 'gang'
     classes = ('collapse-closed',)
 
+class GangRobberyInlineForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(GangRobberyInlineForm, self).__init__(*args, **kwargs)
+        self.fields['initiator'].queryset = User.objects.filter(id__in=GangMember.objects.filter().values('user_id').query)
+
 class GangRobberyInline(admin.StackedInline):
+    form = GangRobberyInlineForm
     model = GangRobbery
     classes = ('collapse-closed',)
 
+class GangAssaultInlineForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(GangAssaultInlineForm, self).__init__(*args, **kwargs)
+        self.fields['initiator'].queryset = User.objects.filter(id__in=GangMember.objects.filter().values('user_id').query)
+        self.fields['victim'].queryset = User.objects.exclude(id__in=GangMember.objects.filter().values('user_id').query)
+
 class GangAssaultInline(admin.StackedInline):
+    form = GangAssaultInlineForm
     model = GangAssault
     classes = ('collapse-closed',)
 
