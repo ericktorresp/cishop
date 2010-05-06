@@ -119,20 +119,28 @@ class HookerInline(admin.StackedInline):
 class BuildingInline(admin.StackedInline):
     model = UserBuilding
     classes = ('collapse-closed',)
-
+    
+class BusinessDrugInline(admin.StackedInline):
+    model = UserBusinessDrug
+    
 class BusinessInline(admin.StackedInline):
     model = UserBusiness
     classes = ('collapse-closed',)
-        
+    inlines = (BusinessDrugInline,)
+   
 class BankAdmin(UserAdmin):
     inlines = (BankInline, ArmorInline, WeaponInline, GuardInline, DrugInline, HookerInline, BuildingInline, BusinessInline,)
 
 class PrisonAdmin(admin.ModelAdmin):
     list_display = ('prisoner', 'created', 'expired', 'escaped',)
-        
+
+class RipAdmin(admin.ModelAdmin):
+    list_display = ('user', 'created', 'expired', 'escaped', 'reason', 'victim')
+            
 admin.site.register(Gang, GangAdmin)
 admin.site.register(Bounty, BountyAdmin)
 admin.site.unregister(User)
 admin.site.register(User, BankAdmin)
 admin.site.register(Guestbook)
 admin.site.register(Prison, PrisonAdmin)
+admin.site.register(Rip, RipAdmin)

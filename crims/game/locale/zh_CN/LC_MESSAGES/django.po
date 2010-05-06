@@ -204,3 +204,6 @@ msgstr "犯人"
 
 msgid "escaped"
 msgstr "已越狱"
+
+msgid "reason"
+msgstr "原因"

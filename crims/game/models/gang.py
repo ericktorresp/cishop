@@ -2,13 +2,14 @@ from django.db import models
 from system.models import Province, Robbery
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from game.thumbs import ImageWithThumbsField
 
 GANG_ACTION_STATUS = (('planning', _('planning')), ('done', _('done')), ('aborted', _('aborted')),)
 
 class Gang(models.Model):
     title = models.CharField(_('title'), max_length=100)
     presentation = models.TextField(_('presentation'))
-    photo = models.FileField(_('photo'), upload_to='uploads/gang')
+    photo = ImageWithThumbsField(_('photo'), upload_to='uploads/gang', sizes=((100, 100),))
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
     province = models.ForeignKey(Province, verbose_name=_('province'))
     creater = models.ForeignKey(User, verbose_name=_('creater'), related_name='creater')
@@ -19,6 +20,7 @@ class Gang(models.Model):
         need_create_gang_member = False
         if not self.pk:
             need_create_gang_member = True
+            #@todo: new photo, elif photo, delete old one, upload new one.
         super(Gang, self).save()
         if need_create_gang_member:
             GangMember(user=self.creater, gang=self).save()

@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     'system',
     'messages',
     'game',
+    'friends',
 #    'relationships',
     'django.contrib.admin',
 )
