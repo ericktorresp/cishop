@@ -207,3 +207,6 @@ msgstr "已越狱"
 
 msgid "reason"
 msgstr "原因"
+
+msgid "%s's %s"
+msgstr "%s的%s"

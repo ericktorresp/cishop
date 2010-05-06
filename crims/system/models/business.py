@@ -40,7 +40,15 @@ class UserBusiness(models.Model):
     user_drug = models.ManyToManyField(UserDrug, verbose_name=_('drug'), through='UserBusinessDrug')
     
     def __unicode__(self):
-        return self.title
+        if self.title:
+            return self.title
+        else:
+            return self.business.title
+    
+    def save(self):
+        if not self.title:
+            self.title = _("%s's %s") % (self.user.username, self.business.title)
+        super(UserBusiness, self).save()
     
     class Meta:
         verbose_name = _('user\'s business')
