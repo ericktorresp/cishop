@@ -84,7 +84,7 @@ class BankInline(admin.StackedInline):
     model = Bank
     fk_name = 'user'
     can_delete = False
-    classes = ('collapse-closed',)
+    classes = ('collapse-open',)
 
 class ArmorInline(admin.StackedInline):
     model = UserArmor
@@ -126,8 +126,13 @@ class BusinessInline(admin.StackedInline):
         
 class BankAdmin(UserAdmin):
     inlines = (BankInline, ArmorInline, WeaponInline, GuardInline, DrugInline, HookerInline, BuildingInline, BusinessInline,)
+
+class PrisonAdmin(admin.ModelAdmin):
+    list_display = ('prisoner', 'created', 'expired', 'escaped',)
         
 admin.site.register(Gang, GangAdmin)
 admin.site.register(Bounty, BountyAdmin)
 admin.site.unregister(User)
 admin.site.register(User, BankAdmin)
+admin.site.register(Guestbook)
+admin.site.register(Prison, PrisonAdmin)

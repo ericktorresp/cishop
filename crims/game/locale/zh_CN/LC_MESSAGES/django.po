@@ -186,3 +186,21 @@ msgstr "攻击"
 
 msgid "victim"
 msgstr "敌人"
+
+msgid "guestbook"
+msgstr "留言本"
+
+msgid "guestbooks"
+msgstr "留言本"
+
+msgid "owner"
+msgstr "主人"
+
+msgid "author"
+msgstr "作者"
+
+msgid "prisoner"
+msgstr "犯人"
+
+msgid "escaped"
+msgstr "已越狱"
