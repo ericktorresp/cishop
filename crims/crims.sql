@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50142
 File Encoding         : 65001
 
-Date: 2010-05-06 17:30:47
+Date: 2010-05-07 17:33:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -59,7 +59,7 @@ CREATE TABLE `auth_message` (
   PRIMARY KEY (`id`),
   KEY `auth_message_user_id` (`user_id`),
   CONSTRAINT `user_id_refs_id_9af0b65a` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_message
@@ -78,7 +78,7 @@ CREATE TABLE `auth_permission` (
   UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
   KEY `auth_permission_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_728de91f` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=226 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=232 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -284,6 +284,12 @@ INSERT INTO `auth_permission` VALUES ('222', 'Can delete prison', '74', 'delete_
 INSERT INTO `auth_permission` VALUES ('223', 'Can add rip', '75', 'add_rip');
 INSERT INTO `auth_permission` VALUES ('224', 'Can change rip', '75', 'change_rip');
 INSERT INTO `auth_permission` VALUES ('225', 'Can delete rip', '75', 'delete_rip');
+INSERT INTO `auth_permission` VALUES ('226', 'Can add profile', '76', 'add_userprofile');
+INSERT INTO `auth_permission` VALUES ('227', 'Can change profile', '76', 'change_userprofile');
+INSERT INTO `auth_permission` VALUES ('228', 'Can delete profile', '76', 'delete_userprofile');
+INSERT INTO `auth_permission` VALUES ('229', 'Can add game data', '77', 'add_userdata');
+INSERT INTO `auth_permission` VALUES ('230', 'Can change game data', '77', 'change_userdata');
+INSERT INTO `auth_permission` VALUES ('231', 'Can delete game data', '77', 'delete_userdata');
 
 -- ----------------------------
 -- Table structure for `auth_user`
@@ -308,8 +314,7 @@ CREATE TABLE `auth_user` (
 -- ----------------------------
 -- Records of auth_user
 -- ----------------------------
-INSERT INTO `auth_user` VALUES ('1', 'root', '', '', 'c-mtv@163.com', 'sha1$df48b$97ce6e8393b8ff135c3e794d6e847d6962ea6da8', '1', '1', '1', '2010-05-06 16:07:56', '2010-04-18 20:07:26');
-INSERT INTO `auth_user` VALUES ('3', 'darkmoon', 'Floyd', 'Joe', 'darkmoon@hxxps.com', 'sha1$62a35$6e7248a287a7d1c90519d91762fc0f45d4c62bea', '0', '1', '0', '2010-05-04 16:42:56', '2010-05-04 16:42:56');
+INSERT INTO `auth_user` VALUES ('1', 'root', '', '', 'c-mtv@163.com', 'sha1$df48b$97ce6e8393b8ff135c3e794d6e847d6962ea6da8', '1', '1', '1', '2010-05-07 16:40:33', '2010-04-18 20:07:26');
 
 -- ----------------------------
 -- Table structure for `auth_user_groups`
@@ -385,7 +390,7 @@ CREATE TABLE `django_admin_log` (
   KEY `django_admin_log_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_288599e6` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `user_id_refs_id_c8665aa` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=472 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=479 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_admin_log
@@ -848,6 +853,13 @@ INSERT INTO `django_admin_log` VALUES ('468', '2010-05-05 20:07:20', '1', '42', 
 INSERT INTO `django_admin_log` VALUES ('469', '2010-05-06 16:22:21', '1', '3', '3', 'darkmoon', '2', '已添加 用户生意 \"darkmoon\'s club\".');
 INSERT INTO `django_admin_log` VALUES ('470', '2010-05-06 16:56:46', '1', '3', '3', 'darkmoon', '2', '已删除 用户生意 \"darkmoon\'s club\".');
 INSERT INTO `django_admin_log` VALUES ('471', '2010-05-06 16:59:56', '1', '73', '1', 'darkmoon', '1', '');
+INSERT INTO `django_admin_log` VALUES ('472', '2010-05-06 17:32:33', '1', '50', '1', 'c-mtv@163.com (darkmoon\'s contact)', '1', '');
+INSERT INTO `django_admin_log` VALUES ('473', '2010-05-07 16:02:38', '1', '3', '3', 'darkmoon', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('474', '2010-05-07 16:04:07', '1', '3', '3', 'darkmoon', '2', '已添加 基本资料 \"darkmoon\".');
+INSERT INTO `django_admin_log` VALUES ('475', '2010-05-07 16:05:19', '1', '3', '3', 'darkmoon', '2', '已添加 游戏数据 \"darkmoon的游戏数据\".');
+INSERT INTO `django_admin_log` VALUES ('476', '2010-05-07 16:08:07', '1', '3', '3', 'darkmoon', '2', '已变更 avatar for 基本资料 \"darkmoon\".');
+INSERT INTO `django_admin_log` VALUES ('477', '2010-05-07 16:21:40', '1', '3', '3', 'darkmoon', '2', '已删除 游戏数据 \"darkmoon的游戏数据\".');
+INSERT INTO `django_admin_log` VALUES ('478', '2010-05-07 16:22:47', '1', '3', '3', 'darkmoon', '3', '');
 
 -- ----------------------------
 -- Table structure for `django_content_type`
@@ -860,7 +872,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_label` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_content_type
@@ -932,6 +944,8 @@ INSERT INTO `django_content_type` VALUES ('72', 'user business drugs', 'system',
 INSERT INTO `django_content_type` VALUES ('73', 'guestbook', 'game', 'guestbook');
 INSERT INTO `django_content_type` VALUES ('74', 'prison', 'game', 'prison');
 INSERT INTO `django_content_type` VALUES ('75', 'rip', 'game', 'rip');
+INSERT INTO `django_content_type` VALUES ('76', 'profile', 'account', 'userprofile');
+INSERT INTO `django_content_type` VALUES ('77', 'game data', 'account', 'userdata');
 
 -- ----------------------------
 -- Table structure for `django_session`
@@ -949,7 +963,6 @@ CREATE TABLE `django_session` (
 -- ----------------------------
 INSERT INTO `django_session` VALUES ('1f09faf546ea25a3ab010adc2e585bea', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVRJfYXV0aF91c2Vy\nX2JhY2tlbmRxBlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRxB1UN\nX2F1dGhfdXNlcl9pZHEIigEBdS42YzFiMDI5MGJhNjYzMjY0YzE1NWVhMWU3NmMwOTEyMQ==\n', '2010-05-19 16:03:19');
 INSERT INTO `django_session` VALUES ('23d64587c0070ce0dc9dae8aa27f6053', 'gAJ9cQEuODg5ZDEzMzAzNmNlMzJkNDIzZGQzMGM1ZWJhYmFlMGQ=\n', '2010-05-02 20:19:21');
-INSERT INTO `django_session` VALUES ('48882bafdadc63c960049c5a5813c66c', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVRJfYXV0aF91c2Vy\nX2JhY2tlbmRxBlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRxB1UN\nX2F1dGhfdXNlcl9pZHEIigEBdS42YzFiMDI5MGJhNjYzMjY0YzE1NWVhMWU3NmMwOTEyMQ==\n', '2010-05-20 17:21:44');
 INSERT INTO `django_session` VALUES ('5286edf50ae8d76c4766ee5d9ed97aac', 'gAJ9cQEuODg5ZDEzMzAzNmNlMzJkNDIzZGQzMGM1ZWJhYmFlMGQ=\n', '2010-05-02 20:19:21');
 INSERT INTO `django_session` VALUES ('72428d3f08e0427f6a8850ba47a4f659', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVQ1fYXV0aF91c2Vy\nX2lkcQaKAQFVEl9hdXRoX3VzZXJfYmFja2VuZHEHVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tl\nbmRzLk1vZGVsQmFja2VuZHEIdS45NzY0OGNkZmI3YzMwY2EzM2UyYjlkYWE1OWJkZjBjYw==\n', '2010-05-12 18:51:41');
 INSERT INTO `django_session` VALUES ('86cac61cc2a7f010c3d465c913cab99a', 'gAJ9cQFVCnRlc3Rjb29raWVxAlUGd29ya2VkcQNzLmJmMjBjODVkMTkwZTExMWEzMTkxMjFhNzIz\nZWI2NGJm\n', '2010-05-02 20:09:30');
@@ -957,6 +970,7 @@ INSERT INTO `django_session` VALUES ('9f005bf1fd11cc2e8ff354a75ee459b1', 'gAJ9cQ
 INSERT INTO `django_session` VALUES ('d01d78ab0e8391f7e31e22691afee012', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVQ1fYXV0aF91c2Vy\nX2lkcQaKAQFVEl9hdXRoX3VzZXJfYmFja2VuZHEHVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tl\nbmRzLk1vZGVsQmFja2VuZHEIdS45NzY0OGNkZmI3YzMwY2EzM2UyYjlkYWE1OWJkZjBjYw==\n', '2010-05-19 18:32:12');
 INSERT INTO `django_session` VALUES ('d71173bd46cd82de4d4b4aa96fc80479', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVQ1fYXV0aF91c2Vy\nX2lkcQaKAQFVEl9hdXRoX3VzZXJfYmFja2VuZHEHVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tl\nbmRzLk1vZGVsQmFja2VuZHEIdS45NzY0OGNkZmI3YzMwY2EzM2UyYjlkYWE1OWJkZjBjYw==\n', '2010-05-18 14:55:50');
 INSERT INTO `django_session` VALUES ('d81e95756a970d5eba5f0681d1d55287', 'gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEBdS5jYTU4MjIzN2FhYzE0NGI0ZWMw\nMDIxNzMwY2ZhZTQ3Mw==\n', '2010-05-02 20:09:08');
+INSERT INTO `django_session` VALUES ('edc466f72a1ac08f5718509fa95aabfd', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVQ1fYXV0aF91c2Vy\nX2lkcQaKAQFVEl9hdXRoX3VzZXJfYmFja2VuZHEHVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tl\nbmRzLk1vZGVsQmFja2VuZHEIdS45NzY0OGNkZmI3YzMwY2EzM2UyYjlkYWE1OWJkZjBjYw==\n', '2010-05-21 16:40:34');
 
 -- ----------------------------
 -- Table structure for `django_site`
@@ -989,7 +1003,7 @@ CREATE TABLE `friends_contact` (
   PRIMARY KEY (`id`),
   KEY `friends_contact_user_id` (`user_id`),
   CONSTRAINT `user_id_refs_id_4dde736d` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of friends_contact
@@ -1008,7 +1022,7 @@ CREATE TABLE `friends_contact_users` (
   KEY `user_id_refs_id_49de6f86` (`user_id`),
   CONSTRAINT `user_id_refs_id_49de6f86` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
   CONSTRAINT `contact_id_refs_id_70681d66` FOREIGN KEY (`contact_id`) REFERENCES `friends_contact` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of friends_contact_users
@@ -1121,7 +1135,6 @@ CREATE TABLE `game_bank` (
 -- Records of game_bank
 -- ----------------------------
 INSERT INTO `game_bank` VALUES ('4', '1', '100', '2010-05-04 16:19:44', '2010-05-04 16:19:44');
-INSERT INTO `game_bank` VALUES ('5', '3', '0', '2010-05-04 16:43:29', '2010-05-04 16:51:04');
 
 -- ----------------------------
 -- Table structure for `game_bounty`
@@ -1145,7 +1158,6 @@ CREATE TABLE `game_bounty` (
 -- ----------------------------
 -- Records of game_bounty
 -- ----------------------------
-INSERT INTO `game_bounty` VALUES ('5', '3', '1', '10', '2010-05-05 11:21:41', '2010-05-06 11:21:39', '0');
 
 -- ----------------------------
 -- Table structure for `game_chat`
@@ -1414,7 +1426,6 @@ CREATE TABLE `game_guestbook` (
 -- ----------------------------
 -- Records of game_guestbook
 -- ----------------------------
-INSERT INTO `game_guestbook` VALUES ('1', '1', '3', 'assert ', '2010-05-06 16:59:56');
 
 -- ----------------------------
 -- Table structure for `game_prison`
@@ -2084,31 +2095,6 @@ INSERT INTO `system_event` VALUES ('7', 'BILL GATES IN TOWN!', 'Bill Gates is vi
 INSERT INTO `system_event` VALUES ('8', 'HARBOUR ACTIVITY', 'A big ship has arrived in the harbour, it will stay for the day.', 'dock', 'uploads/event/newspaper_ship.jpg', '0.2000', '13');
 
 -- ----------------------------
--- Table structure for `system_event_bk`
--- ----------------------------
-DROP TABLE IF EXISTS `system_event_bk`;
-CREATE TABLE `system_event_bk` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(200) NOT NULL,
-  `description` text NOT NULL,
-  `section` varchar(20) NOT NULL,
-  `photo` varchar(200) NOT NULL,
-  `change` decimal(4,4) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of system_event_bk
--- ----------------------------
-INSERT INTO `system_event_bk` VALUES ('1', 'POLICE RAID', 'The police are using all available resources to fight crime in TheBund. They have massively increased their numbers on the streets in a desperate attempt to reduce the number of robberies committed in the city. Criminals better beware as they might get caught on their way to a robbery. When asked if resources have been shifted from other areas a high police official stated that this is an effort directed to prevent crime that hurt innocent citizens and that resources have been taken from clearing up killings in the criminal world. \"We expect to only get convictions in half as many murder cases as we used to, for the period of this raid.\" Said the same police official to the TheBund Times.', 'robbery', 'uploads/event/newspaper_raid.jpg', '0.1000');
-INSERT INTO `system_event_bk` VALUES ('2', 'DRUG PRICES DOWN', 'ads', 'drug', 'uploads/event/newspaper_drugs.jpg', '-0.2000');
-INSERT INTO `system_event_bk` VALUES ('3', 'WARREN BUFFET ON QUICK VISIT!', 'Warren Buffet is in town for the day to look for some new investments.', 'building', 'uploads/event/warren_buffet.jpg', '0.1000');
-INSERT INTO `system_event_bk` VALUES ('4', 'DRUG PRICES UP', 'The cops made a big bust and has confiscated a large quantity of %s, prices are going up.', 'drug', 'uploads/event/newspaper_drugs.jpg', '0.2000');
-INSERT INTO `system_event_bk` VALUES ('5', 'CARNIVAL!', 'Today it is carnival day in The Bund!', 'drug', 'uploads/event/carnival.jpg', '-0.2000');
-INSERT INTO `system_event_bk` VALUES ('6', 'OIL TYCOON OF DUBAI IS IN TOWN!', 'The oil tycoon is visiting Crim City to settle some business, tell your gang to watch this guy, cause he is loaded!', 'robbery', 'uploads/event/oil_sheikh.jpg', '0.0000');
-INSERT INTO `system_event_bk` VALUES ('7', 'BILL GATES IN TOWN!', 'Bill Gates is visiting the city today to promote his new software and try some new bugs.', 'business', 'uploads/event/bill_gates.jpg', '0.0000');
-
--- ----------------------------
 -- Table structure for `system_guard`
 -- ----------------------------
 DROP TABLE IF EXISTS `system_guard`;
@@ -2497,7 +2483,6 @@ CREATE TABLE `user_armor` (
 -- ----------------------------
 -- Records of user_armor
 -- ----------------------------
-INSERT INTO `user_armor` VALUES ('1', '3', '1', '1', '2010-05-04 17:53:53');
 
 -- ----------------------------
 -- Table structure for `user_building`
@@ -2522,7 +2507,6 @@ CREATE TABLE `user_building` (
 -- ----------------------------
 -- Records of user_building
 -- ----------------------------
-INSERT INTO `user_building` VALUES ('1', '3', '1', '', '2010-05-05 09:49:25', '2010-05-05 09:49:25', '1', '0');
 
 -- ----------------------------
 -- Table structure for `user_business`
@@ -2574,6 +2558,45 @@ CREATE TABLE `user_business_user_drug` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `user_data`
+-- ----------------------------
+DROP TABLE IF EXISTS `user_data`;
+CREATE TABLE `user_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `respect` double NOT NULL,
+  `spirit` smallint(6) NOT NULL,
+  `intelligence` double NOT NULL,
+  `strength` double NOT NULL,
+  `charisma` double NOT NULL,
+  `tolerance` double NOT NULL,
+  `stamina` smallint(6) NOT NULL,
+  `cash` int(11) NOT NULL,
+  `credits` int(11) NOT NULL,
+  `kills` smallint(6) NOT NULL,
+  `tickets` smallint(6) NOT NULL,
+  `skill` varchar(100) NOT NULL,
+  `proficiency` varchar(100) NOT NULL,
+  `new_status` varchar(100) NOT NULL,
+  `stamina_start_time` datetime DEFAULT NULL,
+  `drug_deals` smallint(6) NOT NULL,
+  `yen` smallint(6) NOT NULL,
+  `in_where` varchar(10) DEFAULT NULL,
+  `release_time` datetime DEFAULT NULL,
+  `change_character_id` int(11) DEFAULT NULL,
+  `change_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`),
+  KEY `user_data_change_character_id` (`change_character_id`),
+  CONSTRAINT `change_character_id_refs_id_5e98066b` FOREIGN KEY (`change_character_id`) REFERENCES `system_character` (`id`),
+  CONSTRAINT `user_id_refs_id_76277af7` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user_data
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `user_drug`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_drug`;
@@ -2592,7 +2615,6 @@ CREATE TABLE `user_drug` (
 -- ----------------------------
 -- Records of user_drug
 -- ----------------------------
-INSERT INTO `user_drug` VALUES ('1', '3', '1', '10');
 
 -- ----------------------------
 -- Table structure for `user_guard`
@@ -2636,7 +2658,37 @@ CREATE TABLE `user_hooker` (
 -- ----------------------------
 -- Records of user_hooker
 -- ----------------------------
-INSERT INTO `user_hooker` VALUES ('1', '3', '1', '10', '12', '0', null);
+
+-- ----------------------------
+-- Table structure for `user_profile`
+-- ----------------------------
+DROP TABLE IF EXISTS `user_profile`;
+CREATE TABLE `user_profile` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `birthday` date DEFAULT NULL,
+  `gender` varchar(1) NOT NULL,
+  `presentation` longtext NOT NULL,
+  `gb_open` tinyint(1) NOT NULL,
+  `language` varchar(10) NOT NULL,
+  `visitors` int(11) NOT NULL,
+  `province_id` int(11) NOT NULL,
+  `avatar` varchar(100) DEFAULT NULL,
+  `character_id` int(11) NOT NULL,
+  `rabbit_mode` tinyint(1) NOT NULL,
+  `step` smallint(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`),
+  KEY `user_profile_province_id` (`province_id`),
+  KEY `user_profile_character_id` (`character_id`),
+  CONSTRAINT `character_id_refs_id_41dbc63b` FOREIGN KEY (`character_id`) REFERENCES `system_character` (`id`),
+  CONSTRAINT `province_id_refs_id_71e726bb` FOREIGN KEY (`province_id`) REFERENCES `system_province` (`id`),
+  CONSTRAINT `user_id_refs_id_5f4bba6f` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user_profile
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `user_weapon`

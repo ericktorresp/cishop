@@ -1,4 +1,5 @@
 from game.models import *
+from account.models import *
 from system.models import *
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
@@ -127,9 +128,28 @@ class BusinessInline(admin.StackedInline):
     model = UserBusiness
     classes = ('collapse-closed',)
     inlines = (BusinessDrugInline,)
+
+class UserProfileInline(admin.StackedInline):
+    model = UserProfile
+    classes = ('collapse-closed',)
+
+class UserDataInline(admin.StackedInline):
+    model = UserData
+    classes = ('collapse-closed',)
    
 class BankAdmin(UserAdmin):
-    inlines = (BankInline, ArmorInline, WeaponInline, GuardInline, DrugInline, HookerInline, BuildingInline, BusinessInline,)
+    inlines = (
+               BankInline,
+               ArmorInline,
+               WeaponInline,
+               GuardInline,
+               DrugInline,
+               HookerInline,
+               BuildingInline,
+               BusinessInline,
+               UserProfileInline,
+               UserDataInline,
+    )
 
 class PrisonAdmin(admin.ModelAdmin):
     list_display = ('prisoner', 'created', 'expired', 'escaped',)

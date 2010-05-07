@@ -47,6 +47,7 @@ class GangMember(models.Model):
         verbose_name = _('member')
         verbose_name_plural = _('members')
         unique_together = ("user", "gang")
+        #@todo: unique should be user is enough
         
 class GangInvite(models.Model):
     inviter = models.ForeignKey(User, verbose_name=_('inviter'), related_name='inviter')
