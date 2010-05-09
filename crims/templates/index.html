@@ -1,6 +1,39 @@
 {% extends "base.html" %}
-{% load i18n %}
-
+{% block extrastyle %}
+		<style type="text/css"> 
+		body {
+			margin: 10px;
+			padding: 0;
+			
+			font-family: Tahoma;
+			font-size: 12px;
+		}
+		
+		div#apeControllerDemo {
+			margin: 10px 0;
+			padding: 10px;
+			
+			border: 1px solid #e2e2e2;
+			background: #f2f2f2;
+		}
+		
+		div#apeControllerDemo div.message {
+			padding: 5px 0;
+			border-bottom: 1px solid #bbb;
+		}
+		
+		div#apeControllerDemo div.message:last-child {
+			border-bottom: 0;
+		}
+	</style> 
+{% endblock %}
 {% block content %}
-Index page
+		In order to try this demo, you need: 
+		<ul> 
+			<li>Inlinepush have to be loaded on the APE server</li> 
+			<li>Set your APE server address in the controller/test.php</li> 
+		</ul> 
+		Load this page and go to <a href="/chat/" target="_blank">show it!</a> and you will see a message appear in the element down below:
+		
+		<div id="apeControllerDemo"></div> 
 {% endblock %}

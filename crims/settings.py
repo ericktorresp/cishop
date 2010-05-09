@@ -25,6 +25,9 @@ DATABASE_WAIT_TIMEOUT = 28800
 TIME_ZONE = 'Asia/Shanghai'
 ugettext = lambda s: s
 
+APE_SERVER = 'http://ape.crims.info:6969/?'
+APE_PASSWORD = 'testpasswd'
+
 LANGUAGES = (
     ('zh', ugettext('Chinese')),
     ('en', ugettext('English')),
@@ -41,7 +44,7 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = 'e:/AppServ/pys/crims/assets/'
+MEDIA_ROOT = '/Users/darkmoon/pys/crims/assets/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -66,23 +69,23 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.contrib.csrf.middleware.CsrfMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
-    'django.middleware.cache.UpdateCacheMiddleware',
+#    'django.middleware.cache.UpdateCacheMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
+#    'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
 ROOT_URLCONF = 'crims.urls'
 
 TEMPLATE_DIRS = (
-    'e:/AppServ/pys/crims/templates',
+    '/Users/darkmoon/pys/crims/templates',
 )
 # Memcache
-CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
-CACHE_MIDDLEWARE_SECONDS = 3
-CACHE_MIDDLEWARE_KEY_PREFIX = 'crims_'
+#CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+#CACHE_MIDDLEWARE_SECONDS = 3
+#CACHE_MIDDLEWARE_KEY_PREFIX = 'crims_'
 
 # Registration
 ACCOUNT_ACTIVATION_DAYS = 2

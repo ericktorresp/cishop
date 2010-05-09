@@ -1,8 +1,12 @@
+import urllib2
+import json
+
 from django.db import models
 from system.models import UserBusiness
 from game.models import Gang
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
 
 CHAT_TYPE = (
@@ -26,3 +30,19 @@ class Chat(models.Model):
         app_label = 'game'
         verbose_name = _('chat')
         verbose_name_plural = _('chats')
+        
+def send_chat(sender, instance, **kwargs):
+    cmd = [{'cmd': 'inlinepush',
+            'params': {
+               'password': settings.APE_PASSWORD,
+               'raw': 'postmsg',
+               'channel': 'testchannel',
+               'data': {
+                   'message': instance.sender.username+' said: '+instance.content
+               }
+           }
+    }]
+    url = settings.APE_SERVER + urllib2.quote(json.dumps(cmd))
+    response = urllib2.urlopen(url)
+
+models.signals.post_save.connect(send_chat, sender=Chat)

@@ -4,10 +4,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
 	<META http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{{ MEDIA_URL }}css/style.css{% endblock %}" />
-	{% block extrastyle %}{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{{ MEDIA_URL }}css/base.css{% endblock %}" />
+{% block extrastyle %}
+{% endblock %}
 	<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% load adminmedia %}{% admin_media_prefix %}css/ie.css{% endblock %}" /><![endif]-->
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}</title>
+	<!-- JAVASCRIPTS / EXTRAHEAD -->
+{% block javascripts %}
+	<script type="text/javaScript" src="{{ MEDIA_URL }}js/Clients/mootools-core.js"></script>
+	<script type="text/javaScript" src="{{ MEDIA_URL }}js/Clients/MooTools.js"></script>
+	<script type="text/javaScript" src="{{ MEDIA_URL }}js/config.js"></script>
+	<script type="text/javaScript" src="{{ MEDIA_URL }}js/demo.js"></script>
+	<script type="text/javaScript">
+		window.addEvent('domready', function(){
+			var client = new APE.Controller({
+				container: $('apeControllerDemo')
+			});
+ 
+			client.load({
+				identifier: 'action',
+				channel: 'testchannel'
+			});
+		});
+	</script>
+{% endblock %}
 </head>
 
 <body>
