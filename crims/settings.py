@@ -25,7 +25,7 @@ DATABASE_WAIT_TIMEOUT = 28800
 TIME_ZONE = 'Asia/Shanghai'
 ugettext = lambda s: s
 
-APE_SERVER = 'http://ape.crims.info:6969/?'
+APE_SERVER = 'http://push.crims.info:16969/?'
 APE_PASSWORD = 'testpasswd'
 
 LANGUAGES = (
