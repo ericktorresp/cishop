@@ -137,18 +137,18 @@ class UserDataInline(admin.StackedInline):
     model = UserData
     classes = ('collapse-closed',)
    
-class BankAdmin(UserAdmin):
+class ProfileAdmin(UserAdmin):
     inlines = (
-               BankInline,
-               ArmorInline,
-               WeaponInline,
-               GuardInline,
-               DrugInline,
-               HookerInline,
-               BuildingInline,
-               BusinessInline,
-               UserProfileInline,
-               UserDataInline,
+        BankInline,
+        ArmorInline,
+        WeaponInline,
+        GuardInline,
+        DrugInline,
+        HookerInline,
+        BuildingInline,
+        BusinessInline,
+        UserProfileInline,
+        UserDataInline,
     )
 
 class PrisonAdmin(admin.ModelAdmin):
@@ -157,10 +157,14 @@ class PrisonAdmin(admin.ModelAdmin):
 class RipAdmin(admin.ModelAdmin):
     list_display = ('user', 'created', 'expired', 'escaped', 'reason', 'victim')
             
+admin.site.register(UserBusiness)
 admin.site.register(Gang, GangAdmin)
 admin.site.register(Bounty, BountyAdmin)
 admin.site.unregister(User)
-admin.site.register(User, BankAdmin)
+admin.site.register(User, ProfileAdmin)
 admin.site.register(Guestbook)
 admin.site.register(Prison, PrisonAdmin)
 admin.site.register(Rip, RipAdmin)
+admin.site.register(Challenge)
+admin.site.register(SabotagePlan)
+admin.site.register(UserFavorite)

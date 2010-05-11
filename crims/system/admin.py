@@ -41,6 +41,7 @@ class RandomEventChoiceInline(admin.StackedInline):
     model = RandomEventChoice
     classes = ('collapse-open',)
     allow_add = False
+
 class RandomEventQuestionAdmin(admin.ModelAdmin):
     inlines = [RandomEventChoiceInline]
 
@@ -49,6 +50,7 @@ class RobberyAdmin(admin.ModelAdmin):
 
 class SabotageAdmin(admin.ModelAdmin):
     list_display = ('title', 'stamina', 'difficulty', 'expend',)
+
 admin.site.register(Avatar)
 admin.site.register(Armor, ArmorAdmin)
 admin.site.register(Character, CharacterAdmin)

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from game.thumbs import ImageWithThumbsField
 
-GANG_ACTION_STATUS = (('planning', _('planning')), ('done', _('done')), ('aborted', _('aborted')),)
+ACTION_STATUS = (('planning', _('planning')), ('done', _('done')), ('aborted', _('aborted')),)
 
 class Gang(models.Model):
     title = models.CharField(_('title'), max_length=100)
@@ -83,7 +83,7 @@ class GangRobbery(models.Model):
     gang = models.ForeignKey(Gang, verbose_name=_('gang'))
     robbery = models.ForeignKey(Robbery, verbose_name=_('robbery'), limit_choices_to={'type':'gang'})
     initiator = models.ForeignKey(User, verbose_name=_('initiator'))
-    status = models.CharField(_('status'), max_length=10, choices=GANG_ACTION_STATUS, default='planning')
+    status = models.CharField(_('status'), max_length=10, choices=ACTION_STATUS, default='planning')
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
     accepted = models.ManyToManyField(GangMember, verbose_name=_('accepted'), related_name='accepted', blank=True)
     declined = models.ManyToManyField(GangMember, verbose_name=_('declined'), related_name='declined', blank=True)
@@ -100,7 +100,7 @@ class GangAssault(models.Model):
     gang = models.ForeignKey(Gang, verbose_name=_('gang'))
     victim = models.ForeignKey(User, verbose_name=_('victim'), related_name='victim')
     initiator = models.ForeignKey(User, verbose_name=_('initiator'), related_name='initiator')
-    status = models.CharField(_('status'), max_length=10, choices=GANG_ACTION_STATUS, default='planning')
+    status = models.CharField(_('status'), max_length=10, choices=ACTION_STATUS, default='planning')
     created = models.DateTimeField(_('created'), editable=False, auto_now_add=True)
     accepted = models.ManyToManyField(GangMember, related_name='assault_accepted', verbose_name=_('accepted'), blank=True)
     declined = models.ManyToManyField(GangMember, related_name='assault_declined', verbose_name=_('declined'), blank=True)

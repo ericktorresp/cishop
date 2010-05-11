@@ -23,7 +23,7 @@ APE.Controller = new Class({
 	onMsg: function(raw){
 		new Element('div', {
 			'class': 'message',
-			html: decodeURIComponent(raw.data.message)
+			html: decodeURIComponent(raw.data.user)+' said: '+decodeURIComponent(raw.data.message)
 		}).inject(this.container);
 	}
 	

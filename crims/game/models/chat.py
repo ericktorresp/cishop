@@ -2,8 +2,7 @@ import urllib2
 import json
 
 from django.db import models
-from system.models import UserBusiness
-from game.models import Gang
+from game.models import Gang, UserBusiness
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
@@ -38,11 +37,12 @@ def send_chat(sender, instance, **kwargs):
                'raw': 'postmsg',
                'channel': 'testchannel',
                'data': {
-                   'message': instance.sender.username+' said: '+instance.content
-               }
+                    'message': instance.content,
+                    'user': instance.sender.username
+                }
            }
     }]
     url = settings.APE_SERVER + urllib2.quote(json.dumps(cmd))
-    response = urllib2.urlopen(url)
+    urllib2.urlopen(url)
 
 models.signals.post_save.connect(send_chat, sender=Chat)
