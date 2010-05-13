@@ -4,6 +4,8 @@ from django.contrib import admin
 from grappelli.sites import GrappelliSite
 from django.utils.translation import ugettext_lazy as _
 
+from views import home
+
 admin.site = GrappelliSite()
 admin.autodiscover()
 
@@ -25,10 +27,14 @@ admin.site.groups = {
         'apps': ['system', 'notification'],
     },
     3: {
+        'name': _('record'),
+        'apps': ['record', ],
+    },
+    4: {
         'name': _('grappelli'),
         'apps': ['grappelli'],
     },
-    4: {
+    5: {
         'name': _('site'),
         'apps': ['sites'],
     },
@@ -40,15 +46,16 @@ admin.site.groups = {
 #    },
 #}
 urlpatterns = patterns('',
-    (r'^chat/', 'game.views.showchats'),
-    (r'^captcha/', include('captcha.urls')),
-    (r'^messages/', include('messages.urls')),
-    (r'^registration/', include('registration.backends.default.urls')),
-    (r'^tinymce/', include('tinymce.urls')),
-    (r'^grappelli/', include('grappelli.urls')),
-    (r'^admin/filebrowser/', include('filebrowser.urls')),
-    (r'^assets/(?P<path>.*)$', 'django.views.static.serve',
+    url(r'^chat/', 'game.views.showchats', name = 'chat'),
+    url(r'^captcha/', include('captcha.urls')),
+    url(r'^messages/', include('messages.urls')),
+    url(r'^registration/', include('registration.backends.default.urls')),
+    url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^grappelli/', include('grappelli.urls')),
+    url(r'^admin/filebrowser/', include('filebrowser.urls')),
+    url(r'^assets/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': 'e:/AppServ/pys/crims/assets'}),
-     (r'^admin/', include(admin.site.urls)),
-    (r'^$', direct_to_template, { 'template': 'index.html' }, 'index'),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^messages/', include('messages.urls')),
+    url(r'^$', home(), name = 'index'),
 )

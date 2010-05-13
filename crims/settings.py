@@ -137,6 +137,7 @@ INSTALLED_APPS = (
     'game',
     'friends',
     'account',
+    'record',
 #    'relationships',
     'django.contrib.admin',
 )

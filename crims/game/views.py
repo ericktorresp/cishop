@@ -1,6 +1,5 @@
 import datetime
-
-from django.http import Http404, HttpResponseRedirect, HttpResponse
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth.models import User
@@ -27,5 +26,5 @@ def showchats(request):
            }
     }]
     url = settings.APE_SERVER + urllib2.quote(json.dumps(cmd))
-    response = urllib2.urlopen(url)
+    response = urllib2.urlopen(url, None, 10)
     return HttpResponse(response)

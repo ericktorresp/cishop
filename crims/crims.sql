@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50142
 File Encoding         : 65001
 
-Date: 2010-05-11 18:05:32
+Date: 2010-05-13 09:45:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,7 +23,7 @@ CREATE TABLE `auth_group` (
   `name` varchar(80) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_group
@@ -59,7 +59,7 @@ CREATE TABLE `auth_message` (
   PRIMARY KEY (`id`),
   KEY `auth_message_user_id` (`user_id`),
   CONSTRAINT `user_id_refs_id_9af0b65a` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_message
@@ -78,7 +78,7 @@ CREATE TABLE `auth_permission` (
   UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
   KEY `auth_permission_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_728de91f` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=247 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=256 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -299,6 +299,15 @@ INSERT INTO `auth_permission` VALUES ('243', 'Can delete sabotage plan', '81', '
 INSERT INTO `auth_permission` VALUES ('244', 'Can add user favorited business', '82', 'add_userfavorite');
 INSERT INTO `auth_permission` VALUES ('245', 'Can change user favorited business', '82', 'change_userfavorite');
 INSERT INTO `auth_permission` VALUES ('246', 'Can delete user favorited business', '82', 'delete_userfavorite');
+INSERT INTO `auth_permission` VALUES ('247', 'Can add daily respects', '83', 'add_respect');
+INSERT INTO `auth_permission` VALUES ('248', 'Can change daily respects', '83', 'change_respect');
+INSERT INTO `auth_permission` VALUES ('249', 'Can delete daily respects', '83', 'delete_respect');
+INSERT INTO `auth_permission` VALUES ('250', 'Can add daily visitors', '84', 'add_userbusinessdailycount');
+INSERT INTO `auth_permission` VALUES ('251', 'Can change daily visitors', '84', 'change_userbusinessdailycount');
+INSERT INTO `auth_permission` VALUES ('252', 'Can delete daily visitors', '84', 'delete_userbusinessdailycount');
+INSERT INTO `auth_permission` VALUES ('253', 'Can add user business log', '85', 'add_userbusinesslog');
+INSERT INTO `auth_permission` VALUES ('254', 'Can change user business log', '85', 'change_userbusinesslog');
+INSERT INTO `auth_permission` VALUES ('255', 'Can delete user business log', '85', 'delete_userbusinesslog');
 
 -- ----------------------------
 -- Table structure for `auth_user`
@@ -318,12 +327,13 @@ CREATE TABLE `auth_user` (
   `date_joined` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_user
 -- ----------------------------
-INSERT INTO `auth_user` VALUES ('1', 'root', '', '', 'c-mtv@163.com', 'sha1$df48b$97ce6e8393b8ff135c3e794d6e847d6962ea6da8', '1', '1', '1', '2010-05-09 16:28:31', '2010-04-18 20:07:26');
+INSERT INTO `auth_user` VALUES ('1', 'root', '', '', 'c-mtv@163.com', 'sha1$df48b$97ce6e8393b8ff135c3e794d6e847d6962ea6da8', '1', '1', '1', '2010-05-12 09:28:06', '2010-04-18 20:07:26');
+INSERT INTO `auth_user` VALUES ('4', 'darkmoon', '', '', '', 'sha1$c7a06$63058547173039bd61b17a7af4a7d69fef3e3f51', '0', '1', '0', '2010-05-12 15:24:24', '2010-05-12 15:24:24');
 
 -- ----------------------------
 -- Table structure for `auth_user_groups`
@@ -357,7 +367,7 @@ CREATE TABLE `auth_user_user_permissions` (
   KEY `permission_id_refs_id_67e79cb` (`permission_id`),
   CONSTRAINT `permission_id_refs_id_67e79cb` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
   CONSTRAINT `user_id_refs_id_f2045483` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=289 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_user_user_permissions
@@ -399,7 +409,7 @@ CREATE TABLE `django_admin_log` (
   KEY `django_admin_log_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_288599e6` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `user_id_refs_id_c8665aa` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=487 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=513 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_admin_log
@@ -877,6 +887,32 @@ INSERT INTO `django_admin_log` VALUES ('483', '2010-05-11 16:21:29', '1', '78', 
 INSERT INTO `django_admin_log` VALUES ('484', '2010-05-11 16:25:41', '1', '42', '1', 'CQSSC', '2', '已添加 聊天 \"model 顺序！！！折腾半天啊～～～\".');
 INSERT INTO `django_admin_log` VALUES ('485', '2010-05-11 17:37:22', '1', '42', '1', 'CQSSC', '2', '已变更 content for 聊天 \"现在，应该出现发言人的名字了.......\".');
 INSERT INTO `django_admin_log` VALUES ('486', '2010-05-11 18:03:49', '1', '82', '3', 'root\'s favorite root的夜总会', '1', '');
+INSERT INTO `django_admin_log` VALUES ('487', '2010-05-12 09:28:46', '1', '42', '1', 'CQSSC', '2', '已添加 聊天 \"唔……………………\".');
+INSERT INTO `django_admin_log` VALUES ('488', '2010-05-12 09:29:14', '1', '42', '1', 'CQSSC', '2', '已变更 content for 聊天 \"唔……………………超时咯\".');
+INSERT INTO `django_admin_log` VALUES ('489', '2010-05-12 09:32:03', '1', '42', '1', 'CQSSC', '2', '已添加 聊天 \"摆明了就是不给它面子\".');
+INSERT INTO `django_admin_log` VALUES ('490', '2010-05-12 10:53:20', '1', '42', '1', 'CQSSC', '2', '已修改 photo 。');
+INSERT INTO `django_admin_log` VALUES ('491', '2010-05-12 10:57:50', '1', '3', '1', 'root', '2', '已添加 基本资料 \"root\".');
+INSERT INTO `django_admin_log` VALUES ('492', '2010-05-12 10:59:29', '1', '3', '1', 'root', '2', '已变更 avatar for 基本资料 \"root\".');
+INSERT INTO `django_admin_log` VALUES ('493', '2010-05-12 14:44:32', '1', '78', '2', 'root的夜总会', '2', '已添加 user business log \"log for root的夜总会\".');
+INSERT INTO `django_admin_log` VALUES ('494', '2010-05-12 14:46:31', '1', '78', '2', 'root的夜总会', '2', '已添加 user business log \"log for root的夜总会\".');
+INSERT INTO `django_admin_log` VALUES ('495', '2010-05-12 15:23:46', '1', '84', '1', 'daily visitors for root的夜总会', '1', '');
+INSERT INTO `django_admin_log` VALUES ('496', '2010-05-12 15:23:51', '1', '84', '2', 'daily visitors for root的夜总会', '1', '');
+INSERT INTO `django_admin_log` VALUES ('497', '2010-05-12 15:24:05', '1', '84', '3', 'daily visitors for root的夜总会', '1', '');
+INSERT INTO `django_admin_log` VALUES ('498', '2010-05-12 15:24:24', '1', '3', '4', 'darkmoon', '1', '');
+INSERT INTO `django_admin_log` VALUES ('499', '2010-05-12 15:27:17', '1', '3', '1', 'root', '2', '已变更 avatar for 基本资料 \"root\".');
+INSERT INTO `django_admin_log` VALUES ('500', '2010-05-12 15:28:20', '1', '3', '4', 'darkmoon', '2', '已添加 银行 \"darkmoon 的银行账户\".');
+INSERT INTO `django_admin_log` VALUES ('501', '2010-05-12 15:30:05', '1', '3', '4', 'darkmoon', '2', '已添加 基本资料 \"darkmoon\".');
+INSERT INTO `django_admin_log` VALUES ('502', '2010-05-12 15:30:41', '1', '78', '3', 'darkmoon的青楼', '1', '');
+INSERT INTO `django_admin_log` VALUES ('503', '2010-05-12 15:30:54', '1', '78', '3', 'darkmoon的青楼', '2', '已添加 user business log \"log for darkmoon的青楼\".');
+INSERT INTO `django_admin_log` VALUES ('504', '2010-05-12 15:31:24', '1', '84', '4', 'daily visitors for darkmoon的青楼', '1', '');
+INSERT INTO `django_admin_log` VALUES ('505', '2010-05-12 15:31:32', '1', '84', '5', 'daily visitors for darkmoon的青楼', '1', '');
+INSERT INTO `django_admin_log` VALUES ('506', '2010-05-12 15:31:38', '1', '84', '6', 'daily visitors for darkmoon的青楼', '1', '');
+INSERT INTO `django_admin_log` VALUES ('507', '2010-05-12 15:41:56', '1', '83', '1', 'daily respect for root', '1', '');
+INSERT INTO `django_admin_log` VALUES ('508', '2010-05-12 15:42:01', '1', '83', '2', 'daily respect for root', '1', '');
+INSERT INTO `django_admin_log` VALUES ('509', '2010-05-12 15:42:07', '1', '83', '3', 'daily respect for root', '1', '');
+INSERT INTO `django_admin_log` VALUES ('510', '2010-05-12 15:42:14', '1', '83', '4', 'daily respect for darkmoon', '1', '');
+INSERT INTO `django_admin_log` VALUES ('511', '2010-05-12 15:42:22', '1', '83', '5', 'daily respect for darkmoon', '1', '');
+INSERT INTO `django_admin_log` VALUES ('512', '2010-05-12 15:42:27', '1', '83', '6', 'daily respect for darkmoon', '1', '');
 
 -- ----------------------------
 -- Table structure for `django_content_type`
@@ -889,7 +925,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_label` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_content_type
@@ -966,6 +1002,9 @@ INSERT INTO `django_content_type` VALUES ('79', 'user business drugs', 'game', '
 INSERT INTO `django_content_type` VALUES ('80', 'challenges', 'game', 'challenge');
 INSERT INTO `django_content_type` VALUES ('81', 'sabotage plan', 'game', 'sabotageplan');
 INSERT INTO `django_content_type` VALUES ('82', 'user favorited business', 'game', 'userfavorite');
+INSERT INTO `django_content_type` VALUES ('83', 'daily respects', 'record', 'respect');
+INSERT INTO `django_content_type` VALUES ('84', 'daily visitors', 'record', 'userbusinessdailycount');
+INSERT INTO `django_content_type` VALUES ('85', 'user business log', 'record', 'userbusinesslog');
 
 -- ----------------------------
 -- Table structure for `django_session`
@@ -985,6 +1024,7 @@ INSERT INTO `django_session` VALUES ('1f09faf546ea25a3ab010adc2e585bea', 'gAJ9cQ
 INSERT INTO `django_session` VALUES ('23d64587c0070ce0dc9dae8aa27f6053', 'gAJ9cQEuODg5ZDEzMzAzNmNlMzJkNDIzZGQzMGM1ZWJhYmFlMGQ=\n', '2010-05-02 20:19:21');
 INSERT INTO `django_session` VALUES ('5286edf50ae8d76c4766ee5d9ed97aac', 'gAJ9cQEuODg5ZDEzMzAzNmNlMzJkNDIzZGQzMGM1ZWJhYmFlMGQ=\n', '2010-05-02 20:19:21');
 INSERT INTO `django_session` VALUES ('72428d3f08e0427f6a8850ba47a4f659', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVQ1fYXV0aF91c2Vy\nX2lkcQaKAQFVEl9hdXRoX3VzZXJfYmFja2VuZHEHVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tl\nbmRzLk1vZGVsQmFja2VuZHEIdS45NzY0OGNkZmI3YzMwY2EzM2UyYjlkYWE1OWJkZjBjYw==\n', '2010-05-12 18:51:41');
+INSERT INTO `django_session` VALUES ('83dd5750236ade604fc840a9bc5c7aea', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVRJfYXV0aF91c2Vy\nX2JhY2tlbmRxBlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRxB1UN\nX2F1dGhfdXNlcl9pZHEIigEBdS42YzFiMDI5MGJhNjYzMjY0YzE1NWVhMWU3NmMwOTEyMQ==\n', '2010-05-27 09:44:11');
 INSERT INTO `django_session` VALUES ('86cac61cc2a7f010c3d465c913cab99a', 'gAJ9cQFVCnRlc3Rjb29raWVxAlUGd29ya2VkcQNzLmJmMjBjODVkMTkwZTExMWEzMTkxMjFhNzIz\nZWI2NGJm\n', '2010-05-02 20:09:30');
 INSERT INTO `django_session` VALUES ('97884902b0c6a2d5360cacf5aac93d7a', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVQ1fYXV0aF91c2Vy\nX2lkcQaKAQFVEl9hdXRoX3VzZXJfYmFja2VuZHEHVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tl\nbmRzLk1vZGVsQmFja2VuZHEIdS45NzY0OGNkZmI3YzMwY2EzM2UyYjlkYWE1OWJkZjBjYw==\n', '2010-05-23 16:28:31');
 INSERT INTO `django_session` VALUES ('9f005bf1fd11cc2e8ff354a75ee459b1', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UHbWVzc2FnZXEEXXEFKFUHc3VjY2Vzc3EGWBwAAABTaXRl\nIHdhcyBhZGRlZCB0byBCb29rbWFya3MucQdlc1UNX2F1dGhfdXNlcl9pZHEIigEBVRJfYXV0aF91\nc2VyX2JhY2tlbmRxCVUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRx\nCnUuMGI4YzhlNzg1MzY0NTc2ZjJlZDQyNTgzMzZkMmNlNmU=\n', '2010-05-02 20:39:45');
@@ -1025,7 +1065,7 @@ CREATE TABLE `friends_contact` (
   PRIMARY KEY (`id`),
   KEY `friends_contact_user_id` (`user_id`),
   CONSTRAINT `user_id_refs_id_4dde736d` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of friends_contact
@@ -1042,9 +1082,9 @@ CREATE TABLE `friends_contact_users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `contact_id` (`contact_id`,`user_id`),
   KEY `user_id_refs_id_49de6f86` (`user_id`),
-  CONSTRAINT `user_id_refs_id_49de6f86` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
-  CONSTRAINT `contact_id_refs_id_70681d66` FOREIGN KEY (`contact_id`) REFERENCES `friends_contact` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  CONSTRAINT `contact_id_refs_id_70681d66` FOREIGN KEY (`contact_id`) REFERENCES `friends_contact` (`id`),
+  CONSTRAINT `user_id_refs_id_49de6f86` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of friends_contact_users
@@ -1151,12 +1191,13 @@ CREATE TABLE `game_bank` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`),
   CONSTRAINT `user_id_refs_id_1e4ea07a` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_bank
 -- ----------------------------
 INSERT INTO `game_bank` VALUES ('4', '1', '100', '2010-05-04 16:19:44', '2010-05-04 16:19:44');
+INSERT INTO `game_bank` VALUES ('6', '4', '1', '2010-05-12 15:28:20', '2010-05-12 15:28:20');
 
 -- ----------------------------
 -- Table structure for `game_bounty`
@@ -1175,7 +1216,7 @@ CREATE TABLE `game_bounty` (
   KEY `game_bounty_target_id` (`target_id`),
   CONSTRAINT `sponsor_id_refs_id_68ac4ee1` FOREIGN KEY (`sponsor_id`) REFERENCES `auth_user` (`id`),
   CONSTRAINT `target_id_refs_id_68ac4ee1` FOREIGN KEY (`target_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_bounty
@@ -1220,7 +1261,7 @@ CREATE TABLE `game_chat` (
   KEY `game_chat_userbusiness_id` (`userbusiness_id`),
   CONSTRAINT `sender_id_refs_id_24895e4e` FOREIGN KEY (`sender_id`) REFERENCES `auth_user` (`id`),
   CONSTRAINT `userbusiness_id_refs_id_58167c50` FOREIGN KEY (`userbusiness_id`) REFERENCES `user_business` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_chat
@@ -1230,6 +1271,8 @@ INSERT INTO `game_chat` VALUES ('8', '1', '1', null, null, 'gang chat from admin
 INSERT INTO `game_chat` VALUES ('9', '1', '1', null, 'square', '接下来，测试中文。。。', '2010-05-09 16:33:29');
 INSERT INTO `game_chat` VALUES ('10', '1', '1', null, 'square', '现在，应该出现发言人的名字了.......', '2010-05-09 16:35:30');
 INSERT INTO `game_chat` VALUES ('11', '1', '1', null, null, 'model 顺序！！！折腾半天啊～～～', '2010-05-11 16:25:41');
+INSERT INTO `game_chat` VALUES ('12', '1', '1', null, null, '唔……………………超时咯', '2010-05-12 09:28:46');
+INSERT INTO `game_chat` VALUES ('13', '1', '1', null, null, '摆明了就是不给它面子', '2010-05-12 09:32:03');
 
 -- ----------------------------
 -- Table structure for `game_gang`
@@ -1259,7 +1302,7 @@ CREATE TABLE `game_gang` (
 -- ----------------------------
 -- Records of game_gang
 -- ----------------------------
-INSERT INTO `game_gang` VALUES ('1', 'CQSSC', 'wd', 'uploads/gang/11____.png', '2010-05-05 19:42:42', '1', '1', '1', null);
+INSERT INTO `game_gang` VALUES ('1', 'CQSSC', 'wd', 'uploads/gang/h.jpg', '2010-05-05 19:42:42', '1', '1', '1', null);
 
 -- ----------------------------
 -- Table structure for `game_gangassault`
@@ -1296,8 +1339,8 @@ CREATE TABLE `game_gangassault_accepted` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `gangassault_id` (`gangassault_id`,`gangmember_id`),
   KEY `gangmember_id_refs_id_e025b32` (`gangmember_id`),
-  CONSTRAINT `gangmember_id_refs_id_e025b32` FOREIGN KEY (`gangmember_id`) REFERENCES `game_gangmember` (`id`),
-  CONSTRAINT `gangassault_id_refs_id_67af8be2` FOREIGN KEY (`gangassault_id`) REFERENCES `game_gangassault` (`id`)
+  CONSTRAINT `gangassault_id_refs_id_67af8be2` FOREIGN KEY (`gangassault_id`) REFERENCES `game_gangassault` (`id`),
+  CONSTRAINT `gangmember_id_refs_id_e025b32` FOREIGN KEY (`gangmember_id`) REFERENCES `game_gangmember` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -1315,8 +1358,8 @@ CREATE TABLE `game_gangassault_declined` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `gangassault_id` (`gangassault_id`,`gangmember_id`),
   KEY `gangmember_id_refs_id_96342c79` (`gangmember_id`),
-  CONSTRAINT `gangmember_id_refs_id_96342c79` FOREIGN KEY (`gangmember_id`) REFERENCES `game_gangmember` (`id`),
-  CONSTRAINT `gangassault_id_refs_id_dedd7985` FOREIGN KEY (`gangassault_id`) REFERENCES `game_gangassault` (`id`)
+  CONSTRAINT `gangassault_id_refs_id_dedd7985` FOREIGN KEY (`gangassault_id`) REFERENCES `game_gangassault` (`id`),
+  CONSTRAINT `gangmember_id_refs_id_96342c79` FOREIGN KEY (`gangmember_id`) REFERENCES `game_gangmember` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -1362,7 +1405,7 @@ CREATE TABLE `game_gangmember` (
   KEY `game_gangmember_gang_id` (`gang_id`),
   CONSTRAINT `gang_id_refs_id_5dcd1bfd` FOREIGN KEY (`gang_id`) REFERENCES `game_gang` (`id`),
   CONSTRAINT `user_id_refs_id_678d86dd` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_gangmember
@@ -1469,7 +1512,7 @@ CREATE TABLE `game_guestbook` (
   KEY `game_guestbook_author_id` (`author_id`),
   CONSTRAINT `author_id_refs_id_1f0a3dde` FOREIGN KEY (`author_id`) REFERENCES `auth_user` (`id`),
   CONSTRAINT `owner_id_refs_id_1f0a3dde` FOREIGN KEY (`owner_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_guestbook
@@ -1573,7 +1616,7 @@ CREATE TABLE `grappelli_bookmark` (
   PRIMARY KEY (`id`),
   KEY `grappelli_bookmark_user_id` (`user_id`),
   CONSTRAINT `user_id_refs_id_ca562ed7` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of grappelli_bookmark
@@ -1864,6 +1907,82 @@ CREATE TABLE `notification_observeditem` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `record_respect`
+-- ----------------------------
+DROP TABLE IF EXISTS `record_respect`;
+CREATE TABLE `record_respect` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `respect` int(11) NOT NULL,
+  `day` smallint(6) NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`,`day`),
+  KEY `record_respect_user_id` (`user_id`),
+  CONSTRAINT `user_id_refs_id_340cfb2a` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of record_respect
+-- ----------------------------
+INSERT INTO `record_respect` VALUES ('1', '1', '5', '1', '2010-05-12 15:41:56');
+INSERT INTO `record_respect` VALUES ('2', '1', '10', '2', '2010-05-12 15:42:01');
+INSERT INTO `record_respect` VALUES ('3', '1', '56', '3', '2010-05-12 15:42:07');
+INSERT INTO `record_respect` VALUES ('4', '4', '5', '1', '2010-05-12 15:42:14');
+INSERT INTO `record_respect` VALUES ('5', '4', '4', '2', '2010-05-12 15:42:22');
+INSERT INTO `record_respect` VALUES ('6', '4', '15', '3', '2010-05-12 15:42:27');
+
+-- ----------------------------
+-- Table structure for `record_userbusinessdailycount`
+-- ----------------------------
+DROP TABLE IF EXISTS `record_userbusinessdailycount`;
+CREATE TABLE `record_userbusinessdailycount` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userbusiness_id` int(11) NOT NULL,
+  `visitors` smallint(6) NOT NULL,
+  `day` smallint(5) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `userbusiness_id` (`userbusiness_id`,`day`),
+  KEY `record_userbusinessdailycount_userbusiness_id` (`userbusiness_id`),
+  CONSTRAINT `userbusiness_id_refs_id_69fb365a` FOREIGN KEY (`userbusiness_id`) REFERENCES `user_business` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of record_userbusinessdailycount
+-- ----------------------------
+INSERT INTO `record_userbusinessdailycount` VALUES ('1', '2', '3', '1');
+INSERT INTO `record_userbusinessdailycount` VALUES ('2', '2', '2', '2');
+INSERT INTO `record_userbusinessdailycount` VALUES ('3', '2', '2', '3');
+INSERT INTO `record_userbusinessdailycount` VALUES ('4', '3', '44', '1');
+INSERT INTO `record_userbusinessdailycount` VALUES ('5', '3', '23', '2');
+INSERT INTO `record_userbusinessdailycount` VALUES ('6', '3', '12', '3');
+
+-- ----------------------------
+-- Table structure for `record_userbusinesslog`
+-- ----------------------------
+DROP TABLE IF EXISTS `record_userbusinesslog`;
+CREATE TABLE `record_userbusinesslog` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `userbusiness_id` int(11) NOT NULL,
+  `income` smallint(5) unsigned NOT NULL,
+  `exited` tinyint(1) NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `record_userbusinesslog_user_id` (`user_id`),
+  KEY `record_userbusinesslog_userbusiness_id` (`userbusiness_id`),
+  CONSTRAINT `userbusiness_id_refs_id_918e531` FOREIGN KEY (`userbusiness_id`) REFERENCES `user_business` (`id`),
+  CONSTRAINT `user_id_refs_id_77b0ec33` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of record_userbusinesslog
+-- ----------------------------
+INSERT INTO `record_userbusinesslog` VALUES ('1', '1', '2', '10', '0', '2010-05-12 14:44:32');
+INSERT INTO `record_userbusinesslog` VALUES ('2', '1', '2', '12', '0', '2010-05-12 14:46:31');
+INSERT INTO `record_userbusinesslog` VALUES ('3', '1', '3', '56', '0', '2010-05-12 15:30:54');
+
+-- ----------------------------
 -- Table structure for `registration_registrationprofile`
 -- ----------------------------
 DROP TABLE IF EXISTS `registration_registrationprofile`;
@@ -1901,7 +2020,7 @@ CREATE TABLE `relationships_relationship` (
   CONSTRAINT `site_id_refs_id_78983d9` FOREIGN KEY (`site_id`) REFERENCES `django_site` (`id`),
   CONSTRAINT `status_id_refs_id_4507d703` FOREIGN KEY (`status_id`) REFERENCES `relationships_relationshipstatus` (`id`),
   CONSTRAINT `to_user_id_refs_id_59227730` FOREIGN KEY (`to_user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of relationships_relationship
@@ -1921,7 +2040,7 @@ CREATE TABLE `relationships_relationshipstatus` (
   `login_required` tinyint(1) NOT NULL,
   `private` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of relationships_relationshipstatus
@@ -2597,7 +2716,7 @@ CREATE TABLE `user_armor` (
   KEY `user_armor_armor_id` (`armor_id`),
   CONSTRAINT `armor_id_refs_id_633aab41` FOREIGN KEY (`armor_id`) REFERENCES `system_armor` (`id`),
   CONSTRAINT `user_id_refs_id_7e8d3c95` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_armor
@@ -2621,7 +2740,7 @@ CREATE TABLE `user_building` (
   KEY `user_building_building_id` (`building_id`),
   CONSTRAINT `building_id_refs_id_1f4b4931` FOREIGN KEY (`building_id`) REFERENCES `system_building` (`id`),
   CONSTRAINT `user_id_refs_id_7f9fd675` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_building
@@ -2648,12 +2767,13 @@ CREATE TABLE `user_business` (
   KEY `user_business_business_id` (`business_id`),
   CONSTRAINT `business_id_refs_id_8200e8d` FOREIGN KEY (`business_id`) REFERENCES `system_business` (`id`),
   CONSTRAINT `user_id_refs_id_7dad1f59` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_business
 -- ----------------------------
-INSERT INTO `user_business` VALUES ('2', '1', '1', 'root的夜总会', '', '0', '0', '2010-05-11 16:21:29', '2010-05-11 16:21:29', '0', '0');
+INSERT INTO `user_business` VALUES ('2', '1', '1', 'root的夜总会', '', '0', '0', '2010-05-11 16:21:29', '2010-05-12 14:46:31', '0', '0');
+INSERT INTO `user_business` VALUES ('3', '4', '3', 'darkmoon的青楼', '', '0', '0', '2010-05-12 15:30:41', '2010-05-12 15:30:54', '0', '0');
 
 -- ----------------------------
 -- Table structure for `user_business_user_drug`
@@ -2671,7 +2791,7 @@ CREATE TABLE `user_business_user_drug` (
   KEY `user_business_user_drug_userdrug_id` (`userdrug_id`),
   CONSTRAINT `userbusiness_id_refs_id_752cf6a8` FOREIGN KEY (`userbusiness_id`) REFERENCES `user_business` (`id`),
   CONSTRAINT `userdrug_id_refs_id_24c92c50` FOREIGN KEY (`userdrug_id`) REFERENCES `user_drug` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_business_user_drug
@@ -2710,7 +2830,7 @@ CREATE TABLE `user_data` (
   KEY `user_data_change_character_id` (`change_character_id`),
   CONSTRAINT `change_character_id_refs_id_5e98066b` FOREIGN KEY (`change_character_id`) REFERENCES `system_character` (`id`),
   CONSTRAINT `user_id_refs_id_76277af7` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_data
@@ -2730,7 +2850,7 @@ CREATE TABLE `user_drug` (
   KEY `user_drug_drug_id` (`drug_id`),
   CONSTRAINT `drug_id_refs_id_773fa5e7` FOREIGN KEY (`drug_id`) REFERENCES `system_drug` (`id`),
   CONSTRAINT `user_id_refs_id_7d9848b1` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_drug
@@ -2773,7 +2893,7 @@ CREATE TABLE `user_hooker` (
   KEY `user_hooker_hooker_id` (`hooker_id`),
   CONSTRAINT `hooker_id_refs_id_3d1d1967` FOREIGN KEY (`hooker_id`) REFERENCES `system_hooker` (`id`),
   CONSTRAINT `user_id_refs_id_42aafdc5` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_hooker
@@ -2804,11 +2924,13 @@ CREATE TABLE `user_profile` (
   CONSTRAINT `character_id_refs_id_41dbc63b` FOREIGN KEY (`character_id`) REFERENCES `system_character` (`id`),
   CONSTRAINT `province_id_refs_id_71e726bb` FOREIGN KEY (`province_id`) REFERENCES `system_province` (`id`),
   CONSTRAINT `user_id_refs_id_5f4bba6f` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_profile
 -- ----------------------------
+INSERT INTO `user_profile` VALUES ('2', '1', null, 'm', 'test', '1', 'zh', '0', '9', 'uploads/user_avatar/floydf-club.cn_dbf16b22.jpg', '5', '0', '1');
+INSERT INTO `user_profile` VALUES ('3', '4', null, 'm', '1', '1', 'zh', '0', '9', 'uploads/user_avatar/Blue_hills.jpg', '3', '0', '1');
 
 -- ----------------------------
 -- Table structure for `user_weapon`

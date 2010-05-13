@@ -1,0 +1,91 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-05-13 09:39+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "record"
+msgstr "记录"
+
+#: .\models\business.py:8 .\models\business.py:23
+msgid "user business"
+msgstr "用户生意"
+
+#: .\models\business.py:9
+msgid "visitors"
+msgstr "访客数"
+
+#: .\models\business.py:10 .\models\respect.py:8
+msgid "day"
+msgstr "天"
+
+#: .\models\business.py:13
+#, python-format
+msgid "daily visitors for %s"
+msgstr "%s的每天访客数"
+
+#: .\models\business.py:17 .\models\business.py:18
+msgid "daily visitors"
+msgstr "每天访客数"
+
+#: .\models\business.py:22
+msgid "vistor"
+msgstr "访客"
+
+#: .\models\business.py:24
+msgid "income"
+msgstr "收入"
+
+#: .\models\business.py:25
+msgid "exited"
+msgstr "已离开"
+
+#: .\models\business.py:26 .\models\respect.py:9
+msgid "created"
+msgstr ""
+
+#: .\models\business.py:29
+#, python-format
+msgid "log for %s"
+msgstr "%s的访客记录"
+
+#: .\models\business.py:33
+msgid "user business log"
+msgstr "用户生意记录"
+
+#: .\models\business.py:34
+msgid "user business logs"
+msgstr "用户生意记录"
+
+#: .\models\respect.py:6
+msgid "user"
+msgstr ""
+
+#: .\models\respect.py:7
+msgid "respect"
+msgstr ""
+
+#: .\models\respect.py:12
+#, python-format
+msgid "daily respect for %s"
+msgstr "%s的每日声望"
+
+#: .\models\respect.py:16
+msgid "daily respect"
+msgstr "每日声望"
+
+#: .\models\respect.py:17
+msgid "daily respects"
+msgstr "每日声望"

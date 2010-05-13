@@ -156,8 +156,20 @@ class PrisonAdmin(admin.ModelAdmin):
 
 class RipAdmin(admin.ModelAdmin):
     list_display = ('user', 'created', 'expired', 'escaped', 'reason', 'victim')
+
+class UserBusinessWareInline(admin.StackedInline):
+    pass
+
+from record.models import UserBusinessLog
+class UserBusinessLogInline(admin.StackedInline):
+    model = UserBusinessLog
+    max_num = 15
+    classes = ('collapse-closed',)
+    
+class UserBusinessAdmin(admin.ModelAdmin):
+    inlines = (UserBusinessLogInline,)
             
-admin.site.register(UserBusiness)
+admin.site.register(UserBusiness, UserBusinessAdmin)
 admin.site.register(Gang, GangAdmin)
 admin.site.register(Bounty, BountyAdmin)
 admin.site.unregister(User)
