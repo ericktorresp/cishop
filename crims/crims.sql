@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50142
 File Encoding         : 65001
 
-Date: 2010-05-13 09:45:21
+Date: 2010-05-14 17:13:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -59,7 +59,7 @@ CREATE TABLE `auth_message` (
   PRIMARY KEY (`id`),
   KEY `auth_message_user_id` (`user_id`),
   CONSTRAINT `user_id_refs_id_9af0b65a` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_message
@@ -78,7 +78,7 @@ CREATE TABLE `auth_permission` (
   UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
   KEY `auth_permission_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_728de91f` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=256 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=262 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -308,6 +308,12 @@ INSERT INTO `auth_permission` VALUES ('252', 'Can delete daily visitors', '84', 
 INSERT INTO `auth_permission` VALUES ('253', 'Can add user business log', '85', 'add_userbusinesslog');
 INSERT INTO `auth_permission` VALUES ('254', 'Can change user business log', '85', 'change_userbusinesslog');
 INSERT INTO `auth_permission` VALUES ('255', 'Can delete user business log', '85', 'delete_userbusinesslog');
+INSERT INTO `auth_permission` VALUES ('256', 'Can add lottery', '86', 'add_lottery');
+INSERT INTO `auth_permission` VALUES ('257', 'Can change lottery', '86', 'change_lottery');
+INSERT INTO `auth_permission` VALUES ('258', 'Can delete lottery', '86', 'delete_lottery');
+INSERT INTO `auth_permission` VALUES ('259', 'Can add promotion', '87', 'add_promotion');
+INSERT INTO `auth_permission` VALUES ('260', 'Can change promotion', '87', 'change_promotion');
+INSERT INTO `auth_permission` VALUES ('261', 'Can delete promotion', '87', 'delete_promotion');
 
 -- ----------------------------
 -- Table structure for `auth_user`
@@ -392,6 +398,24 @@ CREATE TABLE `captcha_captchastore` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `casino_lottery`
+-- ----------------------------
+DROP TABLE IF EXISTS `casino_lottery`;
+CREATE TABLE `casino_lottery` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `casino_lottery_user_id` (`user_id`),
+  CONSTRAINT `user_id_refs_id_7ae5c181` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of casino_lottery
+-- ----------------------------
+INSERT INTO `casino_lottery` VALUES ('1', '1', '2010-05-14 14:49:49');
+
+-- ----------------------------
 -- Table structure for `django_admin_log`
 -- ----------------------------
 DROP TABLE IF EXISTS `django_admin_log`;
@@ -409,7 +433,7 @@ CREATE TABLE `django_admin_log` (
   KEY `django_admin_log_content_type_id` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_288599e6` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `user_id_refs_id_c8665aa` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=513 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=515 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_admin_log
@@ -913,6 +937,8 @@ INSERT INTO `django_admin_log` VALUES ('509', '2010-05-12 15:42:07', '1', '83', 
 INSERT INTO `django_admin_log` VALUES ('510', '2010-05-12 15:42:14', '1', '83', '4', 'daily respect for darkmoon', '1', '');
 INSERT INTO `django_admin_log` VALUES ('511', '2010-05-12 15:42:22', '1', '83', '5', 'daily respect for darkmoon', '1', '');
 INSERT INTO `django_admin_log` VALUES ('512', '2010-05-12 15:42:27', '1', '83', '6', 'daily respect for darkmoon', '1', '');
+INSERT INTO `django_admin_log` VALUES ('513', '2010-05-14 14:49:49', '1', '86', '1', 'root', '1', '');
+INSERT INTO `django_admin_log` VALUES ('514', '2010-05-14 16:59:28', '1', '87', '1', '偷窃', '1', '');
 
 -- ----------------------------
 -- Table structure for `django_content_type`
@@ -925,7 +951,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_label` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_content_type
@@ -1005,6 +1031,8 @@ INSERT INTO `django_content_type` VALUES ('82', 'user favorited business', 'game
 INSERT INTO `django_content_type` VALUES ('83', 'daily respects', 'record', 'respect');
 INSERT INTO `django_content_type` VALUES ('84', 'daily visitors', 'record', 'userbusinessdailycount');
 INSERT INTO `django_content_type` VALUES ('85', 'user business log', 'record', 'userbusinesslog');
+INSERT INTO `django_content_type` VALUES ('86', 'lottery', 'casino', 'lottery');
+INSERT INTO `django_content_type` VALUES ('87', 'promotion', 'game', 'promotion');
 
 -- ----------------------------
 -- Table structure for `django_session`
@@ -1024,7 +1052,7 @@ INSERT INTO `django_session` VALUES ('1f09faf546ea25a3ab010adc2e585bea', 'gAJ9cQ
 INSERT INTO `django_session` VALUES ('23d64587c0070ce0dc9dae8aa27f6053', 'gAJ9cQEuODg5ZDEzMzAzNmNlMzJkNDIzZGQzMGM1ZWJhYmFlMGQ=\n', '2010-05-02 20:19:21');
 INSERT INTO `django_session` VALUES ('5286edf50ae8d76c4766ee5d9ed97aac', 'gAJ9cQEuODg5ZDEzMzAzNmNlMzJkNDIzZGQzMGM1ZWJhYmFlMGQ=\n', '2010-05-02 20:19:21');
 INSERT INTO `django_session` VALUES ('72428d3f08e0427f6a8850ba47a4f659', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVQ1fYXV0aF91c2Vy\nX2lkcQaKAQFVEl9hdXRoX3VzZXJfYmFja2VuZHEHVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tl\nbmRzLk1vZGVsQmFja2VuZHEIdS45NzY0OGNkZmI3YzMwY2EzM2UyYjlkYWE1OWJkZjBjYw==\n', '2010-05-12 18:51:41');
-INSERT INTO `django_session` VALUES ('83dd5750236ade604fc840a9bc5c7aea', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVRJfYXV0aF91c2Vy\nX2JhY2tlbmRxBlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRxB1UN\nX2F1dGhfdXNlcl9pZHEIigEBdS42YzFiMDI5MGJhNjYzMjY0YzE1NWVhMWU3NmMwOTEyMQ==\n', '2010-05-27 09:44:11');
+INSERT INTO `django_session` VALUES ('83dd5750236ade604fc840a9bc5c7aea', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVQ1fYXV0aF91c2Vy\nX2lkcQaKAQFVEl9hdXRoX3VzZXJfYmFja2VuZHEHVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tl\nbmRzLk1vZGVsQmFja2VuZHEIdS45NzY0OGNkZmI3YzMwY2EzM2UyYjlkYWE1OWJkZjBjYw==\n', '2010-05-28 17:02:05');
 INSERT INTO `django_session` VALUES ('86cac61cc2a7f010c3d465c913cab99a', 'gAJ9cQFVCnRlc3Rjb29raWVxAlUGd29ya2VkcQNzLmJmMjBjODVkMTkwZTExMWEzMTkxMjFhNzIz\nZWI2NGJm\n', '2010-05-02 20:09:30');
 INSERT INTO `django_session` VALUES ('97884902b0c6a2d5360cacf5aac93d7a', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UEaG9tZXEEWAcAAAAvYWRtaW4vcQVzVQ1fYXV0aF91c2Vy\nX2lkcQaKAQFVEl9hdXRoX3VzZXJfYmFja2VuZHEHVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tl\nbmRzLk1vZGVsQmFja2VuZHEIdS45NzY0OGNkZmI3YzMwY2EzM2UyYjlkYWE1OWJkZjBjYw==\n', '2010-05-23 16:28:31');
 INSERT INTO `django_session` VALUES ('9f005bf1fd11cc2e8ff354a75ee459b1', 'gAJ9cQEoVQlncmFwcGVsbGlxAn1xA1UHbWVzc2FnZXEEXXEFKFUHc3VjY2Vzc3EGWBwAAABTaXRl\nIHdhcyBhZGRlZCB0byBCb29rbWFya3MucQdlc1UNX2F1dGhfdXNlcl9pZHEIigEBVRJfYXV0aF91\nc2VyX2JhY2tlbmRxCVUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRx\nCnUuMGI4YzhlNzg1MzY0NTc2ZjJlZDQyNTgzMzZkMmNlNmU=\n', '2010-05-02 20:39:45');
@@ -1536,6 +1564,31 @@ CREATE TABLE `game_prison` (
 -- ----------------------------
 -- Records of game_prison
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `game_promotion`
+-- ----------------------------
+DROP TABLE IF EXISTS `game_promotion`;
+CREATE TABLE `game_promotion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `cash` smallint(5) unsigned NOT NULL,
+  `credits` smallint(5) unsigned NOT NULL,
+  `weapon_id` int(11) DEFAULT NULL,
+  `hooker_id` int(11) DEFAULT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `game_promotion_weapon_id` (`weapon_id`),
+  KEY `game_promotion_hooker_id` (`hooker_id`),
+  CONSTRAINT `hooker_id_refs_id_36d7d280` FOREIGN KEY (`hooker_id`) REFERENCES `system_hooker` (`id`),
+  CONSTRAINT `weapon_id_refs_id_1985bcac` FOREIGN KEY (`weapon_id`) REFERENCES `system_weapon` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of game_promotion
+-- ----------------------------
+INSERT INTO `game_promotion` VALUES ('1', '偷窃', '查看追号信息', '1000', '10', null, null, '2010-05-14 16:59:28');
 
 -- ----------------------------
 -- Table structure for `game_rip`

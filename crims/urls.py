@@ -38,6 +38,10 @@ admin.site.groups = {
         'name': _('site'),
         'apps': ['sites'],
     },
+    6: {
+        'name': _('casino'),
+        'apps': ['casino'],
+    },
 }
 #admin.site.collections = {
 #    0: {

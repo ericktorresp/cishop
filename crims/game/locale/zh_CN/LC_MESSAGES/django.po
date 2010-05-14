@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-30 17:23+0800\n"
+"POT-Creation-Date: 2010-05-14 16:44+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,198 +15,392 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\models\gang.py:8
+#: .\models\bank.py:6 .\models\challenge.py:8 .\models\chat.py:18
+#: .\models\gang.py:38 .\models\rip.py:12 .\models\sabotageplan.py:10
+#: .\models\userbusiness.py:7 .\models\userfavorite.py:8
+#, fuzzy
+msgid "user"
+msgstr "主用户"
+
+#: .\models\bank.py:7
+msgid "amount"
+msgstr "余额"
+
+#: .\models\bank.py:8 .\models\bounty.py:9 .\models\challenge.py:10
+#: .\models\chat.py:23 .\models\gang.py:13 .\models\gang.py:40
+#: .\models\gang.py:57 .\models\gang.py:72 .\models\gang.py:87
+#: .\models\gang.py:104 .\models\guestbook.py:9 .\models\prison.py:7
+#: .\models\promotion.py:13 .\models\rip.py:13 .\models\sabotageplan.py:13
+#: .\models\userbusiness.py:13 .\models\userfavorite.py:10
+#, fuzzy
+msgid "created"
+msgstr "创建人"
+
+#: .\models\bank.py:9 .\models\userbusiness.py:14
+msgid "modified"
+msgstr ""
+
+#: .\models\bank.py:12
+#, python-format
+msgid "%(user)s's bank account"
+msgstr "%(user)s 的银行账户"
+
+#: .\models\bank.py:21
+msgid "Bank"
+msgstr "银行"
+
+#: .\models\bank.py:22
+msgid "Banks"
+msgstr "银行"
+
+#: .\models\bounty.py:6
+msgid "sponsor"
+msgstr "发起人"
+
+#: .\models\bounty.py:7
+msgid "target"
+msgstr "目标"
+
+#: .\models\bounty.py:8 .\models\promotion.py:10
+msgid "credits"
+msgstr ""
+
+#: .\models\bounty.py:10 .\models\challenge.py:11 .\models\prison.py:8
+#: .\models\rip.py:14
+msgid "expired"
+msgstr "到期时间"
+
+#: .\models\bounty.py:11
+msgid "completed"
+msgstr "已完成"
+
+#: .\models\bounty.py:14
+#, python-format
+msgid "%(sponsor)s put bounty on %(target)s, price is %(price)s credits."
+msgstr "%(sponsor)s 悬赏 %(price)s 银元干掉  %(target)s。"
+
+#: .\models\bounty.py:18
+msgid "Bounty"
+msgstr "悬赏"
+
+#: .\models\bounty.py:19
+msgid "Bounties"
+msgstr "悬赏"
+
+#: .\models\challenge.py:9 .\models\gang.py:101 .\models\rip.py:17
+#: .\models\sabotageplan.py:11
+msgid "victim"
+msgstr "敌人"
+
+#: .\models\challenge.py:14
+#, python-format
+msgid "%(user)s challenged %(victim)s"
+msgstr "%(user)s 挑战了 %(victim)s"
+
+#: .\models\challenge.py:18
+msgid "challenge"
+msgstr "挑战"
+
+#: .\models\challenge.py:19
+msgid "challenges"
+msgstr "挑战"
+
+#: .\models\chat.py:12
+msgid "square"
+msgstr "广场"
+
+#: .\models\chat.py:13
+msgid "fight"
+msgstr "打架"
+
+#: .\models\chat.py:14 .\models\prison.py:16 .\models\prison.py:17
+msgid "prison"
+msgstr "监狱"
+
+#: .\models\chat.py:15 .\models\rip.py:24 .\models\rip.py:25
+msgid "rip"
+msgstr "医院"
+
+#: .\models\chat.py:19 .\models\gang.py:32 .\models\gang.py:39
+#: .\models\gang.py:55 .\models\gang.py:70 .\models\gang.py:83
+#: .\models\gang.py:100
+msgid "gang"
+msgstr "帮会"
+
+#: .\models\chat.py:20 .\models\userbusiness.py:8 .\models\userfavorite.py:9
+msgid "business"
+msgstr ""
+
+#: .\models\chat.py:21
+msgid "type"
+msgstr ""
+
+#: .\models\chat.py:22 .\models\gang.py:69 .\models\guestbook.py:8
+msgid "body"
+msgstr "正文"
+
+#: .\models\chat.py:30
+msgid "chat"
+msgstr "聊天"
+
+#: .\models\chat.py:31
+msgid "chats"
+msgstr "聊天"
+
+#: .\models\gang.py:7
+msgid "planning"
+msgstr "计划中"
+
+#: .\models\gang.py:7
+msgid "done"
+msgstr "已完成"
+
+#: .\models\gang.py:7
+msgid "aborted"
+msgstr "已终止"
+
+#: .\models\gang.py:10 .\models\promotion.py:7 .\models\userbusiness.py:9
+msgid "title"
+msgstr ""
+
+#: .\models\gang.py:11
 msgid "presentation"
 msgstr "帮规"
 
 #: .\models\gang.py:12
+msgid "photo"
+msgstr ""
+
+#: .\models\gang.py:14
+#, fuzzy
+msgid "province"
+msgstr "犯人"
+
+#: .\models\gang.py:15
 msgid "creater"
 msgstr "创建人"
 
-#: .\models\gang.py:13
+#: .\models\gang.py:16
 msgid "leader"
 msgstr "帮主"
 
-#: .\models\gang.py:14
+#: .\models\gang.py:17
 msgid "vice leader"
 msgstr "副帮主"
 
-#: .\models\gang.py:28 .\models\gang.py:35 .\models\gang.py:50
-#: .\models\gang.py:65
-msgid "gang"
-msgstr "帮会"
-
-#: .\models\gang.py:29
+#: .\models\gang.py:33
 msgid "gangs"
 msgstr "帮会"
 
-#: .\models\gang.py:43
+#: .\models\gang.py:47
 msgid "member"
 msgstr "成员"
 
-#: .\models\gang.py:44
+#: .\models\gang.py:48
 msgid "members"
 msgstr "成员"
 
-#: .\models\gang.py:48
+#: .\models\gang.py:53
 msgid "inviter"
 msgstr "邀请人"
 
-#: .\models\gang.py:49
+#: .\models\gang.py:54
 msgid "accepter"
 msgstr "接收人"
 
-#: .\models\gang.py:51
+#: .\models\gang.py:56 .\models\gang.py:88 .\models\gang.py:105
 msgid "accepted"
 msgstr "已接受"
 
-#: .\models\gang.py:59
+#: .\models\gang.py:64
 msgid "invite"
 msgstr "邀请"
 
-#: .\models\gang.py:60
+#: .\models\gang.py:65
 msgid "invites"
 msgstr "邀请"
 
-#: .\models\gang.py:63
+#: .\models\gang.py:68
 msgid "subject"
 msgstr "主题"
 
-#: .\models\gang.py:64
-msgid "body"
-msgstr "正文"
-
-#: .\models\gang.py:66
+#: .\models\gang.py:71
 msgid "writer"
 msgstr "发布人"
 
-#: .\models\gang.py:74
+#: .\models\gang.py:79
 msgid "news"
 msgstr "新闻"
 
-#: .\models\gang.py:75
+#: .\models\gang.py:80
 msgid "newses"
 msgstr "新闻"
+
+#: .\models\gang.py:84 .\models\gang.py:96
+msgid "robbery"
+msgstr ""
+
+#: .\models\gang.py:85 .\models\gang.py:102
+msgid "initiator"
+msgstr "发起人"
+
+#: .\models\gang.py:86 .\models\gang.py:103 .\models\sabotageplan.py:12
+msgid "status"
+msgstr "状态"
+
+#: .\models\gang.py:89 .\models\gang.py:106
+msgid "declined"
+msgstr "已拒绝"
+
+#: .\models\gang.py:97
+msgid "robberies"
+msgstr ""
+
+#: .\models\gang.py:113 .\models\rip.py:7
+msgid "assault"
+msgstr "攻击"
+
+#: .\models\gang.py:114
+msgid "assaults"
+msgstr "攻击"
+
+#: .\models\guestbook.py:6
+msgid "owner"
+msgstr "主人"
+
+#: .\models\guestbook.py:7
+msgid "author"
+msgstr "作者"
+
+#: .\models\guestbook.py:16
+msgid "guestbook"
+msgstr "留言本"
+
+#: .\models\guestbook.py:17
+msgid "guestbooks"
+msgstr "留言本"
+
+#: .\models\prison.py:6
+msgid "prisoner"
+msgstr "犯人"
+
+#: .\models\prison.py:9 .\models\rip.py:15
+msgid "escaped"
+msgstr "已越狱"
+
+#: .\models\promotion.py:8 .\models\userbusiness.py:10
+msgid "description"
+msgstr ""
+
+#: .\models\promotion.py:9
+#, fuzzy
+msgid "cash"
+msgstr "聊天"
+
+#: .\models\promotion.py:11
+#, fuzzy
+msgid "weapon"
+msgstr "原因"
+
+#: .\models\promotion.py:12
+msgid "hooker"
+msgstr ""
+
+#: .\models\promotion.py:20
+msgid "promotion"
+msgstr "促销"
+
+#: .\models\promotion.py:21
+msgid "promotions"
+msgstr "促销"
+
+#: .\models\rip.py:6 .\models\userbusiness.py:17
+msgid "drug"
+msgstr ""
+
+#: .\models\rip.py:8
+msgid "sick"
+msgstr "性病"
+
+#: .\models\rip.py:16
+msgid "reason"
+msgstr "原因"
+
+#: .\models\sabotageplan.py:20
+msgid "sabotage plan"
+msgstr "破坏活动计划"
+
+#: .\models\sabotageplan.py:21
+msgid "sabotage plans"
+msgstr "破坏活动计划"
+
+#: .\models\userbusiness.py:16
+msgid "closed"
+msgstr "已关闭"
+
+#: .\models\userbusiness.py:27
+msgid "%(user)s's %(business)s"
+msgstr "%(user)s的%(business)s"
+
+#: .\models\userbusiness.py:31 .\models\userbusiness.py:37
+msgid "user's business"
+msgstr "玩家场子"
+
+#: .\models\userbusiness.py:32
+msgid "user's businesses"
+msgstr "玩家场子"
+
+#: .\models\userbusiness.py:38
+msgid "user's drug"
+msgstr "玩家药品"
+
+#: .\models\userbusiness.py:39
+msgid "price"
+msgstr "价格"
+
+#: .\models\userbusiness.py:40
+msgid "sold"
+msgstr "已售出"
+
+#: .\models\userbusiness.py:41
+msgid "removed"
+msgstr "已下架"
+
+#: .\models\userbusiness.py:48
+msgid "user business drug"
+msgstr "场子药品"
+
+#: .\models\userbusiness.py:49
+msgid "user business drugs"
+msgstr "场子药品"
+
+#: .\models\userfavorite.py:13
+#, python-format
+msgid "%(user)s's favorite: %(business)s"
+msgstr "%(user)s的收藏: %(business)s"
+
+#: .\models\userfavorite.py:17
+msgid "user favorited business"
+msgstr "用户收藏的场子"
+
+#: .\models\userfavorite.py:18
+msgid "user favorited businesses"
+msgstr "用户收藏的场子"
 
 msgid "game"
 msgstr "游戏"
 
-msgid "Bounty"
-msgstr "悬赏"
+#~ msgid "Relationship"
+#~ msgstr "用户关系"
 
-msgid "Bounties"
-msgstr "悬赏"
+#~ msgid "Relationships"
+#~ msgstr "用户关系"
 
-msgid "sponsor"
-msgstr "发起人"
+#~ msgid "relater"
+#~ msgstr "相关用户"
 
-msgid "target"
-msgstr "目标"
+#~ msgid "%(master)s relationship with %(relater)s"
+#~ msgstr "%(master)s 与 %(relater)s 的关系"
 
-msgid "completed"
-msgstr "已完成"
-
-msgid "expired"
-msgstr "到期时间"
-
-msgid "%(sponsor)s put bounty on %(target)s, price is %(price)s credits."
-msgstr "%(sponsor)s 悬赏 %(price)s 银元干掉  %(target)s。"
-
-msgid "amount"
-msgstr "余额"
-
-msgid "%(user)s's bank account"
-msgstr "%(user)s 的银行账户"
-
-msgid "Bank"
-msgstr "银行"
-
-msgid "Banks"
-msgstr "银行"
-
-msgid "Relationship"
-msgstr "用户关系"
-
-msgid "Relationships"
-msgstr "用户关系"
-
-msgid "master"
-msgstr "主用户"
-
-msgid "relater"
-msgstr "相关用户"
-
-msgid "ignore?"
-msgstr "黑名单？"
-
-msgid "%(master)s relationship with %(relater)s"
-msgstr "%(master)s 与 %(relater)s 的关系"
-
-msgid "chat"
-msgstr "聊天"
-
-msgid "chats"
-msgstr "聊天"
-
-msgid "square"
-msgstr "广场"
-
-msgid "fight"
-msgstr "打架"
-
-msgid "prison"
-msgstr "监狱"
-
-msgid "rip"
-msgstr "医院"
-
-msgid "initiator"
-msgstr "发起人"
-
-msgid "status"
-msgstr "状态"
-
-msgid "declined"
-msgstr "已拒绝"
-
-msgid "planning"
-msgstr "计划中"
-
-msgid "done"
-msgstr "已完成"
-
-msgid "aborted"
-msgstr "已终止"
-
-msgid "assault"
-msgstr "攻击"
-
-msgid "assaults"
-msgstr "攻击"
-
-msgid "victim"
-msgstr "敌人"
-
-msgid "guestbook"
-msgstr "留言本"
-
-msgid "guestbooks"
-msgstr "留言本"
-
-msgid "owner"
-msgstr "主人"
-
-msgid "author"
-msgstr "作者"
-
-msgid "prisoner"
-msgstr "犯人"
-
-msgid "escaped"
-msgstr "已越狱"
-
-msgid "reason"
-msgstr "原因"
-
-msgid "%s's %s"
-msgstr "%s的%s"
+#~ msgid "%s's %s"
+#~ msgstr "%s的%s"

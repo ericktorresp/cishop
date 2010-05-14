@@ -9,4 +9,4 @@ from game.models.rip import Rip
 from game.models.challenge import Challenge
 from game.models.sabotageplan import SabotagePlan
 from game.models.userfavorite import UserFavorite
-
+from game.models.promotion import Promotion

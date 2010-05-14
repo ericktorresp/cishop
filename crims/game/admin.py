@@ -14,7 +14,7 @@ class GangMemberInline(admin.StackedInline):
 class GangNewsInlineForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(GangNewsInlineForm, self).__init__(*args, **kwargs)
-        self.fields['writer'].queryset = User.objects.filter(id__in=GangMember.objects.filter().values('user_id').query)
+        self.fields['writer'].queryset = User.objects.filter(id__in = GangMember.objects.filter().values('user_id').query)
 
 class GangNewsInline(admin.StackedInline):
     model = GangNews
@@ -31,9 +31,9 @@ class GangNewsInline(admin.StackedInline):
 class GangInviteInlineForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(GangInviteInlineForm, self).__init__(*args, **kwargs)
-        self.fields['inviter'].queryset = User.objects.filter(id__in=GangMember.objects.filter().values('user_id').query)
-        self.fields['accepter'].queryset = User.objects.exclude(id__in=GangMember.objects.filter().values('user_id').query)
-        
+        self.fields['inviter'].queryset = User.objects.filter(id__in = GangMember.objects.filter().values('user_id').query)
+        self.fields['accepter'].queryset = User.objects.exclude(id__in = GangMember.objects.filter().values('user_id').query)
+
 class GangInviteInline(admin.StackedInline):
     form = GangInviteInlineForm
     model = GangInvite
@@ -42,7 +42,7 @@ class GangInviteInline(admin.StackedInline):
 class GangChatInlineForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(GangChatInlineForm, self).__init__(*args, **kwargs)
-        self.fields['sender'].queryset = User.objects.filter(id__in=GangMember.objects.filter().values('user_id').query)
+        self.fields['sender'].queryset = User.objects.filter(id__in = GangMember.objects.filter().values('user_id').query)
 
 class GangChatInline(admin.StackedInline):
     form = GangChatInlineForm
@@ -53,7 +53,7 @@ class GangChatInline(admin.StackedInline):
 class GangRobberyInlineForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(GangRobberyInlineForm, self).__init__(*args, **kwargs)
-        self.fields['initiator'].queryset = User.objects.filter(id__in=GangMember.objects.filter().values('user_id').query)
+        self.fields['initiator'].queryset = User.objects.filter(id__in = GangMember.objects.filter().values('user_id').query)
 
 class GangRobberyInline(admin.StackedInline):
     form = GangRobberyInlineForm
@@ -63,8 +63,8 @@ class GangRobberyInline(admin.StackedInline):
 class GangAssaultInlineForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(GangAssaultInlineForm, self).__init__(*args, **kwargs)
-        self.fields['initiator'].queryset = User.objects.filter(id__in=GangMember.objects.filter().values('user_id').query)
-        self.fields['victim'].queryset = User.objects.exclude(id__in=GangMember.objects.filter().values('user_id').query)
+        self.fields['initiator'].queryset = User.objects.filter(id__in = GangMember.objects.filter().values('user_id').query)
+        self.fields['victim'].queryset = User.objects.exclude(id__in = GangMember.objects.filter().values('user_id').query)
 
 class GangAssaultInline(admin.StackedInline):
     form = GangAssaultInlineForm
@@ -100,7 +100,7 @@ class WeaponInline(admin.StackedInline):
     can_delete = False
     classes = ('collapse-closed',)
     allow_add = True
-    
+
 class GuardInline(admin.StackedInline):
     model = UserGuard
     fk_name = 'user'
@@ -120,10 +120,10 @@ class HookerInline(admin.StackedInline):
 class BuildingInline(admin.StackedInline):
     model = UserBuilding
     classes = ('collapse-closed',)
-    
+
 class BusinessDrugInline(admin.StackedInline):
     model = UserBusinessDrug
-    
+
 class BusinessInline(admin.StackedInline):
     model = UserBusiness
     classes = ('collapse-closed',)
@@ -136,7 +136,7 @@ class UserProfileInline(admin.StackedInline):
 class UserDataInline(admin.StackedInline):
     model = UserData
     classes = ('collapse-closed',)
-   
+
 class ProfileAdmin(UserAdmin):
     inlines = (
         BankInline,
@@ -165,10 +165,10 @@ class UserBusinessLogInline(admin.StackedInline):
     model = UserBusinessLog
     max_num = 15
     classes = ('collapse-closed',)
-    
+
 class UserBusinessAdmin(admin.ModelAdmin):
     inlines = (UserBusinessLogInline,)
-            
+
 admin.site.register(UserBusiness, UserBusinessAdmin)
 admin.site.register(Gang, GangAdmin)
 admin.site.register(Bounty, BountyAdmin)
@@ -180,3 +180,4 @@ admin.site.register(Rip, RipAdmin)
 admin.site.register(Challenge)
 admin.site.register(SabotagePlan)
 admin.site.register(UserFavorite)
+admin.site.register(Promotion)
