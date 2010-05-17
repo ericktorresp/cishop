@@ -1,4 +1,4 @@
-APE.Request.CycledStack = new Class({
+CRIMS.Request.CycledStack = new Class({
 	initialize: function(ape) {
 		this.ape = ape;
 

@@ -1,8 +1,8 @@
-APE.Request = new Class({
+CRIMS.Request = new Class({
 	initialize: function(ape) {
 		this.ape = ape;
-		this.stack = new APE.Request.Stack(ape);
-		this.cycledStack = new APE.Request.CycledStack(ape);
+		this.stack = new CRIMS.Request.Stack(ape);
+		this.cycledStack = new CRIMS.Request.CycledStack(ape);
 		this.chl = 1;
 		this.callbackChl = new $H;
 

@@ -1,9 +1,9 @@
-APE.PipeProxy = new Class({
+CRIMS.PipeProxy = new Class({
 
-	Extends: APE.Pipe,
+	Extends: CRIMS.Pipe,
 
 	initialize: function(core, options){
-		this.core = core || window.Ape;
+		this.core = core || window.Crims;
 		this.ape = this.core;
 
 		this.initRequestMethod();
@@ -66,12 +66,12 @@ APE.PipeProxy = new Class({
 	}
 });
 
-APE.Core = new Class({
+CRIMS.Core = new Class({
 
-	Extends: APE.Core,
+	Extends: CRIMS.Core,
 
 	/***
 	 * This allow ape to be compatible with TCPSocket
 	 */
-	TCPSocket: APE.PipeProxy
+	TCPSocket: CRIMS.PipeProxy
 });

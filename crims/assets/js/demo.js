@@ -1,6 +1,6 @@
-APE.Controller = new Class({
+CRIMS.Controller = new Class({
 	
-	Extends: APE.Client,
+	Extends: CRIMS.Client,
 	
 	Implements: Options,
 	

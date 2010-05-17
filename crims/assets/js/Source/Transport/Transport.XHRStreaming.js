@@ -29,11 +29,11 @@ Request.XHRStreaming = new Class({
 		this.onProgress(this.processScripts(text), xml);
 	}
 });
-APE.Transport.XHRStreaming = new Class({
+CRIMS.Transport.XHRStreaming = new Class({
 	
 	maxRequestSize: 100000,
 
-	Implements: APE.Request.SSE,
+	Implements: CRIMS.Request.SSE,
 
 	initialize: function(ape){ 
 		this.ape = ape;
@@ -178,7 +178,7 @@ APE.Transport.XHRStreaming = new Class({
 		$clear(this.requestFailObserver.shift());
 	}
 });
-APE.Transport.XHRStreaming.browserSupport = function() {
+CRIMS.Transport.XHRStreaming.browserSupport = function() {
 	if (Browser.Features.xhr && (Browser.Engine.webkit || Browser.Engine.gecko)) {
 		return true;
 		/* Not yet 

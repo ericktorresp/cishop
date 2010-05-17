@@ -1,4 +1,4 @@
-APE.Request.Stack = new Class({
+CRIMS.Request.Stack = new Class({
 	initialize: function(ape) {
 		this.ape = ape;
 		this.stack =[];

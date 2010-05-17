@@ -1,4 +1,4 @@
-var APE = {
+var CRIMS = {
 	Config: {
 		identifier: 'ape',
 		init: true,
@@ -7,7 +7,7 @@ var APE = {
 	}
 };
 
-APE.Client = new Class({
+CRIMS.Client = new Class({
 	
 	eventProxy: [],
 
@@ -43,7 +43,7 @@ APE.Client = new Class({
 	},
 
 	load: function(config){	
-		config = $merge({}, APE.Config, config);
+		config = $merge({}, CRIMS.Config, config);
 
 		// Init function called by core to init core variable
 		config.init = function(core){
@@ -103,8 +103,8 @@ APE.Client = new Class({
 		}	
 
 		iframe.addEvent('load',  function() { 
-			if (!iframe.contentWindow.APE) setTimeout(iframe.onload, 100);//Sometimes IE fire the onload event, but the iframe is not loaded -_-
-			else iframe.contentWindow.APE.init(config);
+			if (!iframe.contentWindow.CRIMS) setTimeout(iframe.onload, 100);//Sometimes IE fire the onload event, but the iframe is not loaded -_-
+			else iframe.contentWindow.CRIMS.init(config);
 		});
 	}
 	

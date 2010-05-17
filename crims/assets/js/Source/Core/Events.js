@@ -1,4 +1,4 @@
-APE.Events = new Class({
+CRIMS.Events = new Class({
 	
 	Extends: Events,
 		

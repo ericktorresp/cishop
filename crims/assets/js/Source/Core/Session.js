@@ -1,6 +1,6 @@
-APE.Core = new Class({
+CRIMS.Core = new Class({
 
-	Extends: APE.Core,
+	Extends: CRIMS.Core,
 
 	initialize: function(options){
 		if (this.getInstance(options.identifier).instance) options.restore = true;
@@ -75,7 +75,7 @@ APE.Core = new Class({
 	 * @return 	Boolean	false if application identifier isn't found or an object with the instance and the cookie
 	 */
 	getInstance: function(identifier) {
-		var	tmp = Cookie.read('APE_Cookie', {'domain': document.domain});
+		var	tmp = Cookie.read('CRIMS_Cookie', {'domain': document.domain});
 		identifier = identifier || this.options.identifier;
 		if (!tmp) return false;
 		tmp = JSON.parse(tmp);
@@ -156,7 +156,7 @@ APE.Core = new Class({
 
 	saveCookie: function(){
 		//Save cookie on the parent window (this is usefull with JSONP as domain in the iframe is different than the domain in the parent window)
-		Cookie.write('APE_Cookie', JSON.stringify(this.cookie), {'domain': document.domain});
+		Cookie.write('CRIMS_Cookie', JSON.stringify(this.cookie), {'domain': document.domain});
 	},
 
 	clearSession: function(){
@@ -166,6 +166,6 @@ APE.Core = new Class({
 	},
 
 	removeCookie: function(){
-		Cookie.dispose('APE_Cookie', {domain:this.options.domain});
+		Cookie.dispose('CRIMS_Cookie', {domain:this.options.domain});
 	}
 });

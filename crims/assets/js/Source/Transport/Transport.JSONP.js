@@ -1,6 +1,6 @@
-APE.Transport.JSONP = new Class({
+CRIMS.Transport.JSONP = new Class({
 	
-	Implements: APE.Transport.SSE,
+	Implements: CRIMS.Transport.SSE,
 
 	initialize: function(ape) {
 		this.ape = ape;
@@ -88,4 +88,4 @@ APE.Transport.JSONP = new Class({
 	
 });
 
-APE.Transport.JSONP.browserSupport = function() { return true };
+CRIMS.Transport.JSONP.browserSupport = function() { return true };

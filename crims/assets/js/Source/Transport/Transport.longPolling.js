@@ -13,7 +13,7 @@ Request = new Class({
 		this.parent();
 	}
 });
-APE.Transport.longPolling = new Class({
+CRIMS.Transport.longPolling = new Class({
 
 	initialize: function(ape) { 
 		this.ape = ape;
@@ -48,4 +48,4 @@ APE.Transport.longPolling = new Class({
 	}
 });
 
-APE.Transport.longPolling.browserSupport = function() { return Browser.Features.xhr ? true : 2; };
+CRIMS.Transport.longPolling.browserSupport = function() { return Browser.Features.xhr ? true : 2; };

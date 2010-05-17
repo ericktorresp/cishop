@@ -1,6 +1,6 @@
-APE.Pipe  = new Class({
+CRIMS.Pipe  = new Class({
 
-	Implements: APE.Events,
+	Implements: CRIMS.Events,
 
 	initialize: function(ape, options){
 		this.pipe = options.pipe;

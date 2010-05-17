@@ -1,6 +1,6 @@
-APE.PipeMulti = new Class({
+CRIMS.PipeMulti = new Class({
 
-	Extends: APE.Pipe,
+	Extends: CRIMS.Pipe,
 
 	initialize: function(core, options) {
 		this.parent(core, options);

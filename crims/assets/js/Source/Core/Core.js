@@ -39,27 +39,27 @@
  *           -^-\  \       |        )
  *                `\_______/^\______/
  */
-APE.Core = new Class({
+CRIMS.Core = new Class({
 
-	Implements: [APE.Events, Options],
+	Implements: [CRIMS.Events, Options],
 
 	$originalEvents: {},
 
 	options:{
 		server: '', // APE server URL
 		pollTime: 25000, // Max time for a request
-		identifier: 'ape', // Identifier is used by cookie to differentiate ape instance
+		identifier: 'crims', // Identifier is used by cookie to differentiate ape instance
 		transport: 0, // Transport 0: long polling, 1 : XHRStreaming, 2: JSONP, 3 SSE / JSONP, 4 : SSE / XHR
 		frequency: 0, // Frequency identifier
 		cycledStackTime: 350 //Time before send request of cycledStack
 	},
 
 	initialize: function(options){
-		window.Ape = this;
+		window.Crims = this;
 		this.setOptions(options);
 
 		this.selectTransport();
-		this.request = new APE.Request(this);
+		this.request = new CRIMS.Request(this);
 
 		this.pipes = new $H; 
 		this.users = new $H;
@@ -92,7 +92,7 @@ APE.Core = new Class({
 	},
 
 	selectTransport: function() {
-		var transports = [APE.Transport.longPolling, APE.Transport.XHRStreaming, APE.Transport.JSONP];
+		var transports = [CRIMS.Transport.longPolling, CRIMS.Transport.XHRStreaming, CRIMS.Transport.JSONP];
 		var transport = this.options.transport;
 		var support;
 
@@ -247,9 +247,9 @@ APE.Core = new Class({
 			if (pipe) return pipe;
 		} 
 
-		if(type == 'uni') return new APE.PipeSingle(this, options);
-		if(type == 'multi') return new APE.PipeMulti(this, options);
-		if(type == 'proxy') return new APE.PipeProxy(this, options);
+		if(type == 'uni') return new CRIMS.PipeSingle(this, options);
+		if(type == 'multi') return new CRIMS.PipeMulti(this, options);
+		if(type == 'proxy') return new CRIMS.PipeProxy(this, options);
 	},
 
 	getRequest: function(opt) {
@@ -391,10 +391,10 @@ APE.Core = new Class({
 	}
 });
 
-var Ape;  
-APE.init = function(config){
+var Crims;  
+CRIMS.init = function(config){
 	//Delay of 1ms allow browser to do not show a loading message
 	(function() {
-		new APE.Core(config);
+		new CRIMS.Core(config);
 	}).delay(1);
 }
