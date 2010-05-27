@@ -1,7 +1,7 @@
 /***
  * CRIMS JSF Setup
  */
-CRIMS.Config.baseUrl = 'http://crims.info/city_files/js'; //APE JSF 
+CRIMS.Config.baseUrl = 'http://crims.info/crimsui/city_files/js'; //APE JSF 
 CRIMS.Config.domain = 'auto'; 
 CRIMS.Config.server = 'ape.crims.info:6969'; //APE server URL
 

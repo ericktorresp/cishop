@@ -194,7 +194,7 @@ CRIMS.Core = new Class({
 
 				//Last request is finished and it's not an error
 				if (!this.transport.running()) {
-					if (!raw.data.code || (raw.data.code != '006' && raw.data.code != '007' && raw.data.code != '005' && raw.data.code!= '001' && raw.data.code != '004' && raw.data.code != '003')) {
+					if (!raw.data.code || (raw.data.code != '006' && raw.data.code != '007' && raw.data.code != '005' && raw.data.code!= '001' && raw.data.code != '004' && raw.data.code != '003' && raw.data.code != '206')) {
 						check = true;
 					}
 				} else {
