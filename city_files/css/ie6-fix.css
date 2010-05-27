@@ -1,0 +1,72 @@
+/* IE6 HACKS */
+.content {
+	height:410px;
+	}
+.content-foot {
+	height:335px;
+	}	
+
+.content-wrap {
+	height:390px;
+}
+
+.building {
+	height: 390px;
+}
+
+.social-footer {background:transparent !important;}
+
+a * {
+	cursor:pointer;
+	outline:none;
+}
+
+a, span, b, i, u 
+{
+	display:inline-block;
+}
+.tooltip span {
+	display:inline !important;
+}
+body.rtl .tooltip img.good
+{
+	float:left;
+}
+
+
+body.rtl .private-map,
+body.rtl .private-map-10,
+body.rtl .private-map-winter,
+body.rtl .private-map-10-winter 
+{
+	background-position:41px -2px !important;
+}
+body.rtl .city-map, 
+body.rtl .city-map-winter
+{
+	background-position:41px -2px !important;
+}
+body.rtl .content-wrap,
+body.rtl .game-help
+{
+	margin:0;
+	padding:0;
+}
+body.rtl div.chatw {
+	display:block;
+	width:580px !important;
+}
+body.rtl div.chatw div#sbox
+{
+	display:block;
+	width:425px !important;
+}
+body.rtl div.chatw #vis
+{
+	width: 130px !important;
+	margin: 4px 0px;
+}
+body.rtl div.chatw #scrl
+{
+	left:150px;
+}

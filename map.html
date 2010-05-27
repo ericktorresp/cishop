@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Crims map example</title>
+	<meta name="description" content=" life of a gangster - mmorpg online game.">
+	<meta name="keywords" content="browser game, mmorpg, multiplayer, gangster, mob">
+	<meta name="authors" content="Floyd Joe">
+	<link rel="stylesheet" type="text/css" href="city_files/css/base.css" media="all">
+	<link rel="stylesheet" type="text/css" href="city_files/css/map.css" media="all">
+	<link rel="stylesheet" type="text/css" href="city_files/css/city.css" media="all">
+	<script type="text/javascript" src="city_files/js/mootools-core.js"></script>
+	<script type="text/javascript" src="city_files/js/map.js"></script>
+	<script language="javascript">
+		window.addEvent('domready', function(){
+			map_controller.init();
+		});
+	</script>
+</head>
+<body class="ltr lang-en world-int wt-int.3">
+	<!-- whole page wrapper beginning -->
+	<div class="bg-wall" id="bg-wall">
+		<div class="bgwrapper">
+			<!-- header beginning -->
+			<div class="header" id="header">
+				<a href="./" class="game-logo">
+					<img src="city_files/logo-small.gif">
+				</a>
+				<div class="adds">
+					<div>
+						<a href="profile/309" class="nad" title="">
+							<img src="city_files/309.gif" class="avt">
+							<span class="adm-of utt nw">Rhys</span>
+							<br />
+							Attention: Read the Terms of Use, Located at the bottom (Terms).
+						</a>
+						<a href="bank/change" class="nadgt">
+							<div class="publish_your_ad">
+								<table cellpadding="0" cellspacing="0">
+									<tbody>
+										<tr>
+											<td>
+												<img src="city_files/img/credcash48.gif" class="ad_star">
+											</td>
+											<td>
+												<h2>Get cash for credits fast at the Exchange!</h2>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div id="game-time">
+					<div class="gtime">
+						<span class="gtrt smarttip" title="05/16/2010 01:19:15 America/Chicago">
+							73 day 01:19
+						</span>
+					</div>
+					<div class="gday" style="cursor: default;">
+						<a class="smarttip" href="help/day_type">
+							day of health
+						</a>
+					</div>
+					<div class="gconn">
+						<a href="top10/online" class="smarttip">
+							48 online
+						</a>
+					</div>
+					<span style="display:inline;" id="flid">
+						<span></span>
+					</span>
+				</div>
+				<div class="credit-box">
+					<div>
+						<a href="javascript:;" class="iframe cboxelement">
+							<span class="credit-info">
+								<b>0</b> credits
+							</span>
+						</a>
+					</div>
+					<a href="javascript:;" class="credit-bullet iframe cboxelement">
+						Load credits
+					</a>
+					<br />
+					<a href="javascript:;" class="credit-bullet iframe cboxelement">
+						Use voucher
+					</a>
+					<br />
+					<a href="extras" class="credit-bullet">
+						Extras
+					</a>
+				</div>
+				<a href="extras" class="vip-btn-inactive">&nbsp;</a>
+			</div>
+			<!-- header ending -->
+			<!-- 3 cols wrapper beginning -->
+			<div style="position:relative" id="cwrapper">
+				<!-- left col beginning -->
+				<!-- <div class="left-col">
+					<div class="main-menu">
+						
+					</div>
+				</div> -->
+				<!-- left col ending -->
+				<!-- right col beginning -->
+				<!-- <div class="right-col">
+					
+				</div> -->
+				<!-- right col ending -->
+				<!-- main col beginning -->
+				<div class="content">
+					<!--hint beginning -->
+					<div id="hint-container">
+						
+					</div>
+					<!-- hint ending -->
+					<!-- content wrapper beginning -->
+					<div class="content-wrap">
+						<!-- map & objects & arrow beginning -->
+						<div class="city-map" id="map">
+							<a href="javascript:;" class="spot1 cityhospital" title="Hospital"></a>
+							<a href="javascript:;" class="spot2 casino" title="Casino"></a>
+							<a href="javascript:;" class="spot3 pd" title="PD"></a>
+							<a href="javascript:;" class="spot4 bank" title="Bank"></a>
+							<a href="javascript:;" class="spot5 fitness" title="Fitness and School"></a>
+							<a href="javascript:;" class="spot6 prison" title="Jail"></a>
+							<a href="javascript:;" class="spot7 blackmarket" title="Black Market"></a>
+							<div class="fence"></div>
+							<a href="javascript:;" class="spot patrolcar" title="Patrol officer"></a>
+							<a href="javascript:;" class="spot drunk" title="Drunkard"></a>
+							<a href="javascript:;" class="spot post" title="Mailbox"></a>
+							<a href="javascript:;" class="spot sickboy" title="Nurse"></a>
+							<a href="javascript:;" class="spot cofemachine" title="Coffee Machine"></a>
+							<a href="javascript:;" class="spot housewife" title="Housewife"></a>
+							<a href="javascript:;" class="spot sign" title="No entry"></a>
+							<a href="javascript:;" class="spot sign2" title="One way"></a>
+							<a href="javascript:;" class="spot sign3" title="No entry"></a>
+							<a href="javascript:;" class="spot uncles" title="Gents"></a>
+							<a href="javascript:;" class="spot girl" title="Chick"></a>
+							<a href="javascript:;" class="spot family" title="Family"></a>
+							<a href="javascript:;" class="spot meeting" title="Smart fellows"></a>
+							<a href="javascript:;" class="spot phone" title="Phonebooth"></a>
+							<a href="javascript:;" class="spot ambulance" title="Ambulance"></a>
+							<a href="javascript:;" class="spot bicyclist" title="Biker"></a>
+							<a href="javascript:;" class="spot safecracker" title="Safe-cracker"></a>
+							<a href="javascript:;" class="spot merchant" title="Salesman"></a>
+							<a href="javascript:;" class="spot taxi" title="Yellow cab"></a>
+							<a href="javascript:;" class="spot robbery" title="Robbery"></a>
+							<a href="javascript:;" class="spot businesslady" title="Business lady"></a>
+							<a href="javascript:;" class="spot thief" title="Thief"></a>
+							<a href="javascript:;" class="spot bully" title="Mobster"></a>
+							<a href="javascript:;" class="spot pimp" title="Pimp"></a>
+							<a href="javascript:;" class="spot policedog" title="Police hound"></a>
+							<a href="javascript:;" class="spot dealer" title="Dealer"></a>
+							<a href="javascript:;" class="spot bmw" title="Jeep"></a>
+							<!-- arrows beginning -->
+							<a href="javascript:;" class="north"> </a>
+							<a href="javascript:;" class="north-east"> </a>
+							<a href="javascript:;" class="east"> </a>
+							<a href="javascript:;" class="south-east"> </a>
+							<a href="javascript:;" class="south"> </a>
+							<a href="javascript:;" class="south-west"> </a>
+							<a href="javascript:;" class="west"> </a>
+							<a href="javascript:;" class="north-west"> </a>
+							<!-- arrows ending -->
+						</div>
+						<!-- map ending -->
+					</div>
+					<!-- content wrapper ending -->
+				</div>
+				<!-- main col ending -->
+			</div>
+			<!-- 3 cols wrapper ending -->
+		</div>
+	</div>
+	<!-- whole page wrapper ending -->
+</body>
+</html>
