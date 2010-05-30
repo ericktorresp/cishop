@@ -93,9 +93,9 @@ CRIMS.MmoClient = new Class({
 		this.x = this.options.start.x;
 		this.y = this.options.start.y;
 
-		Ge.preload('/demo/img/skill1.png');
-		Ge.preload('/demo/img/skill2.png');
-		Ge.preload('/demo/img/map.png', this.drawDesign.bind(this));
+		Ge.preload('/crimsui/demo/img/skill1.png');
+		Ge.preload('/crimsui/demo/img/skill2.png');
+		Ge.preload('/crimsui/demo/img/map.png', this.drawDesign.bind(this));
 
 		//## RAWS ##//
 		this.addEvent('ready', this.ready);

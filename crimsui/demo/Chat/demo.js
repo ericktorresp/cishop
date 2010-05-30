@@ -18,7 +18,6 @@ CRIMS.Chat = new Class({
 
 		this.onRaw('data', this.rawData);
 		this.onCmd('send', this.cmdSend);
-		// this.onRaw('FAIL', function(arg){this.promptName(arg);});
 		
 		this.onError('004', this.reset);
 		this.onError('006', this.promptName);
@@ -38,12 +37,12 @@ CRIMS.Chat = new Class({
 	{
 		this.els.namePrompt = {};
 		this.els.namePrompt.div = new Element(
-			'form', {'class':'ape_name_prompt','text':'选择用户名: '}
+			'form', {'class':'ape_name_prompt','text':'用户名: '}
 		).inject(this.options.container);
 		this.els.namePrompt.div.addEvent('submit',function(ev)
 		{
 			ev.stop();
-			this.options.name = this.els.namePrompt.username.get('value');
+			this.options.username = this.els.namePrompt.username.get('value');
 			this.options.password = this.els.namePrompt.password.get('value');
 			this.els.namePrompt.div.dispose();
 			this.start()
@@ -76,8 +75,8 @@ CRIMS.Chat = new Class({
 
 	start: function()
 	{
-		//If name is not set & it's not a session restore ask user for his nickname
-		if((!this.options.name || !this.options.password) && !this.core.options.restore)
+		// If name is not set & it's not a session restore ask user for his nickname
+		if((!this.options.username || !this.options.password) && !this.core.options.restore)
 		{
 			this.promptName();
 		}
@@ -85,7 +84,7 @@ CRIMS.Chat = new Class({
 		{
 			var opt = {'sendStack': false, 'request': 'stack'};
 
-			this.core.start({'name':this.options.name,'password':this.options.password}, opt);
+			this.core.start({'username':this.options.username,'password':this.options.password}, opt);
 
 			if (this.core.options.restore)
 			{
@@ -174,7 +173,7 @@ CRIMS.Chat = new Class({
 			var cnt = new Element('div',{'class':'msg_top'}).inject(msg);
 			if (from)
 			{
-				new Element('div',{'class':'ape_user','text':from.properties.name}).inject(msg,'top');
+				new Element('div',{'class':'ape_user','text':from.properties.username}).inject(msg,'top');
 			}
 			new Element('div',{'class':'msg_bot'}).inject(msg);
 			msg.inject(pipe.els.message);
@@ -200,7 +199,7 @@ CRIMS.Chat = new Class({
 			'class':'ape_user'
 		}).inject(pipe.els.users);
 		new Element('a',{
-				'text':user.properties.name,
+				'text':user.properties.username,
 				'href':'javascript:void(0)',
 				'events': 
 				{

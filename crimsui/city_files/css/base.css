@@ -4169,3 +4169,9 @@ body.world-kr .trnm_carrace		{background:url(../tournament_korea/carrace.gif) 0 
 .kr-crim-logo.right {
 	background: url("../img/kr_crim_age.gif") no-repeat scroll 50% 0% transparent; 
 }
+
+.ape_debug {
+	margin-top: 10px;
+	padding: 10px;
+	border: 1px solid #ccc;
+}

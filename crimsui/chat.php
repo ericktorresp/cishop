@@ -1,9 +1,9 @@
 <?php
 $array = array(
-	'name'=>$_POST['name'],
+	'username'=>$_POST['username'],
 	'password'=>$_POST['password'],
 	'status'=>'ok'
 );
-echo '2';
+echo '1';
 exit();
 ?>

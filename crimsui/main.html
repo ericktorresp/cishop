@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr" lang="en">
+<head>	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" href="city_files/css/base.css" media="screen" title="Normal" />
+	<link rel="stylesheet" type="text/css" href="city_files/css/map.css" media="all">
+	<link rel="stylesheet" type="text/css" href="city_files/css/city.css" media="all">
+	<!--[if IE 6]><link rel='stylesheet' type='text/css' href='city_files/css/ie6-fix.css'/><![endif]-->
+	<!--[if IE 7]><link rel='stylesheet' type='text/css' href='city_files/css/ie7-fix.css'/><![endif]-->
+	<script type="text/javaScript" src="city_files/js/mootools-core.js"></script>
+	<script type="text/javaScript" src="city_files/js/MooTools.js"></script>
+	<script type="text/javaScript" src="city_files/js/config.js"></script>
+	<script type="text/javaScript" src="city_files/js/ge.js"></script>
+	<script type="text/javaScript" src="city_files/js/main.js"></script>
+</head>
+<body>
+<!-- top beginning -->
+<div class="header" id="header">
+	<a href="./" class="game-logo">
+		<img src="city_files/logo-small.gif">
+	</a>
+	<div class="adds">
+		<div>
+			<a href="profile/309" class="nad" title="">
+				<img src="city_files/309.gif" class="avt">
+				<span class="adm-of utt nw">Rhys</span>
+				<br />
+				Attention: Read the Terms of Use, Located at the bottom (Terms).
+			</a>
+			<a href="bank/change" class="nadgt">
+				<div class="publish_your_ad">
+					<table cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<img src="city_files/img/credcash48.gif" class="ad_star">
+								</td>
+								<td>
+									<h2>Get cash for credits fast at the Exchange!</h2>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div id="game-time">
+		<div class="gtime">
+			<span class="gtrt smarttip" title="05/16/2010 01:19:15 America/Chicago">
+				73 day 01:19
+			</span>
+		</div>
+		<div class="gday" style="cursor: default;">
+			<a class="smarttip" href="help/day_type">
+				day of health
+			</a>
+		</div>
+		<div class="gconn">
+			<a href="top10/online" class="smarttip">
+				48 online
+			</a>
+		</div>
+		<span style="display:inline;" id="flid">
+			<span></span>
+		</span>
+	</div>
+	<div class="credit-box">
+		<div>
+			<a href="javascript:;" class="iframe cboxelement">
+				<span class="credit-info">
+					<b>0</b> credits
+				</span>
+			</a>
+		</div>
+		<a href="javascript:;" class="credit-bullet iframe cboxelement">
+			Load credits
+		</a>
+		<br />
+		<a href="javascript:;" class="credit-bullet iframe cboxelement">
+			Use voucher
+		</a>
+		<br />
+		<a href="extras" class="credit-bullet">
+			Extras
+		</a>
+	</div>
+	<a href="extras" class="vip-btn-inactive">&nbsp;</a>
+</div>
+<!-- top ending -->
+
+<!-- map beginning -->
+<div style="position:relative" id="cwrapper"></div>
+<!-- map ending -->
+
+<!-- footer beginning -->
+<div id="footer" class="footer">
+	copyright &copy crims.info 2010
+</div>
+<!-- footer ending -->
+<script type="text/javaScript">
+	// Initialize CRIMS_Client
+	var main = new CRIMS.Crims({'container':$('cwrapper')});
+
+	// Connect to the APE Server
+	main.load({
+		identifier: 'crims', // Identifier of the application 
+		channel: 'crims' // Channel to join at startup
+	});
+	
+</script>
+</body>
+</html>
