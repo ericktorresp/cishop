@@ -6,7 +6,6 @@
  * load(Client js) -> start(CONNECT TO SERVER) -> ready(CONNECTED)
  */
 CRIMS.Crims = new Class({
-
 	Extends: CRIMS.Client, 
 	Implements: Options,
 	options:{
@@ -40,7 +39,7 @@ CRIMS.Crims = new Class({
 		this.onCmd('LOADMAP', this.cmdMap);
 		this.onRaw('MAP_DATA', this.rawMap);
 		
-		this.onError('004', this.reset);		//BAD_SESSID
+		this.onError('004', this.reset);					//BAD_SESSID
 		this.onError('006', this.promptName);	//BAD_NICK
 		this.onError('007', this.promptName);	//NICK_USED
 		this.onError('206', this.promptName);	//LOGIN_FAILD
@@ -147,7 +146,7 @@ CRIMS.Crims = new Class({
 		}
 		if (options.from)
 		{
-			pipe.name = options.from.properties.name;
+			pipe.name = options.from.properties.username;
 		}
 		else
 		{
@@ -188,47 +187,6 @@ CRIMS.Crims = new Class({
 		return decodeURIComponent(message);
 	},
 
-	notify: function(pipe)
-	{
-		pipe.els.tab.addClass('new_message');
-	},
-
-	writeMessage: function(pipe, message, from)
-	{
-		//Append message to last message
-		if(pipe.lastMsg && pipe.lastMsg.from.pubid == from.pubid)
-		{
-			var cnt = pipe.lastMsg.el;
-		}
-		else
-		{
-			//Create new one
-			//Create message container
-			var msg = new Element('div',{'class':'ape_message_container'});
-			var cnt = new Element('div',{'class':'msg_top'}).inject(msg);
-			if (from)
-			{
-				new Element('div',{'class':'ape_user','text':from.properties.name}).inject(msg,'top');
-			}
-			new Element('div',{'class':'msg_bot'}).inject(msg);
-			msg.inject(pipe.els.message);
-		}
-		new Element('div',{
-			'text':this.parseMessage(message),
-			'class':'ape_message'
-		}).inject(cnt);
-
-		this.scrollMsg(pipe);
-
-		pipe.lastMsg = {from:from,el:cnt};
-
-		//notify 
-		if(this.getCurrentPipe().getPubid()!=pipe.getPubid())
-		{
-			this.notify(pipe);
-		}
-	},
-
 	createUser: function(user, pipe)
 	{
 		// this.core.getPipe(user.pubid);
@@ -243,7 +201,6 @@ CRIMS.Crims = new Class({
 
 	createPipe: function(pipe, options)
 	{
-		//Hide other pipe and show this one
 		this.setCurrentPipe(pipe.getPubid());
 	},
 
@@ -287,10 +244,6 @@ CRIMS.Crims = new Class({
 	reset: function()
 	{
 		this.core.clearSession();
-		if(this.els.pipeContainer){
-			this.els.pipeContainer.dispose();
-			this.els.more.dispose();
-		}
 		this.core.initialize(this.core.options);
 	}
 });
