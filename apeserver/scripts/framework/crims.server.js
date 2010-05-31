@@ -55,12 +55,13 @@ Ape.registerCmd("LOADMAP", true, function(params, infos) {
 		}
 	}
 	Ape.log(msg);
+	//调用py，返回 json 编码的每街区建筑，NPC，玩家数据
 	//Ape.HTTPRequest('http://127.0.0.1/chat.php', data);
 	var pipe = Ape.getPipe(params.pipe);
 	if (!$defined(pipe))
 	{
-		return ["4400", "WHERESTHEPIPE"];
+		return ["109", "UNKNOWN_PIPE"];
 	}
-	pipe.sendRaw('MAP_DATA', params);
+	pipe.sendRaw('MAP_DATA', {x:0,y:0,z:1});
 	return 1;
 });
