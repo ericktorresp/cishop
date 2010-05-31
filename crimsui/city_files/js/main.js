@@ -3,7 +3,9 @@
  * @todo 保证页面装载后只载入一次地图，目前当有新用户进来就重新请求一次。
  * @todo 地图数据返回格式：一个街区一个数组，包含座标，建筑位置、可用菜单，NPC位置、可用菜单
  * useage: 
- * load(Client js) -> start(CONNECT TO SERVER) -> ready(CONNECTED)
+ * Multi Pipe = CHANNEL
+ * Uni Pipe = USER
+ * load(Client js) -> start(CONNECT TO SERVER) -> ready(CONNECTED) -> join(CHANNEL)
  */
 CRIMS.Crims = new Class({
 	Extends: CRIMS.Client, 
