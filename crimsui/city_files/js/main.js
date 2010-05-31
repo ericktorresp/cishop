@@ -1,3 +1,8 @@
+/**
+ * 2010/5/31 13:52
+ * @todo 保证页面装载后只载入一次地图，目前当有新用户进来就重新请求一次。
+ * @todo 地图数据返回格式：一个街区一个数组，包含座标，建筑位置、可用菜单，NPC位置、可用菜单
+ */
 CRIMS.Crims = new Class({
 
 	Extends: CRIMS.Client, 
@@ -20,8 +25,8 @@ CRIMS.Crims = new Class({
 
 	initialize: function(options)
 	{
-		Ge.preload('city_files/city/citymap.gif');
-		Ge.preload('city_files/map/objects.gif');
+		//Ge.preload('city_files/city/citymap.gif');
+		//Ge.preload('city_files/map/objects.gif');
 		
 		this.setOptions(options);
 		this.els = {};
@@ -231,7 +236,7 @@ CRIMS.Crims = new Class({
 
 	deleteUser: function(user, pipe)
 	{
-		user.el.dispose();
+		//user.el.dispose();
 	},
 
 	createPipe: function(pipe, options)
@@ -274,7 +279,7 @@ CRIMS.Crims = new Class({
 
 	rawMap: function(raw, pipe)
 	{
-		this.debug(raw,'[REVEIVED MAP]')
+		this.debug(raw.data,'[RECEIVE MAP]')
 	},
 
 	reset: function()
