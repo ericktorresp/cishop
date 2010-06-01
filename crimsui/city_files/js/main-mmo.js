@@ -7,7 +7,7 @@
  *
  *
  */
-CRIMS.MmoClient = new Class({
+CRIMS.CrimsClient = new Class({
 	Extends: CRIMS.Client,
 	Implements: Options,
 	skills: {
@@ -24,7 +24,7 @@ CRIMS.MmoClient = new Class({
 	},
 	options: {
 		ape: {
-			identifier: 'apemmo'
+			identifier: 'crims'
 		},
 		map: {
 			width: 1000,
@@ -33,7 +33,7 @@ CRIMS.MmoClient = new Class({
 		width: 800,
 		height: 400,
 		listener: document,
-		pipe: 'apemmo',
+		pipe: 'crims',
 		start: {
 			x: 400-16,
 			y: 200-48
@@ -105,16 +105,16 @@ CRIMS.MmoClient = new Class({
 		this.onError('005', this.requestNick);
 		this.onError('006', this.requestNick);
 
-		this.onRaw('mmo_start', this.rawStart);
-		this.onRaw('mmo_stop', this.rawStop);
-		this.onRaw('mmo_firespell', this.rawFireSpell);
-		this.onRaw('mmo_incant', this.rawIncant);
-		this.onRaw('mmo_player_kill', this.rawPlayerKill);
-		this.onRaw('mmo_error', this.rawError);
-		this.onRaw('mmo_creep', this.rawCreep);
-		this.onRaw('mmo_creeps', this.rawCreeps);
-		this.onRaw('mmo_creep_walk', this.rawCreepWalk);
-		this.onRaw('mmo_creep_kill', this.rawCreepKill);
+		this.onRaw('crims_start', this.rawStart);
+		this.onRaw('crims_stop', this.rawStop);
+		this.onRaw('crims_firespell', this.rawFireSpell);
+		this.onRaw('crims_incant', this.rawIncant);
+		this.onRaw('crims_player_kill', this.rawPlayerKill);
+		this.onRaw('crims_error', this.rawError);
+		this.onRaw('crims_creep', this.rawCreep);
+		this.onRaw('crims_creeps', this.rawCreeps);
+		this.onRaw('crims_creep_walk', this.rawCreepWalk);
+		this.onRaw('crims_creep_kill', this.rawCreepKill);
 		this.onRaw('data', this.rawData);
 
 		//this.onRaw('data', this.rawData);
@@ -166,9 +166,9 @@ CRIMS.MmoClient = new Class({
 		if(!this.loaded){
 			this.loaded = true;
 		}else{
-			//this.els.container = new Element('div', {'id':'apemmo'});
+			this.els.container = new Element('div', {'id':'apemmo'});
 			
-			this.els.container = $('apemmo');
+			// this.els.container = $('apemmo');
 
 			this.els.canvas = $('canvas');
 			this.els.prompt = $('prompt');
@@ -254,21 +254,21 @@ CRIMS.MmoClient = new Class({
 			this.els.prompt.fade('out');
 			this.started = true;
 			this.perso = this.addUnit(
-				'/demo/img/0'+(user.properties.mmo_avatar)+'.png',
+				'demo/img/0'+(user.properties.crims_avatar)+'.png',
 				user.pubid,
 				null,
 				null,
-				user.properties['mmo_life']
+				user.properties['crims_life']
 			);
 
-		}else if(user.properties['mmo_life'] > 0){
+		}else if(user.properties['crims_life'] > 0){
 			var x = null
 			var y = null;
 			if(user.properties && user.properties['posx']){
 				x = Number(user.properties['posx']);
 				y = Number(user.properties['posy']);
 			}
-			this.addUnit('/demo/img/0'+(user.properties.mmo_avatar)+'.png', user.pubid, x, y,user.properties['mmo_life']);
+			this.addUnit('demo/img/0'+(user.properties.crims_avatar)+'.png', user.pubid, x, y,user.properties['crims_life']);
 		}
 		
 	},
@@ -341,7 +341,7 @@ CRIMS.MmoClient = new Class({
 		}
 	},
 	sendStart: function(){
-		this.send('mmo_start',
+		this.send('crims_start',
 			{ dir: this.perso.dir },
 			true
 		);
@@ -621,7 +621,7 @@ CRIMS.MmoClient = new Class({
 				this.sendStart();
 			}else{
 				this.perso.stop();
-				this.send('mmo_stop', {}, true);
+				this.send('crims_stop', {}, true);
 			}
 		}
 	},
@@ -661,7 +661,7 @@ CRIMS.MmoClient = new Class({
 		}else{
 			this.skills[spell].last = now;
 			if(this.skills[spell].incant > 0) this.perso.startIncant();
-			this.send('mmo_spell', {'spell':spell, 'target':this.selected});
+			this.send('crims_spell', {'spell':spell, 'target':this.selected});
 		}
 	},
 	spellOn: function(spell, target, power){
@@ -729,7 +729,7 @@ CRIMS.MmoClient = new Class({
 				this.y = Math.min(this.y, this.options.map.height-32);
 			}
 
-			//if(this.cnt%50==0){ this.send('mmo_update', {}, true); }
+			//if(this.cnt%50==0){ this.send('crims_update', {}, true); }
 			this.redraw(this.cnt++%9==0);
 
 			if(this.cnt%5==0){
@@ -780,7 +780,6 @@ CRIMS.MmoClient = new Class({
 			}.bind(this));
 
 			this.ctx.clearRect(0,0,this.options.width, this.options.height);
-
 			this.ctx.drawImage(Ge.getPreloaded('demo/img/map.png').img, Math.round(map.x), Math.round(map.y));
 
 			this.drawList.each(function(line, z){

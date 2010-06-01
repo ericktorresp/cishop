@@ -191,9 +191,13 @@ CRIMS.Crims = new Class({
 
 	createUser: function(user, pipe)
 	{
-		// this.core.getPipe(user.pubid);
+		if(user.pubid == this.core.pubid)
+		{
+			this.core.getPipe(user.pubid).request.send('LOADMAP',{x:this.options.current_position.x,y:this.options.current_position.y});
+		}
+		// this.core.getPipe(user.pubid); // == user uni pipe
 		//载入地图
-		pipe.request.send('LOADMAP',{x:this.options.current_position.x,y:this.options.current_position.y});
+		// pipe.request.send('LOADMAP',{x:this.options.current_position.x,y:this.options.current_position.y});
 	},
 
 	deleteUser: function(user, pipe)

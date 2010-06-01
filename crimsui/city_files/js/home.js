@@ -1,20 +1,5 @@
-
-<!-- saved from url=(0059)http://static.weelya.org/weelya_ape/includes/tpl/js/home.js -->
-<HTML><BODY><PRE style="word-wrap: break-word; white-space: pre-wrap;">/*
-Script: APNG.js
-	Animated PNGs, background-image or src based. If background-image is used, background-position transitions are supported. Native APNG fallback for browsers that support it included.
-
-	License:
-		MIT-style license.
-
-	Authors:
-		Guillermo Rauch
-*/
-
 var APNG = new Class({
-	
-Implements: [Options, Class.Occlude, Events],
-		
+	Implements: [Options, Class.Occlude, Events],
 	options: {
 		property: 'src',
 		axis: 'x',
@@ -29,52 +14,75 @@ Implements: [Options, Class.Occlude, Events],
 		addFilter: Browser.Engine.trident3
 	},
 	
-	initialize: function(element, options){
+	initialize: function(element, options)
+	{
 		this.setOptions(options);		
 		this.element = $(element);
-		if (this.occlude('apng')) return this.occluded;
+		if (this.occlude('apng'))
+		{
+			return this.occluded;
+		}
 		this.original = this.options.property == 'src' ? this.element.src : this.element.getStyle('background-image').replace(/url\((.*)\)/i, '$1');
 		this.basename = this.original.substr(0, this.original.length - this.options.ext.length);
-		if (this.options.useNative){
+		if (this.options.useNative)
+		{
 			this.start = this.reset = this.pause = this.resume = this.cancel = $empty;
-		} else {
-			if (this.options.preload) this.preload();
+		}
+		else
+		{
+			if (this.options.preload)
+			{
+				this.preload();
+			}
 			this.reset(! this.options.autoStart);
 		}
 	},
 	
-	setSrc: function(src, index){
-		if (this.options.property != 'background-position') {
+	setSrc: function(src, index)
+	{
+		if (this.options.property != 'background-position')
+		{
 			this.options.property == 'src' ? this.element.set('src', src) : this.element.setStyle('background-image', 'url('+ src +')');
-			if (this.options.addFilter) {
+			if (this.options.addFilter)
+			{
 				this.element.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"+src+"',sizingMethod='crop')";
 				this.setSrc(APNG.blankImage || '/blank.gif');
 			}
-		} else {
+		}
+		else
+		{
 			var w	= this.element['get' + (this.options.axis == 'x' ? 'Width' : 'Height')]();
-				px 	= (index * w)-w;
+			px 	= (index * w)-w;
 			this.element.setStyle('background-position', (this.options.axis == 'x' ? -px + 'px 0' : '0 ' + px + 'px'));
 		}
 	},
-	
-	setFrame: function(index, pause){
-		if(!this.stoped){
+	setFrame: function(index, pause)
+	{
+		if(!this.stoped)
+		{
 			this.current = index;
 			var ext = this.options.ext;
 			this.setSrc(index == 1 ? this.original : (this.basename + '-' + index + this.options.ext), index);
-			if (!pause) this.start();
+			if (!pause)
+			{
+				this.start();
+			}
 		}
 	},
 	
-	preload: function(){
-		if (!this.preloaded){
+	preload: function()
+	{
+		if (!this.preloaded)
+		{
 			this.preloaded = true;
 		}
 	},
 	
-	start: function(anim){
+	start: function(anim)
+	{
 		var no_delay = false;
-		if(anim){
+		if(anim)
+		{
 			this.current_anim = anim;
 			this.current = anim[0].start;
 			no_delay = true;
@@ -87,20 +95,28 @@ Implements: [Options, Class.Occlude, Events],
 		var delay = no_delay ? 0 : $type(this.options.interval) == 'array' ? this.options.interval[this.current - 1] : this.options.interval;
 		var next = true;
 
-		if(this.current_anim){
+		if(this.current_anim)
+		{
 			//End of anim part
-			if (this.current_anim[this.current_anim_part] &amp;&amp; this.current == this.current_anim[this.current_anim_part].end){
+			if (this.current_anim[this.current_anim_part] && this.current == this.current_anim[this.current_anim_part].end)
+			{
 				//Repeat?
-				if(this.current_anim_repeat == this.current_anim[this.current_anim_part].repeat){//No more repeat
+				if(this.current_anim_repeat == this.current_anim[this.current_anim_part].repeat)
+				{//No more repeat
 					delay += this.current_anim[this.current_anim_part].delay;
 					this.current_anim_part++;
 					this.current_anim_repeat = 0;
-					if(!this.current_anim[this.current_anim_part]){//End of anim
+					if(!this.current_anim[this.current_anim_part])
+					{//End of anim
 						next = false;
-					} else { //set this.current for next part
+					}
+					else
+					{ //set this.current for next part
 						this.current = this.current_anim[this.current_anim_part].start - 1;
 					}
-				}else{//Repeat again
+				}
+				else
+				{//Repeat again
 					this.current_anim_repeat++;
 					this.current = this.current_anim[this.current_anim_part].start - 1;
 				}
@@ -117,12 +133,17 @@ Implements: [Options, Class.Occlude, Events],
 		}).delay(delay,this);
 	},
 
-	reset: function(pause){		
+	reset: function(pause)
+	{		
 		this.current_anim_part = 0;
-		if (this.running) this.pause();
+		if (this.running)
+		{
+			this.pause();
+		}
 		this.setFrame(this.options.startFrame, pause);
 	},
-	reset_anim: function(){
+	reset_anim: function()
+	{
 		this.current_anim =null;
 		this.current_anim_part = 0;
 		this.current_anim_length = 0;
@@ -130,30 +151,36 @@ Implements: [Options, Class.Occlude, Events],
 		this.current = 0;
 		this.stoped = true;
 	},
-	stop: function(pause){
+	stop: function(pause)
+	{
 		this.pause();
 		this.reset_anim();
 	},
-	pause: function(){
+	pause: function()
+	{
 		$clear(this.timer);
 		$clear(this.last_timer);
 		this.running = false;
-		if(!this.options.endless){
+		if(!this.options.endless)
+		{
 			this.reset_anim();
 			this.fireEvent('complete');
 		}
 	},
 	
-	resume: function(){
+	resume: function()
+	{
 		if (!this.running) this.start();
 	},
 	
-	cancel: function(){
+	cancel: function()
+	{
 		this.pause();
 		this.reset(true);
 	}
 	
 });
+
 var ape_client, ape_home;
 APE.Home = new Class({
 
@@ -198,11 +225,14 @@ APE.Home = new Class({
 		this.onError('004',this.reset);
 		this.addEvent('userLeft',this.remove_ape);
 		this.addEvent('multiPipeCreate',function(pipe){
-			if(pipe.name.contains('demohome')){
+			if(pipe.name.contains('demohome'))
+			{
 				this.pipe = pipe;
 				this.add_chat();
  				this.els.container.addEvent('click',this.set_coord.bindWithEvent(this));
-			}else if(pipe.name=='*twitter'){
+			}
+			else if(pipe.name=='*twitter')
+			{
 				this.twitter = pipe;
 			}
 		});
@@ -211,7 +241,8 @@ APE.Home = new Class({
 	rand: function(min, max){
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	},
-	show_tweet:function(tweet){
+	show_tweet:function(tweet)
+	{
 		var txt = decodeURIComponent(tweet.text);
 		var els = this.write_message(txt,this.twitter_user,true,{'no_remove':true,'style':'msg_twitter'});
 		var w = els.cnt.getScrollSize().x;
@@ -335,19 +366,21 @@ APE.Home = new Class({
 		this.move_ape(user,new_pos);
 		this.pipe.request.send('SETPOS',{'x':new_pos,'y':0});
 	},
-	create_ape: function(user, pipe){
-		if(pipe.name.contains('demohome')){
+	create_ape: function(user, pipe)
+	{
+		if(pipe.name.contains('demohome'))
+		{
 			user.ape_container = new Element('div',{'class':'ape_container','styles':{'opacity':0}});
 			user.ape = new Element('div',{'class':'ape'}).inject(user.ape_container);
 			user.ape_anim = new APNG(user.ape, { 
-												autoStart: false, 
-												useNative: false, 
-												frames: 20, 
-												endless: true, 
-												property: 'background-position', 
-												axis: 'x', 
-												interval: [1500,200,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100] 
-											} );
+				autoStart: false, 
+				useNative: false, 
+				frames: 20, 
+				endless: true, 
+				property: 'background-position', 
+				axis: 'x', 
+				interval: [1500,200,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100] 
+			});
 
 			user.ape_anim.addEvent('complete',function(user){
 				this.set_idle(user);
@@ -364,10 +397,12 @@ APE.Home = new Class({
 			this.set_ape_pos(user);
 			this.set_idle(user);
 			user.ape_container.inject('frontdemo','top').morph({'opacity':1});
-			if(user.pubid == this.core.getPubid()){ //It's Meeeeeeee
+			if(user.pubid == this.core.getPubid())
+			{ //It's Meeeeeeee
 				this.user = user;
 				this.start_text();
-				if (!this.core.options.restore) {
+				if (!this.core.options.restore)
+				{
 					(function() {
 						this.set_coord({'page':{'x':this.rand(150, 780)+this.els.container_pos.left}});
 					}.delay(200, this));
@@ -517,10 +552,8 @@ APE.Home = new Class({
 });
 var loading_el;
 var weeTips = new Class({
-
 	els: {},
 	options: {},
-
 	initialize: function(selector, options) {
 		this.els.tip = Element('div', {'styles': {'opacity': '0.8', 'z-index': 999, 'position': 'absolute'}, 'class': 'tip-wrap'}).inject(document.body);
 		this.options.offset = {'x': 0,'y':0}
@@ -553,7 +586,6 @@ var weeTips = new Class({
 	}
 });
 window.addEvent('domready', function(){
-		loading_el = new Element('div', {'text': 'Your APE is coming...', 'id': 'home_loading'}).inject('frontdemo'); 
-		new weeTips('#home_bullets li');
+	loading_el = new Element('div', {'text': 'Your APE is coming...', 'id': 'home_loading'}).inject('frontdemo'); 
+	new weeTips('#home_bullets li');
 });
-</PRE></BODY></HTML>
