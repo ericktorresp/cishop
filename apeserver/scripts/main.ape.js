@@ -7,7 +7,7 @@ Ape.addEvent("init", function() {
 	include("commands/proxy.js");
 	include("commands/inlinepush.js");
 	include("framework/crims.server.js");
-	// include("examples/move.js");
+	//include("examples/nickname.js");
 	include("utils/checkTool.js"); //Just needed for the APE JSF diagnostic tool, once APE is installed you can remove it 
 	//include("examples/ircserver.js");
 });
