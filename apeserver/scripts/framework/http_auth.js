@@ -8,7 +8,6 @@ var userlist = new $H;
 		request.getContent(function(result) {
 			var ret = {};
 			try { ret = JSON.parse(result); } catch(e){};
-		
 			callback(ret);
 		});	
 	}
@@ -30,7 +29,8 @@ var userlist = new $H;
 		{
 			return ["006", "BAD_NICK"];
 		}
-		http_auth("http://127.0.0.1/crimsui/chat.php", params, function(result) {
+		//http_auth("http://127.0.0.1/crimsui/chat.php", params, function(result) {
+		http_auth("http://192.168.1.37/crimsui/chat.php", params, function(result) {
 			Ape.log('http_auth - '+$time()+' - result: '+result);
 			if (result == 1)
 			{
