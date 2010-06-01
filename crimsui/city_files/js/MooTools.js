@@ -79,7 +79,8 @@ CRIMS.Client = new Class({
 			}
 		}).inject(document.body);
 
-		if (config.transport == 2) {//Special case for JSONP
+		if (config.transport == 2)
+		{//Special case for JSONP
 			var doc = iframe.contentDocument;
 			if (!doc) doc = iframe.contentWindow.document;
 
@@ -87,15 +88,19 @@ CRIMS.Client = new Class({
 			//using document.write() is the only way to avoid status bar loading with JSONP
 			doc.open();
 			var theHtml = '<html><head>';
-			for (var i = 0; i < config.scripts.length; i++) {
+			for (var i = 0; i < config.scripts.length; i++)
+			{
 				theHtml += '<script src="' + config.scripts[i] + '"></script>';
 			}
 			theHtml += '</head><body></body></html>';
 			doc.write(theHtml);
 			doc.close();
-		} else { 
+		}
+		else
+		{ 
 			iframe.set('src', 'http://' + config.frequency + '.' + config.server + '/?[{"cmd":"script","params":{"domain":"' + document.domain + '","scripts":["' + config.scripts.join('","') + '"]}}]');
-			if (Browser.Engine.gecko) { 
+			if (Browser.Engine.gecko)
+			{ 
 				// Firefox fix, see bug  #356558 
 				// https://bugzilla.mozilla.org/show_bug.cgi?id=356558
 				iframe.contentWindow.location.href = iframe.get('src');
@@ -103,7 +108,8 @@ CRIMS.Client = new Class({
 		}
 
 		iframe.addEvent('load',  function() { 
-			if (!iframe.contentWindow.CRIMS){
+			if (!iframe.contentWindow.CRIMS)
+			{
 				setTimeout(iframe.onload, 100);
 			}//Sometimes IE fire the onload event, but the iframe is not loaded -_-
 			else

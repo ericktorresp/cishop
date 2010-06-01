@@ -6,6 +6,11 @@
  * Multi Pipe = CHANNEL
  * Uni Pipe = USER
  * load(Client js) -> start(CONNECT TO SERVER) -> ready(CONNECTED) -> join(CHANNEL)
+ * 2010/6/1 11:53
+ * 一、游客
+ *	 1.1 加入公共频道：crims
+ *	 1.2 默认在市中心 {x: 0, y: 0}, 加入街区频道：coodr_0-0 (当前显示的)
+ *	 1.3 如何判断街区当前是否显示？？
  */
 CRIMS.Crims = new Class({
 	Extends: CRIMS.Client, 
@@ -48,10 +53,14 @@ CRIMS.Crims = new Class({
 
 		this.addEvent('load', this.start);
 		this.addEvent('ready', this.createMap);
+		//uniPipeCreate Event = 用户私有 Pipe 建立时触发
 		this.addEvent('uniPipeCreate', this.setPipeName);
 		this.addEvent('uniPipeCreate', this.createPipe);
+		//multiPipeCreate Event = 公共 Pipe 建立时触发
 		this.addEvent('multiPipeCreate', this.createPipe);
+		//userJoin Event = 用户加入频道时触发，包括自己和他人
 		this.addEvent('userJoin', this.createUser);
+		//userLeft Event = 用户离开频道时触发，包括自己和他人
 		this.addEvent('userLeft', this.deleteUser);
 		if(this.options.debug)
 		{
@@ -67,7 +76,7 @@ CRIMS.Crims = new Class({
 		if(this.options.debug)
 		{
 			new Element(
-				'div', {'text': type+' '+JSON.encode(obj)}
+				'div', {'html': '<b><font color=red>'+type+'</font></b> '+JSON.encode(obj)}
 			).inject(this.els.debug.div);
 		}
 	},
@@ -164,7 +173,15 @@ CRIMS.Crims = new Class({
 	setCurrentPipe: function(pubid, save)
 	{
 		save = !save;
+		if (this.currentPipe)
+		{
+			this.currentPipe.els.tab.addClass('unactive');
+			this.currentPipe.els.container.addClass('ape_none');
+		}
 		this.currentPipe = this.core.getPipe(pubid);
+		this.currentPipe.els.tab.removeClass('new_message');
+		this.currentPipe.els.tab.removeClass('unactive');
+		this.currentPipe.els.container.removeClass('ape_none');
 		if (save)
 		{
 			this.core.setSession({'currentPipe':this.currentPipe.getPubid()});
@@ -191,10 +208,16 @@ CRIMS.Crims = new Class({
 
 	createUser: function(user, pipe)
 	{
-		if(user.pubid == this.core.pubid)
+		if(user.pubid == this.core.getPubid())
 		{
-			this.core.getPipe(user.pubid).request.send('LOADMAP',{x:this.options.current_position.x,y:this.options.current_position.y});
+			//自己，载入地图
+			this.user = user;
+			this.core.getPipe(user.pubid).request.send('LOADMAP',{
+				x:this.options.current_position.x,
+				y:this.options.current_position.y
+			});
 		}
+		
 		// this.core.getPipe(user.pubid); // == user uni pipe
 		//载入地图
 		// pipe.request.send('LOADMAP',{x:this.options.current_position.x,y:this.options.current_position.y});
@@ -207,6 +230,43 @@ CRIMS.Crims = new Class({
 
 	createPipe: function(pipe, options)
 	{
+		var tmp;
+		//Define some pipe variables to handle logging and pipe elements
+		pipe.els = {};
+		pipe.logs = new Array();
+		//Container
+		pipe.els.container = new Element('div',{
+			'class':'ape_pipe ape_none '
+		}).inject(this.els.mapContainer);
+		//Message container
+		pipe.els.message = new Element('div',{'class':'ape_messages'}).inject(pipe.els.container,'inside');
+		//If pipe has a users list 
+		if(pipe.users)
+		{
+			pipe.els.usersRight = new Element('div',{
+				'class':'users_right'
+			}).inject(pipe.els.container);
+
+			pipe.els.users = new Element('div',{
+				'class':'ape_users_list'
+		    }).inject(pipe.els.usersRight);;
+		}
+		//Add tab
+		pipe.els.tab = new Element('div',{
+			'class':'ape_tab unactive'
+		}).inject(this.els.tabs);
+
+		tmp = new Element('a',{
+			'text':pipe.name,
+			'href':'javascript:void(0)',
+			'events':{
+				'click':function(pipe)
+				{
+					this.setCurrentPipe(pipe.getPubid())
+				}.bind(this,[pipe])
+			}
+		}).inject(pipe.els.tab);
+
 		this.setCurrentPipe(pipe.getPubid());
 	},
 
@@ -235,6 +295,8 @@ CRIMS.Crims = new Class({
 		});
 		this.els.map.inject(this.els.mapContainer);
 		this.els.mapContainer.inject(this.options.container);
+		this.els.more = new Element('div',{'id':'more'}).inject(this.els.mapContainer,'after');
+		this.els.tabs = new Element('div',{'id':'tabbox_container'}).inject(this.els.more);
 	},
 
 	cmdMap: function(data,pipe)
@@ -250,6 +312,10 @@ CRIMS.Crims = new Class({
 	reset: function()
 	{
 		this.core.clearSession();
+		if(this.els.mapContainer){
+			this.els.mapContainer.dispose();
+			//this.els.more.dispose();
+		}
 		this.core.initialize(this.core.options);
 	}
 });
