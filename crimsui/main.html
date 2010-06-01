@@ -3,6 +3,7 @@
 <head>	
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>MAIN</title>
+	<link rel="stylesheet" type="text/css" href="demo/Chat/demo.css" media="screen" title="Normal" />
 	<link rel="stylesheet" type="text/css" href="city_files/css/base.css" media="screen" title="Normal" />
 	<link rel="stylesheet" type="text/css" href="city_files/css/map.css" media="all">
 	<link rel="stylesheet" type="text/css" href="city_files/css/city.css" media="all">
@@ -12,7 +13,7 @@
 	<script type="text/javaScript" src="city_files/js/MooTools.js"></script>
 	<script type="text/javascript" src="city_files/js/config.js"></script>
 	<script type="text/javaScript" src="city_files/js/ge.js"></script>
-	<script type="text/javaScript" src="city_files/js/main.js"></script>
+	<script type="text/javaScript" src="city_files/js/chat.js"></script>
 	<script type="text/javascript">
 	//<!--
 	   //var client = new CRIMS.CrimsClient('cwrapper');
@@ -109,16 +110,12 @@
 </div>
 <!-- footer ending -->
 <script type="text/javaScript">
-
+	var opts = {
+		container: 'cwrapper',
+		current_street: {x:0, y:0}
+	};
 	// Initialize CRIMS_Client
-	var main = new CRIMS.Crims({'container':$('cwrapper')});
-
-	// Connect to the APE Server
-	main.load({
-		identifier: 'crims', // Identifier of the application 
-		channel: 'crims' // Channel to join at startup
-	});
-
+	var main = new CRIMS.Crims(opts);
 	
 </script>
 </body>
