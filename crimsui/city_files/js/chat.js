@@ -35,9 +35,7 @@ CRIMS.Crims = new Class({
 		this.currentPipe = null;
 		this.logging = true;
 
-		this.onRaw('MAP_DATA', function(raw,pipe){
-			this.debug(raw,'[MAP]');
-		});
+		this.onRaw('MAP_DATA', this.setMap);
 		this.onRaw('data', this.rawData);
 		this.onCmd('LOADMAP', function(data,pipe){
 			this.debug(data,'[LOAD MAP]');
@@ -323,10 +321,25 @@ CRIMS.Crims = new Class({
 			width: WH.width<980?980:WH.width,
 			height: WH.height<376?376:WH.height,
 			overflow:'hidden',
-			cursor: 'pointer'
-		}).setProperty('tabindex','2');
+			cursor: 'pointer',
+			outline: 'none'
+		}).setProperties({
+			tabindex: '2',
+			hidefocus: true
+		});
+
+		this.els.map = new Element('div',{
+			'id': 'dragable', 
+			'style': '-moz-user-select: none;z-index: 0;'
+		});
+		this.els.map.setStyles({
+			position: 'absolute',
+			width: this.options.street.width*3,
+			height: this.options.street.height*3
+		}).inject(this.els.pipeContainer);
 
 		this.els.pipeContainer.inject(this.options.container);
+
 
 		this.els.more = new Element('div',{'id':'more'}).inject(this.options.container,'after');
 		this.els.tabs = new Element('div',{'id':'tabbox_container'}).inject(this.els.more);
@@ -357,11 +370,55 @@ CRIMS.Crims = new Class({
 			'id':'sendbox_button',
 			'value':''
 		}).inject(this.els.sendboxForm);
+
 		this.loadMap();
 	},
 	loadMap: function()
 	{
 		this.core.request.send('LOADMAP',{x:0,y:0,z:0});
+	},
+	setMap: function(raw, pipe)
+	{
+		this.debug(raw,'[MAP]');
+		var WH = this._calculateWH();
+		for(var d=0;d<raw.data.length; d++)
+		{
+			rows = Math.ceil((d+1)/3);
+			colums = (d+1)%3;
+			switch(rows)
+			{
+				case 1:
+					p_top = parseInt(WH.height/2-this.options.street.height/2*3);
+					break;
+				case 2:
+					p_top = parseInt(WH.height/2-this.options.street.height/2);
+					break;
+				case 3:
+					p_top = parseInt(WH.height/2+this.options.street.height/2);
+					break;
+			}
+			switch(colums)
+			{
+				case 1:
+					p_left = parseInt(WH.width/2-this.options.street.width/2*3);
+					break;
+				case 2:
+					p_left = parseInt(WH.width/2-this.options.street.width/2);
+					break;
+				case 0:
+					p_left = parseInt(WH.width/2+this.options.street.width/2);
+					break;
+			}
+			new Element('div',{
+				'id': raw.data[d].x + '~' + raw.data[d].y,
+				'class': 'city-map'
+			}).setStyles({
+				'top': p_top,
+				'left': p_left,
+				'-moz-user-select': 'none',
+				'position':'absolute'
+			}).inject(this.els.map);
+		}
 	},
 	reset: function()
 	{
