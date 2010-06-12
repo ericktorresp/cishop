@@ -26,6 +26,8 @@ class UserProfile(models.Model):
     character = models.ForeignKey(Character, verbose_name=_('character'))
     rabbit_mode = models.BooleanField(_('rabbit mode?'), default=False)
     step = models.SmallIntegerField(_('step'), choices=STEPS)
+    street_x = models.SmallIntegerField(_('street x'))
+    street_y = models.SmallIntegerField(_('street y'))
     
     def __unicode__(self):
         return self.user.username
