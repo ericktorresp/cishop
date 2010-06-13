@@ -12,10 +12,6 @@ CRIMS.Crims = new Class({
 	options:{
 		container: null,
 		logs_limit: 10,
-		current_street: {
-			x: 0,
-			y: 0
-		},
 		center_point: {
 			x: 0,
 			y: 0
@@ -28,6 +24,11 @@ CRIMS.Crims = new Class({
 		main_channel: 'crims',
 		identifier: 'crims',
 		debug: true
+	},
+	current_street: {
+		x: 0,
+		y: 0,
+		dir: ''
 	},
 	initialize: function(options){
 		this.setOptions(options);
@@ -375,7 +376,7 @@ CRIMS.Crims = new Class({
 	},
 	loadMap: function()
 	{
-		this.core.request.send('LOADMAP',{x:0,y:0,z:0});
+		this.core.request.send('LOADMAP',{x:this.current_street.x,y:this.current_street.y,dir:this.current_street.dir});
 	},
 	setMap: function(raw, pipe)
 	{
