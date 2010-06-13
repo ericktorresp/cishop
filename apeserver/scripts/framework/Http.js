@@ -10,7 +10,7 @@ Exemple 1:
 
 Example 2:
 	var request = new Http('http://twitter.com:80/statuses/update.json');
-	request.set('action', 'POST');
+	request.set('method', 'POST');
 	
 	// GET or POST data
 	request.writeData('status', 'Hello!');
@@ -37,22 +37,17 @@ var Http = new Class({
 	url:		null,
 	
 	initialize: function(url, port) {
-		this.url 			= url || null;
+		this.url 			= url;
 		this.port			= port || 80;
-		if(this.url)
-		{
-			this.parseURL();
-		}
-	},
-	setURL: function(url)
-	{
-		this.url = url;
+		
 		this.parseURL();
 	},
+	
 	parseURL: function() {
-		var result	= this.url.match("^.*?://(.*?)((/.*)|)$");
-		this.host	= result[1];
-		this.query	= result[2];
+		var result  = this.url.match("^.*?://(.*?)(:([0-9]+))?((/.*)|)$");
+		this.host   = result[1];
+		this.port   = result[3] || 80;
+		this.query  = result[4];
 	},
 	
 	set: function(key, value) {

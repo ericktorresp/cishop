@@ -2,21 +2,29 @@ var street = {
 	width: 614,
 	height: 374
 };
+function http_request(url, params, callback)
+{
+	var request = new Http(url);
+	request.set('method', 'GET');
+	request.writeObject(params);
+	request.getContent(function(result) {
+		var ret = {};
+		try
+		{
+			ret = eval(result);
+		}
+		catch(e)
+		{
+		};
+		callback(ret);
+	});	
+}
 Ape.registerCmd("LOADMAP", true, function(params, infos) {
-	Ape.log("Received LOADMAP");
+	Ape.log("Received LOADMAP " + $time());
 	//调用py，返回 json 编码的每街区建筑，NPC，玩家数据
-	//Ape.HTTPRequest('http://127.0.0.1/chat.php', data);
-	var mapdata = [];
-	for(var i = 1; i <= 9; i++)
+	http_request('http://127.0.0.1:8000/map/', params, function(result)
 	{
-		var row = new Math.ceil(i/3);
-		mapdata.push({
-			// 'top': row == 1 ? -street.height/2 : (row == 2 ? street.height/2 : street.height/2*3),
-			// 'left': i%3 == 1 ? -street.width/2 : (i%3 == 2 ? street.width/2 : street.width/2*3),
-			'x': i%3 == 1 ? -1 : (i%3 == 2 ? 0 : 1),
-			'y': row == 1 ? 1 : (row == 2 ? 0 : -1),
-		});
-	}
-	infos.user.pipe.sendRaw('MAP_DATA', mapdata);
+		infos.user.pipe.sendRaw('MAP_DATA', result);
+	});
 	return 1;
 });
