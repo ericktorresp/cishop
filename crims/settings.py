@@ -44,7 +44,7 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = 'e:/AppServ/pys/crims/assets/'
+MEDIA_ROOT = '/Users/darkmoon/pys/crims/assets/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -80,7 +80,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'crims.urls'
 
 TEMPLATE_DIRS = (
-    'e:/AppServ/pys/crims/templates',
+    '/Users/darkmoon/pys/crims/templates',
 )
 # Memcache
 #CACHE_BACKEND = 'memcached://127.0.0.1:11211/'

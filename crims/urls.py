@@ -4,7 +4,7 @@ from django.contrib import admin
 from grappelli.sites import GrappelliSite
 from django.utils.translation import ugettext_lazy as _
 
-from views import home
+from views import home, map
 
 admin.site = GrappelliSite()
 admin.autodiscover()
@@ -58,8 +58,9 @@ urlpatterns = patterns('',
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/filebrowser/', include('filebrowser.urls')),
     url(r'^assets/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': 'e:/AppServ/pys/crims/assets'}),
+        {'document_root': '/Users/darkmoon/pys/crims/assets'}),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^messages/', include('messages.urls')),
     url(r'^$', home(), name = 'index'),
+    url(r'^map/', map(), name = 'map')
 )
