@@ -34,7 +34,7 @@ LANGUAGES = (
 )
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-cn'
 
 SITE_ID = 1
 
@@ -44,7 +44,9 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/Users/darkmoon/pys/crims/assets/'
+
+#MEDIA_ROOT = '/Users/darkmoon/pys/crims/assets/'
+MEDIA_ROOT = 'E:/server/py-projects/crims/assets/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -80,7 +82,8 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'crims.urls'
 
 TEMPLATE_DIRS = (
-    '/Users/darkmoon/pys/crims/templates',
+#    '/Users/darkmoon/pys/crims/templates',
+    'E:/server/py-projects/crims/templates',
 )
 # Memcache
 #CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
@@ -142,3 +145,5 @@ INSTALLED_APPS = (
 #    'relationships',
     'django.contrib.admin',
 )
+
+AUTH_PROFILE_MODULE = 'account.UserProfile'
