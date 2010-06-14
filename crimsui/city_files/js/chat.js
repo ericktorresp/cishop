@@ -410,7 +410,7 @@ CRIMS.Crims = new Class({
 					p_left = parseInt(WH.width/2+this.options.street.width/2);
 					break;
 			}
-			new Element('div',{
+			var street = new Element('div',{
 				'id': raw.data[d].x + '~' + raw.data[d].y,
 				'class': 'city-map'
 			}).setStyles({
@@ -418,7 +418,41 @@ CRIMS.Crims = new Class({
 				'left': p_left,
 				'-moz-user-select': 'none',
 				'position':'absolute'
-			}).inject(this.els.map);
+			});
+			if($defined(raw.data[d]['buildings']))
+			{
+				var buildings = raw.data[d]['buildings'];
+				var opts;
+				for(var t=0; t<buildings.length; t++)
+				{
+					if(buildings[t].type == 'a')
+					{
+						opts = {
+							'class': buildings[t].cls.join(' '),
+							'title': buildings[t].title
+						};
+					}
+					else
+					{
+						opts = {
+							'class': buildings[t].cls.join(' ')
+						};
+					}
+					new Element(buildings[t].type,opts).inject(street);
+				}
+			}
+			if($defined(raw.data[d]['NPC']))
+			{
+				var npcs = raw.data[d]['NPC'];
+				for(var t=0; t<npcs.length; t++)
+				{
+					new Element(npcs[t].type,{
+						'class': npcs[t].cls.join(' ')+' spot',
+						'title': npcs[t].title
+					}).inject(street);
+				}
+			}
+			street.inject(this.els.map);
 		}
 	},
 	reset: function()
