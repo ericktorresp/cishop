@@ -429,7 +429,7 @@ CRIMS.Crims = new Class({
 					{
 						opts = {
 							'class': buildings[t].cls.join(' '),
-							'title': buildings[t].title
+							'title': gettext(buildings[t].title)
 						};
 					}
 					else
@@ -448,7 +448,7 @@ CRIMS.Crims = new Class({
 				{
 					new Element(npcs[t].type,{
 						'class': npcs[t].cls.join(' ')+' spot',
-						'title': npcs[t].title
+						'title': gettext(npcs[t].title)
 					}).inject(street);
 				}
 			}
