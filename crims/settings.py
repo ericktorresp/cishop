@@ -147,3 +147,6 @@ INSTALLED_APPS = (
 )
 
 AUTH_PROFILE_MODULE = 'account.UserProfile'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+SESSION_SAVE_EVERY_REQUEST = True
