@@ -1,0 +1,116 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Django\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-21 18:43+0800\n"
+"PO-Revision-Date: 2010-06-15 10:11+0800\n"
+"Last-Translator: \n"
+"Language-Team: Qing Feng <paradise.qingfeng@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Hospital"
+msgstr "医院"
+
+msgid "Casino"
+msgstr "赌场"
+
+msgid "PD"
+msgstr "警察局"
+
+msgid "Bank"
+msgstr "银行"
+
+msgid "Fitness and School"
+msgstr "健身房"
+
+msgid "Jail"
+msgstr "监狱"
+
+msgid "Black Market"
+msgstr "黑市"
+
+msgid "Patrol officer"
+msgstr "巡警"
+
+msgid "Drunkard"
+msgstr "酒鬼"
+
+msgid "Mailbox"
+msgstr "邮箱"
+
+msgid "Nurse"
+msgstr "护士"
+
+msgid "Coffee Machine"
+msgstr "咖啡机"
+
+msgid "Housewife"
+msgstr "主妇"
+
+msgid "No entry"
+msgstr "禁止通行"
+
+msgid "One way"
+msgstr "单行"
+
+msgid "Gents"
+msgstr "大叔"
+
+msgid "Chick"
+msgstr "少妇"
+
+msgid "Family"
+msgstr "家庭"
+
+msgid "Smart fellows"
+msgstr "醒目仔"
+
+msgid "Phonebooth"
+msgstr "投币电话"
+
+msgid "Ambulance"
+msgstr "救护车"
+
+msgid "Biker"
+msgstr "自行车骑手"
+
+msgid "Safe-cracker"
+msgstr "保险箱大盗"
+
+msgid "Salesman"
+msgstr "店员"
+
+msgid "Yellow cab"
+msgstr "出租车"
+
+msgid "Robbery"
+msgstr "抢劫"
+
+msgid "Business lady"
+msgstr "女职员"
+
+msgid "Thief"
+msgstr "小偷"
+
+msgid "Mobster"
+msgstr "黑社会"
+
+msgid "Pimp"
+msgstr "皮条客"
+
+msgid "Police hound"
+msgstr "警犬"
+
+msgid "Dealer"
+msgstr "毒贩"
+
+msgid "Jeep"
+msgstr "吉普"
+

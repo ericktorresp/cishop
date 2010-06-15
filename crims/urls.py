@@ -49,6 +49,9 @@ admin.site.groups = {
 #        'groups': [0, 1]
 #    },
 #}
+js_info_dict = {
+    'packages': ('system',),
+}
 urlpatterns = patterns('',
     url(r'^chat/', 'game.views.showchats', name = 'chat'),
     url(r'^captcha/', include('captcha.urls')),
@@ -61,6 +64,7 @@ urlpatterns = patterns('',
 #        {'document_root': '/Users/darkmoon/pys/crims/assets'}),
     url(r'^assets/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': 'E:/server/py-projects/crims/assets'}),
+    url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^messages/', include('messages.urls')),
     url(r'^$', home(), name = 'index'),

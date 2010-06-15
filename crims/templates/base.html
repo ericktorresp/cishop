@@ -11,6 +11,7 @@
     <title>{% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}</title>
 	<!-- JAVASCRIPTS / EXTRAHEAD -->
 {% block javascripts %}
+	<script type="text/javascript" src="{% url django.views.i18n.javascript_catalog %}"></script>
 	<script type="text/javaScript" src="{{ MEDIA_URL }}js/Clients/mootools-core.js"></script>
 	<script type="text/javaScript" src="{{ MEDIA_URL }}js/Clients/MooTools.js"></script>
 	<script type="text/javaScript" src="{{ MEDIA_URL }}js/config.js"></script>
