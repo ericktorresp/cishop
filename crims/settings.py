@@ -69,10 +69,10 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.contrib.csrf.middleware.CsrfMiddleware',
+#    'django.contrib.csrf.middleware.CsrfMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
     'django.middleware.cache.UpdateCacheMiddleware',
-#    'system.middleware.cookielesssessionmiddleware.CookielessSessionMiddleware',
+    'system.middleware.fakesessioncookiemiddleware.FakeSessionCookieMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -151,3 +151,4 @@ AUTH_PROFILE_MODULE = 'account.UserProfile'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_NAME = 'crimsess'

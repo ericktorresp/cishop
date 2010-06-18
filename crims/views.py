@@ -6,6 +6,7 @@ from django.http import Http404, HttpResponse
 from django.contrib.auth.models import User
 from account.models import UserProfile
 from django.utils.translation import ugettext as _
+from django.conf import settings
 
 try:
     import json
@@ -59,8 +60,9 @@ class map:
     """
     返回json编码后的数组，包含街区座标，街区建筑，街区NPC，以及街区玩家
     街区玩家如何获取？
-    APE 与 Django 之间的 session 如何同步？
+    APE 与 Django 之间的 session 如何同步？ (filebrowser.views.upload)
     流程： 页面载入 - 登录到 APE - [是否可请求某个 django 页面，以获取 session id?]
+  必须使用 mootools.lang 而不是 django.jsi18n, 因为  django.jsi18n 会在客户端生成  Cookie
     """
     def __call__(self, request):
         objects = []
@@ -76,16 +78,15 @@ class map:
                 street['NPC'] = CITY_NPC
             objects.append(street)
 
-        if request.GET.has_key('x'):
-            print('x=', request.GET['x'])
-        if request.GET.has_key('y'):
-            print('y=', request.GET['y'])
-        if request.GET.has_key('dir'):
-            print request.GET['dir'] == ''
-            print('dir=', request.GET['dir'])
+#        if request.POST.has_key('x'):
+#            print 'x=', request.POST['x']
+#        if request.POST.has_key('y'):
+#            print 'y=', request.POST['y']
+#        if request.POST.has_key('dir'):
+#            print 'dir=', request.POST['dir']
         if objects:
             encoded = json.dumps(objects)
-            response = HttpResponse(encoded, mimetype = "application/json")
+            response = HttpResponse(encoded, mimetype = "text/plain")
             return response
 
     def _get_maps(self):
