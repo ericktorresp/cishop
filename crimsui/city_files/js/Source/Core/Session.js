@@ -70,7 +70,7 @@ CRIMS.Core = new Class({
 	},
 
 	/***
-	 * Read the cookie APE_Cookie and try to find the application identifier
+	 * Read the cookie CRIMS_Cookie and try to find the application identifier
 	 * @param	String	identifier, can be used to force the identifier to find ortherwhise identifier defined in the options will be used
 	 * @return 	Boolean	false if application identifier isn't found or an object with the instance and the cookie
 	 */
@@ -79,9 +79,9 @@ CRIMS.Core = new Class({
 		identifier = identifier || this.options.identifier;
 		if (!tmp) return false;
 		tmp = JSON.parse(tmp);
-		//Cookie is corrupted or doest not contains instance
+		//Cookie is corrupted or does not contains instance
 		if (!tmp || !tmp.instance) return false;
-		//Get the instance of ape in cookie
+		//Get the instance of crims in cookie
 		for(var i = 0; i < tmp.instance.length; i++){
 			if(tmp.instance[i] && tmp.instance[i].identifier == identifier){
 				return {instance: tmp.instance[i], cookie: tmp};
@@ -129,7 +129,7 @@ CRIMS.Core = new Class({
 
 	/***
 	 * Create a cookie instance (add to the instance array of the cookie the current application)
-	 * @param	object	APE_Cookie
+	 * @param	object	CRIMS_Cookie
 	 */
 	createInstance: function(cookie) {
 		cookie.instance.push({
@@ -140,11 +140,11 @@ CRIMS.Core = new Class({
 	},
 
 	/***
-	 * Create ape cookie if needed (but do not write it)
+	 * Create crims cookie if needed (but do not write it)
 	 */
 	createCookie: function(){
 		if(!this.cookie){
-			//No Cookie or no ape instance in cookie, lets create the cookie
+			//No Cookie or no crims instance in cookie, lets create the cookie
 			var tmp = {
 				frequency: 1,
 				instance: []

@@ -376,7 +376,12 @@ CRIMS.Crims = new Class({
 	},
 	loadMap: function()
 	{
-		this.core.request.send('LOADMAP',{x:this.current_street.x,y:this.current_street.y,dir:this.current_street.dir});
+		this.core.request.send('LOADMAP',{
+			x:this.current_street.x,
+			y:this.current_street.y,
+			dir:this.current_street.dir,
+			crimsess:'ff8e2d9367f068a53403d2785a0a2e8b'
+		});
 	},
 	setMap: function(raw, pipe)
 	{
