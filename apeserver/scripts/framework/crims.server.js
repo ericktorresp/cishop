@@ -5,13 +5,13 @@ var street = {
 function http_request(url, params, callback)
 {
 	var request = new Http(url);
-	request.set('method', 'GET');
+	request.set('method', 'POST');
 	request.writeObject(params);
 	request.getContent(function(result) {
 		var ret = {};
 		try
 		{
-			ret = eval(result);
+			ret = JSON.parse(result);
 		}
 		catch(e)
 		{
