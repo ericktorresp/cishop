@@ -21,7 +21,7 @@ class UserProfile(models.Model):
     language = models.CharField(_('language'), choices=settings.LANGUAGES, max_length=10)
     visitors = models.IntegerField(_('visitors'), default=0)
     province = models.ForeignKey(Province, verbose_name=_('province'))
-    avatar = ImageWithThumbsField(_('avatar'), upload_to='uploads/user_avatar', sizes=((50, 50),))
+    avatar = ImageWithThumbsField(_('avatar'), upload_to='uploads/user_avatar', sizes=((50, 50),), blank=True,null=True)
 #    models.CharField(_('avatar'), max_length=100, blank=True, null=True)
     character = models.ForeignKey(Character, verbose_name=_('character'))
     rabbit_mode = models.BooleanField(_('rabbit mode?'), default=False)

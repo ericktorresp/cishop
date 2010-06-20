@@ -60,13 +60,13 @@ urlpatterns = patterns('',
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/filebrowser/', include('filebrowser.urls')),
-#    url(r'^assets/(?P<path>.*)$', 'django.views.static.serve',
-#        {'document_root': '/Users/darkmoon/pys/crims/assets'}),
     url(r'^assets/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': 'E:/server/py-projects/crims/assets'}),
+        {'document_root': '/Users/darkmoon/pys/crims/assets'}),
+#    url(r'^assets/(?P<path>.*)$', 'django.views.static.serve',
+#        {'document_root': 'E:/server/py-projects/crims/assets'}),
     url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^messages/', include('messages.urls')),
     url(r'^$', home(), name = 'index'),
-    url(r'^map/', map(), name = 'map')
+    url(r'^map/', 'views.map', name = 'map')
 )

@@ -45,8 +45,8 @@ USE_I18N = True
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
 
-#MEDIA_ROOT = '/Users/darkmoon/pys/crims/assets/'
-MEDIA_ROOT = 'E:/server/py-projects/crims/assets/'
+MEDIA_ROOT = '/Users/darkmoon/pys/crims/assets/'
+#MEDIA_ROOT = 'E:/server/py-projects/crims/assets/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -69,7 +69,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-#    'django.contrib.csrf.middleware.CsrfMiddleware',
+    'django.contrib.csrf.middleware.CsrfMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
     'django.middleware.cache.UpdateCacheMiddleware',
     'system.middleware.fakesessioncookiemiddleware.FakeSessionCookieMiddleware',
@@ -83,8 +83,8 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'crims.urls'
 
 TEMPLATE_DIRS = (
-#    '/Users/darkmoon/pys/crims/templates',
-    'E:/server/py-projects/crims/templates',
+    '/Users/darkmoon/pys/crims/templates',
+#    'E:/server/py-projects/crims/templates',
 )
 # Memcache
 CACHE_BACKEND = 'memcached://127.0.0.1:11211/'

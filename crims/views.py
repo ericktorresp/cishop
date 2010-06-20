@@ -13,7 +13,7 @@ try:
 except:
     import simplejson as json
 
-class home:
+class home(object):
     def __call__(self, request):
         return render_to_response('index.html', {}, context_instance = RequestContext(request))
 
@@ -56,38 +56,38 @@ CITY_NPC = [
     {'title':'Dealer', 'cls':['dealer'], 'type':'a'},
     {'title':'Jeep', 'cls':['bmw'], 'type':'a'},
 ]
-class map:
-    """
-    返回json编码后的数组，包含街区座标，街区建筑，街区NPC，以及街区玩家
-    街区玩家如何获取？
-    APE 与 Django 之间的 session 如何同步？ (filebrowser.views.upload)
-    流程： 页面载入 - 登录到 APE - [是否可请求某个 django 页面，以获取 session id?]
-  必须使用 mootools.lang 而不是 django.jsi18n, 因为  django.jsi18n 会在客户端生成  Cookie
-    """
-    def __call__(self, request):
-        objects = []
+
+"""
+返回json编码后的数组，包含街区座标，街区建筑，街区NPC，以及街区玩家
+街区玩家如何获取？
+APE 与 Django 之间的 session 如何同步？ (filebrowser.views.upload)
+流程： 页面载入 - 登录到 APE - [是否可请求某个 django 页面，以获取 session id?]
+如果 session_store 存在 GET 过来的 session_key，django 使用该 session_key，否则会新生成一个 session_key。
+现在所有的命令提交都是通过 APE，是否可以全部使用 APE 的 session_key 呢？
+必须使用 mootools.lang 而不是 django.jsi18n, 因为  django.jsi18n 会在客户端生成  Cookie
+"""
+from django.views.decorators.cache import cache_page
+
+@cache_page(60 * 1)
+def map(request):
+    objects = []
+    if request.META['QUERY_STRING'] == '':
+        profiles = UserProfile.objects.all()
+    else:
         profiles = UserProfile.objects.order_by('-street_y', 'street_x')[:9]
-        for profile in profiles:
-            street = {
-                'x': profile.street_x,
-                'y': profile.street_y
-            }
-            if profile.street_x == 0 and profile.street_y == 0:
-                # city
-                street['buildings'] = CITY_BUILDINGS
-                street['NPC'] = CITY_NPC
-            objects.append(street)
+    
+    for profile in profiles:
+        street = {
+            'x': profile.street_x,
+            'y': profile.street_y,
+            'owner': profile.user_id
+        }
+        if profile.street_x == 0 and profile.street_y == 0:
+            # city
+            street['buildings'] = CITY_BUILDINGS
+            street['NPC'] = CITY_NPC
+        objects.append(street)
 
-#        if request.POST.has_key('x'):
-#            print 'x=', request.POST['x']
-#        if request.POST.has_key('y'):
-#            print 'y=', request.POST['y']
-#        if request.POST.has_key('dir'):
-#            print 'dir=', request.POST['dir']
-        if objects:
-            encoded = json.dumps(objects)
-            response = HttpResponse(encoded, mimetype = "text/plain")
-            return response
-
-    def _get_maps(self):
-        pass
+    encoded = json.dumps(objects)
+    response = HttpResponse(encoded, mimetype = "text/plain")
+    return response
