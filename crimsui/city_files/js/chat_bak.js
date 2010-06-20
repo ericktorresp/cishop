@@ -36,7 +36,6 @@ CRIMS.Crims = new Class({
 		this.currentPipe = null;
 		this.logging = true;
 
-		this.onRaw('IDENT', this.loadMap);
 		this.onRaw('MAP_DATA', this.setMap);
 		this.onRaw('data', this.rawData);
 		this.onCmd('LOADMAP', function(data,pipe){
@@ -50,7 +49,7 @@ CRIMS.Crims = new Class({
 		this.onError('206', this.promptName);
 
 		this.addEvent('load', this.start);
-		this.addEvent('ready', this.createArea);
+		this.addEvent('ready', this.createChat);
 		this.addEvent('uniPipeCreate', this.setPipeName);
 		this.addEvent('uniPipeCreate', this.createPipe);
 		this.addEvent('multiPipeCreate', this.createPipe);
@@ -68,7 +67,8 @@ CRIMS.Crims = new Class({
 		window.addEvent('domready', function(){
 			this.load({
 				'identifier': this.options.identifier,
-				'channel': this.options.main_channel
+				//装载街区数+crims = 10 channels?
+				'channel': ['street_0_0',this.options.main_channel]
 			});
 		}.bind(this));
 	},
@@ -134,16 +134,26 @@ CRIMS.Crims = new Class({
 	},
 	start: function()
 	{
-		var opt = {'sendStack': false, 'request': 'stack'};
-		this.core.start({'username':this.options.username||'guest_'+$random(1,99999)}, opt);
-		if (this.core.options.restore)
-		{
-			this.core.getSession('currentPipe', function(resp)
+		// If name is not set & it's not a session restore ask user for his nickname
+		//if((!this.options.username || !this.options.password) && !this.core.options.restore)
+		//{
+			//this.promptName();
+		//}
+		//else
+		//{
+			var opt = {'sendStack': false, 'request': 'stack'};
+
+			this.core.start({'username':this.options.username||'guest'+$random(1,99999),'password':this.options.password||''}, opt);
+
+			if (this.core.options.restore)
 			{
-				this.setCurrentPipe(resp.data.sessions.currentPipe);
-			}.bind(this), opt);
-		}
-		this.core.request.stack.send();
+				this.core.getSession('currentPipe', function(resp)
+				{
+					this.setCurrentPipe(resp.data.sessions.currentPipe);
+				}.bind(this), opt);
+			}
+			this.core.request.stack.send();
+		//}
 	},
 	setPipeName: function(pipe, options)
 	{
@@ -301,11 +311,11 @@ CRIMS.Crims = new Class({
 		//Hide other pipe and show this one
 		this.setCurrentPipe(pipe.getPubid());
 	},
-	createArea: function()
+	createChat: function()
 	{
-		this.els.areaContainer = new Element('div',{'id':'map'});
+		this.els.pipeContainer = new Element('div',{'id':'map'});
 		var WH = this._calculateWH();
-		this.els.areaContainer.setStyles({
+		this.els.pipeContainer.setStyles({
 			position: 'relative',
 			left: '0px',
 			top: '0px',
@@ -327,44 +337,42 @@ CRIMS.Crims = new Class({
 			position: 'absolute',
 			width: this.options.street.width*3,
 			height: this.options.street.height*3
-		}).inject(this.els.areaContainer);
-		this.els.loading = new Element('div', {'text': 'Loading...', 'id': 'loading'}); 
-		// this.els.loading = new Element('div',{'id':'loading','innerHTML':'loading......'});
-		this.els.loading.inject(this.options.container,'inside');
-		this.els.areaContainer.inject(this.options.container);
+		}).inject(this.els.pipeContainer);
+
+		this.els.pipeContainer.inject(this.options.container);
 
 
-		// this.els.more = new Element('div',{'id':'more'}).inject(this.options.container,'after');
-		// this.els.tabs = new Element('div',{'id':'tabbox_container'}).inject(this.els.more);
-		// this.els.sendboxContainer = new Element('div',{'id':'ape_sendbox_container'}).inject(this.els.more);
-		// 
-		// this.els.sendBox = new Element('div',{'id':'ape_sendbox'}).inject(this.els.sendboxContainer,'bottom');
-		// this.els.sendboxForm = new Element('form',{
-		// 	'events':{
-		// 		'submit':function(ev)
-		// 		{
-		// 			ev.stop();
-		// 			var val = this.els.sendbox.get('value');
-		// 			if(val!='')
-		// 			{
-		// 				this.getCurrentPipe().send(val);
-		// 				this.els.sendbox.set('value','');
-		// 			}
-		// 		}.bindWithEvent(this)
-		// 	}
-		// }).inject(this.els.sendBox);
-		// this.els.sendbox = new Element('input',{
-		// 	'type':'text',
-		// 	'id':'sendbox_input',
-		// 	'autocomplete':'off'
-		// }).inject(this.els.sendboxForm);
-		// this.els.send_button = new Element('input',{
-		// 	'type':'submit',
-		// 	'id':'sendbox_button',
-		// 	'value':''
-		// }).inject(this.els.sendboxForm);
+		this.els.more = new Element('div',{'id':'more'}).inject(this.options.container,'after');
+		this.els.tabs = new Element('div',{'id':'tabbox_container'}).inject(this.els.more);
+		this.els.sendboxContainer = new Element('div',{'id':'ape_sendbox_container'}).inject(this.els.more);
 
-		// this.loadMap();
+		this.els.sendBox = new Element('div',{'id':'ape_sendbox'}).inject(this.els.sendboxContainer,'bottom');
+		this.els.sendboxForm = new Element('form',{
+			'events':{
+				'submit':function(ev)
+				{
+					ev.stop();
+					var val = this.els.sendbox.get('value');
+					if(val!='')
+					{
+						this.getCurrentPipe().send(val);
+						this.els.sendbox.set('value','');
+					}
+				}.bindWithEvent(this)
+			}
+		}).inject(this.els.sendBox);
+		this.els.sendbox = new Element('input',{
+			'type':'text',
+			'id':'sendbox_input',
+			'autocomplete':'off'
+		}).inject(this.els.sendboxForm);
+		this.els.send_button = new Element('input',{
+			'type':'submit',
+			'id':'sendbox_button',
+			'value':''
+		}).inject(this.els.sendboxForm);
+
+		this.loadMap();
 	},
 	loadMap: function()
 	{
@@ -451,7 +459,6 @@ CRIMS.Crims = new Class({
 			}
 			street.inject(this.els.map);
 		}
-		this.els.loading.destroy();
 	},
 	reset: function()
 	{
