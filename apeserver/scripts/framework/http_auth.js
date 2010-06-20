@@ -14,28 +14,22 @@ var userlist = new $H;
 
 	Ape.registerHookCmd("CONNECT", function(params, cmd)
 	{
-		if (!$defined(params.username) || !$defined(params.password))
+		if (!$defined(params.username) && !$defined(params.password))
 		{
 			//未提供用户名和密码 ＝ 游客
 			cmd.user.setProperty('username','guest_'+$random(100000,999999));
-			cmd.user.setProperty('password','');
 			return 1;
 		}
-		if (userlist.has(params.username.toLowerCase()))
-		{
-			return ["007", "NICK_USED"];
-		}
-		if (params.username.length > 16 || params.username.test('[^a-zA-Z0-9]', 'i'))
+		if (params.username.length > 16 || params.username.test('[^a-zA-Z0-9\-\_]', 'i'))
 		{
 			return ["006", "BAD_NICK"];
 		}
-		//http_auth("http://127.0.0.1/crimsui/chat.php", params, function(result) {
-		http_auth("http://192.168.1.43/crimsui/chat.php", params, function(result) {
+		http_auth("http://127.0.0.1/crimsui/chat.php", params, function(result) {
+		// http_auth("http://192.168.1.43/crimsui/chat.php", params, function(result) {
 			Ape.log('http_auth - '+$time()+' - result: '+result);
 			if (result == 1)
 			{
 				cmd.user.setProperty('username', params.username);
-				cmd.user.setProperty('password', params.password);
 				Ape.addUser(cmd.user);
 			}
 			else
