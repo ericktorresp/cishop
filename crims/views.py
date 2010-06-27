@@ -56,6 +56,17 @@ CITY_NPC = [
     {'title':'Dealer', 'cls':['dealer'], 'type':'a'},
     {'title':'Jeep', 'cls':['bmw'], 'type':'a'},
 ]
+CITY_PROPERTY_BUILDINGS = [
+    {'title':'Hair Stylist', 'cls':['spot0', 'hairstyle'], 'type':'a'},
+    {'title':'Jeweler', 'cls':['spot1', 'groceries'], 'type':'a'},
+    {'title':'Butcher', 'cls':['spot2', 'butchery'], 'type':'a'},
+    {'title':'Pizzeria', 'cls':['spot3', 'pizza'], 'type':'a'},
+    {'title':'Newsstand', 'cls':['spot4', 'newsshop'], 'type':'a'},
+    {'title':'Bakery', 'cls':['spot5', 'bakery'], 'type':'a'},
+    {'title':'Boutique', 'cls':['spot6', 'clothing'], 'type':'a'},
+    {'title':'Watchmaker', 'cls':['spot7', 'watchmaker'], 'type':'a'},
+    {'title':'Locksmith', 'cls':['spot8', 'keymaker'], 'type':'a'},
+]
 
 """
 返回json编码后的数组，包含街区座标，街区建筑，街区NPC，以及街区玩家
@@ -65,27 +76,67 @@ APE 与 Django 之间的 session 如何同步？ (filebrowser.views.upload)
 如果 session_store 存在 GET 过来的 session_key，django 使用该 session_key，否则会新生成一个 session_key。
 现在所有的命令提交都是通过 APE，是否可以全部使用 APE 的 session_key 呢？
 必须使用 mootools.lang 而不是 django.jsi18n, 因为  django.jsi18n 会在客户端生成  Cookie
+用户注册 － 用户激活帐号 － 选择角色 (UserProfile, UserData)
 """
 from django.views.decorators.cache import cache_page
 
-@cache_page(60 * 1)
 def map(request):
+    print request.META['QUERY_STRING']
     objects = []
     if request.META['QUERY_STRING'] == '':
         profiles = UserProfile.objects.all()
     else:
-        profiles = UserProfile.objects.order_by('-street_y', 'street_x')[:9]
+        x = int(request.GET['x'])
+        y = int(request.GET['y'])
+        dir = request.GET['dir']
+        if dir == '':
+            _x = [x-1, x, x+1]
+            _y = [y+1, y, y-1]
+        elif dir == 'left':
+            _x = [x-2, x-1, x]
+            _y = [y+1, y, y-1]
+        elif dir == 'right':
+            _x = [x, x+1, x+2]
+            _y = [y+1, y, y-1]
+        elif dir == 'up':
+            _x = [x-1, x, x+1]
+            _y = [y+2, y+1, y]
+        elif dir == 'down':
+            _x = [x-1, x, x+1]
+            _y = [y, y-1, y-2]
+        elif dir == 'leftup':
+            _x = [x-2, x-1, x]
+            _y = [y+2, y+1, y]
+        elif dir == 'leftdown':
+            _x = [x-2, x-1, x]
+            _y = [y, y-1, y-2]
+        elif dir == 'rightup':
+            _x = [x, x+1, x+2]
+            _y = [y+2, y+1, y]
+        elif dir == 'rightdown':
+            _x = [x, x+1, x+2]
+            _y = [y, y-1, y-2]
+        
+        profiles = UserProfile.objects.filter(street_x__in=_x,street_y__in=_y).order_by('-street_y', 'street_x')
     
     for profile in profiles:
         street = {
             'x': profile.street_x,
             'y': profile.street_y,
-            'owner': profile.user_id
+            'owner': profile.user_id,
+            'cls': 'private-map'
         }
         if profile.street_x == 0 and profile.street_y == 0:
             # city
+            street['cls'] = 'city-map'
             street['buildings'] = CITY_BUILDINGS
             street['NPC'] = CITY_NPC
+        elif profile.street_x == 1 and profile.street_y == 0:
+            street['buildings'] = CITY_PROPERTY_BUILDINGS
+            street['NPC'] = []
+        else:
+            street['buildings'] = []
+            street['NPC'] = []
         objects.append(street)
 
     encoded = json.dumps(objects)
