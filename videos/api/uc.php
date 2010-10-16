@@ -1,6 +1,6 @@
 <?php
 
-define('IN_DISCUZ', TRUE);
+define('IN_VIDEO', TRUE);
 
 define('UC_CLIENT_VERSION', '1.5.1');
 define('UC_CLIENT_RELEASE', '20091001');
@@ -20,11 +20,26 @@ define('API_GETCREDITSETTINGS', 1);
 define('API_GETCREDIT', 1);
 define('API_UPDATECREDITSETTINGS', 1);
 
+define('UC_CONNECT', '');
+define('UC_DBHOST', 'localhost');
+define('UC_DBUSER', 'root');
+define('UC_DBPW', '2908262');
+define('UC_DBNAME', 'ucenter');
+define('UC_DBCHARSET', 'utf8');
+define('UC_DBTABLEPRE', 'uc_');
+define('UC_DBCONNECT', '0');
+define('UC_KEY', 'ad745cf8c8d622ac4d1325fa809e75bb');
+define('UC_API', 'http://localhost/uc_server');
+define('UC_CHARSET', 'utf-8');
+define('UC_IP', '');
+define('UC_APPID', '1');
+define('UC_PPP', '20');
+
 define('API_RETURN_SUCCEED', '1');
 define('API_RETURN_FAILED', '-1');
 define('API_RETURN_FORBIDDEN', '-2');
 
-define('DISCUZ_ROOT', substr(dirname(__FILE__), 0, -3));
+define('VIDEO_ROOT', substr(dirname(__FILE__), 0, -3));
 
 if(!defined('IN_UC')) {
 
@@ -32,12 +47,13 @@ if(!defined('IN_UC')) {
 	set_magic_quotes_runtime(0);
 
 	defined('MAGIC_QUOTES_GPC') || define('MAGIC_QUOTES_GPC', get_magic_quotes_gpc());
-	include_once DISCUZ_ROOT.'./config.inc.php';
+//	include_once VIDEO_ROOT.'./config.inc.php';
 
 	$_DCACHE = $get = $post = array();
 
 	$code = @$_GET['code'];
 	parse_str(_authcode($code, 'DECODE', UC_KEY), $get);
+//	var_dump($get);die;
 	if(MAGIC_QUOTES_GPC) {
 		$get = _stripslashes($get);
 	}
@@ -50,15 +66,23 @@ if(!defined('IN_UC')) {
 	}
 	$action = $get['action'];
 
-	require_once DISCUZ_ROOT.'./uc_client/lib/xml.class.php';
+	require_once VIDEO_ROOT.'./uc_client/lib/xml.class.php';
 	$post = xml_unserialize(file_get_contents('php://input'));
 
 	if(in_array($get['action'], array('test', 'deleteuser', 'renameuser', 'gettag', 'synlogin', 'synlogout', 'updatepw', 'updatebadwords', 'updatehosts', 'updateapps', 'updateclient', 'updatecredit', 'getcredit', 'getcreditsettings', 'updatecreditsettings'))) {
-		require_once DISCUZ_ROOT.'./include/db_'.$database.'.class.php';
-		$GLOBALS['db'] = new dbstuff;
-		$GLOBALS['db']->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect, true, $dbcharset);
+		require_once VIDEO_ROOT.'./includes/dbconnect.php';
+		$GLOBALS['db'] = ADONewConnection($BDTYPE);
+		$GLOBALS['db']->debug      = false;
+		$GLOBALS['db']->charpage   = 'cp_utf8';
+		$GLOBALS['db']->charset    = 'utf8';
+		
+		$GLOBALS['db']->Connect($DBHOST, $DBUSER, $DBPASS, $DBNAME);
+		$GLOBALS['db']->Execute('SET NAMES utf8');
+		$GLOBALS['db']->Execute('SET CHARACTER SET utf8');
+		$GLOBALS['db']->Execute('SET COLLATION_CONNECTION="utf8_general_ci"');
+		
 		$GLOBALS['tablepre'] = $tablepre;
-		unset($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
+		unset($DBHOST, $DBUSER, $DBPASS, $dbname, $DBNAME);
 		$uc_note = new uc_note();
 		exit($uc_note->$get['action']($get, $post));
 	} else {
@@ -66,16 +90,20 @@ if(!defined('IN_UC')) {
 	}
 
 } else {
-
-	/*$uc_note = new uc_note('../', '../config.inc.php');
-	$uc_note->deleteuser('3');*/
-	define('DISCUZ_ROOT', $app['extra']['apppath']);
-	include DISCUZ_ROOT.'./config.inc.php';
-	require_once DISCUZ_ROOT.'./include/db_'.$database.'.class.php';
-	$GLOBALS['db'] = new dbstuff;
-	$GLOBALS['db']->connect($dbhost, $dbuser, $dbpw, $dbname, $pconnect, true, $dbcharset);
+	define('VIDEO_ROOT', $app['extra']['apppath']);
+	require_once VIDEO_ROOT.'./includes/dbconnect.php';
+	$GLOBALS['db'] = ADONewConnection($BDTYPE);
+	$GLOBALS['db']->debug      = false;
+	$GLOBALS['db']->charpage   = 'cp_utf8';
+	$GLOBALS['db']->charset    = 'utf8';
+	
+	$GLOBALS['db']->Connect($DBHOST, $DBUSER, $DBPASS, $DBNAME);
+	$GLOBALS['db']->Execute('SET NAMES utf8');
+	$GLOBALS['db']->Execute('SET CHARACTER SET utf8');
+	$GLOBALS['db']->Execute('SET COLLATION_CONNECTION="utf8_general_ci"');
+	
 	$GLOBALS['tablepre'] = $tablepre;
-	unset($dbhost, $dbuser, $dbpw, $dbname, $pconnect);
+	unset($DBHOST, $DBUSER, $DBPASS, $dbname, $DBNAME);
 }
 
 class uc_note {
@@ -86,13 +114,13 @@ class uc_note {
 
 	function _serialize($arr, $htmlon = 0) {
 		if(!function_exists('xml_serialize')) {
-			include_once DISCUZ_ROOT.'./uc_client/lib/xml.class.php';
+			include_once VIDEO_ROOT.'./uc_client/lib/xml.class.php';
 		}
 		return xml_serialize($arr, $htmlon);
 	}
 
 	function uc_note() {
-		$this->appdir = DISCUZ_ROOT;
+		$this->appdir = VIDEO_ROOT;
 		$this->db = $GLOBALS['db'];
 		$this->tablepre = $GLOBALS['tablepre'];
 	}
