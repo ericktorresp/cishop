@@ -1,0 +1,840 @@
+<script language="javascript">
+{literal}
+$(document).ready(function(){
+	
+	var thehash = window.location.hash.substr(9,3);
+	$("#tabbed_div > div").hide();
+	if(thehash=='')
+	{
+		display_tab('#tab_1','div_1');
+	}else{
+		display_tab('#tab_'+thehash,'div_'+thehash);
+	}
+	
+});
+{/literal}
+</script>
+<ul class="cbtab">
+  <li onClick='display_tab(this,"div_1",true)' id="tab_1">Website Settings</li>
+  <li onClick='display_tab(this,"div_2",true)' id="tab_2">Uploading and Conversion Settings</li>
+  <li onClick='display_tab(this,"div_3",true)' id="tab_3">Display and Listing Settings</li>
+  <li onClick='display_tab(this,"div_4",true)' id="tab_4">User Settings &amp; registration</li>
+</ul>
+<div class="clearfix"></div>
+
+<form name="form1" method="post" action="" id="main_form">
+<input name="baseurl" value="{$row.baseurl}" type="hidden" />
+<input name="basedir" value="{$row.baseurl}" type="hidden" />
+<div id="tabbed_div">
+    <div id="div_1" class="main_page_div">
+    
+        <fieldset class="fieldset" style="border:none">
+<table width="100%" border="0" cellpadding="2" cellspacing="0" class="block">
+            <tr>
+                <td width="200" valign="top">Website title</td>
+                <td valign="top"><input name="site_title" type="text" id="site_title" value="{$row.site_title}" size="45"></td>
+            </tr>
+            <tr>
+              <td valign="top">Website slogan</td>
+              <td valign="top"><input name="site_slogan" type="text" id="site_slogan" value="{$row.site_slogan}" size="45"></td>
+            </tr>
+            <tr>
+              <td valign="top">Website closed</td>
+              <td valign="top"><select name="closed" id="select">
+      <option value="1"  
+       {if $row.closed == 1}
+        selected="selected"
+      {/if}
+        >Yes</option>
+        <option value="0"
+        {if $row.closed == 0}
+          selected="selected"
+          {/if}
+          >No</option>
+        </select></td>
+            </tr>
+            <tr>
+              <td valign="top">Closed message</td>
+              <td valign="top"><textarea name="closed_msg" id="closed_msg" cols="45" rows="5">{$row.closed_msg}</textarea></td>
+            </tr>
+            <tr>
+              <td valign="top">Meta Description</td>
+              <td valign="top"><textarea name="description" id="description" cols="45" rows="5">{$row.description}</textarea></td>
+            </tr>
+            <tr>
+              <td valign="top">Meta Keywords</td>
+              <td valign="top"><input name="keywords" type="text" id="keywords" value="{$row.keywords}" size="45" /></td>
+            </tr>
+            <tr>
+              <td>SEO Urls</td>
+              <td><select name="seo" id="select2">
+                <option value="yes"
+       {if $row.seo == yes}
+        selected="selected"
+      {/if}
+        >Yes</option>
+                <option value="no"
+        {if $row.seo == no}
+          selected="selected"
+          {/if}
+          >No</option>
+              </select></td>
+            </tr>
+            <tr>
+              <td>Allow template change</td>
+              <td><select name="allow_template_change" id="allow_template_change">
+                <option value="1"  
+       {if $row.allow_template_change == 1}
+        selected="selected"
+      {/if}
+        >Yes</option>
+                <option value="0"
+        {if $row.allow_template_change == 0}
+          selected="selected"
+          {/if}
+          >No</option>
+              </select></td>
+            </tr>
+            <tr>
+              <td>Allow language change</td>
+              <td><select name="allow_language_change" id="allow_language_change">
+                <option value="1"
+       {if $row.allow_language_change == 1}
+        selected="selected"
+      {/if}
+        >Yes</option>
+                <option value="0"
+        {if $row.allow_language_change == 0}
+          selected="selected"
+          {/if}
+          >No</option>
+              </select></td>
+            </tr>
+            <tr>
+              <td>Date Format</td>
+              <td><label for="allow_multilingual_usernames"></label>
+              <input name="date_format" type="text" id="date_format" value="{$row.date_format}" size="45" /></td>
+            </tr>
+            <tr>
+              <td>Default Time Zone</td>
+              <td>
+                <select name="default_time_zone" id="default_time_zone">
+                {assign var='tzs' value=func->get_time_zones()}
+                {foreach from=$tzs item=name key=tz}
+                	<option value="{$tz}" {if $row.default_time_zone==$tz} selected="selected"{/if}>{$name}</option>
+                {/foreach}
+                </select>
+            </tr>
+            <tr>
+              <td><label for="default_country_iso2">Default Country</label></td>
+              <td>
+                <select name="default_country_iso2" id="default_country_iso2">
+                {assign var=countries value=$Cbucket->get_countries(iso2)}
+                {foreach from=$countries item=country key=code}
+                	<option  {if $code == $row.default_country_iso2} selected="selected" {/if} value="{$code}">
+                    	{$country}
+                    </option>
+                {/foreach}
+              	</select>
+              </td>
+            </tr>
+			<tr>
+              <td>Use Sub-Categories</td>
+              <td><select name="use_subs" id="use_subs">
+                <option value="1"
+       {if $row.use_subs == 1}
+        selected="selected"
+      {/if}
+        >Yes</option>
+                <option value="0"
+        {if $row.use_subs == 0}
+          selected="selected"
+          {/if}
+          >No</option>
+              </select></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="settings_inner_title">Emails</td>
+            </tr>
+            <tr>
+              <td>Website Email</td>
+              <td><input name="website_email" type="text" id="website_email" value="{$row.website_email}" size="45" /></td>
+            </tr>
+            <tr>
+              <td>Support Email</td>
+              <td><input name="support_email" type="text" id="support_email" value="{$row.support_email}" size="45" /></td>
+            </tr>
+            <tr>
+              <td><label for="welcome_email">Welcome Email</label></td>
+              <td><input name="welcome_email" type="text" id="welcome_email" value="{$row.welcome_email}" size="45" /></td>
+            </tr>
+            <tr>
+              <td>Send Comment Notification</td>
+              <td>
+                <select name="send_comment_notification" id="send_comment_notification">
+                  <option value="yes" {if $row.send_comment_notification=='yes'} selected="selected"{/if}>Yes</option>
+                  <option value="no" {if $row.send_comment_notification=='no'} selected="selected"{/if}>No</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Send Video Approve Noticfication</td>
+              <td><select name="approve_video_notification" id="approve_video_notification">
+                <option value="yes" {if $row.approve_video_notification=='yes'} selected="selected"{/if}>Yes</option>
+                <option value="no" {if $row.approve_video_notification=='no'} selected="selected"{/if}>No</option>
+              </select></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2" valign="top" class="settings_inner_title">Comments</td>
+            </tr>
+            <tr>
+              <td valign="top"><label for="video_comments">Allow Video Comments</label></td>
+              <td valign="top"><input name="video_comments" type="checkbox" id="video_comments" value="1" {if $row.video_comments=='1'}checked="checked"{/if} /></td>
+            </tr>
+            <tr>
+              <td valign="top">Allow Channel Comments</td>
+              <td valign="top"><input name="channel_comments" type="checkbox" id="channel_comments" value="1" {if $row.channel_comments=='1'}checked="checked"{/if} /></td>
+            </tr>
+            <tr>
+              <td valign="top">Allow Guests to Comment</td>
+              <td valign="top"><input name="anonym_comments" type="checkbox" id="anonym_comments" value="yes" {if $row.anonym_comments=='yes'}checked{/if} /></td>
+            </tr>
+            <tr>
+              <td valign="top"><label for="max_comment_chr">Maximum Comment Characters</label></td>
+              <td valign="top"><input name="max_comment_chr" type="text" id="max_comment_chr" value="{$row.max_comment_chr}" size="15" maxlength="5" /></td>
+            </tr>
+            <tr>
+              <td>Allow comments rating</td>
+              <td><input name="comment_rating" type="checkbox" id="comment_rating" value="1" {if $row.comment_rating=='1'}checked="checked"{/if} /></td>
+            </tr>
+            <tr>
+              <td>Comments Captcha</td>
+              <td><p>
+                <label>
+                  <input type="radio" name="comments_captcha" value="all" id="comments_captcha_0" 
+                  {if $row.comments_captcha==all} checked="checked"{/if} />
+                  For Everyone</label>
+                
+                <label>
+                  <input type="radio" name="comments_captcha" value="guests" id="comments_captcha_1"
+                  {if $row.comments_captcha==guests} checked="checked"{/if} />
+                  For Guests Only</label>
+                
+                <label>
+                  <input type="radio" name="comments_captcha" value="none" id="comments_captcha_2" 
+                  {if $row.comments_captcha==none} checked="checked"{/if} />
+                Disable</label>
+                <br />
+              </p></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            
+            <tr>
+              <td colspan="2" valign="top" class="settings_inner_title">Videos</td>
+            </tr>
+            <tr>
+              <td><label for="video_embed">Allow video embedding</label></td>
+              <td><input name="video_embed" type="checkbox" id="video_embed" value="1" {if $row.video_embed=='1'} checked="checked"{/if} /></td>
+            </tr>
+            <tr>
+              <td><labe for="video_download">Allow video download</labe></td>
+              <td><input name="video_download" type="checkbox" id="video_download" value="1" {if $row.video_download=='1'}checked="checked"{/if} /></td>
+            </tr>
+            <tr>
+              <td>Max categories for each video</td>
+              <td><input name="video_categories" type="text" id="php_path8" value="{$row.video_categories}" size="15" maxlength="5" /></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="settings_inner_title">Groups</td>
+            </tr>
+            <tr>
+              <td>Group Thumb Height</td>
+              <td><input name="grp_thumb_height" type="text" id="grp_thumb_height" value="{$row.grp_thumb_height}" size="15" maxlength="5" /></td>
+            </tr>
+            <tr>
+              <td>Group Thumb Width</td>
+              <td><input name="grp_thumb_width" type="text" id="grp_thumb_width" value="{$row.grp_thumb_width}" size="15" maxlength="5" /></td>
+            </tr>
+            <tr>
+              <td>Group Max Title</td>
+              <td><input name="grp_max_title" type="text" id="grp_max_title" value="{$row.grp_max_title}" size="15" maxlength="5" /></td>
+            </tr>
+            <tr>
+              <td>Group Max Description</td>
+              <td><input name="grp_max_desc" type="text" id="grp_max_desc" value="{$row.grp_max_desc}" size="15" maxlength="5" /></td>
+            </tr>
+            <tr>
+              <td>Max categories for each group</td>
+              <td><input name="grp_categories" type="text" id="grp_categories" value="{$row.grp_categories}" size="15" maxlength="5" /></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="settings_inner_title">General</td>
+            </tr>
+            <tr>
+              <td>Allow  ratings</td>
+              <td><input name="video_rating" type="checkbox" id="video_rating" value="1" {if $row.video_rating=='1'}checked="checked"{/if} /></td>
+            </tr>
+            <tr>
+              <td>User can rate his/her video/channel</td>
+              <td><input name="video_comments3" type="checkbox" id="video_comments3" value="1" {if $row.video_comments=='1'}checked{/if} /></td>
+            </tr>
+        </table>
+</fieldset>
+  </div>
+    
+    <div id="div_2" class="main_page_div">
+      <fieldset  class="fieldset" style="border:none">
+<table width="100%" border="0" cellpadding="2" cellspacing="0" class="block">
+        <tr>
+          <td valign="top">Use Crons</td>
+          <td valign="top">
+            <label>
+              <input type="radio" name="use_crons" value="yes" id="use_crons_0" {if $row.use_crons =='yes'} checked="checked"{/if} />
+              Yes</label>
+          
+            <label>
+              <input type="radio" name="use_crons" value="no" id="use_crons_1" {if $row.use_crons =='no'} checked="checked"{/if} />
+              No</label>
+            </td>
+        </tr>
+        <tr>
+          <td width="200" valign="top">FFMPEG Binary Path</td>
+          <td valign="top"><input name="ffmpegpath" type="text" id="ffmpegpath" value="{$row.ffmpegpath}" size="45" />
+          <a href="http://docs.clip-bucket.com/clipbucket-docs/ffmpeg" target="_blank">
+          <img src="{$imageurl}/help.png" border="0" class="tipsy_tip" title="FFMPEG Binary Paths - Click For More Details" /></a><br />
+          Turn on VF
+<label>
+                <input type="radio" name="use_ffmpeg_vf" value="yes" id="use_ffmpeg_vf_0" {if $row.use_ffmpeg_vf=='yes'} checked{/if} />
+              Yes</label>
+              <label>
+                <input type="radio" name="use_ffmpeg_vf" value="no" id="use_ffmpeg_vf_1"  {if $row.use_ffmpeg_vf=='no'} checked{/if}/>
+                No</label> 
+              <a href="javascript:void(0)" target="_blank"><img src="{$imageurl}/help.png" border="0" class="tipsy_tip" title="In latest releases of FFMPEG (greator than 20000) Pad flag has been changed from pad* to vf , if your ffmpeg is greator than r20000 please check YES " /></a></td>
+        </tr>
+        <tr>
+          <td valign="top">PHP Binary Path</td>
+          <td valign="top"><input name="php_path" type="text" id="php_path" value="{$row.php_path}" size="45" />
+          <a href="http://docs.clip-bucket.com/clipbucket-docs/php" target="_blank">
+          <img src="{$imageurl}/help.png" border="0" class="tipsy_tip" title="PHP Binary Paths - Click For More Details" /></a></td>
+        </tr>
+        <tr>
+          <td valign="top">Mp4 Binary Path</td>
+          <td valign="top"><input name="mp4boxpath" type="text" id="mp4boxpath" value="{$row.mp4boxpath}" size="45" />
+          <a href="http://docs.clip-bucket.com/clipbucket-docs/mp4box" target="_blank">
+          <img src="{$imageurl}/help.png" border="0" class="tipsy_tip" title="MP4Box Binary Paths - Click For More Details" /></a></td>
+        </tr>
+        <tr>
+          <td valign="top">Flvtool2 Binary Path</td>
+          <td valign="top"><input name="flvtool2path" type="text" id="flvtool2path" value="{$row.flvtool2path}" size="45" />
+          <a href="http://docs.clip-bucket.com/clipbucket-docs/flvtool2" target="_blank">
+          <img src="{$imageurl}/help.png" border="0" class="tipsy_tip" title="FLVTool2 Binary Paths - Click For More Details" /></a></td>
+        </tr>
+        <tr>
+          <td valign="top">Turn on Quick Conversion</td>
+          <td valign="top">
+              <input type="checkbox" name="quick_conv" id="quick_conv" value="yes" {if $row.quick_conv=='yes'} checked="checked"{/if}/>
+            <a href="javascript:void(0)" target="_blank"><img src="{$imageurl}/help.png" alt="" border="0" class="tipsy_tip" title="If you check this option, videos will be converted as soon as uploading is complete, make sure your php path is correct before enabling this option otherwise may cause your website inaccessible" /></a></td>
+        </tr>
+        <tr>
+          <td valign="top">Server Friendly Conversion</td>
+          <td valign="top">
+            <input type="checkbox" name="server_friendly_conversion" id="server_friendly_conversion" {if $row.server_friendly_conversion=='yes'} checked="checked"{/if} value="yes"/>
+            <a href="javascript:void(0)" target="_blank"><img src="{$imageurl}/help.png" alt="" border="0" class="tipsy_tip" title="If you enable this option then sever will process 1 video at a time, once it is finished, it will start processing new video" /></a></td>
+        </tr>
+        <tr>
+          <td valign="top">Max Video Processes at once</td>
+          <td valign="top"><input name="max_conversion" type="text" id="max_conversion" value="{$row.max_conversion}" size="45" /></td>
+        </tr>
+        <tr>
+          <td valign="top">Max time wait after max processes</td>
+          <td valign="top"><input name="max_time_wait" type="text" id="max_time_wait" value="{$row.max_time_wait}" size="45" /></td>
+        </tr>
+        <tr>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+        </tr>
+        <tr>
+          <td valign="top">Allow video uploading</td>
+          <td valign="top"><label>
+            <input name="allow_upload" type="checkbox" id="allow_upload" value="yes" {if $row.allow_upload}checked="checked"{/if} />
+          </label></td>
+        </tr>
+        <tr>
+          <td valign="top">Allowed extensions</td>
+          <td valign="top"><label>
+            <textarea name="allowed_types" id="allowed_types" cols="45" rows="5">{$row.allowed_types}</textarea>
+            <br />
+          Sperate by comma [case insensitive]</label></td>
+        </tr>
+        <tr>
+          <td valign="top">Max upload file size</td>
+          <td><input name="max_upload_size" type="text" id="max_upload_size" value="{$row.max_upload_size}" size="15" maxlength="5" /> 
+      in MegaBytes </td>
+        </tr>
+        <tr>
+          <td>Save original file </td>
+          <td><input name="keep_original" type="checkbox" id="keep_original" value="1" {if $row.keep_original} checked="checked"{/if} /></td>
+        </tr>
+        <tr>
+          <td>Mp4 HQ Output</td>
+          <td><input name="hq_output" type="checkbox" id="hq_output" value="yes" {if $row.hq_output} checked="checked"{/if} />
+            <a href="javascript:void(0)" target="_blank"><img src="{$imageurl}/help.png" alt="" border="0" class="tipsy_tip" title="if enabled, ClipBucket will generate Highh Quality mp4 video if possible" /></a></td>
+        </tr>
+        <tr>
+          <td>Keep Mp4 As Is</td>
+          <td><input name="keep_mp4_as_is" type="checkbox" id="keep_mp4_as_is" value="yes" {if $row.keep_mp4_as_is} checked="checked"{/if} />
+            <a href="javascript:void(0)" target="_blank"><img src="{$imageurl}/help.png" border="0" class="tipsy_tip" title="if enabled, ClipBucket will keep mp4 vieo as is and will be playable as HQ video" /></a></td>
+        </tr>
+        <tr>
+          <td>Activation required</td>
+          <td><input name="activation" type="checkbox" id="activation" value="1" {if $row.activation==1} checked="checked"{/if} /></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="settings_inner_title">Video Upload Form Settings</td>
+        </tr>
+        <tr>
+          <td>Min - Max Video title</td>
+          <td><input name="min_video_title" type="text" id="min_video_title" value="{$row.min_video_title}" size="20" />
+            -
+            <input name="max_video_title" type="text" id="max_video_title" value="{$row.max_video_title}" size="20" /></td>
+        </tr>
+        <tr>
+          <td>Min - Max Video Description</td>
+          <td><input name="min_video_desc" type="text" id="min_video_desc" value="{$row.min_video_desc}" size="20" />
+-
+  <input name="max_video_desc" type="text" id="php_path5" value="{$row.max_video_desc}" size="20" /></td>
+        </tr>
+        <tr>
+          <td>Min - Max Video Tags</td>
+          <td><input name="min_video_tags" type="text" id="php_path6" value="{$row.min_video_tags}" size="20" />
+-
+  <input name="max_video_tags" type="text" id="php_path7" value="{$row.max_video_tags}" size="20" /></td>
+        </tr>
+       
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="settings_inner_title">Conversion Settings</td>
+        </tr>
+        <tr>
+          <td>Max Video Width</td>
+          <td><input name="r_width" type="text" id="r_width" value="{$row.r_width}" size="45" /></td>
+        </tr>
+        <tr>
+          <td>Max Video Height</td>
+          <td><input name="r_height" type="text" id="r_height" value="{$row.r_height}" size="45" /></td>
+        </tr>
+        <tr>
+          <td>Resize Type</td>
+          <td><select name="resize" id="select">
+            <option value="no" {if $row.resize ==no} selected="selected"{/if}>No</option>
+            <option value="max" {if $row.resize ==max} selected="selected"{/if}>Max</option>
+            <option value="WxH" {if $row.resize ==WxH} selected="selected"{/if}>Stretch</option>
+            <option value="fit" {if $row.resize ==fit} selected="selected"{/if}>Aspect Ratio</option>
+          </select> <a href="http://docs.clip-bucket.com/clipbucket-docs/resize-video-type" target="_blank">
+          <img src="{$imageurl}/help.png" border="0" class="tipsy_tip" title="Resize Type Of Video - Click For More Details" /></a></td>
+        </tr>
+        <tr>
+          <td>Thumb Width</td>
+          <td><input name="thumb_width" type="text" id="thumb_width" value="{$row.thumb_width}" size="45" /></td>
+        </tr>
+        <tr>
+          <td>Thumb Height</td>
+          <td><input name="thumb_height" type="text" id="thumb_height" value="{$row.thumb_height}" size="45" /></td>
+        </tr>
+        <tr>
+          <td>Number of thumbs</td>
+          <td><input name="num_thumbs" type="text" id="num_thumbs" value="{$row.num_thumbs}" size="45" /></td>
+        </tr>
+        <tr>
+          <td>Big Thumb Width</td>
+          <td><input name="big_thumb_width" type="text" id="big_thumb_width" value="{$row.big_thumb_width}" size="45" /></td>
+        </tr>
+        <tr>
+          <td>Big Thumb Height</td>
+          <td><input name="big_thumb_height" type="text" id="big_thumb_height" value="{$row.big_thumb_height}" size="45" /></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="settings_inner_title">Change only if you have good knowledge of video conversion <a href="http://docs.clip-bucket.com/clipbucket-docs/video-conversion-settings" target="_blank"><img src="{$imageurl}/help.png" border="0" class="tipsy_tip" title="Video Conversion Info - Click For More Details" /></a></td>
+        </tr>
+        <tr>
+          <td>Video Codec</td>
+          <td><input name="video_codec" type="text" id="video_codec" value="{$row.video_codec}" size="45" /></td>
+        </tr>
+        <tr>
+          <td>Audio Codec</td>
+          <td><input name="audio_codec" type="text" id="audio_codec" value="{$row.audio_codec}" size="45" /></td>
+        </tr>
+        <tr>
+          <td>Video Rate</td>
+          <td><input name="vrate" type="text" id="vrate" value="{$row.vrate}" size="45" /></td>
+        </tr>
+        <tr>
+          <td>Video Bitrate</td>
+          <td><input name="vbrate" type="text" id="vbrate" value="{$row.vbrate}" size="45" /></td>
+        </tr>
+        <tr>
+          <td>Audio Rate</td>
+          <td><input name="srate" type="text" id="srate" value="{$row.srate}" size="45" /></td>
+        </tr>
+        <tr>
+          <td>Audio Bitrate</td>
+          <td><input name="sbrate" type="text" id="sbrate" value="{$row.sbrate}" size="45" /></td>
+        </tr>
+        
+       
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+</fieldset>
+</div>
+    
+    <div id="div_3" class="main_page_div" ><fieldset  class="fieldset" style="border:none">
+<table width="100%" border="0" cellpadding="2" cellspacing="0" class="block">
+        <tr>
+          <td width="200" valign="top">Current Template</td>
+          <td valign="top"><a href="templates.php">manage templates</a></td>
+        </tr>
+        <tr>
+          <td valign="top">Current FLV Player</td>
+          <td valign="top"><a href="manage_players.php">manage flv players</a></td>
+        </tr>
+        <tr>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="settings_inner_title">Videos Listing</td>
+        </tr>
+        <tr>
+          <td>Videos Page</td>
+          <td><input name="videos_list_per_page" type="text" id="videos_list_per_page" value="{$row.videos_list_per_page}" size="6" maxlength="3" /> 
+          - 'videos' page </td>
+        </tr>
+        <tr>
+          <td>Channel Page</td>
+          <td><input name="videos_item_channel_page" type="text" id="videos_item_channel_page" value="{$row.videos_item_channel_page}" size="6" maxlength="3" />
+          - 'view channel' page</td>
+        </tr>
+        <tr>
+          <td>User Videos</td>
+          <td><input name="videos_items_uvid_page" type="text" id="videos_items_uvid_page" value="{$row.videos_items_uvid_page}" size="6" maxlength="3" /> 
+          - 'user videos' page</td>
+        </tr>
+        <tr>
+          <td>User Favorite</td>
+          <td><input name="videos_items_ufav_page" type="text" id="videos_items_ufav_page" value="{$row.videos_items_ufav_page}" size="6" maxlength="3" />
+          - 'user favorits' page</td>
+        </tr>
+        <tr>
+          <td>Group Page</td>
+          <td><input name="videos_items_grp_page" type="text" id="videos_items_grp_page" value="{$row.videos_items_grp_page}" size="6" maxlength="3" /> 
+          - videos display in view group page</td>
+        </tr>
+        <tr>
+          <td>Home Tabs</td>
+          <td><input name="videos_items_hme_page" type="text" id="videos_items_hme_page" value="{$row.videos_items_hme_page}" size="6" maxlength="3" /> 
+          - videos display in home tab</td>
+        </tr>
+        <tr>
+          <td>Search Page</td>
+          <td><input name="videos_items_search_page" type="text" id="videos_items_search_page" value="{$row.videos_items_search_page}" size="6" maxlength="3" /> 
+          - videos display in search page</td>
+        </tr>
+        <tr>
+          <td>Video Columns</td>
+          <td><input name="videos_items_columns" type="text" id="videos_items_columns" value="{$row.videos_items_columns}" size="6" maxlength="3" /> 
+          - videos display in right columns ie (Random, Related etc)</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="settings_inner_title">Users Listing</td>
+        </tr>
+        <tr>
+          <td>User list per page</td>
+          <td><input name="channels_list_per_page" type="text" id="channels_list_per_page" value="{$row.channels_list_per_page}" size="6" maxlength="3" /> 
+          - 'users' page</td>
+        </tr>
+        <tr>
+          <td>Subscribers in channel view</td>
+          <td><input name="users_items_subscibers" type="text" id="users_items_subscibers" value="{$row.users_items_subscibers}" size="6" maxlength="3" /> 
+          - subscribers in view channel page</td>
+        </tr>
+        <tr>
+          <td>Subscriptions in channel view</td>
+          <td><input name="users_items_subscriptions" type="text" id="users_items_subscriptions" value="{$row.users_items_subscriptions}" size="6" maxlength="3" /> 
+          - subscriptions in view channel page</td>
+        </tr>
+        <tr>
+          <td>Users contacts in channel view</td>
+          <td><input name="users_items_contacts_channel" type="text" id="users_items_contacts_channel" value="{$row.users_items_contacts_channel}" size="6" maxlength="3" /> 
+          - users contacts in view channel</td>
+        </tr>
+        <tr>
+          <td>View Group Page</td>
+          <td>          <input name="users_items_group_page" type="text" id="users_items_group_page" value="{$row.users_items_group_page}" size="6" maxlength="3" />
+            - users in view group page</td>
+        </tr>
+        <tr>
+          <td>Search Page</td>
+          <td><input name="users_items_search_page" type="text" id="users_items_search_page" value="{$row.users_items_search_page}" size="6" maxlength="3" /> 
+          - users in search page</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="settings_inner_title">Groups</td>
+          </tr>
+        <tr>
+          <td>Groups Page</td>
+          <td><input name="groups_list_per_page" type="text" id="groups_list_per_page" value="{$row.groups_list_per_page}" size="6" maxlength="3" /> 
+            - 'groups' page</td>
+        </tr>
+        <tr>
+          <td>Search Page</td>
+          <td><input name="grps_items_search_page" type="text" id="grps_items_search_page" value="{$row.grps_items_search_page}" size="6" maxlength="3" /> 
+            - groups in search page</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="settings_inner_title">General</td>
+          </tr>
+        <tr>
+          <td>Search results per page</td>
+          <td><input name="search_list_per_page" type="text" id="search_list_per_page" value="{$row.search_list_per_page}" size="6" maxlength="3" /> 
+            - other search results</td>
+        </tr>
+        <tr>
+          <td>Recently viewed videos</td>
+          <td><input name="recently_viewed_limit" type="text" id="recently_viewed_limit" value="{$row.recently_viewed_limit}" size="6" maxlength="3" /> 
+            - recently viewed videos</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+</fieldset>
+    </div>
+    
+    
+    <div id="div_4" class="main_page_div" ><fieldset  class="fieldset" style="border:none">
+<table width="100%" border="0" cellpadding="2" cellspacing="0" class="block">
+        <tr>
+          <td valign="top">Anonymous UserID</td>
+          <td valign="top"><input name="anonymous_id" type="text" id="anonymous_id" value="{$row.anonymous_id}" size="6" maxlength="3" />
+            <a href="http://docs.clip-bucket.com/clipbucket-v2/anonymous-user" target="_blank"><img src="{$imageurl}/help.png" border="0" class="tipsy_tip" title="Set Anoymous Userid, Click For More Details" /></a></td>
+        </tr>
+        <tr>
+          <td width="200" valign="top">Turn on registrations</td>
+          <td valign="top"><input name="allow_registeration" type="checkbox" id="allow_registeration" value="1" {if $row.allow_registeration=='1'}checked="checked"{/if} /></td>
+        </tr>
+        <tr>
+          <td valign="top">Email verification</td>
+          <td valign="top"><input name="email_verification" type="checkbox" id="email_verification" value="1" {if $row.email_verification=='1'}checked=&quot;checked&quot;{/if} /></td>
+        </tr>
+        <tr>
+          <td valign="top">Image verification (captcha)</td>
+          <td valign="top"><select name="captcha_type">
+            <option value="0" {if $row.captcha_type == 0}
+          selected="selected"
+          {/if}>No</option>
+            <option value="1" {if $row.captcha_type == 1}
+          selected="selected"
+          {/if}>Simple</option>
+            <option value="2" {if $row.captcha_type == 2}
+          selected="selected"
+          {/if}>Secured</option>
+            </select></td>
+        </tr>
+        <tr>
+          <td valign="top">Username maximum characters</td>
+          <td valign="top"><input name="user_max_chr" type="text" id="user_max_chr" value="{$row.user_max_chr}" size="6" maxlength="3" /></td>
+        </tr>
+        <tr>
+          <td valign="top">Disallowed usernames</td>
+          <td valign="top"><label>
+            <textarea name="disallowed_usernames" id="disallowed_usernames" cols="45" rows="5">{$row.disallowed_usernames}</textarea>
+            <br />
+            sperate by commas
+          </label></td>
+        </tr>
+        <tr>
+          <td valign="top">Allow Special Characters in usernames</td>
+          <td valign="top"><input name="allow_unicode_usernames" type="checkbox" 
+          id="allow_unicode_usernames" value="yes" {if $row.allow_unicode_usernames=='yes'}checked="checked"{/if} /></td>
+        </tr>
+        <tr>
+          <td valign="top">Allow spaces in usernames</td>
+          <td valign="top"><input name="allow_username_spaces" type="checkbox" 
+          id="allow_username_spaces" value="yes" {if $row.allow_username_spaces=='yes'}checked="checked"{/if} /></td>
+        </tr>
+        <tr>
+          <td valign="top">Minimum Username Length</td>
+          <td valign="top"><label>
+            <input name="min_username" type="text" id="min_username" value="{$row.min_username|form_val}" />
+          </label></td>
+        </tr>
+        <tr>
+          <td valign="top">Maximum Username Length</td>
+          <td valign="top"><input name="max_username" type="text" id="max_username" value="{$row.max_username|form_val}" /></td>
+        </tr>
+        <tr>
+          <td valign="top">Minimum age for registration</td>
+          <td valign="top"><input name="min_age_reg" type="text" id="min_age_reg" value="{$row.min_age_reg}" size="6" maxlength="3" />
+          leave blank to disable this option</td>
+        </tr>
+        <tr>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" valign="top" class="settings_inner_title">Profile Pictures &amp; Background</td>
+          </tr>
+        <tr>
+          <td valign="top">Use Gravatars</td>
+          <td valign="top"><label>
+<select name="gravatars" id="gravatars">
+<option value="yes"
+{if $row.gravatars == yes}
+selected="selected"
+{/if}>Yes</option>
+              <option value=""
+{if $row.gravatars == ''}
+selected="selected"
+{/if}>No</option>
+            </select>
+          </label></td>
+        </tr>
+        <tr>
+          <td valign="top">Max Porfile Pic Size</td>
+          <td valign="top"><input name="max_profile_pic_size" type="text" id="max_profile_pic_size" value="{$row.max_profile_pic_size}" size="6" maxlength="10" /> 
+            KBs           </td>
+        </tr>
+        <tr>
+          <td valign="top">Max Porfile Pic Dimension</td>
+          <td valign="top"><input name="max_profile_pic_width" type="text" id="max_profile_pic_width" value="{$row.max_profile_pic_width}" size="6" maxlength="10" />
+            Pixels</td>
+        </tr>
+        <tr>
+          <td valign="top">Allow Picture URL</td>
+          <td valign="top">
+<select name="picture_url" id="select4">
+<option value="yes" 
+{if $row.picture_url == yes}
+selected="selected"
+{/if}>Yes</option>
+<option value="no" {if $row.picture_url == no}
+selected="selected"
+{/if}>No</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td valign="top">Allow Picture Upload</td>
+          <td valign="top"><select name="picture_upload" id="select5">
+            <option value="yes" {if $row.picture_upload == yes}
+selected="selected"
+{/if}>Yes</option>
+            <option value="no" {if $row.picture_upload == no}
+selected="selected"
+{/if}>No</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td valign="top">Max Background Size</td>
+          <td valign="top"><input name="max_bg_size" type="text" id="max_bg_size" value="{$row.max_bg_size}" size="6" maxlength="10" />
+            KBs</td>
+        </tr>
+        <tr>
+          <td valign="top">Max Background Dimension</td>
+          <td valign="top"><input name="max_bg_width" type="text" id="max_bg_width" value="{$row.max_bg_width}" size="6" maxlength="10" />
+            Pixels</td>
+        </tr>
+        <tr>
+          <td valign="top">Allow Background URL</td>
+          <td valign="top"><select name="background_url" id="select6">
+            <option value="yes" {if $row.background_url == yes}
+selected="selected"
+{/if}>Yes</option>
+            <option value="no" {if $row.background_url == no}
+selected="selected"
+{/if}>No</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td valign="top">Allow Background Upload</td>
+          <td valign="top"><select name="background_upload" id="select7">
+            <option value="yes" {if $row.background_upload == yes}
+selected="selected"
+{/if}>Yes</option>
+            <option value="no" {if $row.background_upload == no}
+selected="selected"
+{/if}>No</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td valign="top">Allow Background Color</td>
+          <td valign="top"><select name="background_color" id="background_color">
+            <option value="yes" {if $row.background_color == yes}
+selected="selected"
+{/if}>Yes</option>
+            <option value="no" {if $row.background_color == no}
+selected="selected"
+{/if}>No</option>
+          </select></td>
+        </tr>
+      </table>
+</fieldset>
+    </div>
+</div>
+<div align="right"class="main_page_div" style="padding:5px; min-height:0px; margin-top:10px"><label>
+  <input type="submit" name="update" class="button" value="Update Settings" id="udpate" />
+</label>
+</div>
+</form>
