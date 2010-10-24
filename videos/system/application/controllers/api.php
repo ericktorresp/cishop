@@ -21,8 +21,8 @@ define('API_RETURN_SUCCEED', '1');
 define('API_RETURN_FAILED', '-1');
 define('API_RETURN_FORBIDDEN', '-2');
 
-//error_reporting(0);
-set_magic_quotes_runtime(0);
+error_reporting(E_ALL & ~E_NOTICE);
+//set_magic_quotes_runtime(0);
 
 defined('MAGIC_QUOTES_GPC') || define('MAGIC_QUOTES_GPC', get_magic_quotes_gpc());
 require_once FCPATH.'./config.inc.php';
@@ -38,7 +38,7 @@ class Api extends Controller {
 	function api()
 	{
 		parent::Controller();
-		$this->load->model('users_model'); 
+		$this->load->model('user_model'); 
 	}
 	
 	function index(){
@@ -46,7 +46,6 @@ class Api extends Controller {
 	}
 	
 	function uc(){
-	    
 	    parse_str($_SERVER['QUERY_STRING'], $_GET);
 	    
 	    $_DCACHE = $get = $post = array();
@@ -56,7 +55,7 @@ class Api extends Controller {
 		if(MAGIC_QUOTES_GPC) {
 			$get = _stripslashes($get);
 		}
-		
+
 		$timestamp = time();
 		if($timestamp - $get['time'] > 3600) {
 			exit('Authracation has expiried');
@@ -66,6 +65,8 @@ class Api extends Controller {
 		}
 		$action = $get['action'];
 		require_once FCPATH.'./uc_client/lib/xml.class.php';
+		$post = xml_unserialize(file_get_contents('php://input'));
+		
 		if(in_array($action, array('test', 'deleteuser', 'renameuser', 'gettag', 'synlogin', 'synlogout',
 		 'updatepw', 'updatebadwords', 'updatehosts', 'updateapps', 'updateclient', 'updatecredit', 'getcreditsettings',
 		 'updatecreditsettings'))) {

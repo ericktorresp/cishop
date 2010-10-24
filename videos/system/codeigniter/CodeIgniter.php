@@ -95,7 +95,9 @@ $EXT->_call_hook('pre_system');
  */
 
 $CFG =& load_class('Config');
+//die('111111');
 $URI =& load_class('URI');
+//die('222222');
 $RTR =& load_class('Router');
 $OUT =& load_class('Output');
 

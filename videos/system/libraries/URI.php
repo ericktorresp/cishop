@@ -65,7 +65,7 @@ class CI_URI {
 			// build the URI string from the zero index of the $_GET array.
 			// This avoids having to deal with $_SERVER variables, which
 			// can be unreliable in some environments
-			if (is_array($_GET) && count($_GET) == 1 && trim(key($_GET), '/') != '')
+			if (is_array($_GET) && count($_GET) == 1 && trim(key($_GET), '/') != '' && trim(key($_GET), '/') != 'code')
 			{
 				$this->uri_string = key($_GET);
 				return;

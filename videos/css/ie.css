@@ -1,0 +1,24 @@
+/* EDIT PROFILE BUTTON */
+div.edit-profile-btn {
+width:100px;
+}
+
+div.edit-profile-btn a {
+	color:black;
+}
+
+div.edit-profile-btn a:hover {
+	background-position:right -470px;
+}
+
+div.tabs-profile {
+	width:142px;
+}
+
+div.tabs-profile a:hover {
+	background-position:right -552px;
+}
+
+ul.prefs-nav li div.active a:hover {
+	background-position:right -608px;
+}
