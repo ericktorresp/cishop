@@ -27,15 +27,11 @@ error_reporting(E_ALL & ~E_NOTICE);
 defined('MAGIC_QUOTES_GPC') || define('MAGIC_QUOTES_GPC', get_magic_quotes_gpc());
 require_once FCPATH.'./config.inc.php';
 
-class Api extends Controller {
-    
-    /**
-     * 
-     * @var Users_model
-     */
+class Api extends Controller
+{
     var $users_model;
     
-	function api()
+	function Api()
 	{
 		parent::Controller();
 		$this->load->model('user_model'); 
@@ -46,16 +42,15 @@ class Api extends Controller {
 	}
 	
 	function uc(){
-	    parse_str($_SERVER['QUERY_STRING'], $_GET);
+//	    parse_str($_SERVER['QUERY_STRING'], $_GET);
 	    
 	    $_DCACHE = $get = $post = array();
 
-		$code = @$_GET['code'];
+		$code = $this->input->get('code');
 		parse_str(_authcode($code, 'DECODE', UC_KEY), $get);
 		if(MAGIC_QUOTES_GPC) {
 			$get = _stripslashes($get);
 		}
-
 		$timestamp = time();
 		if($timestamp - $get['time'] > 3600) {
 			exit('Authracation has expiried');
@@ -64,7 +59,7 @@ class Api extends Controller {
 			exit('Invalid Request');
 		}
 		$action = $get['action'];
-		require_once FCPATH.'./uc_client/lib/xml.class.php';
+		require_once FCPATH.'./client/lib/xml.class.php';
 		$post = xml_unserialize(file_get_contents('php://input'));
 		
 		if(in_array($action, array('test', 'deleteuser', 'renameuser', 'gettag', 'synlogin', 'synlogout',
@@ -150,7 +145,7 @@ class uc_note {
 		//登录处理
 		$user = $this->CI->users_model->get_row($uid);
 		if($user){
-			$data['user_name'] = $user->user_name;
+			$data['username'] = $user->username;
 			$data['password'] = $user->password;
 			$this->CI->users_model->login($data);
 		}
@@ -185,7 +180,7 @@ class uc_note {
 		if(!API_UPDATEBADWORDS) {
 			return API_RETURN_FORBIDDEN;
 		}
-		$cachefile = $this->appdir.'./uc_client/data/cache/badwords.php';
+		$cachefile = $this->appdir.'./client/data/cache/badwords.php';
 		$fp = fopen($cachefile, 'w');
 		$data = array();
 		if(is_array($post)) {
