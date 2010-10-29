@@ -9,8 +9,8 @@
 | For more info visit:  http://www.php.net/error_reporting
 |
 */
-	error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
-
+	/*error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);*///for PHP5.3.x
+	error_reporting(E_ALL & ~E_NOTICE);//for PHP5.2.x
 /*
 |---------------------------------------------------------------
 | SYSTEM FOLDER NAME
