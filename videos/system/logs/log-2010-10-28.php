@@ -14753,3 +14753,2022 @@ DEBUG - 2010-10-28 22:37:52 --> Final output sent to browser
 ERROR - 2010-10-28 22:37:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
 DEBUG - 2010-10-28 22:37:52 --> Total execution time: 0.0374
 ERROR - 2010-10-28 22:37:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:37 --> Config Class Initialized
+ERROR - 2010-10-28 23:01:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:37 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:01:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:37 --> URI Class Initialized
+ERROR - 2010-10-28 23:01:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:37 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:01:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:37 --> Router Class Initialized
+ERROR - 2010-10-28 23:01:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:37 --> Output Class Initialized
+ERROR - 2010-10-28 23:01:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:37 --> Input Class Initialized
+ERROR - 2010-10-28 23:01:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:37 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:01:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:37 --> Language Class Initialized
+ERROR - 2010-10-28 23:01:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:37 --> Loader Class Initialized
+ERROR - 2010-10-28 23:01:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:38 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:01:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:38 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:01:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:38 --> Session Class Initialized
+ERROR - 2010-10-28 23:01:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:38 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:01:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:38 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:01:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:38 --> A session cookie was not found.
+ERROR - 2010-10-28 23:01:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:38 --> Session routines successfully run
+ERROR - 2010-10-28 23:01:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:38 --> Controller Class Initialized
+ERROR - 2010-10-28 23:01:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:38 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:01:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:38 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:01:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:38 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:01:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:38 --> Final output sent to browser
+ERROR - 2010-10-28 23:01:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:38 --> Total execution time: 0.0333
+ERROR - 2010-10-28 23:01:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:38 --> Config Class Initialized
+ERROR - 2010-10-28 23:01:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:38 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:01:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:38 --> URI Class Initialized
+ERROR - 2010-10-28 23:01:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:01:38 --> 404 Page Not Found --> favicon.ico
+ERROR - 2010-10-28 23:01:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Config Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> URI Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Router Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Output Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Input Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> XSS Filtering completed
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> XSS Filtering completed
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> XSS Filtering completed
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Language Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Loader Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Session Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Session routines successfully run
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Controller Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Model Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Language file loaded: language/english/members_lang.php
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:01:44 --> Severity: Notice  --> Undefined index: 0 /Library/WebServer/Documents/uc_client/lib/xml.class.php 68
+ERROR - 2010-10-28 23:01:44 --> Severity: Notice  --> Undefined index: 1 /Library/WebServer/Documents/uc_client/lib/xml.class.php 68
+ERROR - 2010-10-28 23:01:44 --> Severity: Notice  --> Undefined index: 2 /Library/WebServer/Documents/uc_client/lib/xml.class.php 68
+ERROR - 2010-10-28 23:01:44 --> Severity: Notice  --> Undefined index: 3 /Library/WebServer/Documents/uc_client/lib/xml.class.php 68
+ERROR - 2010-10-28 23:01:44 --> Severity: Notice  --> Undefined index: 4 /Library/WebServer/Documents/uc_client/lib/xml.class.php 68
+ERROR - 2010-10-28 23:01:44 --> Severity: Notice  --> Undefined variable: title /Library/WebServer/Documents/system/application/views/header.php 3
+DEBUG - 2010-10-28 23:01:44 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> File loaded: /Library/WebServer/Documents/system/application/views/message.php
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Final output sent to browser
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Total execution time: 0.0691
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Config Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> URI Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Router Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Output Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Input Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> XSS Filtering completed
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> XSS Filtering completed
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> XSS Filtering completed
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Language Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:01:44 --> Severity: 8192  --> Function set_magic_quotes_runtime() is deprecated /Library/WebServer/Documents/system/application/controllers/api.php 25
+DEBUG - 2010-10-28 23:01:44 --> Loader Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Session Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Session routines successfully run
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Controller Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:44 --> Model Class Initialized
+ERROR - 2010-10-28 23:01:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> Config Class Initialized
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> URI Class Initialized
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> Router Class Initialized
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> Output Class Initialized
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> Input Class Initialized
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> XSS Filtering completed
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> Language Class Initialized
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> Loader Class Initialized
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> Session Class Initialized
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> Session routines successfully run
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> Controller Class Initialized
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> Final output sent to browser
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:46 --> Total execution time: 0.0286
+ERROR - 2010-10-28 23:01:46 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> Config Class Initialized
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> URI Class Initialized
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> Router Class Initialized
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> Output Class Initialized
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> Input Class Initialized
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> XSS Filtering completed
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> XSS Filtering completed
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> XSS Filtering completed
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> Language Class Initialized
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:01:52 --> Severity: 8192  --> Function set_magic_quotes_runtime() is deprecated /Library/WebServer/Documents/system/application/controllers/api.php 25
+DEBUG - 2010-10-28 23:01:52 --> Loader Class Initialized
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> Session Class Initialized
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> Session routines successfully run
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> Controller Class Initialized
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:52 --> Model Class Initialized
+ERROR - 2010-10-28 23:01:52 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Config Class Initialized
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> URI Class Initialized
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Router Class Initialized
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Output Class Initialized
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Input Class Initialized
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Language Class Initialized
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Loader Class Initialized
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Session Class Initialized
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> A session cookie was not found.
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Session routines successfully run
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Controller Class Initialized
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Final output sent to browser
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Total execution time: 0.0245
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Config Class Initialized
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:01:56 --> URI Class Initialized
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:01:56 --> 404 Page Not Found --> favicon.ico
+ERROR - 2010-10-28 23:01:56 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:07:15 --> Config Class Initialized
+ERROR - 2010-10-28 23:07:15 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:07:15 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:07:15 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:07:15 --> URI Class Initialized
+ERROR - 2010-10-28 23:07:15 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:07:15 --> 404 Page Not Found --> rss
+ERROR - 2010-10-28 23:07:15 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Config Class Initialized
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> URI Class Initialized
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Router Class Initialized
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Output Class Initialized
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Input Class Initialized
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> XSS Filtering completed
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Language Class Initialized
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Loader Class Initialized
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Session Class Initialized
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Session routines successfully run
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Controller Class Initialized
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Final output sent to browser
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Total execution time: 0.0344
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Config Class Initialized
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:15:44 --> URI Class Initialized
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:15:44 --> 404 Page Not Found --> favicon.ico
+ERROR - 2010-10-28 23:15:44 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:35 --> Config Class Initialized
+ERROR - 2010-10-28 23:19:35 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:35 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:19:35 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:35 --> URI Class Initialized
+ERROR - 2010-10-28 23:19:35 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:19:35 --> 404 Page Not Found --> favicon.ico
+ERROR - 2010-10-28 23:19:35 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:35 --> Config Class Initialized
+ERROR - 2010-10-28 23:19:35 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:35 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:19:35 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:35 --> URI Class Initialized
+ERROR - 2010-10-28 23:19:35 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:19:35 --> 404 Page Not Found --> favicon.ico
+ERROR - 2010-10-28 23:19:35 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:37 --> Config Class Initialized
+ERROR - 2010-10-28 23:19:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:37 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:19:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:37 --> URI Class Initialized
+ERROR - 2010-10-28 23:19:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:19:37 --> 404 Page Not Found --> favicon.ico
+ERROR - 2010-10-28 23:19:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:38 --> Config Class Initialized
+ERROR - 2010-10-28 23:19:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:38 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:19:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:38 --> URI Class Initialized
+ERROR - 2010-10-28 23:19:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:19:38 --> 404 Page Not Found --> favicon.ico
+ERROR - 2010-10-28 23:19:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:38 --> Config Class Initialized
+ERROR - 2010-10-28 23:19:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:38 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:19:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:38 --> URI Class Initialized
+ERROR - 2010-10-28 23:19:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:19:38 --> 404 Page Not Found --> favicon.ico
+ERROR - 2010-10-28 23:19:38 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> Config Class Initialized
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> URI Class Initialized
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> Router Class Initialized
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> Output Class Initialized
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> Input Class Initialized
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> XSS Filtering completed
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> Language Class Initialized
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> Loader Class Initialized
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> Session Class Initialized
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> Session routines successfully run
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> Controller Class Initialized
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> Final output sent to browser
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:19:48 --> Total execution time: 0.0343
+ERROR - 2010-10-28 23:19:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> Config Class Initialized
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> URI Class Initialized
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> Router Class Initialized
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> Output Class Initialized
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> Input Class Initialized
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> XSS Filtering completed
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> XSS Filtering completed
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> Language Class Initialized
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:20:17 --> Severity: 8192  --> Function set_magic_quotes_runtime() is deprecated /Library/WebServer/Documents/system/application/controllers/api.php 25
+DEBUG - 2010-10-28 23:20:17 --> Loader Class Initialized
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> Session Class Initialized
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> A session cookie was not found.
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> Session routines successfully run
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> Controller Class Initialized
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:17 --> Model Class Initialized
+ERROR - 2010-10-28 23:20:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Config Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> URI Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Router Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Output Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Input Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> XSS Filtering completed
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Language Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Loader Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Session Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Session routines successfully run
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Controller Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Final output sent to browser
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Total execution time: 0.0334
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Config Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> URI Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Router Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Output Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Input Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> XSS Filtering completed
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Language Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Loader Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Session Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Session routines successfully run
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Controller Class Initialized
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Final output sent to browser
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:21 --> Total execution time: 0.0308
+ERROR - 2010-10-28 23:20:21 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Config Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> URI Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Router Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Output Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Input Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> XSS Filtering completed
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Language Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Loader Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Session Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Session routines successfully run
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Controller Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Final output sent to browser
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Total execution time: 0.0310
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Config Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> URI Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Router Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Output Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Input Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> XSS Filtering completed
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Language Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Loader Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Session Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Session routines successfully run
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Controller Class Initialized
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Final output sent to browser
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:22 --> Total execution time: 0.0314
+ERROR - 2010-10-28 23:20:22 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Config Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> URI Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Router Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Output Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Input Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> XSS Filtering completed
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> XSS Filtering completed
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> XSS Filtering completed
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Language Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Loader Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Session Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Session routines successfully run
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Controller Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Model Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Language file loaded: language/english/members_lang.php
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:20:39 --> Severity: Notice  --> Undefined index: 0 /Library/WebServer/Documents/uc_client/lib/xml.class.php 68
+ERROR - 2010-10-28 23:20:39 --> Severity: Notice  --> Undefined index: 1 /Library/WebServer/Documents/uc_client/lib/xml.class.php 68
+ERROR - 2010-10-28 23:20:39 --> Severity: Notice  --> Undefined index: 2 /Library/WebServer/Documents/uc_client/lib/xml.class.php 68
+ERROR - 2010-10-28 23:20:39 --> Severity: Notice  --> Undefined index: 3 /Library/WebServer/Documents/uc_client/lib/xml.class.php 68
+ERROR - 2010-10-28 23:20:39 --> Severity: Notice  --> Undefined index: 4 /Library/WebServer/Documents/uc_client/lib/xml.class.php 68
+ERROR - 2010-10-28 23:20:39 --> Severity: Notice  --> Undefined variable: title /Library/WebServer/Documents/system/application/views/header.php 3
+DEBUG - 2010-10-28 23:20:39 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> File loaded: /Library/WebServer/Documents/system/application/views/message.php
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Final output sent to browser
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Total execution time: 0.0654
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Config Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> URI Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Router Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Output Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Input Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> XSS Filtering completed
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> XSS Filtering completed
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> XSS Filtering completed
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Language Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:20:39 --> Severity: 8192  --> Function set_magic_quotes_runtime() is deprecated /Library/WebServer/Documents/system/application/controllers/api.php 25
+DEBUG - 2010-10-28 23:20:39 --> Loader Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Session Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Session routines successfully run
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Controller Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:39 --> Model Class Initialized
+ERROR - 2010-10-28 23:20:39 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> Config Class Initialized
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> URI Class Initialized
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> Router Class Initialized
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> Output Class Initialized
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> Input Class Initialized
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> XSS Filtering completed
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> Language Class Initialized
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> Loader Class Initialized
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> Session Class Initialized
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> Session routines successfully run
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> Controller Class Initialized
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> Final output sent to browser
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:40 --> Total execution time: 0.0278
+ERROR - 2010-10-28 23:20:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> Config Class Initialized
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> URI Class Initialized
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> Router Class Initialized
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> Output Class Initialized
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> Input Class Initialized
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> XSS Filtering completed
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> Language Class Initialized
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> Loader Class Initialized
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> Session Class Initialized
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> Session routines successfully run
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> Controller Class Initialized
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> Final output sent to browser
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:45 --> Total execution time: 0.0299
+ERROR - 2010-10-28 23:20:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Config Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> URI Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Router Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Output Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Input Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> XSS Filtering completed
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Language Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Loader Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Session Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Session routines successfully run
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Controller Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Model Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Language file loaded: language/english/members_lang.php
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> File loaded: /Library/WebServer/Documents/system/application/views/message.php
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Final output sent to browser
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Total execution time: 0.0424
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Config Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> URI Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Router Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Output Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Input Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> XSS Filtering completed
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> XSS Filtering completed
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Language Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:20:48 --> Severity: 8192  --> Function set_magic_quotes_runtime() is deprecated /Library/WebServer/Documents/system/application/controllers/api.php 25
+DEBUG - 2010-10-28 23:20:48 --> Loader Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Session Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> A session cookie was not found.
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Session routines successfully run
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Controller Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:48 --> Model Class Initialized
+ERROR - 2010-10-28 23:20:48 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> Config Class Initialized
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> URI Class Initialized
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> Router Class Initialized
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> Output Class Initialized
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> Input Class Initialized
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> Language Class Initialized
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> Loader Class Initialized
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> Session Class Initialized
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> A session cookie was not found.
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> Session routines successfully run
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> Controller Class Initialized
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> Final output sent to browser
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:50 --> Total execution time: 0.0291
+ERROR - 2010-10-28 23:20:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> Config Class Initialized
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> URI Class Initialized
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> Router Class Initialized
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> Output Class Initialized
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> Input Class Initialized
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> XSS Filtering completed
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> Language Class Initialized
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> Loader Class Initialized
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> Session Class Initialized
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> Session routines successfully run
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> Controller Class Initialized
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> Final output sent to browser
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:20:51 --> Total execution time: 0.0328
+ERROR - 2010-10-28 23:20:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> Config Class Initialized
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> URI Class Initialized
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> Router Class Initialized
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> Output Class Initialized
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> Input Class Initialized
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> Language Class Initialized
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> Loader Class Initialized
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> Session Class Initialized
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> A session cookie was not found.
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> Session routines successfully run
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> Controller Class Initialized
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> Final output sent to browser
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:17 --> Total execution time: 0.0321
+ERROR - 2010-10-28 23:21:17 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> Config Class Initialized
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> URI Class Initialized
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> Router Class Initialized
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> Output Class Initialized
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> Input Class Initialized
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> XSS Filtering completed
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> XSS Filtering completed
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> Language Class Initialized
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:21:33 --> Severity: 8192  --> Function set_magic_quotes_runtime() is deprecated /Library/WebServer/Documents/system/application/controllers/api.php 25
+DEBUG - 2010-10-28 23:21:33 --> Loader Class Initialized
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> Session Class Initialized
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> A session cookie was not found.
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> Session routines successfully run
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> Controller Class Initialized
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:33 --> Model Class Initialized
+ERROR - 2010-10-28 23:21:33 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Config Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> URI Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Router Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Output Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Input Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> XSS Filtering completed
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Language Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Loader Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Session Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Session garbage collection performed.
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Session routines successfully run
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Controller Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Final output sent to browser
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Total execution time: 0.0330
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Config Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> URI Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Router Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Output Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Input Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> XSS Filtering completed
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Language Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Loader Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Session Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Session garbage collection performed.
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Session routines successfully run
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Controller Class Initialized
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Final output sent to browser
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:36 --> Total execution time: 0.0315
+ERROR - 2010-10-28 23:21:36 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Config Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> URI Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Router Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Output Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Input Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> XSS Filtering completed
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Language Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Loader Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Session Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Session routines successfully run
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Controller Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Final output sent to browser
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Total execution time: 0.0325
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Config Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> URI Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Router Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Output Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Input Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> XSS Filtering completed
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Language Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Loader Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Session Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Session routines successfully run
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Controller Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Final output sent to browser
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Total execution time: 0.0306
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Config Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> URI Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Router Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Output Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Input Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> XSS Filtering completed
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Language Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Loader Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Session Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Session routines successfully run
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Controller Class Initialized
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Final output sent to browser
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:37 --> Total execution time: 0.0312
+ERROR - 2010-10-28 23:21:37 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> Config Class Initialized
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> URI Class Initialized
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> Router Class Initialized
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> Output Class Initialized
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> Input Class Initialized
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> XSS Filtering completed
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> XSS Filtering completed
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> Language Class Initialized
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:21:40 --> Severity: 8192  --> Function set_magic_quotes_runtime() is deprecated /Library/WebServer/Documents/system/application/controllers/api.php 25
+DEBUG - 2010-10-28 23:21:40 --> Loader Class Initialized
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> Session Class Initialized
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> A session cookie was not found.
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> Session routines successfully run
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> Controller Class Initialized
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:21:40 --> Model Class Initialized
+ERROR - 2010-10-28 23:21:40 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> Config Class Initialized
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> URI Class Initialized
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> Router Class Initialized
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> Output Class Initialized
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> Input Class Initialized
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> XSS Filtering completed
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> Language Class Initialized
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> Loader Class Initialized
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> Session Class Initialized
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> Session routines successfully run
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> Controller Class Initialized
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> Final output sent to browser
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:29 --> Total execution time: 0.0314
+ERROR - 2010-10-28 23:22:29 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> Config Class Initialized
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> URI Class Initialized
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> Router Class Initialized
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> Output Class Initialized
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> Input Class Initialized
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> XSS Filtering completed
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> XSS Filtering completed
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> XSS Filtering completed
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> Language Class Initialized
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:22:45 --> Severity: 8192  --> Function set_magic_quotes_runtime() is deprecated /Library/WebServer/Documents/system/application/controllers/api.php 25
+DEBUG - 2010-10-28 23:22:45 --> Loader Class Initialized
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> Session Class Initialized
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> Session routines successfully run
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> Controller Class Initialized
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:45 --> Model Class Initialized
+ERROR - 2010-10-28 23:22:45 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> Config Class Initialized
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> URI Class Initialized
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> Router Class Initialized
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> Output Class Initialized
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> Input Class Initialized
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> XSS Filtering completed
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> Language Class Initialized
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> Loader Class Initialized
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> Session Class Initialized
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> Session routines successfully run
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> Controller Class Initialized
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> Final output sent to browser
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:22:49 --> Total execution time: 0.0334
+ERROR - 2010-10-28 23:22:49 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Config Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> URI Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Router Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Output Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Input Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> XSS Filtering completed
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Language Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Loader Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Session Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Session routines successfully run
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Controller Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Model Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Language file loaded: language/english/members_lang.php
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> File loaded: /Library/WebServer/Documents/system/application/views/message.php
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Final output sent to browser
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Total execution time: 0.0449
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Config Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> URI Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Router Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Output Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Input Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> XSS Filtering completed
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> XSS Filtering completed
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Language Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:23:50 --> Severity: 8192  --> Function set_magic_quotes_runtime() is deprecated /Library/WebServer/Documents/system/application/controllers/api.php 25
+DEBUG - 2010-10-28 23:23:50 --> Loader Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Session Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> A session cookie was not found.
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Session routines successfully run
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Controller Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:50 --> Model Class Initialized
+ERROR - 2010-10-28 23:23:50 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> Config Class Initialized
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> URI Class Initialized
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> Router Class Initialized
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> Output Class Initialized
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> Input Class Initialized
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> Language Class Initialized
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> Loader Class Initialized
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> Session Class Initialized
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> A session cookie was not found.
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> Session routines successfully run
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> Controller Class Initialized
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> Final output sent to browser
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:23:51 --> Total execution time: 0.0272
+ERROR - 2010-10-28 23:23:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Config Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> URI Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Router Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Output Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Input Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> XSS Filtering completed
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> XSS Filtering completed
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> XSS Filtering completed
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Language Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Loader Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Session Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Session routines successfully run
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Controller Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Model Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Language file loaded: language/english/members_lang.php
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:24:05 --> Severity: Notice  --> Undefined index: 0 /Library/WebServer/Documents/uc_client/lib/xml.class.php 68
+ERROR - 2010-10-28 23:24:05 --> Severity: Notice  --> Undefined index: 1 /Library/WebServer/Documents/uc_client/lib/xml.class.php 68
+ERROR - 2010-10-28 23:24:05 --> Severity: Notice  --> Undefined index: 2 /Library/WebServer/Documents/uc_client/lib/xml.class.php 68
+ERROR - 2010-10-28 23:24:05 --> Severity: Notice  --> Undefined index: 3 /Library/WebServer/Documents/uc_client/lib/xml.class.php 68
+ERROR - 2010-10-28 23:24:05 --> Severity: Notice  --> Undefined index: 4 /Library/WebServer/Documents/uc_client/lib/xml.class.php 68
+ERROR - 2010-10-28 23:24:05 --> Severity: Notice  --> Undefined variable: title /Library/WebServer/Documents/system/application/views/header.php 3
+DEBUG - 2010-10-28 23:24:05 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> File loaded: /Library/WebServer/Documents/system/application/views/message.php
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Final output sent to browser
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Total execution time: 0.0656
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Config Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> URI Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Router Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Output Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Input Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> XSS Filtering completed
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> XSS Filtering completed
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> XSS Filtering completed
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Language Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:24:05 --> Severity: 8192  --> Function set_magic_quotes_runtime() is deprecated /Library/WebServer/Documents/system/application/controllers/api.php 25
+DEBUG - 2010-10-28 23:24:05 --> Loader Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Session Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Session routines successfully run
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Controller Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:05 --> Model Class Initialized
+ERROR - 2010-10-28 23:24:05 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> Config Class Initialized
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> URI Class Initialized
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> Router Class Initialized
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> Output Class Initialized
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> Input Class Initialized
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> XSS Filtering completed
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> Language Class Initialized
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> Loader Class Initialized
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> Session Class Initialized
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> Session routines successfully run
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> Controller Class Initialized
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> Final output sent to browser
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:24:06 --> Total execution time: 0.0297
+ERROR - 2010-10-28 23:24:06 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> Config Class Initialized
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> URI Class Initialized
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> Router Class Initialized
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> Output Class Initialized
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> Input Class Initialized
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> XSS Filtering completed
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> Language Class Initialized
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> Loader Class Initialized
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> Session Class Initialized
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> Session routines successfully run
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> Controller Class Initialized
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> Final output sent to browser
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:32:25 --> Total execution time: 0.0320
+ERROR - 2010-10-28 23:32:25 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Config Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> URI Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Router Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Output Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Input Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> XSS Filtering completed
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Language Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Loader Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Session Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Session routines successfully run
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Controller Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Model Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Language file loaded: language/english/members_lang.php
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> File loaded: /Library/WebServer/Documents/system/application/views/message.php
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Final output sent to browser
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Total execution time: 0.0456
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Config Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> URI Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Router Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Output Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Input Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> XSS Filtering completed
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> XSS Filtering completed
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Language Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:35:51 --> Severity: 8192  --> Function set_magic_quotes_runtime() is deprecated /Library/WebServer/Documents/system/application/controllers/api.php 25
+DEBUG - 2010-10-28 23:35:51 --> Loader Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Session Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> A session cookie was not found.
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Session routines successfully run
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Controller Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Model Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Config Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:51 --> URI Class Initialized
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:35:51 --> 404 Page Not Found --> favicon.ico
+ERROR - 2010-10-28 23:35:51 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Config Class Initialized
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> URI Class Initialized
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> No URI present. Default controller set.
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Router Class Initialized
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Output Class Initialized
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Input Class Initialized
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Global POST and COOKIE data sanitized
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Language Class Initialized
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Loader Class Initialized
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Helper loaded: url_helper
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Database Driver Class Initialized
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Session Class Initialized
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Helper loaded: string_helper
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Encrypt Class Initialized
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> A session cookie was not found.
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Session routines successfully run
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Controller Class Initialized
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> File loaded: /Library/WebServer/Documents/system/application/views/header.php
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> File loaded: /Library/WebServer/Documents/system/application/views/welcome_message.php
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> File loaded: /Library/WebServer/Documents/system/application/views/footer.php
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Final output sent to browser
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Total execution time: 0.0294
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Config Class Initialized
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:35:54 --> URI Class Initialized
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:35:54 --> 404 Page Not Found --> favicon.ico
+ERROR - 2010-10-28 23:35:54 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:36:15 --> Config Class Initialized
+ERROR - 2010-10-28 23:36:15 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:36:15 --> Hooks Class Initialized
+ERROR - 2010-10-28 23:36:15 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+DEBUG - 2010-10-28 23:36:15 --> URI Class Initialized
+ERROR - 2010-10-28 23:36:15 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
+ERROR - 2010-10-28 23:36:15 --> 404 Page Not Found --> rss
+ERROR - 2010-10-28 23:36:15 --> Severity: Warning  --> chmod(): Operation not permitted /Library/WebServer/Documents/system/libraries/Log.php 109
