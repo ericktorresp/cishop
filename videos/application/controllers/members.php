@@ -1,5 +1,5 @@
 <?php
-include './uc_client/client.php';
+include_once './uc_client/client.php';
 class Members extends Controller
 {
 	public function __constuct()
@@ -14,9 +14,16 @@ class Members extends Controller
 		$this->lang->load('members', 'english');
 	}
 
+	/**
+	 * 用户首页
+	 */
 	public function index()
 	{
-		$this->login();
+		if(!$this->session->userdata('uid'))
+		{
+			redirect('/');
+		}
+		$this->load->view('member');
 	}
 	
 	public function login()
