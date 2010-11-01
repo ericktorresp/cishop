@@ -21,6 +21,13 @@ class Video extends Controller
 	
 	public function watch()
 	{
-		
+		if($video = $this->VideoModel->video(0, $this->input->get('key')))
+		{
+			
+		}
+		else
+		{
+			show_404();
+		}
 	}
 }

@@ -10,7 +10,12 @@ class MembersModel extends Model
 	var $validate_start = '';
 	var $validate_ends = '';
 	
-	function MembersModel()
+	public function __construct()
+	{
+		$this->MembersModel();
+	}
+	
+	public function MembersModel()
 	{
 		parent::Model();
 	}
@@ -43,10 +48,5 @@ class MembersModel extends Model
 			return TRUE;
 		}
 		return FALSE;
-	}
-	
-	function logout()
-	{
-		$this->session->sess_destroy();
 	}
 }
