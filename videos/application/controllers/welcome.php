@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * 站点首页控制器
+ * @author Floyd
+ *
+ */
 class Welcome extends Controller {
 
 	function __construct()

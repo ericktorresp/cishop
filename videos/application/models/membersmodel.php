@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * 用户模型
+ * @author Floyd
+ *
+ */
 class MembersModel extends Model
 {
 	var $table = 'members';

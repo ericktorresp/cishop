@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * 视频前台页面控制器
+ * @author Floyd
+ *
+ */
 class Video extends Controller
 {
 	
