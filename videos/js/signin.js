@@ -95,7 +95,7 @@ var signinbox = {
 			}
 		}
 	}
-}
+};
 
 // We need to handle this so the dimmed background works good.
 function recalcSigninBox(e) {

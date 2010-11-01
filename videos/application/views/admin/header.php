@@ -6,12 +6,10 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/admin/styles.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/admin/jquery.fancybox.css" media="screen" />
 <link rel="shortcut icon" href="<?php echo base_url();?>images/favicon.ico" type="image/x-icon" />
-<script type="text/javascript" src="<?php echo base_url();?>js/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>js/jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>js/jquery.fancybox-1.2.1.pack.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>js/jquery.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$(".gallerypic a").fancybox();
+		
 	});
 </script>
 </head>
