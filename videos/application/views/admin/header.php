@@ -17,7 +17,9 @@
 	<div id="container">
 		<div id="header">
 			<div id="logo"><img src="<?php echo base_url();?>images/admin/admin_logo.jpg" alt="" /></div>
-			<div id="logout"><a href="<?php echo site_url("login/logout")?>">Logout</a></div>
+			<?php if($this->session->userdata('uid')){?>
+			<div id="logout"><a href="<?php echo site_url("/logout")?>">Logout</a></div>
+			<?php }?>
 		<div>
 		<div id="navigation">
 			<ul>

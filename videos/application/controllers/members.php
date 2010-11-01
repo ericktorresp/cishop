@@ -25,45 +25,52 @@ class Members extends Controller
 		}
 		$this->load->view('member');
 	}
-	
+
 	public function login()
 	{
-		list($uid, $username, $password, $email) = uc_user_login($this->input->post('username'), $this->input->post('password'));
-		$this->load->view('header');
-		$data['title'] = $this->config->item('site_title');
-		if($uid > 0)
+		if(!$this->input->post('loginsubmit'))
 		{
-			if(!$this->db->get_where('members', array('uid'=>$uid))->num_rows())
-			{
-				$data['message_title'] = $this->lang->line('members_active_descript');
-				$data['link']['title'] = $this->lang->line('members_active');
-				$data['link']['url'] = '/activation?auth=';
-				$data['link']['url'] .= rawurlencode(uc_authcode("$username\t".time()."\t".uc_authcode($password, 'ENCODE'), 'ENCODE'));
-			}
-			else
-			{
-				//生成同步登录的代码
-				$ucsynlogin = uc_user_synlogin($uid);
-				$data['message_title'] = $this->lang->line('members_login_success').$ucsynlogin;
-				$data['link']['title'] = $this->lang->line('members_continue');
-				$data['link']['url'] = $this->config->item('base_url');
-				$this->session->set_userdata('uid', $uid);
-			}
-		}
-		elseif($uid == -1)
-		{
-			$data['message_title'] = $this->lang->line('members_does_not_exist');
-		}
-		elseif($uid == -2)
-		{
-			$data['message_title'] = $this->lang->line('members_wrong_password');
+			$this->load->view('login');
 		}
 		else
 		{
-			$data['message_title'] = $this->lang->line('members_unknown_error');
+			list($uid, $username, $password, $email) = uc_user_login($this->input->post('username'), $this->input->post('password'));
+			$this->load->view('header');
+			$data['title'] = $this->config->item('site_title');
+			if($uid > 0)
+			{
+				if(!$this->db->get_where('members', array('uid'=>$uid))->num_rows())
+				{
+					$data['message_title'] = $this->lang->line('members_active_descript');
+					$data['link']['title'] = $this->lang->line('members_active');
+					$data['link']['url'] = '/activation?auth=';
+					$data['link']['url'] .= rawurlencode(uc_authcode("$username\t".time()."\t".uc_authcode($password, 'ENCODE'), 'ENCODE'));
+				}
+				else
+				{
+					//生成同步登录的代码
+					$ucsynlogin = uc_user_synlogin($uid);
+					$data['message_title'] = $this->lang->line('members_login_success').$ucsynlogin;
+					$data['link']['title'] = $this->lang->line('members_continue');
+					$data['link']['url'] = $this->config->item('base_url');
+					$this->session->set_userdata('uid', $uid);
+				}
+			}
+			elseif($uid == -1)
+			{
+				$data['message_title'] = $this->lang->line('members_does_not_exist');
+			}
+			elseif($uid == -2)
+			{
+				$data['message_title'] = $this->lang->line('members_wrong_password');
+			}
+			else
+			{
+				$data['message_title'] = $this->lang->line('members_unknown_error');
+			}
+			$this->load->view('message', $data);
+			$this->load->view('footer');
 		}
-		$this->load->view('message', $data);
-		$this->load->view('footer');
 	}
 
 	/**

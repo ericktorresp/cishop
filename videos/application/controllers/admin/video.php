@@ -14,12 +14,16 @@ class Video extends Controller
 	public function Video()
 	{
 		parent::Controller();
+		if(!$this->session->userdata('uid'))
+		{
+			redirect('/login');
+		}
 	}
 
 	public function add()
 	{
 		$this->load->helper('form');
-		if(!$this->input->post('submit'))
+		if(!$this->input->post('videosubmit'))
 		{
 			$this->load->view('admin/video_form');
 		}
@@ -33,8 +37,7 @@ class Video extends Controller
 			$this->load->library('upload', $config);
 			if ( ! $this->upload->do_upload())
 			{
-				$error = array('error' => $this->upload->display_errors());
-					
+				$error = array('error' => $this->upload->display_errors('<div class="error">','</div>'));
 				$this->load->view('admin/video_form', $error);
 			}
 			else
