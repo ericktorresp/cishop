@@ -28,7 +28,6 @@ echo form_open_multipart('admin/video/add', array('name'=>'insert_work'));
               'style'       => 'width:50%',
             ));echo form_error('title');?>
 </div>
-
 <div>
 	<span>简介:<br /></span>
     <?php echo form_textarea('description','');?>
