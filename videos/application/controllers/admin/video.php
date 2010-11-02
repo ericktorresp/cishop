@@ -65,9 +65,14 @@ class Video extends Controller
 					'published'=>$this->input->post('published')
 				);
 				//insert into videos
-				var_dump($this->VideoModel->add($data));die;
-				$this->load->view('admin/video_success', $data);
+				$this->VideoModel->add($data);
+				redirect('/admin/video');
 			}
 		}
+	}
+
+	public function index()
+	{
+		echo 'video list.';
 	}
 }
