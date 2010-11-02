@@ -24,7 +24,7 @@ class CategoriesModel extends Model
 	 *
 	 * @return	int		-1:exists
 	 */
-	public function add_category($title)
+	public function add($title)
 	{
 		if(!$this->_check_title($title))
 		{
@@ -48,6 +48,18 @@ class CategoriesModel extends Model
 		return $this->db->get($this->table)->result();
 	}
 	
+	/**
+	 * 类别选择下拉框列表
+	 */
+	public function categories_for_dropdown()
+	{
+		$cats = array();
+		foreach($this->categories() AS $cat)
+		{
+			$cats[$cat->cid] = $cat->title;
+		}
+		return $cats;
+	}
 	/**
 	 * 编辑分类
 	 * @param	int		$cid

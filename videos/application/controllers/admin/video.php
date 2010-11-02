@@ -18,32 +18,54 @@ class Video extends Controller
 		{
 			redirect('/login');
 		}
+		$this->lang->load('video');
 	}
 
 	public function add()
 	{
 		$this->load->helper('form');
-		if(!$this->input->post('videosubmit'))
+		$this->load->model(array('CategoriesModel', 'ServersModel', 'VideoModel'));
+		$this->load->library('form_validation');
+		$this->form_validation->set_error_delimiters('<span class="error">', '</span>');
+		$data = array(
+			'cats'=>$this->CategoriesModel->categories_for_dropdown(),
+			'servers'=>$this->ServersModel->servers_for_dropdown()
+		);
+		if($this->form_validation->run() == FALSE)
 		{
-			$this->load->view('admin/video_form');
+			$this->load->view('admin/video_form',$data);
+			return;
 		}
 		else
 		{
-			$config['upload_path'] = './uploads/';
-			$config['allowed_types'] = 'gif|jpg|png';
-			$config['max_size'] = '1000';
-			$config['max_width']  = '1024';
-			$config['max_height']  = '768';
-			$this->load->library('upload', $config);
-			if ( ! $this->upload->do_upload())
+			$this->load->helper('string');
+			$this->load->library('upload');
+
+			if (!$this->upload->do_upload())
 			{
-				$error = array('error' => $this->upload->display_errors('<div class="error">','</div>'));
-				$this->load->view('admin/video_form', $error);
+				$data['error'] = $this->upload->display_errors('<div class="error">','</div>');
+				$this->load->view('admin/video_form', $data);
 			}
 			else
 			{
-				$data = array('upload_data' => $this->upload->data());
-					
+				$image_data =$this->upload->data();
+				$data = array(
+					'cid'=>$this->input->post('cid'),
+					'title'=>$this->input->post('title'),
+					'key'=>array_shift(explode('.',$image_data['file_name'])),
+					'description'=>$this->input->post['description'],
+					'file_name'=>'',
+					'width'=>$this->input->post('width'),
+					'height'=>$this->input->post('height'),
+					'ctime'=>time(),
+					'views'=>$this->input->post('views') ? $this->input->post('views') : 0,
+					'is_fetured'=>$this->input->post('is_fetured')?$this->input->post('is_fetured'):0,
+					'rate'=>0,
+					'server'=>$this->input->post('server'),
+					'published'=>$this->input->post('published')
+				);
+				//insert into videos
+				var_dump($this->VideoModel->add($data));die;
 				$this->load->view('admin/video_success', $data);
 			}
 		}

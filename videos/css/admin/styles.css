@@ -12,7 +12,7 @@ textarea { font-family:Helvetica, Arial, sans-serif; background:#fff; border:1px
 hr { border:1px solid #333; height:1px; }
 img { border:none; }
 pre { font-family:'Courier New', Monaco, monospace; color:#333; font-size:11px; }
-em { color:#666; font-size:11px; }
+em { color:#666; font-size:12px; }
 
 #submit { background:#92c844; color:#fff; border:1px solid #6a9a24; height:25px; text-shadow: 1px 1px #333; }
 #container { margin:0; width:100%; }

@@ -11,10 +11,12 @@ class VideoModel extends Model
 	var $file_name;
 	var $width;
 	var $height;
-	var $publish_time;
+	var $ctime;
 	var $views;
 	var $is_fetured;
 	var $rate;
+	var $server;
+	var $published;
 
 	public function __construct()
 	{
