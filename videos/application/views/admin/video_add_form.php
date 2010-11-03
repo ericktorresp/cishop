@@ -1,24 +1,31 @@
 <?php
 $this->load->view('admin/header');
 ?>
-<h1>添加视频</h1>
+<h1><?php echo $this->lang->line('add');?></h1>
 <div id="work-insert" class="form-page">
 <?php
 echo form_open_multipart('admin/video/add', array('name'=>'insert_work'));
 ?>
 <div>
-	<span>类别:<br /></span>
+	<span><?php echo $this->lang->line('category');?>:<br /></span>
 	<?php
 	echo form_dropdown('cid', $cats);
 	echo form_error('cid');
 	?>
 </div>
 <div>
-	<span>服务器:<br /></span>
+	<span><?php echo $this->lang->line('video_mime');?>:<br /></span>
+	<?php
+	echo form_dropdown('mime', array('flv'=>'flv','mp4'=>'mp4','f4v'=>'f4v'));
+	echo form_error('mime');
+	?>
+</div>
+<div>
+	<span><?php echo $this->lang->line('video_server');?>:<br /></span>
 	<?php echo form_dropdown('server', $servers);echo form_error('server');?>
 </div>
 <div>
-	<span>标题:<br /></span>
+	<span><?php echo $this->lang->line('video_title');?>:<br /></span>
 	<?php echo form_input(array(
               'name'        => 'title',
               'id'          => 'title',
@@ -29,11 +36,11 @@ echo form_open_multipart('admin/video/add', array('name'=>'insert_work'));
             ));echo form_error('title');?>
 </div>
 <div>
-	<span>简介:<br /></span>
+	<span><?php echo $this->lang->line('video_description');?>:<br /></span>
     <?php echo form_textarea('description','');?>
 </div>
 <div>
-	<span>宽x高:<br /></span>
+	<span><?php echo $this->lang->line('video_width');?>x<?php echo $this->lang->line('video_height');?>:<br /></span>
 	<?php echo form_input(array(
               'name'        => 'width',
               'id'          => 'width',
@@ -51,11 +58,22 @@ echo form_open_multipart('admin/video/add', array('name'=>'insert_work'));
             ));echo form_error('width');echo form_error('height');?>
 </div>
 <div>
-	<span>是否推荐:<br /></span>
+	<span><?php echo $this->lang->line('video_duration');?>:<br /></span>
+	<?php echo form_input(array(
+              'name'        => 'duration',
+              'id'          => 'duration',
+              'value'       => set_value('duration'),
+              'maxlength'   => '10',
+              'size'        => '5',
+              'style'       => 'width:60px',
+            ));echo form_error('duration');?>
+</div>
+<div>
+	<span><?php echo $this->lang->line('video_futured');?>:<br /></span>
     <?php echo form_checkbox('is_fetured', '1', FALSE);?>
 </div>
 <div>
-	<span>观看次数:<br /></span>
+	<span><?php echo $this->lang->line('video_views');?>:<br /></span>
     <?php echo form_input(array(
               'name'        => 'views',
               'id'          => 'views',
@@ -66,11 +84,11 @@ echo form_open_multipart('admin/video/add', array('name'=>'insert_work'));
             ));?>
 </div>
 <div>
-	<span>已完成上传:<br /></span>
+	<span><?php echo $this->lang->line('video_published');?>:<br /></span>
     <?php echo form_checkbox('published', '1', FALSE);?>
 </div>
 <div>
-	<span>缩略图:<br /></span>
+	<span><?php echo $this->lang->line('video_thumbnail');?>:<br /></span>
 	<?php
 	echo form_upload('userfile',set_value('userfile'),'id=userfile');
 	echo $error;

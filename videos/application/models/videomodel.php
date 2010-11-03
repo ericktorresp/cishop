@@ -11,12 +11,14 @@ class VideoModel extends Model
 	var $file_name;
 	var $width;
 	var $height;
+	var $duration;
 	var $ctime;
 	var $views;
 	var $is_fetured;
 	var $rate;
 	var $server;
 	var $published;
+	var $mime;
 
 	public function __construct()
 	{
@@ -29,6 +31,31 @@ class VideoModel extends Model
 	}
 
 	/**
+	 * 视频列表
+	 * @param int $offset
+	 * @param int $perpage
+	 *
+	 * @return array
+	 */
+	public function videos($cid, $offset=0, $perpage=20)
+	{
+		if(!$cid)
+		{
+			return array(
+				'total'=>$this->db->count_all_results($this->table),
+				'data'=>$this->db->order_by('vid','DESC')->join('categories','videos.cid=categories.cid')->get($this->table, $perpage, $offset)->result()
+			);
+		}
+		else
+		{
+			return array(
+				'total'=>$this->db->where('cid', $cid)->count_all_results($this->table),
+				'data'=>$this->db->order_by('vid','DESC')->join('categories','videos.cid=categories.cid')->get_where($this->table, array('videos.cid'=>$cid), $perpage, $offset)->result()
+			);
+		}
+	}
+
+	/**
 	 * 添加视频
 	 * @param	array	$data
 	 *
@@ -36,7 +63,10 @@ class VideoModel extends Model
 	 */
 	public function add($data)
 	{
-		return $this->db->insert($this->table, $data);
+		$this->db->trans_start();
+		$this->db->insert($this->table, $data);
+		$this->db->query('UPDATE categories SET count=count+1 WHERE cid='.$data['cid']);
+		return $this->db->trans_complete();
 	}
 
 	/**

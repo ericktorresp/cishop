@@ -4,7 +4,7 @@ class CategoriesModel extends Model
 	var $table = 'categories';
 	
 	var $cid;
-	var $title;
+	var $ctitle;
 	var $ctime;
 	var $count;
 	
@@ -24,17 +24,12 @@ class CategoriesModel extends Model
 	 *
 	 * @return	int		-1:exists
 	 */
-	public function add($title)
+	public function add($data)
 	{
-		if(!$this->_check_title($title))
+		if(!$this->_check_title($data['ctitle']))
 		{
 			return -1;
 		}
-		$data = array(
-			'title'=>$title,
-			'ctime'=>time(),
-			'count'=>0
-		);
 		return $this->db->insert($this->table, $data);
 	}
 	
@@ -45,7 +40,7 @@ class CategoriesModel extends Model
 	 */
 	public function categories()
 	{
-		return $this->db->get($this->table)->result();
+		return $this->db->order_by('order ASC')->get($this->table)->result();
 	}
 	
 	/**
@@ -56,7 +51,7 @@ class CategoriesModel extends Model
 		$cats = array();
 		foreach($this->categories() AS $cat)
 		{
-			$cats[$cat->cid] = $cat->title;
+			$cats[$cat->cid] = $cat->ctitle;
 		}
 		return $cats;
 	}
@@ -96,7 +91,7 @@ class CategoriesModel extends Model
 		{
 			return FALSE;
 		}
-		if($this->db->get_where($this->table, array('title' => $title))->num_rows()>0)
+		if($this->db->get_where($this->table, array('ctitle' => $title))->num_rows()>0)
 		{
 			return FALSE;
 		}

@@ -6,7 +6,6 @@
  */
 class Video extends Controller
 {
-	
 	public function __construct()
 	{
 		$this->Video();
@@ -18,16 +17,11 @@ class Video extends Controller
 		$this->load->model('VideoModel');
 	}
 	
-	public function index()
-	{
-		
-	}
-	
 	public function watch()
 	{
-		if($video = $this->VideoModel->video(0, $this->input->get('key')))
+		if($video = $this->VideoModel->video(0, $this->input->get('v')))
 		{
-			
+			var_dump($video);
 		}
 		else
 		{
