@@ -72,11 +72,11 @@ class Video extends Controller
 				//insert into videos
 				if($this->VideoModel->add($data))
 				{
-					$this->session->set_flashdata('infomation', $this->lang->line('video_add_success'));
+					$this->session->set_flashdata('infomation', sprintf($this->lang->line('successed'), $this->lang->line('add')));
 				}
 				else
 				{
-					$this->session->set_flashdata('error', $this->lang->line('video_add_failed'));
+					$this->session->set_flashdata('error', sprintf($this->lang->line('failed'), $this->lang->line('add')));
 				}
 				redirect('admin/video');
 			}
@@ -159,7 +159,14 @@ class Video extends Controller
 			'mime'=>$this->input->post('mime'),
 			'duration'=>$this->input->post('duration')
 		);
-		$this->VideoModel->update($vid, '', $data);
+		if($this->VideoModel->update($vid, '', $data))
+		{
+			$this->session->set_flashdata('infomation', sprintf($this->lang->line('successed'),$this->lang->line('edit')));
+		}
+		else
+		{
+			$this->session->set_flashdata('error', sprintf($this->lang->line('failed'),$this->lang->line('edit')));
+		}
 		redirect('/admin/video');
 	}
 
@@ -167,7 +174,12 @@ class Video extends Controller
 	{
 		if($this->VideoModel->delete($vid))
 		{
-			redirect('admin/video');
+			$this->session->set_flashdata('infomation', sprintf($this->lang->line('successed'),$this->lang->line('delete')));
 		}
+		else
+		{
+			$this->session->set_flashdata('error', sprintf($this->lang->line('failed'),$this->lang->line('delete')));
+		}
+		redirect('admin/video');
 	}
 }

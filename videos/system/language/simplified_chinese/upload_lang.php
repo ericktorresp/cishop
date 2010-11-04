@@ -1,6 +1,6 @@
 <?php
 
-$lang['upload_userfile_not_set'] = "Unable to find a post variable called userfile.";
+$lang['upload_userfile_not_set'] = "找不到名为 userfile 的 post 变量。";
 $lang['upload_file_exceeds_limit'] = "The uploaded file exceeds the maximum allowed size in your PHP configuration file.";
 $lang['upload_file_exceeds_form_limit'] = "The uploaded file exceeds the maximum size allowed by the submission form.";
 $lang['upload_file_partial'] = "The file was only partially uploaded.";

@@ -36,23 +36,29 @@ class ServersModel extends Model
 		return $servers;
 	}
 	
-	public function add()
+	public function add($data)
 	{
-		
+		return $this->db->insert($this->table, $data);
 	}
 
-	public function server()
+	public function server($sid)
 	{
-		
+		if(!$sid)	return FALSE;
+		return $this->db->get_where($this->table, array('sid'=>$sid))->row();
 	}
 	
-	public function update()
+	public function edit($sid, $data)
 	{
-		
+		if(!$sid)
+		{
+			return false;
+		}
+		$this->db->where('sid', $sid);
+		return $this->db->update($this->table, $data);
 	}
 	
-	public function delete()
+	public function delete($sid)
 	{
-		
+		return $this->db->delete($this->table, array('sid'=>$sid));
 	}
 }

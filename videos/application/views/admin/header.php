@@ -29,12 +29,11 @@
 	<div id="navigation">
 		<ul>
 			<li><a href="<?php echo site_url("admin/video")?>"
-			<?php if ($this->uri->segment(2) == "video") echo ' class="active"'; ?>>Manage
-			Video</a></li>
+			<?php if ($this->uri->segment(2) == "video") echo ' class="active"'; ?>><?php echo lang('video')?></a></li>
 			<li><a href="<?php echo site_url("admin/category")?>"
-			<?php if ($this->uri->segment(2) == "category") echo ' class="active"'; ?>>Category</a></li>
+			<?php if ($this->uri->segment(2) == "category") echo ' class="active"'; ?>><?php echo lang('category')?></a></li>
 			<li><a href="<?php echo site_url("admin/server")?>"
-			<?php if ($this->uri->segment(2) == "server") echo ' class="active"'; ?>>Server</a></li>
+			<?php if ($this->uri->segment(2) == "server") echo ' class="active"'; ?>><?php echo lang('server')?></a></li>
 		</ul>
 	</div>
 	<div id="content">

@@ -37,7 +37,7 @@
  * @param	array	a key/value pair of attributes
  * @param	array	a key/value pair hidden data
  * @return	string
- */	
+ */
 if ( ! function_exists('form_open'))
 {
 	function form_open($action = '', $attributes = '', $hidden = array())
@@ -129,7 +129,7 @@ if ( ! function_exists('form_hidden'))
 		{
 			foreach ($value as $k => $v)
 			{
-				$k = (is_int($k)) ? '' : $k; 
+				$k = (is_int($k)) ? '' : $k;
 				form_hidden($name.'['.$k.']', $v, TRUE);
 			}
 		}
@@ -236,7 +236,7 @@ if ( ! function_exists('form_textarea'))
 		}
 		else
 		{
-			$val = $data['value']; 
+			$val = $data['value'];
 			unset($data['value']); // textareas don't use the value attribute
 		}
 		
@@ -400,7 +400,7 @@ if ( ! function_exists('form_radio'))
 	function form_radio($data = '', $value = '', $checked = FALSE, $extra = '')
 	{
 		if ( ! is_array($data))
-		{	
+		{
 			$data = array('name' => $data);
 		}
 
@@ -421,7 +421,7 @@ if ( ! function_exists('form_radio'))
  * @return	string
  */
 if ( ! function_exists('form_submit'))
-{	
+{
 	function form_submit($data = '', $value = '', $extra = '')
 	{
 		$defaults = array('type' => 'submit', 'name' => (( ! is_array($data)) ? $data : ''), 'value' => $value);
@@ -743,7 +743,7 @@ if ( ! function_exists('set_checkbox'))
 		$OBJ =& _get_validation_object();
 
 		if ($OBJ === FALSE)
-		{ 
+		{
 			if ( ! isset($_POST[$field]))
 			{
 				if (count($_POST) === 0 AND $default == TRUE)

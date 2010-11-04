@@ -1,14 +1,19 @@
 <?php
 $lang['add'] = '添加';
 $lang['edit'] = '编辑';
+$lang['delete'] = '删除';
+$lang['key'] = '加密串';
+$lang['view'] = '查看';
+
 $lang['video'] = '视频';
+$lang['videos'] = '视频';
 $lang['video_title'] = '标题';
-$lang['video_server'] = '服务器';
+$lang['server'] = '服务器';
 $lang['video_description'] = '简介';
 $lang['video_width'] = '宽';
 $lang['video_height'] = '高';
 $lang['video_thumbnail'] = '缩略图';
-$lang['video_add'] = '添加';
+
 $lang['video_duration'] = '时长';
 $lang['video_mime'] = '格式';
 $lang['video_futured'] = '推荐';
@@ -22,5 +27,13 @@ $lang['category_order'] = '顺序';
 
 $lang['category_delete_error_videos'] = '该分类包括视频，请删除或转移视频后再执行删除。';
 $lang['category_delete_info_success'] = '分类成功删除。';
-$lang['category_add_failed'] = '分类添加失败';
-$lang['category_add_success'] = '分类添加成功';
+$lang['failed'] = '%s失败';
+$lang['successed'] = '%s成功';
+
+$lang['domain'] = '主机';
+$lang['ip'] = 'IP';
+$lang['status'] = '状态';
+$lang['actived'] = '启用';
+$lang['inactive'] = '停用';
+$lang['operation'] = '操作';
+$lang['submit'] = '提交';

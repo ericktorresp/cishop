@@ -12,17 +12,17 @@ if($this->session->flashdata('infomation'))
 ?>
 <p>
 	<img src="<?php echo base_url();?>images/icon_add.png" alt="Add new" />
-	<?php echo anchor('admin/video/add', $this->lang->line('video_add')); ?>
+	<?php echo anchor('admin/video/add', $this->lang->line('add')); ?>
 </p>
 <?php echo $pagination;?>
 <table cellpadding="4" cellspacing="1" border="0" bgcolor="#cccccc" width="100%">
 	<tr>
-		<td bgcolor="#cccccc"><strong>Title</strong></td>
-		<td bgcolor="#cccccc"><strong>Category</strong></td>
-		<td bgcolor="#cccccc"><strong>Server</strong></td>
-		<td bgcolor="#cccccc"><strong>Key</strong></td>
-		<td bgcolor="#cccccc"><strong>Mime</strong></td>
-		<td bgcolor="#cccccc" colspan="3"><strong>Operate</strong></td>
+		<td bgcolor="#cccccc"><strong><?php echo lang('video_title')?></strong></td>
+		<td bgcolor="#cccccc"><strong><?php echo lang('category')?></strong></td>
+		<td bgcolor="#cccccc"><strong><?php echo lang('server')?></strong></td>
+		<td bgcolor="#cccccc"><strong><?php echo lang('key')?></strong></td>
+		<td bgcolor="#cccccc"><strong><?php echo lang('video_mime')?></strong></td>
+		<td bgcolor="#cccccc" colspan="3"><strong><?php echo lang('operation')?></strong></td>
 	</tr>
 <?php
 foreach($videos as $video)
@@ -34,9 +34,9 @@ foreach($videos as $video)
 		<td><?php echo $video->server;?></td>
 		<td><?php echo $video->key;?></td>
 		<td><?php echo $video->mime;?></td>
-		<td width="100"><img src="<?php echo base_url();?>images/icon_view.png" alt="View" /><a href="<?php echo site_url("/watch?v=".$video->key)?>">View</a></td>
-		<td width="100"><img src="<?php echo base_url();?>images/icon_update.png" alt="Edit" /><a href="<?php echo site_url("admin/video/edit/".$video->vid)?>">Edit</a></td>
-		<td width="100"><img src="<?php echo base_url();?>images/icon_delete.png" alt="Delete" /><a href="<?php echo site_url("admin/video/delete/".$video->vid)?>">Delete</a></td>
+		<td width="100"><img src="<?php echo base_url();?>images/icon_view.png" alt="<?php echo lang('view')?>" /><a href="<?php echo site_url("/watch?v=".$video->key)?>"><?php echo lang('view')?></a></td>
+		<td width="100"><img src="<?php echo base_url();?>images/icon_update.png" alt="<?php echo lang('edit')?>" /><a href="<?php echo site_url("admin/video/edit/".$video->vid)?>"><?php echo lang('edit')?></a></td>
+		<td width="100"><img src="<?php echo base_url();?>images/icon_delete.png" alt="<?php echo lang('delete')?>" /><a href="<?php echo site_url("admin/video/delete/".$video->vid)?>"><?php echo lang('delete')?></a></td>
 	</tr>
 <?php
 }

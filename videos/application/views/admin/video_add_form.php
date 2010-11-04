@@ -9,20 +9,20 @@ echo form_open_multipart('admin/video/add', array('name'=>'insert_work'));
 <div>
 	<span><?php echo $this->lang->line('category');?>:<br /></span>
 	<?php
-	echo form_dropdown('cid', $cats);
+	echo form_dropdown('cid', $cats, $this->input->post('cid') ? $this->input->post('cid') : null);
 	echo form_error('cid');
 	?>
 </div>
 <div>
 	<span><?php echo $this->lang->line('video_mime');?>:<br /></span>
 	<?php
-	echo form_dropdown('mime', array('flv'=>'flv','mp4'=>'mp4','f4v'=>'f4v'));
+	echo form_dropdown('mime', array('flv'=>'flv','mp4'=>'mp4','f4v'=>'f4v'), $this->input->post('mime') ? $this->input->post('mime') : NULL);
 	echo form_error('mime');
 	?>
 </div>
 <div>
-	<span><?php echo $this->lang->line('video_server');?>:<br /></span>
-	<?php echo form_dropdown('server', $servers);echo form_error('server');?>
+	<span><?php echo $this->lang->line('server');?>:<br /></span>
+	<?php echo form_dropdown('server', $servers, $this->input->post('server') ? $this->input->post('server') : NULL);echo form_error('server');?>
 </div>
 <div>
 	<span><?php echo $this->lang->line('video_title');?>:<br /></span>
@@ -37,7 +37,7 @@ echo form_open_multipart('admin/video/add', array('name'=>'insert_work'));
 </div>
 <div>
 	<span><?php echo $this->lang->line('video_description');?>:<br /></span>
-    <?php echo form_textarea('description','');?>
+    <?php echo form_textarea('description',set_value('description'));?>
 </div>
 <div>
 	<span><?php echo $this->lang->line('video_width');?>x<?php echo $this->lang->line('video_height');?>:<br /></span>
@@ -70,7 +70,7 @@ echo form_open_multipart('admin/video/add', array('name'=>'insert_work'));
 </div>
 <div>
 	<span><?php echo $this->lang->line('video_futured');?>:<br /></span>
-    <?php echo form_checkbox('is_fetured', '1', FALSE);?>
+    <?php echo form_checkbox('is_fetured', '1', FALSE, set_checkbox('is_fetured','1'));?>
 </div>
 <div>
 	<span><?php echo $this->lang->line('video_views');?>:<br /></span>
@@ -85,7 +85,7 @@ echo form_open_multipart('admin/video/add', array('name'=>'insert_work'));
 </div>
 <div>
 	<span><?php echo $this->lang->line('video_published');?>:<br /></span>
-    <?php echo form_checkbox('published', '1', FALSE);?>
+    <?php echo form_checkbox('published', '1', FALSE, set_checkbox('published','1'));?>
 </div>
 <div>
 	<span><?php echo $this->lang->line('video_thumbnail');?>:<br /></span>
@@ -96,7 +96,7 @@ echo form_open_multipart('admin/video/add', array('name'=>'insert_work'));
 </div>
 <div>
 <?php
-echo form_submit('videosubmit', 'Submit Video', 'id="submit"');
+echo form_submit('videosubmit', lang('submit'), 'id="submit"');
 ?>
 </div>
 <?php

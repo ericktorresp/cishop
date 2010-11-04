@@ -68,4 +68,28 @@ $config = array(
             'rules' => 'required'
 		),
 	),
+	'server/add'=>array(
+		array(
+        	'field' => 'domain',
+            'label' => 'lang:domain',
+            'rules' => 'required'
+		),
+		array(
+        	'field' => 'ip',
+            'label' => 'lang:ip',
+            'rules' => 'valid_ip'
+		),
+	),
+	'server/edit'=>array(
+		array(
+        	'field' => 'domain',
+            'label' => 'lang:domain',
+            'rules' => 'required'
+		),
+		array(
+        	'field' => 'ip',
+            'label' => 'lang:ip',
+            'rules' => 'valid_ip'
+		),
+	),
 );
