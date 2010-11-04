@@ -42,6 +42,12 @@ class CategoriesModel extends Model
 	{
 		return $this->db->order_by('order ASC')->get($this->table)->result();
 	}
+
+	public function category($cid)
+	{
+		if(!$cid)	return FALSE;
+		return $this->db->get_where($this->table, array('cid'=>$cid))->row();
+	}
 	
 	/**
 	 * 类别选择下拉框列表
@@ -62,7 +68,7 @@ class CategoriesModel extends Model
 	 *
 	 * @return	boolean
 	 */
-	public function edit_category($cid, $data)
+	public function edit($cid, $data)
 	{
 		if(!$cid)
 		{
@@ -78,6 +84,11 @@ class CategoriesModel extends Model
 	 */
 	public function delete($cid)
 	{
+		$category = $this->category($cid);
+		if($category->count>0)
+		{
+			return FALSE;
+		}
 		return $this->db->delete($this->table, array('cid'=>$cid));
 	}
 	

@@ -1,7 +1,7 @@
 <?php
 $this->load->view('admin/header');
 ?>
-<h1><?php echo $this->lang->line('add');?></h1>
+<h1><?php echo $this->lang->line('edit');?></h1>
 <div id="work-insert" class="form-page">
 <?php
 echo form_open_multipart('admin/video/edit/', array('name'=>'insert_work'));

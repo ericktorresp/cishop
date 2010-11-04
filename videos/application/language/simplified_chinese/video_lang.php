@@ -1,5 +1,6 @@
 <?php
 $lang['add'] = '添加';
+$lang['edit'] = '编辑';
 $lang['video'] = '视频';
 $lang['video_title'] = '标题';
 $lang['video_server'] = '服务器';
@@ -13,6 +14,13 @@ $lang['video_mime'] = '格式';
 $lang['video_futured'] = '推荐';
 $lang['video_views'] = '观看次数';
 $lang['video_published'] = '上传完毕';
+$lang['video_add_failed'] = '视频添加失败';
+$lang['video_add_success'] = '视频添加成功';
 
 $lang['category'] = '分类';
 $lang['category_order'] = '顺序';
+
+$lang['category_delete_error_videos'] = '该分类包括视频，请删除或转移视频后再执行删除。';
+$lang['category_delete_info_success'] = '分类成功删除。';
+$lang['category_add_failed'] = '分类添加失败';
+$lang['category_add_success'] = '分类添加成功';

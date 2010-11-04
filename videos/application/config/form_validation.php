@@ -61,4 +61,11 @@ $config = array(
             'rules' => 'required'
 		),
 	),
+	'category/edit'=>array(
+		array(
+        	'field' => 'ctitle',
+            'label' => 'lang:video_title',
+            'rules' => 'required'
+		),
+	),
 );

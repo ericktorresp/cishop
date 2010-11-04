@@ -70,7 +70,14 @@ class Video extends Controller
 					'duration'=>$this->input->post('duration')
 				);
 				//insert into videos
-				$this->VideoModel->add($data);
+				if($this->VideoModel->add($data))
+				{
+					$this->session->set_flashdata('infomation', $this->lang->line('video_add_success'));
+				}
+				else
+				{
+					$this->session->set_flashdata('error', $this->lang->line('video_add_failed'));
+				}
 				redirect('admin/video');
 			}
 		}
@@ -116,7 +123,7 @@ class Video extends Controller
 		$data = array('videos'=>$result['data'], 'pagination'=>$this->pagination->create_links());
 		$this->load->view('admin/video_list', $data);
 	}
-	
+
 	/**
 	 * 编辑
 	 * @param int $vid
@@ -127,15 +134,40 @@ class Video extends Controller
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<span class="error">', '</span>');
-		$data = array(
-			'cats'=>$this->CategoriesModel->categories_for_dropdown(),
-			'servers'=>$this->ServersModel->servers_for_dropdown()
-		);
-		$data['video'] = $this->VideoModel->video($vid);
 		if($this->form_validation->run() == FALSE)
 		{
+			$data = array(
+			'cats'=>$this->CategoriesModel->categories_for_dropdown(),
+			'servers'=>$this->ServersModel->servers_for_dropdown()
+			);
+			$data['video'] = $this->VideoModel->video($vid);
 			$this->load->view('admin/video_edit_form',$data);
 			return;
+		}
+		$vid = $this->input->post('vid');
+		$data = array(
+			'cid'=>$this->input->post('cid'),
+			'title'=>$this->input->post('title'),
+			'description'=>$this->input->post['description'],
+			'width'=>$this->input->post('width'),
+			'height'=>$this->input->post('height'),
+			'views'=>$this->input->post('views') ? $this->input->post('views') : 0,
+			'is_fetured'=>$this->input->post('is_fetured')?$this->input->post('is_fetured'):0,
+			'rate'=>$this->input->post('rate'),
+			'server'=>$this->input->post('server'),
+			'published'=>$this->input->post('published'),
+			'mime'=>$this->input->post('mime'),
+			'duration'=>$this->input->post('duration')
+		);
+		$this->VideoModel->update($vid, '', $data);
+		redirect('/admin/video');
+	}
+
+	public function delete($vid)
+	{
+		if($this->VideoModel->delete($vid))
+		{
+			redirect('admin/video');
 		}
 	}
 }

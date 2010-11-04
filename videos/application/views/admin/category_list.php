@@ -1,5 +1,15 @@
 <?php $this->load->view('admin/header');?>
 <h1><?php echo $this->lang->line('category');?></h1>
+<?php
+if($this->session->flashdata('error'))
+{
+	echo '<div id="error">'.$this->session->flashdata('error').'</div>';
+}
+if($this->session->flashdata('infomation'))
+{
+	echo '<div id="infomation">'.$this->session->flashdata('infomation').'</div>';
+}
+?>
 <p>
 	<img src="<?php echo base_url();?>images/icon_add.png" alt="Add new" />
 	<?php echo anchor('admin/category/add', $this->lang->line('video_add')); ?>
