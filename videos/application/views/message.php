@@ -1,3 +1,4 @@
+<?php $this->load->view('header');?>
 <h1><?php echo $message_title?></h1>
 <?php
 if($link)
@@ -8,3 +9,4 @@ if($link)
 	echo '</script>';
 }
 ?>
+<?php $this->load->view('footer');?>

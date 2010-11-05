@@ -37,3 +37,8 @@ $lang['actived'] = '启用';
 $lang['inactive'] = '停用';
 $lang['operation'] = '操作';
 $lang['submit'] = '提交';
+
+$lang['login'] = '登录';
+$lang['logout'] = '退出';
+$lang['username'] = '用户名';
+$lang['password'] = '密码';

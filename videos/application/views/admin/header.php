@@ -23,7 +23,7 @@
 	<div id="header">
 		<div id="logo"><img src="<?php echo base_url();?>images/admin/admin_logo.jpg" alt="" /></div>
 		<?php if($this->session->userdata('uid')){?>
-		<div id="logout"><a href="<?php echo site_url("/logout")?>">Logout</a></div>
+		<div id="logout"><a href="<?php echo site_url("/logout")?>"><?php echo lang('logout');?></a></div>
 		<?php }?>
 	</div>
 	<div id="navigation">

@@ -10,14 +10,19 @@ class Welcome extends Controller
 	{
 		$this->Welcome();
 	}
-	
+
 	public function Welcome()
 	{
 		parent::Controller();
+		if(!$this->session->userdata('uid') || !$this->session->userdata('is_admin'))
+		{
+			$this->session->set_flashdata('url','/admin/');
+			redirect('/login');
+		}
 	}
-	
+
 	public function index()
 	{
-		$this->load->view('admin/welcome');
+		redirect('admin/video');
 	}
 }

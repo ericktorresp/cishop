@@ -14,12 +14,11 @@ class Category extends Controller
 	public function Category()
 	{
 		parent::Controller();
-		if(!$this->session->userdata('uid'))
+		if(!$this->session->userdata('uid') || !$this->session->userdata('is_admin'))
 		{
 			redirect('/login');
 		}
 		$this->load->model('CategoriesModel');
-		$this->lang->load('video');
 	}
 
 	public function index()

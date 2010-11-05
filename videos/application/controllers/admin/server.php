@@ -2,25 +2,29 @@
 
 class Server extends Controller
 {
-	
+
 	public function __construct()
 	{
 		$this->Server();
 	}
-	
+
 	public function Server()
 	{
 		parent::Controller();
+		if(!$this->session->userdata('uid') || !$this->session->userdata('is_admin'))
+		{
+			redirect('/login');
+		}
 		$this->load->model('ServersModel');
 		$this->lang->load('video');
 	}
-	
+
 	public function index()
 	{
 		$data['servers'] = $this->ServersModel->servers();
 		$this->load->view('admin/server_list', $data);
 	}
-	
+
 	public function add()
 	{
 		$this->load->helper('form');
@@ -47,7 +51,7 @@ class Server extends Controller
 		}
 		redirect('/admin/server');
 	}
-	
+
 	public function edit($sid=0)
 	{
 		if(!$sid && !$this->input->post('sid'))	show_404();
@@ -77,7 +81,7 @@ class Server extends Controller
 		}
 		redirect('/admin/server');
 	}
-	
+
 	public function delete($sid)
 	{
 		if($this->ServersModel->delete($sid))

@@ -1,4 +1,4 @@
-
+<?php $this->load->view('header');?>
 <div id="member_activation">
 	<h2><?php echo $this->lang->line('members_active');?></h2>
 	<form action="/activation" method="post">
@@ -11,3 +11,4 @@
 		<input type="submit" value="<?php echo $this->lang->line('members_active');?>" />
 	</form>
 </div>
+<?php $this->load->view('footer');?>

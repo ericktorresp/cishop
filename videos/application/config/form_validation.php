@@ -1,5 +1,17 @@
 <?php
 $config = array(
+	'members/login'=>array(
+		array(
+        	'field' => 'username',
+            'label' => 'lang:username',
+            'rules' => 'required'
+		),
+		array(
+        	'field' => 'password',
+            'label' => 'lang:password',
+            'rules' => 'required'
+		),
+	),
 	'video/add'=>array(
 		array(
         	'field' => 'title',

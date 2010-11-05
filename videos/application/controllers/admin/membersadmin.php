@@ -10,9 +10,13 @@ class MembersAdmin extends Controller
 	{
 		$this->MembersAdmin();
 	}
-	
+
 	public function MembersAdmin()
 	{
 		parent::Controller();
+		if(!$this->session->userdata('uid') || !$this->session->userdata('is_admin'))
+		{
+			redirect('/login');
+		}
 	}
 }

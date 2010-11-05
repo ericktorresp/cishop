@@ -14,12 +14,11 @@ class Video extends Controller
 	public function Video()
 	{
 		parent::Controller();
-		if(!$this->session->userdata('uid'))
+		if(!$this->session->userdata('uid') || !$this->session->userdata('is_admin'))
 		{
 			redirect('/login');
 		}
 		$this->load->model(array('CategoriesModel', 'ServersModel', 'VideoModel'));
-		$this->lang->load('video');
 	}
 
 	/**

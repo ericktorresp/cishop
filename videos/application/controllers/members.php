@@ -11,7 +11,7 @@ class Members extends Controller
 	{
 		parent::Controller();
 		$this->load->model('MembersModel');
-		$this->lang->load('members', 'english');
+		$this->lang->load('members');
 	}
 
 	/**
@@ -28,49 +28,55 @@ class Members extends Controller
 
 	public function login()
 	{
-		if(!$this->input->post('loginsubmit'))
+		if($this->session->userdata('uid'))	redirect('/');
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$this->form_validation->set_error_delimiters('<span class="error">', '</span>');
+		if($this->form_validation->run() == FALSE)
 		{
 			$this->load->view('login');
+			return;
 		}
-		else
+		list($uid, $username, $password, $email) = uc_user_login($this->input->post('username'), $this->input->post('password'));
+		$data['title'] = $this->config->item('site_title');
+		if($uid > 0)
 		{
-			list($uid, $username, $password, $email) = uc_user_login($this->input->post('username'), $this->input->post('password'));
-			$this->load->view('header');
-			$data['title'] = $this->config->item('site_title');
-			if($uid > 0)
+			if(!$this->db->get_where('members', array('uid'=>$uid))->num_rows())
 			{
-				if(!$this->db->get_where('members', array('uid'=>$uid))->num_rows())
-				{
-					$data['message_title'] = $this->lang->line('members_active_descript');
-					$data['link']['title'] = $this->lang->line('members_active');
-					$data['link']['url'] = '/activation?auth=';
-					$data['link']['url'] .= rawurlencode(uc_authcode("$username\t".time()."\t".uc_authcode($password, 'ENCODE'), 'ENCODE'));
-				}
-				else
-				{
-					//生成同步登录的代码
-					$ucsynlogin = uc_user_synlogin($uid);
-					$data['message_title'] = $this->lang->line('members_login_success').$ucsynlogin;
-					$data['link']['title'] = $this->lang->line('members_continue');
-					$data['link']['url'] = $this->config->item('base_url');
-					$this->session->set_userdata('uid', $uid);
-				}
-			}
-			elseif($uid == -1)
-			{
-				$data['message_title'] = $this->lang->line('members_does_not_exist');
-			}
-			elseif($uid == -2)
-			{
-				$data['message_title'] = $this->lang->line('members_wrong_password');
+				$data['message_title'] = $this->lang->line('members_active_descript');
+				$data['link']['title'] = $this->lang->line('members_active');
+				$data['link']['url'] = '/activation?auth=';
+				$data['link']['url'] .= rawurlencode(uc_authcode("$username\t".time()."\t".uc_authcode($password, 'ENCODE'), 'ENCODE'));
+				$this->session->keep_flashdata('url');
 			}
 			else
 			{
-				$data['message_title'] = $this->lang->line('members_unknown_error');
+				//生成同步登录的代码
+				$ucsynlogin = uc_user_synlogin($uid);
+				$data['message_title'] = $this->lang->line('members_login_success').$ucsynlogin;
+				$data['link']['title'] = $this->lang->line('members_continue');
+				$data['link']['url'] = $this->session->flashdata('url') ? $this->session->flashdata('url') : $this->config->item('base_url');
+				$usr = $this->db->get_where('members', array('uid'=>$uid))->row();
+				$this->session->set_userdata('uid', $uid);
+				if($usr->is_admin)
+				{
+					$this->session->set_userdata('is_admin',$usr->is_admin);
+				}
 			}
-			$this->load->view('message', $data);
-			$this->load->view('footer');
 		}
+		elseif($uid == -1)
+		{
+			$data['message_title'] = $this->lang->line('members_does_not_exist');
+		}
+		elseif($uid == -2)
+		{
+			$data['message_title'] = $this->lang->line('members_wrong_password');
+		}
+		else
+		{
+			$data['message_title'] = $this->lang->line('members_unknown_error');
+		}
+		$this->load->view('message', $data);
 	}
 
 	/**
@@ -79,7 +85,6 @@ class Members extends Controller
 	function activation()
 	{
 		$data['title'] = $this->config->item('site_title') . ' : ' .$this->lang->line('members_active');
-		$this->load->view('header');
 		if($this->input->post('activation') && ($activeuser = uc_get_user($this->input->post('activation'))))
 		{
 			list($uid, $username, $email) = $activeuser;
@@ -103,11 +108,10 @@ class Members extends Controller
             	$this->db->insert("members", $member);
             	$this->session->set_userdata('uid', $uid);
             	$data['message_title'] = $this->lang->line('members_register_success') . uc_user_synlogin($uid);
-            	$this->load->view('header');
+				$data['link']['title'] = $this->lang->line('members_continue');
+				$data['link']['url'] = $this->session->flashdata('url') ? $this->session->flashdata('url') : $this->config->item('base_url');
             	$this->load->view('message', $data);
-            	$this->load->view('footer');
 		}
-		$this->load->view('footer');
 	}
 
 	/**

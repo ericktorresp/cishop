@@ -42,4 +42,5 @@ foreach($videos as $video)
 }
 ?>
 </table>
+<?php echo $pagination;?>
 <?php $this->load->view('admin/footer');?>
