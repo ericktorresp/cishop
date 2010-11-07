@@ -56,12 +56,8 @@ class Members extends Controller
 				$data['message_title'] = $this->lang->line('members_login_success').$ucsynlogin;
 				$data['link']['title'] = $this->lang->line('members_continue');
 				$data['link']['url'] = $this->session->flashdata('url') ? $this->session->flashdata('url') : $this->config->item('base_url');
-				$usr = $this->db->get_where('members', array('uid'=>$uid))->row();
-				$this->session->set_userdata('uid', $uid);
-				if($usr->is_admin)
-				{
-					$this->session->set_userdata('is_admin',$usr->is_admin);
-				}
+				$user = $this->db->get_where('members', array('uid'=>$uid))->row();
+				$this->session->set_userdata($user);
 			}
 		}
 		elseif($uid == -1)
@@ -133,8 +129,6 @@ class Members extends Controller
 		$data['link']['title'] = $this->lang->line('members_continue');
 		$data['link']['url'] = $this->config->item('base_url');
 		$data['title'] = $this->config->item('site_title');
-		$this->load->view('header', $data);
-		$this->load->view('message');
-		$this->load->view('footer');
+		$this->load->view('message', $data);
 	}
 }

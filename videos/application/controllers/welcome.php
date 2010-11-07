@@ -24,12 +24,10 @@ class Welcome extends Controller {
 		);
 		# 首页推荐(1)
 		
-		# 最新(6)
+		# 最新(30)
 		
-		#最多人观看(6)
+		# 最多人观看(6)
 		
-		$this->load->view('header', $data);
-		$this->load->view('welcome_message');
-		$this->load->view('footer');
+		$this->load->view('index', $data);
 	}
 }

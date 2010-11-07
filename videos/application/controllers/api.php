@@ -168,7 +168,7 @@ class uc_note
 		$user = $this->CI->membersmodel->get_user($uid);
 		if($user)
 		{
-			$this->CI->session->set_userdata('uid', $uid);
+			$this->CI->session->set_userdata($user);
 		}
 	}
 

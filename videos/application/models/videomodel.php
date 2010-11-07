@@ -127,4 +127,13 @@ class VideoModel extends Model
 		}
 		return FALSE;
 	}
+
+	/**
+	 * 首页观看最多的视频列表
+	 * 
+	 */
+	public function watched()
+	{
+		
+	}
 }
