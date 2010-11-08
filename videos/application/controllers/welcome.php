@@ -24,10 +24,10 @@ class Welcome extends Controller {
 		);
 		# 首页推荐(1)
 		
-		# 最新(30)
+		# 最新(20)
 		
 		# 最多人观看(6)
-		
-		$this->load->view('index', $data);
+		$data['watched'] = $this->VideoModel->watched('month');
+//		$this->load->view('index', $data);
 	}
 }

@@ -130,10 +130,45 @@ class VideoModel extends Model
 
 	/**
 	 * 首页观看最多的视频列表
-	 * 
+	 *
 	 */
-	public function watched()
+	public function watched($t='day',$n=6)
 	{
-		
+		$date = $last_date = array();
+		$sql = $last_sql = 'SELECT v.*,SUM(vv.views) AS views FROM video_views vv, videos v WHERE ';
+		switch($t)
+		{
+			case "week":
+				//本周
+				$sql .= 'vv.vday BETWEEN date_sub(curdate(),INTERVAL WEEKDAY(curdate()) + 1 DAY) AND date_sub(curdate(),INTERVAL WEEKDAY(curdate()) - 5 DAY)';
+				//上周
+				$last_sql .= 'vv.vday BETWEEN date_sub(curdate(),INTERVAL WEEKDAY(curdate()) + 8 DAY) AND date_sub(curdate(),INTERVAL WEEKDAY(curdate()) + 2 DAY)';
+				break;
+			case "month":
+				//本月
+				$sql .= 'vv.vday BETWEEN concat(date_format(LAST_DAY(now()),"%Y-%m-"),"01") AND LAST_DAY(now())';
+				//上月
+				$last_sql .= 'vv.vday BETWEEN concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-"),"01") AND LAST_DAY(now() - interval 1 month)';
+				break;
+			case "day":
+			default:
+				//今天
+				$sql .= 'vv.vday="'.date('Y-m-d').'"';
+				//昨天
+				$last_sql .= 'vv.vday=date_sub("'.date('Y-m-d').'", interval 1 day)';
+				break;
+		}
+		$sql .= ' AND vv.vid=v.vid GROUP BY vv.vid ORDER BY views DESC, vv.vid DESC LIMIT '.$n;
+		$last_sql .= ' AND vv.vid=v.vid GROUP BY vv.vid ORDER BY views DESC, vv.vid DESC LIMIT '.$n;
+		$query = $this->db->query($sql);
+		if($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+		else
+		{
+			$query = $this->db->query($last_sql);
+			return $query->result();
+		}
 	}
 }
