@@ -51,7 +51,8 @@ class Video extends Controller
 	}
 
 	/**
-	 * 防止盗链, 返回视频rtmp地址
+	 * 防止盗链, 返回视频rtmfp地址
+	 * 还是 FMS 服务端验证用户有效性?
 	 */
 	public function address($key)
 	{
