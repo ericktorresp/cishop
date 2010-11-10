@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ph918.extensions;
+package us.crims.extensions;
 
 import java.nio.channels.SocketChannel;
 import java.util.*;
@@ -133,9 +133,11 @@ public class Login extends AbstractExtension {
 			}
 			else
 			{
-				// 获取数据库密码
+				//获取数据库密码
 				DataRow dr = arrList.get(0);
 				String dbpass = dr.getItem("password");
+				trace(dbpass);
+				
 				// 根据服务器加密字符和数据库用户密码，生成服务器端的混合MD5密码
 				ServerPassword = MD5.instance().getHash(ServerRandom + dbpass);
 				IsLogin = (ClientPassword.equals(ServerPassword)) ? true : false;
