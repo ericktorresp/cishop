@@ -136,8 +136,6 @@ public class Login extends AbstractExtension {
 				//获取数据库密码
 				DataRow dr = arrList.get(0);
 				String dbpass = dr.getItem("password");
-				trace(dbpass);
-				
 				// 根据服务器加密字符和数据库用户密码，生成服务器端的混合MD5密码
 				ServerPassword = MD5.instance().getHash(ServerRandom + dbpass);
 				IsLogin = (ClientPassword.equals(ServerPassword)) ? true : false;
@@ -148,8 +146,9 @@ public class Login extends AbstractExtension {
 						// 登录成功
 						loginUser = helper.canLogin(nick, ClientPassword, chan, this.currentZone.getName());
 						response.put("_cmd", "loginOK");
-						response.put("id", String.valueOf(loginUser.getUserId()));
-						response.put("name", loginUser.getName());
+//						response.put("id", String.valueOf(loginUser.getUserId()));
+//						response.put("name", loginUser.getName());
+						response.put("name", nick);
 					}
 					catch (LoginException e)
 					{
@@ -168,8 +167,8 @@ public class Login extends AbstractExtension {
 			linkedlist.add(chan);
 			// 返回结果给客户端
 			this.sendResponse(response, -1, null, linkedlist);
-			if (IsLogin)
-				helper.sendRoomList(chan);
+//			if (IsLogin)
+//				helper.sendRoomList(chan);
 		}
 	}
 }
