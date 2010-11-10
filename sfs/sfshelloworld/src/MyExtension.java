@@ -10,6 +10,7 @@ import it.gotoandplay.smartfoxserver.events.InternalEventObject;
 
 import org.json.JSONObject; 
 
+@SuppressWarnings("unused")
 public class MyExtension extends AbstractExtension
 {
 	/** 
