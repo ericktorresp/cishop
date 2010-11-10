@@ -162,7 +162,6 @@ public class Login extends AbstractExtension {
 					response.put("err", "认证失败.");
 				}
 			}
- 
 			LinkedList<SocketChannel> linkedlist = new LinkedList<SocketChannel>();
 			linkedlist.add(chan);
 			// 返回结果给客户端
