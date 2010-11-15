@@ -25,7 +25,7 @@ class Welcome extends Controller {
 		# 首页推荐(1)
 		
 		# 最新(20)
-		
+		$data['recents'] = $this->VideoModel->videos(0);
 		# 最多人观看(6)
 		$data['watched'] = $this->VideoModel->watched('month');
 //		$this->load->view('index', $data);
