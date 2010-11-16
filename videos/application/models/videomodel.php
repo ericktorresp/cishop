@@ -19,6 +19,8 @@ class VideoModel extends Model
 	var $server;
 	var $published;
 	var $mime;
+	var $aid;
+	var $pid;
 
 	public function __construct()
 	{

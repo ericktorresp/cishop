@@ -41,6 +41,14 @@ echo form_hidden('vid', set_value('vid',$video->vid));
     <?php echo form_textarea('description',set_value('description', $this->input->post('description') ? $this->input->post('description') : $video->description));?>
 </div>
 <div>
+	<span><?php echo $this->lang->line('actor');?>:<br /></span>
+	<?php echo form_dropdown('aid', $actors, $this->input->post('aid') ? $this->input->post('aid') : $video->aid);echo form_error('aid');?>
+</div>
+<div>
+	<span><?php echo $this->lang->line('publisher');?>:<br /></span>
+	<?php echo form_dropdown('pid', $publishers, $this->input->post('pid') ? $this->input->post('pid') : $video->pid);echo form_error('pid');?>
+</div>
+<div>
 	<span><?php echo $this->lang->line('video_width');?>x<?php echo $this->lang->line('video_height');?>:<br /></span>
 	<?php echo form_input(array(
               'name'        => 'width',

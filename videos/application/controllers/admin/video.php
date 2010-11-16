@@ -18,7 +18,7 @@ class Video extends Controller
 		{
 			redirect('/login');
 		}
-		$this->load->model(array('CategoriesModel', 'ServersModel', 'VideoModel'));
+		$this->load->model(array('CategoriesModel', 'ServersModel', 'VideoModel', 'ActorsModel', 'PublishersModel'));
 	}
 
 	/**
@@ -31,7 +31,9 @@ class Video extends Controller
 		$this->form_validation->set_error_delimiters('<span class="error">', '</span>');
 		$data = array(
 			'cats'=>$this->CategoriesModel->categories_for_dropdown(),
-			'servers'=>$this->ServersModel->servers_for_dropdown()
+			'servers'=>$this->ServersModel->servers_for_dropdown(),
+			'actors'=>$this->ActorsModel->actors_for_dropdown(),
+			'publishers'=>$this->PublishersModel->publishers_for_dropdown()
 		);
 		if($this->form_validation->run() == FALSE)
 		{
@@ -137,7 +139,9 @@ class Video extends Controller
 		{
 			$data = array(
 			'cats'=>$this->CategoriesModel->categories_for_dropdown(),
-			'servers'=>$this->ServersModel->servers_for_dropdown()
+			'servers'=>$this->ServersModel->servers_for_dropdown(),
+			'actors'=>$this->ActorsModel->actors_for_dropdown(),
+			'publishers'=>$this->PublishersModel->publishers_for_dropdown()
 			);
 			$data['video'] = $this->VideoModel->video($vid);
 			$this->load->view('admin/video_edit_form',$data);

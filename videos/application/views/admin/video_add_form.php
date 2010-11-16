@@ -40,6 +40,14 @@ echo form_open_multipart('admin/video/add', array('name'=>'insert_work'));
     <?php echo form_textarea('description',set_value('description'));?>
 </div>
 <div>
+	<span><?php echo $this->lang->line('actor');?>:<br /></span>
+	<?php echo form_dropdown('aid', $actors, $this->input->post('aid') ? $this->input->post('aid') : NULL);echo form_error('aid');?>
+</div>
+<div>
+	<span><?php echo $this->lang->line('publisher');?>:<br /></span>
+	<?php echo form_dropdown('pid', $publishers, $this->input->post('pid') ? $this->input->post('pid') : NULL);echo form_error('pid');?>
+</div>
+<div>
 	<span><?php echo $this->lang->line('video_width');?>x<?php echo $this->lang->line('video_height');?>:<br /></span>
 	<?php echo form_input(array(
               'name'        => 'width',

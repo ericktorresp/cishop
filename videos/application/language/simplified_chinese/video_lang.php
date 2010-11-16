@@ -42,3 +42,6 @@ $lang['login'] = '登录';
 $lang['logout'] = '退出';
 $lang['username'] = '用户名';
 $lang['password'] = '密码';
+
+$lang['actor'] = '演员';
+$lang['publisher'] = '出版';

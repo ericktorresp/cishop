@@ -34,6 +34,10 @@
 			<?php if ($this->uri->segment(2) == "category") echo ' class="active"'; ?>><?php echo lang('category')?></a></li>
 			<li><a href="<?php echo site_url("admin/server")?>"
 			<?php if ($this->uri->segment(2) == "server") echo ' class="active"'; ?>><?php echo lang('server')?></a></li>
+			<li><a href="<?php echo site_url("admin/actor")?>"
+			<?php if ($this->uri->segment(2) == "actor") echo ' class="active"'; ?>><?php echo lang('actor')?></a></li>
+			<li><a href="<?php echo site_url("admin/publisher")?>"
+			<?php if ($this->uri->segment(2) == "publisher") echo ' class="active"'; ?>><?php echo lang('publisher')?></a></li>
 		</ul>
 	</div>
 	<div id="content">
