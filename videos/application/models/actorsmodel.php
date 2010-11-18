@@ -8,23 +8,23 @@
 class ActorsModel extends Model
 {
 	var $table = 'actors';
-	
+
 	var $id;
 	var $name;
 	var $gender;
 	var $photo;
 	var $nationality;
-	
+
 	public function __construct()
 	{
 		$this->ActorsModel();
 	}
-	
+
 	public function ActorsModel()
 	{
 		parent::Model();
 	}
-	
+
 	/**
 	 * Add new Actor
 	 *
@@ -36,17 +36,30 @@ class ActorsModel extends Model
 	{
 		return $this->db->insert($this->table, $data);
 	}
-	
+
 	/**
 	 * List Av Actors
 	 *
 	 * @return array dataset
 	 */
-	public function actors()
+	public function actors($gender='', $offset=0, $perpage=20)
 	{
-		return $this->db->get($this->table)->result();
+		if(!in_array($gender,array('female','male','unknown')))
+		{
+			return array(
+			'total'=>$this->db->count_all_results($this->table),
+			'data'=>$this->db->get($this->table, $perpage, $offset)->result()
+			);
+		}
+		else
+		{
+			return array(
+				'total'=>$this->db->where('gender', $gender)->count_all_results($this->table),
+				'data'=>$this->db->get_where($this->table, array('gender'=>$gender), $perpage, $offset)->result()
+			);
+		}
 	}
-	
+
 	/**
 	 * Read a Actor
 	 *
@@ -57,10 +70,10 @@ class ActorsModel extends Model
 	public function actor($id)
 	{
 		if(!$id)
-			return FALSE;
+		return FALSE;
 		return $this->db->get_where($this->table, array('id'=>$id))->row();
 	}
-	
+
 	/**
 	 * Actor List for HTML dropdown
 	 *
@@ -68,14 +81,15 @@ class ActorsModel extends Model
 	 */
 	public function actors_for_dropdown()
 	{
+		$as = $this->actors();
 		$actors = array();
-		foreach($this->actors() AS $actor)
+		foreach($as['data'] AS $actor)
 		{
 			$actors[$actor->id] = $actor->name;
 		}
 		return $actors;
 	}
-	
+
 	/**
 	 * Update a Actor
 	 *
@@ -93,7 +107,7 @@ class ActorsModel extends Model
 		$this->db->where('id', $id);
 		return $this->db->update($this->table, $data);
 	}
-	
+
 	/**
 	 * Delete a Actor
 	 *

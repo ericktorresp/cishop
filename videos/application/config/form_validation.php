@@ -104,4 +104,38 @@ $config = array(
             'rules' => 'valid_ip'
 		),
 	),
+	'actor/add'=>array(
+		array(
+        	'field' => 'name',
+            'label' => 'lang:name',
+            'rules' => 'required'
+		),
+		array(
+        	'field' => 'gender',
+            'label' => 'lang:gender',
+            'rules' => 'required'
+		),
+		array(
+        	'field' => 'nationality',
+            'label' => 'lang:nationality',
+            'rules' => 'required'
+		),
+	),
+	'actor/edit'=>array(
+		array(
+        	'field' => 'name',
+            'label' => 'lang:name',
+            'rules' => 'required'
+		),
+		array(
+        	'field' => 'gender',
+            'label' => 'lang:gender',
+            'rules' => 'required'
+		),
+		array(
+        	'field' => 'nationality',
+            'label' => 'lang:nationality',
+            'rules' => 'required'
+		),
+	),
 );

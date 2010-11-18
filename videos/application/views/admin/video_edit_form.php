@@ -41,7 +41,7 @@ echo form_hidden('vid', set_value('vid',$video->vid));
     <?php echo form_textarea('description',set_value('description', $this->input->post('description') ? $this->input->post('description') : $video->description));?>
 </div>
 <div>
-	<span><?php echo $this->lang->line('actor');?>:<br /></span>
+	<span><?php echo lang('actor');?>:<br /></span>
 	<?php echo form_dropdown('aid', $actors, $this->input->post('aid') ? $this->input->post('aid') : $video->aid);echo form_error('aid');?>
 </div>
 <div>

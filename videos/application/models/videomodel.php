@@ -39,22 +39,23 @@ class VideoModel extends Model
 	 *
 	 * @return array
 	 */
-	public function videos($cid, $offset=0, $perpage=20)
+	public function videos($cid=0, $offset=0, $perpage=20, $aid=0)
 	{
-		if(!$cid)
+		$condition_total = $condition_data = array();
+		if($cid != 0)
 		{
-			return array(
-				'total'=>$this->db->count_all_results($this->table),
-				'data'=>$this->db->order_by('vid','DESC')->join('categories','videos.cid=categories.cid')->get($this->table, $perpage, $offset)->result()
-			);
+			$condition_total['cid'] = $cid;
+			$condition_data['videos.cid'] = $cid;
 		}
-		else
+		if($aid != 0)
 		{
-			return array(
-				'total'=>$this->db->where('cid', $cid)->count_all_results($this->table),
-				'data'=>$this->db->order_by('vid','DESC')->join('categories','videos.cid=categories.cid')->get_where($this->table, array('videos.cid'=>$cid), $perpage, $offset)->result()
-			);
+			$condition_total['aid'] = $aid;
+			$condition_data['videos.aid'] = $aid;
 		}
+		$total = $this->db->where($condition_total)->count_all_results($this->table);
+		$data = $this->db->order_by('vid', 'DESC')->join('categories', 'videos.cid=categories.cid')->get_where($this->table, $condition_data, $perpage, $offset)->result();
+//		var_dump($data);die;
+		return array('total'=>$total,'data'=>$data);
 	}
 
 	/**

@@ -45,3 +45,9 @@ $lang['password'] = '密码';
 
 $lang['actor'] = '演员';
 $lang['publisher'] = '出版';
+$lang['name'] = '姓名';
+$lang['gender'] = '性别';
+$lang['male'] = '男';
+$lang['female'] = '女';
+$lang['unknown'] = '未知';
+$lang['nationality'] = '国籍';

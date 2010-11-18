@@ -154,13 +154,14 @@ class Video extends Controller
 			'description'=>$this->input->post['description'],
 			'width'=>$this->input->post('width'),
 			'height'=>$this->input->post('height'),
-			'views'=>$this->input->post('views') ? $this->input->post('views') : 0,
 			'is_fetured'=>$this->input->post('is_fetured')?$this->input->post('is_fetured'):0,
 			'rate'=>$this->input->post('rate'),
 			'server'=>$this->input->post('server'),
 			'published'=>$this->input->post('published'),
 			'mime'=>$this->input->post('mime'),
-			'duration'=>$this->input->post('duration')
+			'duration'=>$this->input->post('duration'),
+			'aid'=>$this->input->post('aid'),
+			'pid'=>$this->input->post('pid')
 		);
 		if($this->VideoModel->update($vid, '', $data))
 		{

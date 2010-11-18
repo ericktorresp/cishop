@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: hxxpscom_video
 Target Host: localhost
 Target Database: hxxpscom_video
-Date: 2010/11/16 15:55:15
+Date: 2010/11/18 11:56:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -14,12 +14,12 @@ SET FOREIGN_KEY_CHECKS=0;
 CREATE TABLE `actors` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(99) NOT NULL,
-  `gender` char(1) NOT NULL default 'F',
+  `gender` varchar(7) NOT NULL default 'female',
   `photo` varchar(99) NOT NULL default 'no_picture.jpg',
   `nationality` varchar(99) NOT NULL default 'Japan',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for categories
@@ -64,10 +64,10 @@ CREATE TABLE `members` (
 -- ----------------------------
 CREATE TABLE `publishers` (
   `id` int(11) NOT NULL auto_increment,
-  `name` varchar(99) NOT NULL,
-  `nationality` varchar(99) NOT NULL,
+  `name` varchar(99) character set latin1 NOT NULL,
+  `nationality` varchar(99) character set latin1 NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for servers
@@ -131,14 +131,13 @@ CREATE TABLE `videos` (
 -- ----------------------------
 -- Records 
 -- ----------------------------
-INSERT INTO `actors` VALUES ('1', 'asdf', 'F', 'no_picture.jpg', 'Japan');
+INSERT INTO `actors` VALUES ('1', 'ASDFG', 'female', 'no_picture.jpg', 'japan');
+INSERT INTO `actors` VALUES ('5', 'Video', 'female', 'no_picture.jpg', 'japan');
 INSERT INTO `categories` VALUES ('1', 'Asian', '0', '2', '0');
 INSERT INTO `categories` VALUES ('2', 'Bbbbb', '0', '5', '2');
 INSERT INTO `categories` VALUES ('4', 'Hardcore', '1288841398', '1', '3');
-INSERT INTO `ci_sessions` VALUES ('2906830599462be0e85c0caa314a64f3', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv', '1289893231', 'a:6:{s:3:\"uid\";s:1:\"1\";s:8:\"username\";s:4:\"root\";s:8:\"password\";s:32:\"c5769e3620c3ee2bd879b16c905d948e\";s:14:\"validate_start\";s:10:\"0000-00-00\";s:13:\"validate_ends\";s:10:\"0000-00-00\";s:8:\"is_admin\";s:1:\"1\";}');
-INSERT INTO `ci_sessions` VALUES ('869d622b024294622bf0eecd1138b4e1', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv', '1289804238', null);
-INSERT INTO `ci_sessions` VALUES ('23d2126f241d2129dc4c17a30d03fca3', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv', '1289210239', null);
-INSERT INTO `ci_sessions` VALUES ('c70c593dd6caf62b8dba078b03317140', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv', '1289201828', null);
+INSERT INTO `ci_sessions` VALUES ('5349f08710f5e9cfce5fc7e251ffccb7', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv', '1290048979', 'a:6:{s:3:\"uid\";s:1:\"1\";s:8:\"username\";s:4:\"root\";s:8:\"password\";s:32:\"c5769e3620c3ee2bd879b16c905d948e\";s:14:\"validate_start\";s:10:\"0000-00-00\";s:13:\"validate_ends\";s:10:\"0000-00-00\";s:8:\"is_admin\";s:1:\"1\";}');
+INSERT INTO `ci_sessions` VALUES ('238634e4f81993718c18caf4f5111b26', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv', '1290052416', 'a:6:{s:3:\"uid\";s:1:\"1\";s:8:\"username\";s:4:\"root\";s:8:\"password\";s:32:\"c5769e3620c3ee2bd879b16c905d948e\";s:14:\"validate_start\";s:10:\"0000-00-00\";s:13:\"validate_ends\";s:10:\"0000-00-00\";s:8:\"is_admin\";s:1:\"1\";}');
 INSERT INTO `members` VALUES ('1', 'root', 'c5769e3620c3ee2bd879b16c905d948e', '0000-00-00', '0000-00-00', '1');
 INSERT INTO `members` VALUES ('2', 'darkmoon', '88b5fdd9c49c4657ecaa4deede0f106f', '0000-00-00', '0000-00-00', '0');
 INSERT INTO `publishers` VALUES ('1', 'tokyo', 'Japan');
@@ -155,5 +154,5 @@ INSERT INTO `videos` VALUES ('1', '1', 'testing', 'O5BgkhRUmJOL', null, '', '136
 INSERT INTO `videos` VALUES ('2', '1', 'testing', 'cETmn2n0LdO9', null, '', '1366', '768', '0', '1288690284', '0', '0', 'ph918.com', '0', 'flv', '0', '0');
 INSERT INTO `videos` VALUES ('3', '2', 'testing 2', 'GCi5wot5xfsT', null, '', '1366', '768', '0', '1288756716', '0', '0', 'ph918.com', '0', 'flv', '0', '0');
 INSERT INTO `videos` VALUES ('5', '2', 'testing 2', 'WSqcXxONUMw0', null, '', '1366', '768', '0', '1288763883', '0', '0', 'ph918.com', '0', 'flv', '0', '0');
-INSERT INTO `videos` VALUES ('6', '1', 'testing 22132', 'fZTz2oHftrhz', null, '', '1366', '768', '', '1288768684', '1', '0', 'ph918.com', '1', 'flv', '0', '0');
-INSERT INTO `videos` VALUES ('10', '2', 'testing 22132sdf', 'XYs9ug3fSlC0', null, '', '320', '240', '00:34:23', '1288863445', '0', '0', 'v.hxxps.us', '1', 'f4v', '0', '0');
+INSERT INTO `videos` VALUES ('6', '1', 'testing 22132', 'fZTz2oHftrhz', null, '', '1366', '768', '00:34:23', '1288768684', '1', '0', 'ph918.com', '1', 'flv', '5', '1');
+INSERT INTO `videos` VALUES ('10', '2', 'testing 22132sdf', 'XYs9ug3fSlC0', null, '', '320', '240', '00:34:23', '1288863445', '0', '0', 'v.hxxps.us', '1', 'f4v', '5', '1');

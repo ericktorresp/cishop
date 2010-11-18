@@ -31,7 +31,7 @@ echo form_hidden('cid', $category->cid);
 </div>
 <div>
 <?php
-echo form_submit('categorysubmit', 'Submit Category', 'id="submit"');
+echo form_submit('categorysubmit', lang('submit'), 'id="submit"');
 ?>
 </div>
 <?php
