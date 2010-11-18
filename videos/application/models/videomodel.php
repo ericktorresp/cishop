@@ -39,7 +39,7 @@ class VideoModel extends Model
 	 *
 	 * @return array
 	 */
-	public function videos($cid=0, $offset=0, $perpage=20, $aid=0)
+	public function videos($cid=0, $offset=0, $perpage=20, $aid=0, $pid=0)
 	{
 		$condition_total = $condition_data = array();
 		if($cid != 0)
@@ -51,6 +51,11 @@ class VideoModel extends Model
 		{
 			$condition_total['aid'] = $aid;
 			$condition_data['videos.aid'] = $aid;
+		}
+		if($pid != 0)
+		{
+			$condition_total['pid'] = $pid;
+			$condition_data['videos.pid'] = $pid;
 		}
 		$total = $this->db->where($condition_total)->count_all_results($this->table);
 		$data = $this->db->order_by('vid', 'DESC')->join('categories', 'videos.cid=categories.cid')->get_where($this->table, $condition_data, $perpage, $offset)->result();

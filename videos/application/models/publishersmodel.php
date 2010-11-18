@@ -8,21 +8,21 @@
 class PublishersModel extends Model
 {
 	var $table = 'publishers';
-	
+
 	var $id;
 	var $name;
 	var $nationality;
-	
+
 	public function __construct()
 	{
 		$this->PublishersModel();
 	}
-	
+
 	public function PublishersModel()
 	{
 		parent::Model();
 	}
-	
+
 	/**
 	 * Add new publisher
 	 *
@@ -34,25 +34,39 @@ class PublishersModel extends Model
 	{
 		return $this->db->insert($this->table, $data);
 	}
-	
+
 	/**
 	 * List All AV Publishers
 	 */
-	public function publishers()
+	public function publishers($nationality='', $offset=0, $perpage=20)
 	{
-		return $this->db->get($this->table)->result();
+		if(empty($nationality))
+		{
+			return array(
+			'total'=>$this->db->count_all_results($this->table),
+			'data'=>$this->db->get($this->table, $perpage, $offset)->result()
+			);
+		}
+		else
+		{
+			return array(
+				'total'=>$this->db->where('nationality', $nationality)->count_all_results($this->table),
+				'data'=>$this->db->get_where($this->table, array('nationality'=>$nationality), $perpage, $offset)->result()
+			);
+		}
 	}
-	
+
 	public function publishers_for_dropdown()
 	{
 		$publishers = array();
-		foreach($this->publishers() AS $publisher)
+		$result = $this->publishers();
+		foreach($result['data'] AS $publisher)
 		{
 			$publishers[$publisher->id] = $publisher->name;
 		}
 		return $publishers;
 	}
-	
+
 	/**
 	 * Read a AV Publisher
 	 *
@@ -63,10 +77,10 @@ class PublishersModel extends Model
 	public function publisher($id)
 	{
 		if(!$id)
-			return FALSE;
+		return FALSE;
 		return $this->db->get_where($this->table, array('id'=>$id))->row();
 	}
-	
+
 	/**
 	 * Update a AV Publisher
 	 *
@@ -84,7 +98,7 @@ class PublishersModel extends Model
 		$this->db->where('id', $id);
 		return $this->db->update($this->table, $data);
 	}
-	
+
 	/**
 	 * Delete a AV Publisher
 	 *

@@ -51,3 +51,7 @@ $lang['male'] = '男';
 $lang['female'] = '女';
 $lang['unknown'] = '未知';
 $lang['nationality'] = '国籍';
+
+$lang['japan'] = '日本';
+$lang['china'] = '中国';
+$lang['korea'] = '韩国';

@@ -38,6 +38,16 @@ $config = array(
             'label' => 'lang:video_mime',
             'rules' => 'required'
 		),
+		array(
+        	'field' => 'aid',
+            'label' => 'lang:actor',
+            'rules' => 'required'
+		),
+		array(
+        	'field' => 'pid',
+            'label' => 'lang:publisher',
+            'rules' => 'required'
+		),
 	),
 	'video/edit'=>array(
 		array(
@@ -63,6 +73,16 @@ $config = array(
 		array(
         	'field' => 'mime',
             'label' => 'lang:video_mime',
+            'rules' => 'required'
+		),
+		array(
+        	'field' => 'aid',
+            'label' => 'lang:actor',
+            'rules' => 'required'
+		),
+		array(
+        	'field' => 'pid',
+            'label' => 'lang:publisher',
             'rules' => 'required'
 		),
 	),
@@ -130,6 +150,30 @@ $config = array(
 		array(
         	'field' => 'gender',
             'label' => 'lang:gender',
+            'rules' => 'required'
+		),
+		array(
+        	'field' => 'nationality',
+            'label' => 'lang:nationality',
+            'rules' => 'required'
+		),
+	),
+	'publisher/add'=>array(
+		array(
+        	'field' => 'name',
+            'label' => 'lang:name',
+            'rules' => 'required'
+		),
+		array(
+        	'field' => 'nationality',
+            'label' => 'lang:nationality',
+            'rules' => 'required'
+		),
+	),
+	'publisher/edit'=>array(
+		array(
+        	'field' => 'name',
+            'label' => 'lang:name',
             'rules' => 'required'
 		),
 		array(
