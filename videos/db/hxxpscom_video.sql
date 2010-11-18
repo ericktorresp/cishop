@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: hxxpscom_video
 Target Host: localhost
 Target Database: hxxpscom_video
-Date: 2010/11/18 11:56:20
+Date: 2010/11/18 15:45:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -64,10 +64,10 @@ CREATE TABLE `members` (
 -- ----------------------------
 CREATE TABLE `publishers` (
   `id` int(11) NOT NULL auto_increment,
-  `name` varchar(99) character set latin1 NOT NULL,
-  `nationality` varchar(99) character set latin1 NOT NULL,
+  `name` varchar(99) NOT NULL,
+  `nationality` varchar(99) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for servers
@@ -136,11 +136,10 @@ INSERT INTO `actors` VALUES ('5', 'Video', 'female', 'no_picture.jpg', 'japan');
 INSERT INTO `categories` VALUES ('1', 'Asian', '0', '2', '0');
 INSERT INTO `categories` VALUES ('2', 'Bbbbb', '0', '5', '2');
 INSERT INTO `categories` VALUES ('4', 'Hardcore', '1288841398', '1', '3');
-INSERT INTO `ci_sessions` VALUES ('5349f08710f5e9cfce5fc7e251ffccb7', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv', '1290048979', 'a:6:{s:3:\"uid\";s:1:\"1\";s:8:\"username\";s:4:\"root\";s:8:\"password\";s:32:\"c5769e3620c3ee2bd879b16c905d948e\";s:14:\"validate_start\";s:10:\"0000-00-00\";s:13:\"validate_ends\";s:10:\"0000-00-00\";s:8:\"is_admin\";s:1:\"1\";}');
-INSERT INTO `ci_sessions` VALUES ('238634e4f81993718c18caf4f5111b26', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv', '1290052416', 'a:6:{s:3:\"uid\";s:1:\"1\";s:8:\"username\";s:4:\"root\";s:8:\"password\";s:32:\"c5769e3620c3ee2bd879b16c905d948e\";s:14:\"validate_start\";s:10:\"0000-00-00\";s:13:\"validate_ends\";s:10:\"0000-00-00\";s:8:\"is_admin\";s:1:\"1\";}');
+INSERT INTO `ci_sessions` VALUES ('8352ec8c39bac2214e0c0b0a61fb8e7e', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv', '1290062610', 'a:6:{s:3:\"uid\";s:1:\"1\";s:8:\"username\";s:4:\"root\";s:8:\"password\";s:32:\"c5769e3620c3ee2bd879b16c905d948e\";s:14:\"validate_start\";s:10:\"0000-00-00\";s:13:\"validate_ends\";s:10:\"0000-00-00\";s:8:\"is_admin\";s:1:\"1\";}');
 INSERT INTO `members` VALUES ('1', 'root', 'c5769e3620c3ee2bd879b16c905d948e', '0000-00-00', '0000-00-00', '1');
 INSERT INTO `members` VALUES ('2', 'darkmoon', '88b5fdd9c49c4657ecaa4deede0f106f', '0000-00-00', '0000-00-00', '0');
-INSERT INTO `publishers` VALUES ('1', 'tokyo', 'Japan');
+INSERT INTO `publishers` VALUES ('1', 'Soal', 'korea');
 INSERT INTO `servers` VALUES ('1', 'ph918.com', null, '1');
 INSERT INTO `servers` VALUES ('5', 'v.hxxps.us', '', '1');
 INSERT INTO `video_views` VALUES ('1', '1', '1', '2010-11-01', '322');
