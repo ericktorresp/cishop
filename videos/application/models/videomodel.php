@@ -71,10 +71,12 @@ class VideoModel extends Model
 	 */
 	public function add($data)
 	{
-		$this->db->trans_start();
+//		$this->db->trans_start();
 		$this->db->insert($this->table, $data);
-		$this->db->query('UPDATE categories SET count=count+1 WHERE cid='.$data['cid']);
-		return $this->db->trans_complete();
+//		$this->db->query('UPDATE categories SET count=count+1 WHERE cid='.$data['cid']);
+//		return $this->db->trans_complete();
+
+		return $this->db->insert_id();
 	}
 
 	/**

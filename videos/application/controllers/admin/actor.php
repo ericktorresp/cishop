@@ -47,10 +47,36 @@ class Actor extends Controller
 			$this->load->view('admin/actor_add_form',$data);
 			return;
 		}
+		$this->load->helper('string');
+		$config['upload_path'] = './uploads/actors/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size'] = '1000';
+		$config['overwrite'] = TRUE;
+		$config['file_name'] = random_string('alnum',12).'.'.end(explode('.',$_FILES['photo']['name']));
+
+		$this->load->library('upload',$config);
+		if (!$this->upload->do_upload('photo'))
+		{
+			$data['error'] = $this->upload->display_errors('<div class="error">','</div>');
+			$this->load->view('admin/actor_add_form', $data);
+			return;
+		}
+		$image_data =$this->upload->data();
+		//图片处理
+		$config['image_library'] = 'gd2';
+		$config['source_image'] = $image_data['full_path'];
+		$config['create_thumb'] = FALSE;
+		$config['maintain_ratio'] = TRUE;
+		$config['width'] = 150;
+		$config['height'] = 150;
+
+		$this->load->library('image_lib', $config);
+		$this->image_lib->resize();
 		$data = array(
 			'name'=>$this->input->post('name'),
 			'gender'=>$this->input->post('gender'),
 			'nationality'=>$this->input->post('nationality'),
+			'photo'=>$image_data['file_name']
 		);
 		//insert into actors
 		if($this->ActorsModel->add($data))
@@ -77,11 +103,49 @@ class Actor extends Controller
 			return;
 		}
 		$id = $this->input->post('id');
-		$data = array(
+
+		if($_FILES['photo']['size'])
+		{
+			$config['upload_path'] = './uploads/actors/';
+			$config['allowed_types'] = 'gif|jpg|png';
+			$config['max_size'] = '1000';
+			$config['overwrite'] = TRUE;
+			$config['file_name'] = $id.'.'.end(explode('.',$_FILES['photo']['name']));
+			$this->load->library('upload',$config);
+			if (!$this->upload->do_upload('photo'))
+			{
+				$data['error'] = $this->upload->display_errors('<div class="error">','</div>');
+				$this->load->view('admin/actor_edit_form', $data);
+				return;
+			}
+			$image_data =$this->upload->data();
+
+			//图片处理
+			$config['image_library'] = 'gd2';
+			$config['source_image'] = $image_data['full_path'];
+			$config['create_thumb'] = FALSE;
+			$config['maintain_ratio'] = TRUE;
+			$config['width'] = 150;
+			$config['height'] = 150;
+
+			$this->load->library('image_lib', $config);
+			$this->image_lib->resize();
+
+			$data = array(
 			'name'=>$this->input->post('name'),
 			'gender'=>$this->input->post('gender'),
-			'nationality'=>$this->input->post('nationality')
-		);
+			'nationality'=>$this->input->post('nationality'),
+			'photo'=>$image_data['file_name']
+			);
+		}
+		else
+		{
+			$data = array(
+			'name'=>$this->input->post('name'),
+			'gender'=>$this->input->post('gender'),
+			'nationality'=>$this->input->post('nationality'),
+			);
+		}
 		//insert into videos
 		if($this->ActorsModel->update($id, $data))
 		{

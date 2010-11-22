@@ -40,48 +40,65 @@ class Video extends Controller
 			$this->load->view('admin/video_add_form',$data);
 			return;
 		}
+		$this->load->library('upload');
+		if (!$this->upload->do_upload())
+		{
+			$data['error'] = $this->upload->display_errors('<div class="error">','</div>');
+			$this->load->view('admin/video_add_form', $data);
+			return;
+		}
+		$upload_data =$this->upload->data();
+
+		//zip handle
+		$this->load->library('unzip');
+		$this->unzip->allow(array('png', 'gif', 'jpeg', 'jpg'));
+		$this->unzip->extract($upload_data['full_path'],$upload_data['file_path'].$upload_data['raw_name'].'/');
+		@unlink($upload_data['full_path']);
+		$this->load->helper('directory');
+		$map = directory_map('./uploads/videos/'.$upload_data['raw_name'].'/');
+		$this->load->library('image_lib');
+		//图片处理
+		$config['image_library'] = 'gd2';
+		$config['create_thumb'] = FALSE;
+		$config['maintain_ratio'] = TRUE;
+		$config['width'] = 150;
+		$config['height'] = 150;
+		foreach($map AS $fname)
+		{
+			$config['source_image'] = $upload_data['file_path'].$upload_data['raw_name'].'/'.$fname;
+
+			$this->image_lib->initialize($config);
+			$this->image_lib->resize();
+			$this->image_lib->clear();
+		}
+		$data = array(
+			'cid'=>$this->input->post('cid'),
+			'title'=>$this->input->post('title'),
+			'key'=>array_shift(explode('.',$upload_data['raw_name'])),
+			'description'=>$this->input->post['description'],
+			'file_name'=>'',
+			'width'=>$this->input->post('width'),
+			'height'=>$this->input->post('height'),
+			'ctime'=>time(),
+			'is_fetured'=>$this->input->post('is_fetured')?$this->input->post('is_fetured'):0,
+			'rate'=>0,
+			'server'=>$this->input->post('server'),
+			'published'=>$this->input->post('published'),
+			'mime'=>$this->input->post('mime'),
+			'duration'=>$this->input->post('duration')
+		);
+		//insert into videos
+		if($vid = $this->VideoModel->add($data))
+		{
+			//rename photo directory
+			rename($upload_data['file_path'].$upload_data['raw_name'], $upload_data['file_path'].$vid);
+			$this->session->set_flashdata('infomation', sprintf($this->lang->line('successed'), $this->lang->line('add')));
+		}
 		else
 		{
-			$this->load->helper('string');
-			$this->load->library('upload');
-
-			if (!$this->upload->do_upload())
-			{
-				$data['error'] = $this->upload->display_errors('<div class="error">','</div>');
-				$this->load->view('admin/video_add_form', $data);
-			}
-			else
-			{
-				$image_data =$this->upload->data();
-				$data = array(
-					'cid'=>$this->input->post('cid'),
-					'title'=>$this->input->post('title'),
-					'key'=>array_shift(explode('.',$image_data['file_name'])),
-					'description'=>$this->input->post['description'],
-					'file_name'=>'',
-					'width'=>$this->input->post('width'),
-					'height'=>$this->input->post('height'),
-					'ctime'=>time(),
-					'views'=>$this->input->post('views') ? $this->input->post('views') : 0,
-					'is_fetured'=>$this->input->post('is_fetured')?$this->input->post('is_fetured'):0,
-					'rate'=>0,
-					'server'=>$this->input->post('server'),
-					'published'=>$this->input->post('published'),
-					'mime'=>$this->input->post('mime'),
-					'duration'=>$this->input->post('duration')
-				);
-				//insert into videos
-				if($this->VideoModel->add($data))
-				{
-					$this->session->set_flashdata('infomation', sprintf($this->lang->line('successed'), $this->lang->line('add')));
-				}
-				else
-				{
-					$this->session->set_flashdata('error', sprintf($this->lang->line('failed'), $this->lang->line('add')));
-				}
-				redirect('admin/video');
-			}
+			$this->session->set_flashdata('error', sprintf($this->lang->line('failed'), $this->lang->line('add')));
 		}
+		redirect('admin/video');
 	}
 
 	/**
@@ -135,19 +152,54 @@ class Video extends Controller
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<span class="error">', '</span>');
-		if($this->form_validation->run() == FALSE)
-		{
-			$data = array(
+		$data = array(
 			'cats'=>$this->CategoriesModel->categories_for_dropdown(),
 			'servers'=>$this->ServersModel->servers_for_dropdown(),
 			'actors'=>$this->ActorsModel->actors_for_dropdown(),
 			'publishers'=>$this->PublishersModel->publishers_for_dropdown()
-			);
-			$data['video'] = $this->VideoModel->video($vid);
+		);
+		$vid = $this->input->post('vid') ? $this->input->post('vid') : $vid;
+		$data['video'] = $this->VideoModel->video($vid);
+		if($this->form_validation->run() == FALSE)
+		{
 			$this->load->view('admin/video_edit_form',$data);
 			return;
 		}
-		$vid = $this->input->post('vid');
+
+		if($_FILES['userfile']['size'])
+		{
+			$this->load->library('upload');
+			if (!$this->upload->do_upload())
+			{
+				$data['error'] = $this->upload->display_errors('<div class="error">','</div>');
+				$this->load->view('admin/video_edit_form', $data);
+				return;
+			}
+			$upload_data =$this->upload->data();
+
+			//zip handle
+			$this->load->library('unzip');
+			$this->unzip->allow(array('png', 'gif', 'jpeg', 'jpg'));
+			$this->unzip->extract($upload_data['full_path'],$upload_data['file_path'].$vid.'/');
+			@unlink($upload_data['full_path']);
+			$this->load->helper('directory');
+			$map = directory_map('./uploads/videos/'.$vid.'/');
+			$this->load->library('image_lib');
+			//图片处理
+			$config['image_library'] = 'gd2';
+			$config['create_thumb'] = FALSE;
+			$config['maintain_ratio'] = TRUE;
+			$config['width'] = 150;
+			$config['height'] = 150;
+			foreach($map AS $fname)
+			{
+				$config['source_image'] = $upload_data['file_path'].$vid.'/'.$fname;
+
+				$this->image_lib->initialize($config);
+				$this->image_lib->resize();
+				$this->image_lib->clear();
+			}
+		}
 		$data = array(
 			'cid'=>$this->input->post('cid'),
 			'title'=>$this->input->post('title'),

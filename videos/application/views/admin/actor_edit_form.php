@@ -33,6 +33,13 @@ echo form_hidden('id', set_value('id',$actor->id));
 	?>
 </div>
 <div>
+	<span><?php echo lang('photo');?>:<br /></span>
+	<?php
+	echo form_upload('photo',set_value('photo'),'id=photo');
+	echo $error;
+	?>
+</div>
+<div>
 <?php
 echo form_submit('categorysubmit', lang('submit'), 'id="submit"');
 ?>

@@ -32,6 +32,13 @@ echo form_open_multipart('admin/actor/add');
 	?>
 </div>
 <div>
+	<span><?php echo lang('photo');?>:<br /></span>
+	<?php
+	echo form_upload('photo',set_value('photo'),'id=photo');
+	echo $error;
+	?>
+</div>
+<div>
 <?php
 echo form_submit('categorysubmit', lang('submit'), 'id="submit"');
 ?>
