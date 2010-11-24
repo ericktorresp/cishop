@@ -7,8 +7,10 @@ import com.smartfoxserver.v2.exceptions.SFSException;
 import com.smartfoxserver.v2.exceptions.SFSLoginException;
 import com.smartfoxserver.v2.extensions.BaseServerEventHandler;
 import com.smartfoxserver.bitswarm.sessions.ISession;
+import com.smartfoxserver.v2.db.*;
 
 public class LoginEventHandler extends BaseServerEventHandler {
+	private SFSDBManager db;
 	@Override
 	public void handleServerEvent(ISFSEvent event) throws SFSException {
 		String name = (String) event.getParameter(SFSEventParam.LOGIN_NAME);
@@ -22,7 +24,7 @@ public class LoginEventHandler extends BaseServerEventHandler {
 			paramsOut.putBool("login", true);
 		} else {
 			paramsOut.putBool("login", false);
-//			throw new SFSLoginException("用户名必须以\"h_\"开头且密码为:123");
+			// throw new SFSLoginException("用户名必须以\"h_\"开头且密码为:123");
 		}
 	}
 }
