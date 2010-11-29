@@ -1,4 +1,4 @@
-package us.crims.member;
+package us.crims.base;
 
 import com.smartfoxserver.v2.core.ISFSEvent;
 import com.smartfoxserver.v2.core.SFSEventParam;

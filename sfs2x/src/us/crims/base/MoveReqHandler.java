@@ -1,4 +1,4 @@
-package us.crims.member;
+package us.crims.base;
 
 import com.smartfoxserver.v2.annotations.Instantiation;
 import com.smartfoxserver.v2.annotations.Instantiation.InstantiationMode;
