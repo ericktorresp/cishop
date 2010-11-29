@@ -9,6 +9,7 @@ import com.smartfoxserver.v2.extensions.SFSExtension;
 @Instantiation(InstantiationMode.SINGLE_INSTANCE)
 public class Main extends SFSExtension
 {
+	public static final String ZONE = "";
 	@SuppressWarnings("unused")
 	private IDBManager dbManager;
 	@Override
