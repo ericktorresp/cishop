@@ -65,8 +65,9 @@ public class LoginEventHandler extends BaseServerEventHandler {
 			trace("<-USERNAME->" + username);
 			trace("<-DB PASSWORD->" + dbPass);
 			trace("<-ENCRYPTED PASS->" + encryptedPass);
+			trace("<-USERDATA->" + userData);
 			if(getApi().checkSecurePassword(session, dbPass, encryptedPass)) {
-				trace("<-both passwords correct->");
+				trace("<-BOTH PASSWORDS CORRECT->");
 				// Remove unwanted fields from the data (these don't need to be sent to the client)
 				//userData = cleanUserData((SFSObject) userData);
 				ISFSObject userInfo = new SFSObject();
