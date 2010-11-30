@@ -9,13 +9,13 @@ import com.smartfoxserver.v2.extensions.SFSExtension;
 @Instantiation(InstantiationMode.SINGLE_INSTANCE)
 public class Main extends SFSExtension
 {
-	public static final String ZONE = "";
+	public static final String ZONE = "first2X";
 	@SuppressWarnings("unused")
 	private IDBManager dbManager;
 	@Override
 	public void init()
 	{
-		trace("Hello, this is my first SFS2X Extension!");
+		trace("<-first2X EXTENSION->");
 		dbManager = getParentZone().getDBManager();
 		addEventHandler(SFSEventType.USER_LOGIN, LoginEventHandler.class);
 		addRequestHandler("move", MoveReqHandler.class);

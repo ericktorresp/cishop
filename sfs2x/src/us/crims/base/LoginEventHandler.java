@@ -48,9 +48,9 @@ public class LoginEventHandler extends BaseServerEventHandler {
 		
 		try {
 			userResult = (ISFSArray) _dbManager.executeQuery(userSQL);
-			trace("RESULT: " + userResult);
+			trace("<-RESULT->" + userResult);
 		} catch(SQLException sqlErr) {
-			trace("SQL Exception: " + sqlErr);
+			trace("<-SQL Exception->" + sqlErr);
 			throw new SFSLoginException("Username or password incorrect.Error1", _errData);
 		}
 		
@@ -61,20 +61,20 @@ public class LoginEventHandler extends BaseServerEventHandler {
 		if(userResult.size() == 1) {
 			ISFSObject userData = userResult.getSFSObject(0);
 			String dbPass = userData.getUtfString("password");
-			trace("SESSION: " + session);
-			trace("USERNAME: " + username);
-			trace("DB PASSWORD: " + dbPass);
-			trace("ENCRYPTED PASS: " + encryptedPass);
+			trace("<-SESSION->" + session);
+			trace("<-USERNAME->" + username);
+			trace("<-DB PASSWORD->" + dbPass);
+			trace("<-ENCRYPTED PASS->" + encryptedPass);
 			if(getApi().checkSecurePassword(session, dbPass, encryptedPass)) {
-				trace("both passwords correct");
+				trace("<-both passwords correct->");
 				// Remove unwanted fields from the data (these don't need to be sent to the client)
 				//userData = cleanUserData((SFSObject) userData);
 				ISFSObject userInfo = new SFSObject();
-				userInfo.putUtfString("lv", userData.getUtfString("LV"));
+				/*userInfo.putUtfString("lv", userData.getUtfString("LV"));
 				userInfo.putUtfString("exp", userData.getUtfString("EXP"));
 				userInfo.putUtfString("country", userData.getUtfString("COUNTRY"));
 				userInfo.putUtfString("mw", userData.getUtfString("MW"));
-				userInfo.putUtfString("sw", userData.getUtfString("SW"));
+				userInfo.putUtfString("sw", userData.getUtfString("SW"));*/
 				
 				// Store userData in the current session. This is used later on in ZoneEventHandler to add custom user variables
 				//session.setProperty("userInfo", userInfo);
