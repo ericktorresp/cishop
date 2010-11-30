@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	layout="vertical"
+	showCloseButton="true"
+	title="Create new game"
+	paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10"
+	height="500">
+
+	<mx:Script>
+		<![CDATA[
+			import mx.events.CloseEvent;
+			
+			public function reset():void
+			{
+				ti_name.text = "";
+				dd_type.selectedIndex = 0;
+				ns_maxPlayers.value = 4;
+				ns_minPlayers.value = 2;
+				//lb_country not reset as it is kept updated on user variables update event
+				//lb_minRanking not reset as it is kept updated on user variables update event
+				rb_isPublic.selected = true;
+				//ls_players not reset as it is kept updated on user enter/exit room events
+				ls_players.selectedIndex = -1;
+				ta_invitationMsg.text = "Hey, do you want to join my game?";
+			}
+			
+			private function onCancelClick():void
+			{
+				dispatchEvent(new CloseEvent(CloseEvent.CLOSE));
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Form paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0" width="100%"  height="100%">
+		<mx:FormItem label="Name:">
+			<mx:TextInput id="ti_name"/>
+		</mx:FormItem>
+		<mx:FormItem label="Type:">
+			<mx:ComboBox id="dd_type">
+				<mx:ArrayCollection>
+					<mx:String>BattleFarm</mx:String>
+					<mx:String>SmartFoxTris</mx:String>
+					<mx:String>Space Soccer</mx:String>
+				</mx:ArrayCollection>
+			</mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="Maximum players:">
+			<mx:NumericStepper id="ns_maxPlayers" minimum="{ns_minPlayers.value}" maximum="4" value="4"/>
+		</mx:FormItem>
+		<mx:FormItem label="Min players to start:">
+			<mx:NumericStepper id="ns_minPlayers" minimum="2" maximum="4" value="2"/>
+		</mx:FormItem>
+		<mx:HRule width="100%" height="1"/>
+		<mx:FormItem label="Only from country:">
+			<mx:Label id="lb_country"/>
+		</mx:FormItem>
+		<mx:FormItem label="Minimum ranking:">
+			<mx:Label id="lb_minRanking"/>
+		</mx:FormItem>
+		<mx:HRule width="100%" height="1"/>
+		<mx:FormItem label="Is public:" direction="horizontal">
+			<mx:RadioButtonGroup id="rbg_public"/>
+			<mx:RadioButton label="Yes" groupName="rbg_public" selected="true" id="rb_isPublic"/>
+			<mx:RadioButton label="No" groupName="rbg_public"/>
+		</mx:FormItem>
+		<mx:FormItem label="Invite players:" enabled="{!rb_isPublic.selected}" width="100%" height="100%">
+			<mx:List id="ls_players" allowMultipleSelection="true" width="100%" height="100%" labelField="name"/>
+		</mx:FormItem>
+		<mx:FormItem label="Invitation message:" width="100%" enabled="{!rb_isPublic.selected}">
+			<mx:TextArea width="100%" text="Hey, do you want to join my game?" id="ta_invitationMsg"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:Text text="Selected players to invite aren't subject to country/ranking filter" width="100%"/>
+	<mx:Spacer width="10" height="10"/>
+	<mx:HBox width="100%">
+		<mx:Button label="Create game" click="parentApplication.onCreateGamePopuUpBtClick()" enabled="{ti_name.text != ''}"/>
+		<mx:Spacer width="100%" height="10"/>
+		<mx:Button label="Cancel" click="onCancelClick()"/>
+	</mx:HBox>
+</mx:TitleWindow>

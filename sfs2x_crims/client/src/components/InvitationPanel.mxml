@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	layout="vertical"
+	showCloseButton="false"
+	title="You have been invited to play a game!"
+	paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10"
+	width="400">
+
+	<mx:Script>
+		<![CDATA[
+			import com.smartfoxserver.v2.entities.invitation.Invitation;
+			
+			import mx.events.CloseEvent;
+			
+			public var invitation:Invitation;
+			
+			private var _time:int;
+			private var timer:Timer
+			private var isInitialized:Boolean = false;
+			
+			[Bindable]
+			public function set time(value:int):void
+			{
+				_time = value;
+				
+				// Start countdown
+				if (!isInitialized)
+					startTimer();
+			}
+			
+			public function get time():int
+			{
+				return _time;
+			}
+			
+			private function startTimer():void
+			{
+				isInitialized = true;
+				
+				// Start countdown
+				timer = new Timer(1000, time);
+				timer.addEventListener(TimerEvent.TIMER, onTimerTick, false, 0, true);
+				timer.addEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete, false, 0, true);
+				timer.start();
+			}
+			
+			private function onTimerTick(evt:TimerEvent):void
+			{
+				time -= 1;
+			}
+			
+			private function onTimerComplete(evt:TimerEvent):void
+			{
+				replyToInvitation(false);
+			}
+			
+			private function replyToInvitation(accept:Boolean):void
+			{
+				// Stop timer
+				timer.stop();
+				
+				// Call function in parent application
+				parentApplication.onInvitationPanelResponse(accept, invitation);
+			}
+		]]>
+	</mx:Script>
+	<mx:Text width="100%" id="txt_invitationMsg" minHeight="50"/>
+	<mx:Spacer width="100%" height="10"/>
+	<mx:HBox width="100%" verticalAlign="middle">
+		<mx:Button label="Accept" click="replyToInvitation(true)"/>
+		<mx:Label width="100%" textAlign="center" id="lb_timer" text="{'Invitation expires in ' + time + ' seconds'}"/>
+		<mx:Button label="Refuse" click="replyToInvitation(false)"/>
+	</mx:HBox>
+</mx:TitleWindow>

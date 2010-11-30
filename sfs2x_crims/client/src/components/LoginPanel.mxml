@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:sfb="http://www.smartfoxserver.com/bits"
+	layout="vertical"
+	width="400"
+	height="300"
+	title="Login"
+	horizontalAlign="center"
+	verticalAlign="middle"
+	creationPolicy="all">
+	
+	<sfb:LoginBox autoHide="false" buttonText="Login" formLayout="side-top" passwordLabelText="Password:" restrict="^&lt;&gt;" showPassword="true" usernameLabelText="Username:" zone="first2X"/>
+	<mx:Spacer width="10" height="10"/>
+	<mx:Text id="ta_error" selectable="false" width="100%" minHeight="0" color="#DB0E0E" includeInLayout="{ta_error.text != ''}" textAlign="center"/>
+	<mx:ControlBar>
+		<sfb:Connector id="connector" gap="5" labelPlacement="right" serverIpAddress="" serverPort="-1" configPath="config/sfs-config.xml" autoConnect="true" debug="true"/>
+	</mx:ControlBar>
+</mx:Panel>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:components="components.*"
+	layout="absolute"
+	creationPolicy="all"
+	creationComplete="init()" xmlns:sfb="http://www.smartfoxserver.com/bits">
+	
+	<mx:Style source="style/style.css"/>
+
+	<mx:Script source="GameLobby.as"/>
+	
+	<mx:VBox width="100%" height="100%" verticalGap="0">
+		
+		<!-- Application views container -->
+		<mx:ViewStack id="mainView" width="100%" height="100%" styleName="mainView" creationPolicy="all">
+			
+			<!-- Connection & login view -->
+			<mx:VBox id="view_connecting" width="100%" height="100%" verticalAlign="middle" horizontalAlign="center">
+				<components:LoginPanel id="loginPanel"/>
+			</mx:VBox>
+			
+			<!-- Lobby view -->
+			<mx:VBox id="view_lobby" width="100%" height="100%" horizontalAlign="center">
+				<mx:Label text="The Lobby" styleName="mainTitles"/>
+				<mx:HBox width="100%" height="100%">
+					<mx:Panel width="100%" height="100%" layout="vertical" title="Public chat">
+						<sfb:ChatBox adminMessageHeader="&lt;b&gt;Administrator message received:&lt;/b&gt;&lt;br&gt;" sendButtonText="Send" groupMessages="true" initialMessage="Enter your message here" messageHeader="&lt;b&gt;#user says:&lt;/b&gt;&lt;br&gt;" moderatorMessageHeader="&lt;b&gt;Moderator message received:&lt;/b&gt;&lt;br&gt;" restrict="^&lt;&gt;" roomJoinAlert="&lt;i&gt;You entered #room room&lt;/i&gt;" showClearButton="false" showColorPicker="false" systemAlertsColor="#666666" userEnterRoomAlert="&lt;i&gt;#user entered the room&lt;/i&gt;" userLeaveRoomAlert="&lt;i&gt;#user left the room&lt;/i&gt;" width="100%" height="100%"/>
+					</mx:Panel>
+					<mx:VBox height="100%">
+						<mx:Panel width="250" height="100%" layout="vertical" title="Available players">
+							<sfb:UserList banButtonText="Ban" banMessage="You have been banned by the Moderator" enablePrivateChat="true" kickButtonText="Kick" kickMessage="You have been kicked by the Moderator" newPrivateMsgLabelColor="#CC0000" moderateLabelText="Moderate user:" privateChatLabelText="Private messaging:" rowHeight="32" showIcons="true" sortOrder="ASC" width="100%" height="100%" id="ul_players" labelFunction="getUserLabel"/>
+							<mx:ControlBar>
+								<mx:Label text="You logged-in as"/>
+								<mx:Label id="lb_myUserName" fontWeight="bold"/>
+							</mx:ControlBar>
+						</mx:Panel>
+						<mx:Panel width="100%" layout="vertical" title="My player details">
+							<mx:Form paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0">
+								<mx:FormItem label="Country:">
+									<mx:ComboBox id="dd_country" change="onPlayerDetailsChange()">
+										<mx:ArrayCollection>
+											<mx:String>Italy</mx:String>
+											<mx:String>Spain</mx:String>
+											<mx:String>United Kingdom</mx:String>
+											<mx:String>United States</mx:String>
+										</mx:ArrayCollection>
+									</mx:ComboBox>
+								</mx:FormItem>
+								<mx:FormItem label="Ranking:">
+									<mx:NumericStepper id="ns_ranking" minimum="0" maximum="5" value="3" change="onPlayerDetailsChange()"/>
+								</mx:FormItem>
+							</mx:Form>
+						</mx:Panel>
+					</mx:VBox>
+					<mx:Panel width="250" height="100%" layout="vertical" title="Public games">
+						<sfb:RoomList errorsDisplayTime="3" groupByRoomType="false" joinButtonText="Join" passwordLabelText="Enter the password:" playButtonText="Play" rowHeight="44" showChatRooms="false" showGameRooms="true" showIcons="true" showHiddenRooms="false" showPrivateRooms="false" sortOrder="ASC" watchButtonText="Watch" width="100%" height="100%" defaultRoom="The Lobby" roomGroups="games" id="rl_publicGames" labelFunction="getRoomLabel"/>
+						<mx:Text text="Private games are not displayed; they can be joined by invitation only" width="100%"/>
+						<mx:ControlBar>
+							<mx:Button label="Start new game" width="100%" click="onCreateGameApplicationBtClick()"/>
+						</mx:ControlBar>
+					</mx:Panel>
+				</mx:HBox>
+			</mx:VBox>
+			
+			<!-- Game view -->
+			<mx:VBox id="view_game" width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+				<mx:Label text="The Game" styleName="mainTitles"/>
+				<mx:HBox height="100%">
+					<mx:Panel width="500" height="100%" layout="absolute" title="Game">
+						<mx:Image source="@Embed(source='/assets/game.png')" scaleContent="false" horizontalCenter="0" verticalCenter="0"/>
+						<mx:ControlBar>
+							<mx:Button label="Leave game" click="onLeaveGameBtClick()"/>
+						</mx:ControlBar>
+					</mx:Panel>
+					<mx:Panel width="250" height="100%" layout="vertical" title="Game chat">
+						<sfb:ChatBox adminMessageHeader="&lt;b&gt;Administrator message received:&lt;/b&gt;&lt;br&gt;" sendButtonText="Send" groupMessages="true" initialMessage="Enter your message here" messageHeader="&lt;b&gt;#user says:&lt;/b&gt;&lt;br&gt;" moderatorMessageHeader="&lt;b&gt;Moderator message received:&lt;/b&gt;&lt;br&gt;" restrict="^&lt;&gt;" roomJoinAlert="&lt;i&gt;You entered #room room&lt;/i&gt;" showClearButton="false" showColorPicker="false" systemAlertsColor="#666666" userEnterRoomAlert="&lt;i&gt;#user entered the room&lt;/i&gt;" userLeaveRoomAlert="&lt;i&gt;#user left the room&lt;/i&gt;" width="100%" x="-82" y="0" height="100%"/>
+					</mx:Panel>
+					
+				</mx:HBox>
+			</mx:VBox>
+			
+		</mx:ViewStack>
+		
+		<!-- Footer -->
+		<mx:HBox width="100%" height="60" styleName="footer" verticalAlign="middle" horizontalGap="10">
+			<mx:Spacer/>
+			<mx:Image source="@Embed(source='assets/logo.png')"/>
+			<mx:VBox height="100%" horizontalAlign="right" width="100%" verticalAlign="middle" verticalGap="-2">
+				<mx:Label htmlText="SmartFoxServer 2X Examples: &lt;b&gt;GameLobby&lt;/b&gt;"/>
+				<mx:Label text="(C) 2010 gotoAndPlay"/>
+			</mx:VBox>
+			<mx:Spacer/>
+		</mx:HBox>
+	</mx:VBox>
+	
+</mx:Application>
