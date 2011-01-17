@@ -1,0 +1,1615 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Online Casino - Play Free Casino Games at CasinoRoom.com</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="keywords" content="casino room, casino games, blackjack, black jack, video poker,slots, let it ride, caribbean, baccarat, roulette, casinoroom, online, gambling, gaming, java, Gonzo's Quest, Live Casino" />
+	<meta name="description" content="CasinoRoom.com offers online casino games such as BlackJack, slots, Roulette and Caribbean poker for fun or money. No downloads necessary." />
+	<meta name="robots" content="INDEX, FOLLOW" />
+	<meta name="revisit-after" content="2 DAYS" />
+	<meta name="copyright" content="&copy; 318ok.com" />
+	<meta http-equiv="imagetoolbar" content="no" />
+	<meta http-equiv="imagetoolbar" content="false" />
+	<link rel="stylesheet" type="text/css" href="css/318ok.css" />
+
+	<!--[if IE 6]>
+	<link rel="stylesheet" type="text/css" href="css/318okIE6.css" />
+	<![endif]-->
+
+	<script type="text/javascript" src="js/318ok.js"></script>
+</head>
+<body>
+	<noscript>
+		<div>
+			Please Enable JavaScript!
+		</div>
+	</noscript>
+	<input type="hidden" name="siteBackgroundImage" id="siteBackgroundImage" value="images/winpalace/background_big_black_62x793.jpg" />
+	<input type="hidden" name="siteBackgroundColor" id="siteBackgroundColor" value="000000" />
+	<div id="siteContainer">
+		<div id="supernav">
+		<div id="supernavContent">
+			<div class="promoBubbleContainer casinoBubble hide">
+				<input type="hidden" name="bubble_name" value="casino-lasvegas">
+				<a class="promoBubble noStyle pointer" href="https://www.casinoroom.com/livecasino/">
+					<span class="bubbleLeft"></span>
+					<span class="bubbleMiddle whiteText">
+						<span class="bold block">Right now:</span>
+						<span class="block whiteText marginTop3 noBackground relative">Play Live Casino<span class="redArrowIcon right absolute" style="top: -2px;right: -25px;"></span></span>
+					</span>
+					<span class="bubbleRight"></span>
+				</a>
+				<span class="promoBubbleArrow"></span>
+				<span class="promoBubbleClose"></span>
+			</div>
+						<div class="promoBubbleContainer bettingBubble hide">
+				<input type="hidden" name="bubble_name" value="betting-game">
+				<a class="promoBubble noStyle pointer" href="https://www.betcrib.com/zh/signin/sso?sid=tulc5oe0jfg2mh9q3660r7h7m2&url=https%3A%2F%2Fwww.betcrib.com%2Fzh%2F%3Fmatchid%3D187056906">
+					<span class="bubbleLeft"></span>
+					<span class="bubbleMiddle whiteText">
+						<span class="bold block">Bet now: Premier League</span>
+						<span class="block whiteText marginTop3 noBackground relative">Aston Villa - Birmingham City FC<span class="redArrowIcon right absolute" style="top: -2px;right: -25px;"></span></span>
+					</span>
+					<span class="bubbleRight"></span>
+				</a>
+				<span class="promoBubbleArrow"></span>
+				<span class="promoBubbleClose"></span>
+			</div>
+			<div class="promoBubbleContainer pokerBubble hide">
+				<input type="hidden" name="bubble_name" value="poker-playeronline">
+				<a class="promoBubble noStyle pointer" href="https://www.europoker.com/zh/signin/sso?sid=tulc5oe0jfg2mh9q3660r7h7m2&url=https%3A%2F%2Fwww.europoker.com%2Fzh%2Fgsop%2Fbonus%2F">
+					<span class="bubbleLeft"></span>
+					<span class="bubbleMiddle whiteText">
+						<span class="block whiteText mediumText bold marginTop10 noBackground relative">Free GSOP Ticket<span class="redArrowIcon right absolute" style="top: -2px;right: -25px;"></span></span>
+					</span>
+					<span class="bubbleRight"></span>
+				</a>
+				<span class="promoBubbleArrow"></span>
+				<span class="promoBubbleClose"></span>
+			</div>
+			<script type="text/javascript">
+			// Init vars
+			var bubble_fade_time = 300;
+			var bubble_fade_in_timer = 4000;
+			var bubble_fade_out_timer = 10000;
+			var bubble_fade_out_hover_timer = 1000;
+			var bubble_timeout = new Array();
+			var current_bubble;
+			
+			$(document).ready(function() {
+										});
+			// Fade in bubble
+			function fadeinPromoBubble(bubble, use_fade_out_timer)
+			{
+				if(use_fade_out_timer == null)
+				{
+					use_fade_out_timer = true;
+				}
+				// Hide all bubbles
+//				clearTimeout(bubble_timeout);
+				current_class = '';
+				if($(bubble).hasClass('casinoBubble'))
+				{
+					current_class = 'casinoBubble';
+				}
+				else if($(bubble).hasClass('pokerBubble'))
+				{
+					current_class = 'pokerBubble';
+				}
+				else if($(bubble).hasClass('bettingBubble'))
+				{
+					current_class = 'bettingBubble';
+				}
+					
+				$('.promoBubbleContainer').not('.'+current_class).hide();
+				$(bubble).fadeIn(bubble_fade_time);
+				
+				if(use_fade_out_timer)
+				{
+					current_bubble = bubble;
+					timeout = setTimeout('fadeoutPromoBubble(current_bubble)', bubble_fade_out_timer);
+					addNewTimeout(timeout);
+					if(window.pageTracker !== undefined)
+					{
+						pageTracker._trackEvent('promoBubble', getBubbleName(bubble), 'showed');
+					}
+				}
+				$(bubble).hover(function()
+				{
+//					clearTimeout(bubble_timeout);
+					removeOldTimeouts();
+					if(window.pageTracker !== undefined)
+					{
+						pageTracker._trackEvent('promoBubble', getBubbleName($(this)), 'hovered');
+					}
+				},function() {
+					current_bubble = $(this);
+					timeout = setTimeout('fadeoutPromoBubble(current_bubble)', bubble_fade_out_hover_timer);
+					addNewTimeout(timeout);
+					if(window.pageTracker !== undefined)
+					{
+						pageTracker._trackEvent('promoBubble', getBubbleName($(this)), 'fade out');
+					}
+				});
+			}
+			// Fade out bubble
+			function fadeoutPromoBubble(bubble)
+			{
+				$(bubble).fadeOut(bubble_fade_time);
+			}
+			// Get supplied bubble name
+			function getBubbleName(bubble)
+			{
+				return $(bubble).find('input[name=bubble_name]').val();
+			}
+			function addNewTimeout(timeout)
+			{
+				removeOldTimeouts();
+				bubble_timeout.push(timeout);
+			}
+			// Remove all old bubble timeouts
+			function removeOldTimeouts()
+			{
+				for (var i in bubble_timeout)
+				{
+					clearTimeout(bubble_timeout[i]);
+				}
+				bubble_timeout = new Array();
+			}
+			// Close button
+			$('.promoBubbleClose').click(function() {
+				$(this).parents('.promoBubbleContainer').hide();
+				if(window.pageTracker !== undefined)
+				{
+					pageTracker._trackEvent('promoBubble', getBubbleName($(this).parents('.promoBubbleContainer')), 'closed');
+				}
+			});
+			// Link Click
+			$('.promoBubbleContainer').find('a').click(function() {
+				var url = $(this).attr('href');
+				if(window.pageTracker !== undefined)
+				{
+					pageTracker._trackEvent('promoBubble', getBubbleName($(this).parents('.promoBubbleContainer')), 'clicked');
+				}
+				window.location = url;
+				return false;
+			});
+			// Show if hovered site tab and then hover the bubble
+			$('.promoBubbleContainer').hover(function() {
+//				clearTimeout(bubble_timeout);
+				removeOldTimeouts();
+			}, function()
+			{
+				timeout = setTimeout('fadeoutPromoBubble(current_bubble)', bubble_fade_out_hover_timer);
+				addNewTimeout(timeout);
+			});
+			</script>
+		<ul class="left noStyle">
+			<li class="relative addBottomBorder toplevel left" style="z-index:31;">
+				<a href="/zh/myaccount/" class="noStyle relative" style="z-index:33;">
+					<span class="selectorButton hoverBottom">
+						<span class="buttonLeft"></span>
+						<span class="buttonMiddle">
+							<div class="smallAccountIcon"></div>
+							我的账户: <span class="moneyGreen">$0.00</span>						</span>
+						<span class="buttonRight"></span>
+					</span>
+				</a>
+				<ul id="myAccountList" class="hide left noStyle whiteText">
+					<li class="noBackground">
+						<div class="margin10" style="height: 30px;">
+							<a href="/zh/myaccount/" class="noStyle">
+								<span class="selectorButton noArrow">
+									<span class="buttonLeft"></span>
+									<span class="buttonMiddle bold" style="width: 380px;">
+										Your Account Details									</span>
+									<span class="buttonRight"></span>
+								</span>
+							</a>
+						</div>
+					</li>
+											<li title="我的账户" class="left accountLinks">
+							<a href="/zh/myaccount/" class="block whiteText noStyle">
+								<span class="accountImage myaccount left"></span>
+								<b class="">我的账户</b><br>
+								<span>Account balance, player points etc</span>
+							</a>
+						</li>
+											<li title="个人信息" class="left accountLinks">
+							<a href="/zh/playerdetails/" class="block whiteText noStyle">
+								<span class="accountImage playerdetails left"></span>
+								<b class="">个人信息</b><br>
+								<span>Your player details</span>
+							</a>
+						</li>
+											<li title="存款" class="left accountLinks">
+							<a href="/zh/deposit/" class="block whiteText noStyle">
+								<span class="accountImage deposit left"></span>
+								<b class="">存款</b><br>
+								<span>Make a deposit</span>
+							</a>
+						</li>
+											<li title="取款" class="left accountLinks">
+							<a href="/zh/cashout/" class="block whiteText noStyle">
+								<span class="accountImage cashout left"></span>
+								<b class="">取款</b><br>
+								<span>Make a withdrawal</span>
+							</a>
+						</li>
+											<li title="申请代码" class="left accountLinks">
+							<a href="/zh/claimcode/" class="block whiteText noStyle">
+								<span class="accountImage claimcode left"></span>
+								<b class="">申请代码</b><br>
+								<span>Use your claim codes</span>
+							</a>
+						</li>
+											<li title="转账" class="left accountLinks">
+							<a href="/zh/transactions/" class="block whiteText noStyle">
+								<span class="accountImage transactions left"></span>
+								<b class="">转账</b><br>
+								<span>See transaction history</span>
+							</a>
+						</li>
+											<li title="合理游戏" class="left accountLinks">
+							<a href="/zh/responsiblegaming/" class="block whiteText noStyle">
+								<span class="accountImage responsiblegaming left"></span>
+								<b class="">合理游戏</b><br>
+								<span>Your responsible gaming limits</span>
+							</a>
+						</li>
+											<li title="退出" class="left accountLinks">
+							<a href="/zh/signout/" class="block whiteText noStyle">
+								<span class="accountImage signout left"></span>
+								<b class="">退出</b><br>
+								<span>Log out from your account.</span>
+							</a>
+						</li>
+										<li class="clr noBackground paddingTop10" style="margin-left: 70px;">
+						<a class="noStyle noBackground" href="/zh/deposit">
+							<span class="redActionButton">
+								<span class="buttonLeft"></span>
+								<span class="buttonMiddle" style="width: 235px; text-align:left;">
+									<span class="actionArrow"></span>
+									存款								</span>
+								<span class="buttonRight"></span>
+							</span>
+						</a>
+												<div class="clr paddingTop10"></div>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<ul class="left noStyle marginLeft10">
+			<li class="relative addBottomBorder toplevel left" style="z-index:30;">
+				<a href="/zh/vipclub/" class="noStyle relative" style="z-index:33;">
+					<span class="selectorButton hoverBottom">
+						<span class="buttonLeft"></span>
+						<span class="buttonMiddle">
+							<div class="smallVipIcon"></div>
+							VIP Club: <span class="moneyGreen">0.00 VC</span>						</span>
+						<span class="buttonRight"></span>
+					</span>
+				</a>
+				<ul id="vipList" class="hide left noStyle whiteText">
+					<li>
+						<div class="margin10" style="height: 30px;">
+							<a href="/zh/vipclub/" class="noStyle">
+								<span class="selectorButton noArrow">
+									<span class="buttonLeft"></span>
+									<span class="buttonMiddle bold" style="width: 240px;">
+										VIP Club Account									</span>
+									<span class="buttonRight"></span>
+								</span>
+							</a>
+						</div>
+						<div class="paddingLeft10 paddingRight10">
+									<table class="noBorder" cellpadding="0" cellspacing="0" align="left" width="100%">
+			<tr>
+				<td class="whiteText">Jan 2011: <span class="yellowText">不是会员?</span></td>
+				<td align="right">
+					<span class="tooltip">
+						<img class="marginRight5" src="images/icon/questionmark.png" alt="?"/>
+						<input type="hidden" class="tooltip" value="显示您目前的会员状态，根据您上个月获得玩家点数 PPs 的数据。">
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="whiteText">Feb 2011: <span class="yellowText">处理中</span></td>
+				<td align="right">
+					<span class="tooltip">
+						<img class="marginRight5" src="images/icon/questionmark.png" alt="?"/>
+						<input type="hidden" class="tooltip" value="显示您未来的会员状态，根绝您本月会的玩家点数 PPS 的数据。
+<br>(下面的指示器显示您本月获得的玩家点数和应该获得的500点数的百分比)">
+					</span>
+				</td>
+			</tr>
+		</table>
+		<div class="clr"></div>
+				<div class="ywProgressBg">
+			<div class="ywProgressFill" style="width:0%;">
+				<div class="ywProgressText greyLText"><h3>0 PP / 500 PP</h3></div>
+			</div>
+		</div>
+		<div class="ywProgressShadow"></div>
+								</div>	
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<ul class="left noStyle marginLeft10">
+			<li class="relative addBottomBorder toplevel left" style="z-index:30;">
+				<a href="/zh/support/" class="noStyle relative" style="z-index:33;">
+					<span class="selectorButton hoverBottom">
+						<span class="buttonLeft"></span>
+						<span class="buttonMiddle">
+							<div class="smallSupportIcon"></div>
+							Support						</span>
+						<span class="buttonRight"></span>
+					</span>
+				</a>
+				<ul id="supportList" class="hide left noStyle whiteText">
+					<li>
+						<div class="margin10" style="height: 30px;">
+							<a href="/zh/support/" class="noStyle">
+								<span class="selectorButton noArrow">
+									<span class="buttonLeft"></span>
+									<span class="buttonMiddle bold" style="width: 330px;">
+										您的账户号码为：<b class="">2311719</b>
+									</span>
+									<span class="buttonRight"></span>
+								</span>
+							</a>
+						</div>
+						<div class="clr">
+							<div class="left paddingLeft10 paddingRight10 paddingBottom10 greyBorderRight">
+								<a class="marginTop10 okLink noStyle" href="skype:europoker.support?call"><img src="images/skype_btn.png" alt="Skype Me!" /></a>
+								<div id="lpButDivID-1" class="live-person" style="width:130px;"></div>
+	
+								<a href="mailto:support@casinoroom.com" class="noStyle okLink"><img src="images/mail_btn.png" alt="support@casinoroom.com" width="122" height="43" /></a>
+							</div>
+							<div class="left whiteText marginTop20 marginLeft20 paddingTop10 greyText">
+								<p class="noBackground noFloat paddingBottom10"><b>Phone: </b>  +46 8 559 21 172</p>
+								<p class="noBackground noFloat paddingBottom10"><b>Mail: </b> <a href="mailto:support@casinoroom.com" class="greyText noStyle">support@casinoroom.com</a></p>
+								<p class="noBackground noFloat"><b>Skype:</b> (2pm - midnight CET)  </p>
+							</div>
+						</div>
+						<div class="clr paddingTop10 marginLeft10 marginRight10 marginBottom10	">
+							<img src="images/mail/facepic_vip_es.jpg" width="101" height="114" class="left marginRight10">
+							<p class="greyText">我们训练有素的客服会保证您的游戏质量，服务到达24/7。</p>
+							<img src="images/mail/autographs/es.png">
+						</div>
+					</li>
+				</ul>
+			</li>
+		</ul>
+			<div id="sitelinks">
+				<a id="siteTabCasino" href="https://www.casinoroom.com/zh/" onclick="window.location='https://www.casinoroom.com/zh/'; return false;" class="noStyle">
+					<span class="supernavigationButton red">
+						<span class="buttonLeft"></span>
+						<span class="buttonMiddle">Casino</span>
+						<span class="buttonRight"></span>
+					</span>
+				</a>
+				<a id="siteTabBetting" href="https://www.betcrib.com/zh/" onClick="window.location='https://www.betcrib.com/zh/signin/sso?sid=tulc5oe0jfg2mh9q3660r7h7m2&url=https%3A%2F%2Fwww.betcrib.com%2Fzh%2F'; return false;" class="noStyle greenHover">
+					<span class="supernavigationButton">
+						<span class="buttonLeft"></span>
+						<span class="buttonMiddle">Sportsbook</span>
+						<span class="buttonRight"></span>
+					</span>
+				</a>
+				<a id="siteTabPoker" href="https://www.europoker.com/zh/" onClick="window.location='https://www.europoker.com/zh/signin/sso?sid=tulc5oe0jfg2mh9q3660r7h7m2&url=https%3A%2F%2Fwww.europoker.com%2Fzh%2F'; return false;" class="noStyle blueHover">
+					<span class="supernavigationButton">
+						<span class="buttonLeft"></span>
+						<span class="buttonMiddle">Poker</span>
+						<span class="buttonRight"></span>
+					</span>
+				</a>
+				
+			</div>
+		</div>
+		<div class="borderContainer">
+		</div>
+	</div>
+				<div id="header">
+				<div id="logoContainer" style="margin: 5px 0 5px;">
+					<a class="noStyle" href="/zh/">
+					<img src="images/top_logo_nav.png" width="109" height="67" alt="CasinoRoom.com" />
+					</a>
+				</div>
+						<ul id="gameTypeMenu" class="noStyle">
+			<li class="firstLevel firstBackground" style="padding-left:11px;">
+				<a class="category" href="/zh/casino/">
+					<span class="navText">
+						游戏					</span>
+					<span class="whiteDownArrow"></span>
+				</a>
+				<ul id="allGameGroupsList" class="left noStyle whiteText">
+
+											<li class="left accountLinks">
+							<a href="/zh/video-slots/" class="block whiteText noStyle">
+								<span class="gameCategoryImage video-slots left"></span>
+								<b class="">视频老虎机</b><br>
+								<span>61 games</span>
+							</a>
+						</li>
+											<li class="left accountLinks">
+							<a href="/zh/poker/" class="block whiteText noStyle">
+								<span class="gameCategoryImage poker left"></span>
+								<b class="">扑克</b><br>
+								<span>33 games</span>
+							</a>
+						</li>
+											<li class="left accountLinks">
+							<a href="/zh/table-games/" class="block whiteText noStyle">
+								<span class="gameCategoryImage table-games left"></span>
+								<b class="">赌桌游戏</b><br>
+								<span>30 games</span>
+							</a>
+						</li>
+											<li class="left accountLinks">
+							<a href="/zh/casino/video-poker/" class="block whiteText noStyle">
+								<span class="gameCategoryImage video-poker left"></span>
+								<b class="">Video Poker</b><br>
+								<span>26 games</span>
+							</a>
+						</li>
+											<li class="left accountLinks">
+							<a href="/zh/card-games/" class="block whiteText noStyle">
+								<span class="gameCategoryImage card-games left"></span>
+								<b class="">Card Games</b><br>
+								<span>25 games</span>
+							</a>
+						</li>
+											<li class="left accountLinks">
+							<a href="/zh/classic-slots/" class="block whiteText noStyle">
+								<span class="gameCategoryImage classic-slots left"></span>
+								<b class="">老虎机</b><br>
+								<span>14 games</span>
+							</a>
+						</li>
+											<li class="left accountLinks">
+							<a href="/zh/scratch/" class="block whiteText noStyle">
+								<span class="gameCategoryImage scratch left"></span>
+								<b class="">刮刮卡</b><br>
+								<span>11 games</span>
+							</a>
+						</li>
+											<li class="left accountLinks">
+							<a href="/zh/casino/blackjack/" class="block whiteText noStyle">
+								<span class="gameCategoryImage blackjack left"></span>
+								<b class="">黑杰克</b><br>
+								<span>10 games</span>
+							</a>
+						</li>
+											<li class="left accountLinks">
+							<a href="/zh/casino/roulette/" class="block whiteText noStyle">
+								<span class="gameCategoryImage roulette left"></span>
+								<b class="">轮盘</b><br>
+								<span>5 games</span>
+							</a>
+						</li>
+											<li class="left accountLinks">
+							<a href="/zh/casino/live-casino/" class="block whiteText noStyle">
+								<span class="gameCategoryImage live-casino left"></span>
+								<b class="">Live Casino</b><br>
+								<span>3 games</span>
+							</a>
+						</li>
+											<li class="left accountLinks">
+							<a href="/zh/casino/baccarat/" class="block whiteText noStyle">
+								<span class="gameCategoryImage baccarat left"></span>
+								<b class="">Baccarat</b><br>
+								<span>2 games</span>
+							</a>
+						</li>
+											<li class="left accountLinks">
+							<a href="/zh/casino/bingo/" class="block whiteText noStyle">
+								<span class="gameCategoryImage bingo left"></span>
+								<b class="">宾果</b><br>
+								<span>2 games</span>
+							</a>
+						</li>
+									</ul>
+			</li>
+			<script type="text/javascript">
+				var deferGameTypeRoulette = new YAHOO.util.ImageLoader.group('gameTypeRoulette', 'mouseover', 1);
+				deferGameTypeRoulette.addTrigger('gameTypeRoulette', 'focus'); 
+				deferGameTypeRoulette.registerSrcImage('gameTypeRoulette_roulette', 'images/game_pics/small/roulette.jpg', 105, 79); 
+				deferGameTypeRoulette.registerSrcImage('gameTypeRoulette_europeanroulette', 'images/game_pics/small/europeanroulette.jpg', 105, 79); 
+				deferGameTypeRoulette.registerSrcImage('gameTypeRoulette_live-roulette', 'images/game_pics/small/live-roulette.jpg', 105, 79); 
+			</script>
+			<li id="gameTypeRoulette" class="firstLevel">
+				<a class="category" href="/zh/roulette/">
+					<!--<p id="gameTypeRoulette">
+						Roulette					</p>
+					--><span class="navText">
+						Roulette					</span>
+					<span class="whiteDownArrow"></span>
+				</a>
+				<ul class="noStyle categoryList">
+					<li class="left marginBottom10">
+						<span class="selectorButton noArrow">
+							<span class="buttonLeft"></span>
+							<span class="buttonMiddle bold" style="width: 342px;">
+								Popular Roulette games right now!							</span>
+							<span class="buttonRight"></span>
+						</span>
+					</li>
+					<li class="">
+						<ul class="noStyle gameList">
+													<li class="tooltip gameTooltip">
+								<a href="/zh/roulette/roulette/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeRoulette_roulette" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="轮盘">
+								<input type="hidden" class="tooltip" value="这是一个不能再简单的游戏了。您只需要选择数字下注就可以了。">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/roulette/european-roulette/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeRoulette_europeanroulette" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="European Roulette">
+								<input type="hidden" class="tooltip" value="Play European Roulette">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/livecasino/roulette/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeRoulette_live-roulette" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="Play Live Roulette">
+								<input type="hidden" class="tooltip" value="Play roulette with a live dealer. Roulette couldn't be any easier to play. Pick a number, spin the ball and make a bet. This is an absolute classic of a casino game. Take a spin...
+
+Simply move money over into your Live Casino account and you are...">
+							</li>
+												</ul>
+					</li>
+					<li class="left clr wide100">
+						<ul class="categoryLinkList noStyle">
+							<li class="darkGreyBg">
+								<a href="/zh/roulette/" class="noBackground">
+									<span class="redArrowIcon right"></span>
+									Show all online Roulette games								</a>
+							</li>
+							<li class="darkGreyBg">
+								<a href="/zh/roulette/#all-games" class="noBackground">
+									<span class="redArrowIcon right"></span>
+									See more Roulette games								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<script type="text/javascript">
+				var deferGameTypeBlackjack = new YAHOO.util.ImageLoader.group('gameTypeBlackjack', 'mouseover', 1);
+				deferGameTypeBlackjack.addTrigger('gameTypeBlackjack', 'focus'); 
+				deferGameTypeBlackjack.registerSrcImage('gameTypeBlackjack_blackjack', 'images/game_pics/small/blackjack.jpg', 105, 79); 
+				deferGameTypeBlackjack.registerSrcImage('gameTypeBlackjack_europeanblackjack', 'images/game_pics/small/europeanblackjack.jpg', 105, 79); 
+				deferGameTypeBlackjack.registerSrcImage('gameTypeBlackjack_singledeckblackjack', 'images/game_pics/small/singledeckblackjack.jpg', 105, 79); 
+				deferGameTypeBlackjack.registerSrcImage('gameTypeBlackjack_pirate21blackjack', 'images/game_pics/small/pirate21blackjack.jpg', 105, 79); 
+				deferGameTypeBlackjack.registerSrcImage('gameTypeBlackjack_live-blackjack', 'images/game_pics/small/live-blackjack.jpg', 105, 79); 
+				deferGameTypeBlackjack.registerSrcImage('gameTypeBlackjack_21burnblackjack', 'images/game_pics/small/21burnblackjack.jpg', 105, 79); 
+			</script>
+			<li id="gameTypeBlackjack" class="firstLevel">
+				<a class="category" href="/zh/blackjack/">
+					<!--<p id="gameTypeBlackjack">
+						BlackJack					</p>
+					--><span class="navText">
+						BlackJack					</span>
+					<span class="whiteDownArrow"></span>
+				</a>
+				<ul class="noStyle categoryList">
+					<li class="left marginBottom10">
+						<span class="selectorButton noArrow">
+							<span class="buttonLeft"></span>
+							<span class="buttonMiddle bold" style="width: 342px;">
+								Popular Blackjack games right now!							</span>
+							<span class="buttonRight"></span>
+						</span>
+					</li>
+					<li class="">
+						<ul class="noStyle gameList">
+													<li class="tooltip gameTooltip">
+								<a href="/zh/blackjack/blackjack/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeBlackjack_blackjack" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="黑杰克">
+								<input type="hidden" class="tooltip" value="为什么不来EuroPoker.com试试您的手气呢，我们有最好的线上娱乐场。">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/blackjack/european-blackjack/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeBlackjack_europeanblackjack" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="European Blackjack">
+								<input type="hidden" class="tooltip" value="Play European Blackjack at CasinoRoom.com">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/blackjack/single-deck-blackjack/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeBlackjack_singledeckblackjack" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="Single Deck Blackjack">
+								<input type="hidden" class="tooltip" value="Welcome to multi-hand Single Deck Blackjack. This variant is played with a single deck of cards, unlike standard Blackjack, which is played with 6 decks. Each player plays only against the dealer (i.e. the bank), independently of other players. Your...">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/blackjack/pirate-21-blackjack/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeBlackjack_pirate21blackjack" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="Pirate 21 Blackjack">
+								<input type="hidden" class="tooltip" value="Pirate21 is an exciting multi-hand Blackjack that allows you to play up to 3 simultaneous hands of Blackjack. A Dealer Match bonus side game gives you the chance to win additional credits. Each hand plays only against the dealer (i.e. the bank),...">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/livecasino/blackjack/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeBlackjack_live-blackjack" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="Play Live Blackjack">
+								<input type="hidden" class="tooltip" value="Why not visit our live Blackjack tables featuring live dealers? Simply move money into your Live Casino account and you'll be playing up against live dealers in no time.
+
+Get splitting and try your hand at doubling-down in the most popular of all...">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/blackjack/21-burn-blackjack/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeBlackjack_21burnblackjack" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="21点21烧伤">
+								<input type="hidden" class="tooltip" value="21 Burn Blackjack is an exciting multi-hand Blackjack that allows you to play up to 3 simultaneous hands with a BURN card option.  You are dealt a face down burn card in addition to the regular 2-card hand. You have the option of burning your second...">
+							</li>
+												</ul>
+					</li>
+					<li class="left clr wide100">
+						<ul class="categoryLinkList noStyle">
+							<li class="darkGreyBg">
+								<a href="/zh/blackjack/" class="noBackground">
+									<span class="redArrowIcon right"></span>
+									查看更多布莱克杰克游戏								</a>
+							</li>
+							<li class="darkGreyBg">
+								<a href="/zh/blackjack/#all-games" class="noBackground">
+									<span class="redArrowIcon right"></span>
+									Show all online Blackjack games								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<script type="text/javascript">
+				var deferGameTypeSlots = new YAHOO.util.ImageLoader.group('gameTypeSlots', 'mouseover', 1);
+				deferGameTypeSlots.addTrigger('gameTypeSlots', 'focus'); 
+				deferGameTypeSlots.registerSrcImage('gameTypeSlots_gonzo', 'images/game_pics/small/gonzo.jpg', 105, 79); 
+				deferGameTypeSlots.registerSrcImage('gameTypeSlots_golddiggers', 'images/game_pics/small/golddiggers.jpg', 105, 79); 
+				deferGameTypeSlots.registerSrcImage('gameTypeSlots_dead-or-alive', 'images/game_pics/small/dead-or-alive.jpg', 105, 79); 
+				deferGameTypeSlots.registerSrcImage('gameTypeSlots_aztectreasures', 'images/game_pics/small/aztectreasures.jpg', 105, 79); 
+				deferGameTypeSlots.registerSrcImage('gameTypeSlots_bloodsuckers', 'images/game_pics/small/bloodsuckers.jpg', 105, 79); 
+				deferGameTypeSlots.registerSrcImage('gameTypeSlots_heist', 'images/game_pics/small/heist.jpg', 105, 79); 
+			</script>
+			<li id="gameTypeSlots" class="firstLevel">
+				<a class="category" href="/zh/slots/">
+					<!--<p id="gameTypeSlots">
+						Slots					</p>
+					--><span class="navText">
+						Slots					</span>
+						<span class="whiteDownArrow"></span>
+				</a>
+				<ul class="noStyle categoryList foldLeft">
+					<li class="left marginBottom10">
+						<span class="selectorButton noArrow">
+							<span class="buttonLeft"></span>
+							<span class="buttonMiddle bold" style="width: 342px;">
+								Popular Slots right now!							</span>
+							<span class="buttonRight"></span>
+						</span>
+					</li>
+					<li class="left">
+						<ul class="noStyle gameList">
+													<li class="tooltip gameTooltip">
+								<a href="/zh/gonzos-quest/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeSlots_gonzo" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="Gonzo's Quest">
+								<input type="hidden" class="tooltip" value="Gonzo's Quest is a video slot with no reel spin: This 5-reel, 3-row, 20-line game introduces the Avalanche™ feature, and has Free Falls wins and Wild substitutions. Watch out for Gonzo, he's always there to cheer you along. So start spinning...">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/slots/gold-diggers/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeSlots_golddiggers" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="Gold Diggers">
+								<input type="hidden" class="tooltip" value="Gold Diggers Slot is the latest superb slot game from CasinoRoom.com. Gold Diggers Slot, much like our other 3D slots is simply at the cutting edge of casino gaming, 3D graphics, cinematic audio, mystical themes, and true visual FX. 
+If you want to...">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/slots/dead-or-alive/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeSlots_dead-or-alive" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="Dead or Alive">
+								<input type="hidden" class="tooltip" value="Dead or Alive™ is a 5-reel, 9-line western inspired video slot designed for the players looking for the real big wins with an exiting Sticky Wild feature during Free Spins.">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/3d-slots/aztec-treasures/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeSlots_aztectreasures" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="Aztec Treasures">
+								<input type="hidden" class="tooltip" value="The ancient civilization of the great Aztecs is brought back to life in stunning 3D. Here you'll find priceless gold, jewels and hidden treasures. Set amongst beautiful pyramids, exotic jaguars, and valuable stones, you will battle to find the Aztec...">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/slots/bloodsuckers/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeSlots_bloodsuckers" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="Blood Suckers">
+								<input type="hidden" class="tooltip" value="Blood Suckers™ is a thrilling 5-reel, 25-line vampire inspired video slot with outstanding graphics, atmospheric background sounds and a chilling bonus game.">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/3d-slots/heist/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeSlots_heist" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="Heist">
+								<input type="hidden" class="tooltip" value="Professional heist man Neil Quailand takes down scores, that's what he does best.  For 7 years every job he's done has been clean, profitable and without a trail.... and for 7 years, Detective Albert Kowalski has been 1 step behind. As Quailand zeros...">
+							</li>
+												</ul>
+					</li>
+					<li class="left clr wide100">
+						<ul class="categoryLinkList noStyle">
+							<li class="darkGreyBg">
+								<a href="/zh/slots/" class="noBackground">
+									<span class="redArrowIcon right"></span>
+									See more Slots games								</a>
+							</li>
+							<li class="darkGreyBg">
+								<a href="/zh/slots/#all-games" class="noBackground">
+									<span class="redArrowIcon right"></span>
+									Show all casino Slots								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<script type="text/javascript">
+				var deferGameTypeLive = new YAHOO.util.ImageLoader.group('gameTypeLive', 'mouseover', 1);
+				deferGameTypeLive.addTrigger('gameTypeLive', 'focus'); 
+				deferGameTypeLive.registerSrcImage('gameTypeLive_live-roulette', 'images/game_pics/small/live-roulette.jpg', 105, 79); 
+				deferGameTypeLive.registerSrcImage('gameTypeLive_live-blackjack', 'images/game_pics/small/live-blackjack.jpg', 105, 79); 
+				deferGameTypeLive.registerSrcImage('gameTypeLive_live-baccarat', 'images/game_pics/small/live-baccarat.jpg', 105, 79); 
+			</script>
+			<li id="gameTypeLive" class="firstLevel">
+				<a class="category" href="/zh/livecasino/">
+					<!--<p id="liveCasinoGirl">
+						Live Casino					</p>
+					--><span class="navText">
+						Live Casino					</span>
+					<span class="whiteDownArrow"></span>
+				</a>
+				<ul class="noStyle categoryList foldLeft">
+					<li class="left marginBottom10">
+						<span class="selectorButton noArrow">
+							<span class="buttonLeft"></span>
+							<span class="buttonMiddle bold" style="width: 342px;">
+								Popular Live Games right now!							</span>
+							<span class="buttonRight"></span>
+						</span>
+					</li>
+					<li class="">
+						<ul class="noStyle gameList">
+													<li class="tooltip gameTooltip">
+								<a href="/zh/livecasino/roulette/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeLive_live-roulette" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="Play Live Roulette">
+								<input type="hidden" class="tooltip" value="Play roulette with a live dealer. Roulette couldn't be any easier to play. Pick a number, spin the ball and make a bet. This is an absolute classic of a casino game. Take a spin...
+
+Simply move money over into your Live Casino account and you are...">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/livecasino/blackjack/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeLive_live-blackjack" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="Play Live Blackjack">
+								<input type="hidden" class="tooltip" value="Why not visit our live Blackjack tables featuring live dealers? Simply move money into your Live Casino account and you'll be playing up against live dealers in no time.
+
+Get splitting and try your hand at doubling-down in the most popular of all...">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/livecasino/baccarat/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeLive_live-baccarat" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="Play Live Baccarat">
+								<input type="hidden" class="tooltip" value="Baccarat is one of the most popular casino games and well-known as James Bond's game of choice. In this version of the game you play against a live dealer in our live casino.
+
+
+The rules of the game are simple; the hand which has the total closest to...">
+							</li>
+												</ul>
+					</li>
+					<li class="left clr wide100">
+						<ul class="categoryLinkList noStyle">
+							<li class="darkGreyBg">
+								<a href="/zh/livecasino/" class="noBackground">
+									<span class="redArrowIcon right"></span>
+									See more Live Casino games								</a>
+							</li>
+							<li class="darkGreyBg">
+								<a href="/zh/livecasino/#all-games" class="noBackground">
+									<span class="redArrowIcon right"></span>
+									Show all Live Casino games								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<script type="text/javascript">
+				var deferGameTypeOther = new YAHOO.util.ImageLoader.group('gameTypeOther', 'mouseover', 1);
+				deferGameTypeOther.addTrigger('gameTypeOther', 'focus'); 
+				deferGameTypeOther.registerSrcImage('gameTypeOther_zodiac', 'images/game_pics/small/zodiac.jpg', 105, 79); 
+				deferGameTypeOther.registerSrcImage('gameTypeOther_scratcherz', 'images/game_pics/small/scratcherz.jpg', 105, 79); 
+				deferGameTypeOther.registerSrcImage('gameTypeOther_7-gold-scratch', 'images/game_pics/small/7-gold-scratch.jpg', 105, 79); 
+				deferGameTypeOther.registerSrcImage('gameTypeOther_hall-of-fame', 'images/game_pics/small/hall-of-fame.jpg', 105, 79); 
+				deferGameTypeOther.registerSrcImage('gameTypeOther_highroller-scratchticket', 'images/game_pics/small/highroller-scratchticket.jpg', 105, 79); 
+				deferGameTypeOther.registerSrcImage('gameTypeOther_scratchticket', 'images/game_pics/small/scratchticket.jpg', 105, 79); 
+			</script>
+			<li id="gameTypeOther" class="firstLevel">
+				<a class="category" href="/zh/scratch/">
+					<!--<p id="gameTypeOther">
+						刮刮卡					</p>
+					--><span class="navText">
+						刮刮卡					</span>
+					<span class="whiteDownArrow"></span>
+				</a>
+				<ul class="noStyle categoryList foldLeft">
+					<li class="left marginBottom10">
+						<span class="selectorButton noArrow">
+							<span class="buttonLeft"></span>
+							<span class="buttonMiddle bold" style="width: 342px;">
+								Popular Scratch Cards right now!							</span>
+							<span class="buttonRight"></span>
+						</span>
+					</li>
+					<li class="">
+						<ul class="noStyle gameList">
+													<li class="tooltip gameTooltip">
+								<a href="/zh/scratch/zodiac/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeOther_zodiac" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="Zodiac">
+								<input type="hidden" class="tooltip" value="Zodiac™ is an astrology themed scratch where players can choose a ticket that matches their own star sign in order to further enhance their good fortune. Scratch the winning amount and match two or more symbols for winnings up to $25,000.">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/scratch/scratcherz/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeOther_scratcherz" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="Scratcherz">
+								<input type="hidden" class="tooltip" value="Take a chance and Play Skratcherz today! It's the scratch card game that could send you well and truly into the money!">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/scratch/7-gold-scratch/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeOther_7-gold-scratch" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="7 Gold Scratch">
+								<input type="hidden" class="tooltip" value="This scratch card is worth its weight in gold. With a maximum win of $100,000 players won't hesitate to buy more cards for more chances at the top prize. 7 Gold Scratch also features an easy to use interface and realistic scratch animations.">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/scratch/hall-of-fame/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeOther_hall-of-fame" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="Hall of Fame">
+								<input type="hidden" class="tooltip" value="Net Entertainment has produced some classic video slots over the years, and to celebrate, we have created this easy to play casual game featuring some of our favourite video slot characters. Players can choose whether the character holding the torch...">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/scratch/triple-wins-jackpot/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeOther_highroller-scratchticket" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="Triple Wins Jackpot">
+								<input type="hidden" class="tooltip" value="Try your luck at Triple Wins Jackpot scratch ticket. The winning ticket will display a winning amount three times. If the jackpot symbol appears three times, you are the grand winner of the progressive jackpot!">
+							</li>
+													<li class="tooltip gameTooltip">
+								<a href="/zh/scratch/triple-wins-star-play/" class="noStyle noPadding" style="display: inline;">
+									<img id="gameTypeOther_scratchticket" src="images/1x1trans.gif" width="105" height="79" class="gameTypeMenuImage whiteBorder">
+								</a>
+								<input type="hidden" class="gameTooltip" value="Triple Wins Star Play">
+								<input type="hidden" class="tooltip" value="Win big with Triple Wins Star Ticket. The winning ticket will display a winning amount three times.">
+							</li>
+												</ul>
+					</li>
+					<li class="left clr wide100">
+						<ul class="categoryLinkList noStyle">
+							<li class="darkGreyBg">
+								<a href="/zh/scratch/" class="noBackground">
+									<span class="redArrowIcon right"></span>
+									See more Scratch Cards								</a>
+							</li>
+							<li class="darkGreyBg">
+								<a href="/zh/scratch/#all-games" class="noBackground">
+									<span class="redArrowIcon right"></span>
+									Show all Scratch Cards								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li class="lastBackground" style="padding-right:11px;">
+				<a class="category noBackground" href="/zh/search/">
+					<span class="navText">
+						<span class="hide jsShow submitForm searchIcon block">
+							Search Casino Game						</span>
+					</span>
+					
+				</a>
+				<div id="searchFormHolder">
+							<div id="searchTopBox">
+			<form method="post" action="/zh/search/" class="padding15">
+				<label class="whiteText block smallText bold block" style="margin-top: -10px;"><a class="noStyle whiteText block noBackground" href="/zh/search/">Search Casino Game</a></label>
+				<div>
+					<div class="left">
+					<input type="hidden" name="_form_id" value="1823106694"/>
+
+
+<label for="id_search_game"></label> <input class="blue generalErrorFrm" maxlength="100" title="" id="id_search_game" name="search_game" type="text"/>
+
+					</div>
+					<div class="left marginLeft5" style="margin-top: -1px">
+						<input class="jsHide" type="submit" value="OK"/>
+						<span class="greenButton hide jsShow submitForm">
+							<span class="buttonLeft"></span>
+							<span class="buttonMiddle">OK</span>
+							<span class="buttonRight"></span>
+						</span>
+					</div>
+				</div>
+			</form>
+		</div>
+				</div>
+			</li>
+		</ul>
+		
+			</div>
+	<div id="siteContent" class="roundTopCorner5">
+
+		
+		
+				<div id="content" class="clr wide greyBg">
+			<div id="contentBorder" class="margin10 padding10">
+				<div class="whiteBg padding10">
+					<div class="clr"></div>
+						<script type="text/javascript">
+function afterLoad()
+{
+	$('#indexList').children('li').each(function() {
+		var link = $(this).children('a');
+		if ($(link).attr('href') != undefined)
+		{
+			$(this).click(function() {
+				window.location = $(link).attr('href');
+			});
+		}
+	});
+}</script>
+
+<div class="boxTopImage">
+
+			<div class="right" style="width:260px;">
+				<div class="blackBorder" style="width: 260px;">
+							<div class="whiteBorder">
+		<h4 class="greyBlackGradShort whiteText" style="padding-bottom: 5px;">
+			<a class="noStyle whiteText" href="/zh/winners/">Latest Winners</a>
+		</h4>
+		<div id="latestWinners" class="noStyle">
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$5,737				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/de.png" alt="de" width="16" height="13">
+						TEF77					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$5,541				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/fi.png" alt="fi" width="16" height="13">
+						LepiVaan_x					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$5,408				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/de.png" alt="de" width="16" height="13">
+						olli967					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$4,917				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/fi.png" alt="fi" width="16" height="13">
+						Pekatb9					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$4,137				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/fi.png" alt="fi" width="16" height="13">
+						Aglaias					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$3,644				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/de.png" alt="de" width="16" height="13">
+						tesoro26					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$2,877				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/gb.png" alt="gb" width="16" height="13">
+						big_cat29					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$2,716				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/de.png" alt="de" width="16" height="13">
+						HolgerGerman					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$2,695				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/au.png" alt="au" width="16" height="13">
+						dooonian					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$2,154				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/se.png" alt="se" width="16" height="13">
+						DnxDnx66					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$2,128				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/se.png" alt="se" width="16" height="13">
+						mamma21ber					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$1,820				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/ru.png" alt="ru" width="16" height="13">
+						GooDronScorp					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$1,800				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/de.png" alt="de" width="16" height="13">
+						Rescuemartin					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$1,734				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/de.png" alt="de" width="16" height="13">
+						SLORider1					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$1,664				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/se.png" alt="se" width="16" height="13">
+						micke2010					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$1,658				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/de.png" alt="de" width="16" height="13">
+						beageo57					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$1,475				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/au.png" alt="au" width="16" height="13">
+						MadamBarfly					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$1,410				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/se.png" alt="se" width="16" height="13">
+						finsken123					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$1,366				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/ch.png" alt="ch" width="16" height="13">
+						ruzgar1983					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+						<div class="shortWhiteGrayGrad2 greyBorderBottom noPadding" style="margin: 0;padding: 0;">
+				<div class="inline right textRight greyDarkText bigText" style="width: 80px;padding: 4px 4px 5px 0">
+					$1,346				</div>
+				<div class="inline left" style="width: 158px;border-right: 1px solid rgb(215, 215, 215);padding: 7px;">
+					<span class="block marginBottom2">
+						<img class="left marginRight5" style="top:3px;" src="images/flags/icon/nl.png" alt="nl" width="16" height="13">
+						Claesz					</span>
+					<div class="clr" style="height: 0;"></div>
+				</div>
+				<div class="clr" style="height: 0;"></div>
+			</div>
+					</div>
+		</div>
+						</div>
+				<a href="/zh/referfriend/">
+					<img class="noStyle" style="margin:13px 0 0 0;" width="260" height="181" src="images/promos/raf_cr_zh.jpg" />
+				</a>
+			</div>	
+			
+	<div class="blackBg" style="width:610px;">
+		<div id="indexHeadFlash" style="position:relative;">
+			<img src="images/game_scroller/gonzo_headpic.jpg">
+			<div class="indexPromoBg padding10 whiteText" style="position:absolute;bottom:0;left:0;width:591px;height:73px;">
+				<h3><a class="noStyle whiteText" href="/zh/gonzos-quest/" title="Gonzo's Quest">Gonzo's Quest</a></h3>
+				<p style="width: 320px;">Gonzo's Quest is a video slot with no reel spin: This 5-reel, 3-row, 20-line game introduces the Avalanche™ feature, and has Free Falls wins and Wild...</p>
+				<a class="noStyle" href="/zh/gonzos-quest/" title="现在开始游戏" style="position:absolute;bottom:10px;right:10px;">
+					<span class="redActionButton">
+						<span class="buttonLeft"></span>
+						<span class="buttonMiddle" style="width:205px;"><span class="actionArrow"></span>现在开始游戏</span>
+						<span class="buttonRight"></span>
+					</span>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+		var flashvars = {};
+		flashvars.xmlPath = "zh/xml/getPromotedSlotGames.xml";
+		var params = {};
+		params.bgcolor = "000000";
+		params.wmode = "transparent";
+		var attributes = {};
+		attributes.id = "promo1";
+		swfobject.embedSWF("swf/promoHolder.swf", "promo1", "281", "310", "10.0.0", false, flashvars, params, attributes);
+	</script>
+<script type="text/javascript">
+		var flashvars = {};
+		flashvars.xmlPath = "zh/xml/getPromotedTableGames.xml";
+		var params = {};
+		params.bgcolor = "000000";
+		params.wmode = "transparent";
+		var attributes = {};
+		attributes.id = "promo2";
+		swfobject.embedSWF("swf/promoHolder.swf", "promo2", "281", "310", "10.0.0", false, flashvars, params, attributes);
+	</script>
+	<div id="rightNow_holder">
+	<div class="tabHolder">
+		<ul>
+			<li>
+				<a id="tab1" class="noStyle selected" href="#" onClick="return false;">
+					<span class="tabButton">
+						<span class="buttonLeft"></span>
+						<span class="buttonMiddle" style="width:155px; text-align:left;">
+							<span class="actionArrow"></span>
+							Online since 2005						</span>
+						<span class="buttonRight"></span>
+					</span>
+				</a>
+			</li>
+			<li>
+				<a id="tab2" class="noStyle" href="#" onClick="return false;">
+					<span class="tabButton">
+						<span class="buttonLeft"></span>
+						<span class="buttonMiddle" style="width:155px;">
+							<span class="actionArrow"></span>
+							Right now:						</span>
+						<span class="buttonRight"></span>
+					</span>
+				</a>
+			</li>
+			<li>
+				<a id="tab3" class="noStyle" href="#" onClick="return false;">
+					<span class="tabButton">
+						<span class="buttonLeft"></span>
+						<span class="buttonMiddle" style="width:155px;">
+							<span class="actionArrow"></span>
+							About CasinoRoom						</span>
+						<span class="buttonRight"></span>
+					</span>
+				</a>
+			</li>
+			<li style="margin-left:15px;">
+				<img src="images/payments/payment_color.png" />
+			</li>
+		</ul>
+	</div>
+	<div id="contentHolder" class="clr roundCorner5 padding10 whiteText">
+		<div id="content1" class="tabContent" style="margin-left:3px;">
+			<ul class="uspList">
+				<li>
+					<a class="noStyle" href="/zh/history/">
+						<div class="slotsImg"></div>
+						<div class="text">
+							<h3 class="marginTop5 marginBottom10">Casino Online Since 2005</h3>
+							<p>CasinoRoom is one of the pioneers in online casino and with that experience we remain Europe's most trusted casino room.</p>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a class="noStyle" href="/zh/vipclub/">
+						<div class="promotionImg"></div>
+						<div class="text">
+							<h3 class="marginTop5 marginBottom10">完美的推广活动</h3>
+							<p>Enjoy the most innovative casino games on the market, get rewards on your game and win those jackpots.</p>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a class="noStyle" href="/zh/support/">
+						<div class="supportImg"></div>
+						<div class="text">
+							<h3 class="marginTop5 marginBottom10">本地24/7客服</h3>
+							<p>我们训练有素的客服会保证您的游戏质量，服务到达24/7。</p>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a class="noStyle" href="/zh/deposit/">
+						<div class="paymentImg"></div>
+						<div class="text">
+							<h3 class="marginTop5 marginBottom10">所有的付款方式</h3>
+							<p>我们提供最值得信赖的存取款方式。</p>
+						</div>
+					</a>
+				</li>
+			</ul>
+			<div class="clr"></div>
+		</div>
+		<div id="content2" class="tabContent hide">
+			<div class="promoHolder promoBg left marginRight10">
+				<div id="promo1">
+					<div class="padding20">
+							
+		<a class="noStyle" href="/zh/slots/">
+			<img src="images/flashfallback/slots.png" />
+		</a>
+	
+		
+						</div>
+				</div>
+			</div>
+			<div class="promoHolder promoBg left marginRight10">
+				<div id="promo2">
+					<div class="padding20">
+							
+		<a class="noStyle" href="/zh/casino/other/">
+			<img src="images/flashfallback/tablegames.png" />
+		</a>
+	
+		
+						</div>
+				</div>
+			</div>
+			<div class="promoHolder promoBg left">
+				<div id="promo3" class="promoText">
+						
+	<div id="promoTextContainer" class="relative">
+		<div id="textPromo1" style="min-height:250px;">
+			<h2 class="marginBottom20">VIP Club</h2>
+			<p class="marginBottom20">获得VIP俱乐部会员资格十分简单。您只需要凑齐 <b>500 PP 每月</b> 您就可以成为我们尊贵的VIP。</p>
+			<a class="noStyle whiteText" href="/zh/vipclub/">
+				<span class="greenButton">
+					<span class="buttonLeft"></span>
+					<span class="buttonMiddle">
+						<span class="blackText">了解更多</span>
+					</span>
+					<span class="buttonRight"></span>
+				</span>
+			</a>
+			<div class="clr"></div>
+		</div>
+		<div id="textPromo2" style="min-height:250px;" class="hide">
+			<h2 class="marginBottom20">Make money with your friends</h2>
+			<p class="marginBottom20">This is your opportunity to bank all of that time you've spent on Facebook. Refer all your friends to CasinoRoom.com and you'll get $100 per friend you bring in, plus your friend will also receive $100.</p>
+			<a class="noStyle whiteText" href="/zh/referfriend/">
+				<span class="greenButton">
+					<span class="buttonLeft"></span>
+					<span class="buttonMiddle">
+						<span class="blackText">了解更多</span>
+					</span>
+					<span class="buttonRight"></span>
+				</span>
+			</a>
+			<div class="clr"></div>
+		</div>
+		<div id="textPromo3" style="min-height:250px;" class="hide">
+			<h2 class="marginBottom20">Live Casino - Play against real dealers</h2>
+			<p class="marginBottom20">Try our live casino where you get to play against real dealers in real time. You can choose from baccarat, blackjack or roulette. Just pull up a chair and go up against a real life dealer.</p>
+			<a class="noStyle whiteText" href="/zh/livecasino/">
+				<span class="greenButton">
+					<span class="buttonLeft"></span>
+					<span class="buttonMiddle">
+						<span class="blackText">了解更多</span>
+					</span>
+					<span class="buttonRight"></span>
+				</span>
+			</a>
+			<div class="clr"></div>
+		</div>
+		<div id="switch" class="textCenter" style="position: absolute; top: 255px; width: 230px;  height: 20px; padding-left:95px;">
+			<a id="promoSwitch1" class="noStyle" href="#" onClick="return false;">
+				<div class="bullet selected"></div>
+			</a>
+			<a id="promoSwitch2" class="noStyle" href="#" onClick="return false;">
+				<div class="bullet"></div>
+			</a>
+			<a id="promoSwitch3" class="noStyle" href="#" onClick="return false;">
+				<div class="bullet"></div>
+			</a>
+			<div class="clr"></div>
+		</div>
+	</div>
+
+				</div>
+			</div>
+			<div class="clr"></div>
+		</div>
+		<div id="content3" class="tabContent aboutCR hide">
+			<div class="padding10 greyText">
+				<h1 class="marginBottom5" style="width:500px;">Play Online Casino at CasinoRoom.com – Winning is Just The Beginning</h1>
+				<p style="width:600px;">
+					Welcome to CasinoRoom.com, The world's most established site for online casino games. When it comes to online casino games CasinoRoom.com has it all. <a href="/blackjack/ ">Blackjack</a>, <a href="/roulette/">Roulette</a>, <a href="/casino/other/">Video Poker</a>, <a href="/game/zodiac/">Scratch Cards</a>, <a href="/slots/">slots</a>, <a href="/vipclub/">casino bonuses</a> and much more. All of our Online Casino games are <a href="/casino/most-popular/">Instant Play</a>, you can play casino for free, no download required!				</p>
+				<p style="width:450px;">
+					CasinoRoom.com offers you some incredible <a href="/en/vipclub">casino bonuses </a>, and there's plenty of information on <a href="/strategy/">casino strategy</a>, rules and betting. Plus new online casino games are added all the time. To play online casino, simply sign up and you'll be playing your online casino favourites in minutes.
+<br><br>
+The world's best online casino room is also the most trusted. We have safe and secure payment options to suit all. 
+				</p>
+				<p  style="width:500px;" class="middleText bold">
+					Welcome to CasinoRoom.com				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+					<div id="clearContent"></div>
+				</div>
+			</div>
+			<div class="clr"></div>
+		</div>
+				<div id="clearContent" style="height: 5px;"></div>
+	</div>
+		<!-- <div class="textCenter" style="height: 220px;">
+				<div class="textCenter" style="height: 220px;">
+			<img src="images/bottom_bg.jpg" width="930" height="220" alt="" />
+		</div>
+	</div> -->
+
+		<div id="footer">
+		<div class="blackBg padding5 textCenter ">
+			<img src="images/footer_logos_zh.jpg" usemap="#footerLinks" alt="" / width="954" height="115">
+			<map id="footerLinks" name="footerLinks">
+				<area shape="rect" coords="76,69,140,96" href="http://www.oddsmatrix.com/" title="OddsMatrix" />
+				<!-- <area shape="rect" coords="160,35,193,68" href="/responsiblegaming" title="" /> -->
+				<area shape="rect" coords="193,37,221,66" href="http://www.gamblingtherapy.org/" title="GamblingTherapy" />
+				<area shape="rect" coords="220,37,254,66" href="http://www.gamblersanonymous.org/" title="Gamblers Anonymous" />
+				<area shape="rect" coords="255,36,341,65" href="/zh/responsiblegaming" title="合理游戏" />
+				<area shape="rect" coords="162,65,191,94" href="http://www.gamcare.org.uk/" title="GameCare" />
+				<area shape="rect" coords="198,70,289,91" href="http://www.gambleaware.co.uk/" title="Gamble Aware" />
+				<area shape="rect" coords="828,54,948,92" href="http://lga.org.mt/" title="The Lotteries and Gaming Authority" />
+				<area shape="rect" coords="6,39,62,69" href="http://www.netent.com/" title="Net Entertainment" />
+				<area shape="rect" coords="83,14,139,41" href="http://www.betsoftgaming.com/" title="BetSoft Gaming" />
+				<area shape="rect" coords="5,71,76,95" href="http://www.ongamenetwork.com/" title="Ongame Network" />
+				<area shape="rect" coords="78,43,136,67" href="http://www.evolutiongaming.com" title="Evolution Gaming" />
+				<area shape="rect" coords="908,17,948,54" href="#" onClick="javascript:window.open('/images/gibraltar_license.jpg','gibraltar_window','width=584,height=570,scrollbars=yes')" title="Gibraltar License" />
+			</map>
+		</div>
+		<div class="grayBgGradient padding8">
+			<div class="left" style="width:120px">&nbsp;</div>
+			<div id="footerNavigation" class="textCenter left" style="width:630px;padding-left:70px;">
+				<ul id="bottomNavigation" class="noStyle liInline">
+					<li class="noDivider showLanguageList">
+	<a id="languageSelector" href="#">
+	<span class="flag flag_zh">&nbsp;</span>
+	<img class="arrow" src="images/icon/white_arrow.gif" width="9" height="5" alt=""/>
+	</a>
+	<ul id="languageList"  style="z-index: 10;"><li><a href="/de/" onclick="window.location='/de/playerdetails/changelanguage?url=%2Fde%2F'; exit='false'; return false;" title="Deutsch"><span class="flag flag_de" style="">Deutsch</span><span class="smallText marginLeft10">Deutsch</span></a></li>
+<li><a href="/" onclick="window.location='/en/playerdetails/changelanguage?url=%2F'; exit='false'; return false;" title="English"><span class="flag flag_en" style="">English</span><span class="smallText marginLeft10">English</span></a></li>
+<li><a href="/es/" onclick="window.location='/es/playerdetails/changelanguage?url=%2Fes%2F'; exit='false'; return false;" title="Español"><span class="flag flag_es" style="">Español</span><span class="smallText marginLeft10">Español</span></a></li>
+<li><a href="/fr/" onclick="window.location='/fr/playerdetails/changelanguage?url=%2Ffr%2F'; exit='false'; return false;" title="Français"><span class="flag flag_fr" style="">Français</span><span class="smallText marginLeft10">Français</span></a></li>
+<li><a href="/nl/" onclick="window.location='/nl/playerdetails/changelanguage?url=%2Fnl%2F'; exit='false'; return false;" title="Netherlands"><span class="flag flag_nl" style="">Netherlands</span><span class="smallText marginLeft10">Netherlands</span></a></li>
+<li><a href="/ru/" onclick="window.location='/ru/playerdetails/changelanguage?url=%2Fru%2F'; exit='false'; return false;" title="Русский"><span class="flag flag_ru" style="">Русский</span><span class="smallText marginLeft10">Русский</span></a></li>
+<li><a href="/no/" onclick="window.location='/no/playerdetails/changelanguage?url=%2Fno%2F'; exit='false'; return false;" title="Norsk"><span class="flag flag_no" style="">Norsk</span><span class="smallText marginLeft10">Norsk</span></a></li>
+<li><a href="/fi/" onclick="window.location='/fi/playerdetails/changelanguage?url=%2Ffi%2F'; exit='false'; return false;" title="Finnish"><span class="flag flag_fi" style="">Finnish</span><span class="smallText marginLeft10">Finnish</span></a></li>
+<li><a href="/da/" onclick="window.location='/da/playerdetails/changelanguage?url=%2Fda%2F'; exit='false'; return false;" title="Danish"><span class="flag flag_da" style="">Danish</span><span class="smallText marginLeft10">Danish</span></a></li>
+<li><a href="/sv/" onclick="window.location='/sv/playerdetails/changelanguage?url=%2Fsv%2F'; exit='false'; return false;" title="Svenska"><span class="flag flag_sv" style="">Svenska</span><span class="smallText marginLeft10">Svenska</span></a></li>
+	</ul>
+</li>
+					<li><a class="greyText noStyle paddingLeft5 paddingRight5 darkGreyBorderRight" href="/zh/casino">Games</a></li>
+					<li><a class="greyText noStyle paddingLeft5 paddingRight5 darkGreyBorderRight" href="/zh/vipclub">VIP Club</a></li>
+					<li><a class="greyText noStyle paddingLeft5 paddingRight5 darkGreyBorderRight" href="/zh/winners">Winners</a></li>
+					<li><a class="greyText noStyle paddingLeft5 paddingRight5 darkGreyBorderRight" href="/zh/help">Help</a></li>
+					<li><a class="greyText noStyle paddingLeft5 paddingRight5 darkGreyBorderRight" title="Poker Affiliate" href="http://www.pokeraffiliate.com">Affiliates</a></li>
+					<li><a class="greyText noStyle paddingLeft5 paddingRight5 darkGreyBorderRight" href="/zh/termsofservice">服务团队</a></li>
+					<li><a class="greyText noStyle paddingLeft5 paddingRight5" href="/zh/aboutus">关于我们</a></li>
+					<!-- <li><a class="greyText noStyle" href="/zh/sitemap">网站地图</a></li> -->
+				</ul>
+			</div>
+			<div class="right" style="width:120px">
+				<a class="greyDarkText noStyle">© CasinoRoom 2011</a>
+			</div>
+			<div class="clr"></div>
+		</div>
+		<div class="blackBg roundBottomCorner5 padding10 greyText smallText">
+			<div class="inline left" style="margin-left:40px">
+				<h4 class="marginBottom5"><a href="/zh/casino/" class="noStyle greyText">Game Categories</a></h4>
+				<ul class="liMarginLeft">
+									<li><a href="/zh/casino/bingo/" class="noStyle greyText">Bingo</a></li>
+									<li><a href="/zh/casino/blackjack/" class="noStyle greyText">黑杰克游戏</a></li>
+									<li><a href="/zh/classic-slots/" class="noStyle greyText">经典老虎机</a></li>
+									<li><a href="/zh/poker/" class="noStyle greyText">扑克游戏</a></li>
+									<li><a href="/zh/casino/roulette/" class="noStyle greyText">轮盘游戏</a></li>
+									<li><a href="/zh/scratch/" class="noStyle greyText">刮刮卡</a></li>
+									<li><a href="/zh/table-games/" class="noStyle greyText">桌面游戏</a></li>
+									<li><a href="/zh/casino/video-poker/" class="noStyle greyText">视频扑克</a></li>
+									<li><a href="/zh/video-slots/" class="noStyle greyText">线上视频老虎机</a></li>
+									<li><a href="/zh/card-games/" class="noStyle greyText">纸牌游戏</a></li>
+									<li><a href="/zh/casino/live-casino/" class="noStyle greyText">真人娱乐场</a></li>
+									<li><a href="/zh/3d-slots/" class="noStyle greyText">Try All-New 3D Slots!</a></li>
+									<li><a href="/zh/casino/baccarat/" class="noStyle greyText">Baccarat</a></li>
+								</ul>
+			</div>
+			<div class="inline left" style="margin-left:90px">
+				<h4 class="marginBottom5"><a href="/zh/strategy/" class="noStyle greyText">Casino Strategies</a></h4>
+				<ul class="liMarginLeft">
+					<li><a href="/zh/blackjack/strategy/" class="noStyle greyText">Blackjack Strategy</a></li>
+					<li><a href="/zh/roulette/strategy/" class="noStyle greyText">Roulette Strategy</a></li>
+					<li><a href="/zh/baccarat/strategy/" class="noStyle greyText">Baccarat Strategy</a></li>
+					<li><a href="/zh/craps/strategy/" class="noStyle greyText">Craps Strategy</a></li>
+					<li><a href="/zh/paigow/how-to-play/" class="noStyle greyText">Pai Gow Strategy</a></li>
+					<li><a href="/zh/video-poker/strategy/" class="noStyle greyText">Video Poker Strategy</a></li>
+				</ul>
+			</div>
+			<div class="inline left" style="margin-left:90px">
+				<h4 class="marginBottom5"><a href="/zh/casino/most-popular/" class="noStyle greyText">最受欢迎的</a></h4>
+				<ul class="liMarginLeft">
+									<li><a href="/zh/gonzos-quest/" class="noStyle greyText">Gonzo's Quest</a></li>
+									<li><a href="/zh/slots/gold-diggers/" class="noStyle greyText">Gold Diggers</a></li>
+									<li><a href="/zh/slots/dead-or-alive/" class="noStyle greyText">Dead or Alive</a></li>
+									<li><a href="/zh/3d-slots/aztec-treasures/" class="noStyle greyText">Aztec Treasures</a></li>
+									<li><a href="/zh/slots/bloodsuckers/" class="noStyle greyText">Blood Suckers</a></li>
+									<li><a href="/zh/3d-slots/heist/" class="noStyle greyText">Heist</a></li>
+									<li><a href="/zh/roulette/roulette/" class="noStyle greyText">轮盘</a></li>
+									<li><a href="/zh/slots/devilsdelight/" class="noStyle greyText">Devil's Delight</a></li>
+									<li><a href="/zh/3d-slots/gladiator/" class="noStyle greyText">Gladiator</a></li>
+									<li><a href="/zh/slots/excalibur/" class="noStyle greyText">Excalibur</a></li>
+									<li><a href="/zh/slots/jack-hammer/" class="noStyle greyText">Jack Hammer</a></li>
+									<li><a href="/zh/livecasino/roulette/" class="noStyle greyText">Play Live Roulette</a></li>
+								</ul>
+			</div>
+			<div class="inline left" style="margin-left:90px">
+				<h4 class="marginBottom5">Miscellaneous</h4>
+				<ul class="liMarginLeft">
+					<li><a href="/zh/lounge/" class="noStyle greyText">Casino Lounge</a></li>
+					<li><a href="/zh/history/" class="noStyle greyText">Casino History</a></li>
+					<li><a href="/zh/lingo/" class="noStyle greyText">Casino Lingo</a></li>
+					<li><a href="/zh/odds/" class="noStyle greyText">Casino Odds</a></li>
+					<li><a href="/zh/rules/" class="noStyle greyText">Casino Rules</a></li>
+					<li><a href="/zh/getting-started/" class="noStyle greyText">Casino Getting Started</a></li>
+				</ul>
+			</div>
+			<div class="clr"></div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		if (gaJsHost == undefined)// preventing it to write this same stuff more than once
+		{
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		}
+	</script>
+	<script type="text/javascript">
+	try {
+		var pageTracker = _gat._getTracker("UA-20789823-1");
+		pageTracker._trackPageview();
+	} catch(err) {}
+	</script>
+<script type="text/javascript">
+var event = new Array;
+		
+event.push({"category":"versionTesting","action":"indexRedesign","optional_label":"secure"});		
+		
+function trackEvent()
+{
+	try {
+		if(pageTracker && event != null)
+		{
+			for(var i in event)
+			{
+				pageTracker._trackEvent(event[i]['category'], event[i]['action'], (event[i]['optional_label'] != null ? event[i]['optional_label'] : null) );
+			}
+		} else {
+			setTimeout('trackEvent()', 3000);
+		}
+	} catch(err) {}
+}
+trackEvent();
+</script>
+<script type='text/javascript'>
+	document.write(unescape("%3Cscript src='https://server.iad.liveperson.net/hc/55734870/?cmd=mTagRepstate&amp;site=55734870&amp;buttonID=23&amp;divID=lpButDivID-1&amp;bt=1&amp;c=1' charset='UTF-8' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+</div>	
+</body>
+</html>
