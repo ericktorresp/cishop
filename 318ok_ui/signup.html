@@ -1,0 +1,2429 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Sign Up and Play Poker at EuroPoker.com</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="keywords" content="Play poker in EuroPoker.com. Sign up for a free account and start earning today!" />
+	<meta name="description" content="您可以在EuroPoker.com享受免费在线扑克游戏和锦标赛。在您开始真钱锦标赛前，不妨先在游戏币桌上练习" />
+	<meta name="robots" content="INDEX, FOLLOW" />
+	<meta name="revisit-after" content="2 DAYS" />
+	<meta name="copyright" content="&copy; 318ok.com" />	
+	<meta http-equiv="imagetoolbar" content="no" />
+	<meta http-equiv="imagetoolbar" content="false" />
+
+	<link rel="stylesheet" type="text/css" href="css/poker.css" />
+
+	<!--[if IE 6]>
+	<link rel="stylesheet" type="text/css" href="css/318okIE6.css" />
+	<![endif]-->
+
+	<script type="text/javascript" src="js/europoker.js"></script>
+
+</head>
+<body>
+
+	<noscript>
+		<div>
+			Please Enable JavaScript!
+		</div>
+	</noscript>
+
+	<input type="hidden" name="siteBackgroundImage" id="siteBackgroundImage" value="images/take_over/europoker_big_ps_bg2.jpg" />
+	<input type="hidden" name="siteBackgroundColor" id="siteBackgroundColor" value="015880" />
+		<div id="supernav">
+		<div id="supernavContent">
+			<div class="promoBubbleContainer casinoBubble hide">
+				<input type="hidden" name="bubble_name" value="casino-lasvegas">
+				<a class="promoBubble noStyle pointer" href="https://www.casinoroom.com/zh/signin/sso/?sid=76sk8mgbfta2b84198u4mfmc80&url=https%3A%2F%2Fwww.casinoroom.com%2Flivecasino%2F">
+					<span class="bubbleLeft"></span>
+
+					<span class="bubbleMiddle whiteText">
+						<span class="bold block">Right now:</span>
+						<span class="block whiteText marginTop3 noBackground relative">Play Live Casino<span class="redArrowIcon right absolute" style="top: -2px;right: -25px;"></span></span>
+					</span>
+					<span class="bubbleRight"></span>
+				</a>
+				<span class="promoBubbleArrow"></span>
+				<span class="promoBubbleClose"></span>
+
+			</div>
+						<div class="promoBubbleContainer bettingBubble hide">
+				<input type="hidden" name="bubble_name" value="betting-game">
+				<a class="promoBubble noStyle pointer" href="https://www.betcrib.com/zh/signin/sso?sid=76sk8mgbfta2b84198u4mfmc80&url=https%3A%2F%2Fwww.betcrib.com%2Fzh%2F%3Fmatchid%3D187034581">
+					<span class="bubbleLeft"></span>
+					<span class="bubbleMiddle whiteText">
+						<span class="bold block">Bet now: Primera Division</span>
+						<span class="block whiteText marginTop3 noBackground relative">Atletico Madrid - Real Mallorca<span class="redArrowIcon right absolute" style="top: -2px;right: -25px;"></span></span>
+
+					</span>
+					<span class="bubbleRight"></span>
+				</a>
+				<span class="promoBubbleArrow"></span>
+				<span class="promoBubbleClose"></span>
+			</div>
+			<div class="promoBubbleContainer pokerBubble hide">
+				<input type="hidden" name="bubble_name" value="poker-playeronline">
+				<a class="promoBubble noStyle pointer" href="https://www.europoker.com/zh/gsop/bonus/">
+
+					<span class="bubbleLeft"></span>
+					<span class="bubbleMiddle whiteText">
+						<span class="block whiteText mediumText bold marginTop10 noBackground relative">Free GSOP Ticket<span class="redArrowIcon right absolute" style="top: -2px;right: -25px;"></span></span>
+					</span>
+					<span class="bubbleRight"></span>
+				</a>
+				<span class="promoBubbleArrow"></span>
+				<span class="promoBubbleClose"></span>
+
+			</div>
+			<script type="text/javascript">
+			// Init vars
+			var bubble_fade_time = 300;
+			var bubble_fade_in_timer = 4000;
+			var bubble_fade_out_timer = 10000;
+			var bubble_fade_out_hover_timer = 1000;
+			var bubble_timeout = new Array();
+			var current_bubble;
+			
+			$(document).ready(function() {
+										});
+			// Fade in bubble
+			function fadeinPromoBubble(bubble, use_fade_out_timer)
+			{
+				if(use_fade_out_timer == null)
+				{
+					use_fade_out_timer = true;
+				}
+				// Hide all bubbles
+//				clearTimeout(bubble_timeout);
+				current_class = '';
+				if($(bubble).hasClass('casinoBubble'))
+				{
+					current_class = 'casinoBubble';
+				}
+				else if($(bubble).hasClass('pokerBubble'))
+				{
+					current_class = 'pokerBubble';
+				}
+				else if($(bubble).hasClass('bettingBubble'))
+				{
+					current_class = 'bettingBubble';
+				}
+					
+				$('.promoBubbleContainer').not('.'+current_class).hide();
+				$(bubble).fadeIn(bubble_fade_time);
+				
+				if(use_fade_out_timer)
+				{
+					current_bubble = bubble;
+					timeout = setTimeout('fadeoutPromoBubble(current_bubble)', bubble_fade_out_timer);
+					addNewTimeout(timeout);
+					if(window.pageTracker !== undefined)
+					{
+						pageTracker._trackEvent('promoBubble', getBubbleName(bubble), 'showed');
+					}
+				}
+				$(bubble).hover(function()
+				{
+//					clearTimeout(bubble_timeout);
+					removeOldTimeouts();
+					if(window.pageTracker !== undefined)
+					{
+						pageTracker._trackEvent('promoBubble', getBubbleName($(this)), 'hovered');
+					}
+				},function() {
+					current_bubble = $(this);
+					timeout = setTimeout('fadeoutPromoBubble(current_bubble)', bubble_fade_out_hover_timer);
+					addNewTimeout(timeout);
+					if(window.pageTracker !== undefined)
+					{
+						pageTracker._trackEvent('promoBubble', getBubbleName($(this)), 'fade out');
+					}
+				});
+			}
+			// Fade out bubble
+			function fadeoutPromoBubble(bubble)
+			{
+				$(bubble).fadeOut(bubble_fade_time);
+			}
+			// Get supplied bubble name
+			function getBubbleName(bubble)
+			{
+				return $(bubble).find('input[name=bubble_name]').val();
+			}
+			function addNewTimeout(timeout)
+			{
+				removeOldTimeouts();
+				bubble_timeout.push(timeout);
+			}
+			// Remove all old bubble timeouts
+			function removeOldTimeouts()
+			{
+				for (var i in bubble_timeout)
+				{
+					clearTimeout(bubble_timeout[i]);
+				}
+				bubble_timeout = new Array();
+			}
+			// Close button
+			$('.promoBubbleClose').click(function() {
+				$(this).parents('.promoBubbleContainer').hide();
+				if(window.pageTracker !== undefined)
+				{
+					pageTracker._trackEvent('promoBubble', getBubbleName($(this).parents('.promoBubbleContainer')), 'closed');
+				}
+			});
+			// Link Click
+			$('.promoBubbleContainer').find('a').click(function() {
+				var url = $(this).attr('href');
+				if(window.pageTracker !== undefined)
+				{
+					pageTracker._trackEvent('promoBubble', getBubbleName($(this).parents('.promoBubbleContainer')), 'clicked');
+				}
+				window.location = url;
+				return false;
+			});
+			// Show if hovered site tab and then hover the bubble
+			$('.promoBubbleContainer').hover(function() {
+//				clearTimeout(bubble_timeout);
+				removeOldTimeouts();
+			}, function()
+			{
+				timeout = setTimeout('fadeoutPromoBubble(current_bubble)', bubble_fade_out_hover_timer);
+				addNewTimeout(timeout);
+			});
+			</script>
+	<script type="text/javascript">
+	
+function sprintf() {
+	if (!arguments || arguments.length < 1 || !RegExp) {
+		return;
+	}
+	var str = arguments[0];
+	var re = /([^%]*)%('.|0|\x20)?(-)?(\d+)?(\.\d+)?(%|b|c|d|u|f|o|s|x|X)(.*)/;
+	var a = b = [], numSubstitutions = 0, numMatches = 0;
+	while (a = re.exec(str)) {
+		var leftpart = a[1], pPad = a[2], pJustify = a[3], pMinLength = a[4];
+		var pPrecision = a[5], pType = a[6], rightPart = a[7];
+		 //alert(a + '\n' + [a[0], leftpart, pPad, pJustify, pMinLength, pPrecision);
+		numMatches++;
+		if (pType == '%') {
+			subst = '%';
+		} else {
+			numSubstitutions++;
+			if (numSubstitutions >= arguments.length) {
+//					alert('Error! Not enough function arguments (' + (arguments.length - 1) + ', excluding the string)\nfor the number of substitution parameters in string (' + numSubstitutions + ' so far).');
+				var param = arguments[arguments.length-1];
+			} else
+				var param = arguments[numSubstitutions];
+			var pad = '';
+			if (pPad && pPad.substr(0,1) == "'") pad = leftpart.substr(1,1);
+			else if (pPad) pad = pPad;
+			var justifyRight = true;
+			if (pJustify && pJustify === "-") justifyRight = false;
+			var minLength = -1;
+			if (pMinLength) minLength = parseInt(pMinLength);
+			var precision = -1;
+			if (pPrecision && pType == 'f') precision = parseInt(pPrecision.substring(1));
+			var subst = param;
+			if (pType == 'b') subst = parseInt(param).toString(2);
+			else if (pType == 'c') subst = String.fromCharCode(parseInt(param));
+			else if (pType == 'd') subst = parseInt(param) ? parseInt(param) : 0;
+			else if (pType == 'u') subst = Math.abs(param);
+			else if (pType == 'f') subst = (precision > -1) ? Math.round(parseFloat(param) * Math.pow(10, precision)) / Math.pow(10, precision): parseFloat(param);
+			else if (pType == 'o') subst = parseInt(param).toString(8);
+			else if (pType == 's') subst = param;
+			else if (pType == 'x') subst = ('' + parseInt(param).toString(16)).toLowerCase();
+			else if (pType == 'X') subst = ('' + parseInt(param).toString(16)).toUpperCase();
+		}
+		str = leftpart + subst + rightPart;
+	}
+	return str;
+}
+
+var uid = (function(){
+	var id=0;
+	return function(){
+		return id++ ;
+	};
+})();
+
+function setInputError(element, message) {
+	removeInputError($(element));
+
+	$(element).parent().append('<div class="inputError" id="inputError_'+uid()+'">'+message+'</div>');
+	$('#isAllFieldsValidated').val(0);
+}
+
+function removeInputError(element) {
+	$(element).parent().children('.inputError').remove();
+}
+
+function checkLength(element, min, max) {
+	var str = $(element).val().replace(/^\s*/, "").replace(/\s*$/, ""); // Trim whitespaces
+	if(str.length < min) {
+		setInputError(element, sprintf("The %s must be at least %s characters.", $(element).attr('title'), min));
+		return false;
+	} else if(max != null && str.length > max) {
+		setInputError(element, sprintf("The %s can be at most%s characters.", $(element).attr('title'), max));
+		return false;
+	}
+	return true;
+}
+
+function checkRegexp(element, type) {
+	invalidChar = null;
+	invalid = null;
+
+	switch(type) {
+		case 1:
+		case 'alfabetic':
+			if((matches = $(element).val().match('[^a-zA-Z]')) && matches.length != 0) {
+				invalidChar = matches;
+			}
+			break;
+		case 2:
+		case 'numeric':
+			if((matches = $(element).val().match('[^0-9]')) && matches.length != 0) {
+				invalidChar = matches;
+			}
+			break;
+		case 3:
+		case 'alfanumeric':
+			if((matches = $(element).val().match('[^a-zA-Z0-9]')) && matches.length != 0) {
+				invalidChar = matches;
+			}
+			break;
+		case 4:
+		case 'nickname':
+			if((matches = $(element).val().match('[^a-zA-Z0-9&._ -]')) && matches.length != 0) {
+				invalidChar = matches;
+			}
+			break;
+		case 5:
+		case 'email':
+			if($(element).val().search(/^([a-zA-Z0-9_\.\-])+@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/) == -1) {
+				invalid = "The email address is not valid.";
+			}
+			break;
+		case 6:
+		case 'password':
+			if($(element).val().search(/[0-9]+/) == -1) {
+				invalid = "必须包含一个数字";
+			}
+			if($(element).val().search(/[a-zA-Z]+/) == -1) {
+				invalid = "必须包含char";
+			}
+			break;
+		case 7:
+		case 'date':
+			if($(element).val() == 0 || $(element).val().search(/^[0-9]+$/) == -1) {
+				invalid = "This field is required.";
+			}
+			break;
+		case 8:
+		case 'name':
+			if((matches = $(element).val().match('[^a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ#0-9@&._ ()*+,\/:^~-]')) && matches.length != 0) {
+				invalidChar = matches;
+			}
+	}
+
+	if(invalid != null) {
+		setInputError(element, invalid);
+		return false;
+	} else if (invalidChar != null) {
+		setInputError(element, "Invalid char "+invalidChar);
+		return false;
+	}
+	return true;
+}
+
+function validateAllFields(form_id) {
+	$('#isAllFieldsValidated').val(1);
+
+	// Loop thru all inputs and blur them to trigger validation
+	$('#'+form_id+' :input, #'+form_id+' :select').each(function(){
+		if (this.name != undefined && $(this).is(':visible') == true)
+			$(this).trigger("blur");
+	});
+
+	if($('#isAllFieldsValidated').val() == 1) {
+		return true;
+	}
+	// Error exist, scroll to first:
+	var target = '#'+$('div.inputError').attr('id');
+	var $target = $(target);
+	var targetOffset = $target.offset().top - 60;
+	$('html,body').animate({scrollTop: targetOffset}, 1000);
+	$target.parent().children('input').focus();
+	return false;
+}
+
+$(document).ready(function() {
+//	$('#id_nickname').focus();	// Focusing the first input
+	$('#submit').children('span.wgButton').show().siblings('input').hide();
+
+	initSigninForm($('#signin_form'));
+	initSigninForm($('#signin_form_MLoginBox'));
+	
+	$('input, select').keyup(function(e) {
+		if (e.keyCode) code = e.keyCode;
+		else if (e.which) code = e.which;
+		if($(this).parent().find('.inputError').is('.inputError')) {
+			$(this).trigger('error');
+		}
+	});
+	
+	if($('p.inputError').attr('id')){
+		// Get first inputError-id:
+		var target = '#'+$('p.inputError').attr('id');
+		var $target = $(target);
+		var targetOffset = $target.offset().top - 60;
+		$('html,body').animate({scrollTop: targetOffset}, 1000);
+		$target.parent().children('input').focus();
+	}
+});
+
+function initSigninForm(form) {
+	form.submit(function(e) {
+		if(!validateAllFields($(this).attr('id'))) {
+			e.preventDefault();
+			return false;
+		}
+	});
+
+	$(form).find('input[name=\'nickname\']').bind('blur error', function() {
+		removeInputError($(this));
+		if(checkLength($(this), 2, 20) && checkRegexp($(this), 'name'))
+			return true;
+	});
+
+	$(form).find('input[name=\'password\']').bind('blur error', function() {
+		removeInputError($(this));
+		if(checkLength($(this), 1, 20))
+			return true;
+	});
+	
+//	form.children('.id_password').bind('blur error', function() {
+//		removeInputError($(this));
+//		if(checkLength($(this), 8, 12) && checkRegexp($(this), 'password') )
+//			return true;
+//	});
+}	</script>
+	<div id="logIn" class="left">
+		<ul class="left noStyle">
+			<li class="relative addBottomBorder toplevel left" style="z-index:31;">
+				<a href="#" class="noStyle relative" style="z-index:33;">
+					<span class="selectorButton hoverBottom">
+
+						<span class="buttonLeft"></span>
+						<span class="buttonMiddle">
+							<div class="smallAccountIcon"></div>
+							登陆						</span>
+						<span class="buttonRight"></span>
+					</span>
+				</a>
+				<ul id="myAccountList" class="hide left noStyle whiteText" style="padding:10px;">
+
+						<form method="post" class="noPaddingForm" name="signin_form_MLoginBox" id="signin_form_MLoginBox" action="https://www.europoker.com/zh/signin/">
+							<input type="hidden" id="isAllFieldsValidated" name="isAllFieldsValidated" value="1" />
+							<ul class="noStyle">
+								<input id="nickname_translated" value="昵称" type="hidden">
+								<input id="password_translated" value="密码" type="hidden">
+								<input type="hidden" name="_form_id" value="131975096"/>
+
+
+<li class="marginRight10"> <input class="blue generalErrorFrm" maxlength="12" tabindex="123" title="Nickname" id="nickname_signin" name="nickname" type="text"/>
+</li>
+
+<li class="marginRight10"> <input class="blue generalErrorFrm" tabindex="124" title="密码" id="password_signin" name="password" type="password"/>
+</li>
+<input id="id_url" name="url" type="hidden"/>
+
+								<li style="width: auto;">
+									<input class="jsHide" type="submit" value="登陆" />
+									<span class="greyButton hide jsShow submitForm">
+										<span class="buttonLeft"></span>
+										<span class="buttonMiddle" style="padding-top:6px;">登陆</span>
+										<span class="buttonRight marginRight10"></span>
+
+									</span>
+								</li>
+								<li style="width: auto;padding-top: 5px;background:none;" class="marginRight10">
+									<a class="whiteText noStyle underline" href="/zh/forgottenpassword/">帮助</a>
+								</li>
+							</ul>
+						</form>
+				</ul>
+
+			</li>
+		</ul>
+		<div class="left">
+			<ul class="left noStyle marginLeft10">
+				<li class="relative addBottomBorder toplevel left" style="z-index:30;">
+				<a href="/zh/support/" class="noStyle relative" style="z-index:33;">
+					<span class="selectorButton hoverBottom">
+						<span class="buttonLeft"></span>
+						<span class="buttonMiddle">
+
+							<div class="smallSupportIcon"></div>
+							Support						</span>
+						<span class="buttonRight"></span>
+					</span>
+				</a>
+				<ul id="supportList" class="hide left noStyle whiteText">
+					<li style="width:auto; padding-top:10px;">
+						<div>
+
+							<div class="left paddingLeft10 paddingRight10 paddingBottom10 greyBorderRight">
+								<a class="marginTop10 okLink noStyle" href="skype:europoker.support?call"><img src="images/skype_btn.png" alt="Skype Me!" /></a>
+								<div id="lpButDivID-1" class="live-person" style="width:130px;"></div>
+	
+								<a href="mailto:support@europoker.com" class="noStyle okLink"><img src="images/mail_btn.png" alt="support@europoker.com" width="122" height="43" /></a>
+							</div>
+							<div class="left whiteText marginTop20 marginLeft20 paddingTop10 greyText">
+								<p class="noBackground noFloat paddingBottom10"><b>Phone: </b>  +46 8 559 21 172</p>
+
+								<p class="noBackground noFloat paddingBottom10"><b>Mail: </b> <a href="mailto:support@europoker.com" class="greyText noStyle">support@europoker.com</a></p>
+								<p class="noBackground noFloat"><b>Skype:</b> (2pm - midnight CET)  </p>
+							</div>
+						</div>
+						<div class="clr paddingTop10 marginLeft10 marginRight10 marginBottom10	">
+							<img src="images/mail/facepic_vip_es.jpg" width="101" height="114" class="left marginRight10">
+
+							<p class="greyText">Please don't hesitate to contact us should you have any comments or questions regarding your account. Our professionals are on hand 24/7.</p>
+							<img src="images/mail/autographs/es.png">
+						</div>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		</div>
+
+		<div class="marginLeft10 left">
+			<a class="whiteText noStyle" href="/zh/signup/">
+				<span class="greenButton">
+					<span class="buttonLeft"></span>
+					<span class="buttonMiddle middleText" style="padding: 3px 10px 1px;">报名</span>
+					<span class="buttonRight marginRight10"></span>
+				</span>
+			</a>
+
+		</div>
+		<div class="clr"></div>
+	</div>	
+			<div id="sitelinks">
+				<a id="siteTabCasino" href="https://www.casinoroom.com/zh/" onclick="window.location='https://www.casinoroom.com/zh/signin/sso/?sid=76sk8mgbfta2b84198u4mfmc80&url=https%3A%2F%2Fwww.casinoroom.com%2Fzh%2F'; return false;" class="noStyle redHover">
+					<span class="supernavigationButton">
+						<span class="buttonLeft"></span>
+						<span class="buttonMiddle">Casino</span>
+						<span class="buttonRight"></span>
+
+					</span>
+				</a>
+				<a id="siteTabBetting" href="https://www.betcrib.com/zh/" onClick="window.location='https://www.betcrib.com/zh/signin/sso?sid=76sk8mgbfta2b84198u4mfmc80&url=https%3A%2F%2Fwww.betcrib.com%2Fzh%2F'; return false;" class="noStyle greenHover">
+					<span class="supernavigationButton">
+						<span class="buttonLeft"></span>
+						<span class="buttonMiddle">Sportsbook</span>
+						<span class="buttonRight"></span>
+					</span>
+
+				</a>
+				<a id="siteTabPoker" href="https://www.europoker.com/zh/" onClick="window.location='https://www.europoker.com/zh/'; return false;" class="noStyle">
+					<span class="supernavigationButton blue">
+						<span class="buttonLeft"></span>
+						<span class="buttonMiddle">Poker</span>
+						<span class="buttonRight"></span>
+					</span>
+				</a>
+
+				
+			</div>
+		</div>
+		<div class="borderContainer">
+		</div>
+	</div>
+
+	<div id="siteContainer">
+					<div id="header">
+			<div id="logoContainer">
+
+									<a class="noStyle" href="/zh/">
+								<img src="images/ep_logo_small.png" width="124" height="78" alt="EuroPoker.com" />
+				</a>
+			</div>
+
+						<ul id="gameTypeMenu" class="noStyle">
+					
+			<li id="navvipclub/" class="firstLevel firstBackground" style="padding-left:11px;">
+				<a class="category" href="/zh/vipclub/" title="VIP 俱乐部">
+					<span class="navText" >
+
+						VIP 俱乐部					</span>
+											<span class="whiteDownArrow"></span>
+				</a>
+						<ul class="noStyle categoryList	" style="z-index: 10;">
+													<li>
+								<a href="/zh/vipclub/" title="VIP 俱乐部">VIP 俱乐部</a>
+							</li>
+													<li>
+
+								<a href="/zh/vipclub/membership/" title="会员资格">会员资格</a>
+							</li>
+													<li>
+								<a href="/zh/vipclub/transactions/" title="历史记录">历史记录</a>
+							</li>
+												</ul>
+							</li>		
+				
+			<li id="navpoker/" class="firstLevel ">
+
+				<a class="category" href="/zh/poker/" title="扑克">
+					<span class="navText" >
+						扑克					</span>
+											<span class="whiteDownArrow"></span>
+				</a>
+						<ul class="noStyle categoryList	" style="z-index: 10;">
+													<li>
+								<a href="/zh/poker/" title="扑克">扑克</a>
+
+							</li>
+													<li>
+								<a href="/zh/poker/download/" title="下载">下载</a>
+							</li>
+													<li>
+								<a href="/zh/pokerstrategy/" title="扑克战术">扑克战术</a>
+							</li>
+													<li>
+
+								<a href="/zh/pokergames/" title="Poker Games">Poker Games</a>
+							</li>
+													<li>
+								<a href="/zh/texas-holdem/" title="Texas Hold'em">Texas Hold'em</a>
+							</li>
+													<li>
+								<a href="/zh/help/?categoryid=68&subcategoryid=70" title="Player Points">Player Points</a>
+
+							</li>
+													<li>
+								<a href="http://www.europokerblog.com" title="Poker Blog">Poker Blog</a>
+							</li>
+												</ul>
+							</li>		
+				
+			<li id="navtournaments/" class="firstLevel ">
+				<a class="category" href="/zh/tournaments/" title="锦标赛">
+					<span class="navText" >
+
+						锦标赛					</span>
+											<span class="whiteDownArrow"></span>
+				</a>
+						<ul class="noStyle categoryList	" style="z-index: 10;">
+													<li>
+								<a href="/zh/tournaments/" title="锦标赛">锦标赛</a>
+							</li>
+													<li>
+
+								<a href="/zh/tournaments/calendar/" title="日历">日历</a>
+							</li>
+													<li>
+								<a href="/zh/tournaments/featured/" title="锦标赛">锦标赛</a>
+							</li>
+													<li>
+								<a href="/zh/tournaments/simple/" title="简单创建锦标赛">简单创建锦标赛</a>
+
+							</li>
+												</ul>
+							</li>		
+				
+			<li id="navpromos/" class="firstLevel ">
+				<a class="category" href="/zh/promos/" title="推广活动">
+					<span class="navText" style="padding-right:6px">
+						推广活动					</span>
+									</a>
+							</li>		
+				
+			<li id="navpokerschool/" class="firstLevel ">
+
+				<a class="category" href="/zh/pokerschool/" title="扑克学校">
+					<span class="navText" >
+						扑克学校					</span>
+											<span class="whiteDownArrow"></span>
+				</a>
+						<ul class="noStyle categoryList	foldLeft" style="z-index: 10;">
+													<li>
+								<a href="/zh/pokerschool/" title="扑克学校">扑克学校</a>
+
+							</li>
+													<li>
+								<a href="/zh/pokertalk/" title="扑克语言">扑克语言</a>
+							</li>
+													<li>
+								<a href="/zh/pokeretiquette/" title="Etiquette">Etiquette</a>
+							</li>
+													<li>
+
+								<a href="/zh/pokerplayerprofiles/" title="玩家信息">玩家信息</a>
+							</li>
+													<li>
+								<a href="/zh/pokerplayingstyles/" title="游戏风格">游戏风格</a>
+							</li>
+													<li>
+								<a href="/zh/pokerstats/" title="扑克统计">扑克统计</a>
+
+							</li>
+													<li>
+								<a href="/zh/pokerhandranking/" title="手数排名">手数排名</a>
+							</li>
+												</ul>
+							</li>		
+				
+			<li id="navhelp/" class="firstLevel ">
+				<a class="category" href="/zh/help/" title="帮助">
+					<span class="navText" >
+
+						帮助					</span>
+											<span class="whiteDownArrow"></span>
+				</a>
+						<ul class="noStyle categoryList	foldLeft" style="z-index: 10;">
+													<li>
+								<a href="/zh/forgottenpassword/" title="忘记密码">忘记密码</a>
+							</li>
+													<li>
+
+								<a href="/zh/activateaccount/" title="账户激活">账户激活</a>
+							</li>
+												</ul>
+							</li>		
+					<li class="lastBackground" style="height:42px">
+				<div id="standalone_langselect">
+					<ul>
+					<li class="noDivider showLanguageList">
+	<a id="languageSelector" href="#">
+
+	<span class="flag flag_zh">&nbsp;</span>
+	<img class="arrow" src="images/icon/white_arrow.gif" width="9" height="5" alt=""/>
+	</a>
+	<ul id="languageList"  style="z-index: 10;"><li><a href="/de/signup/" title="Deutsch"><span class="flag flag_de" style="">Deutsch</span><span class="smallText marginLeft10">Deutsch</span></a></li>
+<li><a href="/en/signup/" title="English"><span class="flag flag_en" style="">English</span><span class="smallText marginLeft10">English</span></a></li>
+<li><a href="/es/signup/" title="Español"><span class="flag flag_es" style="">Español</span><span class="smallText marginLeft10">Español</span></a></li>
+<li><a href="/fr/signup/" title="Français"><span class="flag flag_fr" style="">Français</span><span class="smallText marginLeft10">Français</span></a></li>
+
+<li><a href="/hu/signup/" title="Magyar"><span class="flag flag_hu" style="">Magyar</span><span class="smallText marginLeft10">Magyar</span></a></li>
+<li><a href="/nl/signup/" title="Netherlands"><span class="flag flag_nl" style="">Netherlands</span><span class="smallText marginLeft10">Netherlands</span></a></li>
+<li><a href="/pl/signup/" title="Polski"><span class="flag flag_pl" style="">Polski</span><span class="smallText marginLeft10">Polski</span></a></li>
+<li><a href="/ru/signup/" title="Русский"><span class="flag flag_ru" style="">Русский</span><span class="smallText marginLeft10">Русский</span></a></li>
+<li><a href="/no/signup/" title="Norsk"><span class="flag flag_no" style="">Norsk</span><span class="smallText marginLeft10">Norsk</span></a></li>
+<li><a href="/fi/signup/" title="Finnish"><span class="flag flag_fi" style="">Finnish</span><span class="smallText marginLeft10">Finnish</span></a></li>
+
+<li><a href="/da/signup/" title="Danish"><span class="flag flag_da" style="">Danish</span><span class="smallText marginLeft10">Danish</span></a></li>
+<li><a href="/sv/signup/" title="Svenska"><span class="flag flag_sv" style="">Svenska</span><span class="smallText marginLeft10">Svenska</span></a></li>
+	</ul>
+</li>
+					</ul>
+				</div>
+			</li>
+		</ul>	
+		</div>
+
+		<div id="siteContent" class="roundCorner5">
+			
+						
+											
+
+<div id="topBanner" class="paddingTop7 paddingLeft7 textCenter" style="height: 75px;">
+	
+			
+		<a class="noStyle left" href="/zh/promos/firstdeposit/">
+			<img src="images/puffs/fd/en/fd_topbanner_no_index.jpg" width="946" height="69" />
+		</a>
+	
+		</div>		
+			
+						<div id="content" class="greyBg">
+				<div id="contentBorder" class="margin10 padding10">
+				<div  class="whiteBg padding10">
+
+						<div class="clr"></div>
+							<script type="text/javascript">
+
+function sprintf() {
+	if (!arguments || arguments.length < 1 || !RegExp) {
+		return;
+	}
+	var str = arguments[0];
+	var re = /([^%]*)%('.|0|\x20)?(-)?(\d+)?(\.\d+)?(%|b|c|d|u|f|o|s|x|X)(.*)/;
+	var a = b = [], numSubstitutions = 0, numMatches = 0;
+	while (a = re.exec(str)) {
+		var leftpart = a[1], pPad = a[2], pJustify = a[3], pMinLength = a[4];
+		var pPrecision = a[5], pType = a[6], rightPart = a[7];
+		 //alert(a + '\n' + [a[0], leftpart, pPad, pJustify, pMinLength, pPrecision);
+		numMatches++;
+		if (pType == '%') {
+			subst = '%';
+		} else {
+			numSubstitutions++;
+			if (numSubstitutions >= arguments.length) {
+//					alert('Error! Not enough function arguments (' + (arguments.length - 1) + ', excluding the string)\nfor the number of substitution parameters in string (' + numSubstitutions + ' so far).');
+				var param = arguments[arguments.length-1];
+			} else
+				var param = arguments[numSubstitutions];
+			var pad = '';
+			if (pPad && pPad.substr(0,1) == "'") pad = leftpart.substr(1,1);
+			else if (pPad) pad = pPad;
+			var justifyRight = true;
+			if (pJustify && pJustify === "-") justifyRight = false;
+			var minLength = -1;
+			if (pMinLength) minLength = parseInt(pMinLength);
+			var precision = -1;
+			if (pPrecision && pType == 'f') precision = parseInt(pPrecision.substring(1));
+			var subst = param;
+			if (pType == 'b') subst = parseInt(param).toString(2);
+			else if (pType == 'c') subst = String.fromCharCode(parseInt(param));
+			else if (pType == 'd') subst = parseInt(param) ? parseInt(param) : 0;
+			else if (pType == 'u') subst = Math.abs(param);
+			else if (pType == 'f') subst = (precision > -1) ? Math.round(parseFloat(param) * Math.pow(10, precision)) / Math.pow(10, precision): parseFloat(param);
+			else if (pType == 'o') subst = parseInt(param).toString(8);
+			else if (pType == 's') subst = param;
+			else if (pType == 'x') subst = ('' + parseInt(param).toString(16)).toLowerCase();
+			else if (pType == 'X') subst = ('' + parseInt(param).toString(16)).toUpperCase();
+		}
+		str = leftpart + subst + rightPart;
+	}
+	return str;
+}
+
+function passwordStrength(password) {
+	score = 0
+
+	//password < 4
+	//if (password.length < 4 ) { return shortPass }
+
+	//password == username
+	//if (password.toLowerCase()==username.toLowerCase()) return badPass
+
+	//password length
+	score += password.length * 4
+	score += ( checkRepetition(1,password).length - password.length ) * 1
+	score += ( checkRepetition(2,password).length - password.length ) * 1
+	score += ( checkRepetition(3,password).length - password.length ) * 1
+	score += ( checkRepetition(4,password).length - password.length ) * 1
+
+	//password has 3 numbers
+	if (password.match(/(.*[0-9].*[0-9].*[0-9])/))  score += 5
+
+	//password has 2 sybols
+	if (password.match(/(.*[!,@,#,$,%,^,&,*,?,_,~].*[!,@,#,$,%,^,&,*,?,_,~])/)) score += 5
+
+	//password has Upper and Lower chars
+	if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/))  score += 10
+
+	//password has number and chars
+	if (password.match(/([a-zA-Z])/) && password.match(/([0-9])/))  score += 15
+	//
+	//password has number and symbol
+	if (password.match(/([!,@,#,$,%,^,&,*,?,_,~])/) && password.match(/([0-9])/))  score += 15
+
+	//password has char and symbol
+	if (password.match(/([!,@,#,$,%,^,&,*,?,_,~])/) && password.match(/([a-zA-Z])/))  score += 15
+
+	//password is just a nubers or chars
+	if (password.match(/^\w+$/) || password.match(/^\d+$/) )  score -= 10
+
+	//verifing 0 < score < 100
+	if ( score < 0 )  score = 0
+	if ( score > 100 )  score = 100
+
+
+	return score;
+	//if (score < 34 )  return badPass
+	//if (score < 68 )  return goodPass
+	//return strongPass
+}
+
+function checkRepetition(pLen,str) {
+	res = ""
+	for ( i=0; i<str.length ; i++ ) {
+		repeated=true
+		for (j=0;j < pLen && (j+i+pLen) < str.length;j++)
+			repeated=repeated && (str.charAt(j+i)==str.charAt(j+i+pLen))
+		if (j<pLen) repeated=false
+		if (repeated) {
+			i+=pLen-1
+			repeated=false
+		}
+		else {
+			res+=str.charAt(i)
+		}
+	}
+	return res
+}
+
+// Strength 0-100
+function setPasswordMeter(strength) {
+	$('#passwordStrength').children('div').css('width', strength*2 + 'px');
+}
+
+var uid = (function(){
+	var id=0;
+	return function(){
+		return id++ ;
+	};
+})();
+
+function setInputError(element, message) {
+	removeInputError($(element));
+
+	$(element).removeClass('okBorder').addClass('errorBorder').parent().append('<div class="inputError" id="inputError_'+uid()+'">'+message+'</div>');
+	$('#isAllFieldsValidated').val(0);
+//alert('has errr:'+message);
+}
+
+function removeInputError(element) {
+	$(element).removeClass('errorBorder').parent().children('.inputError').remove();
+}
+
+function inputValid(element) {
+	$('#signUpFormInvalidImage').hide();
+	$(element).addClass('okBorder');
+}
+
+function checkLength(element, min, max) {
+	var str = $(element).val().replace(/^\s*/, "").replace(/\s*$/, ""); // Trim whitespaces
+	if(str.length < min) {
+		setInputError(element, sprintf("The %s must be at least %s characters.", $(element).attr('title'), min));
+		return false;
+	} else if(max != null && str.length > max) {
+		setInputError(element, sprintf("The %s can be at most%s characters.", $(element).attr('title'), max));
+		return false;
+	}
+	return true;
+}
+
+function checkRegexp(element, type) {
+	invalidChar = null;
+	invalid = null;
+
+	switch(type) {
+		case 1:
+		case 'alfabetic':
+			if((matches = $(element).val().match('[^a-zA-Z]')) && matches.length != 0) {
+				invalidChar = matches;
+			}
+			break;
+		case 2:
+		case 'numeric':
+			if((matches = $(element).val().match('[^0-9]')) && matches.length != 0) {
+				invalidChar = matches;
+			}
+			break;
+		case 3:
+		case 'alfanumeric':
+			if((matches = $(element).val().match('[^a-zA-Z0-9]')) && matches.length != 0) {
+				invalidChar = matches;
+			}
+			break;
+		case 4:
+		case 'nickname':
+			if((matches = $(element).val().match('[^a-zA-Z0-9&._ -]')) && matches.length != 0) {
+				invalidChar = matches;
+			}
+			break;
+		case 5:
+		case 'email':
+			if($(element).val().search(/^[-!#$%&'*+\/=?^_`{}|~0-9A-Za-z]+(\.[-!#$%&\'*+\/=?^_`{}|~0-9A-Za-z]+)*@([0-9A-Za-z]([-0-9A-Za-z]{0,61}[0-9A-Za-z])?\.)+[A-Za-z]{2,}$/) == -1) {
+				invalid = "The email address is not valid.";
+			}
+			break;
+		case 6:
+		case 'password':
+			if($(element).val().search(/[0-9]+/) == -1) {
+				invalid = "必须包含一个数字";
+			}
+			if($(element).val().search(/[a-zA-Z]+/) == -1) {
+				invalid = "必须包含char";
+			}
+			break;
+		case 7:
+		case 'date':
+			if($(element).val() == 0 || $(element).val().search(/^[0-9]+$/) == -1) {
+				invalid = "This field is required.";
+			}
+			break;
+		case 8:
+		case 'name':
+			if((matches = $(element).val().match('[^a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ#0-9@&._ ()*+,\/:^~-]')) && matches.length != 0) {
+				invalidChar = matches;
+			}
+			break;
+		case 9:
+		case 'phone':
+			if((matches = $(element).val().match('[^+0-9]')) && matches.length != 0) {
+				invalidChar = matches;
+			}
+		case 'alfanumeric_space':
+			if((matches = $(element).val().match('[^a-zA-Z0-9 ]')) && matches.length != 0) {
+				invalidChar = matches;
+			}
+			break;
+	}
+
+	if(invalid != null) {
+		setInputError(element, invalid);
+		return false;
+	} else if (invalidChar != null) {
+		setInputError(element, "Invalid char "+invalidChar);
+		return false;
+	}
+	return true;
+}
+
+function compareInput(input1, input2, errorMessage, must_be_equal) {
+	if(must_be_equal && $(input1).val() !== $(input2).val()) {
+		setInputError(input1, errorMessage);
+		return false;
+	} else if (!must_be_equal && $(input1).val() === $(input2).val()) {
+		setInputError(input1, errorMessage);
+		return false;
+	}
+	return true;
+}
+
+function validateAllFields(form_id) {
+	$('#isAllFieldsValidated').val(1);
+
+	// Loop thru all inputs and blur them to trigger validation
+	$('#'+form_id+' :input, #'+form_id+' :select').each(function(){
+		if (this.name != undefined && $(this).is(':visible') == true)
+			$(this).trigger("blur");
+	});
+
+	if($('#isAllFieldsValidated').val() == 1) {
+		$('#signUpValidAndLoading').show();
+		return true;
+	}
+	// Error exist, scroll to first:
+	$('#signUpFormInvalidImage').show();
+	var target = '#'+$('div.inputError').attr('id');
+	var $target = $(target);
+	var targetOffset = $target.offset().top - 60;
+	$('html,body').animate({scrollTop: targetOffset}, 1000);
+//	$target.parent().children('input').focus();
+	return false;
+}
+
+function listenerForStateAndProvince() {
+	// This should be able to replace wiht JQuery-Live functionality...
+	$('#id_state').bind('blur error', function() {
+		removeInputError($(this));
+		if(checkLength($(this), 1))
+			return true;
+	});
+	$('#id_province').bind('blur error', function() {
+		removeInputError($(this));
+		if(checkLength($(this), 1))
+			return true;
+	});
+}
+
+function checkStateOrProvince(countryId, doFocus) {
+	$.ajax({
+		type: 'post',
+		cache: false,
+		dataType: 'json',
+		data: 'country='+countryId,
+		url: '/zh/majax/getprovinces/',
+		success: function(status){
+			if(status['status'] == 1) { // Select
+				if(status['states'] != null) {
+					var selectOptions = '';
+					for(var key in status['states']) {
+						selectOptions += '<option value="' + key + '">' + status['states'][key] + '</option>\r\n';
+					}
+					var html = "<label for=\"state\" class=\"block\">State <span class=\"redText\">*</span></label>";
+						html += "<select class=\"blue\" id=\"id_state\" name=\"state\" tabindex=\"7\" title=\"State\" >";
+						html += "<option value=\"\" disabled=\"disabled\" selected>-</option>";
+						html += selectOptions;
+						html += "</select>";
+
+						$('#provinceStateHolder').html(html);
+						if (doFocus)
+							$('#id_state').focus();
+				} else {
+					// Only create html, if current html is the state-dropdown:
+					if ($('#provinceStateHolder input').attr('id') != 'id_province')
+					{
+						var html = "<label for=\"province\" class=\"block\">省份 <span class=\"redText\">*</span></label>";
+							html += "<input type=\"text\" id=\"id_province\" name=\"province\" tabindex=\"7\" value=\"\" title=\"省份\" class=\"blue\" maxlength=\"40\" />";
+						$('#provinceStateHolder').html(html);
+						if (doFocus)
+							$('#id_province').focus();
+					}
+				}
+			} else {
+				// Only create html, if current html is the state-dropdown:
+				if ($('#provinceStateHolder input').attr('id') != 'id_province')
+				{
+					var html = "<label for=\"province\" class=\"block\">省份 <span class=\"redText\">*</span></label>";
+						html += "<input type=\"text\" id=\"id_province\" name=\"province\" tabindex=\"7\" value=\"\" title=\"省份\" class=\"blue\" maxlength=\"20\" />";
+					$('#provinceStateHolder').html(html);
+					if (doFocus)
+						$('#id_province').focus();
+				}
+			}
+			listenerForStateAndProvince();
+		}
+	});
+}
+
+$(document).ready(function() {
+	$('#id_title').focus();	// Focusing the first input
+	$('#submit').children('span.wgButton').show().siblings('input').hide();
+
+	$('#signUpForm').submit(function(e) {
+		if(!validateAllFields($(this).attr('id')))
+			e.preventDefault();
+	});
+
+	$('input, select').keyup(function(e) {
+		if (e.keyCode) code = e.keyCode;
+		else if (e.which) code = e.which;
+		if($(this).parent().find('.inputError').is('.inputError')) {
+			$(this).trigger('error');
+		}
+	});
+
+	if($('#id_password1').val().length > 0) {
+		setPasswordMeter( passwordStrength( $('#id_password1').val() ) );
+	}
+
+	$('#id_password1').keyup(function() {
+		var password = $(this).val();
+		setPasswordMeter( passwordStrength(password) );
+	});
+
+	$("p.suggestion").live("click", function() {
+		removeInputError($('#id_nickname'));
+		var text = $(this).html();
+		$('#id_nickname').val(text);
+	});
+
+	$(".reloadCaptcha").click(function(){
+		$("#captchaImage").html('<img src="/api/captcha/index.php?'+uid()+'" alt="" />');
+	});
+
+	$('#id_firstname').bind('blur error', function() {
+		removeInputError($(this));
+		if(checkLength($(this), 1, 20) && checkRegexp($(this), 'name'))
+		{
+			inputValid($(this));
+			return true;
+		}
+	});
+	$('#id_lastname').bind('blur error', function() {
+		removeInputError($(this));
+		if(checkLength($(this), 1, 20) && checkRegexp($(this), 'name'))
+		{
+			inputValid($(this));
+			return true;
+		}
+	});
+	$('#id_address').bind('blur error', function() {
+		removeInputError($(this));
+		if(checkLength($(this), 1))
+		{
+			inputValid($(this));
+			return true;
+		}
+	});
+
+	var countryId = $('#id_country').val();
+	$('#id_country').bind('blur error', function() {
+		removeInputError($(this));
+		if($(this).val() == 0)
+			setInputError($(this), "This field is required.");
+		else if(countryId != $('#id_country').val()) {
+			countryId = $('#id_country').val();
+			checkStateOrProvince(countryId, true);
+		}
+	});
+
+	$('#id_city').bind('blur error', function() {
+		removeInputError($(this));
+		if(checkLength($(this), 1))
+		{
+			inputValid($(this));
+			return true;
+		}
+	});
+	$('#id_zip').bind('blur error', function() {
+		removeInputError($(this));
+		if(checkLength($(this), 1) && checkRegexp($(this), 'alfanumeric_space'))
+		{
+			inputValid($(this));
+			return true;
+		}
+	});
+	$('#id_phone').bind('blur error', function() {
+		removeInputError($(this));
+		if(checkLength($(this), 5, 25) && checkRegexp($(this), 'phone'))
+		{
+			inputValid($(this));
+			return true;
+		}
+	});
+	var last_nickname_lookup = '';
+	$('#id_nickname').bind('blur error', function() {
+		removeInputError($(this));
+		$('#suggestions').hide();
+		$('#suggestions').parent().addClass('height40');
+		var nickname_value = $('#id_nickname').val();
+		last_nickname_lookup = nickname_value;
+		if(checkLength($(this), 2, 12) && checkRegexp($(this), 'nickname')) {
+			$.ajax({
+				type: 'post',
+				cache: false,
+				dataType: 'json',
+				data: 'nickname='+nickname_value,
+				url: '/zh/majax/checknickname_new/',
+				success: function(status){
+					// Preventing multiple lookups before getting the responses
+					if (last_nickname_lookup == nickname_value)
+					{
+						if(status['status'] == 1) {
+							// Okey
+							inputValid($('#id_nickname'));
+						} else {
+							// Error
+							setInputError($('#id_nickname'), status['message']);
+							if(status['suggestions'].length > 0) {
+								var suggestions_str = "<label for=\"suggestions\" class=\"block\">建议</label>";
+								for(var i=0;i<status['suggestions'].length;i++){
+									suggestions_str += '<p class="suggestion">'+status['suggestions'][i]+'</p>';
+								}
+								$('#suggestions').html(suggestions_str);
+								$('#suggestions').parent().removeClass('height40');
+								$('#suggestions').show();
+							}
+						}
+					}
+				}
+			});
+		}
+	});
+
+	var last_friend_lookup = '';
+	$('#id_code_or_nickname').bind('blur error', function() {
+		removeInputError($(this));
+
+		if($('#promocode_invitedby .radio')[1].checked)
+		{
+			var nickname_value = $('#id_code_or_nickname').val();
+			last_friend_lookup = nickname_value;
+			if(checkLength($(this), 2, 12) && checkRegexp($(this), 'nickname')) {
+				$.ajax({
+					type: 'post',
+					cache: false,
+					dataType: 'json',
+					data: 'nickname='+nickname_value,
+					url: '/zh/majax/checknickname_existing/',
+					success: function(status){
+						// Preventing multiple lookups before getting the responses
+						if (last_friend_lookup == nickname_value)
+						{
+							if(status['status'] == 1) {
+								// Okey
+							} else {
+								// Error - nickname not existing...
+								setInputError($('#id_code_or_nickname'), status['message']);
+							}
+						}
+					}
+				});
+			}
+		}
+		else if($('#promocode_invitedby .radio')[0].checked)
+			if(checkLength($(this), 3))
+				return true;
+	});
+	$('#clear_code_or_nickname').click(function() {
+		removeInputError($('#id_code_or_nickname'));
+		$('#promocode_invitedby .radio')[0].checked = false;
+		$('#promocode_invitedby .radio')[1].checked = false;
+		$('#id_code_or_nickname').val('');
+	});
+
+	var last_email_lookup = '';
+	$('#id_email1').bind('blur error', function() {
+		removeInputError($(this));
+		var email_value = $('#id_email1').val();
+		last_email_lookup = email_value;
+		if(checkLength($(this), 3) && checkRegexp($(this), 'email')) {
+			$.ajax({
+				type: 'post',
+				cache: false,
+				dataType: 'json',
+				data: 'email='+email_value,
+				url: '/zh/majax/checkemail_new/',
+				success: function(status){
+					// Preventing multiple lookups before getting the responses
+					if (last_email_lookup == email_value)
+					{
+						if(status['status'] == 1) {
+							// Okey
+							inputValid($('#id_email1'));
+						} else {
+							// Error
+							setInputError($('#id_email1'), status['message']);
+						}
+					}
+				}
+			});
+		}
+	});
+	$('#id_email2').bind('blur error', function() {
+		removeInputError($(this));
+		if(checkLength($(this), 3) && checkRegexp($(this), 'email') && compareInput($('#id_email2'), $('#id_email1'), "不相等", true))
+		{
+			inputValid($(this));
+			return true;
+		}
+	});
+	$('#id_password1').bind('blur error', function() {
+		removeInputError($(this));
+		if(checkLength($(this), 8) && checkRegexp($(this), 'password') && compareInput($('#id_password1'), $('#id_nickname'), "Please don't use the nickname as a password!", false))
+		{
+			inputValid($(this));
+			return true;
+		}
+	});
+	$('#id_password2').bind('blur error', function() {
+		removeInputError($(this));
+		if(checkLength($(this), 8) && checkRegexp($(this), 'password') && compareInput($('#id_password2'), $('#id_password1'), "Your password entries do not match!", true))
+		{
+			inputValid($(this));
+			return true;
+		}
+	});
+	$('#id_day').bind('blur error', function() {
+		removeInputError($(this));
+		if(checkRegexp($('#id_day'), 'date') && checkRegexp($('#id_month'), 'date') && checkRegexp($('#id_year'), 'date'))
+		{
+			inputValid($(this));
+			return true;
+		}
+	});
+	$('#id_month').bind('blur error', function() {
+		removeInputError($(this));
+		if(checkRegexp($('#id_day'), 'date') && checkRegexp($('#id_month'), 'date') && checkRegexp($('#id_year'), 'date'))
+		{
+			inputValid($(this));
+			return true;
+		}
+	});
+	$('#id_year').bind('blur error', function() {
+		removeInputError($(this));
+		if(checkRegexp($('#id_day'), 'date') && checkRegexp($('#id_month'), 'date') && checkRegexp($('#id_year'), 'date'))
+		{
+			inputValid($(this));
+			return true;
+		}
+	});
+	$('#id_captcha').bind('blur error', function() {
+		removeInputError($(this));			// for javascripts own error-placements,
+		removeInputError($(this).parent());	// The '.parent()' added since the inputError is placed one level beside when generated by php-mix framework.
+		if(checkLength($(this), 1, 12))
+		{
+			inputValid($(this));
+			return true;
+		}
+	});
+
+	if($('#signUpForm p.inputError').attr('id')){
+		// Get first inputError-id:
+		var target = '#'+$('#signUpForm p.inputError').attr('id');
+		var $target = $(target);
+		var targetOffset = $target.offset().top - 60;
+		$('html,body').animate({scrollTop: targetOffset}, 1000);
+		$target.parent().children('input').focus();
+	}
+
+	// Regenerate the province/state field on load:
+	checkStateOrProvince($('#id_country').val(), false);
+});</script>
+<div class="padding10">
+		<img src="images/signup/dep_cr.jpg" alt="" class="marginRight20">
+	<img src="images/signup/dep_ep.jpg" alt="" class="marginRight20">
+	<img src="images/betcrib_logo_white_103x60.jpg" alt="" class="marginRight20">
+	<p class="bold marginTop10">
+		You’re about to become a registered member of EuroPoker.com, CasinoRoom.com & betcrib.com.  Your accumulated player points from all sites go towards bonus clearance and VIP status.	</p>
+
+		</div>
+		<ol class="bigBlue bold marginLeft10 smallText textCenter">
+		<li class="first">输入详细信息</li>
+		<li class="second grey">激活</li>
+		<li class="third grey">存款</li>
+	</ol>
+	    	<div class="boxWide">
+
+			<div class="boxHeader">
+								<h1>
+										Welcome! Bienvenue! Willkommen!									</h1>
+			</div>
+			<div class="boxContent">
+				<p class="wide100"><a href="http://www.pokernetwork.co.uk/games/227/X7DC/InstallEuropoker.exe"><span class="orangeDownArrow left marginRight5"></span>Download Poker Client</a> while signing up.</p>
+		<p class="wide100">Welcome to EuroPoker.com. Once you have entered in your details and activated your account you are ready to play poker.</p>
+
+	<form method="post" class="noPaddingForm" id="signUpForm">
+		<input type="hidden" name="_form_id" value="131975096"/>		<input type="hidden" id="isAllFieldsValidated" name="isAllFieldsValidated" value="1" />
+		<ul class="noStyle marginTop20">
+			<li class="wholeLine">
+				<label for="id_title" class="block" class="block">标题 </label>
+				<select class="blue" tabindex="1" id="id_title" name="title">
+<option value="0" selected="selected">Mr</option>
+<option value="1">Mrs</option>
+
+<option value="2">Ms</option>
+<option value="3">Miss</option>
+</select>
+							</li>
+
+			<li class="newLine">
+				<label for="id_firstname" class="block">名 </label>
+				<input class="blue" maxlength="20" tabindex="2" title="名" id="id_firstname" name="firstname" type="text" value=""/>
+							</li>
+
+			<li>
+				<label for="id_lastname" class="block">姓 </label>
+				<input class="blue" maxlength="20" tabindex="3" title="姓" id="id_lastname" name="lastname" type="text" value=""/>
+							</li>
+
+			<li class="newLine">
+				<label for="id_address" class="block">地址 </label>
+				<input class="blue" tabindex="4" title="地址" id="id_address" name="address" type="text" value=""/>
+
+							</li>
+			<li>
+				<label for="id_address2" class="block">Second line</label>
+				<input class="blue" tabindex="5" title="" id="id_address2" name="address2" type="text" value=""/>
+							</li>
+
+			<li class="newLine">
+				<label for="id_country" class="block">国家 </label>
+
+				<select class="blue" tabindex="6" id="id_country" name="country">
+<option value="0">-</option>
+<option value="2">Albania</option>
+<option value="3">Algeria</option>
+<option value="4">American Samoa</option>
+<option value="5">Andorra</option>
+<option value="6">Angola</option>
+<option value="7">Anguilla</option>
+<option value="8">Antarctica</option>
+
+<option value="9">Antigua and Barbuda</option>
+<option value="10">Argentina</option>
+<option value="11">Armenia</option>
+<option value="12">Aruba</option>
+<option value="13">Australia</option>
+<option value="14">Austria</option>
+<option value="15">Azerbaijan</option>
+<option value="16">Bahamas</option>
+<option value="17">Bahrain</option>
+
+<option value="18">Bangladesh</option>
+<option value="19">Barbados</option>
+<option value="20">Belarus</option>
+<option value="21">Belgium</option>
+<option value="22">Belize</option>
+<option value="23">Benin</option>
+<option value="24">Bermuda</option>
+<option value="25">Bhutan</option>
+<option value="26">Bolivia</option>
+
+<option value="27">Bosnia and Herzegovina</option>
+<option value="28">Botswana</option>
+<option value="29">Bouvet Island</option>
+<option value="30">Brazil</option>
+<option value="31">British Indian Ocean Territory</option>
+<option value="32">Brunei Darussalam</option>
+<option value="33">Bulgaria</option>
+<option value="34">Burkina Faso</option>
+<option value="35">Burundi</option>
+
+<option value="36">Cambodia</option>
+<option value="37">Cameroon</option>
+<option value="38">Canada</option>
+<option value="39">Cape Verde</option>
+<option value="40">Cayman Islands</option>
+<option value="41">Central African Republic</option>
+<option value="42">Chad</option>
+<option value="43">Chile</option>
+<option value="45">Christmas Island</option>
+
+<option value="46">Cocos (Keeling Islands)</option>
+<option value="47">Colombia</option>
+<option value="48">Comoros</option>
+<option value="50">Cook Islands</option>
+<option value="51">Costa Rica</option>
+<option value="53">Croatia (Hrvatska)</option>
+<option value="54">Cuba</option>
+<option value="55">Cyprus</option>
+<option value="56">Czech Republic</option>
+
+<option value="57">Denmark</option>
+<option value="58">Djibouti</option>
+<option value="59">Dominica</option>
+<option value="60">Dominican Republic</option>
+<option value="61">East Timor</option>
+<option value="62">Ecuador</option>
+<option value="63">Egypt</option>
+<option value="64">El Salvador</option>
+<option value="65">Equatorial Guinea</option>
+
+<option value="66">Eritrea</option>
+<option value="67">Estonia</option>
+<option value="68">Ethiopia</option>
+<option value="69">Falkland Islands (Malvinas)</option>
+<option value="70">Faroe Islands</option>
+<option value="71">Fiji</option>
+<option value="72">Finland</option>
+<option value="73">France</option>
+<option value="74">France, Metropolitan</option>
+
+<option value="75">French Guiana</option>
+<option value="76">French Polynesia</option>
+<option value="77">French Southern Territories</option>
+<option value="78">Gabon</option>
+<option value="79">Gambia</option>
+<option value="80">Georgia</option>
+<option value="81">Germany</option>
+<option value="82">Ghana</option>
+<option value="83">Gibraltar</option>
+
+<option value="84">Greece</option>
+<option value="85">Greenland</option>
+<option value="86">Grenada</option>
+<option value="87">Guadeloupe</option>
+<option value="88">Guam</option>
+<option value="89">Guatemala</option>
+<option value="90">Guinea</option>
+<option value="91">Guinea-Bissau</option>
+<option value="92">Guyana</option>
+
+<option value="93">Haiti</option>
+<option value="94">Heard and McDonald Islands</option>
+<option value="228">Holy See (Vatican)</option>
+<option value="95">Honduras</option>
+<option value="96">Hong Kong</option>
+<option value="97">Hungary</option>
+<option value="98">Iceland</option>
+<option value="99">India</option>
+<option value="100">Indonesia</option>
+
+<option value="103">Ireland</option>
+<option value="241">Isle of Man</option>
+<option value="104">Israel</option>
+<option value="105">Italy</option>
+<option value="106">Jamaica</option>
+<option value="107">Japan</option>
+<option value="242">Jersey</option>
+<option value="108">Jordan</option>
+<option value="109">Kazakhstan</option>
+
+<option value="110">Kenya</option>
+<option value="111">Kiribati</option>
+<option value="113">Korea (South)</option>
+<option value="114">Kuwait</option>
+<option value="115">Kyrgyzstan</option>
+<option value="116">Laos</option>
+<option value="117">Latvia</option>
+<option value="118">Lebanon</option>
+<option value="119">Lesotho</option>
+
+<option value="121">Libya</option>
+<option value="122">Liechtenstein</option>
+<option value="123">Lithuania</option>
+<option value="124">Luxembourg</option>
+<option value="125">Macau</option>
+<option value="126">Macedonia</option>
+<option value="127">Madagascar</option>
+<option value="128">Malawi</option>
+<option value="129">Malaysia</option>
+
+<option value="130">Maldives</option>
+<option value="131">Mali</option>
+<option value="132">Malta</option>
+<option value="133">Marshall Islands</option>
+<option value="134">Martinique</option>
+<option value="135">Mauritania</option>
+<option value="136">Mauritius</option>
+<option value="137">Mayotte</option>
+<option value="138">Mexico</option>
+
+<option value="139">Micronesia</option>
+<option value="140">Moldova</option>
+<option value="141">Monaco</option>
+<option value="142">Mongolia</option>
+<option value="243">Montenegro</option>
+<option value="143">Montserrat</option>
+<option value="144">Morocco</option>
+<option value="145">Mozambique</option>
+<option value="147">Namibia</option>
+
+<option value="148">Nauru</option>
+<option value="149">Nepal</option>
+<option value="150">Netherlands</option>
+<option value="151">Netherlands Antilles</option>
+<option value="152">New Caledonia</option>
+<option value="153">New Zealand</option>
+<option value="154">Nicaragua</option>
+<option value="155">Niger</option>
+<option value="156">Nigeria</option>
+
+<option value="157">Niue</option>
+<option value="158">Norfolk Island</option>
+<option value="159">Northern Mariana Islands</option>
+<option value="160">Norway</option>
+<option value="161">Oman</option>
+<option value="162">Pakistan</option>
+<option value="163">Palau</option>
+<option value="164">Panama</option>
+<option value="165">Papua New Guinea</option>
+
+<option value="166">Paraguay</option>
+<option value="167">Peru</option>
+<option value="168" selected="selected">Philippines</option>
+<option value="169">Pitcairn</option>
+<option value="170">Poland</option>
+<option value="171">Portugal</option>
+<option value="172">Puerto Rico</option>
+<option value="173">Qatar</option>
+<option value="174">Reunion</option>
+
+<option value="175">Romania</option>
+<option value="176">Russian Federation</option>
+<option value="194">S. Georgia and S. Sandwich Isls.</option>
+<option value="178">Saint Kitts and Nevis</option>
+<option value="179">Saint Lucia</option>
+<option value="180">Saint Vincent and The Grenadines</option>
+<option value="181">Samoa</option>
+<option value="182">San Marino</option>
+<option value="183">Sao Tome and Principe</option>
+
+<option value="184">Saudi Arabia</option>
+<option value="185">Senegal</option>
+<option value="244">Serbia</option>
+<option value="186">Seychelles</option>
+<option value="188">Singapore</option>
+<option value="189">Slovak Republic</option>
+<option value="190">Slovenia</option>
+<option value="191">Solomon Islands</option>
+<option value="193">South Africa</option>
+
+<option value="195">Spain</option>
+<option value="196">Sri Lanka</option>
+<option value="197">St. Helena</option>
+<option value="198">St. Pierre and Miquelon</option>
+<option value="200">Suriname</option>
+<option value="201">Svalbard and Jan Mayen Islands</option>
+<option value="202">Swaziland</option>
+<option value="203">Sweden</option>
+<option value="204">Switzerland</option>
+
+<option value="205">Syria</option>
+<option value="206">Taiwan</option>
+<option value="207">Tajikistan</option>
+<option value="208">Tanzania</option>
+<option value="209">Thailand</option>
+<option value="210">Togo</option>
+<option value="211">Tokelau</option>
+<option value="212">Tonga</option>
+<option value="213">Trinidad and Tobago</option>
+
+<option value="214">Tunisia</option>
+<option value="216">Turkmenistan</option>
+<option value="217">Turks and Caicos Islands</option>
+<option value="218">Tuvalu</option>
+<option value="219">Uganda</option>
+<option value="220">Ukraine</option>
+<option value="221">United Arab Emirates</option>
+<option value="222">United Kingdom</option>
+<option value="225">Uruguay</option>
+
+<option value="224">US Minor Outlying Islands</option>
+<option value="226">Uzbekistan</option>
+<option value="227">Vanuatu</option>
+<option value="229">Venezuela</option>
+<option value="230">Viet Nam</option>
+<option value="231">Virgin Islands (British)</option>
+<option value="233">Wallis and Futuna Islands</option>
+<option value="234">Western Sahara</option>
+<option value="235">Yemen</option>
+
+<option value="236">Yugoslavia</option>
+<option value="238">Zambia</option>
+</select>
+							</li>
+			<li id="provinceStateHolder">
+	<label for="id_province" class="block">省份 </label> <input class="blue" tabindex="7" title="省份" id="id_province" name="province" type="text"/>
+			</li>
+
+			<li class="newLine">
+
+				<label for="id_city" class="block">城市 </label>
+				<input class="blue" tabindex="8" title="城市" id="id_city" name="city" type="text" value=""/>
+							</li>
+			<li>
+				<label for="id_zip" class="block">邮编 </label>
+				<input class="blue" tabindex="9" title="邮编" id="id_zip" name="zip" type="text" value=""/>
+							</li>
+			<li class="newLine">
+
+				<label for="id_phone" class="block">电话 (在取款时必须正确) </label>
+				<input class="blue" maxlength="20" tabindex="10" title="电话" id="id_phone" name="phone" type="text" value=""/>
+							</li>
+			<li>
+				<label class="block">出生日期 </label>
+				<select class="personalInfoFrmSelectBirthDate" tabindex="11" id="id_year" name="year">
+<option value="0" selected="selected">-</option>
+<option value="1">1993</option>
+
+<option value="2">1992</option>
+<option value="3">1991</option>
+<option value="4">1990</option>
+<option value="5">1989</option>
+<option value="6">1988</option>
+<option value="7">1987</option>
+<option value="8">1986</option>
+<option value="9">1985</option>
+<option value="10">1984</option>
+
+<option value="11">1983</option>
+<option value="12">1982</option>
+<option value="13">1981</option>
+<option value="14">1980</option>
+<option value="15">1979</option>
+<option value="16">1978</option>
+<option value="17">1977</option>
+<option value="18">1976</option>
+<option value="19">1975</option>
+
+<option value="20">1974</option>
+<option value="21">1973</option>
+<option value="22">1972</option>
+<option value="23">1971</option>
+<option value="24">1970</option>
+<option value="25">1969</option>
+<option value="26">1968</option>
+<option value="27">1967</option>
+<option value="28">1966</option>
+
+<option value="29">1965</option>
+<option value="30">1964</option>
+<option value="31">1963</option>
+<option value="32">1962</option>
+<option value="33">1961</option>
+<option value="34">1960</option>
+<option value="35">1959</option>
+<option value="36">1958</option>
+<option value="37">1957</option>
+
+<option value="38">1956</option>
+<option value="39">1955</option>
+<option value="40">1954</option>
+<option value="41">1953</option>
+<option value="42">1952</option>
+<option value="43">1951</option>
+<option value="44">1950</option>
+<option value="45">1949</option>
+<option value="46">1948</option>
+
+<option value="47">1947</option>
+<option value="48">1946</option>
+<option value="49">1945</option>
+<option value="50">1944</option>
+<option value="51">1943</option>
+<option value="52">1942</option>
+<option value="53">1941</option>
+<option value="54">1940</option>
+<option value="55">1939</option>
+
+<option value="56">1938</option>
+<option value="57">1937</option>
+<option value="58">1936</option>
+<option value="59">1935</option>
+<option value="60">1934</option>
+<option value="61">1933</option>
+<option value="62">1932</option>
+<option value="63">1931</option>
+<option value="64">1930</option>
+
+<option value="65">1929</option>
+<option value="66">1928</option>
+<option value="67">1927</option>
+<option value="68">1926</option>
+<option value="69">1925</option>
+<option value="70">1924</option>
+<option value="71">1923</option>
+<option value="72">1922</option>
+<option value="73">1921</option>
+
+<option value="74">1920</option>
+<option value="75">1919</option>
+<option value="76">1918</option>
+<option value="77">1917</option>
+<option value="78">1916</option>
+<option value="79">1915</option>
+<option value="80">1914</option>
+<option value="81">1913</option>
+</select>
+
+ <select class="personalInfoFrmSelectBirthDate" tabindex="12" id="id_month" name="month">
+<option value="0" selected="selected">-</option>
+<option value="1">Jan</option>
+<option value="2">Feb</option>
+<option value="3">Mar</option>
+<option value="4">Apr</option>
+<option value="5">May</option>
+<option value="6">Jun</option>
+<option value="7">Jul</option>
+
+<option value="8">Aug</option>
+<option value="9">Sep</option>
+<option value="10">Oct</option>
+<option value="11">Nov</option>
+<option value="12">Dec</option>
+</select>
+ <select class="personalInfoFrmSelectBirthDate" tabindex="13" id="id_day" name="day">
+<option value="0" selected="selected">-</option>
+<option value="1">1</option>
+
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+</select>
+							</li>
+		</ul>
+		<div class="clr"></div>
+								<div class="clr paddingTop5 marginBottom20"><hr class="hr"></div>
+		
+		<ul class="noStyle marginTop10">
+
+			<li class="wholeLine">
+				<label for="id_nickname" class="block">Nickname </label>
+				<input class="blue" maxlength="12" tabindex="16" title="Nickname" id="id_nickname" name="nickname" type="text" value=""/>
+								<div class="right" style="display:none;" id="suggestions">
+					<label for="id_suggestions" class="block">建议</label>
+									</div>
+			</li>
+			<li class="newLine">
+
+				<label for="id_email1" class="block">Email (必须是正确的) </label>
+				<input onpaste="return false;" class="blue" tabindex="17" title="Email1" id="id_email1" name="email1" type="text" value=""/>
+							</li>
+			<li>
+				<label for="id_email2" class="block">再次输入邮箱地址 </label>
+				<input onpaste="return false;" class="blue" tabindex="18" title="Email2" id="id_email2" name="email2" type="text" value=""/>
+							</li>
+			<li class="newLine">
+
+				<label for="id_password1" class="block">密码 (min. 8 characters) </label>
+				<input class="blue" tabindex="19" title="Password1" id="id_password1" name="password1" type="password" value=""/>
+								<div id="passwordStrength">
+					<div>&nbsp;</div>
+				</div>
+			</li>
+			<li>
+				<label for="id_password2" class="block">再次输入密码 </label>
+
+				<input class="blue" tabindex="20" title="Password2" id="id_password2" name="password2" type="password" value=""/>
+							</li>
+
+			<!--<li class="wholeLine marginTop10">
+				  <p>
+					<a href="/termsofservice" class="colorBoldLink" target="_blank"></a>
+				</p>
+			</li>-->
+		</ul>
+		<div id="captcha">
+			<a name="captcha"></a>
+			<p class="wide100">输入您在下面看到的字母</p>
+			<div class="diagonalGreyStripes padding10">
+
+				<div id="captchaImage">
+					<img src="/api/captcha/" class="greyBorder" />
+				</div>
+				<div id="captchaInput">
+					<p>
+					<input class="blue" tabindex="21" autocomplete="off" title="Captcha" id="id_captcha" name="captcha" type="text"/>
+										</p>
+					<p><a href="#captcha" name="captcha" title="创建更新" class="reloadCaptcha colorBoldLink"><img class="reloadCaptcha pointer" src="images/signup/reload.png">看不见代码？</a></p>
+
+				</div>
+			</div>
+		</div>
+		<ul class="noStyle" style="margin-top:40px;">
+			<li class="wholeLine"><p>By clicking on "I accept" below you are agreeing to the <a href="/en/termsofservice" class="colorBoldLink" target="_blank">Terms of Service</a></p></li>
+			<li class="wholeLine">
+				<input class="jsHide" type="submit" value="参与游戏" tabindex="23"/>
+				<span class="wgButton hide jsShow submitForm">
+
+					<span class="buttonLeft"></span>
+					<span class="buttonMiddle" >I accept. Create my account.<img id="signUpValidAndLoading" src="images/ajax-loader.gif" class="marginLeft5 hide"></span>
+					<span class="buttonRight"></span>
+				</span>
+				<img id="signUpFormInvalidImage" src="images/form_error.jpg" class="hide marginLeft10 paddingTop5">
+			</li>
+		</ul>
+	</form>
+
+	<div class="clr"></div>
+				</div>
+		</div>
+								<div class="clr"></div>
+					</div>
+				</div>
+				<div class="clr"></div>
+			</div>
+			
+										<div id="promos">
+
+<div class="promo ">
+<div class="sideBar signUpBg">
+	<a class="noStyle" href="/zh/signup">
+		<span class="redActionButton">
+			<span class="buttonLeft"></span>
+			<span class="buttonMiddle" style="width: 223px; text-align:left;">
+				<span class="actionArrow"></span>
+				注册			</span>
+			<span class="buttonRight"></span>
+
+		</span>
+	</a>
+	<div class="clr" style="height:10px;"></div>
+	<a class="noStyle" href="/zh/poker/download">
+		<span class="blueActionButton">
+			<span class="buttonLeft"></span>
+			<span class="buttonMiddle" style="width: 223px; text-align:left;">
+				<span class="actionArrow"></span>				
+				下载			</span>
+
+			<span class="buttonRight"></span>
+		</span>
+	</a>
+	<div class="clr" style="height:10px;"></div>
+	<a class="noStyle" href="/zh/Deposit">
+		<span class="greenActionButton">
+			<span class="buttonLeft"></span>
+			<span class="buttonMiddle" style="width: 223px; text-align:left;">
+				<span class="actionArrow"></span>
+
+				存款			</span>
+			<span class="buttonRight"></span>
+		</span>
+	</a>
+	<div class="clr" style="height:10px;"></div>
+</div>
+	</div>
+<div class="promo ">
+	<script type="text/javascript">
+		var flashvars = {};
+		flashvars.xmlPath = "zh/xml/getPromoScroller.xml";
+		var params = {};
+		params.bgcolor = "000000";
+		params.wmode = "opaque";
+		var attributes = {};
+		attributes.id = "indexPromoFlash";
+		swfobject.embedSWF("swf/promoscroller/PromoScroller.swf", "indexPromoFlash", "260", "353", "9.0.0", "swf/expressInstall.swf", flashvars, params, attributes);
+	</script>
+
+	<div class="boxBlackHeader">
+		<div class="left headerStart"></div>
+		<div class="left boxHeaderContent">
+			<span class="whiteText bold">
+				<a class="noStyle whiteText" href="/zh/promos/">Right now:</a>
+			</span>
+		</div>
+		<div class="clr"></div>
+
+	</div>
+	<div id="indexPromoFlash">
+		<div class="padding20 whiteText">
+						<h3>You dont seem to have the flash player installed</h3>
+			<p class="yellowText marginBottom20">Or you have too low version of the flash player</p>
+			<ul class="marginLeft20">
+								<li class="marginBottom10">In order to view this content you need to download the flash player.</li>
+
+	
+						
+				<li class="marginBottom10">It is simple and best of all, free</li>
+				<li class="marginBottom30">Click the link below and follow the guide</li>	
+			</ul>
+			<a class="noStyle getFlashPlayer" rel="nofollow" href="http://get.adobe.com/zh/flashplayer/" target="_blank" title="Download Adobe Flash Player">
+				Download Adobe Flash Player			</a>
+			
+			</div>
+	</div>
+		</div>
+
+<div class="promo ">
+				<div class="boxBlackHeader">
+					<div class="left headerStart"></div>
+					<div class="left boxHeaderContent" >
+						<span class="whiteText bold">
+							<a class="noStyle whiteText" href="/zh/tournaments/calendar/">Upcoming Tournaments</a>
+						</span>
+					</div>
+					<div class="clr"></div>
+
+				</div>
+				<div class="upcomingTours">
+																																<script type="text/javascript">
+								var flashvars = {};
+								flashvars._hrs = "17";
+								flashvars._min = "40";
+								flashvars._targetUrl = "/zh/tournaments/info/R-3597-86";
+								var params = {};
+								params.wmode = "transparent";
+								var attributes = {};
+								attributes.id = "clock_5573";
+								swfobject.embedSWF("swf/clockTimer.swf", "clock_5573", "75", "24", "9.0.0", false, flashvars, params, attributes);
+							</script>
+							
+							<div class="tour">
+								<div class="tourInfo left">
+									<div class="left">
+										<p style="margin-bottom:-3px;font-weight:bold;">
+											<a href="/zh/tournaments/info/R-3597-86" class="noStyle whiteText">
+
+												GSOP Qualifier to $5 ...											</a>
+										</p>
+										<p style="font-size:11px;">
+											<a href="/zh/tournaments/info/R-3597-86" class="noStyle greyText">
+												<span class="greyText">TexasHoldem 17:40</span> 
+											</a>
+										</p>
+									</div>
+
+									<div class="right">
+										<div class="divider left"></div>
+										<div class="clockTimer left">
+											<div id="clock_5573">
+												<div class="left" style="font-size:16px; height:24px;margin:0px 5px;padding-top:4px;">
+													17:40 
+												</div>
+													
+		<a class="noStyle" href="29966486">
+			<img src="images/flashfallback/clockTimer.png" />
+
+		</a>
+	
+		
+												</div>
+										</div>
+									</div>
+									<div class="clr" style="height: 0;"></div>
+								</div>
+								<div class="clr" style="height: 0;"></div>
+							</div>							
+																											<script type="text/javascript">
+								var flashvars = {};
+								flashvars._hrs = "17";
+								flashvars._min = "45";
+								flashvars._targetUrl = "/zh/tournaments/info/R-279-584";
+								var params = {};
+								params.wmode = "transparent";
+								var attributes = {};
+								attributes.id = "clock_4331";
+								swfobject.embedSWF("swf/clockTimer.swf", "clock_4331", "75", "24", "9.0.0", false, flashvars, params, attributes);
+							</script>
+
+							
+							<div class="tour">
+								<div class="tourInfo left">
+									<div class="left">
+										<p style="margin-bottom:-3px;font-weight:bold;">
+											<a href="/zh/tournaments/info/R-279-584" class="noStyle whiteText">
+												PL Omaha SH											</a>
+										</p>
+										<p style="font-size:11px;">
+
+											<a href="/zh/tournaments/info/R-279-584" class="noStyle greyText">
+												<span class="greyText">OmahaHi 17:45</span> 
+											</a>
+										</p>
+									</div>
+									<div class="right">
+										<div class="divider left"></div>
+										<div class="clockTimer left">
+											<div id="clock_4331">
+
+												<div class="left" style="font-size:16px; height:24px;margin:0px 5px;padding-top:4px;">
+													17:45 
+												</div>
+													
+		<a class="noStyle" href="29966521">
+			<img src="images/flashfallback/clockTimer.png" />
+		</a>
+	
+		
+												</div>
+										</div>
+									</div>
+
+									<div class="clr" style="height: 0;"></div>
+								</div>
+								<div class="clr" style="height: 0;"></div>
+							</div>							
+																											<script type="text/javascript">
+								var flashvars = {};
+								flashvars._hrs = "17";
+								flashvars._min = "45";
+								flashvars._targetUrl = "/zh/tournaments/info/R-693-4895";
+								var params = {};
+								params.wmode = "transparent";
+								var attributes = {};
+								attributes.id = "clock_5648";
+								swfobject.embedSWF("swf/clockTimer.swf", "clock_5648", "75", "24", "9.0.0", false, flashvars, params, attributes);
+							</script>
+							
+							<div class="tour">
+								<div class="tourInfo left">
+									<div class="left">
+										<p style="margin-bottom:-3px;font-weight:bold;">
+
+											<a href="/zh/tournaments/info/R-693-4895" class="noStyle whiteText">
+												Turbo Qualifier to $ ...											</a>
+										</p>
+										<p style="font-size:11px;">
+											<a href="/zh/tournaments/info/R-693-4895" class="noStyle greyText">
+												<span class="greyText">TexasHoldem 17:45</span> 
+											</a>
+										</p>
+
+									</div>
+									<div class="right">
+										<div class="divider left"></div>
+										<div class="clockTimer left">
+											<div id="clock_5648">
+												<div class="left" style="font-size:16px; height:24px;margin:0px 5px;padding-top:4px;">
+													17:45 
+												</div>
+													
+		<a class="noStyle" href="29966522">
+
+			<img src="images/flashfallback/clockTimer.png" />
+		</a>
+	
+		
+												</div>
+										</div>
+									</div>
+									<div class="clr" style="height: 0;"></div>
+								</div>
+								<div class="clr" style="height: 0;"></div>
+							</div>							
+																											<script type="text/javascript">
+								var flashvars = {};
+								flashvars._hrs = "17";
+								flashvars._min = "50";
+								flashvars._targetUrl = "/zh/tournaments/info/R-653-3837";
+								var params = {};
+								params.wmode = "transparent";
+								var attributes = {};
+								attributes.id = "clock_296";
+								swfobject.embedSWF("swf/clockTimer.swf", "clock_296", "75", "24", "9.0.0", false, flashvars, params, attributes);
+							</script>
+
+							
+							<div class="tour">
+								<div class="tourInfo left">
+									<div class="left">
+										<p style="margin-bottom:-3px;font-weight:bold;">
+											<a href="/zh/tournaments/info/R-653-3837" class="noStyle whiteText">
+												Turbo Qualifier to $ ...											</a>
+										</p>
+										<p style="font-size:11px;">
+
+											<a href="/zh/tournaments/info/R-653-3837" class="noStyle greyText">
+												<span class="greyText">TexasHoldem 17:50</span> 
+											</a>
+										</p>
+									</div>
+									<div class="right">
+										<div class="divider left"></div>
+										<div class="clockTimer left">
+											<div id="clock_296">
+
+												<div class="left" style="font-size:16px; height:24px;margin:0px 5px;padding-top:4px;">
+													17:50 
+												</div>
+													
+		<a class="noStyle" href="29966568">
+			<img src="images/flashfallback/clockTimer.png" />
+		</a>
+	
+		
+												</div>
+										</div>
+									</div>
+
+									<div class="clr" style="height: 0;"></div>
+								</div>
+								<div class="clr" style="height: 0;"></div>
+							</div>							
+																											<script type="text/javascript">
+								var flashvars = {};
+								flashvars._hrs = "18";
+								flashvars._min = "00";
+								flashvars._targetUrl = "/zh/tournaments/info/R-1414-438";
+								var params = {};
+								params.wmode = "transparent";
+								var attributes = {};
+								attributes.id = "clock_2295";
+								swfobject.embedSWF("swf/clockTimer.swf", "clock_2295", "75", "24", "9.0.0", false, flashvars, params, attributes);
+							</script>
+							
+							<div class="tour">
+								<div class="tourInfo left">
+									<div class="left">
+										<p style="margin-bottom:-3px;font-weight:bold;">
+
+											<a href="/zh/tournaments/info/R-1414-438" class="noStyle whiteText">
+												NL Holdem SH Deepsta ...											</a>
+										</p>
+										<p style="font-size:11px;">
+											<a href="/zh/tournaments/info/R-1414-438" class="noStyle greyText">
+												<span class="greyText">TexasHoldem 18:00</span> 
+											</a>
+										</p>
+
+									</div>
+									<div class="right">
+										<div class="divider left"></div>
+										<div class="clockTimer left">
+											<div id="clock_2295">
+												<div class="left" style="font-size:16px; height:24px;margin:0px 5px;padding-top:4px;">
+													18:00 
+												</div>
+													
+		<a class="noStyle" href="29968366">
+
+			<img src="images/flashfallback/clockTimer.png" />
+		</a>
+	
+		
+												</div>
+										</div>
+									</div>
+									<div class="clr" style="height: 0;"></div>
+								</div>
+								<div class="clr" style="height: 0;"></div>
+							</div>							
+											
+										
+				</div>
+
+								<div class="clr latestWinnersFooter">
+					<span class="right paddingRight10">
+						<a href="/zh/tournaments/featured/" class="noStyle whiteText">
+							Featured Tournaments						</a>
+					</span>
+				</div>
+					
+		</div>
+<div class="promo ">
+			
+		<div class="boxBlackHeader">
+
+			<div class="left headerStart"></div>
+			<div class="left boxHeaderContent">
+				<span class="whiteText bold">
+					<a class="noStyle whiteText" href="/zh/help/">免费24/7在线客服</a>
+				</span>
+			</div>
+			<div class="clr"></div>
+		</div>
+
+		<div class="promoBoxContentBg whiteText padding10">
+						
+			<div id="lpButDivID-2" class="live-person" style="width:130px;"></div>
+			<div class="marginBottom10" style="height:32px">
+				<a class="noStyle whiteText" href="skype:europoker.support?call">
+					<span class="glossyBlackButton">
+						<span class="buttonLeft"></span>
+						<span class="buttonMiddle">
+							<div class="skype left"></div>
+							<p><b>Skype:</b> (2pm - midnight CET)</p>
+
+							<div class="clr"></div>
+						</span>
+						<span class="buttonRight"></span>
+					</span>
+				</a>
+			</div>
+			<div class="clr marginBottom10" style="height:32px;">
+				<a class="noStyle whiteText" href="#">
+					<span class="glossyBlackButton">
+
+						<span class="buttonLeft"></span>
+						<span class="buttonMiddle">
+							<div class="phone left"></div>
+							<p><b>Phone: </b>  +46 8 559 21 172</p>
+							<div class="clr"></div>
+						</span>
+						<span class="buttonRight"></span>
+
+					</span>
+				</a>
+			</div>
+			<div class="clr" style="height:32px;">
+				<a class="noStyle whiteText" href="mailto:support@europoker.com">
+					<span class="glossyBlackButton">
+						<span class="buttonLeft"></span>
+						<span class="buttonMiddle">
+							<div class="mail left"></div>
+
+							<p><b>Mail:</b> support@europoker.com</p>
+							<div class="clr"></div>
+						</span>
+						<span class="buttonRight"></span>
+					</span>
+				</a>
+			</div>
+
+			<div class="clr"></div>
+			
+			
+			
+		</div>
+		<div class="clr latestWinnersFooter">
+			<span class="right">
+				<a href="/zh/help" class="noStyle whiteText">
+					Read our help section				</a>
+			</span>
+		</div>
+
+		
+</div>
+</div>
+						<div class="clr" style="height: 5px;"></div>
+		</div>
+		
+				<div class="textCenter" style="height: 220px;">
+			<img src="images/bottom_ep.jpg" width="941" height="220" />
+		</div>
+
+		<div id="footer">
+			<div class="blackBg padding5 textCenter">
+
+				<img src="images/footer_logos_zh.jpg" usemap="#footerLinks" alt="" / width="954" height="115">
+				<map id="footerLinks" name="footerLinks">
+					<area shape="rect" coords="76,69,140,96" href="http://www.oddsmatrix.com/" title="OddsMatrix" />
+					<!-- <area shape="rect" coords="160,35,193,68" href="/responsiblegaming" title="" /> -->
+					<area shape="rect" coords="193,37,221,66" href="http://www.gamblingtherapy.org/" title="GamblingTherapy" />
+					<area shape="rect" coords="220,37,254,66" href="http://www.gamblersanonymous.org/" title="Gamblers Anonymous" />
+					<area shape="rect" coords="255,36,341,65" href="/zh/responsiblegaming" title="合理游戏" />
+					<area shape="rect" coords="162,65,191,94" href="http://www.gamcare.org.uk/" title="GameCare" />
+					<area shape="rect" coords="198,70,289,91" href="http://www.gambleaware.co.uk/" title="Gamble Aware" />
+
+					<area shape="rect" coords="828,54,948,92" href="http://lga.org.mt/" title="The Lotteries and Gaming Authority" />
+					<area shape="rect" coords="6,39,62,69" href="http://www.netent.com/" title="Net Entertainment" />
+					<area shape="rect" coords="83,14,139,41" href="http://www.betsoftgaming.com/" title="BetSoft Gaming" />
+					<area shape="rect" coords="5,71,76,95" href="http://www.ongamenetwork.com/" title="Ongame Network" />
+					<area shape="rect" coords="78,43,136,67" href="http://www.evolutiongaming.com" title="Evolution Gaming" />
+					<area shape="rect" coords="908,17,948,54" href="#" onClick="javascript:window.open('/images/gibraltar_license.jpg','gibraltar_window','width=584,height=570,scrollbars=yes')" title="Gibraltar License" />
+				</map>
+			</div>
+			<div class="darkGreyBg padding8 textCenter">
+
+				<ul class="noStyle liInline">
+					<li class="right" style="margin-top:-6px;"><a href="#" class="noStyle" onclick="javascript:window.open('http://www.ecogra.org/certificates/poker.aspx?cid=133&without=true','ecogra_window','width=577,height=570,scrollbars=yes')"><img src="images/ecobra_sign.gif" border="0" width="121" height="26" /></a></li>
+					<li><a class="greyText noStyle paddingRight5 dividerRight">© EUROPOKER 2009</a></li>
+					<li><a class="greyText noStyle paddingRight5 dividerRight" title="Poker Affiliate" href="http://www.pokeraffiliate.com">Affiliates</a></li>
+					<li><a class="greyText noStyle paddingRight5 dividerRight" href="/zh/termsofservice">服务团队</a></li>
+					<li><a class="greyText noStyle paddingRight5 dividerRight" href="/zh/aboutus">关于我们</a></li>
+					<li><a class="greyText noStyle" href="/zh/sitemap">网站地图</a></li>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+
+		<script type="text/javascript">
+		if (gaJsHost == undefined)// preventing it to write this same stuff more than once
+		{
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		}
+	</script>
+	<script type="text/javascript">
+	try {
+		var pageTracker = _gat._getTracker("UA-20789823-1");
+		pageTracker._trackPageview();
+	} catch(err) {}
+	</script>
+<!-- BEGIN LivePerson Monitor. -->
+<script language='javascript'> var lpMTagConfig = {'lpServer' : "server.iad.liveperson.net",'lpNumber' : "55734870",'lpProtocol' : (document.location.toString().indexOf('https:')==0) ? 'https' : 'http'}; function lpAddMonitorTag(src){if(typeof(src)=='undefined'||typeof(src)=='object'){src=lpMTagConfig.lpMTagSrc?lpMTagConfig.lpMTagSrc:'/hcp/html/mTag.js';}if(src.indexOf('http')!=0){src=lpMTagConfig.lpProtocol+"://"+lpMTagConfig.lpServer+src+'?site='+lpMTagConfig.lpNumber;}else{if(src.indexOf('site=')<0){if(src.indexOf('?')<0)src=src+'?';else src=src+'&';src=src+'site='+lpMTagConfig.lpNumber;}};var s=document.createElement('script');s.setAttribute('type','text/javascript');s.setAttribute('charset','iso-8859-1');s.setAttribute('src',src);document.getElementsByTagName('head').item(0).appendChild(s);} if (window.attachEvent) window.attachEvent('onload',lpAddMonitorTag); else window.addEventListener("load",lpAddMonitorTag,false);</script>
+
+<!-- END LivePerson Monitor. --><script type='text/javascript'>
+			document.write(unescape("%3Cscript src='https://server.iad.liveperson.net/hc/55734870/?cmd=mTagRepstate&amp;site=55734870&amp;buttonID=23&amp;divID=lpButDivID-1&amp;bt=1&amp;c=1' charset='UTF-8' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+<script type='text/javascript'>
+			document.write(unescape("%3Cscript src='https://server.iad.liveperson.net/hc/55734870/?cmd=mTagRepstate&amp;site=55734870&amp;buttonID=24&amp;divID=lpButDivID-2&amp;bt=1&amp;c=1' charset='UTF-8' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	
+	<div id="reloadWindow" class="hide">
+		<h1>Whoa cowboy... Play Money again?</h1>
+		<p>Seriously, play money again?</p>
+		<p>Listen real money is where the real poker is. So make a real money deposit of $60 or more and we will double your deposit.</p>
+		<p class="bold marginBottom20">So that's $60 from you and $60 from us.</p>
+
+		<a class="noStyle noBackground" href="/zh/deposit">
+			<span class="redActionButton">
+				<span class="buttonLeft"></span>
+				<span class="buttonMiddle" style="width: 235px; text-align:left;">
+					<span class="actionArrow"></span>
+					存款				</span>
+				<span class="buttonRight"></span>
+			</span>
+
+		</a>
+		<p style="margin-top: 100px;" class="refillAnyway">
+			Or...<br>
+			<a class="noStyle underline" href="/zh/myaccount/refill">Refill Play Money anyway</a>
+		</p>
+	</div>
+		</body>
+</html>
+

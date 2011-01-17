@@ -1,0 +1,39 @@
+<promos>
+	<promo>
+		<filename>swf/promos/secretcode.swf</filename>
+		<gametext><![CDATA[A game based on hidden secrets and mysteries of the Illuminati, the symbolism of the elite is portrayed in this beautifully crafted 5-reel video slot. Expanding Wild and Scatter animations bring the game to life. A special bonus game brings...]]></gametext>
+		<targetlink>/zh/slots/secret-code/</targetlink>
+		<timelineControlled>true</timelineControlled>
+	</promo>
+	<promo>
+		<filename>swf/promos/ghostship.swf</filename>
+		<gametext><![CDATA[A brand new type of video slot from Net Entertainment featuring a new game button panel and up to 243 bet ways instead of the traditional bet lines. The maximum win in free spins is $45,750 with a maximum bet of $62.50.]]></gametext>
+		<targetlink>/zh/slots/ghost-pirates/</targetlink>
+		<timelineControlled>true</timelineControlled>
+	</promo>
+	<promo>
+		<filename>swf/promos/gonzos_quest.swf</filename>
+		<gametext><![CDATA[Gonzo's Quest is a video slot with no reel spin: This 5-reel, 3-row, 20-line game introduces the Avalanche™ feature, and has Free Falls wins and Wild substitutions. Watch out for Gonzo, he’s always there to cheer you along. So start...]]></gametext>
+		<targetlink>/zh/gonzo/</targetlink>
+		<timelineControlled>true</timelineControlled>
+	</promo>
+	<promo>
+		<filename>swf/promos/slotfather.swf</filename>
+		<gametext><![CDATA["I'll offer them a jackpot they can't refuse..."Infamous words spoken by The Slotfather, the secret underworld Boss of all slots, big and small.
+The one man that holds all the strings, controlling an organized syndicate of slots stretching...]]></gametext>
+		<targetlink>/zh/3d-slots/slotfather/</targetlink>
+		<timelineControlled>true</timelineControlled>
+	</promo>
+	<promo>
+		<filename>swf/promos/dead-or-alive.swf</filename>
+		<gametext><![CDATA[Dead or Alive™ is a 5-reel, 9-line western inspired video slot designed for the players looking for the real big wins with an exiting Sticky Wild feature during Free Spins.]]></gametext>
+		<targetlink>/zh/slots/dead-or-alive/</targetlink>
+		<timelineControlled>true</timelineControlled>
+	</promo>
+	<promo>
+		<filename>swf/promos/enchanted.swf</filename>
+		<gametext><![CDATA[You've entered the land of mysterious lights, suspended in stardust where fairies take flight, and wizards create magic to brighten the way for the ogres and fairies to romp and play! Feera the fairy disappears through the fog the moment...]]></gametext>
+		<targetlink>/zh/3d-slots/enchanted/</targetlink>
+		<timelineControlled>true</timelineControlled>
+	</promo>
+</promos>

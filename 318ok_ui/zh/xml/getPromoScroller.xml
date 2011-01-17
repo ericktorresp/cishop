@@ -1,0 +1,34 @@
+<settings lang="" contentPath="images/promoscroller/" timeBetweenScreens="5" autoSlide="true">
+	<slides>
+		
+		<slide overridePath="false" showText="true">
+			<filename>add_us_facebook.jpg</filename>
+			<type>image</type>
+			<targetURL>http://www.facebook.com/#!/EuroPoker</targetURL>
+            <headline><![CDATA[Facebook]]></headline>
+            <content><![CDATA[Follow us on facebook for special offers and live event coverage]]></content>
+		</slide>
+		<slide overridePath="false" showText="true">
+			<filename>gsop_bucharest.jpg</filename>
+			<type>image</type>
+			<targetURL>/zh/gsop</targetURL>
+            <headline><![CDATA[GSOP]]></headline>
+            <content><![CDATA[Qualify fo the GSOP Live for just to 2 dollars! Play now!]]></content>
+		</slide>
+		<slide overridePath="false" showText="true">
+			<filename>vipclub.jpg</filename>
+			<type>image</type>
+			<targetURL>/zh/vipclub</targetURL>
+            <headline><![CDATA[VIP Club]]></headline>
+            <content><![CDATA[Cash spent means cash back... in the VIP Club]]></content>
+		</slide>
+		
+		<slide overridePath="false" showText="true">
+			<filename>bc_leagues.jpg</filename>
+			<type>image</type>
+			<targetURL>https://www.betcrib.com/zh/</targetURL>
+            <headline><![CDATA[Gunners or Blues?]]></headline>
+            <content><![CDATA[The leagues of Europe are more exciting than ever. Will Liverpool return to victory? Will Villa score for Barca? You'll find the odds on BetCrib.]]></content>
+		</slide>
+	</slides>
+</settings>
