@@ -1,0 +1,86 @@
+/* Override for IE 6 and lower */
+#jackpotContainer {
+    background-image    : url('../images/jackpot_background.gif');
+}
+#jackpotLabel {
+    background-image    : url('../images/jackpot_label.gif');
+}
+#logo {
+    background-image    : url('../images/logo_slotland.gif');
+}
+#login.registered a.vip {
+    background-image    : url('../images/vip_crown.gif');
+}
+#login.registered #buttonAccount {
+    background-image    : url('../images/button_account.gif');
+}
+#login.registered #buttonAccount:hover {
+    background-image    : url('../images/button_account_on.gif');
+}
+#login.registered #buttonLogout {
+    background-image    : url('../images/button_logout.gif');
+}
+#login.registered #buttonLogout:hover {
+    background-image    : url('../images/button_logout_on.gif');
+}
+#loginLock {
+    background-image    : url('../images/login_lock.gif');
+}
+#promo1 {
+    background-image    : url('../images/promotions_background.gif');
+}
+.gameSelectorIcon {
+    background-image    : url('../images/game_selector_separator.gif');
+}
+.gameSelectorIcon .new {
+    background-image    : url('../images/game_new_badge.gif');
+    cursor              : pointer;
+}
+#allGames {
+    background-image    : url('../images/button_all_games.gif');
+}
+#allGames:hover {
+    background-image    : url('../images/button_all_games_on.gif');
+}
+#buttonForgottenPassword {
+    background-image    : url('../images/button_forgotten_password.gif');
+}
+#buttonForgottenPassword:hover {
+    background-image    : url('../images/button_forgotten_password_on.gif');
+}
+#buttonLogin {
+    background-image    : url('../images/button_login.gif');
+}
+#promo2 a {
+    background-image    : url('../images/promotion_register.gif');
+}
+.allGamesSingleGame .new {
+    background-image    : url('../images/game_new_badge.gif');
+}
+.buttonInstantPlay {
+    background-image    : url('../images/button_instant_play.gif');
+}
+#bottomContainer .securityNote {
+    background-image    : url('../images/security_icon.gif');
+}
+#bottomContainer .errorNotice .icon.error {
+    background-image    : url('../images/icon_error.gif');
+}
+#bottomContainer .registerSteps.step1 {
+    background-image    : url('../images/register_steps_1.gif');
+}
+#bottomContainer .registerSteps.step2 {
+    background-image    : url('../images/register_steps_2.gif');
+}
+#bottomContainer .registerSteps.step3 {
+    background-image    : url('../images/register_steps_3.gif');
+}
+#bottomContainer .registerPromo {
+    background-image    : url('../images/register_promo_image.gif');
+}
+.formRow.error label {
+    background-image    : url('../images/background_field_error.gif');
+}
+.formFooter .importantNote {
+    background-image    : url('../images/icon_important.gif');
+}
