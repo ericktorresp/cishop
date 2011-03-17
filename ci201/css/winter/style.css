@@ -13,7 +13,7 @@
     position            : absolute;
     margin-top          : 61px;
     margin-left         : 0;
-    background-image    : url('../images/jackpot_background_winter.png');
+    background-image    : url('../../images/jackpot_background_winter.png');
     background-repeat   : no-repeat;
 }
 
@@ -31,7 +31,7 @@
     top                 : -14px;
     width               : 313px;
     height              : 37px;
-    background-image    : url('../images/promo1_snow.png');
+    background-image    : url('../../images/promo1_snow.png');
     background-repeat   : no-repeat;
 }
 

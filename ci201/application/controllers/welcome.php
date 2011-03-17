@@ -7,19 +7,19 @@ class Welcome extends CI_Controller {
 		$vals = array(
 			'img_path' => './captcha/',
 		    'img_url' => '/captcha/'
-		    );
-		    $data['cap'] = create_captcha($vals);
-		    $cdata = array(
-		    'captcha_time' => $data['cap']['time'],
-		    'ip_address' => $this->input->ip_address(),
-		    'word' => $data['cap']['word']
-		    );
+	    );
+	    $data['cap'] = create_captcha($vals);
+	    $cdata = array(
+	    'captcha_time' => $data['cap']['time'],
+	    'ip_address' => $this->input->ip_address(),
+	    'word' => $data['cap']['word']
+	    );
 
-		    $query = $this->db->insert_string('captcha', $cdata);
-		    $this->db->query($query);
-		    //		$this->load->model('user/User_Model', '', TRUE);
-		    //		$data['users'] = $this->User_Model->getUserList();
-		    $this->load->view('welcome_message', $data);
+	    $query = $this->db->insert_string('captcha', $cdata);
+	    $this->db->query($query);
+	    //		$this->load->model('user/User_Model', '', TRUE);
+	    //		$data['users'] = $this->User_Model->getUserList();
+	    $this->load->view('index', $data);
 	}
 
 	public function login()

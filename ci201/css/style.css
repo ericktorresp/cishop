@@ -592,7 +592,7 @@ button:active {
     padding-right       : 26px;
     width               : 952px;    /* should be 948? */
     padding-top         : 10px;
-    padding-bottom      : 20px;
+    padding-bottom      : 10px;
     background-image    : url('../images/bottom_background.png');
     background-repeat   : repeat-x;
     color               : #999;
@@ -700,13 +700,13 @@ li {
     float               : left;
     width               : 465px;
     text-align          : justify;
-    margin-bottom       : 1em;
+    /*margin-bottom       : 1em;*/
 }
 .bottomContainerBlockContent .rightColumn, #bottomContainer .rightColumn {
     float               : right;
     width               : 465px;
     text-align          : justify;
-    margin-bottom       : 1em;
+    /*margin-bottom       : 1em;*/
 }
 .bottomContainerBlockContent.logos img {
     padding-right       : 3px;
