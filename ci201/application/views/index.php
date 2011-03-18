@@ -100,18 +100,25 @@
 
     <div id="jackpotContainer">
         <div id="jackpotLabel">
-            <img src="images/jackpot_5.png" alt="5"><img src="images/jackpot_8.png" alt="8"><img src="images/jackpot_comma.png" alt=","><img src="images/jackpot_8.png" alt="8"><img src="images/jackpot_8.png" alt="8"><img src="images/jackpot_6.png" alt="6"><img src="images/jackpot_dot.png" alt="."><img src="images/jackpot_5.png" alt="5"><img src="images/jackpot_0.png" alt="0">
+            <img src="images/jackpot_5.png" alt="5">
+            <img src="images/jackpot_8.png" alt="8">
+            <img src="images/jackpot_comma.png" alt=",">
+            <img src="images/jackpot_8.png" alt="8">
+            <img src="images/jackpot_8.png" alt="8">
+            <img src="images/jackpot_6.png" alt="6">
+            <img src="images/jackpot_dot.png" alt=".">
+            <img src="images/jackpot_5.png" alt="5">
+            <img src="images/jackpot_0.png" alt="0">
         </div>
     </div>
 	<script type="text/javascript">
 		<!--
-		var so = new SWFObject("flash/jackpot.swf", "jackpotContainerFlash", "356px", "126px", "9", "#000000");
+		var so = new SWFObject("<?php echo $this->config->item('asset_url')?>flash/jackpot.swf", "jackpotContainerFlash", "356px", "126px", "9", "#000000");
 				so.addParam("menu", "false");
 				so.addParam("wmode", "transparent");
 				so.addParam("allowScriptAccess", "always");
 				so.addVariable("jackpotIncreaseTimeout", jackpotIncreaseTimeout);
 				so.addVariable("currentJackpot", currentJackpot);
-				// so.addVariable("url", "/promotions");
 		if (so.installedVer.versionIsValid(so.getAttribute('version'))) {
 			so.write("jackpotContainer");
 			var e = getHTMLObject("jackpotContainer");
@@ -142,15 +149,15 @@
 	</script>
 
     <div id="promo2">
-        <a href="/user.new"></a>
+        <a href="/user/register"></a>
     </div>
 	<script type="text/javascript">
 		<!--
-		var so = new SWFObject("flash/register.swf", "promo2Flash", "391px", "209px", "9", "#000000");
+		var so = new SWFObject("<?php echo $this->config->item('asset_url')?>flash/register.swf", "promo2Flash", "391px", "209px", "9", "#000000");
 				so.addParam("menu", "false");
 				so.addParam("wmode", "transparent");
 				so.addParam("allowScriptAccess", "always");
-				so.addVariable("registrationUrl", "/user.new");
+				so.addVariable("registrationUrl", "<?php echo $this->config->item('base_url')?>user/register");
 				so.addVariable("handle", "UsRyI6lltoIrXyK25q");
 		if (so.installedVer.versionIsValid(so.getAttribute('version'))) {
 			so.write("promo2");

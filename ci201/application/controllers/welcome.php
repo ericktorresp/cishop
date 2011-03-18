@@ -17,8 +17,7 @@ class Welcome extends CI_Controller {
 
 	    $query = $this->db->insert_string('captcha', $cdata);
 	    $this->db->query($query);
-	    //		$this->load->model('user/User_Model', '', TRUE);
-	    //		$data['users'] = $this->User_Model->getUserList();
+
 	    $this->load->view('index', $data);
 	}
 

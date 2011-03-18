@@ -15,7 +15,8 @@
 |
 */
 $config['base_url']	= '';
-
+$config['asset_url'] = 'http://local.ci/';
+$config['site_title'] = '';
 /*
 |--------------------------------------------------------------------------
 | Index File

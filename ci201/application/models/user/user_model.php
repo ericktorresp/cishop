@@ -29,7 +29,28 @@ Class User_Model extends CI_Model {
 		$this->nickname = $this->input->post('nickname');
 		$this->language = $this->input->post('language');
 		$this->skin = $this->input->post('skin');
-		$this->db->insert('user', $this);
+		return $this->db->insert('user', $this);
+	}
+	
+	/**
+	 * CRUD - update
+	 */
+	public function update() {
+		
+	}
+	
+	/**
+	 * CRUD - delete
+	 */
+	public function delete() {
+		
+	}
+	
+	/**
+	 * CRUD - read
+	 */
+	public function read() {
+		
 	}
 	
 	public function getUserList()
