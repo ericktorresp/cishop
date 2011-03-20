@@ -1,10 +1,10 @@
 <?php
 $config = array(
-	'user/register' => array(
+	'register/index' => array(
 		array(
 			'field'=>'username',
 			'label'=>'lang:username',
-			'rules'=>'trim|required|min_length[5]|max_length[12]|xss_clean'
+			'rules'=>'trim|required|alpha_dash|min_length[5]|max_length[12]|callback_username_check|xss_clean'
 		),
 		array(
 			'field'=>'password',
@@ -19,7 +19,7 @@ $config = array(
 		array(
 			'field'=>'email',
 			'label'=>'lang:email',
-			'rules'=>'trim|required|valid_email'
+			'rules'=>'trim|required|valid_email|callback_email_check'
 		),
 		array(
 			'field'=>'agree',
@@ -27,7 +27,7 @@ $config = array(
 			'rules'=>'required'
 		)
 	),
-	'user/step2' => array(
+	'register/step2' => array(
 		array(
 			'field'=>'gender',
 			'label'=>'lang:Gender',
@@ -84,8 +84,12 @@ $config = array(
 			'rules'=>'required'
 		),
 	),
-	'user/step3' => array(
-	
+	'register/confirm' => array(
+		array(
+			'field'=>'promo_code',
+			'label'=>'lang:promo_code',
+			'rules'=>'regex_match[/^[A-Z]{6}\-[0-9]{4}\-[A-Za-z]{4}/]'
+		)
 	),
 
 );

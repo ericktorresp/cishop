@@ -1,24 +1,24 @@
 <?php $this->load->view('header')?>
 	<style type="text/css">
-		#gameSelectorIcon_0 a { background-image: url('images/games/gameWitchsBrew.png'); }
-		#gameSelectorIcon_1 a { background-image: url('images/games/gameLuckyDucts.png'); }
-		#gameSelectorIcon_2 a { background-image: url('images/games/gameTreasureBox.png'); }
-		#gameSelectorIcon_3 a { background-image: url('images/games/gameGolden8.png'); }
-		#gameSelectorIcon_4 a { background-image: url('images/games/gameJacksOrBetter.png'); }
-		#gameSelectorIcon_5 a { background-image: url('images/games/gameWildHeart.png'); }
-		#gameSelectorIcon_6 a { background-image: url('images/games/gameReelRiot.png'); }
-		#gameSelectorIcon_7 a { background-image: url('images/games/gameMegaSpin.png'); }
-		#gameSelectorIcon_8 a { background-image: url('images/games/gameBooster.png'); }
-		#gameSelectorIcon_9 a { background-image: url('images/games/gameHeavyMetal.png'); }
-		#gameSelectorIcon_10 a { background-image: url('images/games/gameLuckyStars.png'); }
-		#gameSelectorIcon_11 a { background-image: url('images/games/gameMagic.png'); }
-		#gameSelectorIcon_12 a { background-image: url('images/games/gameStriking7s.png'); }
-		#gameSelectorIcon_13 a { background-image: url('images/games/gameSpaceJack.png'); }
-		#gameSelectorIcon_14 a { background-image: url('images/games/gameFourCast.png'); }
-		#gameSelectorIcon_15 a { background-image: url('images/games/gameSilverKiss.png'); }
-		#gameSelectorIcon_16 a { background-image: url('images/games/gameSlotris.png'); }
-		#gameSelectorIcon_17 a { background-image: url('images/games/gameHalloweenMagic.png'); }
-		#gameSelectorIcon_18 a { background-image: url('images/games/gameSantaSleigh.png'); }
+		#gameSelectorIcon_0 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameWitchsBrew.png'); }
+		#gameSelectorIcon_1 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameLuckyDucts.png'); }
+		#gameSelectorIcon_2 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameTreasureBox.png'); }
+		#gameSelectorIcon_3 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameGolden8.png'); }
+		#gameSelectorIcon_4 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameJacksOrBetter.png'); }
+		#gameSelectorIcon_5 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameWildHeart.png'); }
+		#gameSelectorIcon_6 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameReelRiot.png'); }
+		#gameSelectorIcon_7 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameMegaSpin.png'); }
+		#gameSelectorIcon_8 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameBooster.png'); }
+		#gameSelectorIcon_9 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameHeavyMetal.png'); }
+		#gameSelectorIcon_10 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameLuckyStars.png'); }
+		#gameSelectorIcon_11 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameMagic.png'); }
+		#gameSelectorIcon_12 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameStriking7s.png'); }
+		#gameSelectorIcon_13 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameSpaceJack.png'); }
+		#gameSelectorIcon_14 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameFourCast.png'); }
+		#gameSelectorIcon_15 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameSilverKiss.png'); }
+		#gameSelectorIcon_16 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameSlotris.png'); }
+		#gameSelectorIcon_17 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameHalloweenMagic.png'); }
+		#gameSelectorIcon_18 a { background-image: url('<?php echo $this->config->item('asset_url')?>images/games/gameSantaSleigh.png'); }
 	</style>
 
 	<script type="text/javascript">
@@ -30,29 +30,29 @@
 		// image cache {{{
 		var imageCacheJackpot = new Array();
 		imageCacheJackpot[","] = new Image();
-		imageCacheJackpot[","].src = 'images/jackpot_comma.png';
+		imageCacheJackpot[","].src = '<?php echo $this->config->item('asset_url')?>images/jackpot_comma.png';
 		imageCacheJackpot["."] = new Image();
-		imageCacheJackpot["."].src = 'images/jackpot_dot.png';
+		imageCacheJackpot["."].src = '<?php echo $this->config->item('asset_url')?>images/jackpot_dot.png';
 		imageCacheJackpot["0"] = new Image();
-		imageCacheJackpot["0"].src = 'images/jackpot_0.png';
+		imageCacheJackpot["0"].src = '<?php echo $this->config->item('asset_url')?>images/jackpot_0.png';
 		imageCacheJackpot["1"] = new Image();
-		imageCacheJackpot["1"].src = 'images/jackpot_1.png';
+		imageCacheJackpot["1"].src = '<?php echo $this->config->item('asset_url')?>images/jackpot_1.png';
 		imageCacheJackpot["2"] = new Image();
-		imageCacheJackpot["2"].src = 'images/jackpot_2.png';
+		imageCacheJackpot["2"].src = '<?php echo $this->config->item('asset_url')?>images/jackpot_2.png';
 		imageCacheJackpot["3"] = new Image();
-		imageCacheJackpot["3"].src = 'images/jackpot_3.png';
+		imageCacheJackpot["3"].src = '<?php echo $this->config->item('asset_url')?>images/jackpot_3.png';
 		imageCacheJackpot["4"] = new Image();
-		imageCacheJackpot["4"].src = 'images/jackpot_4.png';
+		imageCacheJackpot["4"].src = '<?php echo $this->config->item('asset_url')?>images/jackpot_4.png';
 		imageCacheJackpot["5"] = new Image();
-		imageCacheJackpot["5"].src = 'images/jackpot_5.png';
+		imageCacheJackpot["5"].src = '<?php echo $this->config->item('asset_url')?>images/jackpot_5.png';
 		imageCacheJackpot["6"] = new Image();
-		imageCacheJackpot["6"].src = 'images/jackpot_6.png';
+		imageCacheJackpot["6"].src = '<?php echo $this->config->item('asset_url')?>images/jackpot_6.png';
 		imageCacheJackpot["7"] = new Image();
-		imageCacheJackpot["7"].src = 'images/jackpot_7.png';
+		imageCacheJackpot["7"].src = '<?php echo $this->config->item('asset_url')?>images/jackpot_7.png';
 		imageCacheJackpot["8"] = new Image();
-		imageCacheJackpot["8"].src = 'images/jackpot_8.png';
+		imageCacheJackpot["8"].src = '<?php echo $this->config->item('asset_url')?>images/jackpot_8.png';
 		imageCacheJackpot["9"] = new Image();
-		imageCacheJackpot["9"].src = 'images/jackpot_9.png';
+		imageCacheJackpot["9"].src = '<?php echo $this->config->item('asset_url')?>images/jackpot_9.png';
 
 		// }}}
 
@@ -100,15 +100,15 @@
 
     <div id="jackpotContainer">
         <div id="jackpotLabel">
-            <img src="images/jackpot_5.png" alt="5">
-            <img src="images/jackpot_8.png" alt="8">
-            <img src="images/jackpot_comma.png" alt=",">
-            <img src="images/jackpot_8.png" alt="8">
-            <img src="images/jackpot_8.png" alt="8">
-            <img src="images/jackpot_6.png" alt="6">
-            <img src="images/jackpot_dot.png" alt=".">
-            <img src="images/jackpot_5.png" alt="5">
-            <img src="images/jackpot_0.png" alt="0">
+            <img src="<?php echo $this->config->item('asset_url')?>images/jackpot_5.png" alt="5">
+            <img src="<?php echo $this->config->item('asset_url')?>images/jackpot_8.png" alt="8">
+            <img src="<?php echo $this->config->item('asset_url')?>images/jackpot_comma.png" alt=",">
+            <img src="<?php echo $this->config->item('asset_url')?>images/jackpot_8.png" alt="8">
+            <img src="<?php echo $this->config->item('asset_url')?>images/jackpot_8.png" alt="8">
+            <img src="<?php echo $this->config->item('asset_url')?>images/jackpot_6.png" alt="6">
+            <img src="<?php echo $this->config->item('asset_url')?>images/jackpot_dot.png" alt=".">
+            <img src="<?php echo $this->config->item('asset_url')?>images/jackpot_5.png" alt="5">
+            <img src="<?php echo $this->config->item('asset_url')?>images/jackpot_0.png" alt="0">
         </div>
     </div>
 	<script type="text/javascript">
@@ -157,7 +157,7 @@
 				so.addParam("menu", "false");
 				so.addParam("wmode", "transparent");
 				so.addParam("allowScriptAccess", "always");
-				so.addVariable("registrationUrl", "<?php echo $this->config->item('base_url')?>user/register");
+				so.addVariable("registrationUrl", "<?php echo $this->config->item('base_url')?>register");
 				so.addVariable("handle", "UsRyI6lltoIrXyK25q");
 		if (so.installedVer.versionIsValid(so.getAttribute('version'))) {
 			so.write("promo2");

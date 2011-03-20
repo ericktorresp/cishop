@@ -35,7 +35,7 @@
 
 <body>
 <div id="container">
-    <a href="/" target="_top" id="logo"></a>
+    <a href="<?php echo base_url()?>" target="_top" id="logo"></a>
     <div id="login">
         <form name="login" action="/" method="POST" onSubmit="if(clearPassword) this.elements['slot_login_password'].value='';return true;">
             <div id="loginLock"></div>
@@ -53,7 +53,7 @@
     </div> -->
     <div id="topMenu">
         <div class="topMenuDelimiter"></div>
-        <a class="topMenuButtonHomeActive" href="/" target="_top"></a>
+        <a class="topMenuButtonHome<?php if(!uri_string()):?>Active<?php endif?>" href="/" target="_top"></a>
         <div class="topMenuDelimiter"></div>
         <a class="topMenuButtonGames" href="/games" target="_top"></a>
         <div class="topMenuDelimiter"></div>

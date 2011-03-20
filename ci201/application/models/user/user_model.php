@@ -22,14 +22,8 @@ Class User_Model extends CI_Model {
 	/**
 	 * CRUD - create
 	 */
-	public function add() {
-		$this->username = $this->input->post('username');
-		$this->email = $this->input->post('email');
-		$this->loginpwd = md5($this->input->post('loginpwd'));
-		$this->nickname = $this->input->post('nickname');
-		$this->language = $this->input->post('language');
-		$this->skin = $this->input->post('skin');
-		return $this->db->insert('user', $this);
+	public function add($user) {
+		return $this->db->insert('user', $user);
 	}
 	
 	/**
@@ -52,6 +46,23 @@ Class User_Model extends CI_Model {
 	public function read() {
 		
 	}
+	
+	/**
+	 * Check username or email exists
+	 * Enter description here ...
+	 */
+	public function isExists($str) {
+		if(!$str) return FALSE;
+		if(strpos($str, '@')){
+			$query = $this->db->get_where('user', array('email' => $str));
+		}
+		else
+		{
+			$query = $this->db->get_where('user', array('username' => $str));
+		}
+		return $query->result();
+	}
+	
 	
 	public function getUserList()
 	{
