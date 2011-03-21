@@ -10,7 +10,7 @@ class Hooker(models.Model):
     price = models.IntegerField(_('price'))
     expend = models.IntegerField(_('expend'))
     visitprice = models.IntegerField(_('visit price'))
-    sickprobability = models.DecimalField(_('sick probability'), decimal_places=4, max_digits=4)
+    sickprobability = models.DecimalField(_('sick probability'), decimal_places=4, max_digits=6)
     is_random = models.BooleanField(_('system'), default=False)
     stamina = models.IntegerField(_('stamina'))
     spirit = models.SmallIntegerField(_('spirit'))

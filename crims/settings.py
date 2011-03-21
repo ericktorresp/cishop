@@ -13,7 +13,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'mysql_pool'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 DATABASE_NAME = 'crims'             # Or path to database file if using sqlite3.
 DATABASE_USER = 'root'             # Not used with sqlite3.
 DATABASE_PASSWORD = '2908262'         # Not used with sqlite3.
@@ -49,18 +49,18 @@ USE_I18N = True
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
 
-#MEDIA_ROOT = '/Users/darkmoon/pys/crims/assets/'
-MEDIA_ROOT = 'E:/server/py-projects/crims/assets/'
+MEDIA_ROOT = '/Users/darkmoon/Projects/python/crims/assets/'
+#MEDIA_ROOT = 'E:/server/py-projects/crims/assets/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = 'http://crims.info:8888/assets/'
+MEDIA_URL = 'http://localhost:8888/assets/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = 'http://crims.info:8888/assets/admin/'
+ADMIN_MEDIA_PREFIX = 'http://localhost:8888/assets/admin/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'cnz26^8bv!*gj^u*5-cg*dcec7q^mqbdz##846w-fgl+w)b-hz'
@@ -87,13 +87,13 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'crims.urls'
 
 TEMPLATE_DIRS = (
-#    '/Users/darkmoon/pys/crims/templates',
-    'E:/server/py-projects/crims/templates',
+    '/Users/darkmoon/Projects/python/crims/templates',
+#    'E:/server/py-projects/crims/templates',
 )
 # Memcache
-CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
-CACHE_MIDDLEWARE_SECONDS = 3
-CACHE_MIDDLEWARE_KEY_PREFIX = 'crims_'
+# CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+#CACHE_MIDDLEWARE_SECONDS = 3
+#CACHE_MIDDLEWARE_KEY_PREFIX = 'crims_'
 
 # Registration
 ACCOUNT_ACTIVATION_DAYS = 2
