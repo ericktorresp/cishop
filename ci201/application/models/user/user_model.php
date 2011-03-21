@@ -23,7 +23,10 @@ Class User_Model extends CI_Model {
 	 * CRUD - create
 	 */
 	public function add($user) {
-		return $this->db->insert('user', $user);
+		$this->db->trans_start();
+		$this->db->insert('user', $user);
+		$this->db->insert('user_fund', array());
+		return $this->db->trans_complete();
 	}
 	
 	/**
