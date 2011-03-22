@@ -4,6 +4,9 @@ from captcha.models import CaptchaStore
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ImproperlyConfigured
+from django.core.urlresolvers import reverse
+
 import datetime
 
 
@@ -146,8 +149,18 @@ class CaptchaCase(TestCase):
         try:
             r = self.client.get(reverse('captcha-test'))
             self.fail()
-        except KeyError:
-            pass
+        except ImproperlyConfigured,e:
+            self.failUnless('CAPTCHA_OUTPUT_FORMAT' in unicode(e))
+
+    def testPerFormFormat(self):
+        settings.CAPTCHA_OUTPUT_FORMAT =  u'%(image)s testCustomFormatString %(hidden_field)s %(text_field)s'
+        r = self.client.get(reverse('captcha-test'))
+        self.failUnless('testCustomFormatString' in r.content)
+        r = self.client.get(reverse('test_per_form_format'))
+        self.failUnless('testPerFieldCustomFormatString' in r.content)
         
+        
+
+
 def trivial_challenge():
     return 'trivial','trivial'

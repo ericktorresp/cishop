@@ -20,7 +20,11 @@ DATABASE_PASSWORD = '2908262'         # Not used with sqlite3.
 DATABASE_HOST = 'localhost'             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = '3306'             # Set to empty string for default. Not used with sqlite3.
 DATABASE_OPTIONS = {"init_command": "SET storage_engine=INNODB"}
-DATABASE_WAIT_TIMEOUT = 28800
+
+DBPOOL_WAIT_TIMEOUT = 28800
+DBPOOL_SIZE = 20
+DBPOOL_MAX = 100
+DBPOOL_INTERNAL_CONN_TIMEOUT = 10
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -49,8 +53,10 @@ USE_I18N = True
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
 
-MEDIA_ROOT = '/Users/darkmoon/Projects/python/crims/assets/'
-#MEDIA_ROOT = 'E:/server/py-projects/crims/assets/'
+#--- For My MBP
+#MEDIA_ROOT = '/Users/darkmoon/Projects/python/crims/assets/'
+#--- For Win 7
+MEDIA_ROOT = 'E:/server/py-projects/crims/assets/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -87,8 +93,10 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'crims.urls'
 
 TEMPLATE_DIRS = (
-    '/Users/darkmoon/Projects/python/crims/templates',
-#    'E:/server/py-projects/crims/templates',
+#--- For My MBP
+#    '/Users/darkmoon/Projects/python/crims/templates',
+#--- For Win 7
+    'E:/server/py-projects/crims/templates',
 )
 # Memcache
 # CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
