@@ -1,0 +1,1152 @@
+@font-face {
+    font-family             : 'Myriad Pro';
+    font-style              : normal;
+    font-weight             : bold;
+    /* question mark and incorrect format is MSIE 5-8 hack */
+    src                     : url('../misc/myriadpro-boldcond.eot?') format('eot'), url('../misc/myriadpro-boldcond.otf') format('opentype');
+}
+@font-face {
+    font-family             : 'Myriad Pro';
+    font-style              : italic;
+    font-weight             : bold;
+    /* question mark and incorrect format is MSIE 5-8 hack */
+    src                     : url('../misc/myriadpro-semiboldit.eot?') format('eot'), url('../misc/myriadpro-semiboldit.otf') format('opentype');
+}
+/*
+body {
+    padding             : 0px;
+    margin              : 0px;
+    background-color    : #210000;
+    color               : #cccccc;
+    text-align          : center;
+    background-image    : url('../images/background.png');
+    background-position : center;
+    background-repeat   : repeat-y;
+    font-size           : 13px;
+    font-family         : 'Myriad Pro', 'Arial', 'Helvetica', sans-serif;
+}
+*/
+body {
+    padding             : 0;
+    margin              : 0 0 0 -12px;
+    background-color    : #210000;
+    color               : #ccc;
+    text-align          : center;
+    background-image    : url('../images/background.png');
+    background-position : center;
+    background-repeat   : repeat-y;
+    font-size           : 12px;
+    font-family         : 'Arial', 'Helvetica', sans-serif;
+}
+
+a, a:visited {
+    color               : #cccccc;
+    text-decoration     : underline;
+    outline				: none;
+}
+
+a:hover {
+    color               : #fc0; 
+    text-decoration     : underline;
+}
+
+a img {
+    border              : none;
+    outline				: none;
+}
+
+button, input[type="submit"], input[type="button"] {
+    background-color    : transparent;
+    margin              : 0;
+    padding             : 0;
+    outline             : none;
+    border              : none;
+    cursor              : pointer;
+}
+
+/* workaround for removing selection outline in Firefox */
+button::-moz-focus-inner { 
+    border              : 0; 
+}
+
+/* workaround for IE8 where button background image was shifted upon click */
+button:active {
+    -ms-background-position-x: 1px;
+    -ms-background-position-y: 1px;
+}
+
+#container {
+    margin-left         : auto;
+    margin-right        : auto;
+    width               : 1004px;
+    text-align          : left;
+}
+
+#oldDesignNote {
+    position            : absolute;
+    text-align          : right;
+    width               : 978px;    /* 1004 - 26 */
+    z-index             : 4;
+    color               : #aaa;
+    font-size           : 10px;
+    padding-right       : 26px;
+}
+#oldDesignNote a {
+    color               : #aaa;
+}
+#oldDesignNote a:hover {
+    color               : #fc0;
+}
+
+.errorNotice {
+    font-size           : 18px;
+    background-image    : url('../images/background_error.gif');
+    color               : black;
+    height              : 26px;
+    padding-left        : 26px;
+    padding-top         : 5px;
+}
+.errorNotice a {
+    color               : black;
+}
+
+#logo {
+    display             : block;
+    width               : 327px;
+    height              : 69px;
+    position            : absolute;
+    z-index             : 10;
+    margin-left         : 13px;
+    /*background-image    : url('../images/logo.png');*/
+}
+
+#login {
+    width               : 454px;
+    height              : 22px;
+    padding-top         : 15px;
+    padding-left        : 550px;
+    position            : absolute;
+    z-index             : 3;
+}
+
+#login.registered {
+    width               : 454px;
+    height              : 37px;
+    padding-top         : 0;
+    text-align          : right;
+}
+
+#login.registered a {
+    display             : inline-block;
+    text-decoration     : none;
+    font-size           : 14px;
+    font-family         : 'Arial Black', 'Arial', 'Helvetica', sans-serif;
+    padding-top         : 15px;
+    margin-right        : 20px;
+    color               : #fc0;
+}
+
+#login.registered a.vip {
+    background-image    : url('../images/vip_crown.png');
+    background-repeat   : no-repeat;
+    background-position : center 1px;
+}
+
+#login.registered #buttonAccount {
+    width               : 71px;
+    height              : 22px;
+    margin-right        : 10px;
+    background-image    : url('../images/button_account.png');
+    background-repeat   : no-repeat;
+    background-position : 0px 15px;
+}
+#login.registered #buttonAccount:hover {
+    background-image    : url('../images/button_account_on.png');
+}
+
+#login.registered #buttonLogout {
+    width               : 66px;
+    height              : 22px;
+    margin-right        : 27px;
+    background-image    : url('../images/button_logout.png');
+    background-repeat   : no-repeat;
+    background-position : 0px 15px;
+}
+#login.registered #buttonLogout:hover {
+    background-image    : url('../images/button_logout_on.png');
+}
+
+#loginLock {
+    width               : 12px;
+    height              : 22px;
+    padding-right       : 5px;
+    float               : left;
+    background-image    : url('../images/login_lock.png');
+    background-repeat   : no-repeat;
+}
+
+.loginField {
+    padding-left        : 1px;
+    margin              : 0px;
+    margin-right        : 5px;
+    height              : 17px;
+    width               : 100px;
+    border-style        : solid;
+    border-top-color    : #989898;
+    border-left-color   : #989898;
+    border-right-color  : #7f7f7f;
+    border-bottom-color : #7f7f7f;
+    border-width        : 1px;
+    float               : left;
+    background-color    : #333333; 
+    color               : #c8c8c8;
+    font-size           : 12px;
+}
+
+#buttonLogin {
+    padding-left        : 1px;
+    margin-right        : 5px;
+    height              : 22px;
+    width               : 58px;
+    float               : left;
+    background-color    : #000000; 
+    border              : 0px;
+    background-image    : url('../images/button_login.png');
+    cursor              : pointer;
+}
+#buttonLogin:hover {
+    background-image    : url('../images/button_login_on.png');
+}
+
+#buttonForgottenPassword {
+    display             : block;
+    margin-left         : 15px;
+    margin-right        : 5px;
+    height              : 22px;
+    width               : 114px;
+    float               : left;
+    background-color    : #000000; 
+    border              : 0px;
+    background-image    : url('../images/button_forgotten_password.png');
+}
+#buttonForgottenPassword:hover {
+    background-image    : url('../images/button_forgotten_password_on.png');
+}
+
+#topMenu {
+    width               : 644px;
+    height              : 31px;
+    position            : absolute;
+    display             : block;
+    padding-left        : 360px;
+    padding-top         : 38px;
+    z-index             : 2;
+    background-image    : url('../images/top_menu_background.png');
+    background-position : 0px 38px;
+    background-repeat   : repeat-x;
+    border-bottom       : 1px solid #4d4d4d;
+}
+
+.topMenuButtonHome, .topMenuButtonHomeActive {
+    display             : block;
+    width               : 54px;
+    height              : 31px;
+    float               : left;
+    background-image    : url('../images/menu_home.png');
+    background-position : 0 0;
+}
+
+.topMenuButtonHome:hover, .topMenuButtonHomeActive {
+    background-position : 0 31px;
+}
+
+.topMenuButtonAboutUs, .topMenuButtonAboutUsActive {
+    display             : block;
+    width               : 73px;
+    height              : 31px;
+    float               : left;
+    background-image    : url('../images/menu_about_us.png');
+    background-position : 0 0;
+}
+
+.topMenuButtonAboutUs:hover, .topMenuButtonAboutUsActive {
+    background-position : 0 31px;
+}
+
+.topMenuButtonBanking, .topMenuButtonBankingActive {
+    display             : block;
+    width               : 71px;
+    height              : 31px;
+    float               : left;
+    background-image    : url('../images/menu_banking.png');
+    background-position : 0 0;
+}
+
+.topMenuButtonBanking:hover, .topMenuButtonBankingActive {
+    background-position : 0 31px;
+}
+
+.topMenuButtonContact, .topMenuButtonContactActive {
+    display             : block;
+    width               : 64px;
+    height              : 31px;
+    float               : left;
+    background-image    : url('../images/menu_contact.png');
+    background-position : 0 0;
+}
+
+.topMenuButtonContact:hover, .topMenuButtonContactActive {
+    background-position : 0 31px;
+}
+
+.topMenuButtonFaq, .topMenuButtonFaqActive {
+    display             : block;
+    width               : 40px;
+    height              : 31px;
+    float               : left;
+    background-image    : url('../images/menu_faq.png');
+    background-position : 0 0;
+}
+
+.topMenuButtonFaq:hover, .topMenuButtonFaqActive {
+    background-position : 0 31px;
+}
+
+.topMenuButtonGames, .topMenuButtonGamesActive {
+    display             : block;
+    width               : 60px;
+    height              : 31px;
+    float               : left;
+    background-image    : url('../images/menu_games.png');
+    background-position : 0 0;
+}
+
+.topMenuButtonGames:hover, .topMenuButtonGamesActive {
+    background-position : 0 31px;
+}
+
+.topMenuButtonPromotions, .topMenuButtonPromotionsActive {
+    display             : block;
+    width               : 90px;
+    height              : 31px;
+    float               : left;
+    background-image    : url('../images/menu_promotions.png');
+    background-position : 0 0;
+}
+
+.topMenuButtonPromotions:hover, .topMenuButtonPromotionsActive {
+    background-position : 0 31px;
+}
+
+.topMenuButtonVIP, .topMenuButtonVIPActive {
+    display             : block;
+    width               : 36px;
+    height              : 31px;
+    float               : left;
+    background-image    : url('../images/menu_vip.png');
+    background-position : 0 0;
+}
+
+.topMenuButtonVIP:hover, .topMenuButtonVIPActive {
+    background-position : 0 31px;
+}
+
+.topMenuButtonNewsletters, .topMenuButtonNewslettersActive {
+    display             : block;
+    width               : 85px;
+    height              : 31px;
+    float               : left;
+    background-image    : url('../images/menu_newsletters.png');
+    background-position : 0 0;
+}
+
+.topMenuButtonNewsletters:hover, .topMenuButtonNewslettersActive {
+    background-position : 0 31px;
+}
+
+.topMenuButtonLanguage, .topMenuButtonLanguageActive {
+    display             : block;
+    width               : 101px;
+    height              : 31px;
+    float               : left;
+    background-image    : url('../images/menu_english.png');
+    background-position : 0 0;
+}
+
+.topMenuButtonLanguage:hover, .topMenuButtonLanguageActive {
+    background-position : 0 31px;
+}
+
+.topMenuDelimiter {
+    display             : block;
+    height              : 31px;
+    width               : 3px;
+    float               : left;
+    background-image    : url('../images/button_menu_delimiter.png');
+}
+
+#mainImageHomepage {
+    width               : 1004px;
+    height              : 362px;
+    padding-top         : 70px;
+    background-image    : url('../images/background_home_1.jpg');
+    background-repeat   : no-repeat;
+    background-position : 0px 70px;
+}
+
+#mainImage {
+    width               : 1004px;
+    height              : 148px;
+    padding-top         : 70px;
+    background-image    : url('../images/background_small_1.jpg');
+    background-repeat   : no-repeat;
+    background-position : 0px 70px;
+}
+#mainImage.games {
+}
+
+#jackpotContainer {
+    clear               : both;
+    width               : 311px;
+    height              : 62px;
+    position            : absolute;
+    margin-top          : 85px;
+    margin-left         : 22px;
+    background-image    : url('../images/jackpot_background.png');
+    background-repeat   : no-repeat;
+}
+
+#jackpotLabel {
+    width               : 150px;
+    height              : 34px;
+    margin-top          : 12px;
+    padding-left        : 168px;
+    text-align          : left;
+    background-image    : url('../images/jackpot_label.png');
+    background-position : 16px;
+    background-repeat   : no-repeat;
+}
+
+#jackpotLetter {
+    margin              : 0px;
+    padding             : 0px;
+}
+
+#livechat {
+    clear               : both;
+    width               : 134px;
+    height              : 42px;
+    position            : absolute;
+    margin-left         : 848px;
+    margin-top          : 90px;
+}
+
+#promo1 {
+    clear               : both;
+    width               : 300px;
+    height              : 197px;
+    position            : absolute;
+    margin-top          : 220px;
+    margin-left         : 24px;
+    padding             : 3px;
+    background-image    : url('../images/promotions_background.png');
+    background-repeat   : no-repeat;
+}
+
+#promo1Mask {
+    width               : 298px;
+    height              : 197px;
+    overflow            : hidden;
+    position            : absolute;
+}
+
+.promo1Icon {
+    display             : none;
+    position            : absolute;
+    width               : 298px;
+    height              : 197px;
+}
+
+#promo1Icon_0 {
+    display             : block;    /* override default hidden */
+}
+
+#promo1decoration {
+    display             : none;
+}
+
+#promoTitle {
+    padding-left        : 5px;
+    padding-bottom      : 2px;
+    font-style          : italic;
+    font-size           : 16px;
+}
+
+#promo2 {
+    clear               : both;
+    width               : 391px;
+    height              : 209px;
+    position            : absolute;
+    margin-top          : 213px;
+    margin-left         : 594px;
+}
+#promo2 a {
+    display             : block;
+    width               : 391px;
+    height              : 209px;
+    background-image    : url('../images/promotion_register.png');
+    background-repeat   : no-repeat;
+}
+
+#gameSelectorLeft {
+    display             : block;
+    width               : 75px;
+    height              : 146px;
+    position            : absolute;
+    z-index             : 12;
+    background-image    : url('../images/game_selector_left.png');
+    background-repeat   : no-repeat;
+    background-position : 0px 0px;
+}
+#gameSelectorLeft:hover {
+    background-position : 0px -146px;
+}
+
+#gameSelectorMiddle {
+    width               : 853px;
+    height              : 146px;
+    padding-top         : 23px;
+    margin-left         : 75px;
+    position            : absolute;
+    background-image    : url('../images/game_selector_middle.png');
+    background-repeat   : repeat-x;
+    overflow            : hidden;
+}
+
+#gameSelectorRight {
+    display             : block;
+    width               : 76px;
+    height              : 146px;
+    margin-left         : 928px;
+    position            : absolute;
+    background-image    : url('../images/game_selector_right.png');
+    background-repeat   : no-repeat;
+    background-position : 0px 0px;
+}
+#gameSelectorRight:hover {
+    background-position : 0px -146px;
+}
+
+.gameSelectorIcon {
+    width               : 145px;
+    max-width           : 145px;
+    height              : 117px;
+    background-image    : url('../images/game_selector_separator.png');
+    background-repeat   : no-repeat;
+    background-position : 128px 0px;
+    position            : absolute;
+}
+
+.gameSelectorIcon .new {
+    display             : block;
+    position		: absolute;
+    width               : 62px;
+    height              : 63px;
+    background-image    : url('../images/game_new_badge.png');
+    background-repeat   : no-repeat;
+    background-position : 1px 1px;
+}
+
+/*
+.gameSelectorIcon img {
+    width               : 128px;
+    height              : 117px;
+}
+*/
+.gameSelectorIcon a {
+    display             : block;
+    width               : 128px;
+    height              : 117px;
+    background-repeat   : no-repeat;
+    background-position : 0px 0px;
+}
+.gameSelectorIcon a:hover {
+    background-position : 0px -117px;
+}
+
+#allGames {
+    display             : block;
+    width               : 128px;
+    height              : 22px;
+    clear               : both;
+    margin-left         : 800px;
+    margin-top          : 154px;
+    position            : absolute;
+    background-image    : url('../images/button_all_games.png');
+}
+#allGames:hover {
+    background-image    : url('../images/button_all_games_on.png');
+}
+
+#bottomContainer {
+    clear               : both;
+    padding-left        : 26px;
+    padding-right       : 26px;
+    width               : 952px;    /* should be 948? */
+    padding-top         : 10px;
+    padding-bottom      : 10px;
+    background-image    : url('../images/bottom_background.png');
+    background-repeat   : repeat-x;
+    color               : #999;
+}
+
+h1, .header1 {
+    font-family         : 'Myriad Pro', 'Arial', 'Helvetica', sans-serif;
+    font-style          : italic;
+    font-weight         : bold;
+    font-size           : 20px;
+    color               : #fff;
+    text-shadow         : 1px 1px 2px #000;
+    background-image    : url('../images/bottom_header1_background.gif');
+    background-repeat   : repeat-x;
+    background-position : 0 bottom;
+    padding-left        : 0.5em;
+}
+h1 .right {
+    color               : #ccc;
+    font-size           : 18px;
+    line-height         : 27px;
+    font-weight         : normal;
+    float               : right;
+    padding-right       : 0.5em;
+}
+h2, .header2 {
+    font-family         : 'Myriad Pro', 'Arial', 'Helvetica', sans-serif;
+    font-style          : italic;
+    font-weight         : bold;
+    font-size           : 18px;
+    color               : #fff;
+    text-shadow         : 1px 1px 2px #000;
+    background-image    : url('../images/bottom_header2_background.gif');
+    background-repeat   : repeat-x;
+    background-position : 0 bottom;
+}
+h3, .header3 {
+    font-family         : 'Myriad Pro', 'Arial', 'Helvetica', sans-serif;
+    font-style          : italic;
+    font-weight         : bold;
+    font-size           : 16px;
+    color               : #fff;
+    text-shadow         : 1px 1px 2px #000;
+}
+h4, .header3 {
+    font-family         : 'Myriad Pro', 'Arial', 'Helvetica', sans-serif;
+    font-style          : italic;
+    font-weight         : bold;
+    font-size           : 14px;
+    color               : #fff;
+    text-shadow         : 1px 1px 2px #000;
+}
+h1.noBottom, h2.noBottom, h3.noBottom, h4.noBottom {
+    margin-bottom       : 0;
+}
+
+li {
+    margin-top          : 1em;
+    margin-bottom       : 1em;
+}
+
+#bottomContainerGames {
+    clear               : both;
+    padding-left        : 0px;
+    padding-right       : 0px;
+    padding-top         : 10px;
+    padding-bottom      : 20px;
+    width               : 1004px;
+    background-image    : url('../images/bottom_background.png');
+    background-repeat   : repeat-x;
+    color               : #999;
+}
+
+#bottomContainer a, #bottomContainerGames a {
+    color               : #fff;
+}
+
+#bottomContainer a:hover, #bottomContainerGames a:hover {
+    color               : #fc0; 
+}
+
+.bottomContainerBlock {
+    /*
+    background-image    : url('../images/bottom_block_background.png');
+    background-repeat   : repeat-x;
+    background-position : 0px 15px;
+    */
+    margin              : 10px;
+    margin-bottom       : 0;
+    display             : block;
+    width               : 948px; /* full width */
+}
+.bottomContainerBlock.halfWidth {
+    width               : 465px;
+    display             : inline-block;
+    vertical-align      : top;
+    /*float               : left;*/
+    text-align          : justify;
+}
+
+.bottomContainerBlockContent {
+    font-weight         : normal;
+}
+.bottomContainerBlockContent .leftColumn, #bottomContainer .leftColumn {
+    float               : left;
+    width               : 465px;
+    text-align          : justify;
+    /*margin-bottom       : 1em;*/
+}
+.bottomContainerBlockContent .rightColumn, #bottomContainer .rightColumn {
+    float               : right;
+    width               : 465px;
+    text-align          : justify;
+    /*margin-bottom       : 1em;*/
+}
+.bottomContainerBlockContent.logos img {
+    padding-right       : 3px;
+}
+#bottomContainer .securityNote {
+    height              : 32px;
+    background-color    : #444444;
+    background-image    : url('../images/security_icon.png');
+    background-repeat   : no-repeat;
+    background-position : 7px center;   /* 7px 2px ? */
+    border-top          : solid 1px black;
+    color               : white;
+    text-shadow         : 1px 1px 4px #222;
+    padding-left        : 42px;
+    font-style          : italic;
+    font-size           : 14px;
+    line-height         : 2.6em;
+}
+#bottomContainer .errorNotice {
+    background-color    : #ffda00;
+    background-image    : url('../images/background_error.png');
+    border-top          : solid 1px black;
+    color               : black;
+    height              : 32px;
+    font-style          : italic;
+    font-size           : 14px;
+    line-height         : 2.6em;
+    padding             : 0;
+}
+#bottomContainer .errorNotice .icon {
+    float               : left;
+    width               : 42px;
+    height              : 32px;
+}
+#bottomContainer .errorNotice .icon.error {
+    background-image    : url('../images/icon_error.png');
+    background-repeat   : no-repeat;
+    background-position : 7px center;
+}
+
+#bottomContainer .registerSteps {
+    height              : 36px;
+    margin-right        : 55px;
+    margin-top          : 15px;
+    background-position : right center;
+    background-repeat   : no-repeat;
+    text-align          : left;
+    color               : white;
+}
+#bottomContainer .registerSteps.right {
+    width               : 334px;
+    float               : right;
+}
+#bottomContainer .registerSteps.step1 {
+    background-image    : url('../images/register_steps_1.png');
+}
+#bottomContainer .registerSteps.step2 {
+    background-image    : url('../images/register_steps_2.png');
+}
+#bottomContainer .registerSteps.step3 {
+    background-image    : url('../images/register_steps_3.png');
+}
+#bottomContainer .registerPromo {
+    float               : left;
+    width               : 430px;    /* 500 - 70 */
+    margin-top          : 15px;
+
+    background-image    : url('../images/register_promo_image.png');
+    background-repeat   : no-repeat;
+    background-position : 15px top;
+    padding-left        : 70px;
+    padding-top         : 125px;
+
+    font-style          : italic;
+    font-size           : 14px;
+}
+#bottomContainer .registerPromo cite {
+    display             : block;
+    text-align          : right;
+}
+
+#bottomContainer .formColumn {
+    margin-top          : 15px;
+}
+#bottomContainer .formColumn.right {
+    margin-right        : 60px;
+    float               : right;
+    clear               : right;
+}
+#bottomContainer .formColumn.left {
+    margin-left         : 70px;
+    float               : left;
+    clear               : left;
+}
+#bottomContainer .formColumn.summary {
+    background-color    : #282828;
+    margin-top          : 0;
+    margin-left         : 0;
+    padding             : 15px 30px;    /* 15 + 15 margin */
+    border-radius       : 10px;
+    -moz-border-radius  : 10px;
+    width               : 400px;
+}
+
+/* used on more places, just the color! */
+.mandatory {
+    color               : #fc0;
+}
+.formRow {
+    margin-top          : 8px;
+    min-height          : 22px; /* 20 + border */
+    width               : 350px;
+    text-align          : right;
+}
+.formRow.taller {
+    margin-top          : 25px;
+}
+
+#bottomContainer .formColumn.right .formRow {
+    text-align          : right;
+}
+#bottomContainer .formColumn.left .formRow {
+    text-align          : left;
+}
+#bottomContainer .formColumn.right .formRow.checkbox {
+    text-align          : left;
+    padding-left        : 10px;
+    width               : 340px;    /* 350 - 10 padding-left */
+}
+.formText {
+    height              : auto;
+    text-align          : justify;
+    width               : 320px;
+    padding-top         : 15px;
+    padding-bottom      : 15px;
+    color               : #ccc;
+}
+.formNote {
+    height              : auto;
+    text-align          : justify;
+    width               : 320px;
+    padding-top         : 15px;
+    padding-bottom      : 15px;
+    color               : #999;
+}
+/* checkbox frame hack 1 */
+.formRow.mandatory span.mandatory {
+    float               : left;
+    display             : block;
+    margin-right        : 8px;
+    width               : 20px;
+    height              : 19px;
+    margin-bottom       : -0.2em; 
+    background-color    : #fc0;
+}
+/* checkbox frame hack 2 */
+.formRow.mandatory span.mandatory input[type="checkbox"] {
+    position            : absolute;
+    margin              : 3px 0 0 4px;
+    >margin             : -1px 0 0 0px; /* ">" is browser hack */
+    padding             : 0;
+}
+.formRow input[type="text"], .formRow input[type="password"] {
+    width               : 200px;
+    height              : 18px;
+    padding             : 1px;
+    border              : solid 1px #999;
+    background-color    : #444;
+    color               : white;
+}
+.formRow select {
+    width               : 200px;
+}
+.formRow label {
+    color               : #ccc;
+    display             : inline-block;
+    line-height         : 22px;
+    height              : 22px;
+    width               : 130px;    /* 140 - 10 padding-left */
+    /*padding-left        : 10px;*/
+    text-align          : left;
+}
+.formRow.mandatory.error span.mandatory {
+    background-color    : #d10010;
+}
+.formRow.error label {
+    background-image    : url('../images/background_field_error.png');
+    background-repeat   : no-repeat;
+    background-position : right center;
+    color               : white;
+}
+.formRow.mandatory label {
+    color               : #fc0;
+}
+.formRow.mandatory label.plain {
+    width               : auto;
+    display             : inline;
+    color               : #ccc;
+}
+.formRow.mandatory.error label.plain {
+    background-image    : none;
+}
+.formRow label.block {
+    width               : 300px;
+    display             : block;
+    color               : #ccc;
+    float               : right;
+}
+.formRow.mandatory.error label.block {
+    background-image    : none;
+}
+.formRow label a {
+    color               : #ccc;
+}
+
+.formFooter {
+    padding-top         : 20px;
+    clear               : both;
+    min-height          : 54px;
+}
+.formFooter.right {
+    padding-top         : 20px;
+    clear               : right;
+    float               : right;
+    min-height          : 54px;
+}
+
+.formFooter .importantNote {
+    float               : left;
+    height              : 54px;
+    padding-left        : 110px;
+    background-image    : url('../images/icon_important.png');
+    background-repeat   : no-repeat;
+    background-position : 70px center;
+    line-height         : 4.3em;
+}
+.formFooter .buttons {
+    float               : right;
+    margin-right        : 52px;
+}
+
+.formFooter .buttons button, .formFooter .buttons input {
+    width               : 166px;
+    height              : 54px;
+}
+
+table.winners td.most_important {
+    font-weight         : bold;
+    color               : #fff;
+}
+table.winners td.important {
+    font-weight         : bold;
+}
+
+/*
+.buttonInstantPlay {
+    width               : 105px;
+    height              : 33px;
+    position            : absolute;
+    margin-top          : 95px;    / * 100 - 5 * /
+    margin-left         : 133px;    / * 138 - 5 * /
+    background-image    : url('../images/button_instant_play.png');
+    background-repeat   : no-repeat;
+    background-position : 0px 0px;
+}
+*/
+.buttonInstantPlay {
+    background-image    : url('../images/button_instant_play.png');
+    background-repeat   : no-repeat;
+    width               : 105px;
+    height              : 33px;
+    display             : block;
+    position            : absolute;
+    left                : 145px;
+    bottom              : 13px;
+}
+
+/*
+.allGamesSingleGame, .allGamesSingleGame:visited {
+    text-align          : left;
+    color               : #cccccc;
+    width               : 310px;
+    height              : 141px;
+    padding-left        : 12px;
+    padding-top         : 14px;
+    margin-bottom       : 3px;
+    margin-right        : 2px;
+    margin-top          : 3px;
+    vertical-align      : top;
+    display             : block;
+    text-decoration     : none;
+    cursor              : pointer;
+}
+
+.allGamesSingleGame:hover, .allGamesSingleGame.active {
+    background-image    : url('../images/game_highlight_background.gif');
+    color               : #feed00;
+    overflow            : visible;
+    text-decoration     : none;
+}
+*/
+.allGamesSingleGame {
+    position            : relative;
+    display             : block;
+
+    width               : 290px;
+    height              : 141px;
+    padding-left        : 12px;
+    padding-top         : 14px;
+    padding-right       : 20px;
+    margin-bottom       : 3px;
+    margin-right        : 2px;
+    margin-top          : 3px;
+
+    /*vertical-align:     top;*/
+    text-align          : left;
+    font-size           : 13px;
+    text-decoration     : none;
+    color               : #999;
+}
+.allGamesSingleGame img {
+    width:              128px;
+    height:             128px;
+    float:              left;
+    margin-right:       10px;
+}
+
+a .allGamesSingleGame {
+    cursor              : pointer;
+}
+a:hover .allGamesSingleGame, .allGamesSingleGame.active {
+    color               : #feed00;
+    background-image    : url('../images/game_highlight_background.gif');
+}
+
+#bottomContainerGames td a {
+    text-decoration     : none;
+}
+
+.allGamesSingleGameIcon {
+    position		: absolute;
+    width               : 128px;
+    height              : 128px;
+
+    /*
+    width               : 128px;
+    height              : 128px;
+    display             : block;
+    float               : left;
+    padding-right       : 12px;
+    */
+}
+
+.allGamesSingleGame .new {
+    display             : block;
+    position		: absolute;
+    left                : 12px;
+    top                 : 14px;
+    width               : 61px;
+    height              : 62px;
+    background-image    : url('../images/game_new_badge.png');
+    background-repeat   : no-repeat;
+}
+
+/*
+.allGamesSingleGameTitle {
+    position            : absolute;
+    width               : 152px;
+    font-weight         : bold;
+    display             : block;
+    font-size           : 15px;
+    text-shadow         : 1px 1px 2px #000;
+    margin              : 6px 0 0 138px;
+}
+*/
+.allGamesSingleGameTitle {
+    font-size           : 15px;
+    font-weight         : bold;
+    display             : block;
+    margin-top          : 6px;
+}
+
+.allGamesRowSeparator {
+    clear               : both;
+    margin-left         : 12px;
+    width               : 945px;
+    height              : 1px;
+    font-size           : 1px;
+    background-color    : #560808;
+}
+
+/*
+.allGamesSingleGameDescription {
+    position            : absolute;
+    width               : 152px;
+    display             : block;
+    font-size           : 13px;
+    font-style          : italic;
+    text-shadow         : 1px 1px 2px #000;
+    margin	        : 24px 0 0 138px;
+    line-height		: 1.2em;
+}
+*/
+.allGamesSingleGameDescription {
+    font-style          : italic;
+    line-height         : 1.2em;
+}
+
+#allGamesList {
+    width               : 986px;
+    /*float               : left;*/
+    padding-left        : 18px;
+}
+#allGamesList h1 {
+    margin-left         : 12px;
+    margin-right        : 30px;
+}
+
+#footer {
+    width               : 100%;
+    font-size           : 11px;
+    clear               : both;
+    margin-top          : 10px;
+    padding-top         : 20px;
+    padding-bottom      : 20px;
+    text-align          : center;
+    background-color    : #1d1d1d;
+    /* XXX HACK */
+    position            : relative;
+    left                : -1px;
+    /* XXX HACK */
+}
+
+.clear {
+    clear               : both;
+    margin              : 0;
+    padding             : 0;
+    width               : 100%;
+    height              : 0;
+}
+

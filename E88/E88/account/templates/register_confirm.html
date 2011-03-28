@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div id="bottomContainer">
+    <h1 class="noBottom">
+        Join {{ site.name }}...
+        <span class="right">...in 3 easy steps</span>
+    </h1>
+    <div class="securityNote">Your personal details are always safe with us on our secure servers.</div>
+	    {% if form.errors %}
+	    {% for field in form %}
+	    {% if field.errors %}
+	    <div class="errorNotice">
+	    	<div class="icon error"></div>
+	    	{{ field.label }}{{ field.errors|striptags }}
+	    </div>
+	    {% endif %}
+    	{% endfor %}
+	    {% endif %}
+	    <form method="post" action="">
+		{% csrf_token %}
+        <div class="registerSteps step3">
+            Please review the information you entered, then confirm your registration.
+        </div>
+        <div class="formColumn left summary">
+            <div class="formRow mandatory">
+                <label>Login Name</label>
+                {{ user.username }}
+            </div>
+            <div class="formRow">
+                <label>Name</label>
+                {{ request.session.profile.first_name}} {{ request.session.profile.last_name}}
+            </div>
+
+            <div class="formRow">
+                <label>E-mail</label>
+                {{ user.email }}
+            </div>
+            <div class="formRow">
+                <label>Phone Number</label>
+                {{ request.session.profile.phone }}
+            </div>
+            <div class="formRow">
+                <label>Date of Birth</label>
+                {{ request.session.profile.birthday }}
+            </div>
+            <div class="formRow auto">
+                <label>Address</label>
+                <span style="display: inline-block; vertical-align: top;">{{ request.session.profile.address }}{% if request.session.profile.address2 %}, {{ request.session.profile.address2 }}{% endif %}<br>{{ request.session.profile.city }}, {{request.session.profile.province }}, {{request.session.profile.zip}}<br>{{request.session.profile.country}}</span>
+            </div>
+
+        </div>
+
+        <div class="formColumn right">
+            <div class="formText">
+                Bonus money will be added to your player account
+                immediatelly upon acceptance of your first deposit.
+            </div>
+
+            <div class="formRow">
+                {{ form.promo_code.label_tag }}
+                {{ form.promo_code }}
+
+            </div>
+
+            <div class="formNote">
+                You will be contacted regarding your winnings, billing
+                inquires, updates and promotions. A confirmation of each
+                transaction made will also be emailed to you. Your account
+                may be restricted if your personal information is found to
+                not be correct or up to date.
+            </div>
+        </div>
+
+        <div class="formFooter right">
+            <div class="buttons">
+                <a href="{% url register2 %}"><img src="{{ MEDIA_URL }}images/button_back.png" border="0" alt="Back"></a>
+
+                <input type="image" src="{{ MEDIA_URL }}images/button_register.png" alt="REGISTER">
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,5 @@
+{% load i18n %}
+{% trans "Activate account at" %} {{ site.name }}:
+
+{{ protocol }}://{{ domain }}{% url activation uidb36=uid token=token %}
+

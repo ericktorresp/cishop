@@ -1,0 +1,170 @@
+{% load i18n %}
+{% load mytags %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" href="{{ MEDIA_URL }}favicon.ico">
+    <meta name="keywords" content="beyondsoft, beyondsoft, online beyondsoft, beyondsoft online, online beyondsoft, casinos online, casino slot, online casino, play beyondsoft, play beyondsoft online, real money beyondsoft">
+    <meta name="description" content="Play beyondsoft online for real money. Choose from a range of online beyondsoft. Play beyondsoft &amp; win huge cash payouts. Get 100% registration beyondsoft bonus to play our online beyondsoft. Pick your favourite beyondsoft machines from the online casino beyondsoft games at Beyondsoft">
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="content-language" content="zh_CN">
+    <base href="">
+    <script type='text/javascript' src='{{ MEDIA_URL }}js/sprintf.js'></script>
+    <script type='text/javascript' src='{{ MEDIA_URL }}js/main.js'></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/swfobject.js"></script>
+
+    <link href="{{ MEDIA_URL }}css/style.css" rel="stylesheet" type="text/css" media="screen,print">
+    <!--[if lte IE 6]>
+    <style type="text/css">@import "{{ MEDIA_URL }}css/style-ie.css";</style>
+    <![endif]-->
+	<!--
+    <link href="{{ MEDIA_URL }}css/winter/style.css" rel="stylesheet" type="text/css" media="screen,print">
+    -->
+    <!--[if lte IE 6]>
+    <style type="text/css">@import "{{ MEDIA_URL }}css/winter/style-ie.css";</style>
+    <![endif]-->
+	{% block extrastyle %}
+	{% endblock %}
+	{% load dajaxice_templatetags %}
+	{% dajaxice_js_import %}
+    <script type="text/javascript">
+    <!--
+        var clearPassword = 1;
+        var loginLabel = '用户名';
+    // -->
+    </script>
+	{% block extrajs %}
+	{% endblock %}
+</head>
+
+<body>
+<div id="container">
+    <a href="{% url home %}" target="_top" id="logo"></a>
+    {% if user.is_authenticated %}
+	<div class="registered" id="login">
+        <a href="/account">{{ user.username }}</a>
+        <a href="/banking">${{ user.profile.available_balance|floatformat:2 }}</a>
+        <a id="buttonAccount" href="/account">&nbsp;</a>
+        <a id="buttonLogout" href="{% url logout %}">&nbsp;</a>
+    </div>
+    {% else %}
+    <div id="login">
+        <form name="login" action="{% url login %}" method="POST" onSubmit="if(clearPassword) this.elements['slot_login_password'].value='';return true;">
+            {% csrf_token %}
+            <div id="loginLock"></div>
+            <input type="text" name="username" size="10" value="用户名" class="loginField" onFocus="if (this.value == loginLabel) this.value='';" onBlur="if (this.value == '') this.value=loginLabel;">
+            <input type="password" name="password" size="10" value="********" class="loginField" onFocus="if(clearPassword) {clearPassword=0;this.value='';}">
+            <input type="submit" value="" id="buttonLogin">
+        </form>
+        <a href="{% url resetpwd %}" id="buttonForgottenPassword"></a>
+    </div>
+    {% endif %}
+    <div id="topMenu">
+        <div class="topMenuDelimiter"></div>
+        <a class="topMenuButtonHome{% active request "^/$" %}" href="{% url home %}" target="_top"></a>
+        <div class="topMenuDelimiter"></div>
+        <a class="topMenuButtonGames{% active request "^/games/" %}" href="/games" target="_top"></a>
+        <div class="topMenuDelimiter"></div>
+        <a class="topMenuButtonPromotions{% active request "^/promotions/" %}" href="/promotions" target="_top"></a>
+        <div class="topMenuDelimiter"></div>
+        <a class="topMenuButtonNewsletters" href="/promotions" target="_top"></a>
+        <div class="topMenuDelimiter"></div>
+        <a class="topMenuButtonVIP" href="/vip" target="_top"></a>
+        <div class="topMenuDelimiter"></div>
+        <a class="topMenuButtonBanking" href="/banking" target="_top"></a>
+        <div class="topMenuDelimiter"></div>
+        <a class="topMenuButtonContact" href="/contact" target="_top"></a>
+        <div class="topMenuDelimiter"></div>
+        <a class="topMenuButtonFaq" href="/faq" target="_top"></a>
+        <div class="topMenuDelimiter"></div>
+        <a class="topMenuButtonLanguage" href="/?l=es" target="_top"></a>
+        <div class="topMenuDelimiter"></div>
+    </div>
+{% if request.path != '/' %}
+<script type="text/javascript">
+<!--
+// jackpot increase settings {{{
+var jackpotIncreaseTimeout      = 1.44;
+var currentJackpot              = 69568.00;
+// }}}
+
+// uri parts for jackpot letters {{{
+var jackpotLetterURIPart1       = "{{ MEDIA_URL }}images/jackpot_";
+var jackpotLetterURIPart2       = ".png";
+// }}}
+
+// available letter mappings {{{
+var letters = new Array();
+letters[","] = "comma";
+letters["."] = "dot";
+letters["0"] = "0";
+letters["1"] = "1";
+letters["2"] = "2";
+letters["3"] = "3";
+letters["4"] = "4";
+letters["5"] = "5";
+letters["6"] = "6";
+letters["7"] = "7";
+letters["8"] = "8";
+letters["9"] = "9";
+
+// }}}
+// -->
+</script>
+    <div id="jackpotContainer">
+        <div id="jackpotLabel">
+            <img src="{{ MEDIA_URL }}images/jackpot_6.png" alt="6">
+            <img src="{{ MEDIA_URL }}images/jackpot_9.png" alt="9">
+            <img src="{{ MEDIA_URL }}images/jackpot_comma.png" alt=",">
+            <img src="{{ MEDIA_URL }}images/jackpot_5.png" alt="5">
+            <img src="{{ MEDIA_URL }}images/jackpot_6.png" alt="6">
+            <img src="{{ MEDIA_URL }}images/jackpot_8.png" alt="8">
+            <img src="{{ MEDIA_URL }}images/jackpot_dot.png" alt=".">
+            <img src="{{ MEDIA_URL }}images/jackpot_0.png" alt="0">
+            <img src="{{ MEDIA_URL }}images/jackpot_0.png" alt="0">
+        </div>
+    </div>
+<script type="text/javascript">
+<!--
+    var so = new SWFObject("{{ MEDIA_URL }}flash/jackpot.swf", "jackpotContainerFlash", "311px", "62px", "9", "#000000");
+            so.addParam("menu", "false");
+            so.addParam("wmode", "transparent");
+            so.addParam("allowScriptAccess", "always");
+            so.addVariable("jackpotIncreaseTimeout", jackpotIncreaseTimeout);
+            so.addVariable("currentJackpot", currentJackpot);
+    if (so.installedVer.versionIsValid(so.getAttribute('version'))) {
+        so.write("jackpotContainer");
+        var e = getHTMLObject("jackpotContainer");
+        e.style.backgroundImage = 'none';
+    } else {
+        setTimeout('increaseJackpot();', 1000 * jackpotIncreaseTimeout);
+    }
+// -->
+</script>
+    <div id="livechat">
+    <!-- Begin LiveChat button tag. See also www.livechatinc.com -->
+    	<div style="text-align:right">
+    		<a href=""><img src="http://chat.livechatinc.net/licence/1032156/button.cgi?lang=en&amp;groups=2&amp;d=1299407761000" border="0" alt="Live Support"></a>
+    	</div>
+    <!-- End LiveChatbutton tag. See also www.livechatinc.com --></div>
+    <div id="mainImage"></div>
+{% endif %}
+{% block content %}{% endblock %}
+    <div id="footer">
+        Copyright (c) 2011 Entertainment Ltd., All Rights Reserved. Content may not be duplicated.
+        <br><br>
+        <a href="/security.html">About Us</a> |
+        <a href="/contact.html">Contact Us</a> |
+        <a href="/privacy.html">Privacy Policy</a> |
+        <a href="/terms-and-conditions.html">Terms &amp; Conditions</a> |
+
+        <a href="/casino-articles/casino-articles.html">Casino Articles</a> |
+        <a href="/glossary/glossary.html">Glossary</a> |
+        <a href="/press/press.html">Press Releases</a> |
+
+        <a href="/affiliates">Affiliate Program</a>
+    </div>
+</div>
+</body>
+</html>

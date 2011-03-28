@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Create an account" %}{% endblock %}
+
+{% block content %}
+	<div id="bottomContainer">
+	    <h1 class="noBottom">
+	        Join {{ site.name }}...
+	        <span class="right">...in 3 easy steps</span>
+	    </h1>
+	    <div class="securityNote">Your personal details are always safe with us on our secure servers.</div>
+	    {% if form.errors %}
+	    {% for field in form %}
+	    {% if field.errors %}
+	    <div class="errorNotice">
+	    	<div class="icon error"></div>
+	    	{{ field.errors|striptags }}
+	    </div>
+	    {% endif %}
+    	{% endfor %}
+	    {% endif %}
+			<form method="post" action="">
+			{% csrf_token %}
+	        <div class="registerSteps step1 right"></div>
+	        <div class="registerPromo">
+	        	<p>"I just wanted to say Thank you. I have accounts at 7 or 8 online casinos, but I haven't played at any other site in weeks as Slotland is the most responsive, courtious, friendly & professional casino on the internet I have visited."</p>
+	            <cite>-- TRIP42&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</cite>
+	        </div>
+	        <div class="formColumn right">
+	            <div class="formRow mandatory{% if form.username.errors %} error{% endif %}">
+	                {{ form.username.label_tag }}
+	                {{ form.username }}
+	            </div>
+	            <div class="formRow mandatory{% if form.password.errors %} error{% endif %}">
+	                {{ form.password.label_tag }}
+	                {{ form.password }}
+	            </div>
+	            <div class="formRow mandatory{% if form.password_confirm.errors %} error{% endif %}">
+	                {{ form.password_confirm.label_tag }}
+	                {{ form.password_confirm }}
+	            </div>
+	            <div class="formRow mandatory{% if form.email.errors %} error{% endif %}">
+	                {{ form.email.label_tag }}
+	                {{ form.email }}
+	            </div>
+	            <div class="formRow taller mandatory checkbox{% if form.agree.errors %} error{% endif %}">
+	                <span class="mandatory">{{ form.agree }}</span>
+	                <label for="ch_agree" class="block">
+	                    I'm at least 18 years old. I have read and agree to these
+	                    <a href="/terms-and-conditions.html" target="_new">Terms &amp; Conditions</a>
+	                    and this
+	                    <a href="/privacy.html" target="_new">Privacy Policy</a>.
+	                </label>
+	            </div>
+	        </div>
+	        <div class="formFooter">
+	            <div class="importantNote">All <span class="mandatory">gold fields</span> are mandatory</div>
+	            <div class="buttons">
+	                <input type="image" src="{{ MEDIA_URL }}images/button_next.png" alt="NEXT">
+	            </div>
+	        </div>
+	    </form>
+	</div>
+{% endblock %}

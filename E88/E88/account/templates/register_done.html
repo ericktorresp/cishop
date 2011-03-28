@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div id="bottomContainer">
+    <h1>{% trans "Thank you." %}</h1>
+    <p>Please choose the most suitable payment option for your purchases at Slotland from the list below. We accept a variety of payment methods, Slotland is not limited to credit cards. Our fast and free of charge withdrawal options are listed at the very bottom of this page.</p>
+	<h2><a href="{% url account_deposit %}">{% trans "deposit" %}</a></h2>
+	<p>{% trans "Bonus money will be added to your player account immediatelly upon acceptance of your first deposit." %}</p>
+	<h2><a href="{% url account_verify %}">verify email</a></h2>
+	<p>You will be contacted regarding your winnings, billing
+                inquires, updates and promotions. A confirmation of each
+                transaction made will also be emailed to you. Your account
+                may be restricted if your personal information is found to
+                not be correct or up to date.</p>
+</div>
+{% endblock %}

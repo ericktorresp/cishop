@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block extrajs %}
+	<script type='text/javascript' src='{{ MEDIA_URL }}js/jquery.js'></script>
+	<script type="text/javascript">
+	<!--
+	$(document).ready(function(){
+		$('#id_p-country').change(function(){
+			$('#id_p-province > option[value!=""]').remove();
+			$('#id_p-city > option[value!=""]').remove();
+			if($(this).val() == '')	return;
+			Dajaxice.account.get_province(province_callback, {'country':$(this).val()});
+			$('#id_p-province').attr('disabled','');
+		});
+		$('#id_p-province').change(function(){
+			$('#id_p-city > option[value!=""]').remove();
+			if($(this).val() == '')	return;
+			Dajaxice.account.get_city(city_callback, {'province':$(this).val()});
+			$('#id_p-city').attr('disabled','');
+		});
+	});
+	function province_callback(data)
+	{
+	  if(data!=Dajaxice.EXCEPTION)
+	  {
+		$.each(data.provinces, function(){
+			$('#id_p-province').append($('<option></option>').val(this.id).html(this.name));
+		});
+	  }
+	}
+	function city_callback(data)
+	{
+		if(data!=Dajaxice.EXCEPTION)
+		{
+			$.each(data.cities, function(){
+				$('#id_p-city').append($('<option></option>').val(this.id).html(this.city));
+			});
+		}
+	}
+	// -->
+	</script>
+{% endblock %}
+{% block content %}
+	<div id="bottomContainer">
+    <h1 class="noBottom">
+	    Join {{ site.name }}...
+        <span class="right">...in 3 easy steps</span>
+    </h1>
+    <div class="securityNote">Your personal details are always safe with us on our secure servers.</div>
+	    {% if uform.errors %}
+	    {% for field in uform %}
+	    {% if field.errors %}
+	    <div class="errorNotice">
+	    	<div class="icon error"></div>
+	    	{{ field.label }}{{ field.errors|striptags }}
+	    </div>
+	    {% endif %}
+    	{% endfor %}
+	    {% endif %}
+	    {% if pform.errors %}
+	    {% for field in pform %}
+	    {% if field.errors %}
+	    <div class="errorNotice">
+	    	<div class="icon error"></div>
+	    	{{ field.label }}{{ field.errors|striptags }}
+	    </div>
+	    {% endif %}
+    	{% endfor %}
+	    {% endif %}
+	    <form method="post" action="">
+		{% csrf_token %}
+        <div class="registerSteps step2"></div>
+        <div class="formColumn left">
+            <div class="formRow mandatory{% if form.gender.errors %} error{% endif %}">
+                {{ pform.gender.label_tag }}
+                {{ pform.gender }}
+            </div>
+            <div class="formRow mandatory{% if form.first_name.errors %} error{% endif %}">
+                {{ uform.first_name.label_tag }}
+                {{ uform.first_name }}
+            </div>
+            <div class="formRow mandatory{% if form.last_name.errors %} error{% endif %}">
+                {{ uform.last_name.label_tag }}
+                {{ uform.last_name }}
+            </div>
+            <div class="formRow mandatory{% if form.phone.errors %} error{% endif %}">
+                {{ pform.phone.label_tag }}
+                {{ pform.phone }}
+            </div>
+            <div class="formRow mandatory{% if form.birthday.errors %} error{% endif %}">
+                {{ pform.birthday.label_tag }}
+                {{ pform.birthday }}
+            </div>
+        </div>
+        <div class="formColumn right">
+            <div class="formRow mandatory{% if form.address.errors %} error{% endif %}">
+                {{ pform.address.label_tag }}
+                {{ pform.address }}
+            </div>
+            <div class="formRow {% if form.address2.errors %} error{% endif %}">
+                {{ pform.address2.label_tag }}
+                {{ pform.address2 }}
+            </div>
+            <div class="formRow mandatory{% if form.country.errors %} error{% endif %}">
+                {{ pform.country.label_tag }}
+                {{ pform.country }}
+            </div>
+            <div class="formRow mandatory{% if form.province.errors %} error{% endif %}">
+                {{ pform.province.label_tag }}
+                {{ pform.province }}
+            </div>
+            <div class="formRow mandatory{% if form.city.errors %} error{% endif %}">
+                {{ pform.city.label_tag }}
+                {{ pform.city }}
+            </div>
+            <div class="formRow mandatory{% if form.zip.errors %} error{% endif %}">
+                {{ pform.zip.label_tag }}
+                {{ pform.zip }}
+            </div>
+        </div>
+        <div class="formFooter">
+            <div class="importantNote">All <span class="mandatory">gold fields</span> are mandatory</div>
+            <div class="buttons">
+                <input type="image" src="{{ MEDIA_URL }}images/button_next.png" alt="NEXT">
+            </div>
+
+        </div>
+    </form>
+    </div>
+
+{% endblock %}
