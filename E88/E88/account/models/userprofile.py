@@ -27,9 +27,10 @@ class UserProfile(models.Model):
     channel_balance = models.DecimalField(_('Available Balance'), max_digits=14, decimal_places=4, default=0)
     hold_balance = models.DecimalField(_('Available Balance'), max_digits=14, decimal_places=4, default=0)
     balance_update_time = models.DateTimeField(_('Balance Last Update'), editable=False)
+    email_verified = models.BooleanField(_('Email verified'), default=False)
         
     def __unicode__(self):
-        return self.user.username
+        return _('%s\'s profile') % self.user.username
 
     def delete(self):
         if self.user:

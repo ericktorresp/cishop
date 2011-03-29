@@ -139,5 +139,19 @@ class Announcement(models.Model):
         verbose_name = _('Announcement')
         verbose_name_plural = _('Announcements')
     
-    
-    
+# Paymethod Model
+class PayMethod(models.Model):
+    name = models.CharField(_('Name'), max_length=10)
+    alias = models.CharField(_('Alias'), max_length=10)
+    currency = models.CharField(_('Currency'), max_length=3)
+    deposit_note = models.CharField(_('Deposit Note'), max_length=20)
+    withdraw_note = models.CharField(_('Withdraw Note'), max_length=20)
+    min_deposit = models.DecimalField(_('Min Deposit each time'), max_digits=14, decimal_places=4)
+    max_deposit = models.DecimalField(_('Max Deposit each time'), max_digits=14, decimal_places=4)
+    under_deposit_fee_money_per_time = models.DecimalField(_('Deposit Fee(money) per time under the dividing line'), max_digits=14, decimal_places=4)
+    under_deposit_fee_percent_per_time = models.DecimalField(_('Deposit Fee(percent) per time under the dividing line'), max_digits=5, decimal_places=2)
+    deposit_fee_dividing = models.DecimalField(_('Deposit Fee dividing line'), max_digits=14, decimal_places=4)
+    above_deposit_fee_money_per_time = models.DecimalField(_('Deposit Fee(money) per time above the dividing line'), max_digits=14, decimal_places=4)
+    above_deposit_fee_percent_per_time = models.DecimalField(_('Deposit Fee(percent) per time above the dividing line'), max_digits=5, decimal_places=2)
+    min_withdraw = models.DecimalField(_('Min Withdraw each time'), max_digits=14, decimal_places=4)
+    max_deposit = models.DecimalField(_('Max Withdraw each time'), max_digits=14, decimal_places=4)
