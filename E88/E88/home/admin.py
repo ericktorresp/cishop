@@ -30,11 +30,15 @@ class BankAdmin(admin.ModelAdmin):
 class UserProfileInline(admin.StackedInline):
     model = UserProfile
     can_delete = False
+class UserCardInline(admin.StackedInline):
+    model = UserCard
+    extra = 3
 
 
 class ProfileAdmin(UserAdmin):
     inlines = (
         UserProfileInline,
+        UserCardInline,
     )
 
 admin.site.unregister(User)
@@ -47,4 +51,3 @@ admin.site.register(Card)
 admin.site.register(Channel)
 admin.site.register(Announcement)
 admin.site.register(PayMethod)
-admin.site.register(UserCard)
