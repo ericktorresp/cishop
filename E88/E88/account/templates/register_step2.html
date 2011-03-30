@@ -71,49 +71,49 @@
 		{% csrf_token %}
         <div class="registerSteps step2"></div>
         <div class="formColumn left">
-            <div class="formRow mandatory{% if form.gender.errors %} error{% endif %}">
+            <div class="formRow mandatory{% if pform.gender.errors %} error{% endif %}">
                 {{ pform.gender.label_tag }}
                 {{ pform.gender }}
             </div>
-            <div class="formRow mandatory{% if form.first_name.errors %} error{% endif %}">
+            <div class="formRow mandatory{% if uform.first_name.errors %} error{% endif %}">
                 {{ uform.first_name.label_tag }}
                 {{ uform.first_name }}
             </div>
-            <div class="formRow mandatory{% if form.last_name.errors %} error{% endif %}">
+            <div class="formRow mandatory{% if uform.last_name.errors %} error{% endif %}">
                 {{ uform.last_name.label_tag }}
                 {{ uform.last_name }}
             </div>
-            <div class="formRow mandatory{% if form.phone.errors %} error{% endif %}">
+            <div class="formRow mandatory{% if pform.phone.errors %} error{% endif %}">
                 {{ pform.phone.label_tag }}
                 {{ pform.phone }}
             </div>
-            <div class="formRow mandatory{% if form.birthday.errors %} error{% endif %}">
+            <div class="formRow mandatory{% if pform.birthday.errors %} error{% endif %}">
                 {{ pform.birthday.label_tag }}
                 {{ pform.birthday }}
             </div>
         </div>
         <div class="formColumn right">
-            <div class="formRow mandatory{% if form.address.errors %} error{% endif %}">
+            <div class="formRow mandatory{% if pform.address.errors %} error{% endif %}">
                 {{ pform.address.label_tag }}
                 {{ pform.address }}
             </div>
-            <div class="formRow {% if form.address2.errors %} error{% endif %}">
+            <div class="formRow {% if pform.address2.errors %} error{% endif %}">
                 {{ pform.address2.label_tag }}
                 {{ pform.address2 }}
             </div>
-            <div class="formRow mandatory{% if form.country.errors %} error{% endif %}">
+            <div class="formRow mandatory{% if pform.country.errors %} error{% endif %}">
                 {{ pform.country.label_tag }}
                 {{ pform.country }}
             </div>
-            <div class="formRow mandatory{% if form.province.errors %} error{% endif %}">
+            <div class="formRow mandatory{% if pform.province.errors %} error{% endif %}">
                 {{ pform.province.label_tag }}
                 {{ pform.province }}
             </div>
-            <div class="formRow mandatory{% if form.city.errors %} error{% endif %}">
+            <div class="formRow mandatory{% if pform.city.errors %} error{% endif %}">
                 {{ pform.city.label_tag }}
                 {{ pform.city }}
             </div>
-            <div class="formRow mandatory{% if form.zip.errors %} error{% endif %}">
+            <div class="formRow mandatory{% if pform.zip.errors %} error{% endif %}">
                 {{ pform.zip.label_tag }}
                 {{ pform.zip }}
             </div>

@@ -22,6 +22,13 @@ except:
 
 @login_required
 def account(request):
+    """
+    if has not first_name / last_name, redirect to /account/register/step2
+    check email verified
+    check has userCard
+    """
+    if(request.user.first_name == ''):
+        return HttpResponseRedirect('register/step2')
     return render_to_response('index.html', {}, context_instance=RequestContext(request))
 
 @csrf_protect
