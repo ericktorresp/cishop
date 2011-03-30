@@ -28,6 +28,7 @@ class UserProfile(models.Model):
     hold_balance = models.DecimalField(_('Available Balance'), max_digits=14, decimal_places=4, default=0)
     balance_update_time = models.DateTimeField(_('Balance Last Update'), editable=False)
     email_verified = models.BooleanField(_('Email verified'), default=False)
+    security_password = models.CharField(_('Security password'), max_length=128, blank=True, null=True)
         
     def __unicode__(self):
         return _('%s\'s profile') % self.user.username
