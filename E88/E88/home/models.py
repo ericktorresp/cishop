@@ -55,7 +55,7 @@ class City(models.Model):
 class Domain(models.Model):
     enabled = models.BooleanField(_('Enabled'))
     domain = models.URLField(_('URL'), max_length=255, verify_exists=False)
-    user_domain = models.ManyToManyField(User, db_table='user_domain', blank=True, null=True)
+    users = models.ManyToManyField(User, db_table='user_domain', blank=True, null=True)
     
     def __unicode__(self):
         return self.domain

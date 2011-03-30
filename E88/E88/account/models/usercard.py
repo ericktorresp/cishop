@@ -17,6 +17,7 @@ class UserCard(models.Model):
         return "%s %s %s" % (self.user.username, self.bank.name, self.card_no)
     
     class Meta:
+        app_label = 'account'
         db_table = u'user_card'
         verbose_name = _('User\'s card')
         verbose_name_plural = _('User\'s cards')

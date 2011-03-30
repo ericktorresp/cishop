@@ -1,7 +1,7 @@
 # coding=utf-8
 
 from home.models import *
-from account.models import UserProfile
+from account.models import *
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
@@ -47,3 +47,4 @@ admin.site.register(Card)
 admin.site.register(Channel)
 admin.site.register(Announcement)
 admin.site.register(PayMethod)
+admin.site.register(UserCard)

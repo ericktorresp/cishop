@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: e88
 Target Host: localhost
 Target Database: e88
-Date: 2011/3/28 15:00:32
+Date: 2011/3/30 17:36:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -17,8 +17,8 @@ CREATE TABLE `announcement` (
   `content` longtext NOT NULL,
   `author_id` int(11) NOT NULL,
   `add_time` datetime NOT NULL,
-  `verifier_id` int(11) NOT NULL,
-  `verify_time` datetime NOT NULL,
+  `verifier_id` int(11) default NULL,
+  `verify_time` datetime default NULL,
   `deleted` tinyint(1) NOT NULL,
   `sticked` tinyint(1) NOT NULL,
   `channel_id` int(11) NOT NULL,
@@ -138,7 +138,7 @@ CREATE TABLE `bank` (
   `id` int(11) NOT NULL auto_increment,
   `code` varchar(10) NOT NULL,
   `name` varchar(30) NOT NULL,
-  `logo` varchar(99) NOT NULL,
+  `logo` varchar(100) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -158,17 +158,20 @@ CREATE TABLE `card` (
   `init_balance` decimal(14,4) NOT NULL,
   `login_pwd` varchar(30) NOT NULL,
   `transaction_pwd` varchar(30) NOT NULL,
-  `verify_time` datetime NOT NULL,
+  `verify_time` datetime default NULL,
+  `verifier_id` int(11) default NULL,
   `country_id` varchar(6) NOT NULL,
   `province_id` int(11) NOT NULL,
   `discriminator` varchar(10) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `card_1862eb86` (`bank_id`),
+  KEY `card_584122da` (`verifier_id`),
   KEY `card_534dd89` (`country_id`),
   KEY `card_37751324` (`province_id`),
   CONSTRAINT `bank_id_refs_id_7b7bf309` FOREIGN KEY (`bank_id`) REFERENCES `bank` (`id`),
   CONSTRAINT `country_id_refs_iso_baadb0a` FOREIGN KEY (`country_id`) REFERENCES `country` (`iso`),
-  CONSTRAINT `province_id_refs_id_3fa775db` FOREIGN KEY (`province_id`) REFERENCES `province` (`id`)
+  CONSTRAINT `province_id_refs_id_3fa775db` FOREIGN KEY (`province_id`) REFERENCES `province` (`id`),
+  CONSTRAINT `verifier_id_refs_id_ea293a` FOREIGN KEY (`verifier_id`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -269,6 +272,68 @@ CREATE TABLE `domain` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for pay_method
+-- ----------------------------
+CREATE TABLE `pay_method` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(10) NOT NULL,
+  `alias` varchar(10) NOT NULL,
+  `currency` varchar(3) NOT NULL,
+  `deposit_note` varchar(20) NOT NULL,
+  `withdraw_note` varchar(20) NOT NULL,
+  `min_deposit` decimal(14,4) NOT NULL,
+  `max_deposit` decimal(14,4) NOT NULL,
+  `under_deposit_fee_money_per_time` decimal(14,4) NOT NULL,
+  `under_deposit_fee_percent_per_time` decimal(5,2) NOT NULL,
+  `deposit_fee_dividing` decimal(14,4) NOT NULL,
+  `above_deposit_fee_money_per_time` decimal(14,4) NOT NULL,
+  `above_deposit_fee_percent_per_time` decimal(5,2) NOT NULL,
+  `min_withdraw` decimal(14,4) NOT NULL,
+  `max_withdraw` decimal(14,4) NOT NULL,
+  `under_withdraw_fee_money_per_time` decimal(14,4) NOT NULL,
+  `under_withdraw_fee_percent_per_time` decimal(5,2) NOT NULL,
+  `withdraw_fee_dividing` decimal(14,4) NOT NULL,
+  `above_withdraw_fee_money_per_time` decimal(14,4) NOT NULL,
+  `above_withdraw_fee_percent_per_time` decimal(5,2) NOT NULL,
+  `pay_for_platform_deposit_percent` decimal(5,2) NOT NULL,
+  `min_pay_for_platform_deposit` decimal(14,4) NOT NULL,
+  `max_pay_for_platform_deposit` decimal(14,4) NOT NULL,
+  `pay_for_platform_withdraw_percent` decimal(5,2) NOT NULL,
+  `min_pay_for_platform_withdraw` decimal(14,4) NOT NULL,
+  `max_pay_for_platform_withdraw` decimal(14,4) NOT NULL,
+  `balance` decimal(14,4) NOT NULL,
+  `times_limit` smallint(6) NOT NULL,
+  `platform_host` varchar(100) default NULL,
+  `platform_deposit_url` varchar(100) default NULL,
+  `platform_withdraw_url` varchar(100) default NULL,
+  `platform_query_url` varchar(100) default NULL,
+  `receive_host` varchar(100) default NULL,
+  `receive_url` varchar(100) default NULL,
+  `receive_url_continued` varchar(100) default NULL,
+  `status` smallint(6) NOT NULL,
+  `introdution` longtext NOT NULL,
+  `platform_require_encoding` varchar(10) default NULL,
+  `platform_attr` smallint(6) NOT NULL,
+  `add_time` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for pay_method_cards
+-- ----------------------------
+CREATE TABLE `pay_method_cards` (
+  `id` int(11) NOT NULL auto_increment,
+  `paymethod_id` int(11) NOT NULL,
+  `card_id` int(11) NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `paymethod_id` (`paymethod_id`,`card_id`),
+  KEY `pay_method_cards_6107d730` (`paymethod_id`),
+  KEY `pay_method_cards_441d8306` (`card_id`),
+  CONSTRAINT `card_id_refs_id_7e9f70ab` FOREIGN KEY (`card_id`) REFERENCES `card` (`id`),
+  CONSTRAINT `paymethod_id_refs_id_33b23545` FOREIGN KEY (`paymethod_id`) REFERENCES `pay_method` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for province
 -- ----------------------------
 CREATE TABLE `province` (
@@ -278,6 +343,25 @@ CREATE TABLE `province` (
   PRIMARY KEY  (`id`),
   KEY `province_534dd89` (`country_id`),
   CONSTRAINT `country_id_refs_iso_7b15e9a8` FOREIGN KEY (`country_id`) REFERENCES `country` (`iso`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for user_card
+-- ----------------------------
+CREATE TABLE `user_card` (
+  `id` int(11) NOT NULL auto_increment,
+  `bank_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `alias` varchar(20) NOT NULL,
+  `account_name` varchar(30) NOT NULL,
+  `branch` varchar(50) NOT NULL,
+  `card_no` varchar(30) NOT NULL,
+  `add_time` datetime NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `user_card_1862eb86` (`bank_id`),
+  KEY `user_card_403f60f` (`user_id`),
+  CONSTRAINT `bank_id_refs_id_5cfaf0e` FOREIGN KEY (`bank_id`) REFERENCES `bank` (`id`),
+  CONSTRAINT `user_id_refs_id_993816f` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -328,11 +412,13 @@ CREATE TABLE `user_profile` (
   `lastip` char(15) default NULL,
   `registerip` char(15) default NULL,
   `country_id` varchar(6) default NULL,
-  `available_balance` decimal(14,4) default NULL,
-  `cash_balance` decimal(14,4) default NULL,
-  `channel_balance` decimal(14,4) default NULL,
-  `hold_balance` decimal(14,4) default NULL,
+  `available_balance` decimal(14,4) NOT NULL,
+  `cash_balance` decimal(14,4) NOT NULL,
+  `channel_balance` decimal(14,4) NOT NULL,
+  `hold_balance` decimal(14,4) NOT NULL,
   `balance_update_time` datetime default NULL,
+  `email_verified` tinyint(1) NOT NULL,
+  `security_password` varchar(128) default NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `user_id` (`user_id`),
   KEY `user_profile_586a73b5` (`city_id`),
@@ -398,8 +484,22 @@ INSERT INTO `auth_permission` VALUES ('48', 'Can delete profile', '16', 'delete_
 INSERT INTO `auth_permission` VALUES ('49', 'Can add log entry', '17', 'add_logentry');
 INSERT INTO `auth_permission` VALUES ('50', 'Can change log entry', '17', 'change_logentry');
 INSERT INTO `auth_permission` VALUES ('51', 'Can delete log entry', '17', 'delete_logentry');
-INSERT INTO `auth_user` VALUES ('1', 'root', '', '', 'kirinse@gmail.com', 'sha1$38e72$28ccf56ab866a4e3e75331a23532ce1fc7d3772a', '1', '1', '1', '2011-03-28 14:11:45', '2011-03-27 18:16:29');
+INSERT INTO `auth_permission` VALUES ('52', 'Can add Pay Method', '18', 'add_paymethod');
+INSERT INTO `auth_permission` VALUES ('53', 'Can change Pay Method', '18', 'change_paymethod');
+INSERT INTO `auth_permission` VALUES ('54', 'Can delete Pay Method', '18', 'delete_paymethod');
+INSERT INTO `auth_permission` VALUES ('57', 'Can verify', '13', 'can_verify');
+INSERT INTO `auth_permission` VALUES ('58', 'Can verify', '15', 'can_verify');
+INSERT INTO `auth_permission` VALUES ('59', 'Can stick', '15', 'can_stick');
+INSERT INTO `auth_permission` VALUES ('60', 'Can add User\'s card', '19', 'add_usercard');
+INSERT INTO `auth_permission` VALUES ('61', 'Can change User\'s card', '19', 'change_usercard');
+INSERT INTO `auth_permission` VALUES ('62', 'Can delete User\'s card', '19', 'delete_usercard');
+INSERT INTO `auth_user` VALUES ('1', 'root', '', '', 'kirinse@gmail.com', 'sha1$38e72$28ccf56ab866a4e3e75331a23532ce1fc7d3772a', '1', '1', '1', '2011-03-30 11:09:53', '2011-03-27 18:16:29');
 INSERT INTO `auth_user` VALUES ('6', 'darkmoon', 'Floyd', 'Joe', 'c-mtv@163.com', 'sha1$2e338$987ac8e4988fe8fb600d60a33de7689dfe12b9c2', '0', '1', '0', '2011-03-28 13:47:38', '2011-03-28 10:15:10');
+INSERT INTO `bank` VALUES ('1', 'ICBC', '中国工商银行', 'images/bank/6.gif');
+INSERT INTO `bank` VALUES ('2', 'CCB', '建设银行', 'images/bank/7.gif');
+INSERT INTO `card` VALUES ('1', '9558800000000000000', '1', 'cmtv@163', 'CNY', '徐菊', '2011-03-30 16:07:04', '0', 'c-mtv@163.com', '0.0000', '123123', '123123', null, null, 'CN', '3', 'Deposit');
+INSERT INTO `channel` VALUES ('1', '1', '低频', '/lowgame');
+INSERT INTO `channel` VALUES ('2', '1', '高频', '/highgame');
 INSERT INTO `city` VALUES ('1', '石家庄市', '70');
 INSERT INTO `city` VALUES ('2', '唐山市', '70');
 INSERT INTO `city` VALUES ('3', '秦皇岛市', '70');
@@ -1100,6 +1200,27 @@ INSERT INTO `country` VALUES ('ZW', 'ZIMBABWE', 'Zimbabwe', '', 'ZWE', '716');
 INSERT INTO `django_admin_log` VALUES ('1', '2011-03-27 20:10:40', '1', '3', '2', 'darkmoon', '3', '');
 INSERT INTO `django_admin_log` VALUES ('2', '2011-03-27 21:48:44', '1', '3', '4', 'darkmoon', '3', '');
 INSERT INTO `django_admin_log` VALUES ('3', '2011-03-28 10:13:17', '1', '3', '5', 'darkmoon', '3', '');
+INSERT INTO `django_admin_log` VALUES ('4', '2011-03-30 11:10:32', '1', '11', '1', 'local.py:8000', '1', '');
+INSERT INTO `django_admin_log` VALUES ('5', '2011-03-30 11:21:48', '1', '12', '1', '中国工商银行', '1', '');
+INSERT INTO `django_admin_log` VALUES ('6', '2011-03-30 11:22:44', '1', '12', '2', '建设银行', '1', '');
+INSERT INTO `django_admin_log` VALUES ('7', '2011-03-30 11:24:57', '1', '12', '2', '建设银行', '2', 'Changed logo.');
+INSERT INTO `django_admin_log` VALUES ('8', '2011-03-30 11:38:17', '1', '12', '2', '建设银行', '2', 'Changed logo.');
+INSERT INTO `django_admin_log` VALUES ('9', '2011-03-30 14:03:52', '1', '13', '1', '中国工商银行 card 9558800000000000000', '1', '');
+INSERT INTO `django_admin_log` VALUES ('10', '2011-03-30 14:04:46', '1', '13', '1', '中国工商银行 card 9558800000000000000', '2', 'Changed enabled.');
+INSERT INTO `django_admin_log` VALUES ('11', '2011-03-30 14:10:07', '1', '13', '2', '建设银行 card 9558800000000000000', '1', '');
+INSERT INTO `django_admin_log` VALUES ('12', '2011-03-30 14:18:52', '1', '13', '1', '中国工商银行: 9558800000000000000', '1', '');
+INSERT INTO `django_admin_log` VALUES ('13', '2011-03-30 14:20:57', '1', '14', '1', '低频', '1', '');
+INSERT INTO `django_admin_log` VALUES ('14', '2011-03-30 14:21:06', '1', '14', '2', '高频', '1', '');
+INSERT INTO `django_admin_log` VALUES ('15', '2011-03-30 14:27:19', '1', '15', '1', 'testing', '1', '');
+INSERT INTO `django_admin_log` VALUES ('16', '2011-03-30 14:37:43', '1', '18', '1', 'Email 充值', '1', '');
+INSERT INTO `django_admin_log` VALUES ('17', '2011-03-30 14:46:27', '1', '18', '1', 'Email 充值', '1', '');
+INSERT INTO `django_admin_log` VALUES ('18', '2011-03-30 16:07:04', '1', '13', '1', '中国工商银行: 9558800000000000000', '1', '');
+INSERT INTO `django_admin_log` VALUES ('19', '2011-03-30 16:08:21', '1', '18', '1', 'Email 充值', '1', '');
+INSERT INTO `django_admin_log` VALUES ('20', '2011-03-30 16:29:33', '1', '11', '1', 'local.py:8000', '2', 'No fields changed.');
+INSERT INTO `django_admin_log` VALUES ('21', '2011-03-30 16:29:40', '1', '11', '2', 'localhost', '1', '');
+INSERT INTO `django_admin_log` VALUES ('22', '2011-03-30 16:30:28', '1', '11', '2', 'http://localhost/', '2', 'No fields changed.');
+INSERT INTO `django_admin_log` VALUES ('23', '2011-03-30 16:31:44', '1', '11', '2', 'http://localhost/', '2', 'No fields changed.');
+INSERT INTO `django_admin_log` VALUES ('24', '2011-03-30 16:35:08', '1', '11', '1', 'http://local.py:8000/', '2', 'No fields changed.');
 INSERT INTO `django_content_type` VALUES ('1', 'permission', 'auth', 'permission');
 INSERT INTO `django_content_type` VALUES ('2', 'group', 'auth', 'group');
 INSERT INTO `django_content_type` VALUES ('3', 'user', 'auth', 'user');
@@ -1117,11 +1238,19 @@ INSERT INTO `django_content_type` VALUES ('14', 'Channel', 'home', 'channel');
 INSERT INTO `django_content_type` VALUES ('15', 'Announcement', 'home', 'announcement');
 INSERT INTO `django_content_type` VALUES ('16', 'profile', 'account', 'userprofile');
 INSERT INTO `django_content_type` VALUES ('17', 'log entry', 'admin', 'logentry');
+INSERT INTO `django_content_type` VALUES ('18', 'Pay Method', 'home', 'paymethod');
+INSERT INTO `django_content_type` VALUES ('19', 'User\'s card', 'account', 'usercard');
+INSERT INTO `django_session` VALUES ('77528a533746e5165a0f1179c4b7bce0', 'gAJ9cQEuOWQwZDBlZDQ3ZWIwZThkZWY1MzRhMDA0OWZkOGEwYjI=\n', '2011-04-11 17:36:07');
 INSERT INTO `django_session` VALUES ('7946c2070cf2aad15407026100ce250e', 'gAJ9cQEuOWQwZDBlZDQ3ZWIwZThkZWY1MzRhMDA0OWZkOGEwYjI=\n', '2011-04-10 21:35:12');
-INSERT INTO `django_session` VALUES ('82f7a1c0b65154347592fb9ece984671', 'gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRVKWRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMu\nTW9kZWxCYWNrZW5kVQ1fYXV0aF91c2VyX2lkigEBdS5mYWNjNTJlY2JkYTUwZDQyMWNmYTgyMmUy\nMzU1NWY2Zg==\n', '2011-04-11 14:12:09');
+INSERT INTO `django_session` VALUES ('82f7a1c0b65154347592fb9ece984671', 'gAJ9cQEoVQ1fYXV0aF91c2VyX2lkigEBVRJfYXV0aF91c2VyX2JhY2tlbmRVKWRqYW5nby5jb250\ncmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kdS5mZjdmZDQyODZmZTllOGM4YWI5ZGJiZGI1\nMDkzMmY3NQ==\n', '2011-04-11 15:21:36');
 INSERT INTO `django_session` VALUES ('aa448e033658eeb187028381d71f1050', 'gAJ9cQEuOWQwZDBlZDQ3ZWIwZThkZWY1MzRhMDA0OWZkOGEwYjI=\n', '2011-04-11 11:33:50');
+INSERT INTO `django_session` VALUES ('ac69c92fb20fffae3f47b79d820ba864', 'gAJ9cQEuOWQwZDBlZDQ3ZWIwZThkZWY1MzRhMDA0OWZkOGEwYjI=\n', '2011-04-11 15:18:27');
 INSERT INTO `django_session` VALUES ('c4c41f60ebd8b4da468ea429699122ae', 'gAJ9cQEuOWQwZDBlZDQ3ZWIwZThkZWY1MzRhMDA0OWZkOGEwYjI=\n', '2011-04-11 09:51:11');
+INSERT INTO `django_session` VALUES ('cc760f74894cfe39f3d54bbbfc5efd9c', 'gAJ9cQEuOWQwZDBlZDQ3ZWIwZThkZWY1MzRhMDA0OWZkOGEwYjI=\n', '2011-04-11 16:31:17');
+INSERT INTO `django_session` VALUES ('f265473de0fd3360f1485e8109a89b0a', 'gAJ9cQEoVQ1fYXV0aF91c2VyX2lkigEBVRJfYXV0aF91c2VyX2JhY2tlbmRVKWRqYW5nby5jb250\ncmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kdS5mZjdmZDQyODZmZTllOGM4YWI5ZGJiZGI1\nMDkzMmY3NQ==\n', '2011-04-13 17:32:48');
 INSERT INTO `django_site` VALUES ('1', 'example.com', 'example.com');
+INSERT INTO `pay_method` VALUES ('1', 'Email 充值', 'emailload', 'CNY', 'a', 'a', '10.0000', '10000.0000', '1.0000', '0.50', '500.0000', '2.0000', '1.00', '0.0000', '0.0000', '0.0000', '0.00', '0.0000', '0.0000', '0.00', '0.30', '1.0000', '2.0000', '0.00', '0.0000', '0.0000', '0.0000', '500', '', '', '', '', '', '', '', '0', 'jhgfsda\r\nasdfpewrjkfmgb,\r\nasjd;fmdvb[per\'gf\r\n!@#$%^&*()', 'utf-8', '3', '2011-03-30 16:08:21');
+INSERT INTO `pay_method_cards` VALUES ('1', '1', '1');
 INSERT INTO `province` VALUES ('3', '北京市', 'CN');
 INSERT INTO `province` VALUES ('4', 'Alaska', 'US');
 INSERT INTO `province` VALUES ('5', 'Alabama', 'US');
@@ -1220,5 +1349,4 @@ INSERT INTO `province` VALUES ('97', '宁夏回族自治区', 'CN');
 INSERT INTO `province` VALUES ('98', '新疆维吾尔自治区', 'CN');
 INSERT INTO `province` VALUES ('99', '香港特别行政区', 'CN');
 INSERT INTO `province` VALUES ('100', '澳门特别行政区', 'CN');
-INSERT INTO `user_profile` VALUES ('1', '1', null, 'U', null, null, null, null, null, null, null, null, null, null, '10000.0000', '0.0000', '0.0000', '0.0000', null);
-INSERT INTO `user_profile` VALUES ('4', '6', '1918-03-18', 'M', '9876543', 'paseo parkview suite', '18L', '112', '123456', null, '81', '127.0.0.1', '127.0.0.1', 'CN', '0.0000', '0.0000', '0.0000', '0.0000', null);
+INSERT INTO `user_profile` VALUES ('1', '1', null, 'U', null, null, null, null, null, null, null, null, null, null, '0.0000', '0.0000', '0.0000', '0.0000', null, '0', null);

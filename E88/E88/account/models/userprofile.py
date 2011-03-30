@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from home.models import Province, Country, City
+from home.models import Province, Country, City, Bank
 
 GENDER = (('M', _('male')), ('F', _('female')), ('U', _('unknown')))
 
