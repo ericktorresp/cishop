@@ -54,7 +54,7 @@ a img {
     border              : none;
     outline				: none;
 }
-
+/*
 button, input[type="submit"], input[type="button"] {
     background-color    : transparent;
     margin              : 0;
@@ -63,7 +63,7 @@ button, input[type="submit"], input[type="button"] {
     border              : none;
     cursor              : pointer;
 }
-
+*/
 /* workaround for removing selection outline in Firefox */
 button::-moz-focus-inner { 
     border              : 0; 

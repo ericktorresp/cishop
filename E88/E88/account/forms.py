@@ -33,7 +33,7 @@ class UserRegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("username",)
+        fields = ("username", 'password', 'email')
 
     def clean_username(self):
         username = self.cleaned_data["username"]
@@ -166,6 +166,22 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
     pass
+
+class UserSecurePasswordForm(forms.ModelForm):
+    security_password = forms.RegexField(label=_("Security Password"), regex=r'^[\w]+$', widget=forms.PasswordInput)
+    security_password_confirm = forms.CharField(label=_("Security Password confirmation"), widget=forms.PasswordInput, help_text = _("Enter the same password as above, for verification."))
+
+    def clean_security_password_confirm(self):
+        password1 = self.cleaned_data.get("security_password", "")
+        password2 = self.cleaned_data["security_password_confirm"]
+        if password1 != password2:
+            raise forms.ValidationError(_("The two password fields didn't match."))
+        return password2
+
+ 
+    class Meta:
+        model = UserProfile
+        fields = ('security_password',)
 
 class UserRegConfirmForm(forms.Form):
     pass

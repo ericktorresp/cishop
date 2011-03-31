@@ -13,6 +13,7 @@ class UserProfile(models.Model):
 #    first_name = models.CharField(_('First name'), max_length=30)
 #    last_name = models.CharField(_('Last name'), max_length=30)
     phone = models.CharField(_('Phone'), max_length=11, null=True, blank=True)
+    mobile = models.CharField(_('Mobile'), max_length=15, null=True, blank=True)
     address = models.CharField(_('Street Address'), max_length=255, null=True, blank=True)
     address2 = models.CharField(_('Apt/Suite number'), max_length=255, null=True, blank=True)
     city = models.ForeignKey(City, verbose_name = _('City'), null=True, blank=True)

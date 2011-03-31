@@ -15,10 +15,6 @@ from django.utils.http import urlquote, base36_to_int
 #from django import forms
 from account.forms import *
 from django.contrib.sites.models import get_current_site
-try:
-    import json
-except:
-    import simplejson as json
 
 @login_required
 def account(request):
@@ -154,6 +150,9 @@ def deposit(request):
 @csrf_protect
 @login_required
 def withdraw(request):
+    if request.user.get_profile().security_password is None:
+        return HttpResponseRedirect('securepwd')
+    
     if request.method == 'POST':
         form = UserWithdrawForm(request.POST)
         if form.is_valid():
@@ -173,3 +172,24 @@ def referral(request):
 @login_required
 def password(request):
     pass
+
+@csrf_protect
+@login_required
+def mycard(request):
+    if request.user.get_profile().security_password == '':
+        return HttpResponseRedirect('securepwd')
+    return render_to_response('mycard.html', {'site': get_current_site(request)}, context_instance=RequestContext(request))
+
+@csrf_protect
+@login_required
+def securepwd(request):
+    if request.method == 'POST':
+        form = UserSecurePasswordForm(request.POST)
+        if form.is_valid():
+            new_withdraw = form.save()
+            next = request.GET.get('next', '')
+            return HttpResponseRedirect(next)
+    else:
+        form = UserSecurePasswordForm()
+        
+    return render_to_response('securepwd.html', {'form': form,'site': get_current_site(request)}, context_instance=RequestContext(request))

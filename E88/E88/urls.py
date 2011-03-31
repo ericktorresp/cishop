@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.conf import settings
 from account.views import register, register_step2, active, register_confirm, register_done
 from dajaxice.core import dajaxice_autodiscover
+from games.views import index
 
 dajaxice_autodiscover()
 
@@ -34,4 +35,5 @@ urlpatterns = patterns('',
     
     url(r'^account/reset/done$', 'django.contrib.auth.views.password_reset_done', {'template_name':'password_reset_done.html'}, name='password_reset_done'),
     url(r'^account/', include('account.urls')),
+    url(r'^games$', index(), name="games_index"),
 )

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div id="bottomContainer">
+	<h1 class="noBottom">
+	 {% trans "Set security password" %}
+	</h1>
+	<div class="securityNote">Your personal details are always safe with us on our secure servers.</div>
+    {% if form.errors %}
+    {% for field in form %}
+    {% if field.errors %}
+    <div class="errorNotice">
+    	<div class="icon error"></div>
+    	{{ field.errors|striptags }}
+    </div>
+    {% endif %}
+   	{% endfor %}
+    {% endif %}
+	<form action="" method="POST">
+	{% csrf_token %}
+	<div class="formColumn left">
+	    <div class="formRow mandatory{% if form.security_password.errors %} error{% endif %}">
+	        {{ form.security_password.label_tag }}
+	        {{ form.security_password }}
+	    </div>
+	    <div class="formRow mandatory{% if form.security_password_confirm.errors %} error{% endif %}">
+	        {{ form.security_password_confirm.label_tag }}
+	        {{ form.security_password_confirm }}
+	    </div>
+    </div>
+    <div class="formColumn right">
+    
+    </div>
+    <div class="formFooter">
+        <div class="importantNote">All <span class="mandatory">gold fields</span> are mandatory</div>
+        <div class="buttons">
+            <input type="image" src="{{ MEDIA_URL }}images/button_next.png" alt="NEXT">
+        </div>
+    </div>
+	</form>
+</div>
+{% endblock %}

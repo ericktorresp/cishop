@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: e88
 Target Host: localhost
 Target Database: e88
-Date: 2011/3/30 17:36:22
+Date: 2011/3/31 17:17:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -129,6 +129,22 @@ CREATE TABLE `auth_user_user_permissions` (
   KEY `auth_user_user_permissions_1e014c8f` (`permission_id`),
   CONSTRAINT `permission_id_refs_id_67e79cb` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
   CONSTRAINT `user_id_refs_id_dfbab7d` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for axes_accessattempt
+-- ----------------------------
+CREATE TABLE `axes_accessattempt` (
+  `id` int(11) NOT NULL auto_increment,
+  `user_agent` varchar(255) NOT NULL,
+  `ip_address` char(15) NOT NULL,
+  `get_data` longtext NOT NULL,
+  `post_data` longtext NOT NULL,
+  `http_accept` varchar(255) NOT NULL,
+  `path_info` varchar(255) NOT NULL,
+  `failures_since_start` int(10) unsigned NOT NULL,
+  `attempt_time` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -272,6 +288,19 @@ CREATE TABLE `domain` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for game
+-- ----------------------------
+CREATE TABLE `game` (
+  `id` int(11) NOT NULL auto_increment,
+  `display_name` varchar(100) NOT NULL,
+  `url_name` varchar(100) NOT NULL,
+  `url` varchar(255) default NULL,
+  `photo` varchar(100) NOT NULL,
+  `add_time` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for pay_method
 -- ----------------------------
 CREATE TABLE `pay_method` (
@@ -403,6 +432,7 @@ CREATE TABLE `user_profile` (
   `birthday` date default NULL,
   `gender` varchar(1) NOT NULL,
   `phone` varchar(11) default NULL,
+  `mobile` varchar(15) default NULL,
   `address` varchar(255) default NULL,
   `address2` varchar(255) default NULL,
   `city_id` int(11) default NULL,
@@ -493,7 +523,13 @@ INSERT INTO `auth_permission` VALUES ('59', 'Can stick', '15', 'can_stick');
 INSERT INTO `auth_permission` VALUES ('60', 'Can add User\'s card', '19', 'add_usercard');
 INSERT INTO `auth_permission` VALUES ('61', 'Can change User\'s card', '19', 'change_usercard');
 INSERT INTO `auth_permission` VALUES ('62', 'Can delete User\'s card', '19', 'delete_usercard');
-INSERT INTO `auth_user` VALUES ('1', 'root', '', '', 'kirinse@gmail.com', 'sha1$38e72$28ccf56ab866a4e3e75331a23532ce1fc7d3772a', '1', '1', '1', '2011-03-30 11:09:53', '2011-03-27 18:16:29');
+INSERT INTO `auth_permission` VALUES ('63', 'Can add Game', '20', 'add_game');
+INSERT INTO `auth_permission` VALUES ('64', 'Can change Game', '20', 'change_game');
+INSERT INTO `auth_permission` VALUES ('65', 'Can delete Game', '20', 'delete_game');
+INSERT INTO `auth_permission` VALUES ('66', 'Can add access attempt', '21', 'add_accessattempt');
+INSERT INTO `auth_permission` VALUES ('67', 'Can change access attempt', '21', 'change_accessattempt');
+INSERT INTO `auth_permission` VALUES ('68', 'Can delete access attempt', '21', 'delete_accessattempt');
+INSERT INTO `auth_user` VALUES ('1', 'root', 'Floyd', 'Joe', 'kirinse@gmail.com', 'sha1$38e72$28ccf56ab866a4e3e75331a23532ce1fc7d3772a', '1', '1', '1', '2011-03-31 16:34:35', '2011-03-27 18:16:29');
 INSERT INTO `auth_user` VALUES ('6', 'darkmoon', 'Floyd', 'Joe', 'c-mtv@163.com', 'sha1$2e338$987ac8e4988fe8fb600d60a33de7689dfe12b9c2', '0', '1', '0', '2011-03-28 13:47:38', '2011-03-28 10:15:10');
 INSERT INTO `bank` VALUES ('1', 'ICBC', '中国工商银行', 'images/bank/6.gif');
 INSERT INTO `bank` VALUES ('2', 'CCB', '建设银行', 'images/bank/7.gif');
@@ -1221,6 +1257,8 @@ INSERT INTO `django_admin_log` VALUES ('21', '2011-03-30 16:29:40', '1', '11', '
 INSERT INTO `django_admin_log` VALUES ('22', '2011-03-30 16:30:28', '1', '11', '2', 'http://localhost/', '2', 'No fields changed.');
 INSERT INTO `django_admin_log` VALUES ('23', '2011-03-30 16:31:44', '1', '11', '2', 'http://localhost/', '2', 'No fields changed.');
 INSERT INTO `django_admin_log` VALUES ('24', '2011-03-30 16:35:08', '1', '11', '1', 'http://local.py:8000/', '2', 'No fields changed.');
+INSERT INTO `django_admin_log` VALUES ('25', '2011-03-31 14:29:53', '1', '20', '2', '老虎机', '1', '');
+INSERT INTO `django_admin_log` VALUES ('26', '2011-03-31 14:30:41', '1', '20', '2', '老虎机', '2', 'Changed photo.');
 INSERT INTO `django_content_type` VALUES ('1', 'permission', 'auth', 'permission');
 INSERT INTO `django_content_type` VALUES ('2', 'group', 'auth', 'group');
 INSERT INTO `django_content_type` VALUES ('3', 'user', 'auth', 'user');
@@ -1240,15 +1278,18 @@ INSERT INTO `django_content_type` VALUES ('16', 'profile', 'account', 'userprofi
 INSERT INTO `django_content_type` VALUES ('17', 'log entry', 'admin', 'logentry');
 INSERT INTO `django_content_type` VALUES ('18', 'Pay Method', 'home', 'paymethod');
 INSERT INTO `django_content_type` VALUES ('19', 'User\'s card', 'account', 'usercard');
+INSERT INTO `django_content_type` VALUES ('20', 'Game', 'games', 'game');
+INSERT INTO `django_content_type` VALUES ('21', 'access attempt', 'axes', 'accessattempt');
 INSERT INTO `django_session` VALUES ('77528a533746e5165a0f1179c4b7bce0', 'gAJ9cQEuOWQwZDBlZDQ3ZWIwZThkZWY1MzRhMDA0OWZkOGEwYjI=\n', '2011-04-11 17:36:07');
 INSERT INTO `django_session` VALUES ('7946c2070cf2aad15407026100ce250e', 'gAJ9cQEuOWQwZDBlZDQ3ZWIwZThkZWY1MzRhMDA0OWZkOGEwYjI=\n', '2011-04-10 21:35:12');
+INSERT INTO `django_session` VALUES ('7f4a2848f36679f76563b6598505d589', 'gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRVKWRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMu\nTW9kZWxCYWNrZW5kVQ1fYXV0aF91c2VyX2lkigEBdS5mYWNjNTJlY2JkYTUwZDQyMWNmYTgyMmUy\nMzU1NWY2Zg==\n', '2011-04-14 17:13:34');
 INSERT INTO `django_session` VALUES ('82f7a1c0b65154347592fb9ece984671', 'gAJ9cQEoVQ1fYXV0aF91c2VyX2lkigEBVRJfYXV0aF91c2VyX2JhY2tlbmRVKWRqYW5nby5jb250\ncmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kdS5mZjdmZDQyODZmZTllOGM4YWI5ZGJiZGI1\nMDkzMmY3NQ==\n', '2011-04-11 15:21:36');
 INSERT INTO `django_session` VALUES ('aa448e033658eeb187028381d71f1050', 'gAJ9cQEuOWQwZDBlZDQ3ZWIwZThkZWY1MzRhMDA0OWZkOGEwYjI=\n', '2011-04-11 11:33:50');
 INSERT INTO `django_session` VALUES ('ac69c92fb20fffae3f47b79d820ba864', 'gAJ9cQEuOWQwZDBlZDQ3ZWIwZThkZWY1MzRhMDA0OWZkOGEwYjI=\n', '2011-04-11 15:18:27');
 INSERT INTO `django_session` VALUES ('c4c41f60ebd8b4da468ea429699122ae', 'gAJ9cQEuOWQwZDBlZDQ3ZWIwZThkZWY1MzRhMDA0OWZkOGEwYjI=\n', '2011-04-11 09:51:11');
 INSERT INTO `django_session` VALUES ('cc760f74894cfe39f3d54bbbfc5efd9c', 'gAJ9cQEuOWQwZDBlZDQ3ZWIwZThkZWY1MzRhMDA0OWZkOGEwYjI=\n', '2011-04-11 16:31:17');
-INSERT INTO `django_session` VALUES ('f265473de0fd3360f1485e8109a89b0a', 'gAJ9cQEoVQ1fYXV0aF91c2VyX2lkigEBVRJfYXV0aF91c2VyX2JhY2tlbmRVKWRqYW5nby5jb250\ncmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kdS5mZjdmZDQyODZmZTllOGM4YWI5ZGJiZGI1\nMDkzMmY3NQ==\n', '2011-04-13 17:32:48');
 INSERT INTO `django_site` VALUES ('1', 'example.com', 'example.com');
+INSERT INTO `game` VALUES ('2', '老虎机', 'slot', '', 'images/games/gamepage/gameWitchsBrew.png', '2011-03-31 14:29:53');
 INSERT INTO `pay_method` VALUES ('1', 'Email 充值', 'emailload', 'CNY', 'a', 'a', '10.0000', '10000.0000', '1.0000', '0.50', '500.0000', '2.0000', '1.00', '0.0000', '0.0000', '0.0000', '0.00', '0.0000', '0.0000', '0.00', '0.30', '1.0000', '2.0000', '0.00', '0.0000', '0.0000', '0.0000', '500', '', '', '', '', '', '', '', '0', 'jhgfsda\r\nasdfpewrjkfmgb,\r\nasjd;fmdvb[per\'gf\r\n!@#$%^&*()', 'utf-8', '3', '2011-03-30 16:08:21');
 INSERT INTO `pay_method_cards` VALUES ('1', '1', '1');
 INSERT INTO `province` VALUES ('3', '北京市', 'CN');
@@ -1349,4 +1390,4 @@ INSERT INTO `province` VALUES ('97', '宁夏回族自治区', 'CN');
 INSERT INTO `province` VALUES ('98', '新疆维吾尔自治区', 'CN');
 INSERT INTO `province` VALUES ('99', '香港特别行政区', 'CN');
 INSERT INTO `province` VALUES ('100', '澳门特别行政区', 'CN');
-INSERT INTO `user_profile` VALUES ('1', '1', null, 'U', null, null, null, null, null, null, null, null, null, null, '0.0000', '0.0000', '0.0000', '0.0000', null, '0', null);
+INSERT INTO `user_profile` VALUES ('1', '1', '1918-02-18', 'M', '9876543', null, 'paseo parkview suite', '18L', '202', '123456', null, '86', null, null, 'CN', '0.0000', '0.0000', '0.0000', '0.0000', null, '0', null);

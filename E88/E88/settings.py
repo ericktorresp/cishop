@@ -51,8 +51,8 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/"
-# MEDIA_ROOT = 'E:/server/py-projects/e8/_static/'
-MEDIA_ROOT = '/Library/WebServer/Documents/'
+MEDIA_ROOT = 'E:/server/py-projects/e8/_static/'
+#MEDIA_ROOT = '/Library/WebServer/Documents/'
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
@@ -82,6 +82,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
+    'axes.middleware.FailedLoginMiddleware',
 )
 
 ROOT_URLCONF = 'e8.urls'
@@ -90,8 +91,8 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-#    'E:/server/py-projects/e8/_templates',
-    '/Users/corporate/Documents/workspace/e8/_templates'
+    'E:/server/py-projects/e8/_templates',
+#    '/Users/corporate/Documents/workspace/e8/_templates'
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -109,18 +110,25 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
+    'axes',
     'dajaxice',
     'home',
     'account',
+    'games',
+#    'tracking',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
-
+# Ajax Framework
 DAJAXICE_MEDIA_PREFIX="dajaxice"
+# Login protection
+AXES_COOLOFF_TIME = 1;
+
 
 AUTH_PROFILE_MODULE = 'account.UserProfile'
+
 PASSWORD_RESET_TIMEOUT_DAYS = 1
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
