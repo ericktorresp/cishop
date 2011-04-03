@@ -31,6 +31,10 @@ class UserRegisterForm(forms.ModelForm):
     email = forms.EmailField(label=_('Email'), max_length=50)
     agree = forms.BooleanField(label=_('Agree'))
 
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(UserRegisterForm, self).__init__(*args, **kwargs)
+
     class Meta:
         model = User
         fields = ("username", 'password', 'email')
@@ -58,7 +62,7 @@ class UserRegisterForm(forms.ModelForm):
             raise forms.ValidationError(_("The two password fields didn't match."))
         return password2
 
-    def save(self, commit=True, request=None):
+    def save(self, commit=True):
         user = super(UserRegisterForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password"])
         user.email = self.cleaned_data['email']
@@ -74,8 +78,8 @@ class UserRegisterForm(forms.ModelForm):
 #                                       zip = None,
 #                                       language = None,
 #                                       province = None,
-                                       lastip = request.META['REMOTE_ADDR'],
-                                       registerip = request.META['REMOTE_ADDR'],
+                                       lastip = self.request.META['REMOTE_ADDR'],
+                                       registerip = self.request.META['REMOTE_ADDR'],
 #                                       country = None,
 #                                       available_balance = 0,
 #                                       cash_balance = 0,
@@ -83,7 +87,7 @@ class UserRegisterForm(forms.ModelForm):
 #                                       hold_balance = 0,
 #                                       balance_update_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                                        )
-            if settings.REGISTER_VERIFY_EMAIL and request:
+            if settings.REGISTER_VERIFY_EMAIL:
                 from django.core.mail import send_mail
                 current_site = get_current_site(request)
                 site_name = current_site.name
@@ -100,7 +104,10 @@ class UserRegisterForm(forms.ModelForm):
                 }
                 send_mail(_("Account activation on %s") % site_name,
                     t.render(Context(c)), None, [user.email])
-
+            from django.contrib import auth
+            user = auth.authenticate(username=self.cleaned_data['username'], password=self.cleaned_data['password'])
+            auth.login(self.request, user)
+            user.get_profile()
         return user
 
 class UserFullnameForm(forms.ModelForm):
@@ -161,7 +168,58 @@ class UserRegisterConfirmForm(forms.Form):
         del(request.session['profile'])
         return request.user
 
+class UserUpdateEmailForm(forms.ModelForm):
+    email = forms.EmailField(label=_('Email'), max_length=50)
+    mobile = forms.RegexField(label=_('Mobile'), regex=r'^[\d]{8,15}$', max_length=15, required=False)
+                    
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        try:
+            User.objects.get(email__exact=email)
+        except User.DoesNotExist:
+            return email
+        raise forms.ValidationError(_('A user with that email already exists.'))
     
+    def clean_mobile(self):
+        mobile = self.cleaned_data['mobile']
+        if mobile:
+            try:
+                UserProfile.objects.get(mobile__exact=mobile)
+            except UserProfile.DoesNotExist:
+                return mobile
+            raise forms.ValidationError(_('A user with that mobile already exists.'))
+    
+    def save(self, request=None):
+        request.user.email = self.cleaned_data['email']
+        request.user.save()
+#@todo: 1. update user_profile.email.verify = False, send verify email to new address
+#       2. add email_change_log record
+#       3. send verify email to new address
+    
+    class Meta:
+        model = User
+        fields = ('email',)
+
+class UserMobileForm(forms.ModelForm):
+    mobile = forms.CharField(label=_('Mobile'), max_length=15)
+
+    def clean_mobile(self):
+        mobile = self.cleaned_data['mobile']
+        try:
+            UserProfile.objects.get(mobile__exact=mobile)
+        except UserProfile.DoesNotExist:
+            return mobile
+        raise forms.ValidationError(_('A user with that mobile already exists.'))
+    
+    def save(self, request=None):
+        request.user.profile.mobile = self.cleaned_data['mobile']
+        request.user.profile.save()
+        
+    
+    class Meta:
+        model = UserProfile
+        fields = ('mobile',)
+
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile

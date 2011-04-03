@@ -592,7 +592,7 @@ button:active {
     clear               : both;
     padding-left        : 26px;
     padding-right       : 26px;
-    width               : 952px;    /* should be 948? */
+    width               : 950px;    /* should be 948? */
     padding-top         : 10px;
     padding-bottom      : 10px;
     background-image    : url('../images/bottom_background.png');
@@ -797,6 +797,10 @@ li {
     margin-right        : 60px;
     float               : right;
     clear               : right;
+}
+#bottomContainer .right {
+	float				: right;
+	clear				: right;
 }
 #bottomContainer .formColumn.left {
     margin-left         : 70px;
@@ -1128,8 +1132,8 @@ a:hover .allGamesSingleGame, .allGamesSingleGame.active {
 }
 
 #footer {
-    width               : 100%;
-    font-size           : 11px;
+    width               : 1002px;
+    font-size           : 12px;
     clear               : both;
     margin-top          : 10px;
     padding-top         : 20px;
@@ -1137,8 +1141,8 @@ a:hover .allGamesSingleGame, .allGamesSingleGame.active {
     text-align          : center;
     background-color    : #1d1d1d;
     /* XXX HACK */
-    position            : relative;
-    left                : -1px;
+    left				: -1px;
+    bottom				: 0px;
     /* XXX HACK */
 }
 
@@ -1150,3 +1154,7 @@ a:hover .allGamesSingleGame, .allGamesSingleGame.active {
     height              : 0;
 }
 
+#bottomContainer a.Active {
+	color: #FF0000;
+	font-weight: bold;
+}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load mytags %}
+{% block content %}
+<div id="bottomContainer">
+	<div class="formColumn left summary" style="width:120px;">
+		<div class="formRow mandatory"><a href="{% url account_index %}" class="{% active request '^/account/$' %}">{% trans "Account" %}</a></div>
+		<div class="formRow mandatory"><a href="{% url account_deposit %}" class="{% active request '^/account/deposit$' %}">{% trans "Deposit" %}</a></div>
+		<div class="formRow mandatory"><a href="{% url account_withdraw %}" class="{% active request '^/account/withdraw$' %}">{% trans "Withdraw" %}</a></div>
+		<div class="formRow mandatory"><a href="{% url referral %}" class="{% active request '^/account/referral$' %}">{% trans "Referral" %}</a></div>
+		<div class="formRow mandatory"><a href="{% url set_password %}" class="{% active request '^/account/password$' %}">{% trans "Password" %}</a></div>
+		<div class="formRow mandatory"><a href="{% url account_history %}" class="{% active request '^/account/history$' %}">{% trans "History" %}</a></div>
+	</div>
+	<div class="right">
+{% block rightContent %}
+
+{% endblock rightContent %}
+	</div>
+    <div style="clear:both; margin:0; padding:0; font-size:0;line-height:0;"><!--&nbsp;--></div>
+</div>
+{% endblock content %}
