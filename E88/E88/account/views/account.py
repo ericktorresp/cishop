@@ -28,17 +28,16 @@ class AccountIndexView(LoginNeededView):
         context['country_codes'] = Country.objects.all()
         if self.request.method == 'GET':
             context['form'] = UserUpdateEmailForm(instance=self.request.user)
-#            context['mform'] = UserMobileForm(instance=self.request.user.profile, prefix='m')
-        elif self.request.method == 'POST':
+        else:
             context['form'] = UserUpdateEmailForm(data=self.request.POST)
-#            context['mform'] = UserMobileForm(data=self.request.POST, prefix='m')
         return context
         
     def post(self, request, *args, **kwargs):
         form = UserUpdateEmailForm(self.request.POST)
         if form.is_valid():
             form.save(request=request)
-        return HttpResponseRedirect(reverse('account_index'))
+            return HttpResponseRedirect(reverse('account_index'))
+        return self.get(self, request, *args, **kwargs)
     
 class AccountDepositView(LoginNeededView):
     template_name = 'deposit.html'

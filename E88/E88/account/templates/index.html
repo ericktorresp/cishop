@@ -19,8 +19,8 @@
 		</table>
 		{% endif %}
 		<br />
-	    {% if eform.errors %}
-	    {% for field in eform %}
+	    {% if form.errors %}
+	    {% for field in form %}
 	    {% if field.errors %}
 	    <div class="errorNotice">
 	    	<div class="icon error"></div>
@@ -31,7 +31,7 @@
 	    {% endif %}
 		<form action="" method="post">
 			{% csrf_token %}
-			<input type="text" name="email" value="{{user.email}}">
+			{{form.email}}
 			<input type="submit" value="{% trans 'update' %}" name="user_edit1">
 			<div class="formText" style="width:750px;">
 				Please keep your mobile phone number updated. You will only be contacted via your mobile phone regarding your winnings, bonus promotions, and new software releases of our mobile games.

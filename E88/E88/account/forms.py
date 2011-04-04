@@ -192,6 +192,9 @@ class UserUpdateEmailForm(forms.ModelForm):
     def save(self, request=None):
         request.user.email = self.cleaned_data['email']
         request.user.save()
+        userProfile = UserProfile.objects.get(user=request.user)
+        userProfile.mobile = self.cleaned_data['mobile']
+        userProfile.save()
 #@todo: 1. update user_profile.email.verify = False, send verify email to new address
 #       2. add email_change_log record
 #       3. send verify email to new address
