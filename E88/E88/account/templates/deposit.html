@@ -1,7 +1,8 @@
 {% extends "account_base.html" %}
 {% load i18n %}
 {% block rightContent %}
-		<div class="formText" style="width:750px;text-align:left;">
-			Please keep your E-mail information updated. You will only be contacted regarding your game winnings, software updates and on-site promotions. Confirmation of each transaction will also be E-mailed to you. If you have questions or concerns regarding your account or if you want to change your address/phone number, please <a href="mailto:support@slotland.com?subject=Account Info (DARKMOON1111)">let us know</a>.
-		</div>
+<h3>{% trans "Please select pay method" %}</h3>
+{% for method in paymethods %}
+<a href="{% url account_deposit2 method.id %}"><img src="{{MEDIA_URL}}{{method.logo}}"></a><br />
+{% endfor %}
 {% endblock rightContent %}

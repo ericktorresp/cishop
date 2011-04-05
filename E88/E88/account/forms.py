@@ -120,7 +120,7 @@ class UserFullnameForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("first_name","last_name", "id")
+        fields = ("first_name","last_name")
 
 class UserRegister2Form(forms.ModelForm):
     gender = forms.ChoiceField(label=_('Gender'), choices=((u'M', _('Male')),(u'F', _('Female')),(u'U', _('Unknown')),), widget=forms.RadioSelect(renderer=HorizRadioRenderer, attrs={'label_class':'plain'}))
@@ -132,10 +132,6 @@ class UserRegister2Form(forms.ModelForm):
     province = forms.ModelChoiceField(label=_('State/Province'), queryset=Province.objects.all(), widget=forms.Select(attrs={'disabled':'disabled'},choices=(('',_('Province')),)))
     country = forms.ModelChoiceField(label=_('Country'),queryset=Country.objects.all(), empty_label=_('Please choice your country'))
     zip = forms.RegexField(label=_('Zip'),max_length=6, regex=r'^[\d]{4,6}$')
-    
-    def __init__(self, *args, **kwargs):
-        super(UserRegister2Form, self).__init__(*args, **kwargs)
-        
                
     def save(self):
         profile = super(UserRegister2Form, self).save(commit=False)

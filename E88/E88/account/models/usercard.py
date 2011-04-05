@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
-from home.models import Bank
+from bank.models import Bank
 
 class UserCard(models.Model):
     bank = models.ForeignKey(Bank)

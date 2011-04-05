@@ -11,7 +11,7 @@
  Target Server Version : 50510
  File Encoding         : utf-8
 
- Date: 04/04/2011 02:24:39 AM
+ Date: 04/06/2011 00:00:49 AM
 */
 
 SET NAMES utf8;
@@ -33,12 +33,12 @@ CREATE TABLE `announcement` (
   `sticked` tinyint(1) NOT NULL,
   `channel_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `announcement_337b96ff` (`author_id`),
-  KEY `announcement_584122da` (`verifier_id`),
-  KEY `announcement_668d8aa` (`channel_id`),
-  CONSTRAINT `author_id_refs_id_126a9b25` FOREIGN KEY (`author_id`) REFERENCES `auth_user` (`id`),
-  CONSTRAINT `channel_id_refs_id_6520b93c` FOREIGN KEY (`channel_id`) REFERENCES `channel` (`id`),
-  CONSTRAINT `verifier_id_refs_id_126a9b25` FOREIGN KEY (`verifier_id`) REFERENCES `auth_user` (`id`)
+  KEY `announcement_cc846901` (`author_id`),
+  KEY `announcement_a7bedd26` (`verifier_id`),
+  KEY `announcement_f9972756` (`channel_id`),
+  CONSTRAINT `channel_id_refs_id_9adf46c4` FOREIGN KEY (`channel_id`) REFERENCES `channel` (`id`),
+  CONSTRAINT `author_id_refs_id_ed9564db` FOREIGN KEY (`author_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `verifier_id_refs_id_ed9564db` FOREIGN KEY (`verifier_id`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -62,10 +62,10 @@ CREATE TABLE `auth_group_permissions` (
   `permission_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `group_id` (`group_id`,`permission_id`),
-  KEY `auth_group_permissions_425ae3c4` (`group_id`),
+  KEY `auth_group_permissions_bda51c3c` (`group_id`),
   KEY `auth_group_permissions_1e014c8f` (`permission_id`),
   CONSTRAINT `group_id_refs_id_3cea63fe` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
-  CONSTRAINT `permission_id_refs_id_5886d21f` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`)
+  CONSTRAINT `permission_id_refs_id_a7792de1` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -77,8 +77,8 @@ CREATE TABLE `auth_message` (
   `user_id` int(11) NOT NULL,
   `message` longtext NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `auth_message_403f60f` (`user_id`),
-  CONSTRAINT `user_id_refs_id_650f49a6` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+  KEY `auth_message_fbfc09f1` (`user_id`),
+  CONSTRAINT `user_id_refs_id_9af0b65a` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -92,14 +92,14 @@ CREATE TABLE `auth_permission` (
   `codename` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
-  KEY `auth_permission_1bb8f392` (`content_type_id`),
+  KEY `auth_permission_e4470c6e` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_728de91f` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `auth_permission`
 -- ----------------------------
-INSERT INTO `auth_permission` VALUES ('1', 'Can add permission', '1', 'add_permission'), ('2', 'Can change permission', '1', 'change_permission'), ('3', 'Can delete permission', '1', 'delete_permission'), ('4', 'Can add group', '2', 'add_group'), ('5', 'Can change group', '2', 'change_group'), ('6', 'Can delete group', '2', 'delete_group'), ('7', 'Can add user', '3', 'add_user'), ('8', 'Can change user', '3', 'change_user'), ('9', 'Can delete user', '3', 'delete_user'), ('10', 'Can add message', '4', 'add_message'), ('11', 'Can change message', '4', 'change_message'), ('12', 'Can delete message', '4', 'delete_message'), ('13', 'Can add content type', '5', 'add_contenttype'), ('14', 'Can change content type', '5', 'change_contenttype'), ('15', 'Can delete content type', '5', 'delete_contenttype'), ('16', 'Can add session', '6', 'add_session'), ('17', 'Can change session', '6', 'change_session'), ('18', 'Can delete session', '6', 'delete_session'), ('19', 'Can add site', '7', 'add_site'), ('20', 'Can change site', '7', 'change_site'), ('21', 'Can delete site', '7', 'delete_site'), ('22', 'Can add Country', '8', 'add_country'), ('23', 'Can change Country', '8', 'change_country'), ('24', 'Can delete Country', '8', 'delete_country'), ('25', 'Can add Province', '9', 'add_province'), ('26', 'Can change Province', '9', 'change_province'), ('27', 'Can delete Province', '9', 'delete_province'), ('28', 'Can add City', '10', 'add_city'), ('29', 'Can change City', '10', 'change_city'), ('30', 'Can delete City', '10', 'delete_city'), ('31', 'Can add Domain', '11', 'add_domain'), ('32', 'Can change Domain', '11', 'change_domain'), ('33', 'Can delete Domain', '11', 'delete_domain'), ('34', 'Can add Bank', '12', 'add_bank'), ('35', 'Can change Bank', '12', 'change_bank'), ('36', 'Can delete Bank', '12', 'delete_bank'), ('37', 'Can add Card', '13', 'add_card'), ('38', 'Can change Card', '13', 'change_card'), ('39', 'Can delete Card', '13', 'delete_card'), ('40', 'Can add Channel', '14', 'add_channel'), ('41', 'Can change Channel', '14', 'change_channel'), ('42', 'Can delete Channel', '14', 'delete_channel'), ('43', 'Can add Announcement', '15', 'add_announcement'), ('44', 'Can change Announcement', '15', 'change_announcement'), ('45', 'Can delete Announcement', '15', 'delete_announcement'), ('46', 'Can add profile', '16', 'add_userprofile'), ('47', 'Can change profile', '16', 'change_userprofile'), ('48', 'Can delete profile', '16', 'delete_userprofile'), ('49', 'Can add log entry', '17', 'add_logentry'), ('50', 'Can change log entry', '17', 'change_logentry'), ('51', 'Can delete log entry', '17', 'delete_logentry'), ('52', 'Can add Pay Method', '18', 'add_paymethod'), ('53', 'Can change Pay Method', '18', 'change_paymethod'), ('54', 'Can delete Pay Method', '18', 'delete_paymethod'), ('57', 'Can verify', '13', 'can_verify'), ('58', 'Can verify', '15', 'can_verify'), ('59', 'Can stick', '15', 'can_stick'), ('60', 'Can add User\'s card', '19', 'add_usercard'), ('61', 'Can change User\'s card', '19', 'change_usercard'), ('62', 'Can delete User\'s card', '19', 'delete_usercard'), ('63', 'Can add Game', '20', 'add_game'), ('64', 'Can change Game', '20', 'change_game'), ('65', 'Can delete Game', '20', 'delete_game'), ('66', 'Can add access attempt', '21', 'add_accessattempt'), ('67', 'Can change access attempt', '21', 'change_accessattempt'), ('68', 'Can delete access attempt', '21', 'delete_accessattempt');
+INSERT INTO `auth_permission` VALUES ('1', 'Can add permission', '1', 'add_permission'), ('2', 'Can change permission', '1', 'change_permission'), ('3', 'Can delete permission', '1', 'delete_permission'), ('4', 'Can add group', '2', 'add_group'), ('5', 'Can change group', '2', 'change_group'), ('6', 'Can delete group', '2', 'delete_group'), ('7', 'Can add user', '3', 'add_user'), ('8', 'Can change user', '3', 'change_user'), ('9', 'Can delete user', '3', 'delete_user'), ('10', 'Can add message', '4', 'add_message'), ('11', 'Can change message', '4', 'change_message'), ('12', 'Can delete message', '4', 'delete_message'), ('13', 'Can add content type', '5', 'add_contenttype'), ('14', 'Can change content type', '5', 'change_contenttype'), ('15', 'Can delete content type', '5', 'delete_contenttype'), ('16', 'Can add session', '6', 'add_session'), ('17', 'Can change session', '6', 'change_session'), ('18', 'Can delete session', '6', 'delete_session'), ('19', 'Can add site', '7', 'add_site'), ('20', 'Can change site', '7', 'change_site'), ('21', 'Can delete site', '7', 'delete_site'), ('22', 'Can add access attempt', '8', 'add_accessattempt'), ('23', 'Can change access attempt', '8', 'change_accessattempt'), ('24', 'Can delete access attempt', '8', 'delete_accessattempt'), ('25', 'Can add Country', '9', 'add_country'), ('26', 'Can change Country', '9', 'change_country'), ('27', 'Can delete Country', '9', 'delete_country'), ('28', 'Can add Province', '10', 'add_province'), ('29', 'Can change Province', '10', 'change_province'), ('30', 'Can delete Province', '10', 'delete_province'), ('31', 'Can add City', '11', 'add_city'), ('32', 'Can change City', '11', 'change_city'), ('33', 'Can delete City', '11', 'delete_city'), ('34', 'Can add Domain', '12', 'add_domain'), ('35', 'Can change Domain', '12', 'change_domain'), ('36', 'Can delete Domain', '12', 'delete_domain'), ('37', 'Can add Channel', '13', 'add_channel'), ('38', 'Can change Channel', '13', 'change_channel'), ('39', 'Can delete Channel', '13', 'delete_channel'), ('40', 'Can add Announcement', '14', 'add_announcement'), ('41', 'Can change Announcement', '14', 'change_announcement'), ('42', 'Can delete Announcement', '14', 'delete_announcement'), ('43', 'Can verify', '14', 'can_verify'), ('44', 'Can stick', '14', 'can_stick'), ('45', 'Can add profile', '15', 'add_userprofile'), ('46', 'Can change profile', '15', 'change_userprofile'), ('47', 'Can delete profile', '15', 'delete_userprofile'), ('48', 'Can add User\'s card', '16', 'add_usercard'), ('49', 'Can change User\'s card', '16', 'change_usercard'), ('50', 'Can delete User\'s card', '16', 'delete_usercard'), ('51', 'Can add Game', '17', 'add_game'), ('52', 'Can change Game', '17', 'change_game'), ('53', 'Can delete Game', '17', 'delete_game'), ('54', 'Can add Bank', '18', 'add_bank'), ('55', 'Can change Bank', '18', 'change_bank'), ('56', 'Can delete Bank', '18', 'delete_bank'), ('57', 'Can add Card', '19', 'add_card'), ('58', 'Can change Card', '19', 'change_card'), ('59', 'Can delete Card', '19', 'delete_card'), ('60', 'Can verify', '19', 'can_verify'), ('61', 'Can add Third part', '20', 'add_thirdpart'), ('62', 'Can change Third part', '20', 'change_thirdpart'), ('63', 'Can delete Third part', '20', 'delete_thirdpart'), ('64', 'Can add Thirdpart account', '21', 'add_thirdpartaccount'), ('65', 'Can change Thirdpart account', '21', 'change_thirdpartaccount'), ('66', 'Can delete Thirdpart account', '21', 'delete_thirdpartaccount'), ('67', 'Can verify', '21', 'can_verify'), ('68', 'Can add Payment Method', '22', 'add_paymethod'), ('69', 'Can change Payment Method', '22', 'change_paymethod'), ('70', 'Can delete Payment Method', '22', 'delete_paymethod'), ('71', 'Can add log entry', '23', 'add_logentry'), ('72', 'Can change log entry', '23', 'change_logentry'), ('73', 'Can delete log entry', '23', 'delete_logentry');
 
 -- ----------------------------
 --  Table structure for `auth_user`
@@ -119,12 +119,12 @@ CREATE TABLE `auth_user` (
   `date_joined` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `auth_user`
 -- ----------------------------
-INSERT INTO `auth_user` VALUES ('1', 'root', 'Floyd', 'Joe', 'kirinse@gmail.com', 'sha1$38e72$28ccf56ab866a4e3e75331a23532ce1fc7d3772a', '1', '1', '1', '2011-04-03 06:01:22', '2011-03-27 18:16:29'), ('19', 'google', 'Floyd', 'Joe', 'cmtv@163.com', 'sha1$3c1b8$b3fb245c8140e7d6adbb5da9a063730836bc62af', '0', '1', '0', '2011-04-03 13:28:26', '2011-04-02 09:18:13'), ('20', 'darkmoon', 'Floyd', 'Joe', 'google@gmail.com', 'sha1$1086a$21e7bf4258c1585636ed821f545e1857e41abc74', '0', '1', '0', '2011-04-03 23:44:11', '2011-04-03 14:14:44');
+INSERT INTO `auth_user` VALUES ('1', 'root', 'Floyd', 'Joe', 'kirinse@gmail.com', 'sha1$15742$c81c40226d5b5c2a8e5fd63f53d4193b66edc4b7', '1', '1', '1', '2011-04-05 23:15:53', '2011-04-05 23:13:51');
 
 -- ----------------------------
 --  Table structure for `auth_user_groups`
@@ -136,10 +136,10 @@ CREATE TABLE `auth_user_groups` (
   `group_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`,`group_id`),
-  KEY `auth_user_groups_403f60f` (`user_id`),
-  KEY `auth_user_groups_425ae3c4` (`group_id`),
-  CONSTRAINT `group_id_refs_id_f116770` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
-  CONSTRAINT `user_id_refs_id_7ceef80f` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+  KEY `auth_user_groups_fbfc09f1` (`user_id`),
+  KEY `auth_user_groups_bda51c3c` (`group_id`),
+  CONSTRAINT `user_id_refs_id_831107f1` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `group_id_refs_id_f0ee9890` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -152,10 +152,10 @@ CREATE TABLE `auth_user_user_permissions` (
   `permission_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`,`permission_id`),
-  KEY `auth_user_user_permissions_403f60f` (`user_id`),
+  KEY `auth_user_user_permissions_fbfc09f1` (`user_id`),
   KEY `auth_user_user_permissions_1e014c8f` (`permission_id`),
-  CONSTRAINT `permission_id_refs_id_67e79cb` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
-  CONSTRAINT `user_id_refs_id_dfbab7d` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+  CONSTRAINT `user_id_refs_id_f2045483` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `permission_id_refs_id_67e79cb` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -173,7 +173,7 @@ CREATE TABLE `axes_accessattempt` (
   `failures_since_start` int(10) unsigned NOT NULL,
   `attempt_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `bank`
@@ -184,13 +184,21 @@ CREATE TABLE `bank` (
   `code` varchar(10) NOT NULL,
   `name` varchar(30) NOT NULL,
   `logo` varchar(100) NOT NULL,
+  `min_deposit` decimal(14,4) NOT NULL,
+  `max_deposit` decimal(14,4) NOT NULL,
+  `min_withdraw` decimal(14,4) NOT NULL,
+  `max_withdraw` decimal(14,4) NOT NULL,
+  `deposit_fee_dividing` decimal(14,4) NOT NULL,
+  `under_dividing_deposit_fee` decimal(14,4) NOT NULL,
+  `under_dividing_deposit_percent` decimal(4,2) NOT NULL,
+  `above_dividing_deposit_fee` decimal(14,4) NOT NULL,
+  `above_dividing_deposit_percent` decimal(4,2) NOT NULL,
+  `withdraw_fee_dividing` decimal(14,4) NOT NULL,
+  `under_dividing_withdraw_fee` decimal(14,4) NOT NULL,
+  `under_dividing_withdraw_percent` decimal(4,2) NOT NULL,
+  `url` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
--- ----------------------------
---  Records of `bank`
--- ----------------------------
-INSERT INTO `bank` VALUES ('1', 'ICBC', '中国工商银行', 'images/bank/6.gif'), ('2', 'CCB', '建设银行', 'images/bank/7.gif');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `card`
@@ -203,32 +211,30 @@ CREATE TABLE `card` (
   `alias` varchar(30) NOT NULL,
   `currency` varchar(5) NOT NULL,
   `account_name` varchar(20) NOT NULL,
-  `add_time` datetime NOT NULL,
-  `enabled` tinyint(1) NOT NULL,
   `email` varchar(100) NOT NULL,
   `init_balance` decimal(14,4) NOT NULL,
   `login_pwd` varchar(30) NOT NULL,
   `transaction_pwd` varchar(30) NOT NULL,
-  `verify_time` datetime DEFAULT NULL,
-  `verifier_id` int(11) DEFAULT NULL,
   `country_id` varchar(6) NOT NULL,
   `province_id` int(11) NOT NULL,
   `discriminator` varchar(10) NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
+  `adder_id` int(11) NOT NULL,
+  `add_time` datetime NOT NULL,
+  `verify_time` datetime DEFAULT NULL,
+  `verifier_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `card_1862eb86` (`bank_id`),
-  KEY `card_584122da` (`verifier_id`),
   KEY `card_534dd89` (`country_id`),
-  KEY `card_37751324` (`province_id`),
-  CONSTRAINT `bank_id_refs_id_7b7bf309` FOREIGN KEY (`bank_id`) REFERENCES `bank` (`id`),
-  CONSTRAINT `country_id_refs_iso_baadb0a` FOREIGN KEY (`country_id`) REFERENCES `country` (`iso`),
-  CONSTRAINT `province_id_refs_id_3fa775db` FOREIGN KEY (`province_id`) REFERENCES `province` (`id`),
-  CONSTRAINT `verifier_id_refs_id_ea293a` FOREIGN KEY (`verifier_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
--- ----------------------------
---  Records of `card`
--- ----------------------------
-INSERT INTO `card` VALUES ('1', '9558800000000000000', '1', 'cmtv@163', 'CNY', '徐菊', '2011-03-30 16:07:04', '0', 'c-mtv@163.com', '0.0000', '123123', '123123', null, null, 'CN', '3', 'Deposit');
+  KEY `card_c88aecdc` (`province_id`),
+  KEY `card_e1b52c63` (`adder_id`),
+  KEY `card_a7bedd26` (`verifier_id`),
+  CONSTRAINT `verifier_id_refs_id_ff15d6c6` FOREIGN KEY (`verifier_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `adder_id_refs_id_ff15d6c6` FOREIGN KEY (`adder_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `bank_id_refs_id_84840cf7` FOREIGN KEY (`bank_id`) REFERENCES `bank` (`id`),
+  CONSTRAINT `country_id_refs_iso_f45524f6` FOREIGN KEY (`country_id`) REFERENCES `country` (`iso`),
+  CONSTRAINT `province_id_refs_id_3fa775db` FOREIGN KEY (`province_id`) REFERENCES `province` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `channel`
@@ -240,12 +246,7 @@ CREATE TABLE `channel` (
   `name` varchar(30) NOT NULL,
   `path` varchar(90) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
--- ----------------------------
---  Records of `channel`
--- ----------------------------
-INSERT INTO `channel` VALUES ('1', '1', '低频', '/lowgame'), ('2', '1', '高频', '/highgame');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `city`
@@ -256,7 +257,7 @@ CREATE TABLE `city` (
   `city` varchar(100) NOT NULL,
   `province_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `city_37751324` (`province_id`),
+  KEY `city_c88aecdc` (`province_id`),
   CONSTRAINT `province_id_refs_id_23f2453a` FOREIGN KEY (`province_id`) REFERENCES `province` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=459 DEFAULT CHARSET=utf8;
 
@@ -298,16 +299,16 @@ CREATE TABLE `django_admin_log` (
   `action_flag` smallint(5) unsigned NOT NULL,
   `change_message` longtext NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `django_admin_log_403f60f` (`user_id`),
-  KEY `django_admin_log_1bb8f392` (`content_type_id`),
+  KEY `django_admin_log_fbfc09f1` (`user_id`),
+  KEY `django_admin_log_e4470c6e` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_288599e6` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `user_id_refs_id_c8665aa` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `django_admin_log`
 -- ----------------------------
-INSERT INTO `django_admin_log` VALUES ('1', '2011-03-27 20:10:40', '1', '3', '2', 'darkmoon', '3', ''), ('2', '2011-03-27 21:48:44', '1', '3', '4', 'darkmoon', '3', ''), ('3', '2011-03-28 10:13:17', '1', '3', '5', 'darkmoon', '3', ''), ('4', '2011-03-30 11:10:32', '1', '11', '1', 'local.py:8000', '1', ''), ('5', '2011-03-30 11:21:48', '1', '12', '1', '中国工商银行', '1', ''), ('6', '2011-03-30 11:22:44', '1', '12', '2', '建设银行', '1', ''), ('7', '2011-03-30 11:24:57', '1', '12', '2', '建设银行', '2', 'Changed logo.'), ('8', '2011-03-30 11:38:17', '1', '12', '2', '建设银行', '2', 'Changed logo.'), ('9', '2011-03-30 14:03:52', '1', '13', '1', '中国工商银行 card 9558800000000000000', '1', ''), ('10', '2011-03-30 14:04:46', '1', '13', '1', '中国工商银行 card 9558800000000000000', '2', 'Changed enabled.'), ('11', '2011-03-30 14:10:07', '1', '13', '2', '建设银行 card 9558800000000000000', '1', ''), ('12', '2011-03-30 14:18:52', '1', '13', '1', '中国工商银行: 9558800000000000000', '1', ''), ('13', '2011-03-30 14:20:57', '1', '14', '1', '低频', '1', ''), ('14', '2011-03-30 14:21:06', '1', '14', '2', '高频', '1', ''), ('15', '2011-03-30 14:27:19', '1', '15', '1', 'testing', '1', ''), ('16', '2011-03-30 14:37:43', '1', '18', '1', 'Email 充值', '1', ''), ('17', '2011-03-30 14:46:27', '1', '18', '1', 'Email 充值', '1', ''), ('18', '2011-03-30 16:07:04', '1', '13', '1', '中国工商银行: 9558800000000000000', '1', ''), ('19', '2011-03-30 16:08:21', '1', '18', '1', 'Email 充值', '1', ''), ('20', '2011-03-30 16:29:33', '1', '11', '1', 'local.py:8000', '2', 'No fields changed.'), ('21', '2011-03-30 16:29:40', '1', '11', '2', 'localhost', '1', ''), ('22', '2011-03-30 16:30:28', '1', '11', '2', 'http://localhost/', '2', 'No fields changed.'), ('23', '2011-03-30 16:31:44', '1', '11', '2', 'http://localhost/', '2', 'No fields changed.'), ('24', '2011-03-30 16:35:08', '1', '11', '1', 'http://local.py:8000/', '2', 'No fields changed.'), ('25', '2011-03-31 14:29:53', '1', '20', '2', '老虎机', '1', ''), ('26', '2011-03-31 14:30:41', '1', '20', '2', '老虎机', '2', 'Changed photo.'), ('27', '2011-04-03 01:13:05', '1', '18', '1', 'Email 充值', '2', '没有字段被修改。');
+INSERT INTO `django_admin_log` VALUES ('1', '2011-04-05 23:18:21', '1', '22', '1', '网银转账', '1', ''), ('2', '2011-04-05 23:18:59', '1', '22', '2', '在线支付', '1', ''), ('3', '2011-04-05 23:21:55', '1', '3', '1', 'root', '2', '已修改 first_name 和 last_name 。 已添加 profile \"root\'s profile\".'), ('4', '2011-04-05 23:24:17', '1', '3', '1', 'root', '2', '已变更 city，province 和 country for profile \"root\'s profile\".'), ('5', '2011-04-05 23:24:43', '1', '3', '1', 'root', '2', '已变更 zip for profile \"root\'s profile\".');
 
 -- ----------------------------
 --  Table structure for `django_content_type`
@@ -320,12 +321,12 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_label` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `django_content_type`
 -- ----------------------------
-INSERT INTO `django_content_type` VALUES ('1', 'permission', 'auth', 'permission'), ('2', 'group', 'auth', 'group'), ('3', 'user', 'auth', 'user'), ('4', 'message', 'auth', 'message'), ('5', 'content type', 'contenttypes', 'contenttype'), ('6', 'session', 'sessions', 'session'), ('7', 'site', 'sites', 'site'), ('8', 'Country', 'home', 'country'), ('9', 'Province', 'home', 'province'), ('10', 'City', 'home', 'city'), ('11', 'Domain', 'home', 'domain'), ('12', 'Bank', 'home', 'bank'), ('13', 'Card', 'home', 'card'), ('14', 'Channel', 'home', 'channel'), ('15', 'Announcement', 'home', 'announcement'), ('16', 'profile', 'account', 'userprofile'), ('17', 'log entry', 'admin', 'logentry'), ('18', 'Pay Method', 'home', 'paymethod'), ('19', 'User\'s card', 'account', 'usercard'), ('20', 'Game', 'games', 'game'), ('21', 'access attempt', 'axes', 'accessattempt');
+INSERT INTO `django_content_type` VALUES ('1', 'permission', 'auth', 'permission'), ('2', 'group', 'auth', 'group'), ('3', 'user', 'auth', 'user'), ('4', 'message', 'auth', 'message'), ('5', 'content type', 'contenttypes', 'contenttype'), ('6', 'session', 'sessions', 'session'), ('7', 'site', 'sites', 'site'), ('8', 'access attempt', 'axes', 'accessattempt'), ('9', 'Country', 'home', 'country'), ('10', 'Province', 'home', 'province'), ('11', 'City', 'home', 'city'), ('12', 'Domain', 'home', 'domain'), ('13', 'Channel', 'home', 'channel'), ('14', 'Announcement', 'home', 'announcement'), ('15', 'profile', 'account', 'userprofile'), ('16', 'User\'s card', 'account', 'usercard'), ('17', 'Game', 'games', 'game'), ('18', 'Bank', 'bank', 'bank'), ('19', 'Card', 'bank', 'card'), ('20', 'Third part', 'bank', 'thirdpart'), ('21', 'Thirdpart account', 'bank', 'thirdpartaccount'), ('22', 'Payment Method', 'bank', 'paymethod'), ('23', 'log entry', 'admin', 'logentry');
 
 -- ----------------------------
 --  Table structure for `django_session`
@@ -335,13 +336,14 @@ CREATE TABLE `django_session` (
   `session_key` varchar(40) NOT NULL,
   `session_data` longtext NOT NULL,
   `expire_date` datetime NOT NULL,
-  PRIMARY KEY (`session_key`)
+  PRIMARY KEY (`session_key`),
+  KEY `django_session_c25c2c28` (`expire_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `django_session`
 -- ----------------------------
-INSERT INTO `django_session` VALUES ('251a188dc7565075edcdad073d9b4b5a', 'MTA0YTI2YzA0NTI1Y2YwN2NiYWNlMTZkMGQ5YzY4ZjFiNzFlMTE4ODqAAn1xAShVDV9hdXRoX3Vz\nZXJfaWRxAooBEVUSX2F1dGhfdXNlcl9iYWNrZW5kcQNVKWRqYW5nby5jb250cmliLmF1dGguYmFj\na2VuZHMuTW9kZWxCYWNrZW5kcQR1Lg==\n', '2011-04-16 09:16:07'), ('25426df42a1b3efc586e6f814dcbe97a', 'NTI4MmVkMjU4MWQ0OTQxN2E5ZDZjODI0NTM4ZmE3NmJhZGVmM2ZkMzqAAn1xAShVDV9hdXRoX3Vz\nZXJfaWRxAooBAVUSX2F1dGhfdXNlcl9iYWNrZW5kcQNVKWRqYW5nby5jb250cmliLmF1dGguYmFj\na2VuZHMuTW9kZWxCYWNrZW5kcQR1Lg==\n', '2011-04-15 19:47:29'), ('3cda611a099ce6876e36bee1423467e6', 'NTI4MmVkMjU4MWQ0OTQxN2E5ZDZjODI0NTM4ZmE3NmJhZGVmM2ZkMzqAAn1xAShVDV9hdXRoX3Vz\nZXJfaWRxAooBAVUSX2F1dGhfdXNlcl9iYWNrZW5kcQNVKWRqYW5nby5jb250cmliLmF1dGguYmFj\na2VuZHMuTW9kZWxCYWNrZW5kcQR1Lg==\n', '2011-04-16 04:26:49'), ('476df2436da963be8b922c92b83e058c', 'YWExNWRmMDVhZDllYzJmNTA2MDUwNDg5YjE4YWIwZWQzN2QyY2UzMjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQSKARN1Lg==\n', '2011-04-16 18:13:38'), ('4afb5a02eb4f0778945d996bc9c97f5b', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-16 09:15:53'), ('77528a533746e5165a0f1179c4b7bce0', 'gAJ9cQEuOWQwZDBlZDQ3ZWIwZThkZWY1MzRhMDA0OWZkOGEwYjI=\n', '2011-04-11 17:36:07'), ('7946c2070cf2aad15407026100ce250e', 'gAJ9cQEuOWQwZDBlZDQ3ZWIwZThkZWY1MzRhMDA0OWZkOGEwYjI=\n', '2011-04-10 21:35:12'), ('7d168bfc585e2063d98859e1d6f7c9a7', 'M2MzZTNiNzFkZWMzMzE0MTY5ODBlMjY4YzZiMTJhYTA0ZmJlM2QwODqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQSKAQF1Lg==\n', '2011-04-17 01:44:39'), ('7f4a2848f36679f76563b6598505d589', 'gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRVKWRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMu\nTW9kZWxCYWNrZW5kVQ1fYXV0aF91c2VyX2lkigEBdS5mYWNjNTJlY2JkYTUwZDQyMWNmYTgyMmUy\nMzU1NWY2Zg==\n', '2011-04-14 17:13:34'), ('82f7a1c0b65154347592fb9ece984671', 'gAJ9cQEoVQ1fYXV0aF91c2VyX2lkigEBVRJfYXV0aF91c2VyX2JhY2tlbmRVKWRqYW5nby5jb250\ncmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kdS5mZjdmZDQyODZmZTllOGM4YWI5ZGJiZGI1\nMDkzMmY3NQ==\n', '2011-04-11 15:21:36'), ('834b512199876bcc7e112dd3e504bf7e', 'NTI4MmVkMjU4MWQ0OTQxN2E5ZDZjODI0NTM4ZmE3NmJhZGVmM2ZkMzqAAn1xAShVDV9hdXRoX3Vz\nZXJfaWRxAooBAVUSX2F1dGhfdXNlcl9iYWNrZW5kcQNVKWRqYW5nby5jb250cmliLmF1dGguYmFj\na2VuZHMuTW9kZWxCYWNrZW5kcQR1Lg==\n', '2011-04-17 06:04:04'), ('8371048291e2d583035a96eec7dcd318', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-17 13:32:27'), ('8ad4af96cc16afed94a0fffedb4827cc', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-17 23:53:13'), ('8ce8271e2ee4b2733eae7f3a36e6c68f', 'YjFjY2FmMGQzNTMwYTVjNTIyZWExYzk0ZjZkMzc1NGI1ZTgzODlmODqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQSKARR1Lg==\n', '2011-04-18 02:23:53'), ('aa448e033658eeb187028381d71f1050', 'gAJ9cQEuOWQwZDBlZDQ3ZWIwZThkZWY1MzRhMDA0OWZkOGEwYjI=\n', '2011-04-11 11:33:50'), ('ac69c92fb20fffae3f47b79d820ba864', 'gAJ9cQEuOWQwZDBlZDQ3ZWIwZThkZWY1MzRhMDA0OWZkOGEwYjI=\n', '2011-04-11 15:18:27'), ('ad6d4308fc02920233feb36fe4e99893', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-17 23:53:13'), ('b1597b6a3f743a35e4884e87e1359236', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-18 00:57:33'), ('c4c41f60ebd8b4da468ea429699122ae', 'gAJ9cQEuOWQwZDBlZDQ3ZWIwZThkZWY1MzRhMDA0OWZkOGEwYjI=\n', '2011-04-11 09:51:11'), ('c9ecc77cd861eace8a5bcb85b195ed87', 'NzVjMTRlNjE0YWNjZGVlZDI4ZThkNmFiMTc0NDI0OTFkZGQ1OTY0MzqAAn1xAShVDV9hdXRoX3Vz\nZXJfaWRxAooBFFUSX2F1dGhfdXNlcl9iYWNrZW5kcQNVKWRqYW5nby5jb250cmliLmF1dGguYmFj\na2VuZHMuTW9kZWxCYWNrZW5kcQR1Lg==\n', '2011-04-17 23:43:14'), ('cc760f74894cfe39f3d54bbbfc5efd9c', 'gAJ9cQEuOWQwZDBlZDQ3ZWIwZThkZWY1MzRhMDA0OWZkOGEwYjI=\n', '2011-04-11 16:31:17'), ('f0e01b1f909fff66a4aa61a43f38d648', 'M2MzZTNiNzFkZWMzMzE0MTY5ODBlMjY4YzZiMTJhYTA0ZmJlM2QwODqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQSKAQF1Lg==\n', '2011-04-15 00:56:34');
+INSERT INTO `django_session` VALUES ('68a3c2e51cf478bc67ac4acbede4a72d', 'M2MzZTNiNzFkZWMzMzE0MTY5ODBlMjY4YzZiMTJhYTA0ZmJlM2QwODqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQSKAQF1Lg==\n', '2011-04-19 23:59:55');
 
 -- ----------------------------
 --  Table structure for `django_site`
@@ -382,12 +384,7 @@ CREATE TABLE `game` (
   `photo` varchar(100) NOT NULL,
   `add_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
--- ----------------------------
---  Records of `game`
--- ----------------------------
-INSERT INTO `game` VALUES ('2', '老虎机', 'slot', '', 'images/games/gamepage/gameWitchsBrew.png', '2011-03-31 14:29:53');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `pay_method`
@@ -398,70 +395,49 @@ CREATE TABLE `pay_method` (
   `name` varchar(10) NOT NULL,
   `alias` varchar(10) NOT NULL,
   `currency` varchar(3) NOT NULL,
-  `deposit_note` varchar(20) NOT NULL,
-  `withdraw_note` varchar(20) NOT NULL,
-  `min_deposit` decimal(14,4) NOT NULL,
-  `max_deposit` decimal(14,4) NOT NULL,
-  `under_deposit_fee_money_per_time` decimal(14,4) NOT NULL,
-  `under_deposit_fee_percent_per_time` decimal(5,2) NOT NULL,
-  `deposit_fee_dividing` decimal(14,4) NOT NULL,
-  `above_deposit_fee_money_per_time` decimal(14,4) NOT NULL,
-  `above_deposit_fee_percent_per_time` decimal(5,2) NOT NULL,
-  `min_withdraw` decimal(14,4) NOT NULL,
-  `max_withdraw` decimal(14,4) NOT NULL,
-  `under_withdraw_fee_money_per_time` decimal(14,4) NOT NULL,
-  `under_withdraw_fee_percent_per_time` decimal(5,2) NOT NULL,
-  `withdraw_fee_dividing` decimal(14,4) NOT NULL,
-  `above_withdraw_fee_money_per_time` decimal(14,4) NOT NULL,
-  `above_withdraw_fee_percent_per_time` decimal(5,2) NOT NULL,
-  `pay_for_platform_deposit_percent` decimal(5,2) NOT NULL,
-  `min_pay_for_platform_deposit` decimal(14,4) NOT NULL,
-  `max_pay_for_platform_deposit` decimal(14,4) NOT NULL,
-  `pay_for_platform_withdraw_percent` decimal(5,2) NOT NULL,
-  `min_pay_for_platform_withdraw` decimal(14,4) NOT NULL,
-  `max_pay_for_platform_withdraw` decimal(14,4) NOT NULL,
-  `balance` decimal(14,4) NOT NULL,
-  `times_limit` smallint(6) NOT NULL,
-  `platform_host` varchar(100) DEFAULT NULL,
-  `platform_deposit_url` varchar(100) DEFAULT NULL,
-  `platform_withdraw_url` varchar(100) DEFAULT NULL,
-  `platform_query_url` varchar(100) DEFAULT NULL,
-  `receive_host` varchar(100) DEFAULT NULL,
-  `receive_url` varchar(100) DEFAULT NULL,
-  `receive_url_continued` varchar(100) DEFAULT NULL,
-  `status` smallint(6) NOT NULL,
+  `note` varchar(255) NOT NULL,
   `introdution` longtext NOT NULL,
-  `platform_require_encoding` varchar(10) DEFAULT NULL,
-  `platform_attr` smallint(6) NOT NULL,
+  `status` smallint(6) NOT NULL,
   `add_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `pay_method`
 -- ----------------------------
-INSERT INTO `pay_method` VALUES ('1', 'Email 充值', 'emailload', 'CNY', 'a', 'a', '10.0000', '10000.0000', '1.0000', '0.50', '500.0000', '2.0000', '1.00', '0.0000', '0.0000', '0.0000', '0.00', '0.0000', '0.0000', '0.00', '0.30', '1.0000', '2.0000', '0.00', '0.0000', '0.0000', '0.0000', '500', '', '', '', '', '', '', '', '0', 'jhgfsda\r\nasdfpewrjkfmgb,\r\nasjd;fmdvb[per\'gf\r\n!@#$%^&*()', 'utf-8', '3', '2011-03-30 16:08:21');
+INSERT INTO `pay_method` VALUES ('1', '网银转账', 'netbank', 'CNY', 'careful', 'testing..', '1', '2011-04-05 23:18:21'), ('2', '在线支付', 'onlinepay', 'CNY', 'third part', 'third part', '1', '2011-04-05 23:18:59');
 
 -- ----------------------------
---  Table structure for `pay_method_cards`
+--  Table structure for `pay_method_banks`
 -- ----------------------------
-DROP TABLE IF EXISTS `pay_method_cards`;
-CREATE TABLE `pay_method_cards` (
+DROP TABLE IF EXISTS `pay_method_banks`;
+CREATE TABLE `pay_method_banks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `paymethod_id` int(11) NOT NULL,
-  `card_id` int(11) NOT NULL,
+  `bank_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `paymethod_id` (`paymethod_id`,`card_id`),
-  KEY `pay_method_cards_6107d730` (`paymethod_id`),
-  KEY `pay_method_cards_441d8306` (`card_id`),
-  CONSTRAINT `card_id_refs_id_7e9f70ab` FOREIGN KEY (`card_id`) REFERENCES `card` (`id`),
-  CONSTRAINT `paymethod_id_refs_id_33b23545` FOREIGN KEY (`paymethod_id`) REFERENCES `pay_method` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `paymethod_id` (`paymethod_id`,`bank_id`),
+  KEY `pay_method_banks_6107d730` (`paymethod_id`),
+  KEY `pay_method_banks_1862eb86` (`bank_id`),
+  CONSTRAINT `paymethod_id_refs_id_ed6ac1e9` FOREIGN KEY (`paymethod_id`) REFERENCES `pay_method` (`id`),
+  CONSTRAINT `bank_id_refs_id_7bbf0bcf` FOREIGN KEY (`bank_id`) REFERENCES `bank` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `pay_method_cards`
+--  Table structure for `pay_method_thirdparts`
 -- ----------------------------
-INSERT INTO `pay_method_cards` VALUES ('2', '1', '1');
+DROP TABLE IF EXISTS `pay_method_thirdparts`;
+CREATE TABLE `pay_method_thirdparts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `paymethod_id` int(11) NOT NULL,
+  `thirdpart_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `paymethod_id` (`paymethod_id`,`thirdpart_id`),
+  KEY `pay_method_thirdparts_6107d730` (`paymethod_id`),
+  KEY `pay_method_thirdparts_420815d1` (`thirdpart_id`),
+  CONSTRAINT `paymethod_id_refs_id_ec1cfacc` FOREIGN KEY (`paymethod_id`) REFERENCES `pay_method` (`id`),
+  CONSTRAINT `thirdpart_id_refs_id_6a8cce7d` FOREIGN KEY (`thirdpart_id`) REFERENCES `thirdpart` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `province`
@@ -473,13 +449,53 @@ CREATE TABLE `province` (
   `country_id` varchar(6) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `province_534dd89` (`country_id`),
-  CONSTRAINT `country_id_refs_iso_7b15e9a8` FOREIGN KEY (`country_id`) REFERENCES `country` (`iso`)
+  CONSTRAINT `country_id_refs_iso_84ea1658` FOREIGN KEY (`country_id`) REFERENCES `country` (`iso`)
 ) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `province`
 -- ----------------------------
 INSERT INTO `province` VALUES ('3', '北京市', 'CN'), ('4', 'Alaska', 'US'), ('5', 'Alabama', 'US'), ('6', 'American Samoa', 'US'), ('7', 'Arizona', 'US'), ('8', 'Arkansas', 'US'), ('9', 'California', 'US'), ('10', 'Colorado', 'US'), ('11', 'Connecticut', 'US'), ('12', 'Delaware', 'US'), ('13', 'District of Columbia', 'US'), ('14', 'Federated province of Micronesia', 'US'), ('15', 'Florida', 'US'), ('16', 'Georgia', 'US'), ('17', 'Guam', 'US'), ('18', 'Hawaii', 'US'), ('19', 'Idaho', 'US'), ('20', 'Illinois', 'US'), ('21', 'Indiana', 'US'), ('22', 'Iowa', 'US'), ('23', 'Kansas', 'US'), ('24', 'Kentucky', 'US'), ('25', 'Louisiana', 'US'), ('26', 'Maine', 'US'), ('27', 'Marshall Islands', 'US'), ('28', 'Maryland', 'US'), ('29', 'Massachusetts', 'US'), ('30', 'Michigan', 'US'), ('31', 'Minnesota', 'US'), ('32', 'Mississippi', 'US'), ('33', 'Missouri', 'US'), ('34', 'Montana', 'US'), ('35', 'Nebraska', 'US'), ('36', 'Nevada', 'US'), ('37', 'New Hampshire', 'US'), ('38', 'New Jersey', 'US'), ('39', 'New Mexico', 'US'), ('40', 'New York', 'US'), ('41', 'North Carolina', 'US'), ('42', 'North Dakota', 'US'), ('43', 'Northern Mariana Islands', 'US'), ('44', 'Ohio', 'US'), ('45', 'Oklahoma', 'US'), ('46', 'Oregon', 'US'), ('47', 'Palau', 'US'), ('48', 'Pennsylvania', 'US'), ('49', 'Puerto Rico', 'US'), ('50', 'Rhode Island', 'US'), ('51', 'South Carolina', 'US'), ('52', 'South Dakota', 'US'), ('53', 'Tennessee', 'US'), ('54', 'Texas', 'US'), ('55', 'Utah', 'US'), ('56', 'Vermont', 'US'), ('57', 'Virgin Islands', 'US'), ('58', 'Virginia', 'US'), ('59', 'Washington', 'US'), ('60', 'West Virginia', 'US'), ('61', 'Wisconsin', 'US'), ('62', 'Wyoming', 'US'), ('63', 'Armed Forces Africa', 'US'), ('64', 'Armed Forces Americas (except Canada)', 'US'), ('65', 'Armed Forces Canada', 'US'), ('66', 'Armed Forces Europe', 'US'), ('67', 'Armed Forces Middle East', 'US'), ('68', 'Armed Forces Pacific', 'US'), ('69', '天津市', 'CN'), ('70', '河北省', 'CN'), ('71', '山西省', 'CN'), ('72', '内蒙古自治区', 'CN'), ('73', '辽宁省', 'CN'), ('74', '吉林省', 'CN'), ('75', '黑龙江省', 'CN'), ('76', '上海市', 'CN'), ('77', '江苏省', 'CN'), ('78', '浙江省', 'CN'), ('79', '安徽省', 'CN'), ('80', '福建省', 'CN'), ('81', '江西省', 'CN'), ('82', '山东省', 'CN'), ('83', '河南省', 'CN'), ('84', '湖北省', 'CN'), ('85', '湖南省', 'CN'), ('86', '广东省', 'CN'), ('87', '广西壮族自治区', 'CN'), ('88', '海南省', 'CN'), ('89', '重庆市', 'CN'), ('90', '四川省', 'CN'), ('91', '贵州省', 'CN'), ('92', '云南省', 'CN'), ('93', '西藏自治区', 'CN'), ('94', '陕西省', 'CN'), ('95', '甘肃省', 'CN'), ('96', '青海省', 'CN'), ('97', '宁夏回族自治区', 'CN'), ('98', '新疆维吾尔自治区', 'CN'), ('99', '香港特别行政区', 'CN'), ('100', '澳门特别行政区', 'CN');
+
+-- ----------------------------
+--  Table structure for `thirdpart`
+-- ----------------------------
+DROP TABLE IF EXISTS `thirdpart`;
+CREATE TABLE `thirdpart` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `pid` varchar(20) NOT NULL,
+  `key` varchar(100) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `logo` varchar(100) NOT NULL,
+  `min_deposit` decimal(14,4) NOT NULL,
+  `max_deposit` decimal(14,4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `thirdpart_account`
+-- ----------------------------
+DROP TABLE IF EXISTS `thirdpart_account`;
+CREATE TABLE `thirdpart_account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `thirdpart_id` int(11) NOT NULL,
+  `account_name` varchar(100) NOT NULL,
+  `account_password` varchar(100) NOT NULL,
+  `tranaction_password` varchar(100) NOT NULL,
+  `init_balance` decimal(7,4) NOT NULL,
+  `adder_id` int(11) NOT NULL,
+  `add_time` datetime NOT NULL,
+  `verifier_id` int(11) NOT NULL,
+  `verify_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `thirdpart_account_420815d1` (`thirdpart_id`),
+  KEY `thirdpart_account_e1b52c63` (`adder_id`),
+  KEY `thirdpart_account_a7bedd26` (`verifier_id`),
+  CONSTRAINT `verifier_id_refs_id_f6cf437` FOREIGN KEY (`verifier_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `adder_id_refs_id_f6cf437` FOREIGN KEY (`adder_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `thirdpart_id_refs_id_59f24d69` FOREIGN KEY (`thirdpart_id`) REFERENCES `thirdpart` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `user_card`
@@ -496,8 +512,8 @@ CREATE TABLE `user_card` (
   `add_time` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_card_1862eb86` (`bank_id`),
-  KEY `user_card_403f60f` (`user_id`),
-  CONSTRAINT `bank_id_refs_id_5cfaf0e` FOREIGN KEY (`bank_id`) REFERENCES `bank` (`id`),
+  KEY `user_card_fbfc09f1` (`user_id`),
+  CONSTRAINT `bank_id_refs_id_fa3050f2` FOREIGN KEY (`bank_id`) REFERENCES `bank` (`id`),
   CONSTRAINT `user_id_refs_id_993816f` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -511,8 +527,8 @@ CREATE TABLE `user_channel` (
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `channel_id` (`channel_id`,`user_id`),
-  KEY `user_channel_668d8aa` (`channel_id`),
-  KEY `user_channel_403f60f` (`user_id`),
+  KEY `user_channel_f9972756` (`channel_id`),
+  KEY `user_channel_fbfc09f1` (`user_id`),
   CONSTRAINT `channel_id_refs_id_24173c8c` FOREIGN KEY (`channel_id`) REFERENCES `channel` (`id`),
   CONSTRAINT `user_id_refs_id_1ce5ecf5` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -528,9 +544,9 @@ CREATE TABLE `user_domain` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `domain_id` (`domain_id`,`user_id`),
   KEY `user_domain_a2431ea` (`domain_id`),
-  KEY `user_domain_403f60f` (`user_id`),
+  KEY `user_domain_fbfc09f1` (`user_id`),
   CONSTRAINT `domain_id_refs_id_735fd586` FOREIGN KEY (`domain_id`) REFERENCES `domain` (`id`),
-  CONSTRAINT `user_id_refs_id_7e9bfbeb` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+  CONSTRAINT `user_id_refs_id_81640415` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -543,7 +559,7 @@ CREATE TABLE `user_profile` (
   `birthday` date DEFAULT NULL,
   `gender` varchar(1) NOT NULL,
   `phone` varchar(11) DEFAULT NULL,
-  `mobile` varchar(15) DEFAULT '',
+  `mobile` varchar(15) NOT NULL,
   `address` varchar(255) DEFAULT NULL,
   `address2` varchar(255) DEFAULT NULL,
   `city_id` int(11) DEFAULT NULL,
@@ -559,20 +575,20 @@ CREATE TABLE `user_profile` (
   `hold_balance` decimal(14,4) NOT NULL,
   `balance_update_time` datetime DEFAULT NULL,
   `email_verified` tinyint(1) NOT NULL,
-  `security_password` varchar(128) DEFAULT NULL,
+  `security_password` varchar(128) DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`),
   KEY `user_profile_586a73b5` (`city_id`),
-  KEY `user_profile_37751324` (`province_id`),
+  KEY `user_profile_c88aecdc` (`province_id`),
   KEY `user_profile_534dd89` (`country_id`),
-  CONSTRAINT `city_id_refs_id_3ada2c19` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`),
-  CONSTRAINT `country_id_refs_iso_6a9d6c3f` FOREIGN KEY (`country_id`) REFERENCES `country` (`iso`),
+  CONSTRAINT `city_id_refs_id_c525d3e7` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`),
+  CONSTRAINT `country_id_refs_iso_956293c1` FOREIGN KEY (`country_id`) REFERENCES `country` (`iso`),
   CONSTRAINT `province_id_refs_id_56dc919c` FOREIGN KEY (`province_id`) REFERENCES `province` (`id`),
   CONSTRAINT `user_id_refs_id_5f4bba6f` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `user_profile`
 -- ----------------------------
-INSERT INTO `user_profile` VALUES ('1', '1', '1918-02-18', 'M', '9876543', '', 'paseo parkview suite', '18L', '404', '123456', null, '3', null, null, 'CN', '0.0000', '0.0000', '0.0000', '0.0000', null, '1', null), ('9', '19', '1924-02-07', 'M', '9876543', '', 'paseo parkview suite', '18L', '12', '123456', null, '71', '127.0.0.1', '127.0.0.1', 'CN', '0.0000', '0.0000', '0.0000', '0.0000', null, '0', null), ('10', '20', '1903-01-02', 'M', '9012345', '13512341234', 'paseo parkview', '18', '425', '123456', null, '69', '127.0.0.1', '127.0.0.1', 'CN', '0.0000', '0.0000', '0.0000', '0.0000', null, '0', null);
+INSERT INTO `user_profile` VALUES ('1', '1', '1904-02-05', 'M', '9870767', '', 'paseo parkview', '18L', '29', '123564', '', '73', '127.0.0.1', '127.0.0.1', 'CN', '0.0000', '0.0000', '0.0000', '0.0000', '0000-00-00 00:00:00', '0', '');
 

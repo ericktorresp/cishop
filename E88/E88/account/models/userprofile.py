@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from home.models import Province, Country, City, Bank
+from home.models import Province, Country, City
+from bank.models import Bank
 
 GENDER = (('M', _('male')), ('F', _('female')), ('U', _('unknown')))
 
@@ -19,13 +20,13 @@ class UserProfile(models.Model):
     language = models.CharField(_('language'), choices=settings.LANGUAGES, max_length=10, null=True, blank=True)
     province = models.ForeignKey(Province, verbose_name=_('province'), null=True, blank=True)
     lastip = models.IPAddressField(_('Last IP'), null=True, blank=True)
-    registerip = models.IPAddressField(_('Register IP'))
+    registerip = models.IPAddressField(_('Register IP'), null=True, blank=True)
     country = models.ForeignKey(Country, verbose_name=_('Country'), to_field="iso", null=True, blank=True)
     available_balance = models.DecimalField(_('Available Balance'), max_digits=14, decimal_places=4, default=0)
     cash_balance = models.DecimalField(_('Available Balance'), max_digits=14, decimal_places=4, default=0)    
     channel_balance = models.DecimalField(_('Available Balance'), max_digits=14, decimal_places=4, default=0)
     hold_balance = models.DecimalField(_('Available Balance'), max_digits=14, decimal_places=4, default=0)
-    balance_update_time = models.DateTimeField(_('Balance Last Update'), editable=False)
+    balance_update_time = models.DateTimeField(_('Balance Last Update'), null=True, editable=False)
     email_verified = models.BooleanField(_('Email verified'), default=False)
     security_password = models.CharField(_('Security password'), max_length=128, blank=True, null=True)
         

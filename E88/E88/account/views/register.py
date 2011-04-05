@@ -61,8 +61,7 @@ def register_step2(request):
             profile = profile_form.save()
             request.session['profile'] = profile
             request.session['profile'].first_name = user.first_name
-            request.session['profile'].last_name = user.last_name   
-            reverse('register2', current_app="account")
+            request.session['profile'].last_name = user.last_name
             return HttpResponseRedirect(reverse('register_confirm'))
     else:
         name_form = UserFullnameForm(instance=request.user, prefix="u")
@@ -73,6 +72,8 @@ def register_step2(request):
 @csrf_protect
 @login_required
 def register_confirm(request):
+    if request.session.get('profile', None) is None:
+        return HttpResponseRedirect(reverse('account_index'))
     if request.method == 'POST':
         form = UserRegisterConfirmForm(request.POST)
         if form.is_valid():

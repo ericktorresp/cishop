@@ -115,11 +115,9 @@ INSTALLED_APPS = (
     'home',
     'account',
     'games',
+    'bank',
 #    'tracking',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
 )
 # Ajax Framework
 DAJAXICE_MEDIA_PREFIX="dajaxice"

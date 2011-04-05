@@ -6,15 +6,17 @@ from django.contrib.sites.models import get_current_site
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from home.views import BaseView
-from e8.account.forms import UserUpdateEmailForm, UserMobileForm
+from e8.account.forms import UserUpdateEmailForm
 from django.views.generic import FormView
 from django.core.urlresolvers import reverse
 from django.utils.functional import lazy 
 from home.models import Country
 
+from bank.models import PayMethod
+
 class LoginNeededView(BaseView):
     template_name = 'index.html'
-    
+        
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(LoginNeededView, self).dispatch(*args, **kwargs)
@@ -24,7 +26,6 @@ class AccountIndexView(LoginNeededView):
     
     def get_context_data(self, **kwargs):
         context = super(AccountIndexView, self).get_context_data(**kwargs)
-        context['site'] = get_current_site(self.request)
         context['country_codes'] = Country.objects.all()
         if self.request.method == 'GET':
             context['form'] = UserUpdateEmailForm(instance=self.request.user)
@@ -33,6 +34,8 @@ class AccountIndexView(LoginNeededView):
         return context
         
     def post(self, request, *args, **kwargs):
+        if request.POST['email']==request.user.email:
+            return self.get(self, request, *args, **kwargs)
         form = UserUpdateEmailForm(self.request.POST)
         if form.is_valid():
             form.save(request=request)
@@ -41,6 +44,14 @@ class AccountIndexView(LoginNeededView):
     
 class AccountDepositView(LoginNeededView):
     template_name = 'deposit.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(AccountDepositView, self).get_context_data(**kwargs)
+        context['paymethods'] = PayMethod.objects.filter(status__exact=1)
+        return context
+
+class AccountDeposit2View(LoginNeededView):
+    template_name = 'deposit_2.html'
     
 class AccountWithdrawView(LoginNeededView):
     template_name = 'withdraw.html'

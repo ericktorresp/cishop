@@ -11,7 +11,7 @@
 		<div class="formRow mandatory"><a href="{% url set_password %}" class="{% active request '^/account/password$' %}">{% trans "Password" %}</a></div>
 		<div class="formRow mandatory"><a href="{% url account_history %}" class="{% active request '^/account/history$' %}">{% trans "History" %}</a></div>
 	</div>
-	<div class="right">
+	<div class="right" style="width:750px;">
 {% block rightContent %}
 
 {% endblock rightContent %}
