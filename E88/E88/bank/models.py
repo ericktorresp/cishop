@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
+from django.conf import settings
 
 from home.models import Country, Province
 
@@ -20,10 +21,16 @@ class Bank(models.Model):
     withdraw_fee_dividing = models.DecimalField(_('Withdraw fee dividing line'), max_digits=14, decimal_places=4)
     under_dividing_withdraw_fee = models.DecimalField(_('Under withdraw dividing fee (money)'), max_digits=14, decimal_places=4)
     under_dividing_withdraw_percent = models.DecimalField(_('Under withdraw dividing fee (percent)'), max_digits=4, decimal_places=2)
-    url = models.URLField(_('URL'), max_length=100)
+    url = models.URLField(_('URL'), max_length=100, verify_exists=False)
     
     def __unicode__(self):
         return self.name
+
+    def img_logo(self):
+        return '<img src="%s%s">' % (settings.MEDIA_URL, self.logo)
+    
+    img_logo.allow_tags=True
+    img_logo.short_description = 'logo image'
     
     class Meta:
         db_table = u'bank'
@@ -71,6 +78,12 @@ class Thirdpart(models.Model):
     def __unicode__(self):
         return self.name
     
+    def img_logo(self):
+        return '<img src="%s%s">' % (settings.MEDIA_URL, self.logo)
+    
+    img_logo.allow_tags=True
+    img_logo.short_description = 'logo image'
+        
     class Meta:
         db_table = u'thirdpart'
         verbose_name = _('Third part')
@@ -79,12 +92,12 @@ class Thirdpart(models.Model):
 class ThirdpartAccount(models.Model):
     thirdpart = models.ForeignKey(Thirdpart)
     account_name = models.CharField(_('Account name'), max_length=100)
-    account_password = models.CharField(_('login name'), max_length=100)
+    account_password = models.CharField(_('login password'), max_length=100)
     tranaction_password = models.CharField(_('Tranaction password'), max_length=100)
     init_balance = models.DecimalField(_('Initial balance'), max_digits=7, decimal_places=4)
     adder = models.ForeignKey(User, verbose_name=_('Adder'), editable=False, related_name='adder')
     add_time = models.DateTimeField(auto_now_add=True, verbose_name=_('Add time'))
-    verifier = models.ForeignKey(User, verbose_name=_('Verifier'), related_name='verifier')
+    verifier = models.ForeignKey(User, verbose_name=_('Verifier'), related_name='verifier', editable=False,blank=True, null=True)
     verify_time = models.DateTimeField(_('Verify time'), blank=True, null=True, editable=False)
     
     def __unicode__(self):
