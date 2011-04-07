@@ -25,16 +25,18 @@ $(document).ready(function() {
 <div id="accordion" class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons" role="tablist">
 {% regroup methods by discriminator as method_list %}
 {% for type in method_list %}
-	<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" role="tab">
-		<a>{{type.grouper}}</a>
+	<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" role="tab" style="font-style: normal; font-weight:bold;">
+		<a style="color:#000;">{% trans type.grouper %}</a>
 	</h3>
 	<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" role="tabpanel">
+		<ul>
 		{% for method in type.list %}
-		<p>
-			<input type="radio" name="deposit_method" id="deposit_method_{{method.id}}" value="{{method.id}}">
-			<label for="deposit_method_{{method.id}}">{{method.img_logo|safe}}</label>
-		</p>
+			<li>
+				<input type="radio" name="deposit_method" id="deposit_method_{{method.id}}" value="{{method.id}}">
+				<label for="deposit_method_{{method.id}}">{{method.img_logo|safe}}</label>
+			</li>
 		{% endfor %}
+		</ul>
 	</div>
 {% endfor %}
 </div>
