@@ -246,6 +246,8 @@ class UserRegConfirmForm(forms.Form):
 class UserDepositForm(forms.Form):
     pass
 
+
+
 class UserWithdrawForm(forms.Form):
     pass
 

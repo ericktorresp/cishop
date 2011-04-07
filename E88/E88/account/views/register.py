@@ -65,7 +65,11 @@ def register_step2(request):
             return HttpResponseRedirect(reverse('register_confirm'))
     else:
         name_form = UserFullnameForm(instance=request.user, prefix="u")
-        profile_form = UserRegister2Form(instance=request.user.get_profile(), prefix="p")
+        try:
+            user_profile = request.user.get_profile()
+        except UserProfile.DoesNotExist:
+            user_profile = UserProfile.objects.create(user=request.user,lastip = request.META['REMOTE_ADDR'],registerip = request.META['REMOTE_ADDR'])
+        profile_form = UserRegister2Form(instance=user_profile, prefix="p")
         
     return render_to_response('register_step2.html', {'uform':name_form, 'pform':profile_form, 'site':get_current_site(request)}, context_instance=RequestContext(request))
 

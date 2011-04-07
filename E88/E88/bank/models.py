@@ -9,19 +9,6 @@ class Bank(models.Model):
     code = models.CharField(_('code'), max_length=10)
     name = models.CharField(_('name'), max_length=30)
     logo = models.ImageField(upload_to='images/bank', verbose_name=_('logo'), max_length=100)
-    min_deposit = models.DecimalField(_('Minimal deposit amount'), max_digits=14, decimal_places=4)
-    max_deposit = models.DecimalField(_('Maximal deposit amount'), max_digits=14, decimal_places=4)
-    min_withdraw = models.DecimalField(_('Minimal withdraw amount'), max_digits=14, decimal_places=4)
-    max_withdraw = models.DecimalField(_('Maximal withdraw amount'), max_digits=14, decimal_places=4)
-    deposit_fee_dividing = models.DecimalField(_('Deposit Fee dividing line'), max_digits=14, decimal_places=4)
-    under_dividing_deposit_fee = models.DecimalField(_('Under deposit dividing fee (money)'), max_digits=14, decimal_places=4)
-    under_dividing_deposit_percent = models.DecimalField(_('Under deposit dividing fee (percent)'), max_digits=4, decimal_places=2)
-    above_dividing_deposit_fee = models.DecimalField(_('Above deposit dividing fee (money)'), max_digits=14, decimal_places=4)
-    above_dividing_deposit_percent = models.DecimalField(_('Above deposit dividing fee (percent)'), max_digits=4, decimal_places=2)
-    withdraw_fee_dividing = models.DecimalField(_('Withdraw fee dividing line'), max_digits=14, decimal_places=4)
-    under_dividing_withdraw_fee = models.DecimalField(_('Under withdraw dividing fee (money)'), max_digits=14, decimal_places=4)
-    under_dividing_withdraw_percent = models.DecimalField(_('Under withdraw dividing fee (percent)'), max_digits=4, decimal_places=2)
-    url = models.URLField(_('URL'), max_length=100, verify_exists=False)
     
     def __unicode__(self):
         return self.name
@@ -43,13 +30,12 @@ class Card(models.Model):
     alias = models.CharField(_('Alias'), max_length=30)
     currency = models.CharField(_('Currency'), max_length=5)
     account_name = models.CharField(_('Account Name'), max_length=20)
-    email = models.EmailField(_('Email'), max_length=100)
     init_balance = models.DecimalField(_('Init Balance'), max_digits=14, decimal_places=4)
     login_pwd = models.CharField(_('Login Password'), max_length=30)
     transaction_pwd = models.CharField(_('Transaction Password'), max_length=30)
     country = models.ForeignKey(Country, verbose_name = _('Country'))
     province = models.ForeignKey(Province, verbose_name = _('Province'))
-    discriminator = models.CharField(_('discriminator'), max_length=10, choices=((_('Withdraw'),'withdraw'),(_('Deposit'),'deposit'),(_('Internal'), 'internal'),))
+    discriminator = models.CharField(_('discriminator'), max_length=10, choices=(('withdraw',_('Withdraw')),('internal',_('Internal'))))
     enabled = models.BooleanField(_('Enabled'), default=False)
     adder = models.ForeignKey(User, verbose_name=_('Adder'), editable=False, related_name='Adder')
     add_time = models.DateTimeField(auto_now_add=True,verbose_name=_('Add Time'))
@@ -66,72 +52,60 @@ class Card(models.Model):
         permissions = (
             ("can_verify", "Can verify"),
         )
-class Thirdpart(models.Model):
-    name = models.CharField(_('Name'), max_length=20)
-    pid = models.CharField(_('Partner ID'), max_length=20)
-    key = models.CharField(_('Key'), max_length=100)
-    url = models.URLField(_('Request Gateway'), max_length=255)
-    logo = models.ImageField(upload_to='images/thirdpart', verbose_name=_('logo'), max_length=100)
-    min_deposit = models.DecimalField(_('Minimal deposit amount'), max_digits=14, decimal_places=4)
-    max_deposit = models.DecimalField(_('Maximal deposit amount'), max_digits=14, decimal_places=4)
-    
-    def __unicode__(self):
-        return self.name
-    
-    def img_logo(self):
-        return '<img src="%s%s">' % (settings.MEDIA_URL, self.logo)
-    
-    img_logo.allow_tags=True
-    img_logo.short_description = 'logo image'
-        
-    class Meta:
-        db_table = u'thirdpart'
-        verbose_name = _('Third part')
-        verbose_name_plural = _('Third parts')
-
-class ThirdpartAccount(models.Model):
-    thirdpart = models.ForeignKey(Thirdpart)
-    account_name = models.CharField(_('Account name'), max_length=100)
-    account_password = models.CharField(_('login password'), max_length=100)
-    tranaction_password = models.CharField(_('Tranaction password'), max_length=100)
-    init_balance = models.DecimalField(_('Initial balance'), max_digits=7, decimal_places=4)
-    adder = models.ForeignKey(User, verbose_name=_('Adder'), editable=False, related_name='adder')
-    add_time = models.DateTimeField(auto_now_add=True, verbose_name=_('Add time'))
-    verifier = models.ForeignKey(User, verbose_name=_('Verifier'), related_name='verifier', editable=False,blank=True, null=True)
-    verify_time = models.DateTimeField(_('Verify time'), blank=True, null=True, editable=False)
-    
-    def __unicode__(self):
-        return '%s: %s' % (self.thirdpart.name, self.account_name)
-    
-    class Meta:
-        db_table = u'thirdpart_account'
-        verbose_name = _('Thirdpart account')
-        verbose_name_plural = _('Thirdpart accounts')
-        permissions = (
-            ('can_verify', 'Can verify'),
-        )
 
 PAYMETHOD_STATUS = (
     (0, _('disabled')),
     (1, _('enabled')),
     (2, _('deleted')),
-)    
-
-class PayMethod(models.Model):
-    name = models.CharField(_('Name'), max_length=10)
-    alias = models.CharField(_('Alias'), max_length=10)
-    currency = models.CharField(_('Currency'), max_length=3)
-    note = models.CharField(_('Note'), max_length=255)
-    introdution = models.TextField(_('introduction'), max_length=3000)
-    status = models.SmallIntegerField(_('Status'), max_length=1, choices=PAYMETHOD_STATUS, default=0)
+)
+class PaymentMethod(models.Model):
+    name = models.CharField(_('name'), max_length=20)
+    alias = models.CharField(_('alias'), max_length=10)
+    currency = models.CharField(_('currency'), max_length=3)
+    discriminator = models.CharField(_('discriminator'), max_length=10, choices=settings.PAYMENTMETHOD_TYPE)
+    note = models.CharField(_('note'), max_length=255)
+    instruction = models.TextField(_('instruction'), max_length=1000)
+    status = models.SmallIntegerField(_('status'), max_length=1, choices=PAYMETHOD_STATUS, default=0)
+    url = models.URLField(_('url'), max_length=200, verify_exists=False)
+    logo = models.ImageField(upload_to='images/payment', max_length=100)
+    min_deposit = models.DecimalField(_('min deposit'), max_digits=14, decimal_places=4)
+    max_deposit = models.DecimalField(_('max deposit'), max_digits=14, decimal_places=4)
+    adder = models.ForeignKey(User, editable=False)
     add_time = models.DateTimeField(_('add time'), editable=False, auto_now_add=True)
-    banks = models.ManyToManyField(Bank, null=True, blank=True)
-    thirdparts = models.ManyToManyField(Thirdpart, null=True, blank=True)
-        
+    
     def __unicode__(self):
         return self.name
+
+    def img_logo(self):
+        return '<img src="%s%s">' % (settings.MEDIA_URL, self.logo)
+    img_logo.allow_tags=True
+    img_logo.short_description = 'logo image'
+            
+    class Meta:
+        db_table = u'payment_method'
+        verbose_name = _('payment method')
+
+class PaymentMethodAccount(models.Model):
+    login_name = models.CharField(_('login name'), max_length=100, help_text=_('card number for bank method'))
+    payment_method = models.ForeignKey(PaymentMethod)
+    login_password = models.CharField(_('login password'), max_length=40)
+    transaction_password = models.CharField(_('transaction password'), max_length=40)
+    account_name = models.CharField(_('account name'), max_length=40)
+    init_balance = models.DecimalField(_('initial balance'), max_digits=14, decimal_places=4)
+    enabled = models.BooleanField(_('enabled'), default=False)
+    adder = models.ForeignKey(User, verbose_name=_('add user'), related_name="adder", editable=False)
+    add_time = models.DateTimeField(_('add time'), auto_now_add=True)
+    verifier = models.ForeignKey(User, verbose_name=_('verify user'), related_name="verifier", editable=False, blank=True, null=True)
+    verify_time = models.DateTimeField(_('verify time'), null=True, blank=True, editable=False)
+    pid = models.CharField(_('partner id'), max_length=30, null=True, blank=True, help_text=_('third part platform only'))
+    key = models.CharField(_('partner key'), max_length=40, null=True, blank=True, help_text=_('third part platform only'))
+    
+    def __unicode__(self):
+        return '%s : %s' % (self.payment_method.name, self.login_name)
     
     class Meta:
-        db_table = u'pay_method'
-        verbose_name = _('Payment Method')
-        verbose_name_plural = _('Payment Methods')   
+        db_table = u'payment_method_account'
+        verbose_name = _('payment method account')
+        permissions = (
+            ("can_verify", "Can verify"),
+        )

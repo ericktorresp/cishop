@@ -12,7 +12,8 @@ from django.core.urlresolvers import reverse
 from django.utils.functional import lazy 
 from home.models import Country
 
-from bank.models import PayMethod
+from django.conf import settings
+from bank.models import PaymentMethod
 
 class LoginNeededView(BaseView):
     template_name = 'index.html'
@@ -34,9 +35,9 @@ class AccountIndexView(LoginNeededView):
         return context
         
     def post(self, request, *args, **kwargs):
+        form = UserUpdateEmailForm(self.request.POST)
         if request.POST['email']==request.user.email:
             return self.get(self, request, *args, **kwargs)
-        form = UserUpdateEmailForm(self.request.POST)
         if form.is_valid():
             form.save(request=request)
             return HttpResponseRedirect(reverse('account_index'))
@@ -47,8 +48,10 @@ class AccountDepositView(LoginNeededView):
     
     def get_context_data(self, **kwargs):
         context = super(AccountDepositView, self).get_context_data(**kwargs)
-        context['paymethods'] = PayMethod.objects.filter(status__exact=1)
+        context['methods'] = PaymentMethod.objects.filter(status__exact=1)
         return context
+    def post(self, request, *args, **kwargs):
+        pass
 
 class AccountDeposit2View(LoginNeededView):
     template_name = 'deposit_2.html'

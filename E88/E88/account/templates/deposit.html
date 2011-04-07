@@ -19,30 +19,22 @@ $(document).ready(function() {
 </script>
 {% endblock extrajs %}
 {% block rightContent %}
+<form action="" method="post">
+{% csrf_token %}
 <h1>{% trans "Please select pay method" %}</h1>
 <div id="accordion" class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons" role="tablist">
-{% for method in paymethods %}
+{% regroup methods by discriminator as method_list %}
+{% for type in method_list %}
 	<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" role="tab">
-		<span class="ui-icon ui-icon-triangle-1-e"></span>
-		<a>{{method.name}}</a>
+		<a>{{type.grouper}}</a>
 	</h3>
-	<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" role="tabpanel">
-		{% if method.banks.count %}
-		{% for bank in method.banks.all %}
+	<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" role="tabpanel">
+		{% for method in type.list %}
 		<p>
-			<input type="radio" name="deposit_method" id="deposit_bank_{{bank.id}}" value="{{bank.id}}">
-			<label for="deposit_bank_{{bank.id}}">{{bank.img_logo|safe}}</label>
+			<input type="radio" name="deposit_method" id="deposit_method_{{method.id}}" value="{{method.id}}">
+			<label for="deposit_method_{{method.id}}">{{method.img_logo|safe}}</label>
 		</p>
 		{% endfor %}
-		{% endif %}
-		{% if method.thirdparts.count %}
-		{% for thirdpart in method.thirdparts.all %}
-		<p>
-			<input type="radio" name="deposit_method" id="deposit_thirdpart_{{thirdpart.id}}" value="{{thirdpart.id}}">
-			<label for="deposit_thirdpart_{{thirdpart.id}}">{{thirdpart.img_logo|safe}}</label>
-		</p>
-		{% endfor %}
-		{% endif %}
 	</div>
 {% endfor %}
 </div>
@@ -51,6 +43,6 @@ $(document).ready(function() {
     <div class="buttons">
         <input type="image" src="{{ MEDIA_URL }}images/button_next.png" alt="NEXT">
     </div>
-
 </div>
+</form>
 {% endblock rightContent %}
