@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: e88
 Target Host: localhost
 Target Database: e88
-Date: 2011/4/7 17:37:28
+Date: 2011/4/8 18:01:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -159,6 +159,23 @@ CREATE TABLE `bank` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for bank_cellphone
+-- ----------------------------
+CREATE TABLE `bank_cellphone` (
+  `id` int(11) NOT NULL auto_increment,
+  `number` varchar(11) NOT NULL,
+  `adder_id` int(11) NOT NULL,
+  `add_time` datetime NOT NULL,
+  `verifier_id` int(11) default NULL,
+  `verify_time` datetime default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `bank_cellphone_1e4ad39d` (`adder_id`),
+  KEY `bank_cellphone_584122da` (`verifier_id`),
+  CONSTRAINT `adder_id_refs_id_761d1e7b` FOREIGN KEY (`adder_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `verifier_id_refs_id_761d1e7b` FOREIGN KEY (`verifier_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for card
 -- ----------------------------
 CREATE TABLE `card` (
@@ -226,6 +243,72 @@ CREATE TABLE `country` (
   `iso3` varchar(9) default NULL,
   `numcode` int(11) default NULL,
   PRIMARY KEY  (`iso`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for deposit_log
+-- ----------------------------
+CREATE TABLE `deposit_log` (
+  `id` int(11) NOT NULL auto_increment,
+  `user_id` int(11) NOT NULL,
+  `deposit_method_id` int(11) NOT NULL,
+  `deposit_time` datetime NOT NULL,
+  `received` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `deposit_log_403f60f` (`user_id`),
+  KEY `deposit_log_4069c848` (`deposit_method_id`),
+  CONSTRAINT `deposit_method_id_refs_id_7f5b94e9` FOREIGN KEY (`deposit_method_id`) REFERENCES `deposit_method_account` (`id`),
+  CONSTRAINT `user_id_refs_id_5900f35a` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for deposit_method
+-- ----------------------------
+CREATE TABLE `deposit_method` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(20) NOT NULL,
+  `alias` varchar(10) NOT NULL,
+  `currency` varchar(3) NOT NULL,
+  `discriminator` varchar(10) NOT NULL,
+  `note` varchar(255) NOT NULL,
+  `instruction` longtext NOT NULL,
+  `status` smallint(6) NOT NULL,
+  `url` varchar(200) NOT NULL,
+  `logo` varchar(100) NOT NULL,
+  `min_deposit` decimal(14,4) NOT NULL,
+  `max_deposit` decimal(14,4) NOT NULL,
+  `adder_id` int(11) NOT NULL,
+  `add_time` datetime NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `payment_method_1e4ad39d` (`adder_id`),
+  CONSTRAINT `adder_id_refs_id_d058860` FOREIGN KEY (`adder_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for deposit_method_account
+-- ----------------------------
+CREATE TABLE `deposit_method_account` (
+  `id` int(11) NOT NULL auto_increment,
+  `login_name` varchar(100) NOT NULL,
+  `deposit_method_id` int(11) NOT NULL,
+  `login_password` varchar(40) NOT NULL,
+  `transaction_password` varchar(40) NOT NULL,
+  `account_name` varchar(40) NOT NULL,
+  `init_balance` decimal(14,4) NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
+  `adder_id` int(11) NOT NULL,
+  `add_time` datetime NOT NULL,
+  `verifier_id` int(11) default NULL,
+  `verify_time` datetime default NULL,
+  `pid` varchar(30) default NULL,
+  `key` varchar(40) default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `payment_method_account_1123be70` (`deposit_method_id`),
+  KEY `payment_method_account_1e4ad39d` (`adder_id`),
+  KEY `payment_method_account_584122da` (`verifier_id`),
+  CONSTRAINT `deposit_method_account_ibfk_1` FOREIGN KEY (`deposit_method_id`) REFERENCES `deposit_method` (`id`),
+  CONSTRAINT `adder_id_refs_id_2a2aee58` FOREIGN KEY (`adder_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `verifier_id_refs_id_2a2aee58` FOREIGN KEY (`verifier_id`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -301,56 +384,6 @@ CREATE TABLE `game` (
   `photo` varchar(100) NOT NULL,
   `add_time` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for payment_method
--- ----------------------------
-CREATE TABLE `payment_method` (
-  `id` int(11) NOT NULL auto_increment,
-  `name` varchar(20) NOT NULL,
-  `alias` varchar(10) NOT NULL,
-  `currency` varchar(3) NOT NULL,
-  `discriminator` varchar(10) NOT NULL,
-  `note` varchar(255) NOT NULL,
-  `instruction` longtext NOT NULL,
-  `status` smallint(6) NOT NULL,
-  `url` varchar(200) NOT NULL,
-  `logo` varchar(100) NOT NULL,
-  `min_deposit` decimal(14,4) NOT NULL,
-  `max_deposit` decimal(14,4) NOT NULL,
-  `adder_id` int(11) NOT NULL,
-  `add_time` datetime NOT NULL,
-  PRIMARY KEY  (`id`),
-  KEY `payment_method_1e4ad39d` (`adder_id`),
-  CONSTRAINT `adder_id_refs_id_d058860` FOREIGN KEY (`adder_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for payment_method_account
--- ----------------------------
-CREATE TABLE `payment_method_account` (
-  `id` int(11) NOT NULL auto_increment,
-  `login_name` varchar(100) NOT NULL,
-  `payment_method_id` int(11) NOT NULL,
-  `login_password` varchar(40) NOT NULL,
-  `transaction_password` varchar(40) NOT NULL,
-  `account_name` varchar(40) NOT NULL,
-  `init_balance` decimal(14,4) NOT NULL,
-  `enabled` tinyint(1) NOT NULL,
-  `adder_id` int(11) NOT NULL,
-  `add_time` datetime NOT NULL,
-  `verifier_id` int(11) default NULL,
-  `verify_time` datetime default NULL,
-  `pid` varchar(30) default NULL,
-  `key` varchar(40) default NULL,
-  PRIMARY KEY  (`id`),
-  KEY `payment_method_account_1123be70` (`payment_method_id`),
-  KEY `payment_method_account_1e4ad39d` (`adder_id`),
-  KEY `payment_method_account_584122da` (`verifier_id`),
-  CONSTRAINT `adder_id_refs_id_2a2aee58` FOREIGN KEY (`adder_id`) REFERENCES `auth_user` (`id`),
-  CONSTRAINT `payment_method_id_refs_id_20d1ade5` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_method` (`id`),
-  CONSTRAINT `verifier_id_refs_id_2a2aee58` FOREIGN KEY (`verifier_id`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -514,16 +547,23 @@ INSERT INTO `auth_permission` VALUES ('57', 'Can add Card', '19', 'add_card');
 INSERT INTO `auth_permission` VALUES ('58', 'Can change Card', '19', 'change_card');
 INSERT INTO `auth_permission` VALUES ('59', 'Can delete Card', '19', 'delete_card');
 INSERT INTO `auth_permission` VALUES ('60', 'Can verify', '19', 'can_verify');
-INSERT INTO `auth_permission` VALUES ('61', 'Can add payment method', '20', 'add_paymentmethod');
-INSERT INTO `auth_permission` VALUES ('62', 'Can change payment method', '20', 'change_paymentmethod');
-INSERT INTO `auth_permission` VALUES ('63', 'Can delete payment method', '20', 'delete_paymentmethod');
-INSERT INTO `auth_permission` VALUES ('64', 'Can add payment method account', '21', 'add_paymentmethodaccount');
-INSERT INTO `auth_permission` VALUES ('65', 'Can change payment method account', '21', 'change_paymentmethodaccount');
-INSERT INTO `auth_permission` VALUES ('66', 'Can delete payment method account', '21', 'delete_paymentmethodaccount');
-INSERT INTO `auth_permission` VALUES ('67', 'Can verify', '21', 'can_verify');
 INSERT INTO `auth_permission` VALUES ('68', 'Can add log entry', '22', 'add_logentry');
 INSERT INTO `auth_permission` VALUES ('69', 'Can change log entry', '22', 'change_logentry');
 INSERT INTO `auth_permission` VALUES ('70', 'Can delete log entry', '22', 'delete_logentry');
+INSERT INTO `auth_permission` VALUES ('71', 'Can add deposit method', '23', 'add_depositmethod');
+INSERT INTO `auth_permission` VALUES ('72', 'Can change deposit method', '23', 'change_depositmethod');
+INSERT INTO `auth_permission` VALUES ('73', 'Can delete deposit method', '23', 'delete_depositmethod');
+INSERT INTO `auth_permission` VALUES ('74', 'Can add deposit method account', '24', 'add_depositmethodaccount');
+INSERT INTO `auth_permission` VALUES ('75', 'Can change deposit method account', '24', 'change_depositmethodaccount');
+INSERT INTO `auth_permission` VALUES ('76', 'Can delete deposit method account', '24', 'delete_depositmethodaccount');
+INSERT INTO `auth_permission` VALUES ('77', 'Can verify', '24', 'can_verify');
+INSERT INTO `auth_permission` VALUES ('78', 'Can add deposit log', '25', 'add_depositlog');
+INSERT INTO `auth_permission` VALUES ('79', 'Can change deposit log', '25', 'change_depositlog');
+INSERT INTO `auth_permission` VALUES ('80', 'Can delete deposit log', '25', 'delete_depositlog');
+INSERT INTO `auth_permission` VALUES ('81', 'Can add cellphone', '26', 'add_cellphone');
+INSERT INTO `auth_permission` VALUES ('82', 'Can change cellphone', '26', 'change_cellphone');
+INSERT INTO `auth_permission` VALUES ('83', 'Can delete cellphone', '26', 'delete_cellphone');
+INSERT INTO `auth_permission` VALUES ('84', 'Can verify', '26', 'can_verify');
 INSERT INTO `auth_user` VALUES ('1', 'root', 'Floyd', 'Joe', 'kirinse@gmail.com', 'sha1$228d8$dc78d2daa8f7b9c7cb8bd7ae3d3d7b3526d0f34a', '1', '1', '1', '2011-04-07 14:13:47', '2011-04-07 14:11:55');
 INSERT INTO `bank` VALUES ('1', 'ICBC', '中国工商银行', 'images/bank/6.jpg');
 INSERT INTO `bank` VALUES ('2', 'CCB', '建设银行', 'images/bank/7.jpg');
@@ -1224,18 +1264,14 @@ INSERT INTO `country` VALUES ('YT', 'MAYOTTE', 'Mayotte', '', null, null);
 INSERT INTO `country` VALUES ('ZA', 'SOUTH AFRICA', 'South Africa', '', 'ZAF', '710');
 INSERT INTO `country` VALUES ('ZM', 'ZAMBIA', 'Zambia', '', 'ZMB', '894');
 INSERT INTO `country` VALUES ('ZW', 'ZIMBABWE', 'Zimbabwe', '', 'ZWE', '716');
+INSERT INTO `deposit_method` VALUES ('1', '中国工商银行', 'icbc', 'CNY', 'netbank', 'careful', ', editable=False', '1', 'https://mybank.icbc.com.cn/icbc/perbank/index.jsp', 'images/payment/6.jpg', '10.0000', '10000.0000', '1', '2011-04-07 14:20:40');
+INSERT INTO `deposit_method` VALUES ('2', '建设银行', 'ccb', 'CNY', 'netbank', 'careful', 'img_logo.allow_tags=True', '1', 'https://ibsbjstar.ccb.com.cn/app/V5/CN/STY1/login.jsp', 'images/payment/7.jpg', '10.0000', '10000.0000', '1', '2011-04-07 14:31:02');
+INSERT INTO `deposit_method` VALUES ('3', '支付宝', 'alipay', 'CNY', 'thirdpart', 'careful', 'discriminator', '1', 'http://www.alipay.com/', 'images/payment/alipay.jpg', '10.0000', '5000.0000', '1', '2011-04-07 15:26:39');
+INSERT INTO `deposit_method_account` VALUES ('1', '9558801000000000000', '1', '123123', '123123', 'Floyd', '0.0000', '1', '1', '2011-04-07 14:27:03', null, null, '', '');
+INSERT INTO `deposit_method_account` VALUES ('2', '9558801000000000001', '2', '123123', '123123', 'floyd', '0.0000', '1', '1', '2011-04-07 14:32:12', null, null, '', '');
+INSERT INTO `deposit_method_account` VALUES ('3', '562838@qq.com', '3', '123123', '123123', 'Floyd', '0.0000', '1', '1', '2011-04-07 15:27:39', null, null, '', '');
 INSERT INTO `django_admin_log` VALUES ('1', '2011-04-07 14:16:50', '1', '18', '1', '中国工商银行', '1', '');
 INSERT INTO `django_admin_log` VALUES ('2', '2011-04-07 14:17:03', '1', '18', '2', '建设银行', '1', '');
-INSERT INTO `django_admin_log` VALUES ('3', '2011-04-07 14:20:40', '1', '20', '1', '中国工商银行', '1', '');
-INSERT INTO `django_admin_log` VALUES ('4', '2011-04-07 14:27:03', '1', '21', '1', '中国工商银行 : 9558801000000000000', '1', '');
-INSERT INTO `django_admin_log` VALUES ('5', '2011-04-07 14:31:02', '1', '20', '2', '建设银行', '1', '');
-INSERT INTO `django_admin_log` VALUES ('6', '2011-04-07 14:32:12', '1', '21', '2', '建设银行 : 9558801000000000001', '1', '');
-INSERT INTO `django_admin_log` VALUES ('7', '2011-04-07 14:44:10', '1', '20', '1', '中国工商银行', '2', 'Changed discriminator.');
-INSERT INTO `django_admin_log` VALUES ('8', '2011-04-07 14:44:19', '1', '20', '2', '建设银行', '2', 'Changed discriminator.');
-INSERT INTO `django_admin_log` VALUES ('9', '2011-04-07 14:45:09', '1', '20', '1', '中国工商银行', '2', 'Changed discriminator.');
-INSERT INTO `django_admin_log` VALUES ('10', '2011-04-07 14:45:22', '1', '20', '2', '建设银行', '2', 'Changed discriminator.');
-INSERT INTO `django_admin_log` VALUES ('11', '2011-04-07 15:26:39', '1', '20', '3', '支付宝', '1', '');
-INSERT INTO `django_admin_log` VALUES ('12', '2011-04-07 15:27:39', '1', '21', '3', '支付宝 : 562838@qq.com', '1', '');
 INSERT INTO `django_content_type` VALUES ('1', 'permission', 'auth', 'permission');
 INSERT INTO `django_content_type` VALUES ('2', 'group', 'auth', 'group');
 INSERT INTO `django_content_type` VALUES ('3', 'user', 'auth', 'user');
@@ -1255,17 +1291,16 @@ INSERT INTO `django_content_type` VALUES ('16', 'User\'s card', 'account', 'user
 INSERT INTO `django_content_type` VALUES ('17', 'Game', 'games', 'game');
 INSERT INTO `django_content_type` VALUES ('18', 'Bank', 'bank', 'bank');
 INSERT INTO `django_content_type` VALUES ('19', 'Card', 'bank', 'card');
-INSERT INTO `django_content_type` VALUES ('20', 'payment method', 'bank', 'paymentmethod');
-INSERT INTO `django_content_type` VALUES ('21', 'payment method account', 'bank', 'paymentmethodaccount');
 INSERT INTO `django_content_type` VALUES ('22', 'log entry', 'admin', 'logentry');
-INSERT INTO `django_session` VALUES ('55e6dfca20be2f283b8078df4eafcd8f', 'ZjAxYTYxYzA1NjdhODM0MjFjNzIwMGZiNjJhMTM0MDlkNzM0ZGE0NTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZFUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRVDV9h\ndXRoX3VzZXJfaWSKAQF1Lg==\n', '2011-04-21 16:59:55');
+INSERT INTO `django_content_type` VALUES ('23', 'deposit method', 'bank', 'depositmethod');
+INSERT INTO `django_content_type` VALUES ('24', 'deposit method account', 'bank', 'depositmethodaccount');
+INSERT INTO `django_content_type` VALUES ('25', 'deposit log', 'bank', 'depositlog');
+INSERT INTO `django_content_type` VALUES ('26', 'cellphone', 'bank', 'cellphone');
+INSERT INTO `django_session` VALUES ('1f004407339089efa193cc187c804869', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-22 10:38:36');
+INSERT INTO `django_session` VALUES ('295ee0b6f685e7a1d45d2058c82df117', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-22 10:38:36');
+INSERT INTO `django_session` VALUES ('55e6dfca20be2f283b8078df4eafcd8f', 'NWJjYTkzOTE5ZDJiYTdlNTIwYTA0YzQ4MTVhYjY4ZDE4OWQyM2I3OTqAAn1xAShVDV9hdXRoX3Vz\nZXJfaWSKAQFVEl9hdXRoX3VzZXJfYmFja2VuZFUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmR1Lg==\n', '2011-04-22 17:16:09');
+INSERT INTO `django_session` VALUES ('c80813a9e2dd6460e982653cd6cb59f9', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-22 10:38:36');
 INSERT INTO `django_site` VALUES ('1', 'example.com', 'example.com');
-INSERT INTO `payment_method` VALUES ('1', '中国工商银行', 'icbc', 'CNY', 'netbank', 'careful', ', editable=False', '1', 'https://mybank.icbc.com.cn/icbc/perbank/index.jsp', 'images/payment/6.jpg', '10.0000', '10000.0000', '1', '2011-04-07 14:20:40');
-INSERT INTO `payment_method` VALUES ('2', '建设银行', 'ccb', 'CNY', 'netbank', 'careful', 'img_logo.allow_tags=True', '1', 'https://ibsbjstar.ccb.com.cn/app/V5/CN/STY1/login.jsp', 'images/payment/7.jpg', '10.0000', '10000.0000', '1', '2011-04-07 14:31:02');
-INSERT INTO `payment_method` VALUES ('3', '支付宝', 'alipay', 'CNY', 'third', 'careful', 'discriminator', '1', 'http://www.alipay.com/', 'images/payment/alipay.jpg', '10.0000', '5000.0000', '1', '2011-04-07 15:26:39');
-INSERT INTO `payment_method_account` VALUES ('1', '9558801000000000000', '1', '123123', '123123', 'Floyd', '0.0000', '1', '1', '2011-04-07 14:27:03', null, null, '', '');
-INSERT INTO `payment_method_account` VALUES ('2', '9558801000000000001', '2', '123123', '123123', 'floyd', '0.0000', '1', '1', '2011-04-07 14:32:12', null, null, '', '');
-INSERT INTO `payment_method_account` VALUES ('3', '562838@qq.com', '3', '123123', '123123', 'Floyd', '0.0000', '1', '1', '2011-04-07 15:27:39', null, null, '', '');
 INSERT INTO `province` VALUES ('3', '北京市', 'CN');
 INSERT INTO `province` VALUES ('4', 'Alaska', 'US');
 INSERT INTO `province` VALUES ('5', 'Alabama', 'US');
