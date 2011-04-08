@@ -13,7 +13,7 @@ from django.utils.functional import lazy
 from home.models import Country
 
 from django.conf import settings
-from bank.models import PaymentMethod
+from bank.models import DepositMethod
 
 class LoginNeededView(BaseView):
     template_name = 'index.html'

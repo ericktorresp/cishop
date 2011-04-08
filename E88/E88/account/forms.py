@@ -243,12 +243,5 @@ class UserSecurePasswordForm(forms.ModelForm):
 class UserRegConfirmForm(forms.Form):
     pass
 
-class UserDepositForm(forms.Form):
-    pass
-
-
-
-class UserWithdrawForm(forms.Form):
-    pass
 
 

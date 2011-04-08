@@ -149,6 +149,6 @@ DEFAULT_FROM_EMAIL = 'kirinse@gmail.com'
 REGISTER_VERIFY_EMAIL = False
 
 PAYMENTMETHOD_TYPE = (
-    ('netbank', ugettext('net bank')),
-    ('third', ugettext('third part platform')),
+    ('netbank', ugettext('netbank')),
+    ('thirdpart', ugettext('thirdpart')),
 )

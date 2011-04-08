@@ -20,7 +20,7 @@ class CardAdmin(admin.ModelAdmin):
             obj.adder = request.user
         obj.save()
 
-class PaymentMethodAdmin(admin.ModelAdmin):
+class DepositMethodAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if not change:
             obj.adder = request.user
@@ -30,10 +30,10 @@ class PaymentMethodAdmin(admin.ModelAdmin):
             request = kwargs.pop("request", None)
             kwargs['widget'] = ImageWidget
             return db_field.formfield(**kwargs)
-        return super(PaymentMethodAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+        return super(DepositMethodAdmin, self).formfield_for_dbfield(db_field, **kwargs)
     list_display = ('name', 'alias', 'img_logo', )
     
-class PaymentMethodAccountAdmin(admin.ModelAdmin):
+class DepositMethodAccountAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if not change:
             obj.adder = request.user
@@ -41,5 +41,5 @@ class PaymentMethodAccountAdmin(admin.ModelAdmin):
 
 admin.site.register(Bank, BankAdmin)
 admin.site.register(Card, CardAdmin)
-admin.site.register(PaymentMethod, PaymentMethodAdmin)
-admin.site.register(PaymentMethodAccount, PaymentMethodAccountAdmin)
+admin.site.register(DepositMethod, DepositMethodAdmin)
+admin.site.register(DepositMethodAccount, DepositMethodAccountAdmin)

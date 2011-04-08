@@ -36,4 +36,5 @@ urlpatterns = patterns('',
     url(r'^account/reset/done$', 'django.contrib.auth.views.password_reset_done', {'template_name':'password_reset_done.html'}, name='password_reset_done'),
     url(r'^account/', include('account.urls')),
     url(r'^games$', index(), name="games_index"),
+    url(r'^bank/', include('bank.urls')),
 )
