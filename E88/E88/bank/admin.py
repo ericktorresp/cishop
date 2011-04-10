@@ -39,7 +39,17 @@ class DepositMethodAccountAdmin(admin.ModelAdmin):
             obj.adder = request.user
         obj.save()
 
+class CellphoneAdmin(admin.ModelAdmin):
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.adder = request.user
+        obj.save()
+
+
 admin.site.register(Bank, BankAdmin)
 admin.site.register(Card, CardAdmin)
 admin.site.register(DepositMethod, DepositMethodAdmin)
 admin.site.register(DepositMethodAccount, DepositMethodAccountAdmin)
+admin.site.register(Cellphone,CellphoneAdmin)
+admin.site.register(DepositLog)
+admin.site.register(SmsLog)

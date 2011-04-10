@@ -1,0 +1,55 @@
+{% extends "account_base.html" %}
+{% load i18n %}
+{% block extrastyle %}
+<link href="{{ MEDIA_URL }}css/jquery-ui.css" rel="stylesheet" type="text/css" media="screen,print">
+{% endblock extrastyle %}
+{% block extrajs %}
+<script type='text/javascript' src='{{ MEDIA_URL }}js/jquery.js'></script>
+<script type='text/javascript' src='{{ MEDIA_URL }}js/jquery-ui.min.js'></script>
+<script type="text/javascript">
+//jQuery(document).ready(function(){
+//	$('.method_header').click(function() {
+//		$(this).next().show('fast');
+//		return false;
+//	}).next().hide();
+//});
+$(document).ready(function() {
+	$("#accordion").accordion();
+});
+</script>
+{% endblock extrajs %}
+{% block rightContent %}
+<h1 class="noBottom">
+	{% trans "Please select pay method" %}
+    <span class="right">Step {{ step }} of {{ step_count }}</span>
+</h1>
+<br /><br />
+<form action="" method="post">
+{% csrf_token %}
+<div id="accordion" class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons" role="tablist">
+{% regroup methods by discriminator as method_list %}
+{% for type in method_list %}
+	<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" role="tab" style="font-style: normal; font-weight:bold;">
+		<a style="color:#000;">{% trans type.grouper %}</a>
+	</h3>
+	<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" role="tabpanel">
+		<ul>
+		{% for method in type.list %}
+			<li>
+				<label for="id_{{step0}}-deposit_method_{{method.id}}">
+					<input type="radio" name="{{step0}}-deposit_method" id="id_{{step0}}-deposit_method_{{method.id}}" value="{{method.id}}">
+				{{method.img_logo|safe}}</label>
+			</li>
+		{% endfor %}
+		</ul>
+	</div>
+{% endfor %}
+</div>
+<div class="formFooter">
+    <div class="buttons">
+    	<input type="hidden" name="{{ step_field }}" value="{{ step0 }}" />
+        <input type="image" src="{{ MEDIA_URL }}images/button_next.png" alt="NEXT">
+    </div>
+</div>
+</form>
+{% endblock rightContent %}
