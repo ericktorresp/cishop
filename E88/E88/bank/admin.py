@@ -44,7 +44,7 @@ class CellphoneAdmin(admin.ModelAdmin):
         if not change:
             obj.adder = request.user
         obj.save()
-
+    list_display = ('number', 'enabled', )
 
 admin.site.register(Bank, BankAdmin)
 admin.site.register(Card, CardAdmin)

@@ -8,6 +8,7 @@ class Cellphone(models.Model):
     add_time = models.DateTimeField(_('add time'), auto_now_add=True)
     verifier = models.ForeignKey(User, verbose_name=_('verify user'), null=True, blank=True, editable=False, related_name='cellphone_verifier')
     verify_time = models.DateTimeField(_('verify time'), blank=True, null=True, editable=False)
+    enabled = models.BooleanField(_('enabled'), default=False)
     
     def __unicode__(self):
         return self.number

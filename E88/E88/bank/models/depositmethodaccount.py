@@ -3,12 +3,14 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from django.conf import settings
 
+import random
 from home.models import Country, Province
 from depositmethod import DepositMethod
 
 class DepositMethodAccount(models.Model):
     login_name = models.CharField(_('login name'), max_length=100, help_text=_('card number for bank method'))
     deposit_method = models.ForeignKey(DepositMethod)
+    email = models.EmailField(_('email'), null=True, blank=True, max_length=100, help_text=_('for ICBC only'))
     login_password = models.CharField(_('login password'), max_length=40)
     transaction_password = models.CharField(_('transaction password'), max_length=40)
     account_name = models.CharField(_('account name'), max_length=40)
@@ -23,6 +25,11 @@ class DepositMethodAccount(models.Model):
     
     def __unicode__(self):
         return '%s : %s' % (self.deposit_method.name, self.login_name)
+    
+    def random(self):
+        count = self.aggregate(ids=Count('id'))['ids']
+        random_index = randint(0, count - 1)
+        return self.all()[random_index]
     
     class Meta:
         app_label = 'bank'

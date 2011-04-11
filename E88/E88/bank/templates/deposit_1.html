@@ -1,13 +1,32 @@
 {% extends "account_base.html" %}
 {% load i18n %}
 {% block rightContent %}
-<p>Step {{ step }} of {{ step_count }}</p>
+<h1 class="noBottom">
+	{% trans "Please transform money to account below" %}
+    <span class="right">Step {{ step }} of {{ step_count }}</span>
+</h1>
+<br /><br />
+你选择的充值方式为：{{ method.img_logo|safe }}
+<br />
+{{ method.instruction }}
+{% if method_account.email %}
+{{ method_account.account_name }}
+
+{{ method_account.email }}
+{% else %}
+{{ method_account.login_name }}
+{% endif %}
 <form action="" method="post">
 {% csrf_token %}
-{% for method in methods %}
-<label for=""><img src="{{MEDIA_URL}}{{method.logo}}"></label>
+{% for field in form %}
+<div class="formRow mandatory{% if field.errors %} error{% endif %}">
+    {{ field.label_tag }}
+    {{ field }}
+</div>
 {% endfor %}
-{{ form.as_p }}
+<!-- 
+{{ form.as_ul }}
+ -->
 <input type="hidden" name="{{ step_field }}" value="{{ step0 }}" />
 {{ previous_fields|safe }}
 <input type="submit">
