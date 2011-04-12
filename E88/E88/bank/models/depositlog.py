@@ -16,7 +16,7 @@ DEPOSITLOG_STATUS = (
 class DepositLog(models.Model):
     order_number = models.CharField(_('order number'), max_length=15, unique=True)
     user = models.ForeignKey(User, verbose_name=_('user'))
-    deposit_method = models.ForeignKey(DepositMethod, limit_choices_to={'enabled': True})
+    deposit_method = models.ForeignKey(DepositMethod, limit_choices_to={'status': 1})
     deposit_method_account = models.ForeignKey(DepositMethodAccount, limit_choices_to={'enabled': True})
     deposit_method_account_login_name = models.CharField(_('receive account'), max_length=100, blank=True)
     deposit_method_account_account_name = models.CharField(_('receive account name'), max_length=50, blank=True)
