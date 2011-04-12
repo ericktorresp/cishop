@@ -8,9 +8,9 @@ from home.models import Country, Province
 from depositmethod import DepositMethod
 
 class DepositMethodAccount(models.Model):
-    login_name = models.CharField(_('login name'), max_length=100, help_text=_('card number for bank method'))
+    login_name = models.CharField(_('login name'), max_length=100, help_text=_('card number for bank method'), unique=True)
     deposit_method = models.ForeignKey(DepositMethod)
-    email = models.EmailField(_('email'), null=True, blank=True, max_length=100, help_text=_('for ICBC only'))
+    email = models.EmailField(_('email'), null=True, blank=True, max_length=100, help_text=_('for ICBC only'), unique=True)
     login_password = models.CharField(_('login password'), max_length=40)
     transaction_password = models.CharField(_('transaction password'), max_length=40)
     account_name = models.CharField(_('account name'), max_length=40)

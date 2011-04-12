@@ -5,30 +5,31 @@
 	{% trans "Please transform money to account below" %}
     <span class="right">Step {{ step }} of {{ step_count }}</span>
 </h1>
-<br /><br />
-你选择的充值方式为：{{ method.img_logo|safe }}
-<br />
-{{ method.instruction }}
-{% if method_account.email %}
-{{ method_account.account_name }}
-
-{{ method_account.email }}
-{% else %}
-{{ method_account.login_name }}
-{% endif %}
 <form action="" method="post">
 {% csrf_token %}
+<div class="formRow mandatory deposit">
+    <label>{% trans "deposit method" %}</label>
+    {{ method.img_logo|safe }}
+</div>
 {% for field in form %}
-<div class="formRow mandatory{% if field.errors %} error{% endif %}">
+<div class="formRow mandatory deposit{% if field.errors %} error{% endif %}">
+{% if not field.is_hidden %}
     {{ field.label_tag }}
+{% endif %}
     {{ field }}
 </div>
 {% endfor %}
-<!-- 
-{{ form.as_ul }}
- -->
+
+<div class="tb-inner tb-bank-intro">
+{{ method.instruction|safe }}
+</div>
 <input type="hidden" name="{{ step_field }}" value="{{ step0 }}" />
 {{ previous_fields|safe }}
-<input type="submit">
+<div class="formFooter">
+    <div class="buttons">
+    	<input type="hidden" name="{{ step_field }}" value="{{ step0 }}" />
+        <input type="image" src="{{ MEDIA_URL }}images/button_next.png" alt="NEXT">
+    </div>
+</div>
 </form>
 {% endblock rightContent %}

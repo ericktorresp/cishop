@@ -883,6 +883,16 @@ li {
     background-color    : #444;
     color               : white;
 }
+
+.deposit input[type="text"] {
+    height              : 28px;
+    padding             : 3px;
+    border              : solid 1px #FF0000;
+    color               : #FF0000;
+	font-size			: 20px;
+	font-weight			: bold;
+	background-color	: #1d1d1d;
+}
 .formRow select {
     width               : 200px;
 }
@@ -1158,10 +1168,83 @@ a:hover .allGamesSingleGame, .allGamesSingleGame.active {
 	color: #FF0000;
 	font-weight: bold;
 }
-#id_1-order_number {
-	color: #FF0000;
-	font-size: 24px;
-	font-weight: bold;
-	background-color : #1d1d1d;
-	border: 1px solid #FF0000;
+
+.tb-inner{
+	zoom:1;
+	margin-bottom:15px;
+}
+.tb-inner table{
+	border:1px solid #C8C8C8;
+	background:#fff;
+}
+
+
+.fm-input .tb-inner a{
+	padding-left:0;
+}
+
+.tb-inner caption{
+	padding:3px 0 5px 2px;
+	text-align: left;
+}
+.tb-inner td,.tb-inner thead th{
+	border-top:1px solid #C8C8C8;
+	border-left:1px solid #C8C8C8;
+	padding:3px 5px;
+}
+
+.tb-inner thead th{
+	font-size:12px;
+	background:#E9E9E9;
+	vertical-align:baseline;
+}
+.tb-inner .action{
+	position:absolute;
+	top:3px;right:0;
+}
+
+.tb-inner{
+	border:1px #B4B4B4 solid;
+	border-width:1px 0 0 1px;
+}
+.tb-inner table{
+	width:auto;
+	border:none;
+}
+.tb-bank-intro{
+	margin-top:10px;
+	border-width:1px;
+}
+.tb-bank-intro table{
+	width:100%;
+	border:none;
+}
+.tb-bank-intro th{
+	text-align:left;
+}
+.tb-bank-intro thead th{
+	vertical-align:middle;
+	background:#E7E7E7;
+	color:#000;
+}
+.tb-bank-intro thead td{
+	background:#E7E7E7;
+}
+.tb-bank-intro .first{
+	white-space:nowrap;
+}
+.bank-tip{
+	font-size:14px;
+}
+.bank-phone{
+	margin:5px 0 10px 0;
+}
+.fn-left, .fn-right{
+	display:inline;
+}
+.fn-left{
+	float:left;
+}
+.fn-right{
+	float:right;
 }

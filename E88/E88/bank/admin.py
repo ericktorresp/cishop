@@ -38,13 +38,17 @@ class DepositMethodAccountAdmin(admin.ModelAdmin):
         if not change:
             obj.adder = request.user
         obj.save()
-
+    list_display = ('login_name', 'enabled', )
+    list_filter = ['deposit_method', 'enabled']
+    search_fields = ['login_name', 'email', 'account_name']
+        
 class CellphoneAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if not change:
             obj.adder = request.user
         obj.save()
     list_display = ('number', 'enabled', )
+    list_filter = ['enabled']
 
 admin.site.register(Bank, BankAdmin)
 admin.site.register(Card, CardAdmin)
