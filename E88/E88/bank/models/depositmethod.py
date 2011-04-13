@@ -20,6 +20,8 @@ class DepositMethod(models.Model):
     logo = models.ImageField(upload_to='images/payment', max_length=100)
     min_deposit = models.DecimalField(_('min deposit'), max_digits=14, decimal_places=4)
     max_deposit = models.DecimalField(_('max deposit'), max_digits=14, decimal_places=4)
+    regex = models.TextField(_('regex for notice infomation'), max_length=1000, null=True, blank=True)
+    notice_number = models.CharField(_('sender number'), max_length=15)
     adder = models.ForeignKey(User, editable=False)
     add_time = models.DateTimeField(_('add time'), editable=False, auto_now_add=True)
     

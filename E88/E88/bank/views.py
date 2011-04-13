@@ -7,12 +7,15 @@ import re
 
 def receive(request):
     '''
-    the encoding on os x is utf8, on windows is gb2312(except safari)
-    赵振波已于4月4日向尾号为4112的工行账户汇入10元。<赵振波留言：201104042123123>。【工商银行】
+    ** the encoding on os x is utf8, on windows is gb2312(except safari)
+    ** 王大有已于4月4日向尾号为4112的工行账户汇入10元。<王大有留言：110411102759888>。【工商银行】
+    ** 亲爱的用户：王大有通过支付宝向您(caicai1205@vip.sina.com)付款244元。
+    ** 根据  sender 获取充值方式详细信息，包括正则模板，用正则模板匹配短信内容
     '''
-    request.encoding = 'utf8'
+#    request.encoding = 'utf8'
+    request.encoding = 'gb2312'
     string = request.GET.get('content', '')
-    m = re.search('(?P<deposit_name>\D+)\D{2}\d\S+(?P<card_tail>\d{4})\D+(?P<amount>\d+)\S+<\D+(?P<order_number>.*)>\S+', string)  # order number
+    m = re.search('(?P<deposit_name>\D+)\D{2}\d{1,2}\D{1}\d{1,2}\D{5}(?P<card_tail>\d{4})\D{7}(?P<amount>.*)\D{2}<\D+(?P<order_number>\d*)>\S+', string)  # ICBC
     if m:
         return HttpResponse(m.group('order_number'))
     
