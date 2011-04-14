@@ -24,6 +24,7 @@ class DepositMethod(models.Model):
     notice_number = models.CharField(_('sender number'), max_length=15)
     adder = models.ForeignKey(User, editable=False)
     add_time = models.DateTimeField(_('add time'), editable=False, auto_now_add=True)
+    api_key = models.CharField(_('api key'), max_length=32)
     
     def __unicode__(self):
         return self.name
