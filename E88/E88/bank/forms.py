@@ -44,12 +44,12 @@ class UserDepositFormWizard(FormWizard):
             context.update({'methods':DepositMethod.objects.filter(status__exact=1)})
         elif step == 1:
             account = DepositMethodAccount.objects.filter(deposit_method__exact=request.POST['0-deposit_method']).order_by('?')[0]
-            cellphone = Cellphone.objects.filter(enabled=True).order_by('?')[0]
+#            cellphone = Cellphone.objects.filter(enabled=True).order_by('?')[0]
             form.initial = {
                 'order_number': datetime.datetime.now().strftime("%y%m%d%H%M%S")+str(random.randint(100,999)),
                 'account_name': account.account_name,
                 'account_no': account.email and account.email or account.login_name,
-                'cellphone': cellphone.number,
+                'cellphone': account.cellphone,
                 'deposit_method_account': account.id
             }
             context.update({

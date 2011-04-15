@@ -6,15 +6,17 @@ from django.conf import settings
 import random
 from home.models import Country, Province
 from depositmethod import DepositMethod
+from cellphone import Cellphone
 
 class DepositMethodAccount(models.Model):
     login_name = models.CharField(_('login name'), max_length=100, help_text=_('card number for bank method'), unique=True)
     deposit_method = models.ForeignKey(DepositMethod)
-    email = models.EmailField(_('email'), null=True, blank=True, max_length=100, help_text=_('for ICBC only'), unique=True)
+    email = models.EmailField(_('email'), null=True, blank=True, max_length=100, help_text=_('for ICBC only'))
     login_password = models.CharField(_('login password'), max_length=40)
     transaction_password = models.CharField(_('transaction password'), max_length=40)
     account_name = models.CharField(_('account name'), max_length=40)
     init_balance = models.DecimalField(_('initial balance'), max_digits=14, decimal_places=4)
+    cellphone = models.ForeignKey(Cellphone, db_column='cellphone', verbose_name=_('cellphone'), to_field="number", limit_choices_to={'enabled': True})
     enabled = models.BooleanField(_('enabled'), default=False)
     adder = models.ForeignKey(User, verbose_name=_('add user'), related_name="adder", editable=False)
     add_time = models.DateTimeField(_('add time'), auto_now_add=True)

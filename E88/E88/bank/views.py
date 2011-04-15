@@ -5,21 +5,27 @@ from django.utils.http import urlquote, urlencode
 from django.utils import encoding
 import re
 
+from home.utils import auth_code
+
 def receive(request):
     '''
     ** the encoding on os x is utf8, on windows is gb2312(except safari)
     ** 王大有已于4月4日向尾号为4112的工行账户汇入10元。<王大有留言：110411102759888>。【工商银行】
+    ** 尊敬的岳志国客户：您好，赵朋丽已成功向您尾号为6866的账号转入人民币5.00元，请注意查收。 留言为:110415144155143[建设银行]。
     ** 亲爱的用户：王大有通过支付宝向您(caicai1205@vip.sina.com)付款244元。
     ** 根据  sender 获取充值方式详细信息，包括正则模板，用正则模板匹配短信内容
     '''
+#    return HttpResponse(u'：'.__repr__())
 #    request.encoding = 'utf8'
-    request.encoding = 'gb2312'
-    string = request.GET.get('content', '')
-    m = re.search('(?P<deposit_name>\D+)\D{2}\d{1,2}\D{1}\d{1,2}\D{5}(?P<card_tail>\d{4})\D{7}(?P<amount>.*)\D{2}<\D+(?P<order_number>\d*)>\S+', string)  # ICBC
+#    request.encoding = 'gb2312'
+#    string = request.GET.get('content', '')
+    key='NcElTeV1W5g7KCx3BMSIp2htNE9sjk1R'
+    decoded = encoding.smart_unicode(auth_code(str(request.GET.get('content', '')), operation='DECODE', key=key))
+    m = re.search('^\D{3}(?P<account_name>\D+)\D{2}'+u'\uff1a'+'\D{3}(?P<deposit_name>\D+)\D{8}(?P<card_tail>\d{4})\D{8}(?P<amount>\S+)\D{12}\:(?P<order_number>\d+)\[\D+\]\D+$', decoded)
     if m:
-        return HttpResponse(m.group('order_number'))
+        return HttpResponse(m.group('amount'))
     
-    return HttpResponse(request.GET.get('content', ''))
+#    return HttpResponse(decoded)
 
 def match_chinese(s, f, i):
     global fd_output
