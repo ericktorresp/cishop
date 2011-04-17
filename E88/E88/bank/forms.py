@@ -80,7 +80,7 @@ class UserDepositFormWizard(FormWizard):
 #            deposit_method_account_account_name = data['account_name'],
 #            email = data['account_no'],
             status = 0,
-            cellphone = Cellphone.objects.get(number__exact=data['cellphone']),
+#            cellphone = Cellphone.objects.get(number__exact=data['cellphone']),
         )
 
         return HttpResponse('ok, your deposit will done in minute.')

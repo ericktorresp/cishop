@@ -51,8 +51,8 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = 'E:/server/py-projects/e8/_static/'
-#MEDIA_ROOT = '/Library/WebServer/Documents/'
+#MEDIA_ROOT = 'E:/server/py-projects/e8/_static/'
+MEDIA_ROOT = '/Library/WebServer/Documents/'
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
@@ -88,8 +88,8 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'e8.urls'
 
 TEMPLATE_DIRS = (
-    'E:/server/py-projects/e8/_templates',
-#    '/Users/darkmoon/Documents/workspace/e8/_templates'
+#    'E:/server/py-projects/e8/_templates',
+    '/Users/darkmoon/Documents/workspace/e8/_templates'
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

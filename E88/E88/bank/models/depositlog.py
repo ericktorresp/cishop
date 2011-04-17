@@ -34,6 +34,7 @@ class DepositLog(models.Model):
         self.deposit_method_account_login_name = self.deposit_method_account.login_name
         self.deposit_method_account_account_name = self.deposit_method_account.account_name
         self.email = self.deposit_method_account.email
+        self.cellphone = self.deposit_method_account.cellphone
         super(DepositLog, self).save(*args, **kwargs)
     
     class Meta:
