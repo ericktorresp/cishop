@@ -15,7 +15,8 @@ def receive(request):
     ** 尊敬的岳志国客户：您好，赵朋丽已成功向您尾号为6866的账号转入人民币5.00元，请注意查收。 留言为:110415144155143[建设银行]。
     ** 亲爱的用户：王大有通过支付宝向您(caicai1205@vip.sina.com)付款244元。
     ** 根据  sender 获取充值方式详细信息，包括正则模板，用正则模板匹配短信内容
-    ** sender=95588&number=13000000000&content=dsfhkla;sfkjlds;lfkasdfl;sdlfk;a
+    ** number=13000000000&content=加密后字符串（包含sender=95588）
+    ** sms 端使用 urllib post 到服务端，读取结果（success|fail[fail messages]）
     '''
 #    return HttpResponse(u'：'.__repr__())
 #    request.encoding = 'utf8'
