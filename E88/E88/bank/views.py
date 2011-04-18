@@ -3,11 +3,14 @@ from django.http import Http404, HttpResponse
 from django.utils.encoding import smart_unicode
 from django.utils.http import urlquote, urlencode
 from django.utils import encoding
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
 import re
 
 from home.utils import auth_code
 from bank.models import Cellphone, SmsLog, DepositLog, DepositMethodAccount
 
+@csrf_exempt
 def receive(request):
     '''
     ** the encoding on os x is utf8, on windows is gb2312(except safari)
@@ -22,15 +25,17 @@ def receive(request):
 #    request.encoding = 'utf8'
 #    request.encoding = 'gb2312'
 #    string = request.GET.get('content', '')
-    number = request.GET.get('number', None)
-    if number is None:
-        return HttpResponse()
+    number = request.POST.get('number', None)
+    content = request.POST.get('content', None)
+    sender = request.POST.get('sender', None)
+    if not number or not content or not sender:
+        return HttpResponse('fail:missing param.')
 #    get the Cellphone object
-    cellphone = Cellphone.objects.get(number__exact=number)
+    cellphone = get_object_or_404(Cellphone,number=number)
     
     key='NcElTeV1W5g7KCx3BMSIp2htNE9sjk1R'
-    decoded = encoding.smart_unicode(auth_code(str(request.GET.get('content', '')), operation='DECODE', key=key))
-#    return HttpResponse(decoded.__repr__())
+    decoded = encoding.smart_unicode(auth_code(str(content), operation='DECODE', key=key))
+#    return HttpResponse(content)
     m = re.search('^\D{3}(?P<account_name>\D+)\D{2}'+u'\uff1a'+'\D{3}(?P<deposit_name>\D+)\D{8}(?P<card_tail>\d{4})\D{8}(?P<amount>\S+)\D{12}\:(?P<order_number>\d+)\[\D+\]\D+$', decoded)
     if m:
         return HttpResponse(m.group('amount'))
