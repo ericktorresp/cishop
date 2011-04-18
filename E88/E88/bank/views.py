@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 import re
 
 from home.utils import auth_code
-from bank.models import Cellphone, SmsLog, DepositLog, DepositMethodAccount
+from bank.models import Cellphone, SmsLog, DepositLog, DepositMethodAccount, DepositMethod
 
 @csrf_exempt
 def receive(request):
@@ -31,21 +31,34 @@ def receive(request):
     if not number or not content or not sender:
         return HttpResponse('fail:missing param.')
 #    get the Cellphone object
-    cellphone = get_object_or_404(Cellphone,number=number)
-    
-    key='NcElTeV1W5g7KCx3BMSIp2htNE9sjk1R'
+    cellphone = get_object_or_404(Cellphone, number=number)
+    key = cellphone.sms_key
+#    return HttpResponse(key)
     decoded = encoding.smart_unicode(auth_code(str(content), operation='DECODE', key=key))
-#    return HttpResponse(content)
-    m = re.search('^\D{3}(?P<account_name>\D+)\D{2}'+u'\uff1a'+'\D{3}(?P<deposit_name>\D+)\D{8}(?P<card_tail>\d{4})\D{8}(?P<amount>\S+)\D{12}\:(?P<order_number>\d+)\[\D+\]\D+$', decoded)
-    if m:
-        return HttpResponse(m.group('amount'))
+#    写入短信记录
+    SmsLog.objects.create(sender=sender, receiver=cellphone, content=decoded)
+    '''
+    ** 获取正则表达式,匹配出必须的信息
+    '''
+    depositMethod = get_object_or_404(DepositMethod, notice_number=sender)
+    regex = depositMethod.regex
+    m = re.search(regex, decoded)
+    if m is None:
+        return HttpResponse('fail: unknown sms.')
+    
+    order_number = m.group('order_number')
+    deposit_name = m.group('deposit_name')
+#    account_name = m.group('account_name')  #ccb
+    card_tail = m.group('card_tail')
+    amount = m.group('amount')
+    
+    '''
+    ** 根据订单号匹配充值记录
+    '''
+    deposit_log = get_object_or_404(DepositLog, order_number=order_number)
+    if deposit_log.status == 1:
+        return HttpResponse('fail: order finished already.')
+    if deposit_log.cellphone==cellphone and deposit_log.deposit_method==depositMethod and deposit_log.deposit_method_account_login_name[:-4]==card_tail:
+        return HttpResponse('success: pretty match')
     
     return HttpResponse(decoded)
-
-def match_chinese(s, f, i):
-    global fd_output
-    r = re.compile('\"[^\"]*[\x80-\xff]{3}[^\"]*\"')
-    s_match = r.findall(s)
-    for c in s_match:
-        str = "%s ( %d ): %s\n" % (f, i, c)
-        fd_output.write(str)
