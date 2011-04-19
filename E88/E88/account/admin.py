@@ -19,5 +19,11 @@ class UserFullAdmin(UserAdmin):
         UserCardInline,
     )
 
+class UserAccountDetailTypeAdmin(admin.ModelAdmin):
+    list_display = ['name', 'operation']
+    ordering = ('id',)
+    
 admin.site.unregister(User)
 admin.site.register(User, UserFullAdmin)
+admin.site.register(UserAccountDetailType, UserAccountDetailTypeAdmin)
+admin.site.register(UserAccountDetail)

@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: e88
 Target Host: localhost
 Target Database: e88
-Date: 2011/4/15 17:16:07
+Date: 2011/4/19 17:41:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -164,6 +164,7 @@ CREATE TABLE `bank` (
 CREATE TABLE `bank_cellphone` (
   `id` int(11) NOT NULL auto_increment,
   `number` varchar(11) NOT NULL,
+  `sms_key` varchar(32) NOT NULL,
   `adder_id` int(11) NOT NULL,
   `add_time` datetime NOT NULL,
   `verifier_id` int(11) default NULL,
@@ -329,9 +330,9 @@ CREATE TABLE `deposit_method_account` (
   KEY `payment_method_account_1e4ad39d` (`adder_id`),
   KEY `payment_method_account_584122da` (`verifier_id`),
   KEY `cellphone` (`cellphone`),
-  CONSTRAINT `deposit_method_account_ibfk_2` FOREIGN KEY (`cellphone`) REFERENCES `bank_cellphone` (`number`),
   CONSTRAINT `adder_id_refs_id_2a2aee58` FOREIGN KEY (`adder_id`) REFERENCES `auth_user` (`id`),
   CONSTRAINT `deposit_method_account_ibfk_1` FOREIGN KEY (`deposit_method_id`) REFERENCES `deposit_method` (`id`),
+  CONSTRAINT `deposit_method_account_ibfk_2` FOREIGN KEY (`cellphone`) REFERENCES `bank_cellphone` (`number`),
   CONSTRAINT `verifier_id_refs_id_2a2aee58` FOREIGN KEY (`verifier_id`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -432,6 +433,46 @@ CREATE TABLE `province` (
   PRIMARY KEY  (`id`),
   KEY `province_534dd89` (`country_id`),
   CONSTRAINT `country_id_refs_iso_7b15e9a8` FOREIGN KEY (`country_id`) REFERENCES `country` (`iso`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for user_account_detail
+-- ----------------------------
+CREATE TABLE `user_account_detail` (
+  `id` int(11) NOT NULL auto_increment,
+  `from_user_id` int(11) default NULL,
+  `to_user_id` int(11) default NULL,
+  `detail_type_id` int(11) NOT NULL,
+  `admin_id` int(11) default NULL,
+  `title` varchar(30) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `amount` decimal(14,4) NOT NULL,
+  `pre_balance` decimal(14,4) NOT NULL,
+  `post_balance` decimal(14,4) NOT NULL,
+  `client_ip` char(15) NOT NULL,
+  `proxy_ip` char(15) NOT NULL,
+  `db_time` datetime NOT NULL,
+  `action_time` datetime NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `user_account_detail_74b00be1` (`from_user_id`),
+  KEY `user_account_detail_315477a4` (`to_user_id`),
+  KEY `user_account_detail_47a36ae5` (`detail_type_id`),
+  KEY `user_account_detail_e972820` (`admin_id`),
+  CONSTRAINT `admin_id_refs_id_1bb11274` FOREIGN KEY (`admin_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `detail_type_id_refs_id_64798047` FOREIGN KEY (`detail_type_id`) REFERENCES `user_account_detail_type` (`id`),
+  CONSTRAINT `from_user_id_refs_id_1bb11274` FOREIGN KEY (`from_user_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `to_user_id_refs_id_1bb11274` FOREIGN KEY (`to_user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for user_account_detail_type
+-- ----------------------------
+CREATE TABLE `user_account_detail_type` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(30) NOT NULL,
+  `operation` varchar(1) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -603,13 +644,19 @@ INSERT INTO `auth_permission` VALUES ('84', 'Can verify', '26', 'can_verify');
 INSERT INTO `auth_permission` VALUES ('85', 'Can add SMS log', '27', 'add_smslog');
 INSERT INTO `auth_permission` VALUES ('86', 'Can change SMS log', '27', 'change_smslog');
 INSERT INTO `auth_permission` VALUES ('87', 'Can delete SMS log', '27', 'delete_smslog');
-INSERT INTO `auth_user` VALUES ('1', 'root', 'Floyd', 'Joe', 'kirinse@gmail.com', 'sha1$228d8$dc78d2daa8f7b9c7cb8bd7ae3d3d7b3526d0f34a', '1', '1', '1', '2011-04-10 14:22:00', '2011-04-07 14:11:55');
+INSERT INTO `auth_permission` VALUES ('88', 'Can add user account detail type', '28', 'add_useraccountdetailtype');
+INSERT INTO `auth_permission` VALUES ('89', 'Can change user account detail type', '28', 'change_useraccountdetailtype');
+INSERT INTO `auth_permission` VALUES ('90', 'Can delete user account detail type', '28', 'delete_useraccountdetailtype');
+INSERT INTO `auth_permission` VALUES ('91', 'Can add user account detail', '29', 'add_useraccountdetail');
+INSERT INTO `auth_permission` VALUES ('92', 'Can change user account detail', '29', 'change_useraccountdetail');
+INSERT INTO `auth_permission` VALUES ('93', 'Can delete user account detail', '29', 'delete_useraccountdetail');
+INSERT INTO `auth_user` VALUES ('1', 'root', 'Floyd', 'Joe', 'kirinse@gmail.com', 'sha1$228d8$dc78d2daa8f7b9c7cb8bd7ae3d3d7b3526d0f34a', '1', '1', '1', '2011-04-19 11:48:08', '2011-04-07 14:11:55');
 INSERT INTO `bank` VALUES ('1', 'ICBC', '中国工商银行', 'images/bank/6.jpg');
 INSERT INTO `bank` VALUES ('2', 'CCB', '建设银行', 'images/bank/7.jpg');
-INSERT INTO `bank_cellphone` VALUES ('1', '13800000000', '1', '2011-04-10 23:58:35', null, null, '1');
-INSERT INTO `bank_cellphone` VALUES ('2', '13500000000', '1', '2011-04-11 10:32:45', null, null, '1');
-INSERT INTO `bank_cellphone` VALUES ('3', '13000000000', '1', '2011-04-11 10:32:52', null, null, '1');
-INSERT INTO `bank_cellphone` VALUES ('4', '13100000000', '1', '2011-04-11 10:33:05', null, null, '1');
+INSERT INTO `bank_cellphone` VALUES ('1', '13800000000', 'suJVD5ncyoEMZuilzNVJrSXTnNtpBqq', '1', '2011-04-10 23:58:35', null, null, '1');
+INSERT INTO `bank_cellphone` VALUES ('2', '13500000000', '', '1', '2011-04-11 10:32:45', null, null, '1');
+INSERT INTO `bank_cellphone` VALUES ('3', '13000000000', '', '1', '2011-04-11 10:32:52', null, null, '1');
+INSERT INTO `bank_cellphone` VALUES ('4', '13100000000', '', '1', '2011-04-11 10:33:05', null, null, '1');
 INSERT INTO `city` VALUES ('1', '石家庄市', '70');
 INSERT INTO `city` VALUES ('2', '唐山市', '70');
 INSERT INTO `city` VALUES ('3', '秦皇岛市', '70');
@@ -1313,7 +1360,7 @@ INSERT INTO `deposit_log` VALUES ('5', '110412144438965', '1', '1', '1', 'c-mtv@
 INSERT INTO `deposit_log` VALUES ('6', '110412150520781', '1', '1', '1', '9558801000000000000', 'Floyd', 'c-mtv@163.com', '0', '13800000000', '2011-04-12 15:05:24', null, null);
 INSERT INTO `deposit_log` VALUES ('7', '110412151927932', '1', '1', '1', '9558801000000000000', 'Floyd', 'c-mtv@163.com', '0', '13500000000', '2011-04-12 15:47:50', null, null);
 INSERT INTO `deposit_log` VALUES ('8', '110412155347556', '1', '2', '2', '9558801000000000001', 'floyd', null, '0', '13000000000', '2011-04-12 15:54:47', null, null);
-INSERT INTO `deposit_log` VALUES ('9', '110415141548686', '1', '1', '1', '9558801000000000000', 'Floyd', 'c-mtv@163.com', '0', '13800000000', '2011-04-15 14:15:52', null, null);
+INSERT INTO `deposit_log` VALUES ('9', '110415141548686', '1', '1', '1', '9558801000000000000', 'Floyd', 'c-mtv@163.com', '1', '13800000000', '2011-04-15 14:15:52', '14', '2011-04-19 17:37:00');
 INSERT INTO `deposit_log` VALUES ('10', '110415144155143', '1', '2', '2', '9558801000000000001', 'floyd', '', '0', '13000000000', '2011-04-15 14:48:49', null, null);
 INSERT INTO `deposit_method` VALUES ('1', '中国工商银行', 'icbc', 'CNY', 'netbank', 'careful', '    <table>\r\n	<caption>\r\n		<p class=\"fn-right bank-tip\">工商银行客服热线：95588</p>\r\n		<p class=\"bank-tip\">请关注您的充值金额是否超限</p>\r\n	</caption>\r\n	<thead>\r\n		<tr>\r\n			<th>银行卡种类</th>\r\n			<th>单笔限额(元)</th>\r\n			<th>每日限额(元)	</th>\r\n			<th>需要满足的条件	</th>\r\n			<th width=\"100px\">备注</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td rowspan=\"3\">储蓄卡</td>\r\n			<td>500</td>\r\n			<td>1000</td>\r\n			<td>办理电子银行口令卡(无需开通短信认证)    <a target=\"_blank\" href=\"http://help.alipay.com/lab/help_detail.htm?help_id=212183#2\">如何办理？</a></td>\r\n			<td rowspan=\"6\" width=\"100px\">1.如果您在银行设置的网上支付额度低于左表限额，以您的设置为准。 <br />2.存量静态密码客户的总累计限额为300元</td>\r\n		</tr>\r\n		<tr>\r\n			\r\n			<td>2000</td>\r\n			<td>5000</td>\r\n			<td>办理电子银行口令卡，开通短信认证    <a target=\"_blank\" href=\"http://help.alipay.com/lab/help_detail.htm?help_id=212183#2\">如何办理？</a></td>\r\n		</tr>\r\n		<tr>\r\n			\r\n			<td>100万</td>\r\n			<td>100万</td>\r\n			<td>办理U盾    <a target=\"_blank\" href=\"http://help.alipay.com/lab/help_detail.htm?help_id=211542#3\">如何办理？</a></td>\r\n		</tr>\r\n		<tr>\r\n			<td rowspan=\"3\">信用卡</td>\r\n			<td>500</td>\r\n			<td>1000</td>\r\n			<td>办理电子银行口令卡(无需开通短信认证)    <a target=\"_blank\" href=\"http://help.alipay.com/lab/help_detail.htm?help_id=212183#2\">如何办理？</a></td>\r\n		</tr>\r\n		<tr>\r\n			\r\n			<td>1000</td>\r\n			<td>5000</td>\r\n			<td>办理电子银行口令卡，开通短信认证    <a target=\"_blank\" href=\"http://help.alipay.com/lab/help_detail.htm?help_id=212183#2\">如何办理？</a></td>\r\n		</tr>\r\n		<tr>\r\n			\r\n			<td>1000</td>\r\n			<td>信用卡本身透支额度</td>\r\n			<td>办理U盾    <a target=\"_blank\" href=\"http://help.alipay.com/lab/help_detail.htm?help_id=211542#3\">如何办理？</a></td>\r\n		</tr>\r\n	</tbody>\r\n</table>', '1', 'https://mybank.icbc.com.cn/icbc/perbank/index.jsp', 'images/payment/6.jpg', '10.0000', '10000.0000', '(?P<deposit_name>\\D+)\\D{2}\\d{1,2}\\D{1}\\d{1,2}\\D{5}(?P<card_tail>\\d{4})\\D{7}(?P<amount>.*)\\D{2}<\\D+(?P<order_number>\\d*)>\\S+', '95588', 'fn42nuQo9BmWBgseIQrEO5BoQuPch276', '1', '2011-04-07 14:20:40');
 INSERT INTO `deposit_method` VALUES ('2', '建设银行', 'ccb', 'CNY', 'netbank', 'careful', 'img_logo.allow_tags=True', '1', 'https://ibsbjstar.ccb.com.cn/app/V5/CN/STY1/login.jsp', 'images/payment/7.jpg', '10.0000', '10000.0000', '^\\D{3}(?P<account_name>\\D+)\\D{2}\'+u\'\\uff1a\'+\'\\D{3}(?P<deposit_name>\\D+)\\D{8}(?P<card_tail>\\d{4})\\D{8}(?P<amount>\\S+)\\D{12}\\:(?P<order_number>\\d+)\\[\\D+\\]\\D+$', '95533', 'NcElTeV1W5g7KCx3BMSIp2htNE9sjk1R', '1', '2011-04-07 14:31:02');
@@ -1321,6 +1368,10 @@ INSERT INTO `deposit_method` VALUES ('3', '支付宝', 'alipay', 'CNY', 'thirdpa
 INSERT INTO `deposit_method_account` VALUES ('1', '9558801000000000000', '1', 'c-mtv@163.com', '123123', '123123', 'Floyd', '0.0000', '13800000000', '1', '1', '2011-04-07 14:27:03', null, null, '', '');
 INSERT INTO `deposit_method_account` VALUES ('2', '9558801000000000001', '2', '', '123123', '123123', 'floyd', '0.0000', '13000000000', '1', '1', '2011-04-07 14:32:12', null, null, '', '');
 INSERT INTO `deposit_method_account` VALUES ('3', '562838@qq.com', '3', '', '123123', '123123', 'Floyd', '0.0000', '13500000000', '1', '1', '2011-04-07 15:27:39', null, null, '', '');
+INSERT INTO `deposit_sms_log` VALUES ('2', '95588', '13800000000', '王大有已于4月4日向尾号为0000的工行账户汇入10000元。<王大有留言：110415141548686>。【工商银行】', '2011-04-19 16:44:14');
+INSERT INTO `deposit_sms_log` VALUES ('8', '95588', '13800000000', '王大有已于4月4日向尾号为0000的工行账户汇入10000元。<王大有留言：110415141548686>。【工商银行】', '2011-04-19 17:25:24');
+INSERT INTO `deposit_sms_log` VALUES ('14', '95588', '13800000000', '王大有已于4月4日向尾号为0000的工行账户汇入10000元。<王大有留言：110415141548686>。【工商银行】', '2011-04-19 17:37:00');
+INSERT INTO `deposit_sms_log` VALUES ('15', '95588', '13800000000', '王大有已于4月4日向尾号为0000的工行账户汇入10000元。<王大有留言：110415141548686>。【工商银行】', '2011-04-19 17:39:50');
 INSERT INTO `django_admin_log` VALUES ('1', '2011-04-07 14:16:50', '1', '18', '1', '中国工商银行', '1', '');
 INSERT INTO `django_admin_log` VALUES ('2', '2011-04-07 14:17:03', '1', '18', '2', '建设银行', '1', '');
 INSERT INTO `django_admin_log` VALUES ('3', '2011-04-10 23:58:35', '1', '26', '1', '13800000000', '1', '');
@@ -1346,6 +1397,43 @@ INSERT INTO `django_admin_log` VALUES ('22', '2011-04-15 14:13:26', '1', '24', '
 INSERT INTO `django_admin_log` VALUES ('23', '2011-04-15 14:41:28', '1', '23', '2', '建设银行', '2', 'Changed notice_number and api_key.');
 INSERT INTO `django_admin_log` VALUES ('24', '2011-04-15 14:41:45', '1', '23', '1', '中国工商银行', '2', 'Changed api_key.');
 INSERT INTO `django_admin_log` VALUES ('25', '2011-04-15 17:03:19', '1', '23', '2', '建设银行', '2', 'Changed regex.');
+INSERT INTO `django_admin_log` VALUES ('26', '2011-04-19 11:48:29', '1', '26', '1', '13800000000', '2', 'Changed sms_key.');
+INSERT INTO `django_admin_log` VALUES ('27', '2011-04-19 16:23:53', '1', '28', '1', '上级充值', '1', '');
+INSERT INTO `django_admin_log` VALUES ('28', '2011-04-19 16:24:05', '1', '28', '2', '跨级充值', '1', '');
+INSERT INTO `django_admin_log` VALUES ('29', '2011-04-19 16:24:15', '1', '28', '3', '信用充值', '1', '');
+INSERT INTO `django_admin_log` VALUES ('30', '2011-04-19 16:24:26', '1', '28', '4', '充值扣费', '1', '');
+INSERT INTO `django_admin_log` VALUES ('31', '2011-04-19 16:24:36', '1', '28', '5', '本人提现', '1', '');
+INSERT INTO `django_admin_log` VALUES ('32', '2011-04-19 16:24:43', '1', '28', '6', '跨级提现', '1', '');
+INSERT INTO `django_admin_log` VALUES ('33', '2011-04-19 16:24:53', '1', '28', '7', '下级提现', '1', '');
+INSERT INTO `django_admin_log` VALUES ('34', '2011-04-19 16:25:10', '1', '28', '8', '本人发起提现', '1', '');
+INSERT INTO `django_admin_log` VALUES ('35', '2011-04-19 16:25:19', '1', '28', '9', '下级发起提现', '1', '');
+INSERT INTO `django_admin_log` VALUES ('36', '2011-04-19 16:25:37', '1', '28', '10', '商务提现申请', '1', '');
+INSERT INTO `django_admin_log` VALUES ('37', '2011-04-19 16:25:46', '1', '28', '11', '商务提现失败', '1', '');
+INSERT INTO `django_admin_log` VALUES ('38', '2011-04-19 16:25:56', '1', '28', '12', '信用扣减', '1', '');
+INSERT INTO `django_admin_log` VALUES ('39', '2011-04-19 16:26:07', '1', '28', '13', '商务提现成功', '1', '');
+INSERT INTO `django_admin_log` VALUES ('40', '2011-04-19 16:26:16', '1', '28', '14', '银行转出', '1', '');
+INSERT INTO `django_admin_log` VALUES ('41', '2011-04-19 16:26:25', '1', '28', '15', '转入银行', '1', '');
+INSERT INTO `django_admin_log` VALUES ('42', '2011-04-19 16:26:32', '1', '28', '16', '转账转出', '1', '');
+INSERT INTO `django_admin_log` VALUES ('43', '2011-04-19 16:26:40', '1', '28', '17', '转账转入', '1', '');
+INSERT INTO `django_admin_log` VALUES ('44', '2011-04-19 16:26:49', '1', '28', '18', '频道小额转入', '1', '');
+INSERT INTO `django_admin_log` VALUES ('45', '2011-04-19 16:26:56', '1', '28', '19', '小额扣除', '1', '');
+INSERT INTO `django_admin_log` VALUES ('46', '2011-04-19 16:27:06', '1', '28', '20', '小额接收', '1', '');
+INSERT INTO `django_admin_log` VALUES ('47', '2011-04-19 16:27:17', '1', '28', '21', '特殊金额清理', '1', '');
+INSERT INTO `django_admin_log` VALUES ('48', '2011-04-19 16:27:28', '1', '28', '22', '特殊金额整理', '1', '');
+INSERT INTO `django_admin_log` VALUES ('49', '2011-04-19 16:27:43', '1', '28', '23', '理赔充值', '1', '');
+INSERT INTO `django_admin_log` VALUES ('50', '2011-04-19 16:27:52', '1', '28', '24', '管理员扣减', '1', '');
+INSERT INTO `django_admin_log` VALUES ('51', '2011-04-19 16:28:00', '1', '28', '25', '转账理赔', '1', '');
+INSERT INTO `django_admin_log` VALUES ('52', '2011-04-19 16:28:14', '1', '28', '26', '平台提现申请', '1', '');
+INSERT INTO `django_admin_log` VALUES ('53', '2011-04-19 16:28:22', '1', '28', '27', '平台提现失败', '1', '');
+INSERT INTO `django_admin_log` VALUES ('54', '2011-04-19 16:28:35', '1', '28', '28', '平台提现成功', '1', '');
+INSERT INTO `django_admin_log` VALUES ('55', '2011-04-19 16:30:21', '1', '28', '29', '平台提现成功', '1', '');
+INSERT INTO `django_admin_log` VALUES ('56', '2011-04-19 16:54:32', '1', '28', '30', '加入游戏', '1', '');
+INSERT INTO `django_admin_log` VALUES ('57', '2011-04-19 16:54:57', '1', '28', '31', '销售返点', '1', '');
+INSERT INTO `django_admin_log` VALUES ('58', '2011-04-19 16:55:06', '1', '28', '32', '奖金派送', '1', '');
+INSERT INTO `django_admin_log` VALUES ('59', '2011-04-19 16:55:15', '1', '28', '33', '追号扣款', '1', '');
+INSERT INTO `django_admin_log` VALUES ('60', '2011-04-19 16:55:37', '1', '28', '34', '撤单返款', '1', '');
+INSERT INTO `django_admin_log` VALUES ('61', '2011-04-19 16:55:50', '1', '28', '35', '撤单手续费', '1', '');
+INSERT INTO `django_admin_log` VALUES ('62', '2011-04-19 16:56:29', '1', '28', '36', '平台充值', '1', '');
 INSERT INTO `django_content_type` VALUES ('1', 'permission', 'auth', 'permission');
 INSERT INTO `django_content_type` VALUES ('2', 'group', 'auth', 'group');
 INSERT INTO `django_content_type` VALUES ('3', 'user', 'auth', 'user');
@@ -1371,30 +1459,99 @@ INSERT INTO `django_content_type` VALUES ('24', 'deposit method account', 'bank'
 INSERT INTO `django_content_type` VALUES ('25', 'deposit log', 'bank', 'depositlog');
 INSERT INTO `django_content_type` VALUES ('26', 'cellphone', 'bank', 'cellphone');
 INSERT INTO `django_content_type` VALUES ('27', 'SMS log', 'bank', 'smslog');
+INSERT INTO `django_content_type` VALUES ('28', 'user account detail type', 'account', 'useraccountdetailtype');
+INSERT INTO `django_content_type` VALUES ('29', 'user account detail', 'account', 'useraccountdetail');
+INSERT INTO `django_session` VALUES ('0171fa0d3c9fb3d635ad4685e6827dae', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:51:17');
+INSERT INTO `django_session` VALUES ('0207d328f5c9e520cace5bccb20d9def', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:38:50');
+INSERT INTO `django_session` VALUES ('0561981355a92f539998d82e6903582b', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 11:51:48');
+INSERT INTO `django_session` VALUES ('072c515cb855d4f718b67b1fb52f972e', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 11:00:32');
+INSERT INTO `django_session` VALUES ('07f566193de0dcae2f58942cbaa2e1fd', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 11:56:26');
+INSERT INTO `django_session` VALUES ('0d7717ea5ee885a9c0aa18783c1d33ea', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 17:14:56');
+INSERT INTO `django_session` VALUES ('0e1e7814fe926dde16b92d33045850be', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 11:54:30');
 INSERT INTO `django_session` VALUES ('0ea61a686c73f815dfff9ad366a7fb3c', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-29 11:11:23');
+INSERT INTO `django_session` VALUES ('0fb01047f1fd6855c95e2669baafb687', 'ZmNhMWM2ODk0YTQzNDNhYWUyODdlMzg2NDgwYzlkOTRkY2NlZjY4NTqAAn1xAVUKdGVzdGNvb2tp\nZXECVQZ3b3JrZWRxA3Mu\n', '2011-05-03 14:39:52');
+INSERT INTO `django_session` VALUES ('10040a4e78fadb2e7ed335130d478058', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 11:56:49');
+INSERT INTO `django_session` VALUES ('141e374f3f809900b0fce868a4b5233f', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-29 17:34:53');
+INSERT INTO `django_session` VALUES ('1ac9545fd5a3dc0feba985f505b4c3ec', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 10:04:48');
+INSERT INTO `django_session` VALUES ('1b238d875f8af162b5fa28ea3f7ab437', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:51:53');
+INSERT INTO `django_session` VALUES ('1c0cdab351d815dd12633564c6873bf0', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:50:00');
+INSERT INTO `django_session` VALUES ('1c112746cd8b843039c3aca9a0f2ea54', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 17:21:15');
+INSERT INTO `django_session` VALUES ('1d56636ce4682de2744634f5e2b3d710', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 11:57:02');
 INSERT INTO `django_session` VALUES ('1f004407339089efa193cc187c804869', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-22 10:38:36');
 INSERT INTO `django_session` VALUES ('21ccdcd6a3bac6b6327359cf4595a6de', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-24 14:20:52');
+INSERT INTO `django_session` VALUES ('229978ea8be7b8e1be09d024df1b958c', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 17:27:52');
 INSERT INTO `django_session` VALUES ('23895f71a20ce469b2132c099664a056', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-25 10:27:14');
+INSERT INTO `django_session` VALUES ('24e13f882d8b3fe9a74417f2c2394393', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 16:41:05');
 INSERT INTO `django_session` VALUES ('25c934b226f050d3937fc6d410e2c9b3', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-23 17:33:31');
+INSERT INTO `django_session` VALUES ('284f35b84aad920f6e41a02b6fb51e81', 'ZjAxYTYxYzA1NjdhODM0MjFjNzIwMGZiNjJhMTM0MDlkNzM0ZGE0NTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZFUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRVDV9h\ndXRoX3VzZXJfaWSKAQF1Lg==\n', '2011-05-03 16:56:31');
 INSERT INTO `django_session` VALUES ('295ee0b6f685e7a1d45d2058c82df117', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-22 10:38:36');
+INSERT INTO `django_session` VALUES ('2e3be82e92b8ae4340a31c0e297bd3d7', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 17:25:24');
+INSERT INTO `django_session` VALUES ('301d5a2337dcc56e1ecf097a9aedb411', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 17:26:38');
 INSERT INTO `django_session` VALUES ('358ce4cba83ceb5375e40ea003d5422d', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-23 17:43:13');
+INSERT INTO `django_session` VALUES ('35a7c681e68251a88d5487bf51e8b757', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 17:24:39');
+INSERT INTO `django_session` VALUES ('388758765505768616d8ecbe62a64277', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 11:52:09');
+INSERT INTO `django_session` VALUES ('3bd7dd366be2dff76187a6037d808b90', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 16:49:55');
 INSERT INTO `django_session` VALUES ('3c52dc436f7613e9007487ca7927e576', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-29 17:02:58');
+INSERT INTO `django_session` VALUES ('4b2e52e3b989d9407750250aece7c677', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 11:00:32');
+INSERT INTO `django_session` VALUES ('4be3a440edec15759dbeef30adff4463', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-29 17:34:14');
+INSERT INTO `django_session` VALUES ('4db3ede5a75ef4904bacdcbcc61adaad', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 11:57:13');
 INSERT INTO `django_session` VALUES ('4dc7892e96442921a6ca797e9fda993d', 'ZmNhMWM2ODk0YTQzNDNhYWUyODdlMzg2NDgwYzlkOTRkY2NlZjY4NTqAAn1xAVUKdGVzdGNvb2tp\nZXECVQZ3b3JrZWRxA3Mu\n', '2011-04-23 22:54:23');
+INSERT INTO `django_session` VALUES ('512e5205bcde76e73a42c3c3e97ac9fd', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 17:26:00');
 INSERT INTO `django_session` VALUES ('51b4c1ceed652d0a62e95bead6fede0d', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-23 17:17:49');
 INSERT INTO `django_session` VALUES ('540a042f253b7d3625f08d6e5f5d61a9', 'ZmNhMWM2ODk0YTQzNDNhYWUyODdlMzg2NDgwYzlkOTRkY2NlZjY4NTqAAn1xAVUKdGVzdGNvb2tp\nZXECVQZ3b3JrZWRxA3Mu\n', '2011-04-23 17:03:15');
-INSERT INTO `django_session` VALUES ('55e6dfca20be2f283b8078df4eafcd8f', 'ZjAxYTYxYzA1NjdhODM0MjFjNzIwMGZiNjJhMTM0MDlkNzM0ZGE0NTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZFUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRVDV9h\ndXRoX3VzZXJfaWSKAQF1Lg==\n', '2011-04-29 17:06:01');
+INSERT INTO `django_session` VALUES ('551d58d2267d0b69bd9b12abb005ce14', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:48:48');
+INSERT INTO `django_session` VALUES ('55e6dfca20be2f283b8078df4eafcd8f', 'ZjAxYTYxYzA1NjdhODM0MjFjNzIwMGZiNjJhMTM0MDlkNzM0ZGE0NTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZFUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRVDV9h\ndXRoX3VzZXJfaWSKAQF1Lg==\n', '2011-05-03 11:00:32');
+INSERT INTO `django_session` VALUES ('576d356873169acf62c4a2d5a1cb8074', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 14:33:23');
+INSERT INTO `django_session` VALUES ('5847cc9273df056e744961210c2098b7', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 14:30:59');
+INSERT INTO `django_session` VALUES ('59133887ff62b3e281e447cc317c9e64', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:36:52');
 INSERT INTO `django_session` VALUES ('5d3535ff9ef94da6cb232cdba350104e', 'ZmNhMWM2ODk0YTQzNDNhYWUyODdlMzg2NDgwYzlkOTRkY2NlZjY4NTqAAn1xAVUKdGVzdGNvb2tp\nZXECVQZ3b3JrZWRxA3Mu\n', '2011-04-23 20:33:39');
 INSERT INTO `django_session` VALUES ('660817ebdf5a30fd8cdf377cb1195fef', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-23 17:33:07');
 INSERT INTO `django_session` VALUES ('6ca47d062f00ec17021b7dad47d65549', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-26 17:31:54');
 INSERT INTO `django_session` VALUES ('6ddf6ee113b781a9191ee09bf046b2c1', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-28 11:10:44');
 INSERT INTO `django_session` VALUES ('6f461b5da9dace55a71082c2cc445586', 'NTI4MmVkMjU4MWQ0OTQxN2E5ZDZjODI0NTM4ZmE3NmJhZGVmM2ZkMzqAAn1xAShVDV9hdXRoX3Vz\nZXJfaWRxAooBAVUSX2F1dGhfdXNlcl9iYWNrZW5kcQNVKWRqYW5nby5jb250cmliLmF1dGguYmFj\na2VuZHMuTW9kZWxCYWNrZW5kcQR1Lg==\n', '2011-04-23 20:28:54');
+INSERT INTO `django_session` VALUES ('70bbc9837a25a9efd620b460a78c4bc8', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 17:29:22');
+INSERT INTO `django_session` VALUES ('77d3c780905de161dde2b566a0e2f62b', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 15:02:50');
+INSERT INTO `django_session` VALUES ('8c39652fb7501baa8de5ed5a89526f6a', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 11:53:28');
+INSERT INTO `django_session` VALUES ('8e75db7ee93540015ca33db0f9189514', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:55:30');
+INSERT INTO `django_session` VALUES ('90898476bbe8c0adf43ee6bb161bd21c', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 14:57:40');
+INSERT INTO `django_session` VALUES ('91477d1ae53e2567f93d9cfb8b23d5ab', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 15:04:16');
+INSERT INTO `django_session` VALUES ('9b0021df62d824d8f2f5e9fb03febd3d', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:57:48');
+INSERT INTO `django_session` VALUES ('9f05cd5dfb7a0e07c50be75f73a9f2e9', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:53:36');
+INSERT INTO `django_session` VALUES ('a1ccf147ac6be001541c5d2232f61529', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 11:50:01');
+INSERT INTO `django_session` VALUES ('a32868de6fb1142961994319c9730e6c', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 11:00:32');
+INSERT INTO `django_session` VALUES ('a48ffef63534b2ba758ea67e72ae802e', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:56:47');
 INSERT INTO `django_session` VALUES ('a4da2f70c6a7d79a2cadee5c6946b3bb', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-24 14:20:52');
+INSERT INTO `django_session` VALUES ('a58b0b04d8c6b6aa4b55674b4885e0fc', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 10:04:48');
+INSERT INTO `django_session` VALUES ('a6bf221b09cb0f16c5638b91c70bc3fa', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 14:58:36');
+INSERT INTO `django_session` VALUES ('a70632ad26634de2e026ce86fd682464', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 11:44:13');
+INSERT INTO `django_session` VALUES ('a8b476689fb28ffc817487322096efa5', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 16:49:56');
+INSERT INTO `django_session` VALUES ('aad830a91344c196b0446531bc38c43f', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 14:30:29');
+INSERT INTO `django_session` VALUES ('ac6c9ac62f230b7af8572aa894a1b978', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 11:54:03');
+INSERT INTO `django_session` VALUES ('aeebfcb2ecdf9453f3ef5959884a2c57', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 16:38:07');
+INSERT INTO `django_session` VALUES ('b433ffaef35c533ebdc825094aa68812', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:52:16');
+INSERT INTO `django_session` VALUES ('b5ff0249d9eba8cbdc0c521c3cd3f260', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 11:45:30');
+INSERT INTO `django_session` VALUES ('bb57b285eb822f8f54f8e7d54c5d11d4', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 17:37:00');
 INSERT INTO `django_session` VALUES ('c80813a9e2dd6460e982653cd6cb59f9', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-22 10:38:36');
+INSERT INTO `django_session` VALUES ('c9b96a05bb249c00b53ecac233631977', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 14:37:16');
 INSERT INTO `django_session` VALUES ('ca87a689d2eb86c4ed20b2d707059c26', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-27 16:48:47');
+INSERT INTO `django_session` VALUES ('cce52e43def8f9de49ea5dd3be008889', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:50:42');
+INSERT INTO `django_session` VALUES ('cdb970ada4251e01e31a4d16b1cbe4de', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 17:20:32');
+INSERT INTO `django_session` VALUES ('d45e6631dd772c6fdc724dda921bcd50', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 11:49:03');
 INSERT INTO `django_session` VALUES ('d8afd138e8c0dc3ee117975554b907b5', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-23 15:27:42');
 INSERT INTO `django_session` VALUES ('df05faf89b23003f8dab3006c4d4ef1e', 'M2MzZTNiNzFkZWMzMzE0MTY5ODBlMjY4YzZiMTJhYTA0ZmJlM2QwODqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQSKAQF1Lg==\n', '2011-04-25 00:08:07');
 INSERT INTO `django_session` VALUES ('e0dd5de21f8833bcd8c7bc1859980ff2', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-28 10:18:56');
+INSERT INTO `django_session` VALUES ('e81e3f235d556e6a0b9977db2a528874', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:52:56');
+INSERT INTO `django_session` VALUES ('e903473d45e86b5d9ad451669df18704', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 16:44:14');
 INSERT INTO `django_session` VALUES ('eb85163557b033ccb570036a229e179c', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-23 15:27:42');
+INSERT INTO `django_session` VALUES ('eb99790ce7608a3acc0cf50f1a944d87', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 16:49:55');
+INSERT INTO `django_session` VALUES ('f229b221c63d9e16c305fa5f0775a411', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 17:39:50');
+INSERT INTO `django_session` VALUES ('f2e9cf1a772069ae9f0f44370b401108', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:54:06');
+INSERT INTO `django_session` VALUES ('f34996e90884bc71ff2633e569089c77', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:54:31');
+INSERT INTO `django_session` VALUES ('f631959a7c8e20b729e30801a13e522a', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 10:04:48');
+INSERT INTO `django_session` VALUES ('f843f73e83660339fb1e04383395d772', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:52:40');
+INSERT INTO `django_session` VALUES ('f9647d3be431eb6a53f989fb17938940', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:40:26');
+INSERT INTO `django_session` VALUES ('fd55044eac6cfe099bdf2f0683c72026', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 17:16:59');
+INSERT INTO `django_session` VALUES ('fd94b3227f37d7ebca7dec181c782aeb', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 17:32:32');
 INSERT INTO `django_site` VALUES ('1', 'example.com', 'example.com');
 INSERT INTO `province` VALUES ('3', '北京市', 'CN');
 INSERT INTO `province` VALUES ('4', 'Alaska', 'US');
@@ -1494,4 +1651,41 @@ INSERT INTO `province` VALUES ('97', '宁夏回族自治区', 'CN');
 INSERT INTO `province` VALUES ('98', '新疆维吾尔自治区', 'CN');
 INSERT INTO `province` VALUES ('99', '香港特别行政区', 'CN');
 INSERT INTO `province` VALUES ('100', '澳门特别行政区', 'CN');
-INSERT INTO `user_profile` VALUES ('1', '1', '1932-02-06', 'M', '9876543', '', 'paseo parkview', '18L', '399', '123454', null, '76', '127.0.0.1', '127.0.0.1', 'CN', '0.0000', '0.0000', '0.0000', '0.0000', null, '0', null);
+INSERT INTO `user_account_detail` VALUES ('1', '1', null, '36', null, '平台充值', 'user deposit', '10000.0000', '10000.0000', '20000.0000', '127.0.0.1', '127.0.0.1', '2011-04-19 17:37:00', '2011-04-19 17:37:00');
+INSERT INTO `user_account_detail_type` VALUES ('1', '上级充值', '1', '上级充值');
+INSERT INTO `user_account_detail_type` VALUES ('2', '跨级充值', '1', '跨级充值');
+INSERT INTO `user_account_detail_type` VALUES ('3', '信用充值', '1', '信用充值');
+INSERT INTO `user_account_detail_type` VALUES ('4', '充值扣费', '0', '充值扣费');
+INSERT INTO `user_account_detail_type` VALUES ('5', '本人提现', '0', '本人提现');
+INSERT INTO `user_account_detail_type` VALUES ('6', '跨级提现', '0', '跨级提现');
+INSERT INTO `user_account_detail_type` VALUES ('7', '下级提现', '1', '下级提现');
+INSERT INTO `user_account_detail_type` VALUES ('8', '本人发起提现', '0', '本人发起提现');
+INSERT INTO `user_account_detail_type` VALUES ('9', '下级发起提现', '1', '下级发起提现');
+INSERT INTO `user_account_detail_type` VALUES ('10', '商务提现申请', '0', '商务提现申请');
+INSERT INTO `user_account_detail_type` VALUES ('11', '商务提现失败', '1', '商务提现失败');
+INSERT INTO `user_account_detail_type` VALUES ('12', '信用扣减', '0', '信用扣减');
+INSERT INTO `user_account_detail_type` VALUES ('13', '商务提现成功', '0', '商务提现成功');
+INSERT INTO `user_account_detail_type` VALUES ('14', '银行转出', '0', '银行转出');
+INSERT INTO `user_account_detail_type` VALUES ('15', '转入银行', '1', '转入银行');
+INSERT INTO `user_account_detail_type` VALUES ('16', '转账转出', '0', '转账转出');
+INSERT INTO `user_account_detail_type` VALUES ('17', '转账转入', '1', '转账转入');
+INSERT INTO `user_account_detail_type` VALUES ('18', '频道小额转入', '1', '频道小额转入');
+INSERT INTO `user_account_detail_type` VALUES ('19', '小额扣除', '0', '小额扣除');
+INSERT INTO `user_account_detail_type` VALUES ('20', '小额接收', '1', '小额接收');
+INSERT INTO `user_account_detail_type` VALUES ('21', '特殊金额清理', '0', '特殊金额清理');
+INSERT INTO `user_account_detail_type` VALUES ('22', '特殊金额整理', '1', '特殊金额整理');
+INSERT INTO `user_account_detail_type` VALUES ('23', '理赔充值', '1', '理赔充值');
+INSERT INTO `user_account_detail_type` VALUES ('24', '管理员扣减', '0', '管理员扣减');
+INSERT INTO `user_account_detail_type` VALUES ('25', '转账理赔', '1', '转账理赔');
+INSERT INTO `user_account_detail_type` VALUES ('26', '平台提现申请', '0', '平台提现申请');
+INSERT INTO `user_account_detail_type` VALUES ('27', '平台提现失败', '1', '平台提现失败');
+INSERT INTO `user_account_detail_type` VALUES ('28', '平台提现成功', '0', '平台提现成功');
+INSERT INTO `user_account_detail_type` VALUES ('29', '平台提现成功', '1', '大额提现');
+INSERT INTO `user_account_detail_type` VALUES ('30', '加入游戏', '0', '加入游戏');
+INSERT INTO `user_account_detail_type` VALUES ('31', '销售返点', '1', '销售返点');
+INSERT INTO `user_account_detail_type` VALUES ('32', '奖金派送', '1', '奖金派送');
+INSERT INTO `user_account_detail_type` VALUES ('33', '追号扣款', '0', '追号扣款');
+INSERT INTO `user_account_detail_type` VALUES ('34', '撤单返款', '1', '撤单返款');
+INSERT INTO `user_account_detail_type` VALUES ('35', '撤单手续费', '0', '撤单手续费');
+INSERT INTO `user_account_detail_type` VALUES ('36', '平台充值', '1', '平台充值');
+INSERT INTO `user_profile` VALUES ('1', '1', '1932-02-06', 'M', '9876543', '', 'paseo parkview', '18L', '399', '123454', null, '76', '127.0.0.1', '127.0.0.1', 'CN', '20000.0000', '0.0000', '0.0000', '0.0000', '2011-04-19 17:37:00', '0', null);
