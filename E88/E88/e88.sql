@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: e88
 Target Host: localhost
 Target Database: e88
-Date: 2011/4/19 17:41:15
+Date: 2011/4/19 17:52:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -260,21 +260,21 @@ CREATE TABLE `deposit_log` (
   `deposit_method_account_login_name` varchar(100) NOT NULL,
   `deposit_method_account_account_name` varchar(50) NOT NULL,
   `email` varchar(100) default NULL,
-  `status` smallint(1) NOT NULL,
+  `status` smallint(6) NOT NULL,
   `cellphone` varchar(11) NOT NULL,
   `deposit_time` datetime NOT NULL,
   `receive_log_id` int(11) default NULL,
   `receive_time` datetime default NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `order_number` (`order_number`),
-  KEY `deposit_log_fbfc09f1` (`user_id`),
+  KEY `deposit_log_403f60f` (`user_id`),
   KEY `deposit_log_4069c848` (`deposit_method_id`),
   KEY `deposit_log_2092e3b0` (`deposit_method_account_id`),
-  KEY `deposit_log_b7bc689f` (`receive_log_id`),
-  KEY `cellphone` (`cellphone`),
-  CONSTRAINT `deposit_log_ibfk_1` FOREIGN KEY (`cellphone`) REFERENCES `bank_cellphone` (`number`),
-  CONSTRAINT `deposit_method_account_id_refs_id_80a46b17` FOREIGN KEY (`deposit_method_account_id`) REFERENCES `deposit_method_account` (`id`),
-  CONSTRAINT `deposit_method_id_refs_id_e80c2021` FOREIGN KEY (`deposit_method_id`) REFERENCES `deposit_method` (`id`),
+  KEY `deposit_log_2bbf61fa` (`cellphone`),
+  KEY `deposit_log_48439761` (`receive_log_id`),
+  CONSTRAINT `cellphone_refs_number_b011b42` FOREIGN KEY (`cellphone`) REFERENCES `bank_cellphone` (`number`),
+  CONSTRAINT `deposit_method_account_id_refs_id_7f5b94e9` FOREIGN KEY (`deposit_method_account_id`) REFERENCES `deposit_method_account` (`id`),
+  CONSTRAINT `deposit_method_id_refs_id_17f3dfdf` FOREIGN KEY (`deposit_method_id`) REFERENCES `deposit_method` (`id`),
   CONSTRAINT `receive_log_id_refs_id_4c9606df` FOREIGN KEY (`receive_log_id`) REFERENCES `deposit_sms_log` (`id`),
   CONSTRAINT `user_id_refs_id_5900f35a` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -345,7 +345,10 @@ CREATE TABLE `deposit_sms_log` (
   `receive_number` varchar(11) NOT NULL,
   `content` varchar(500) NOT NULL,
   `receive_time` datetime NOT NULL,
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`id`),
+  KEY `deposit_sms_log_732f0dee` (`sender`),
+  KEY `deposit_sms_log_2afbfa10` (`receive_number`),
+  CONSTRAINT `receive_number_refs_number_68f6b0e0` FOREIGN KEY (`receive_number`) REFERENCES `bank_cellphone` (`number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -1354,24 +1357,12 @@ INSERT INTO `country` VALUES ('YT', 'MAYOTTE', 'Mayotte', '', null, null);
 INSERT INTO `country` VALUES ('ZA', 'SOUTH AFRICA', 'South Africa', '', 'ZAF', '710');
 INSERT INTO `country` VALUES ('ZM', 'ZAMBIA', 'Zambia', '', 'ZMB', '894');
 INSERT INTO `country` VALUES ('ZW', 'ZIMBABWE', 'Zimbabwe', '', 'ZWE', '716');
-INSERT INTO `deposit_log` VALUES ('1', '110411102759888', '1', '1', '1', '', '', '', '0', '13800000000', '2011-04-11 10:28:31', null, null);
-INSERT INTO `deposit_log` VALUES ('2', '110412092444555', '1', '1', '1', '9558801000000000000', 'Floyd', 'c-mtv@163.com', '0', '13800000000', '2011-04-12 09:50:06', null, null);
-INSERT INTO `deposit_log` VALUES ('5', '110412144438965', '1', '1', '1', 'c-mtv@163.com', 'Floyd', 'c-mtv@163.com', '0', '13800000000', '2011-04-12 14:57:34', null, null);
-INSERT INTO `deposit_log` VALUES ('6', '110412150520781', '1', '1', '1', '9558801000000000000', 'Floyd', 'c-mtv@163.com', '0', '13800000000', '2011-04-12 15:05:24', null, null);
-INSERT INTO `deposit_log` VALUES ('7', '110412151927932', '1', '1', '1', '9558801000000000000', 'Floyd', 'c-mtv@163.com', '0', '13500000000', '2011-04-12 15:47:50', null, null);
-INSERT INTO `deposit_log` VALUES ('8', '110412155347556', '1', '2', '2', '9558801000000000001', 'floyd', null, '0', '13000000000', '2011-04-12 15:54:47', null, null);
-INSERT INTO `deposit_log` VALUES ('9', '110415141548686', '1', '1', '1', '9558801000000000000', 'Floyd', 'c-mtv@163.com', '1', '13800000000', '2011-04-15 14:15:52', '14', '2011-04-19 17:37:00');
-INSERT INTO `deposit_log` VALUES ('10', '110415144155143', '1', '2', '2', '9558801000000000001', 'floyd', '', '0', '13000000000', '2011-04-15 14:48:49', null, null);
 INSERT INTO `deposit_method` VALUES ('1', '中国工商银行', 'icbc', 'CNY', 'netbank', 'careful', '    <table>\r\n	<caption>\r\n		<p class=\"fn-right bank-tip\">工商银行客服热线：95588</p>\r\n		<p class=\"bank-tip\">请关注您的充值金额是否超限</p>\r\n	</caption>\r\n	<thead>\r\n		<tr>\r\n			<th>银行卡种类</th>\r\n			<th>单笔限额(元)</th>\r\n			<th>每日限额(元)	</th>\r\n			<th>需要满足的条件	</th>\r\n			<th width=\"100px\">备注</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td rowspan=\"3\">储蓄卡</td>\r\n			<td>500</td>\r\n			<td>1000</td>\r\n			<td>办理电子银行口令卡(无需开通短信认证)    <a target=\"_blank\" href=\"http://help.alipay.com/lab/help_detail.htm?help_id=212183#2\">如何办理？</a></td>\r\n			<td rowspan=\"6\" width=\"100px\">1.如果您在银行设置的网上支付额度低于左表限额，以您的设置为准。 <br />2.存量静态密码客户的总累计限额为300元</td>\r\n		</tr>\r\n		<tr>\r\n			\r\n			<td>2000</td>\r\n			<td>5000</td>\r\n			<td>办理电子银行口令卡，开通短信认证    <a target=\"_blank\" href=\"http://help.alipay.com/lab/help_detail.htm?help_id=212183#2\">如何办理？</a></td>\r\n		</tr>\r\n		<tr>\r\n			\r\n			<td>100万</td>\r\n			<td>100万</td>\r\n			<td>办理U盾    <a target=\"_blank\" href=\"http://help.alipay.com/lab/help_detail.htm?help_id=211542#3\">如何办理？</a></td>\r\n		</tr>\r\n		<tr>\r\n			<td rowspan=\"3\">信用卡</td>\r\n			<td>500</td>\r\n			<td>1000</td>\r\n			<td>办理电子银行口令卡(无需开通短信认证)    <a target=\"_blank\" href=\"http://help.alipay.com/lab/help_detail.htm?help_id=212183#2\">如何办理？</a></td>\r\n		</tr>\r\n		<tr>\r\n			\r\n			<td>1000</td>\r\n			<td>5000</td>\r\n			<td>办理电子银行口令卡，开通短信认证    <a target=\"_blank\" href=\"http://help.alipay.com/lab/help_detail.htm?help_id=212183#2\">如何办理？</a></td>\r\n		</tr>\r\n		<tr>\r\n			\r\n			<td>1000</td>\r\n			<td>信用卡本身透支额度</td>\r\n			<td>办理U盾    <a target=\"_blank\" href=\"http://help.alipay.com/lab/help_detail.htm?help_id=211542#3\">如何办理？</a></td>\r\n		</tr>\r\n	</tbody>\r\n</table>', '1', 'https://mybank.icbc.com.cn/icbc/perbank/index.jsp', 'images/payment/6.jpg', '10.0000', '10000.0000', '(?P<deposit_name>\\D+)\\D{2}\\d{1,2}\\D{1}\\d{1,2}\\D{5}(?P<card_tail>\\d{4})\\D{7}(?P<amount>.*)\\D{2}<\\D+(?P<order_number>\\d*)>\\S+', '95588', 'fn42nuQo9BmWBgseIQrEO5BoQuPch276', '1', '2011-04-07 14:20:40');
 INSERT INTO `deposit_method` VALUES ('2', '建设银行', 'ccb', 'CNY', 'netbank', 'careful', 'img_logo.allow_tags=True', '1', 'https://ibsbjstar.ccb.com.cn/app/V5/CN/STY1/login.jsp', 'images/payment/7.jpg', '10.0000', '10000.0000', '^\\D{3}(?P<account_name>\\D+)\\D{2}\'+u\'\\uff1a\'+\'\\D{3}(?P<deposit_name>\\D+)\\D{8}(?P<card_tail>\\d{4})\\D{8}(?P<amount>\\S+)\\D{12}\\:(?P<order_number>\\d+)\\[\\D+\\]\\D+$', '95533', 'NcElTeV1W5g7KCx3BMSIp2htNE9sjk1R', '1', '2011-04-07 14:31:02');
 INSERT INTO `deposit_method` VALUES ('3', '支付宝', 'alipay', 'CNY', 'thirdpart', 'careful', 'discriminator', '1', 'http://www.alipay.com/', 'images/payment/alipay.jpg', '10.0000', '5000.0000', '', '', '', '1', '2011-04-07 15:26:39');
 INSERT INTO `deposit_method_account` VALUES ('1', '9558801000000000000', '1', 'c-mtv@163.com', '123123', '123123', 'Floyd', '0.0000', '13800000000', '1', '1', '2011-04-07 14:27:03', null, null, '', '');
 INSERT INTO `deposit_method_account` VALUES ('2', '9558801000000000001', '2', '', '123123', '123123', 'floyd', '0.0000', '13000000000', '1', '1', '2011-04-07 14:32:12', null, null, '', '');
 INSERT INTO `deposit_method_account` VALUES ('3', '562838@qq.com', '3', '', '123123', '123123', 'Floyd', '0.0000', '13500000000', '1', '1', '2011-04-07 15:27:39', null, null, '', '');
-INSERT INTO `deposit_sms_log` VALUES ('2', '95588', '13800000000', '王大有已于4月4日向尾号为0000的工行账户汇入10000元。<王大有留言：110415141548686>。【工商银行】', '2011-04-19 16:44:14');
-INSERT INTO `deposit_sms_log` VALUES ('8', '95588', '13800000000', '王大有已于4月4日向尾号为0000的工行账户汇入10000元。<王大有留言：110415141548686>。【工商银行】', '2011-04-19 17:25:24');
-INSERT INTO `deposit_sms_log` VALUES ('14', '95588', '13800000000', '王大有已于4月4日向尾号为0000的工行账户汇入10000元。<王大有留言：110415141548686>。【工商银行】', '2011-04-19 17:37:00');
-INSERT INTO `deposit_sms_log` VALUES ('15', '95588', '13800000000', '王大有已于4月4日向尾号为0000的工行账户汇入10000元。<王大有留言：110415141548686>。【工商银行】', '2011-04-19 17:39:50');
 INSERT INTO `django_admin_log` VALUES ('1', '2011-04-07 14:16:50', '1', '18', '1', '中国工商银行', '1', '');
 INSERT INTO `django_admin_log` VALUES ('2', '2011-04-07 14:17:03', '1', '18', '2', '建设银行', '1', '');
 INSERT INTO `django_admin_log` VALUES ('3', '2011-04-10 23:58:35', '1', '26', '1', '13800000000', '1', '');
@@ -1483,7 +1474,7 @@ INSERT INTO `django_session` VALUES ('229978ea8be7b8e1be09d024df1b958c', 'YWE1MW
 INSERT INTO `django_session` VALUES ('23895f71a20ce469b2132c099664a056', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-25 10:27:14');
 INSERT INTO `django_session` VALUES ('24e13f882d8b3fe9a74417f2c2394393', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 16:41:05');
 INSERT INTO `django_session` VALUES ('25c934b226f050d3937fc6d410e2c9b3', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-23 17:33:31');
-INSERT INTO `django_session` VALUES ('284f35b84aad920f6e41a02b6fb51e81', 'ZjAxYTYxYzA1NjdhODM0MjFjNzIwMGZiNjJhMTM0MDlkNzM0ZGE0NTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZFUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRVDV9h\ndXRoX3VzZXJfaWSKAQF1Lg==\n', '2011-05-03 16:56:31');
+INSERT INTO `django_session` VALUES ('284f35b84aad920f6e41a02b6fb51e81', 'ZjAxYTYxYzA1NjdhODM0MjFjNzIwMGZiNjJhMTM0MDlkNzM0ZGE0NTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZFUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRVDV9h\ndXRoX3VzZXJfaWSKAQF1Lg==\n', '2011-05-03 17:52:15');
 INSERT INTO `django_session` VALUES ('295ee0b6f685e7a1d45d2058c82df117', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-22 10:38:36');
 INSERT INTO `django_session` VALUES ('2e3be82e92b8ae4340a31c0e297bd3d7', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 17:25:24');
 INSERT INTO `django_session` VALUES ('301d5a2337dcc56e1ecf097a9aedb411', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 17:26:38');
