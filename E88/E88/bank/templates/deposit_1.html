@@ -12,11 +12,11 @@
     {{ method.img_logo|safe }}
 </div>
 {% for field in form %}
-<div class="formRow mandatory deposit{% if field.errors %} error{% endif %}">
+<div class="formRow deposit{% if field.errors %} error{% endif %}">
 {% if not field.is_hidden %}
     {{ field.label_tag }}
 {% endif %}
-    {{ field }}
+    {{ field }}{%ifequal field.name 'amount' %}{{method.min_deposit|floatformat}} - {{method.max_deposit|floatformat}}{%endifequal%}
 </div>
 {% endfor %}
 

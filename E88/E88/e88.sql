@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: e88
 Target Host: localhost
 Target Database: e88
-Date: 2011/4/19 17:52:28
+Date: 2011/4/20 15:50:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -260,6 +260,7 @@ CREATE TABLE `deposit_log` (
   `deposit_method_account_login_name` varchar(100) NOT NULL,
   `deposit_method_account_account_name` varchar(50) NOT NULL,
   `email` varchar(100) default NULL,
+  `amount` decimal(14,4) NOT NULL,
   `status` smallint(6) NOT NULL,
   `cellphone` varchar(11) NOT NULL,
   `deposit_time` datetime NOT NULL,
@@ -1358,7 +1359,7 @@ INSERT INTO `country` VALUES ('ZA', 'SOUTH AFRICA', 'South Africa', '', 'ZAF', '
 INSERT INTO `country` VALUES ('ZM', 'ZAMBIA', 'Zambia', '', 'ZMB', '894');
 INSERT INTO `country` VALUES ('ZW', 'ZIMBABWE', 'Zimbabwe', '', 'ZWE', '716');
 INSERT INTO `deposit_method` VALUES ('1', '中国工商银行', 'icbc', 'CNY', 'netbank', 'careful', '    <table>\r\n	<caption>\r\n		<p class=\"fn-right bank-tip\">工商银行客服热线：95588</p>\r\n		<p class=\"bank-tip\">请关注您的充值金额是否超限</p>\r\n	</caption>\r\n	<thead>\r\n		<tr>\r\n			<th>银行卡种类</th>\r\n			<th>单笔限额(元)</th>\r\n			<th>每日限额(元)	</th>\r\n			<th>需要满足的条件	</th>\r\n			<th width=\"100px\">备注</th>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td rowspan=\"3\">储蓄卡</td>\r\n			<td>500</td>\r\n			<td>1000</td>\r\n			<td>办理电子银行口令卡(无需开通短信认证)    <a target=\"_blank\" href=\"http://help.alipay.com/lab/help_detail.htm?help_id=212183#2\">如何办理？</a></td>\r\n			<td rowspan=\"6\" width=\"100px\">1.如果您在银行设置的网上支付额度低于左表限额，以您的设置为准。 <br />2.存量静态密码客户的总累计限额为300元</td>\r\n		</tr>\r\n		<tr>\r\n			\r\n			<td>2000</td>\r\n			<td>5000</td>\r\n			<td>办理电子银行口令卡，开通短信认证    <a target=\"_blank\" href=\"http://help.alipay.com/lab/help_detail.htm?help_id=212183#2\">如何办理？</a></td>\r\n		</tr>\r\n		<tr>\r\n			\r\n			<td>100万</td>\r\n			<td>100万</td>\r\n			<td>办理U盾    <a target=\"_blank\" href=\"http://help.alipay.com/lab/help_detail.htm?help_id=211542#3\">如何办理？</a></td>\r\n		</tr>\r\n		<tr>\r\n			<td rowspan=\"3\">信用卡</td>\r\n			<td>500</td>\r\n			<td>1000</td>\r\n			<td>办理电子银行口令卡(无需开通短信认证)    <a target=\"_blank\" href=\"http://help.alipay.com/lab/help_detail.htm?help_id=212183#2\">如何办理？</a></td>\r\n		</tr>\r\n		<tr>\r\n			\r\n			<td>1000</td>\r\n			<td>5000</td>\r\n			<td>办理电子银行口令卡，开通短信认证    <a target=\"_blank\" href=\"http://help.alipay.com/lab/help_detail.htm?help_id=212183#2\">如何办理？</a></td>\r\n		</tr>\r\n		<tr>\r\n			\r\n			<td>1000</td>\r\n			<td>信用卡本身透支额度</td>\r\n			<td>办理U盾    <a target=\"_blank\" href=\"http://help.alipay.com/lab/help_detail.htm?help_id=211542#3\">如何办理？</a></td>\r\n		</tr>\r\n	</tbody>\r\n</table>', '1', 'https://mybank.icbc.com.cn/icbc/perbank/index.jsp', 'images/payment/6.jpg', '10.0000', '10000.0000', '(?P<deposit_name>\\D+)\\D{2}\\d{1,2}\\D{1}\\d{1,2}\\D{5}(?P<card_tail>\\d{4})\\D{7}(?P<amount>.*)\\D{2}<\\D+(?P<order_number>\\d*)>\\S+', '95588', 'fn42nuQo9BmWBgseIQrEO5BoQuPch276', '1', '2011-04-07 14:20:40');
-INSERT INTO `deposit_method` VALUES ('2', '建设银行', 'ccb', 'CNY', 'netbank', 'careful', 'img_logo.allow_tags=True', '1', 'https://ibsbjstar.ccb.com.cn/app/V5/CN/STY1/login.jsp', 'images/payment/7.jpg', '10.0000', '10000.0000', '^\\D{3}(?P<account_name>\\D+)\\D{2}\'+u\'\\uff1a\'+\'\\D{3}(?P<deposit_name>\\D+)\\D{8}(?P<card_tail>\\d{4})\\D{8}(?P<amount>\\S+)\\D{12}\\:(?P<order_number>\\d+)\\[\\D+\\]\\D+$', '95533', 'NcElTeV1W5g7KCx3BMSIp2htNE9sjk1R', '1', '2011-04-07 14:31:02');
+INSERT INTO `deposit_method` VALUES ('2', '建设银行', 'ccb', 'CNY', 'netbank', 'careful', 'img_logo.allow_tags=True', '1', 'https://ibsbjstar.ccb.com.cn/app/V5/CN/STY1/login.jsp', 'images/payment/7.jpg', '100.0000', '40000.0000', '^\\D{3}(?P<account_name>\\D+)\\D{2}\'+u\'\\uff1a\'+\'\\D{3}(?P<deposit_name>\\D+)\\D{8}(?P<card_tail>\\d{4})\\D{8}(?P<amount>\\S+)\\D{12}\\:(?P<order_number>\\d+)\\[\\D+\\]\\D+$', '95533', 'NcElTeV1W5g7KCx3BMSIp2htNE9sjk1R', '1', '2011-04-07 14:31:02');
 INSERT INTO `deposit_method` VALUES ('3', '支付宝', 'alipay', 'CNY', 'thirdpart', 'careful', 'discriminator', '1', 'http://www.alipay.com/', 'images/payment/alipay.jpg', '10.0000', '5000.0000', '', '', '', '1', '2011-04-07 15:26:39');
 INSERT INTO `deposit_method_account` VALUES ('1', '9558801000000000000', '1', 'c-mtv@163.com', '123123', '123123', 'Floyd', '0.0000', '13800000000', '1', '1', '2011-04-07 14:27:03', null, null, '', '');
 INSERT INTO `deposit_method_account` VALUES ('2', '9558801000000000001', '2', '', '123123', '123123', 'floyd', '0.0000', '13000000000', '1', '1', '2011-04-07 14:32:12', null, null, '', '');
@@ -1425,6 +1426,7 @@ INSERT INTO `django_admin_log` VALUES ('59', '2011-04-19 16:55:15', '1', '28', '
 INSERT INTO `django_admin_log` VALUES ('60', '2011-04-19 16:55:37', '1', '28', '34', '撤单返款', '1', '');
 INSERT INTO `django_admin_log` VALUES ('61', '2011-04-19 16:55:50', '1', '28', '35', '撤单手续费', '1', '');
 INSERT INTO `django_admin_log` VALUES ('62', '2011-04-19 16:56:29', '1', '28', '36', '平台充值', '1', '');
+INSERT INTO `django_admin_log` VALUES ('63', '2011-04-20 15:49:10', '1', '23', '2', '建设银行', '2', 'Changed min_deposit and max_deposit.');
 INSERT INTO `django_content_type` VALUES ('1', 'permission', 'auth', 'permission');
 INSERT INTO `django_content_type` VALUES ('2', 'group', 'auth', 'group');
 INSERT INTO `django_content_type` VALUES ('3', 'user', 'auth', 'user');
@@ -1474,7 +1476,7 @@ INSERT INTO `django_session` VALUES ('229978ea8be7b8e1be09d024df1b958c', 'YWE1MW
 INSERT INTO `django_session` VALUES ('23895f71a20ce469b2132c099664a056', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-25 10:27:14');
 INSERT INTO `django_session` VALUES ('24e13f882d8b3fe9a74417f2c2394393', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 16:41:05');
 INSERT INTO `django_session` VALUES ('25c934b226f050d3937fc6d410e2c9b3', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-23 17:33:31');
-INSERT INTO `django_session` VALUES ('284f35b84aad920f6e41a02b6fb51e81', 'ZjAxYTYxYzA1NjdhODM0MjFjNzIwMGZiNjJhMTM0MDlkNzM0ZGE0NTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZFUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRVDV9h\ndXRoX3VzZXJfaWSKAQF1Lg==\n', '2011-05-03 17:52:15');
+INSERT INTO `django_session` VALUES ('284f35b84aad920f6e41a02b6fb51e81', 'NWJjYTkzOTE5ZDJiYTdlNTIwYTA0YzQ4MTVhYjY4ZDE4OWQyM2I3OTqAAn1xAShVDV9hdXRoX3Vz\nZXJfaWSKAQFVEl9hdXRoX3VzZXJfYmFja2VuZFUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmR1Lg==\n', '2011-05-04 15:49:11');
 INSERT INTO `django_session` VALUES ('295ee0b6f685e7a1d45d2058c82df117', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-22 10:38:36');
 INSERT INTO `django_session` VALUES ('2e3be82e92b8ae4340a31c0e297bd3d7', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 17:25:24');
 INSERT INTO `django_session` VALUES ('301d5a2337dcc56e1ecf097a9aedb411', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 17:26:38');
@@ -1491,7 +1493,7 @@ INSERT INTO `django_session` VALUES ('512e5205bcde76e73a42c3c3e97ac9fd', 'YWE1MW
 INSERT INTO `django_session` VALUES ('51b4c1ceed652d0a62e95bead6fede0d', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-04-23 17:17:49');
 INSERT INTO `django_session` VALUES ('540a042f253b7d3625f08d6e5f5d61a9', 'ZmNhMWM2ODk0YTQzNDNhYWUyODdlMzg2NDgwYzlkOTRkY2NlZjY4NTqAAn1xAVUKdGVzdGNvb2tp\nZXECVQZ3b3JrZWRxA3Mu\n', '2011-04-23 17:03:15');
 INSERT INTO `django_session` VALUES ('551d58d2267d0b69bd9b12abb005ce14', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:48:48');
-INSERT INTO `django_session` VALUES ('55e6dfca20be2f283b8078df4eafcd8f', 'ZjAxYTYxYzA1NjdhODM0MjFjNzIwMGZiNjJhMTM0MDlkNzM0ZGE0NTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZFUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmRVDV9h\ndXRoX3VzZXJfaWSKAQF1Lg==\n', '2011-05-03 11:00:32');
+INSERT INTO `django_session` VALUES ('55e6dfca20be2f283b8078df4eafcd8f', 'NWJjYTkzOTE5ZDJiYTdlNTIwYTA0YzQ4MTVhYjY4ZDE4OWQyM2I3OTqAAn1xAShVDV9hdXRoX3Vz\nZXJfaWSKAQFVEl9hdXRoX3VzZXJfYmFja2VuZFUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmR1Lg==\n', '2011-05-04 15:49:19');
 INSERT INTO `django_session` VALUES ('576d356873169acf62c4a2d5a1cb8074', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 14:33:23');
 INSERT INTO `django_session` VALUES ('5847cc9273df056e744961210c2098b7', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 14:30:59');
 INSERT INTO `django_session` VALUES ('59133887ff62b3e281e447cc317c9e64', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:36:52');
@@ -1502,6 +1504,7 @@ INSERT INTO `django_session` VALUES ('6ddf6ee113b781a9191ee09bf046b2c1', 'YWE1MW
 INSERT INTO `django_session` VALUES ('6f461b5da9dace55a71082c2cc445586', 'NTI4MmVkMjU4MWQ0OTQxN2E5ZDZjODI0NTM4ZmE3NmJhZGVmM2ZkMzqAAn1xAShVDV9hdXRoX3Vz\nZXJfaWRxAooBAVUSX2F1dGhfdXNlcl9iYWNrZW5kcQNVKWRqYW5nby5jb250cmliLmF1dGguYmFj\na2VuZHMuTW9kZWxCYWNrZW5kcQR1Lg==\n', '2011-04-23 20:28:54');
 INSERT INTO `django_session` VALUES ('70bbc9837a25a9efd620b460a78c4bc8', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 17:29:22');
 INSERT INTO `django_session` VALUES ('77d3c780905de161dde2b566a0e2f62b', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 15:02:50');
+INSERT INTO `django_session` VALUES ('81c9b487fe38a3fa7ede1651d4691173', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-04 10:08:08');
 INSERT INTO `django_session` VALUES ('8c39652fb7501baa8de5ed5a89526f6a', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 11:53:28');
 INSERT INTO `django_session` VALUES ('8e75db7ee93540015ca33db0f9189514', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-02 14:55:30');
 INSERT INTO `django_session` VALUES ('90898476bbe8c0adf43ee6bb161bd21c', 'YWE1MWViZDI5ZGM3Y2FkN2E1YzkxMzVmZGI0Y2Y1MjVjNzljMTA1MzqAAn1xAS4=\n', '2011-05-03 14:57:40');
@@ -1643,6 +1646,7 @@ INSERT INTO `province` VALUES ('98', '新疆维吾尔自治区', 'CN');
 INSERT INTO `province` VALUES ('99', '香港特别行政区', 'CN');
 INSERT INTO `province` VALUES ('100', '澳门特别行政区', 'CN');
 INSERT INTO `user_account_detail` VALUES ('1', '1', null, '36', null, '平台充值', 'user deposit', '10000.0000', '10000.0000', '20000.0000', '127.0.0.1', '127.0.0.1', '2011-04-19 17:37:00', '2011-04-19 17:37:00');
+INSERT INTO `user_account_detail` VALUES ('2', '1', null, '36', null, '平台充值', 'user deposit', '10000.0000', '20000.0000', '30000.0000', '127.0.0.1', '127.0.0.1', '2011-04-20 10:08:08', '2011-04-20 10:08:08');
 INSERT INTO `user_account_detail_type` VALUES ('1', '上级充值', '1', '上级充值');
 INSERT INTO `user_account_detail_type` VALUES ('2', '跨级充值', '1', '跨级充值');
 INSERT INTO `user_account_detail_type` VALUES ('3', '信用充值', '1', '信用充值');
@@ -1679,4 +1683,4 @@ INSERT INTO `user_account_detail_type` VALUES ('33', '追号扣款', '0', '追�
 INSERT INTO `user_account_detail_type` VALUES ('34', '撤单返款', '1', '撤单返款');
 INSERT INTO `user_account_detail_type` VALUES ('35', '撤单手续费', '0', '撤单手续费');
 INSERT INTO `user_account_detail_type` VALUES ('36', '平台充值', '1', '平台充值');
-INSERT INTO `user_profile` VALUES ('1', '1', '1932-02-06', 'M', '9876543', '', 'paseo parkview', '18L', '399', '123454', null, '76', '127.0.0.1', '127.0.0.1', 'CN', '20000.0000', '0.0000', '0.0000', '0.0000', '2011-04-19 17:37:00', '0', null);
+INSERT INTO `user_profile` VALUES ('1', '1', '1932-02-06', 'M', '9876543', '', 'paseo parkview', '18L', '399', '123454', null, '76', '127.0.0.1', '127.0.0.1', 'CN', '30000.0000', '0.0000', '0.0000', '0.0000', '2011-04-20 10:08:08', '0', null);

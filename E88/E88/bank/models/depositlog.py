@@ -21,6 +21,7 @@ class DepositLog(models.Model):
     deposit_method_account_login_name = models.CharField(_('receive account'), max_length=100, blank=True)
     deposit_method_account_account_name = models.CharField(_('receive account name'), max_length=50, blank=True)
     email = models.CharField(_('receive email'), max_length=100, blank=True, null=True)
+    amount = models.DecimalField(_('amount'), max_digits=14, decimal_places=4)
     status = models.SmallIntegerField(_('status'), choices=DEPOSITLOG_STATUS, default=0)
     cellphone = models.ForeignKey(Cellphone, to_field="number", db_column="cellphone", limit_choices_to={'enabled': True})
     deposit_time = models.DateTimeField(_('deposit time'), auto_now_add=True)

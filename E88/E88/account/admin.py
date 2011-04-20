@@ -23,7 +23,11 @@ class UserAccountDetailTypeAdmin(admin.ModelAdmin):
     list_display = ['name', 'operation']
     ordering = ('id',)
     
+class UserAccountDetailAdmin(admin.ModelAdmin):
+    list_display = ('from_user', 'detail_type', 'amount', 'db_time')
+    list_filter = ('detail_type',)
+    
 admin.site.unregister(User)
 admin.site.register(User, UserFullAdmin)
 admin.site.register(UserAccountDetailType, UserAccountDetailTypeAdmin)
-admin.site.register(UserAccountDetail)
+admin.site.register(UserAccountDetail, UserAccountDetailAdmin)

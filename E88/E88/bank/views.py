@@ -14,7 +14,7 @@ from bank.models import Cellphone, SmsLog, DepositLog, DepositMethodAccount, Dep
 from account.models import UserAccountDetail, UserProfile, UserAccountDetailType
 
 @csrf_exempt
-#@transaction.commit_manually
+@transaction.commit_manually
 def receive(request):
     '''
     ** the encoding on os x is utf8, on windows is gb2312(except safari)
@@ -35,6 +35,7 @@ def receive(request):
     key = cellphone.sms_key
     decoded = encoding.smart_unicode(auth_code(str(content), operation='DECODE', key=key))
     receive_log = SmsLog.objects.create(sender=sender, receiver=cellphone, content=decoded)
+    transaction.commit()
 #    sms_loging = transaction.savepoint()
     '''
     ** 获取正则表达式,匹配出必须的信息
@@ -73,6 +74,8 @@ def receive(request):
         return HttpResponse('fail: deposit method did not match')
     elif deposit_log.deposit_method_account_login_name[-4:] != card_tail:
         return HttpResponse('fail: card tail did not match')
+    elif amount != deposit_log.amount:
+        return HttpResponse('fail: amount did not match')
     '''
     ** 6. 建行继续检查收款人
     '''
@@ -115,5 +118,5 @@ def receive(request):
     ** 如果在此过程中出现问题, 回滚到写入短信记录(无论正常与否, 短信记录必写)
     '''
 #    transaction.savepoint_commit(sms_loging)
-#    transaction.commit()
+    transaction.commit()
     return HttpResponse('success')

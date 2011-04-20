@@ -16,7 +16,7 @@ class UserAccountDetail(models.Model):
     client_ip = models.IPAddressField(_('client ip'))
     proxy_ip = models.IPAddressField(_('proxy ip'))
     db_time = models.DateTimeField(_('db time'), auto_now = True)
-    action_time = models.DateTimeField(_('action time'))
+    action_time = models.DateTimeField(_('action time'), editable=False)
     
     def __unicode__(self):
         return self.title
