@@ -20,6 +20,7 @@ def receive(request):
     ** the encoding on os x is utf8, on windows is gb2312(except safari)
     ** 王大有已于4月4日向尾号为4112的工行账户汇入10元。<王大有留言：110411102759888>。【工商银行】
     ** 尊敬的岳志国客户：您好，赵朋丽已成功向您尾号为6866的账号转入人民币5.00元，请注意查收。 留言为:110415144155143[建设银行]。
+    ** 赵朋丽，您好。本行客户岳亮彬于2011年4月15日向您最后4位为5212的账号转入10.00元，特此提醒您进行核实。[中国农业银行]
     ** 亲爱的用户：王大有通过支付宝向您(caicai1205@vip.sina.com)付款244元。
     ** 根据  sender 获取充值方式详细信息，包括正则模板，用正则模板匹配短信内容
     ** number=13000000000&content=加密后字符串（包含sender=95588）
@@ -86,7 +87,7 @@ def receive(request):
     '''
     ** 7. 更新充值记录为已处理
     '''
-    deposit_log.status=1
+    deposit_log.status = 1
     deposit_log.receive_log = receive_log
     deposit_log.receive_time = action_time
     deposit_log.save()
@@ -100,18 +101,18 @@ def receive(request):
     user_account_detail = UserAccountDetail.objects.create(
         from_user=deposit_log.user,
         detail_type=UserAccountDetailType.objects.get(pk__exact=36),
-        description = 'user deposit',
-        amount = amount,
-        pre_balance = user_profile.available_balance,
-        post_balance = user_profile.available_balance+amount,
-        client_ip = '127.0.0.1',
-        proxy_ip = '127.0.0.1',
-        action_time = action_time
+        description='user deposit',
+        amount=amount,
+        pre_balance=user_profile.available_balance,
+        post_balance=user_profile.available_balance + amount,
+        client_ip='127.0.0.1',
+        proxy_ip='127.0.0.1',
+        action_time=action_time
     )
     '''
     ** 8.2 更新用户可用金额
     '''
-    user_profile.available_balance = user_profile.available_balance+amount
+    user_profile.available_balance = user_profile.available_balance + amount
     user_profile.balance_update_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     user_profile.save()
     '''
@@ -120,3 +121,4 @@ def receive(request):
 #    transaction.savepoint_commit(sms_loging)
     transaction.commit()
     return HttpResponse('success')
+
