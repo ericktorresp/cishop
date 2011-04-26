@@ -1,0 +1,141 @@
+
+#dummy
+{
+}
+
+.lv_liveadmin
+{
+}
+.lv_backblack
+{
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+	display: block;
+	z-index: 10000;
+}
+.lv_mainframe
+{
+	background-image: url('<%value theme_folder_ws_scr02.png%>');
+	background-repeat: no-repeat;
+	background-position: 0px -60px;
+	position: fixed;
+	display: block;
+	z-index: 10100;
+	lv_extra_quirks:lv_mainframe;
+}
+.lv_baseiframe
+{
+	border: 0px none;
+	position: absolute;
+	display: block;
+	z-index: 10200;
+	top: 58px;
+	right: 45px;
+	bottom: 40px;
+	left: 25px;
+}
+.lv_maskiframe
+{
+	background-image: url('<%value theme_folder_ws_alpha_50.png%>');
+	background-repeat: repeat;
+	position: absolute;
+	display: block;
+	z-index: 10400;
+	top: 58px;
+	right: 46px;
+	bottom: 41px;
+	left: 26px;
+}
+.lv_topframe
+{
+	position: absolute;
+	top: 29px;
+	right: 47px;
+	left: 26px;
+	height: 28px;
+	border: 0px none;
+	cursor: move;
+}
+.lv_closebutton
+{
+	background-image: url('<%value theme_folder_ws_scr02.png%>');
+	background-position: -82px -522px;
+	position: absolute;
+	width: 29px;
+	height: 28px;
+	top: 0px;
+	left: 485px;
+	cursor: pointer;
+}
+.lv_chatmcap
+{
+	position: absolute;
+	top: 0px;
+	right: 30px;
+	bottom: 0px;
+	left: 0px;
+	height: 28px;
+}
+div.lv_closebutton:hover
+{
+	background-position: -82px -552px;
+}
+.lv_chattitle
+{
+	position: absolute;
+	height: 28px;
+	top: 7px;
+	left: 0px;
+	padding-left: 5px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	font-weight: bold;
+	color: #222222;
+	vertical-align: middle;
+	width: 90%;
+}
+.lv_iframe
+{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+	border-style: none;
+}
+
+div.lv_invite
+{
+	position: fixed;
+	display: block;
+	z-index: 10000;
+	lv_extra_quirks:lv_invite;
+}
+div.lv_invite_img
+{
+	position: relative;
+	background-image: url('<%value theme_folder_ws_invite.jpg%>');
+	width: 478px;
+	height: 194px;
+}
+div.lv_invite div.lv_yes
+{
+	position: absolute;
+	left: 398px;
+	top: 154px;
+	width: 70px;
+	height: 31px;
+	cursor: pointer;
+}
+div.lv_invite div.lv_no
+{
+	position: absolute;
+	left: 322px;
+	top: 154px;
+	width: 70px;
+	height: 31px;
+	cursor: pointer;
+}

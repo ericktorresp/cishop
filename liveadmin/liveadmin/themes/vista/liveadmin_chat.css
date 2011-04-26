@@ -1,0 +1,597 @@
+
+#dummy
+{
+}
+
+body
+{
+	padding: 0px;
+	margin: 0px;
+}
+form {
+	padding: 0px;
+	margin: 0px;
+}
+
+#liveadmin
+{
+	padding: 0px;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+}
+
+#liveadmin .box_color
+{
+	border: 0px none;
+}
+
+#liveadmin .lv_screen
+{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+}
+
+#liveadmin .chat_main
+{
+	padding: 5px;
+	position: absolute;
+	display:block;
+	top: 0px;
+	right: 0px;
+	left: 0px;
+	bottom: 45px;
+	z-index: -100;
+}
+#liveadmin .chat_main_body
+{
+	padding: 5px;
+	position: absolute;
+	display:block;
+	top: 30px;
+	right: 0px;
+	left: 0px;
+	bottom: 45px;
+	z-index: -100;
+}
+#liveadmin .chat_main_header
+{
+	padding: 0px;
+	position: absolute;
+	display:block;
+	top: 0px;
+	right: 0px;
+	left: 0px;
+	height: 25px;
+	z-index: -100;
+}
+
+#liveadmin .chat_main_footer
+{
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	height: 40px;
+	z-index: -100;
+}
+
+#liveadmin .chat_init_cont
+{
+	padding: 0px;
+	z-index: 100;
+	color: #000000;
+}
+
+#liveadmin .chat_init_cont form .field_set
+{
+	border-collapse: separate;
+	width: 100%;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight: normal;
+	padding: 10px;
+	padding-top: 20px;
+
+}
+#liveadmin .chat_init_cont form .field_set th
+{
+	padding: 3px 3px 3px 5px;
+	width: 120px;
+	text-align: left;
+	font-weight: bold;
+	vertical-align: top;
+}
+#liveadmin .chat_init_cont form .field_set td
+{
+}
+#liveadmin .chat_init_cont form .field_set textarea
+{
+	width: 99%;
+	height: 100px;
+}
+
+
+#liveadmin .welcome_screen_text, #liveadmin .no_answer_text
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color: #000000;
+
+	padding-top:20px;
+	padding-bottom:20px;
+	padding-left:10px;
+	padding-right:10px;
+	background-color: #F0F5FB;
+
+}
+
+#liveadmin .welcome_screen_continue
+{
+	border: 0px none;
+	position: absolute;
+	width: 96px;
+	height: 21px;
+	bottom: 25px;
+	cursor: pointer;
+}
+#liveadmin.lv_dir_ltr .welcome_screen_continue
+{
+	right: 25px;
+}
+#liveadmin.lv_dir_rtl .welcome_screen_continue
+{
+	left: 25px;
+}
+#liveadmin .welcome_screen_continue em
+{
+	position: absolute;
+	width: 96px;
+	height: 21px;
+	left: 5px;
+	top: 5px;
+	cursor: pointer;
+	background-image: url('<%value theme_folder_ws_scr01.png%>');
+	background-repeat: no-repeat;
+	background-position: -302px -537px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	text-align: center;
+	font-style: normal;
+	padding-top: 2px;
+}
+#liveadmin.lv_dir_ltr .welcome_screen_continue em
+{
+	background-position: -302px -537px;
+}
+#liveadmin.lv_dir_rtl .welcome_screen_continue em
+{
+	background-position: -402px -537px;
+}
+#liveadmin.lv_dir_ltr .welcome_screen_continue:hover em
+{
+	background-position: -402px -537px;
+}
+#liveadmin.lv_dir_rtl .welcome_screen_continue:hover em
+{
+	background-position: -402px -537px;
+}
+#liveadmin.lv_dir_ltr .welcome_screen_continue:active em
+{
+	background-position: -302px -567px;
+}
+#liveadmin.lv_dir_rtl .welcome_screen_continue:active em
+{
+	background-position: -302px -567px;
+}
+
+
+#liveadmin .chat_find_rep_main
+{
+	padding: 0px;
+	position: absolute;
+	display:block;
+	top: 0px;
+	right: 0px;
+	left: 0px;
+	bottom: 0px;
+	z-index: -100;
+}
+
+#liveadmin .chat_find_rep_body
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color: #000000;
+	padding-top:20px;
+	padding-bottom:20px;
+	padding-left:10px;
+	padding-right:10px;
+	background-color: #F0F5FB;
+}
+
+#liveadmin .vista_wait_icon
+{
+	padding: 50px;
+	padding-top: 100px;
+	text-align: center;
+}
+
+#liveadmin .chat_session
+{
+	padding: 0px;
+	z-index: 100;
+	color: #000000;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+	position: absolute;
+}
+#liveadmin .chat_message_div
+{
+	padding: 5px;
+	position: absolute;
+	top: 42px;
+	right: 0px;
+	bottom: 61px;
+	left: 0px;
+	overflow: auto;
+	display: block;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	border: 0px none;
+	background-color: #FFffff;
+}
+
+#liveadmin.lv_dir_ltr .chat_message_div
+{
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#liveadmin.lv_dir_rtl .chat_message_div
+{
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+}
+
+#liveadmin .chat_message_div div
+{
+	border-style: solid;
+	border-bottom-color: #D6E5F5;
+	border-width: 1px;
+	border-left-color: #ffffff;
+	border-top-color: #ffffff;
+	border-right-color: #ffffff;
+	padding: 5px;
+}
+
+#liveadmin .chat_message_div div:hover
+{
+	background-color: #F0F5FB;
+	border: 1px solid #D6E5F5;
+	border-top-color: #ffffff;
+}
+
+#liveadmin .chat_message_div div em
+{
+	font-weight: bold;
+	font-style: normal;
+	padding-right: 5px;
+	padding-left: 5px;
+	background-color: #F0F5FB;
+	border: 1px solid #D6E5F5;
+}
+
+#liveadmin .chat_message_div div span
+{
+	display: block;
+	margin-top: 5px;
+	padding-left: 5px;
+}
+
+
+#liveadmin .chat_message_div .message_end
+{
+	display: none;
+}
+#liveadmin .chat_message_div .s2c
+{
+	color: #000099;
+}
+#liveadmin .chat_message_div .c2s
+{
+	color: #333333;
+}
+#liveadmin .chat_message_div .sys
+{
+	color: #888888;
+}
+#liveadmin .chat_message_div .s2c a
+{
+	color: #0000FF;
+}
+#liveadmin .chat_message_div .c2s a
+{
+	color: #006699;
+}
+
+#liveadmin .chat_message_title
+{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	left: 0px;
+	overflow: hidden;
+	display: block;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	vertical-align: middle;
+
+
+	background-color: #F0F5FB;
+	width: 100%;
+	height: 40px;
+	border-bottom-style: solid;
+	border-width: 1px;
+	border-color: #D6E5F5;
+
+
+}
+#liveadmin .chat_message_title #title_text
+{
+	position: absolute;
+	top: 13px;
+	right: 5px;
+	bottom: 0px;
+	left: 5px;
+	font-style: normal;
+	font-weight: bold;
+}
+
+#liveadmin.lv_dir_ltr .chat_message_title #title_text
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+#liveadmin.lv_dir_rtl .chat_message_title #title_text
+{
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+
+#liveadmin.lv_dir_ltr .chat_message_title #title_text.title_text_with_pic
+{
+	left: 50px;
+}
+
+#liveadmin.lv_dir_rtl .chat_message_title #title_text.title_text_with_pic
+{
+	right: 50px;
+}
+
+#liveadmin .chat_message_title img
+{
+	position: absolute;
+	width: 32px;
+	height: 20px;
+	cursor: pointer;
+	left: 10px;
+	top: 9px;
+}
+
+#liveadmin .title_pic_large
+{
+	position: absolute;
+	top: 45px;
+	left: 80px;
+}
+
+
+#liveadmin .chat_session_screen #title_admintype
+{
+	background-position: -506px -534px;
+	background-image: url('<%value theme_folder_ws_scr01.png%>');
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 4px;
+	right: 8px;
+	width: 45px;
+	height: 55px;
+	z-index: 100;
+}
+
+#liveadmin.lv_dir_ltr .chat_session_screen #title_admintype
+{
+	right: 8px;
+}
+#liveadmin.lv_dir_rtl .chat_session_screen #title_admintype
+{
+	left: 8px;
+}
+
+#liveadmin .message_text_id_div
+{
+	position: absolute;
+	bottom: 11px;
+	width: 415px;
+	height: 25px;
+}
+
+#liveadmin.lv_dir_ltr .message_text_id_div
+{
+	left: 10px;
+}
+#liveadmin.lv_dir_rtl .message_text_id_div
+{
+	right: 10px;
+}
+
+#liveadmin .chat_session #text_id
+{
+	position: absolute;
+	bottom: 7px;
+	color: #000000;
+	padding: 5px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	height: 30px;
+	width: 490px;
+	border: 1px solid #D6E5F5;
+	background-color: #ffffff;
+}
+
+
+#liveadmin.lv_dir_ltr .chat_session #text_id
+{
+	left: 15px;
+}
+#liveadmin.lv_dir_rtl .chat_session #text_id
+{
+	right: 15px;
+}
+
+#liveadmin .chat_session #submit_btm_id
+{
+	position: absolute;
+	top: -100px;
+	visibility: hidden;
+}
+
+#liveadmin .chat_message_onhold_div,
+#liveadmin .chat_message_close_div
+{
+	position: absolute;
+	height: 42px;
+	bottom: 8px;
+	width: 624px;
+	color: #0000ff;
+	padding: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight: bold;
+	font-style: normal;
+	text-align: center;
+	vertical-align: top;
+	border: 1px solid #D6E5F5;
+	background-color: #ffffff;
+	line-height: 3;
+	left: 10px;
+}
+
+#liveadmin.lv_dir_ltr .chat_message_onhold_div,
+#liveadmin.lv_dir_ltr .chat_message_close_div
+{
+	left: 10px;
+}
+#liveadmin.lv_dir_rtl .chat_message_onhold_div,
+#liveadmin.lv_dir_rtl .chat_message_close_div
+{
+	right: 10px;
+}
+#liveadmin .affiliate_link
+{
+	position: absolute;
+	bottom: 12px;
+	cursor: pointer;
+	background-image: url('<%value theme_folder_ws_scr01.png%>');
+	background-repeat: no-repeat;
+	background-position: -120px -531px;
+	display: block;
+	width: 165px;
+	height: 34px;
+	border: 1px solid #D6E5F5;
+	background-color: #FFFFFF;
+}
+#liveadmin .affiliate_link:hover
+{
+	border: 1px solid #AECCEC;
+	background-color: #F0F5FB;
+}
+
+#liveadmin.lv_dir_ltr .affiliate_link
+{
+	left: 15px;
+}
+#liveadmin.lv_dir_rtl .affiliate_link
+{
+	right: 15px;
+}
+
+
+#liveadmin .chat_bottom_bar
+{
+	background-image: url('<%value theme_folder_ws_scr03.png%>');
+	background-repeat: no-repeat;
+	background-position: -22px -506px;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	height: 47px;
+	bottom: 0px;
+}
+
+#liveadmin .chat_bottom_bar em
+{
+	position: absolute;
+	top: 1px;
+	height: 46px;
+	width: 1px;
+	background-image: url('<%value theme_folder_ws_scr03.png%>');
+	background-repeat: no-repeat;
+	background-position: -558px -507px;
+}
+
+#liveadmin.lv_dir_ltr .chat_bottom_bar em
+{
+	right: 90px;
+}
+#liveadmin.lv_dir_rtl .chat_bottom_bar em
+{
+	left: 90px;
+}
+
+#liveadmin .vista_blue_line
+{
+	border-top-style: solid;
+	border-width: 1px;
+	border-color: #D6E5F5;
+	height: 1px;
+}
+
+
+#liveadmin .vista_bottom_fade
+{
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	height: 60px;
+	z-index: -100;
+	background-color: #F0F0F0;
+}
+
+#liveadmin .vista_bottom_fade em
+{
+	height: 1px;
+	line-height: 1px;
+	display: block;
+	width: 100%;
+
+
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-top-color: #E3E3E3;
+
+	background-color: #FFFFFF;
+}
+
+
+
+
+
+

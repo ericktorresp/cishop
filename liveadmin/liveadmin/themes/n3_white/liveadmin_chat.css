@@ -1,0 +1,506 @@
+
+#dummy
+{
+}
+
+body
+{
+	padding: 0px;
+	margin: 0px;
+
+	background-image: url('<%value theme_folder_ws_scr03.png%>');
+	background-repeat: no-repeat;
+	background-position: -22px -110px;
+
+
+}
+form {
+	padding: 0px;
+	margin: 0px;
+}
+
+#liveadmin
+{
+	padding: 0px;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+}
+
+#liveadmin .box_color
+{
+	border: 0px none;
+}
+
+#liveadmin .lv_screen
+{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+}
+
+#liveadmin .chat_main
+{
+	padding: 5px;
+	position: absolute;
+	display:block;
+	top: 0px;
+	right: 0px;
+	left: 0px;
+	bottom: 45px;
+	z-index: -100;
+}
+#liveadmin .chat_main_body
+{
+	padding: 5px;
+	position: absolute;
+	display:block;
+	top: 30px;
+	right: 0px;
+	left: 0px;
+	bottom: 45px;
+	z-index: -100;
+}
+#liveadmin .chat_main_header
+{
+	padding: 0px;
+	position: absolute;
+	display:block;
+	top: 0px;
+	right: 0px;
+	left: 0px;
+	height: 25px;
+	z-index: -100;
+}
+#liveadmin .chat_main_footer
+{
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	height: 40px;
+	z-index: -100;
+}
+
+#liveadmin .chat_init_cont
+{
+	padding: 10px;
+	z-index: 100;
+	color: #000000;
+}
+
+#liveadmin .chat_init_cont form .field_set
+{
+	border-collapse: separate;
+	width: 100%;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight: normal;
+}
+#liveadmin .chat_init_cont form .field_set th
+{
+	padding: 3px 3px 3px 5px;
+	width: 120px;
+	text-align: left;
+	font-weight: bold;
+	vertical-align: top;
+}
+#liveadmin .chat_init_cont form .field_set td
+{
+}
+#liveadmin .chat_init_cont form .field_set textarea
+{
+	width: 99%;
+	height: 100px;
+}
+
+
+#liveadmin .welcome_screen_text, #liveadmin .no_answer_text
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	padding-bottom: 15px;
+	color: #000000;
+}
+
+#liveadmin .welcome_screen_continue
+{
+	border: 0px none;
+	position: absolute;
+	width: 35px;
+	height: 30px;
+	bottom: 8px;
+	cursor: pointer;
+}
+#liveadmin.lv_dir_ltr .welcome_screen_continue
+{
+	right: 25px;
+}
+#liveadmin.lv_dir_rtl .welcome_screen_continue
+{
+	left: 25px;
+}
+#liveadmin .welcome_screen_continue em
+{
+	position: absolute;
+	width: 25px;
+	height: 20px;
+	left: 5px;
+	top: 5px;
+	cursor: pointer;
+	background-image: url('<%value theme_folder_ws_scr03.png%>');
+	background-repeat: no-repeat;
+	background-position: -215px -529px;
+}
+#liveadmin.lv_dir_ltr .welcome_screen_continue em
+{
+	background-position: -191px -569px;
+}
+#liveadmin.lv_dir_rtl .welcome_screen_continue em
+{
+	background-position: -161px -569px;
+}
+#liveadmin.lv_dir_ltr .welcome_screen_continue:hover em
+{
+	background-position: -249px -569px;
+}
+#liveadmin.lv_dir_rtl .welcome_screen_continue:hover em
+{
+	background-position: -221px -569px;
+}
+
+
+#liveadmin .chat_find_rep_main
+{
+	padding: 5px;
+	position: absolute;
+	display:block;
+	top: 0px;
+	right: 0px;
+	left: 0px;
+	bottom: 0px;
+	z-index: -100;
+}
+
+#liveadmin .chat_find_rep_body
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	text-align: center;
+	top: 50px;
+	right: 0px;
+	left: 0px;
+	position: absolute;
+	bottom: 0px;
+}
+#liveadmin .chat_find_rep_body div
+{
+	padding-bottom: 20px;
+}
+#liveadmin .chat_session
+{
+	padding: 5px;
+	z-index: 100;
+	color: #000000;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+	position: absolute;
+}
+#liveadmin .chat_message_div
+{
+	padding: 5px;
+	position: absolute;
+	top: 42px;
+	right: 7px;
+	bottom: 57px;
+	left: 7px;
+	overflow: auto;
+	display: block;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	border: 1px solid #C0C0C0;
+	background-color: #FFFFFF;
+}
+
+#liveadmin.lv_dir_ltr .chat_message_div
+{
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#liveadmin.lv_dir_rtl .chat_message_div
+{
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+}
+
+#liveadmin .chat_message_div div
+{
+	padding-top: 3px;
+}
+#liveadmin .chat_message_div div em
+{
+	font-weight: bold;
+	font-style: normal;
+	padding-right: 5px;
+}
+#liveadmin .chat_message_div .message_end
+{
+	display: block;
+	height: 1px;
+	border-bottom-style: dotted;
+	border-width: 1px;
+	border-color: #BBBBBB;
+	padding-bottom: 3px;
+	font-size: 1px;
+}
+#liveadmin .chat_message_div .s2c
+{
+	color: #000099;
+}
+#liveadmin .chat_message_div .c2s
+{
+	color: #333333;
+}
+#liveadmin .chat_message_div .sys
+{
+	color: #888888;
+}
+#liveadmin .chat_message_div .s2c a
+{
+	color: #0000FF;
+}
+#liveadmin .chat_message_div .c2s a
+{
+	color: #006699;
+}
+
+#liveadmin .chat_message_title
+{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	left: 0px;
+	overflow: hidden;
+	display: block;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	height: 35px;
+	width: 527px;
+	vertical-align: middle;
+
+	background-position: -22px 0px;
+	background-image: url('<%value theme_folder_ws_scr03.png%>');
+	background-repeat: no-repeat;
+
+
+}
+#liveadmin .chat_message_title #title_text
+{
+	position: absolute;
+	top: 10px;
+	right: 5px;
+	bottom: 0px;
+	left: 5px;
+	font-style: normal;
+	font-weight: bold;
+}
+
+#liveadmin.lv_dir_ltr .chat_message_title #title_text
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+#liveadmin.lv_dir_rtl .chat_message_title #title_text
+{
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+
+#liveadmin.lv_dir_ltr .chat_message_title #title_text.title_text_with_pic
+{
+	left: 40px;
+}
+
+#liveadmin.lv_dir_rtl .chat_message_title #title_text.title_text_with_pic
+{
+	right: 40px;
+}
+
+#liveadmin .chat_message_title img
+{
+	width: 32px;
+	height: 20px;
+	padding-top: 5px;
+	padding-left: 1px;
+	cursor: pointer;
+}
+
+#liveadmin .title_pic_large
+{
+	position: absolute;
+	top: 45px;
+	left: 80px;
+}
+
+
+#liveadmin .chat_message_title #title_admintype
+{
+	background-position: -127px -569px;
+	background-image: url('<%value theme_folder_ws_scr03.png%>');
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 8px;
+	width: 16px;
+	height: 16px;
+}
+
+#liveadmin.lv_dir_ltr .chat_message_title #title_admintype
+{
+	right: 4px;
+}
+#liveadmin.lv_dir_rtl .chat_message_title #title_admintype
+{
+	left: 4px;
+}
+
+#liveadmin .message_text_id_div
+{
+	background-position: -32px -37px;
+	background-image: url('<%value theme_folder_ws_scr03.png%>');
+	background-repeat: no-repeat;
+	position: absolute;
+	bottom: 11px;
+	width: 415px;
+	height: 25px;
+}
+
+#liveadmin.lv_dir_ltr .message_text_id_div
+{
+	left: 10px;
+}
+#liveadmin.lv_dir_rtl .message_text_id_div
+{
+	right: 10px;
+}
+
+#liveadmin .chat_session #text_id
+{
+	position: absolute;
+	width: 392px;
+	bottom: 15px;
+	color: #000000;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 0px;
+	padding-bottom : 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+#liveadmin.lv_dir_ltr .chat_session #text_id
+{
+	left: 15px;
+}
+#liveadmin.lv_dir_rtl .chat_session #text_id
+{
+	right: 15px;
+}
+
+#liveadmin .chat_session #submit_btm_id
+{
+	position: absolute;
+	top: 99999px;
+}
+
+#liveadmin .chat_message_onhold_div,
+#liveadmin .chat_message_close_div
+{
+	position: absolute;
+	height: 24px;
+	bottom: 8px;
+	width: 415px;
+	color: #000000;
+	padding: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight: bold;
+	font-style: normal;
+	text-align: center;
+	vertical-align: top;
+}
+
+#liveadmin.lv_dir_ltr .chat_message_onhold_div,
+#liveadmin.lv_dir_ltr .chat_message_close_div
+{
+	left: 10px;
+}
+#liveadmin.lv_dir_rtl .chat_message_onhold_div,
+#liveadmin.lv_dir_rtl .chat_message_close_div
+{
+	right: 10px;
+}
+#liveadmin .affiliate_link
+{
+	position: absolute;
+	bottom: 12px;
+	cursor: pointer;
+	opacity: 0.5;
+	-moz-opacity:0.5;
+	zoom: 1;
+}
+#liveadmin .affiliate_link:hover
+{
+	opacity: 1;
+	-moz-opacity:1;
+	zoom: 1;
+}
+
+#liveadmin.lv_dir_ltr .affiliate_link
+{
+	left: 15px;
+}
+#liveadmin.lv_dir_rtl .affiliate_link
+{
+	right: 15px;
+}
+
+#liveadmin .affiliate_link img
+{
+	border-style: none;
+}
+
+#liveadmin .chat_bottom_bar
+{
+	background-image: url('<%value theme_folder_ws_scr03.png%>');
+	background-repeat: no-repeat;
+	background-position: -22px -506px;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	height: 47px;
+	bottom: 0px;
+}
+
+#liveadmin .chat_bottom_bar em
+{
+	position: absolute;
+	top: 1px;
+	height: 46px;
+	width: 1px;
+	background-image: url('<%value theme_folder_ws_scr03.png%>');
+	background-repeat: no-repeat;
+	background-position: -558px -507px;
+}
+
+#liveadmin.lv_dir_ltr .chat_bottom_bar em
+{
+	right: 90px;
+}
+#liveadmin.lv_dir_rtl .chat_bottom_bar em
+{
+	left: 90px;
+}

@@ -1,0 +1,244 @@
+
+
+body
+{
+	padding: 0px;
+	margin: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight: normal;
+	background-color: #eeeeee;
+}
+form {
+	padding: 0px;
+	margin: 0px;
+}
+
+#liveadmin
+{
+	padding: 10px;
+	height: 400px;
+}
+
+#liveadmin .lv_screen
+{
+	height: 100%;
+}
+
+#liveadmin .tbl_gi
+{
+	width: 100%;
+	height: 100%;
+}
+
+#liveadmin .tbl_gi,
+#liveadmin .tbl_gi table
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight: normal;
+}
+
+#liveadmin .tbl_gi .tbl_gi_header
+{
+	border: 1px solid #888888;
+	background-color: #ffffff;
+	padding: 5px;
+	height: 10px;
+	vertical-align: top;
+}
+
+#liveadmin .tbl_gi .tbl_gi_body
+{
+	border: 1px solid #888888;
+	background-color: #ffffff;
+	padding: 5px;
+	vertical-align: top;
+}
+
+#liveadmin .tbl_gi .tbl_gi_footer
+{
+	border: 1px solid #888888;
+	background-color: #ffffff;
+	padding: 5px;
+	height: 10px;
+	vertical-align: bottom;
+}
+
+#liveadmin .welcome_screen_continue
+{
+	border: 0px none;
+	width: 37px;
+	height: 30px;
+	cursor: pointer;
+	display: block;
+	background-image: url('<%value theme_folder_ws_scr_bs_001.png%>');
+	background-repeat: no-repeat;
+	background-position: -50px 0px;
+	zoom: 1;
+}
+
+#liveadmin .welcome_screen_continue:hover
+{
+	background-image: url('<%value theme_folder_ws_scr_bs_001.png%>');
+	background-repeat: no-repeat;
+	background-position: -50px -40px;
+}
+
+
+#liveadmin .tbl_footer
+{
+	width: 100%;
+}
+
+#liveadmin .tbl_footer th
+{
+	text-align: left;
+}
+#liveadmin .tbl_footer td
+{
+	width: 40px;
+}
+
+#liveadmin .tbl_footer .affiliate_link img
+{
+	border: 0px none;
+}
+
+#liveadmin .tbl_gi .tbl_gi_center_align
+{
+	text-align: center;
+	vertical-align: middle;
+}
+
+#liveadmin .tbl_gi .tbl_gi_center_align div
+{
+	padding-bottom: 20px;
+}
+
+#liveadmin .title_pic_large
+{
+	position: absolute;
+	top: 50px;
+	left: 50px;
+}
+
+#liveadmin .title_text_with_pic
+{
+	font-weight: bold;
+	font-style: normal;
+}
+#liveadmin .title_text
+{
+	font-weight: bold;
+	font-style: normal;
+}
+
+#liveadmin .title_onhold
+{
+	padding-left: 10px;
+	font-weight: bold;
+	font-style: normal;
+}
+
+#liveadmin .tbl_gi .tbl_gi_header table
+{
+	width: 100%;
+}
+#liveadmin .tbl_gi .chat_message_div
+{
+	height: 300px;
+	overflow: auto;
+}
+
+#liveadmin .chat_message_div div
+{
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border-bottom-style: solid;
+	border-width: 1px;
+	border-color: #e8e8e8;
+}
+
+#liveadmin .chat_message_div .s2c em
+{
+	font-weight: bold;
+	margin-right: 5px;
+	color: #000099;
+}
+
+#liveadmin .chat_message_div .c2s
+{
+	color: #333333;
+}
+#liveadmin .chat_message_div .c2s em
+{
+	margin-right: 5px;
+}
+
+#liveadmin .chat_message_div .sys
+{
+	color: #888888;
+}
+
+#liveadmin .title_admintype_contain
+{
+	width: 20px;
+}
+#liveadmin .title_adminimg_contain
+{
+	width: 30px;
+}
+
+#liveadmin .title_admintype_contain #title_admintype
+{
+	width: 16px;
+	height: 16px;
+	display: block;
+	background-image: url('<%value theme_folder_ws_scr_bs_001.png%>');
+	background-repeat: no-repeat;
+	background-position: -102px 0px;
+}
+
+#liveadmin #chat_screen textarea
+{
+	border: 1px solid #888888;
+	padding: 5px;
+	background-color: #FFFFF2;
+	width: 99%;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight: normal;
+}
+
+#liveadmin #chat_screen #submit_btm_id
+{
+	visibility: hidden;
+	display: none;
+}
+
+#liveadmin #chat_screen .tbl_footer td
+{
+	padding: 10px;
+	text-align: right;
+}
+
+#liveadmin .field_set
+{
+	width: 100%;
+}
+
+#liveadmin .field_set th
+{
+	text-align: left;
+	width: 150px;
+	vertical-align: top;
+}
+
+#liveadmin .field_set textarea
+{
+	width: 99%;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight: normal;
+}

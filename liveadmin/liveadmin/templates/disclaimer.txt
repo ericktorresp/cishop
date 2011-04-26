@@ -1,0 +1,6 @@
+<%sec-start footer%>
+--------------------------------------------------
+This message sent from <%value sinfo-company%>. If you received it in error or in case of abuse please contact us at <%value sinfo-general_email%> and include this code for tracking:
+Message Code: <%value message_code%>
+<%sec-end footer%>
+

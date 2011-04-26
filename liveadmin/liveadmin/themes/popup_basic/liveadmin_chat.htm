@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="<s5lang_base>direction</s5lang_base>">
+<head>
+<meta http-equiv="Content-Language" content="<s5lang_base>Content-Language</s5lang_base>" />
+<meta http-equiv="Content-Type" content="text/html; charset=<s5lang_base>charset</s5lang_base>" />
+<title><%value site_info_company%> - LiveAdmin</title>
+<style type="text/css">
+<%value css%>
+</style>
+<%value custom_css%>
+<script language="javascript" type="text/javascript">
+<%value java_script%>
+</script>
+</head>
+
+<body onunload="LiveAdmin.CloseEvent();">
+
+<div id="liveadmin" class="lv_dir_<s5lang_base>direction</s5lang_base>">
+
+<!--START- CHAT -->
+<div id="chat_screen" class="lv_screen" style="display:none">
+<table class="tbl_gi">
+	<tr>
+		<td class="tbl_gi_header">
+			<table>
+				<tr>
+					<td class="title_adminimg_contain"><img id="title_pic" onmouseover="JavaScript:LiveAdmin.TPON();" onmouseout="JavaScript:LiveAdmin.TPOFF();" /></td>
+					<td class="title_text_contain"><em id="title_text"></em><em id="title_onhold"></em></td>
+					<td class="title_admintype_contain"><em id="title_admintype"></em></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td class="tbl_gi_body" id="message_id_td_id"><div class="chat_message_div" id="message_id"></div></td>
+	</tr>
+	<tr>
+		<td class="tbl_gi_footer">
+			<form method="post" id="message_form_id" onsubmit="JavaScript:return(LiveAdmin.SendText());">
+				<table class="tbl_footer">
+					<tr>
+						<th>
+							<textarea name="Text1" cols="40" rows="3" id="text_id" onkeyup="JavaScript:LiveAdmin.TextKeyUp();" onkeydown="return LiveAdmin.TextKeyDown(event);"></textarea>
+							<input name="Submit1" type="submit" value="submit" id="submit_btm_id" />
+						</th>
+						<td>
+							<span class="welcome_screen_continue no_alpha" onclick="JavaScript:LiveAdmin.SendText();"><em></em></span>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<div id="message_onhold_id" class="chat_message_onhold_div box_color"><s5lang>A101300</s5lang></div>
+			<div id="message_close_id" class="chat_message_close_div box_color"><s5lang>A101400</s5lang></div>
+		</td>
+	</tr>
+</table>
+<img id="title_pic_large_img_id" class="title_pic_large" />
+</div>
+
+<!--END- CHAT -->
+
+<!--START- SOUND OBJECT -->
+<div style="position:absolute;width:0px;height:0px;padding:0px;margin:0px;" id="sound_object_container_id"></div>
+<!--END- SOUND OBJECT -->
+
+
+<!--START- FINDING A REP -->
+<div id="chat_init_screen" class="lv_screen" style="display:none">
+<table class="tbl_gi">
+	<tr>
+		<td class="tbl_gi_body tbl_gi_center_align"><div id="chat_find_rep_text_id"></div><em id="chat_find_rep_icon_id"></em></td>
+	</tr>
+</table>
+</div>
+<!--END- FINDING A REP -->
+
+<!--START- LOADING -->
+<div id="chat_load_screen" class="chat_load_screen lv_screen" style="display:none">
+<div id="hid_81" class="chat_find_rep_main alpha box_color"></div>
+
+<div id="hid_82" class="chat_find_rep_body no_alpha"><div id="chat_take_message_wait_text_id"><s5lang>A101500</s5lang></div></div>
+<div style="display:none" id="sound_object_container_id"></div>
+</div>
+<!--END- LOADING -->
+
+
+<!--START- GET GUEST INFO -->
+<div id="chat_getinfo_screen" class="lv_screen" style="display:none">
+<table class="tbl_gi">
+	<tr>
+		<td class="tbl_gi_header"><div id="welcome_screen_text_id"></div></td>
+	</tr>
+	<tr>
+		<td class="tbl_gi_body">
+			<form onsubmit="JavaScript:return(LiveAdmin.PostUserInfo());">
+				<table class="field_set">
+					<tr><th><s5lang>A101600</s5lang>:</th><td><input name="client_nickname" id="client_nickname_id" type="text" /></td></tr>
+					<%value fields%>
+				</table>
+				<input name="Submit1" type="submit" value="submit" style="display:none" />
+			</form>
+		</td>
+	</tr>
+	<tr>
+		<td class="tbl_gi_footer">
+			<table class="tbl_footer">
+				<tr>
+					<th>
+						<a id="affiliate_link_id_1" class="affiliate_link" target="_blank" href=""><img src="<%value theme_folder_ws_ref_link_white.png%>"></a>
+					</th>
+					<td>
+						<span class="welcome_screen_continue no_alpha" onclick="JavaScript:LiveAdmin.PostUserInfo();"><em></em></span>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</div>
+<!--END- GET GUEST INFO -->
+
+
+<!--START- TAKE MESSAGE SCREEN -->
+<div id="chat_take_message_screen" class="lv_screen" style="display:none">
+<table class="tbl_gi">
+	<tr>
+		<td class="tbl_gi_header"><div class="no_answer_text" id="no_answer_text_id"></div></td>
+	</tr>
+	<tr>
+		<td class="tbl_gi_body">
+			<form onsubmit="JavaScript:return(LiveAdmin.TakeMessagePost());">
+				<table class="field_set">
+				<tr><th><s5lang>A101600</s5lang>:</th><td><input name="tm_name" id="tm_name_id" type="text" /></td></tr>
+				<tr><th><s5lang>A101700</s5lang>:</th><td><input name="tm_email" id="tm_email_id" type="text" /></td></tr>
+				<tr><th><s5lang>A101800</s5lang>:</th><td><textarea name="tm_text" rows="5" cols="20" id="tm_text_id"></textarea></td></tr>
+				</table>
+				<input name="Submit1" type="submit" value="submit" style="display:none" />
+			</form>
+		</td>
+	</tr>
+	<tr>
+		<td class="tbl_gi_footer">
+			<table class="tbl_footer">
+				<tr>
+					<th>
+						<a id="affiliate_link_id_2" class="affiliate_link" target="_blank" href=""><img src="<%value theme_folder_ws_ref_link_white.png%>"></a>
+					</th>
+					<td>
+						<span class="welcome_screen_continue no_alpha" onclick="JavaScript:LiveAdmin.TakeMessagePost();"><em></em></span>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</div>
+<!--END- TAKE MESSAGE SCREEN -->
+
+<!--START- SENDING MESSAGE -->
+<div id="chat_take_message_wait_screen" class="lv_screen" style="display:none">
+<table class="tbl_gi">
+	<tr>
+		<td class="tbl_gi_body tbl_gi_center_align">
+			<div id="chat_take_message_wait_text_id"></div><em id="chat_find_rep_icon_id"></em>
+		</td>
+	</tr>
+	<tr>
+		<td class="tbl_gi_footer">
+			<table class="tbl_footer">
+				<tr>
+					<th>
+						<a id="affiliate_link_id_3" class="affiliate_link" target="_blank" href=""><img src="<%value theme_folder_ws_ref_link_white.png%>"></a>
+					</th>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</div>
+<!--END- SENDING MESSAGE -->
+
+<!--START- SENDING MESSAGE DONE -->
+<div id="chat_take_message_done_screen" class="lv_screen" style="display:none">
+<table class="tbl_gi">
+	<tr>
+		<td class="tbl_gi_body tbl_gi_center_align">
+			<div id="chat_take_message_done_text_id"></div>
+		</td>
+	</tr>
+	<tr>
+		<td class="tbl_gi_footer">
+			<table class="tbl_footer">
+				<tr>
+					<th>
+						<a id="affiliate_link_id_4" class="affiliate_link" target="_blank" href=""><img src="<%value theme_folder_ws_ref_link_white.png%>"></a>
+					</th>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</div>
+<!--END- SENDING MESSAGE DONE -->
+
+<!--START- SHOW BUSY MESSAGE -->
+<div id="chat_take_busy_message_screen" class="lv_screen" style="display:none">
+<table class="tbl_gi">
+	<tr>
+		<td class="tbl_gi_body tbl_gi_center_align">
+			<div id="chat_take_busy_message_text_id"></div>
+		</td>
+	</tr>
+	<tr>
+		<td class="tbl_gi_footer">
+			<table class="tbl_footer">
+				<tr>
+					<th>
+						<a id="affiliate_link_id_5" class="affiliate_link" target="_blank" href=""><img src="<%value theme_folder_ws_ref_link_white.png%>"></a>
+					</th>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</div>
+<!--END- SHOW BUSY MESSAGE -->
+
+<!--START- SHOW ERROR MESSAGE -->
+<div id="chat_error_screen" class="lv_screen" style="display:none">
+<table class="tbl_gi">
+	<tr>
+		<td class="tbl_gi_header"><div id="welcome_screen_text_id"></div></td>
+	</tr>
+	<tr>
+		<td class="tbl_gi_body tbl_gi_center_align">
+			<div id="chat_error_text_id"></div>
+		</td>
+	</tr>
+	<tr>
+		<td class="tbl_gi_footer">
+			<table class="tbl_footer">
+				<tr>
+					<th>
+						<a id="affiliate_link_id_6" class="affiliate_link" target="_blank" href=""><img src="<%value theme_folder_ws_ref_link_white.png%>"></a>
+					</th>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</div>
+<!--END- SHOW ERROR MESSAGE -->
+
+
+</div>
+
+<script language="javascript" type="text/javascript">
+LiveAdmin.Initialize();
+LiveAdmin.myjs.Initialize();
+</script>
+
+
+</body>
+
+</html>

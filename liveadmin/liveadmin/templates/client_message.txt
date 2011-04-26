@@ -1,0 +1,57 @@
+<%sec-start subject%>
+<%value subject%>
+<%sec-end subject%>
+
+
+
+<%sec-start body_text%>
+---------------------------------------------------------------
+Message from LiveAdmin on <%value company%>
+---------------------------------------------------------------
+Name: <%value from_name%>
+Email: <%value from_email%>
+Message:
+<%value body%>
+---------------------------------------------------------------
+
+
+
+
+<%sec-end body_text%>
+
+<%sec-start body_html%>
+<html dir="<%value language-direction%>">
+<head>
+<title><%value subject%></title>
+<meta http-equiv="Content-Type" content="text/html; charset=<%value language-charset%>" />
+<style type="text/css">
+<!--
+body {	font-family: Arial, Helvetica, sans-serif; font-size: 10pt;	}
+p {	padding: 2px 0px 2px 0px;	margin: 0px;}
+-->
+</style>
+</head>
+
+<body>
+
+
+<p>Message from LiveAdmin on <%value company%></p>
+<hr />
+<p>Name: <%value from_name%></p>
+<p>Email: <%value from_email%></p>
+<p>Message:</p>
+<p><%value body%></p>
+
+
+
+
+</body>
+
+</html>
+
+
+
+
+<%sec-end body_html%>
+
+

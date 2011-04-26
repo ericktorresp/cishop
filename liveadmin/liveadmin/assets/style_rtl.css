@@ -1,0 +1,74 @@
+#LV_LIVEADMIN_DIRECTION_RTL
+{
+}
+
+#ap_panels .notes_td {
+	text-align: right;
+}
+
+#liveadmin .yui-panel-container .yui-module .container-close
+{
+	left: 5px;
+	right: auto;
+}
+
+.yui-module .ft .button-group
+{
+	height: 30px;
+}
+.yui-module .ft .button-group .yui-button
+{
+	float: left;
+}
+
+.lv_dialog form label
+{
+	padding-right: 10px;
+	float: right;
+	font-family: Tahoma;
+	font-size: 9pt;
+}
+
+#tt2cont {
+	font-family: Tahoma;
+	font-size: 9pt;
+}
+
+.lv_dialog_photo #delete_photo_button
+{
+	right: auto;
+	left: 20px;
+}
+
+.lv_dialog_photo #upload_photo_button
+{
+	left: 20px;
+	right: auto;
+}
+
+.lv_dialog_photo #dialog_photo_info_id
+{
+	right: 10px;
+	top: 335px;
+	left: auto;
+}
+
+#ap_panels .links .link_bar
+{
+	text-align: right;
+}
+
+.lv_center1_cls #center1 .yui-nav
+{
+	text-align: right;
+}
+
+.yui-module .secure_dialog_icon
+{
+	left: 35px;
+}
+
+.lv_home_top_div #chat_log_date_btns
+{
+	text-align: right;
+}
