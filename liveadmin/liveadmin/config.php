@@ -33,7 +33,7 @@ exit;
 // of problems you can uncomment this line and define it.
 
 
-define('LIVEADMIN_B','/Library/WebServer/Documents/liveadmin');
+//define('LIVEADMIN_B','/Library/WebServer/Documents/liveadmin');
 
 
 // Site URL
@@ -41,7 +41,7 @@ define('LIVEADMIN_B','/Library/WebServer/Documents/liveadmin');
 // example: http://www.my_site_domain.com/liveadmin
 
 
-define('LIVEADMIN_W','http://local.py/liveadmin');
+define('LIVEADMIN_W','http://local.ci');
 
 
 
