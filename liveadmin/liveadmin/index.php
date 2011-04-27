@@ -15,12 +15,7 @@
 * Translation service provided by Google Inc.
 ***************************************************************/
 
-
-
-
-
-
- if(!is_callable('version_compare') || version_compare(phpversion(),'5.1.0','<'))
+if(!is_callable('version_compare') || version_compare(phpversion(),'5.1.0','<'))
 {
 	echo "PHP ".phpversion()." detected, PHP 5.1.0 or later required.";
 }

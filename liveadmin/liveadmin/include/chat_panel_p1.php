@@ -14,15 +14,6 @@
 *
 * Translation service provided by Google Inc.
 ***************************************************************/
-
-
-
-
-
-
-
-
-
 ?>
 
 <%sec-start chat_panel_p1%>
