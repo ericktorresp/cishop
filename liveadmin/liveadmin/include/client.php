@@ -398,8 +398,8 @@ class LV_Client
 				$myPacker = new JavaScriptPacker($js, 'Numeric', true, false);
 				$js_packed = $myPacker->pack().";\n";
 				$js_packed .= file_get_contents(LIVEADMIN_AST.'/prototype-1.6.0.3.js')."\n";
-				$js_packed .= file_get_contents(LIVEADMIN_AST.'/flash.js')."\n";
-				$js_packed .= file_get_contents(LIVEADMIN_AST.'/client_chat.js')."\n";
+				$js_packed .= file_get_contents(LIVEADMIN_AST.'/flash-decoded.js')."\n";
+				$js_packed .= file_get_contents(LIVEADMIN_AST.'/client_chat-decoded.js')."\n";
 				$CustomJS = $this->GetCustomThemeJs();
 				if($CustomJS!='')
 				{
@@ -1018,7 +1018,7 @@ class LV_Client
 		{
 			$myPacker = new JavaScriptPacker($js, 'Normal', true, false);
 			$js = $myPacker->pack();
-			$lv_script = file_get_contents(LIVEADMIN_AST.'/client_btn.js')."\n\n";
+			$lv_script = file_get_contents(LIVEADMIN_AST.'/client_btn-decoded.js')."\n\n";
 			$lv_script = str_replace('LiveAdmin','Live_'.$script_uniq.'_Admin',$lv_script);
 			$lv_script .= 'Live_'.$script_uniq.'_Admin.Init();'."\n\n";
 			$js .= "\n".$lv_script;
