@@ -75,7 +75,7 @@ class LV_Client
 					$page = $this->lang->Translate($page);
 					$page = $this->TranslateTheme($page);
 					$this->SetClientCookie();
-					//$page = $this->OptimizePage($page);
+					$page = $this->OptimizePage($page);
 					$this->ShowPage($page);
 					if(!LIVEADMIN_STANDALONE)
 					{
@@ -388,6 +388,10 @@ class LV_Client
 			{
 				$js .= 'conf_soundflash:"",';
 			}
+			if($_REQUEST['client_nickname'])
+			{
+				$js .= 'client_nickname:"'.$_REQUEST['client_nickname'].'",';
+			}
 			$js .= 'theme_loadicon: "'.LIVEADMIN_WT.'/'.$this->LoadThemeFileName('loader_01.gif').'",';
 			$js .= 'message_div_index: 0';
 			$js .= ($texts!='')?',':'';
@@ -398,8 +402,9 @@ class LV_Client
 				$myPacker = new JavaScriptPacker($js, 'Numeric', true, false);
 				$js_packed = $myPacker->pack().";\n";
 				$js_packed .= file_get_contents(LIVEADMIN_AST.'/prototype-1.6.0.3.js')."\n";
-				$js_packed .= file_get_contents(LIVEADMIN_AST.'/flash-decoded.js')."\n";
-				$js_packed .= file_get_contents(LIVEADMIN_AST.'/client_chat-decoded.js')."\n";
+				$js_packed .= file_get_contents(LIVEADMIN_AST.'/flash.js')."\n";
+				$myPacker = new JavaScriptPacker(file_get_contents(LIVEADMIN_AST.'/client_chat-decoded.js'), 'Numeric', true, false);
+				$js_packed .= $myPacker->pack().";\n";
 				$CustomJS = $this->GetCustomThemeJs();
 				if($CustomJS!='')
 				{
@@ -966,7 +971,7 @@ class LV_Client
 		$js .= 'conf_offline_act:'.intval($this->SInfo['offline_act']).',';
 		$js .= 'conf_auto_invite:'.intval($this->SInfo['auto_invite']).',';
 		$js .= 'conf_auto_invite_delay:'.$this->SInfo['auto_invite_delay'].',';
-		$js .= 'conf_iframe: "'.LIVEADMIN_URL_CHAT.'?key='.$this->SInfo['key'].'",';
+		$js .= 'conf_iframe: "'.LIVEADMIN_URL_CHAT.'?key='.$this->SInfo['key'].(isset($_REQUEST['client_nickname'])&&$_REQUEST['client_nickname']?'&client_nickname='.$_REQUEST['client_nickname']:'').'",';
 		if(!LIVEADMIN_STANDALONE)
 		{
 			$js .= 'conf_lv_standalone: "n",';
@@ -1021,7 +1026,8 @@ class LV_Client
 			$lv_script = file_get_contents(LIVEADMIN_AST.'/client_btn-decoded.js')."\n\n";
 			$lv_script = str_replace('LiveAdmin','Live_'.$script_uniq.'_Admin',$lv_script);
 			$lv_script .= 'Live_'.$script_uniq.'_Admin.Init();'."\n\n";
-			$js .= "\n".$lv_script;
+			$myPacker = new JavaScriptPacker($lv_script, 'Normal', true, false);
+			$js .= "\n".$myPacker->pack();
 		}
 		header("Content-Type: application/x-javascript");
 		header("Content-Length: ".strlen($js));

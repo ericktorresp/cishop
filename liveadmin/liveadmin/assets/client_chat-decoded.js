@@ -290,6 +290,15 @@ LiveAdmin.CheckInitStatus=function(resp)
 			LiveAdmin.PostUserInfo();
 			return
 		}
+		/* add check client_nickname here
+		 * then determine show nickname form or derictory show loading
+		 * if there is client_nickname, directory call PostUserInfo() else just show chat_getinfo_screen
+		 */
+		if(LiveAdmin.client_nickname)
+		{
+			LiveAdmin.PostUserInfo();
+			return;
+		}
 	}
 };
 LiveAdmin.FindRep=function()
@@ -502,9 +511,13 @@ LiveAdmin.PostUserInfo=function()
 {
 	LiveAdmin.HideAll();
 	LiveAdmin.Show('chat_init_screen');
-	LiveAdmin.client_nickname=document.getElementById('client_nickname_id').value;
 	if(LiveAdmin.client_nickname=='')
-		LiveAdmin.client_nickname=LiveAdmin.texts_A100900;
+	{
+		LiveAdmin.client_nickname=document.getElementById('client_nickname_id').value;
+		if(LiveAdmin.client_nickname=='')
+			LiveAdmin.client_nickname=LiveAdmin.texts_A100900;
+	}
+
 	var params={
 		'mode':'post_user_info',
 		'key':LiveAdmin.site_key,
