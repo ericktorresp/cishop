@@ -25,7 +25,7 @@
 
 
 if(!defined('LIVEADMIN'))
-exit;
+	exit;
 
 
 // Ansolute path to home folder where LiveAdmin installed
@@ -41,7 +41,7 @@ exit;
 // example: http://www.my_site_domain.com/liveadmin
 
 
-define('LIVEADMIN_W','http://local.ci');
+define('LIVEADMIN_W','http://local.py/liveadmin');
 
 
 

@@ -94,187 +94,254 @@ class LV_Admin
 			if(CheckLogin()!==true) exit;
 			switch($act)
 			{
-				default: case 'home': $this->AutoClose();
-				$this->ResetInternCheck(false);
-				if(LIVEADMIN_STANDALONE) $this->SyncDatabases();
-				$_SERVER['LIVEADMIN_MENU'] = true;
-				$_SERVER['LIVEADMIN_TITLE'] = 'Live Admin';
-				$_SERVER['LIVEADMIN_CHAT_PANEL']['p1'] = liveadmin_encode64($this->GetContentsPart(LIVEADMIN_FC.'/chat_panel_p1.php','chat_panel_p1'));
-				$_SERVER['LIVEADMIN_CHAT_PANEL']['p1_config_1'] = liveadmin_encode64($this->GetContentsPart(LIVEADMIN_FC.'/chat_panel_p1.php','chat_panel_config_'.$_SERVER['uinfo']['access_level']));
-				$_SERVER['LIVEADMIN_CONF'] = $this->LiveAdminConf();
-				include('temp.php');
+				default: 
+				case 'home': 
+					$this->AutoClose();
+					$this->ResetInternCheck(false);
+					if(LIVEADMIN_STANDALONE)
+						$this->SyncDatabases();
+					$_SERVER['LIVEADMIN_MENU'] = true;
+					$_SERVER['LIVEADMIN_TITLE'] = 'Live Admin';
+					$_SERVER['LIVEADMIN_CHAT_PANEL']['p1'] = liveadmin_encode64($this->GetContentsPart(LIVEADMIN_FC.'/chat_panel_p1.php','chat_panel_p1'));
+					$_SERVER['LIVEADMIN_CHAT_PANEL']['p1_config_1'] = liveadmin_encode64($this->GetContentsPart(LIVEADMIN_FC.'/chat_panel_p1.php','chat_panel_config_'.$_SERVER['uinfo']['access_level']));
+					$_SERVER['LIVEADMIN_CONF'] = $this->LiveAdminConf();
+					include('temp.php');
 				break;
-				case 'redhome': include('redhome.php');
+				case 'redhome':
+					include('redhome.php');
 				break;
-				case 'logout': $this->Logout();
+				case 'logout':
+					$this->Logout();
 				DoLogout();
 				break;
-				case 'news': $this->CleanupHistory();
-				$this->CleanupWait();
-				PrintJsonPack($this->GetNews());
+				case 'news':
+					$this->CleanupHistory();
+					$this->CleanupWait();
+					PrintJsonPack($this->GetNews());
 				break;
-				case 'waiting_clients': if(LIVEADMIN_STANDALONE)
-				{
-					$this->CleanupVisitors();
-				}
-				$this->OutWaitingClients();
-				break;
-				case 'start_chat': $this->StartChat($_REQUEST['client']);
-				$this->AutoClose();
-				break;
-				case 'start_visitor_chat': $this->StartVisitorChat($_REQUEST['ip']);
-				break;
-				case 'null': PrintJsonPack(array('status'=>1));
-				break;
-				case 'message': $this->PostNewMessage($_REQUEST['message'],$_REQUEST['client_uniq'],$_REQUEST['server_uniq']);
-				$this->PostNewHistory($_REQUEST['message']);
-				break;
-				case 'message_loop': $mloop = $this->GetMessageLoop($_REQUEST['client_uniq'],$_REQUEST['server_uniq'],substr($_REQUEST['last_check'],2)*1);
-				PrintJsonPack($mloop);
-				break;
-				case 'discard_chat': $this->DiscardChat($_REQUEST['client_uniq']);
-				break;
-				case 'onhold_chat': $this->SetChatFlag($_REQUEST['client_uniq'],$_REQUEST['server_uniq'],6);
-				$this->PostNewMessage('<s5lang>Session on hold by</s5lang> '.$_SERVER['uinfo']['nickname'],$_REQUEST['client_uniq'],$_REQUEST['server_uniq'],3);
-				break;
-				case 'resume_chat': $this->SetChatFlag($_REQUEST['client_uniq'],$_REQUEST['server_uniq'],4);
-				$this->PostNewMessage('<s5lang>Session resumed by</s5lang> '.$_SERVER['uinfo']['nickname'],$_REQUEST['client_uniq'],$_REQUEST['server_uniq'],3);
-				break;
-				case 'close_chat': $this->CloseChat($_REQUEST['client_uniq'],$_REQUEST['server_uniq'],$_SERVER['uinfo']['nickname']);
-				break;
-				case 'block_access': $res = $this->BlockAccess($_REQUEST['client_uniq'],$_REQUEST['server_uniq'],$_REQUEST['period_hours']);
-				$this->CloseChat($_REQUEST['client_uniq'],$_REQUEST['server_uniq'],$_SERVER['uinfo']['nickname']);
-				PrintJsonPack($res);
-				break;
-				case 'archive_missed_call': $this->ArchiveMissedCall($_REQUEST['client_uniq']);
-				break;
-				case 'delete_missed_call': $this->DeleteMissedCall($_REQUEST['client_uniq']);
-				break;
-				case 'control': $this->PostNewMessage($_REQUEST['message'],$_REQUEST['client_uniq'],$_REQUEST['server_uniq'],6);
-				break;
-				case 'liveadminconf': PrintJsonPack($this->LiveAdminConf());
-				break;
-				case 'message_intern': PrintJsonPack($this->PostNewInternMessage($_REQUEST['message'],$_REQUEST['userid']));
-				break;
-				case 'get_agents': PrintJsonPack($this->GetAgents(),false);
-				break;
-				case 'get_fields': PrintJsonPack($this->GetFields(),false);
-				break;
-				case 'get_site_news': PrintJsonPack($this->GetSiteNews(),false);
-				break;
-				case 'get_blocked_clients': PrintJsonPack($this->GetBlockedClients(),false);
-				break;
-				case 'get_departments': PrintJsonPack($this->GetDepartments(),false);
-				break;
-				case 'blocked_clients_modify': PrintJsonPack($this->ModifyBlockedClients());
-				break;
-				case 'get_dialog_body': include_once('dialog.php');
-				$lv_dialog = new LV_Dialog($this);
-				$dialog = $_REQUEST['dialog'];
-				if($dialog=='dialog_affiliate')
-				{
-					$this->CalculateAffiliateBalance();
-				}
-				switch($dialog)
-				{
-					case 'dialog_strings': PrintJsonPack($lv_dialog->GetDialogStrings());
-					break;
-					case 'dialog_users': PrintJsonPack($lv_dialog->GetDialogUsers());
-					break;
-					case 'dialog_installation': PrintJsonPack($lv_dialog->GetDialogInstallation());
-					break;
-					default: $dstruct = $lv_dialog->GetDialogsStruct();
-					if(isset($dstruct[$dialog]))
+				case 'waiting_clients':
+					if(LIVEADMIN_STANDALONE)
 					{
-						$dhtml = $lv_dialog->GetDialogsHtml(array($dialog=>$dstruct[$dialog]));
-						PrintJSonPack($dhtml[$dialog]);
+						$this->CleanupVisitors();
 					}
+					$this->OutWaitingClients();
+				break;
+				case 'start_chat': 
+					$this->StartChat($_REQUEST['client']);
+					$this->AutoClose();
+				break;
+				case 'start_visitor_chat': 
+					$this->StartVisitorChat($_REQUEST['ip']);
+				break;
+				case 'null': 
+					PrintJsonPack(array('status'=>1));
+				break;
+				case 'message': 
+					$this->PostNewMessage($_REQUEST['message'],$_REQUEST['client_uniq'],$_REQUEST['server_uniq']);
+					$this->PostNewHistory($_REQUEST['message']);
+				break;
+				case 'message_loop': 
+					$mloop = $this->GetMessageLoop($_REQUEST['client_uniq'],$_REQUEST['server_uniq'],substr($_REQUEST['last_check'],2)*1);
+					PrintJsonPack($mloop);
+				break;
+				case 'discard_chat': 
+					$this->DiscardChat($_REQUEST['client_uniq']);
+				break;
+				case 'onhold_chat': 
+					$this->SetChatFlag($_REQUEST['client_uniq'],$_REQUEST['server_uniq'],6);
+					$this->PostNewMessage('<s5lang>Session on hold by</s5lang> '.$_SERVER['uinfo']['nickname'],$_REQUEST['client_uniq'],$_REQUEST['server_uniq'],3);
+				break;
+				case 'resume_chat': 
+					$this->SetChatFlag($_REQUEST['client_uniq'],$_REQUEST['server_uniq'],4);
+					$this->PostNewMessage('<s5lang>Session resumed by</s5lang> '.$_SERVER['uinfo']['nickname'],$_REQUEST['client_uniq'],$_REQUEST['server_uniq'],3);
+				break;
+				case 'close_chat': 
+					$this->CloseChat($_REQUEST['client_uniq'],$_REQUEST['server_uniq'],$_SERVER['uinfo']['nickname']);
+				break;
+				case 'block_access': 
+					$res = $this->BlockAccess($_REQUEST['client_uniq'],$_REQUEST['server_uniq'],$_REQUEST['period_hours']);
+					$this->CloseChat($_REQUEST['client_uniq'],$_REQUEST['server_uniq'],$_SERVER['uinfo']['nickname']);
+					PrintJsonPack($res);
+				break;
+				case 'archive_missed_call': 
+					$this->ArchiveMissedCall($_REQUEST['client_uniq']);
+				break;
+				case 'delete_missed_call': 
+					$this->DeleteMissedCall($_REQUEST['client_uniq']);
+				break;
+				case 'control': 
+					$this->PostNewMessage($_REQUEST['message'],$_REQUEST['client_uniq'],$_REQUEST['server_uniq'],6);
+				break;
+				case 'liveadminconf': 
+					PrintJsonPack($this->LiveAdminConf());
+				break;
+				case 'message_intern': 
+					PrintJsonPack($this->PostNewInternMessage($_REQUEST['message'],$_REQUEST['userid']));
+				break;
+				case 'get_agents': 
+					PrintJsonPack($this->GetAgents(),false);
+				break;
+				case 'get_fields': 
+					PrintJsonPack($this->GetFields(),false);
+				break;
+				case 'get_site_news': 
+					PrintJsonPack($this->GetSiteNews(),false);
+				break;
+				case 'get_blocked_clients': 
+					PrintJsonPack($this->GetBlockedClients(),false);
+				break;
+				case 'get_departments': 
+					PrintJsonPack($this->GetDepartments(),false);
+				break;
+				case 'blocked_clients_modify': 
+					PrintJsonPack($this->ModifyBlockedClients());
+				break;
+				case 'get_dialog_body': 
+					include_once('dialog.php');
+					$lv_dialog = new LV_Dialog($this);
+					$dialog = $_REQUEST['dialog'];
+					if($dialog=='dialog_affiliate')
+					{
+						$this->CalculateAffiliateBalance();
+					}
+					switch($dialog)
+					{
+						case 'dialog_strings': PrintJsonPack($lv_dialog->GetDialogStrings());
+						break;
+						case 'dialog_users': PrintJsonPack($lv_dialog->GetDialogUsers());
+						break;
+						case 'dialog_installation': PrintJsonPack($lv_dialog->GetDialogInstallation());
+						break;
+						default: $dstruct = $lv_dialog->GetDialogsStruct();
+						if(isset($dstruct[$dialog]))
+						{
+							$dhtml = $lv_dialog->GetDialogsHtml(array($dialog=>$dstruct[$dialog]));
+							PrintJSonPack($dhtml[$dialog]);
+						}
+						break;
+					}
+				break;
+				case 'get_sounds': 
+					PrintJsonPack($this->GetSounds());
+				break;
+				case 'get_all_sounds': 
+					PrintJsonPack($this->GetAllSounds());
+				break;
+				case 'get_lic_info': 
+					PrintJsonPack($this->GetLicInfo());
+				break;
+				case 'set_lic_info': 
+					PrintJsonPack($this->SetLicInfo());
+				break;
+				case 'get_all_on_off_themes': 
+					include_once('dialog.php');
+					$lv_dialog = new LV_Dialog($this);
+					PrintJsonPack(array('status'=>1,'list'=>$lv_dialog->GetStatusThemes()));
+				break;
+				case 'get_all_themes': 
+					include_once('dialog.php');
+					$lv_dialog = new LV_Dialog($this);
+					PrintJsonPack(array('status'=>1,'list'=>$lv_dialog->GetThemes()));
+				break;
+				case 'update_admin_panel_pref': 
+					PrintJsonPack($this->UpdateUsersPref($_REQUEST,'dialog_adminside'));
+				break;
+				case 'update_site_panel_pref': 
+					PrintJsonPack($this->UpdateSitesPref($_REQUEST,'dialog_clientside'));
+				break;
+				case 'update_profile_pref': 
+					PrintJsonPack($this->UpdateUsersPref($_REQUEST,'dialog_profile'));
+				break;
+				case 'update_chat_panel_pref': 
+					PrintJsonPack($this->UpdateSitesPref($_REQUEST,'dialog_chatpanel'));
+				break;
+				case 'update_password_pref': 
+					PrintJsonPack($this->UpdatePasswordPref($_REQUEST));
+				break;
+				case 'update_strings_pref': 
+					PrintJsonPack($this->UpdateStringsPref($_REQUEST));
+				break;
+				case 'update_agents_add_pref': 
+					PrintJsonPack($this->UpdateAgentsAddPref($_REQUEST));
+				break;
+				case 'update_agents_edit_pref': 
+					PrintJsonPack($this->UpdateAgentsEditPref($_REQUEST));
+				break;
+				case 'update_agents_edit_single_pref': 
+					PrintJsonPack($this->UpdateAgentsEditSinglePref($_REQUEST));
+				break;
+				case 'update_agents_delete_pref': 
+					PrintJsonPack($this->UpdateAgentsDeletePref($_REQUEST));
+				break;
+				case 'update_fields_add_pref': 
+					PrintJsonPack($this->UpdateFieldsAddPref($_REQUEST));
+				break;
+				case 'update_fields_edit_pref': 
+					PrintJsonPack($this->UpdateFieldsEditPref($_REQUEST));
+				break;
+				case 'update_fields_delete_pref': 
+					PrintJsonPack($this->UpdateFieldsDeletePref($_REQUEST));
+				break;
+				case 'update_invite_dialog': 
+					PrintJsonPack($this->UpdateSitesPref($_REQUEST,'dialog_invite_image'));
+				break;
+				case 'update_departments_add_pref': 
+					PrintJsonPack($this->UpdateDepartmentAddPref($_REQUEST));
+				break;
+				case 'update_departments_edit_pref': 
+					PrintJsonPack($this->UpdateDepartmentEditPref($_REQUEST));
+				break;
+				case 'update_departments_delete_pref': 
+					PrintJsonPack($this->UpdateDepartmentDeletePref($_REQUEST));
+				break;
+				case 'update_news_add_pref': 
+					PrintJsonPack($this->UpdateNewsAddPref($_REQUEST));
+				break;
+				case 'update_news_edit_pref': 
+					PrintJsonPack($this->UpdateNewsEditPref($_REQUEST));
+				break;
+				case 'update_news_delete_pref': 
+					PrintJsonPack($this->UpdateNewsDeletePref($_REQUEST));
+				break;
+				case 'update_photo_pref': 
+					PrintJsonPackEnc($this->UpdatePhotoPref($_REQUEST,$_FILES));
+				break;
+				case 'update_photo_delete_pref': 
+					PrintJsonPack($this->UpdatePhotoDeletePref($_REQUEST));
+				break;
+				case 'get_agent_photo': 
+					$this->GetAgentPhoto($_REQUEST['size']);
+				break;
+				case 'auto_complete': 
+					$ac = $this->GetAutoComplete();
+					print implode("\n",$ac);
+				break;
+				case 'delete_history': 
+					$this->DeleteHistory($_REQUEST['query_md5']);
+				break;
+				case 'get_log_list': 
+					PrintJsonPack($this->GetLogList($_REQUEST),false);
+				break;
+				case 'get_log_msg': 
+					PrintJsonPack($this->GetLogMsg($_REQUEST));
+				break;
+				case 'delete_log': 
+					$this->DeleteLog($_REQUEST);
+				break;
+				case 'send_log_by_email': 
+					include_once('vmail.php');
+					$vmail = new LV_Mail($this);
+					PrintJsonPack($vmail->SendLogEmail($_REQUEST));
+				break;
+				case 'add_draft':
+					$this->AddDraft($_REQUEST['message']);
 					break;
-				}
-				break;
-				case 'get_sounds': PrintJsonPack($this->GetSounds());
-				break;
-				case 'get_all_sounds': PrintJsonPack($this->GetAllSounds());
-				break;
-				case 'get_lic_info': PrintJsonPack($this->GetLicInfo());
-				break;
-				case 'set_lic_info': PrintJsonPack($this->SetLicInfo());
-				break;
-				case 'get_all_on_off_themes': include_once('dialog.php');
-				$lv_dialog = new LV_Dialog($this);
-				PrintJsonPack(array('status'=>1,'list'=>$lv_dialog->GetStatusThemes()));
-				break;
-				case 'get_all_themes': include_once('dialog.php');
-				$lv_dialog = new LV_Dialog($this);
-				PrintJsonPack(array('status'=>1,'list'=>$lv_dialog->GetThemes()));
-				break;
-				case 'update_admin_panel_pref': PrintJsonPack($this->UpdateUsersPref($_REQUEST,'dialog_adminside'));
-				break;
-				case 'update_site_panel_pref': PrintJsonPack($this->UpdateSitesPref($_REQUEST,'dialog_clientside'));
-				break;
-				case 'update_profile_pref': PrintJsonPack($this->UpdateUsersPref($_REQUEST,'dialog_profile'));
-				break;
-				case 'update_chat_panel_pref': PrintJsonPack($this->UpdateSitesPref($_REQUEST,'dialog_chatpanel'));
-				break;
-				case 'update_password_pref': PrintJsonPack($this->UpdatePasswordPref($_REQUEST));
-				break;
-				case 'update_strings_pref': PrintJsonPack($this->UpdateStringsPref($_REQUEST));
-				break;
-				case 'update_agents_add_pref': PrintJsonPack($this->UpdateAgentsAddPref($_REQUEST));
-				break;
-				case 'update_agents_edit_pref': PrintJsonPack($this->UpdateAgentsEditPref($_REQUEST));
-				break;
-				case 'update_agents_edit_single_pref': PrintJsonPack($this->UpdateAgentsEditSinglePref($_REQUEST));
-				break;
-				case 'update_agents_delete_pref': PrintJsonPack($this->UpdateAgentsDeletePref($_REQUEST));
-				break;
-				case 'update_fields_add_pref': PrintJsonPack($this->UpdateFieldsAddPref($_REQUEST));
-				break;
-				case 'update_fields_edit_pref': PrintJsonPack($this->UpdateFieldsEditPref($_REQUEST));
-				break;
-				case 'update_fields_delete_pref': PrintJsonPack($this->UpdateFieldsDeletePref($_REQUEST));
-				break;
-				case 'update_invite_dialog': PrintJsonPack($this->UpdateSitesPref($_REQUEST,'dialog_invite_image'));
-				break;
-				case 'update_departments_add_pref': PrintJsonPack($this->UpdateDepartmentAddPref($_REQUEST));
-				break;
-				case 'update_departments_edit_pref': PrintJsonPack($this->UpdateDepartmentEditPref($_REQUEST));
-				break;
-				case 'update_departments_delete_pref': PrintJsonPack($this->UpdateDepartmentDeletePref($_REQUEST));
-				break;
-				case 'update_news_add_pref': PrintJsonPack($this->UpdateNewsAddPref($_REQUEST));
-				break;
-				case 'update_news_edit_pref': PrintJsonPack($this->UpdateNewsEditPref($_REQUEST));
-				break;
-				case 'update_news_delete_pref': PrintJsonPack($this->UpdateNewsDeletePref($_REQUEST));
-				break;
-				case 'update_photo_pref': PrintJsonPackEnc($this->UpdatePhotoPref($_REQUEST,$_FILES));
-				break;
-				case 'update_photo_delete_pref': PrintJsonPack($this->UpdatePhotoDeletePref($_REQUEST));
-				break;
-				case 'get_agent_photo': $this->GetAgentPhoto($_REQUEST['size']);
-				break;
-				case 'auto_complete': $ac = $this->GetAutoComplete();
-				print implode("\n",$ac);
-				break;
-				case 'delete_history': $this->DeleteHistory($_REQUEST['query_md5']);
-				break;
-				case 'get_log_list': PrintJsonPack($this->GetLogList($_REQUEST),false);
-				break;
-				case 'get_log_msg': PrintJsonPack($this->GetLogMsg($_REQUEST));
-				break;
-				case 'delete_log': $this->DeleteLog($_REQUEST);
-				break;
-				case 'send_log_by_email': include_once('vmail.php');
-				$vmail = new LV_Mail($this);
-				PrintJsonPack($vmail->SendLogEmail($_REQUEST));
-				break;
-				case 'add_draft': $this->AddDraft($_REQUEST['message']);
-				break;
-				case 'delete_draft': PrintJsonPack($this->DeleteDraft($_REQUEST['msg_md5']));
-				break;
-				case 'get_drafts': PrintJsonPack($this->GetDrafts(),false);
-				break;
+				case 'delete_draft':
+					PrintJsonPack($this->DeleteDraft($_REQUEST['msg_md5']));
+					break;
+				case 'get_drafts':
+					PrintJsonPack($this->GetDrafts(),false);
+					break;
 				case 'make_offline': $this->Logout();
 				break;
 				case 'reports_agents_average_answering_time': include_once('reports.php');

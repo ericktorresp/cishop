@@ -823,80 +823,80 @@ class LV_L
 	}
 	function ModSInfo(&$SInfo)
 	{
-// 		if(strlen($SInfo['license'])<10 || ($SInfo['license_expiry_date']<time()+(2*3600) && $SInfo['license_retry_check_count']>10 ))
-// 		{
-// 			$SInfo['in_trial'] = 1;
-// 			$SInfo['license_status'] = 1;
-// 		}
-// 		if(LIVEADMIN_LITE)
-// 		{
-			$SInfo['in_trial'] = 0;
-			$SInfo['license_status'] = 0;
-// 		}
-	}
-	function Dec($lic)
-	{
-		$lic = InputFilter(strtoupper($lic),LIVEADMIN_CON_U);
-		$licb = array ( 'type'=>0, 'sit'.'eid'=>0 );
-		if($lic!='' && strlen($lic)==25)
-		{
-			$lic_or = array();
-			for($i=0;$i<25;$i++)
-			{
-				$lic_or[]= ord(substr($lic,$i,1));
-			}
-			$nmof = $lic_or[1]-65;
-			if($nmof<0 || $nmof>24) return($licb);
-			$nmsi = $lic_or[$nmof]-65;
-			if($nmsi<0 || $nmsi>7) return($licb);
-			$sidi = 'L';
-			$sidj = 'K';
-			$cp1 = 5;
-			$cp2 = 16;
-			for($i=0;$i<$nmsi;$i++)
-			{
-				$sidl = $lic_or[$cp1]-65;
-				if($sidl<0 || $sidl>24) return($licb);
-				$sc = $lic_or[$sidl];
-				if($sc>=65 && $sc<=74) $sc = $sc-17;
-				else $sc = $sc-10;
-				$sidi .= chr($sc);
-				$cp1+=2;
-				$sidl = $lic_or[$cp2]-65;
-				if($sidl<0 || $sidl>24) return($licb);
-				$sc = $lic_or[$sidl];
-				if($sc>=81 && $sc<=90) $sc = $sc-33;
-				$sidj .= chr($sc);
-				$cp2+=2;
-			}
-			$sidi = intval(substr($sidi,1),26);
-			$sidj = intval(substr($sidj,1),26);
-			$lcof = $lic_or[2]-65;
-			if($lcof<0 || $lcof>24) return($licb);
-			$lcty = $lic_or[$lcof]-67;
-			$lcog = $lic_or[15]-65;
-			if($lcog<0 || $lcog>24) return($licb);
-			$lctg = $lic_or[$lcog]-70;
-			if($sidi != $sidj) return($licb);
-			if($lcty != $lctg) return($licb);
-			$ing = $lic_or[4]-65;
-			if($ing<0 || $ing>22) return($licb);
-			$ino = $lic_or[24]-65;
-			if($ino<0 || $ino>24) return($licb);
-			$inb = $lic_or[$ino];
-			$ina = '';
-			foreach($lic_or as $a=>$v)
-			{
-				if($a!=24 && $a!=$ino) $ina = $ina.chr($v);
-			}
-			$inc = ord(substr(strtoupper(md5($ina)),$ing,1));
-			if($inc<65 || $inc>90) $inc+=21;
-			if($inc!=$inb) return($licb);
-			$licb['type'] = $lcty;
-			$licb['sit'.'eid'] = $sidi;
+		// 		if(strlen($SInfo['license'])<10 || ($SInfo['license_expiry_date']<time()+(2*3600) && $SInfo['license_retry_check_count']>10 ))
+		// 		{
+		// 			$SInfo['in_trial'] = 1;
+		// 			$SInfo['license_status'] = 1;
+		// 		}
+		// 		if(LIVEADMIN_LITE)
+		// 		{
+		$SInfo['in_trial'] = 0;
+		$SInfo['license_status'] = 0;
+		// 		}
 		}
-		return($licb);
-	}
+		function Dec($lic)
+		{
+			$lic = InputFilter(strtoupper($lic),LIVEADMIN_CON_U);
+			$licb = array ( 'type'=>0, 'sit'.'eid'=>0 );
+			if($lic!='' && strlen($lic)==25)
+			{
+				$lic_or = array();
+				for($i=0;$i<25;$i++)
+				{
+					$lic_or[]= ord(substr($lic,$i,1));
+				}
+				$nmof = $lic_or[1]-65;
+				if($nmof<0 || $nmof>24) return($licb);
+				$nmsi = $lic_or[$nmof]-65;
+				if($nmsi<0 || $nmsi>7) return($licb);
+				$sidi = 'L';
+				$sidj = 'K';
+				$cp1 = 5;
+				$cp2 = 16;
+				for($i=0;$i<$nmsi;$i++)
+				{
+					$sidl = $lic_or[$cp1]-65;
+					if($sidl<0 || $sidl>24) return($licb);
+					$sc = $lic_or[$sidl];
+					if($sc>=65 && $sc<=74) $sc = $sc-17;
+					else $sc = $sc-10;
+					$sidi .= chr($sc);
+					$cp1+=2;
+					$sidl = $lic_or[$cp2]-65;
+					if($sidl<0 || $sidl>24) return($licb);
+					$sc = $lic_or[$sidl];
+					if($sc>=81 && $sc<=90) $sc = $sc-33;
+					$sidj .= chr($sc);
+					$cp2+=2;
+				}
+				$sidi = intval(substr($sidi,1),26);
+				$sidj = intval(substr($sidj,1),26);
+				$lcof = $lic_or[2]-65;
+				if($lcof<0 || $lcof>24) return($licb);
+				$lcty = $lic_or[$lcof]-67;
+				$lcog = $lic_or[15]-65;
+				if($lcog<0 || $lcog>24) return($licb);
+				$lctg = $lic_or[$lcog]-70;
+				if($sidi != $sidj) return($licb);
+				if($lcty != $lctg) return($licb);
+				$ing = $lic_or[4]-65;
+				if($ing<0 || $ing>22) return($licb);
+				$ino = $lic_or[24]-65;
+				if($ino<0 || $ino>24) return($licb);
+				$inb = $lic_or[$ino];
+				$ina = '';
+				foreach($lic_or as $a=>$v)
+				{
+					if($a!=24 && $a!=$ino) $ina = $ina.chr($v);
+				}
+				$inc = ord(substr(strtoupper(md5($ina)),$ing,1));
+				if($inc<65 || $inc>90) $inc+=21;
+				if($inc!=$inb) return($licb);
+				$licb['type'] = $lcty;
+				$licb['sit'.'eid'] = $sidi;
+			}
+			return($licb);
+		}
 }
 class GetTemplate
 {
@@ -1038,7 +1038,25 @@ function URL2View($s)
 }
 function GetAdminPanelJavaScriptFiles()
 {
-	$files = array ( 'yahoo.js'=>false, 'ajax_request.js'=>true, 'flash.js'=>true, 'md5.js'=>true, '_base.js'=>true, '_base_core.js'=>true, '_base_transfer.js'=>true, '_base_config.js'=>true, '_base_dialog_agents.js'=>true, '_base_dialog_departments.js'=>true, '_base_dialog_fields.js'=>true, '_base_dialog_blocked.js'=>true, '_base_dialog_news.js'=>true, '_base_news.js'=>true, '_base_reports.js'=>true, '_base_visitors.js'=>true, '_base_home.js'=>true );
+	$files = array (
+		'yahoo.js'=>false, 
+		'ajax_request.js'=>true, 
+		'flash.js'=>true, 
+		'md5.js'=>true, 
+		'_base.js'=>true, 
+		'_base_core.js'=>true, 
+		'_base_transfer.js'=>true, 
+		'_base_config.js'=>true, 
+		'_base_dialog_agents.js'=>true, 
+		'_base_dialog_departments.js'=>true, 
+		'_base_dialog_fields.js'=>true, 
+		'_base_dialog_blocked.js'=>true, 
+		'_base_dialog_news.js'=>true, 
+		'_base_news.js'=>true, 
+		'_base_reports.js'=>true, 
+		'_base_visitors.js'=>true, 
+		'_base_home.js'=>true 
+	);
 	if(LIVEADMIN_STANDALONE)
 	{
 		$files['_base_upgrade.js'] = true;

@@ -18,7 +18,7 @@
 include_once('include/core.php');
 include_once('include/jspack.php');
 $files = GetAdminPanelJavaScriptFiles();
-if(LIVEADMIN_STANDALONE) $bdir = LIVEADMIN_AST;
+if(LIVEADMIN_STANDALONE)$bdir = LIVEADMIN_AST;
 if(is_callable("gzcompress") && is_callable("gzuncompress"))
 {
 	ob_start('ob_gzhandler');
