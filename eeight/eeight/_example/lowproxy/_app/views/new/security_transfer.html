@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><TITLE>{if $sSysTopMessage}[{$sSysTopMessage}] {/if}{$webtitle} {if $ur_here} - {$ur_here} {/if} {$systemversions}</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<META http-equiv="Pragma" content="no-cache" />
+{if $sSysMetaMessage}{$sSysMetaMessage}{/if}
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/lowproxy/css/new/main.css" type="text/css" />
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/bluejs/top_button/common.js"></script>
+<script language="javascript">
+$(function(){
+    $.each($(".list-div").find("td"),function(){
+        if($(this).html()==""){
+            $(this).html("&nbsp;");
+        }
+    });
+});
+</script>
+</HEAD><BODY>
+{if empty($sys_header_title)}{/if}
+<H1>{if $actionlink}<SPAN class="action-span"><A 
+href="{$actionlink.href}">{$actionlink.text|escape:html}</a></SPAN>{/if}{if $actionlink2}<SPAN class="action-span"><A 
+href="{$actionlink2.href}">{$actionlink2.text|escape:html}</a></SPAN>{/if}{if $actionlink3}<SPAN class="action-span"><A 
+href="{$actionlink3.href}">{$actionlink3.text|escape:html}</a></SPAN>{/if}<SPAN class="action-span1"><A 
+href="./index.php" target='_top'>低频代理平台</a> {if $ur_here} - {$ur_here} {/if}</SPAN>
+<DIV style="clear:both"></DIV>
+</H1>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/bluejs/dialogUI/jquery.jamesdragn.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/bluejs/dialogUI/jquery.dialogUI.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/bluejs/dialogUI/jquery.dragndrop.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/lowproxy/js/bluejs/dialogUI/dialogUI.css" type="text/css" />
+<script type="text/javascript">
+jQuery("document").ready( function(){
+	document.getElementById("out").checked = true;
+	$("#out").click(function(){ // 低频转出
+		$("#chineseMoney").html("");  // 清除大小写
+		$("#faction").val("tran");    // 改变action
+		$("#channel").html("转入频道"); // 改变提示语
+		$("#amount").html("转出金额");  // 改变提示语
+		$("#fmoney").val("");         // 清空金额
+		$("#maxmoney").html("<input type='text' name='fmoney' id='fmoney' size='20' onkeyup=\"checkWithdraw(this,'chineseMoney',{$user.availablebalance});\" />可转金额（<span style='color:#FF0000;'><strong>{$user.availablebalance|escape:money}</strong></span>）");
+		$("#bankmoney").html("");
+		$("#tran").html("出");
+		$("#notice").html("游戏币由低频转出至银行大厅");
+	});
+	$("#in").click(function(){ // 转入低频
+		$("#chineseMoney").html("");   // 清除大小写
+		$("#faction").val("pickup");   // 改变action
+		$("#channel").html("转出频道");  // 改变提示语
+		$("#amount").html("转入金额");   // 改变提示语
+		$("#fmoney").val("");           // 清空金额
+		$("#maxmoney").html("<input type='text' name='fmoney' id='fmoney' size='20' onkeyup=\"checkWithdraw(this,'chineseMoney',{$maxpickup});\" />");
+		$("#bankmoney").html("可转金额（<span style='color:#FF0000;'><strong>{$maxpickup|escape:money}</strong></span>）");
+		$("#tran").html("入");
+		$("#notice").html("游戏币由银行大厅转入至低频");
+	});
+});
+</script>
+<div class="right_021">
+<div class="height51">
+<div class="right_02_281"></div>
+<div class="right_02_291"></div>
+</div>
+<div class="list-div" id="listDiv">
+<form action="index.php" method="post" name="updateform">
+<input type="hidden" name="flag" value="showTranfer" />
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action" id="faction"  value="tran" />
+<table width="100%" cellspacing='0' cellpadding='0' id='list-table'>
+  <tr>
+  <td colspan="2" style="padding-left:160px;font-weight:bold;"><input type="radio" name="kind" id="out" value="0" checked="checked" ><label for="out" style="font-size:14px;">低频转出</label>　　<input type="radio" name="kind" id="in" value="1" ><label for="in" style="font-size:14px;">转入低频</label></td>
+  </tr>
+  <tr>
+  <td class="narrow-label">提示:</td>
+  <td id="notice">游戏币由低频转出至银行大厅</td>
+  </tr>
+  <tr>
+  	<td class="first-cell" style="padding-right:10px;text-align:right;"><span id="channel">转入频道</span>:</td>
+    <td><select name="toChannelId">
+	{foreach from=$aChannelData item=c key=cid}
+      <option value="{$cid}">{$c}</option>
+	{/foreach}
+    </select>　　<span id="bankmoney"></span></td>
+  </tr>
+  <tr>
+  	<td class="narrow-label"><span id="amount">转出金额</span>:</td>
+    <td id="maxmoney"><input type="text" name="fmoney" id="fmoney" size="20" onkeyup="checkWithdraw(this,'chineseMoney',{$user.availablebalance});" />
+    可转金额（<span style="color:#FF0000;"><strong>{$user.availablebalance|escape:money}</strong></span>）</td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">转<span id="tran">出</span>金额(大写):</td>
+    <td><span id="chineseMoney" style="color:#FF0000;"></span></td>
+  </tr>
+  <tr><td colspan="2" align="center" height="40"><input type="submit" name="submit" id="adminadd" value="下一步" class='buttonnormal'></td></tr>
+</table>
+</form>
+</div>
+<div class="height51">
+<div class="right_02_241"></div>
+<div class="right_02_251"></div>
+</div>
+</div>
+{include file="pagefooter.html"}

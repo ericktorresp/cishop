@@ -1,0 +1,73 @@
+{include file="pageheader.html"}
+<div class="list-div">
+  <div style="background:#464747; padding: 20px 50px; margin: 2px;text-align:center;">
+    <table align="center" width="400" align="center" border="0" cellspacing="0" style="background:#464747;">
+      <tr>
+        <td width="50" valign="top" align="left">
+          {if $msg_type==1}
+          <img src="{$sSystemImagesAndCssPath}/lowgame/images/successd.gif" width="32" height="32" border="0" alt="information" />
+          {elseif $msg_type == 2}
+          <img src="{$sSystemImagesAndCssPath}/lowgame/images/warning.gif" width="32" height="32" border="0" alt="warning" />
+          {else}
+          <img src="{$sSystemImagesAndCssPath}/lowgame/images/confirm.gif" width="32" height="32" border="0" alt="confirm" />
+          {/if}
+        </td>
+        <td align="left">
+{if $msg_type==1}
+<font color=#77B000 style="font-size: 16px; font-weight: bold">{$msg_detail|escape:html}</font>
+{elseif $msg_type == 2}
+<font color=#EE2222 style="font-size: 16px; font-weight: bold">{$msg_detail|escape:html}</font>
+{else}
+{$msg_detail|escape:html}
+{/if}
+</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td align="left">
+          {$auto_redirection}
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td align="left">
+          <ul style="margin:0; padding:0 10px;" class="msg-link">
+            {foreach from=$links item=link key=k}
+            <li style="list-style-type:none;"><a href="{$link.url}" target="_{$link.target}">{$link.title|escape:html}</a></li>
+            {/foreach}
+          </ul>
+
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<script language="JavaScript">
+<!--
+var seconds = document.getElementById('spanSeconds').innerHTML;
+var defaultUrl = "{$default_url}";
+var timeInterval = null;
+
+onload = function()
+{
+ timeInterval = window.setInterval(redirection, 1000);
+    document.getElementById('spanSeconds').innerHTML = seconds;
+}
+
+function redirection()
+{
+  seconds--;
+
+  if (seconds <= 0)
+  {
+   clearInterval(timeInterval);
+      window.location.href= defaultUrl;
+  }
+  else
+  {
+      document.getElementById('spanSeconds').innerHTML = seconds;
+  }
+}
+//-->
+</script>
+{include file="pagefooter.html"}

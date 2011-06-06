@@ -1,0 +1,248 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/jquery.impromptu.2.6.min.js"></script>
+<LINK href="./css/impromptu.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+{literal}
+function CheckBoxSelectAll(obj, chk)
+{
+  if (chk == null)
+  {
+    chk = 'checkboxes';
+  }
+
+  var elems = obj.form.getElementsByTagName("INPUT");
+
+  for (var i=0; i < elems.length; i++)
+  {
+    if (elems[i].name == chk || elems[i].name == chk + "[]")
+    {
+      elems[i].checked = obj.checked;
+    }
+  }
+}
+
+function numchange(obj,TYPE,str)
+{
+	if(document.getElementById("all").checked)
+	{
+		var elems = obj.form.getElementsByTagName(TYPE);
+		for (var i=0; i < elems.length; i++)
+	  	{
+			var names= elems[i].name;
+			if(names.substr(0,str.length) == str)
+	    	{
+		    	if(TYPE=="INPUT")
+		    	{
+	      			elems[i].value = obj.value;
+		    	}
+		    	else if(TYPE=="SELECT")
+		    	{
+			    	elems[i].options[obj.selectedIndex].selected = "TRUE" ;			    	
+				}
+	    	}
+	  	}
+	}
+}
+
+function checksss()
+{
+	ss ="";
+	var elems = document.getElementsByTagName("INPUT");
+	for (var i=0; i < elems.length; i++)
+	{
+		if (elems[i].name =="userid" || elems[i].name == "userid[]")
+	    {
+		    
+	    	if(elems[i].checked)
+	      	{
+		      	id= elems[i].value;
+		      	agents = document.getElementById("agent_"+id).innerHTML;
+		      	kaihu = document.getElementById("open_level_"+id);
+		      	open_level = kaihu.options[kaihu.selectedIndex].innerHTML;
+		      	num_add = document.getElementById("num_add_"+id).value;
+		      	num_sub = document.getElementById("num_sub_"+id).value;
+		      	if(num_add==""){
+			      	num_add =0;
+			      	document.getElementById("num_add_"+id).value = '0';
+		      	}
+		      	if(num_sub==""){
+                   num_sub =0;
+                   document.getElementById("num_sub_"+id).value = '0';
+               }
+			    allows = document.getElementById("allow_"+id);
+			    allow = allows.options[allows.selectedIndex].innerHTML;
+		      	s = "<tr><td>"+agents+"</td><td>"+open_level+"</td><td>"+num_add+"</td><td>"+Math.abs(num_sub)+"</td><td>"+allow+"</td></tr>";
+		      	ss = ss+s;
+		   	}
+	    }
+	}
+	if(ss =="")
+	{
+		alert('请勾选希望更新的数据行');
+		return false;
+	}
+	else
+	{
+		ss="<div style='overflow-y: auto; height: 200px; width: 100%;'><table class='list-div'><tr><th>总代</th><th>开户级别</th><th>新增用户</th><th>扣减用户</th><th>是否开户</th></tr>"+ss+"</table></div>";
+		$.prompt(ss,{ buttons: { "确认": true, "取消": false }, show:'slideDown' ,callback:mycallbackform,focus: 1 });
+	}
+}
+
+function mycallbackform(v,m,f){
+	if(v){
+		document.forms['list-form'].submit();
+	}
+}
+function changenum(objId,str,i,objId2)
+{
+	if($("#"+objId2).val()!="")
+	{
+		$("#"+objId).val("");
+		$("#"+objId2).val("");
+		alert("操作错误!\n同个用户不能同时增加和减少开户个数.");
+	}
+	else
+	{
+		if(parseInt($("#"+objId).val()))
+		{ //转化成数字成功
+			if(i>-1)
+			{ //需要检测输入数字是否合法
+				if(Math.abs(parseInt($("#"+objId).val()))>i)
+				{ //提示错误
+					alert("扣减开户个数超过本人剩余开户个数.");
+					$("#"+objId).val("");
+					return false;
+				}
+				$("#"+objId).val(str+Math.abs(parseInt($("#"+objId).val())));
+			}
+		}
+		else
+		{
+			$("#"+objId).val("");
+		}
+	}
+}
+{/literal}
+</script>
+
+<div class="form-div">
+	<FORM METHOD="GET" ACTION="">
+	<input type="hidden" name="controller" value="user">
+	<input type="hidden" name="action" value="createaccount">
+	<img src="./images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" />
+	最高开户权限：<select name="open_level">
+	<option value="-2" {if $top_level==-2}selected="selected"{/if}>不受限制</option>
+	<option value="0" {if $top_level==0}selected="selected"{/if}>总代用户</option>
+	<option value="1" {if $top_level==1}selected="selected"{/if}>一级代理</option>
+	<option value="2" {if $top_level==2}selected="selected"{/if}>二级代理</option>
+	<option value="3" {if $top_level==3}selected="selected"{/if}>三级代理</option>
+	<option value="4" {if $top_level==4}selected="selected"{/if}>四级代理</option>
+	<option value="5" {if $top_level==5}selected="selected"{/if}>五级代理</option>
+	<option value="6" {if $top_level==6}selected="selected"{/if}>六级代理</option>
+	<option value="7" {if $top_level==7}selected="selected"{/if}>七级代理</option>
+	<option value="8" {if $top_level==8}selected="selected"{/if}>八级代理</option>
+	<option value="9" {if $top_level==9}selected="selected"{/if}>九级代理</option>
+	<option value="10" {if $top_level==10}selected="selected"{/if}>十级代理</option>
+	</select>&nbsp;&nbsp;总代限制:
+	<select name="topset">
+	<option value="0">不受限制</option>
+	<option value="1" {if $topset==1}selected="selected"{/if}>允许开户</option>
+	<option value="2" {if $topset==2}selected="selected"{/if}>禁止开户</option>
+	<option value="3" {if $topset==3}selected="selected"{/if}>有剩余数</option>
+	<option value="4" {if $topset==4}selected="selected"{/if}>无剩余数</option>
+	</select>&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="submit" value="搜索" class="button"><a href="javascript:showNotice('noticesearch');"><img src="./images/notice.gif" border="0" title="搜索"></a> <span id="noticesearch" style="display:none;">搜索内容不指定最高开户权限和总代限制时候，默认为所有总代用户。</span>
+	</FORM>
+</div>
+<div class="list-div">
+<form method="POST" action="?controller=user&action=savecreateaccount" name="list-form" id="list-form">
+<table>
+<tr>
+	<th>&nbsp;</th>
+	<th>总代用户名</th>
+	<th>最高开户权限</th>
+	<th>新增用户个数</th>
+	<th>扣减用户个数</th>
+	<th>本人剩余开户个数</th>
+	<th>下级剩余开户个数</th>
+	<th>允许开户</th>
+</tr>
+{foreach from=$users item=user key=v}
+<tr>
+	<td align="center"><label for="userid_{$user.userid}"><input type="checkbox" id="userid_{$user.userid}" name="userid[]" value="{$user.userid}"></label></td>
+	<td class="narrow-label" id="agent_{$user.userid}">{$user.username|escape:html}</td>
+	<td align="center"><select name="open_level[{$user.userid}]" id="open_level_{$user.userid}">
+	<option value="0" {if $user.open_level==0}selected="selected"{/if}>总代用户</option>
+	<option value="1" {if $user.open_level==1}selected="selected"{/if}>一级代理</option>
+	<option value="2" {if $user.open_level==2}selected="selected"{/if}>二级代理</option>
+	<option value="3" {if $user.open_level==3}selected="selected"{/if}>三级代理</option>
+	<option value="4" {if $user.open_level==4}selected="selected"{/if}>四级代理</option>
+	<option value="5" {if $user.open_level==5}selected="selected"{/if}>五级代理</option>
+	<option value="6" {if $user.open_level==6}selected="selected"{/if}>六级代理</option>
+	<option value="7" {if $user.open_level==7}selected="selected"{/if}>七级代理</option>
+	<option value="8" {if $user.open_level==8}selected="selected"{/if}>八级代理</option>
+	<option value="9" {if $user.open_level==9}selected="selected"{/if}>九级代理</option>
+	<option value="10" {if $user.open_level==10}selected="selected"{/if}>十级代理</option>
+	</select></td>
+	<td align="center"><input type="text" size="5" name="num_add[{$user.userid}]" id="num_add_{$user.userid}" onchange="changenum('num_add_{$user.userid}','',-1,'num_sub_{$user.userid}');"></td>
+	<td align="center"><input type="text" size="5" name="num_sub[{$user.userid}]" id="num_sub_{$user.userid}" style="color:red;" onchange="changenum('num_sub_{$user.userid}','-',{$user.addcount|default:0},'num_add_{$user.userid}');"></td>
+	<td align="center">{$user.addcount|default:0}</td>
+	<td align="center">{$user.sumcount|default:0}</td>
+	<td align="center"><select name="allow[{$user.userid}]" id="allow_{$user.userid}">
+	<option value="0" style='color:#f30' {if $user.can_create==0}selected="selected"{/if}>禁止开户</option>
+	<option value="1" style='color:#690' {if $user.can_create==1}selected="selected"{/if}>允许开户</option>
+	</select></td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="8" class="no-records">没有找到符合条件的相关总代</td>
+</tr>
+{/foreach}
+<tr>
+<td align="center"><input type="checkbox" onclick="javascript:CheckBoxSelectAll(this,'userid');"></td>
+	<td class="narrow-label"><label for="all"><input type="checkbox" id="all" value="1">选中项统一修改</label></td>
+	<td align="center"><select onchange="javascript:numchange(this,'SELECT','open_level');">
+	<option value="0">总代用户</option>
+	<option value="1">一级代理</option>
+	<option value="2">二级代理</option>
+	<option value="3">三级代理</option>
+	<option value="4">四级代理</option>
+	<option value="5">五级代理</option>
+	<option value="6">六级代理</option>
+	<option value="7">七级代理</option>
+	<option value="8">八级代理</option>
+	<option value="9">九级代理</option>
+	<option value="10">十级代理</option>
+	</select></td>
+	<td align="center"><input type="text" size="5" onblur="javascript:numchange(this,'INPUT','num_add');"></td>
+	<td align="center">&nbsp;</td>
+	<td align="center">&nbsp;</td>
+	<td align="center">&nbsp;</td>
+	<td align="center"><select onchange="javascript:numchange(this,'SELECT','allow');">
+	<option value="0">禁止开户</option>
+	<option value="1">允许开户</option> 
+	</select></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="7"><input class="button" type="button" value="保存" onclick="javascript:return checksss();"><input class="button" type="reset" value="还原"><a href="javascript:showNotice('noticesubmit');"><img src="./images/notice.gif" border="0" title="搜索"></a><span id="noticesubmit" style="display:none;">如果需要修改总代开户权限，需要将该总代前面的复选框中选中，否则，修改的用户资料无效。</span></td>
+</tr>
+</table>
+</form>
+</div>
+<script>
+function showNotice(objId)
+{
+	var obj = document.getElementById(objId);
+	if(obj.style.display=="none")
+	{
+		obj.style.display="block";
+	}
+	else
+	{
+		obj.style.display="none";
+	}
+}
+</script>
+{include file="pagefooter.html"}

@@ -1,0 +1,71 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action="./?controller=message&action=save" onsubmit="return validate()">
+	<table cellspacing='1' cellpadding='3' id='list-table'>
+
+	<tr>
+		<td class="narrow-label">消息类型</td>
+		<td>
+		<select name="mt" style="background-color:#FFF;color:#000">{$info.mtoptions}</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="narrow-label">消息标题</td>
+		<td><input type="text" size="60" name="subject"></td>
+	</tr>
+
+	<tr>
+		<td class="narrow-label">接收用户名</td>
+		<td><input type="text" size="56" name="username"> &nbsp;&nbsp; <a href="javascript:showNotice('noticeSearch');" title="帮助信息"><img src="./images/notice.gif" width="16" height="16" border="0" title="帮助信息"></a>
+		<span class="notice-span" style='line-height:18px;padding:4px 0px 2px 4px;color:#FF0000' 
+id="noticeSearch">用户名可填多个, 用逗号分隔. 接收用户只能是代理和会员</span>
+		</td>
+	</tr>
+		<tr>
+			<td class="narrow-label">群发选项</td>
+			<td><label for="t1"><input type="checkbox" name="type[]" value="1" id="t1">本人不接受</label>
+			&nbsp;&nbsp;<label for="t2"><input type="checkbox" name="type[]" value="2" id="t2">所有下级</label>
+			&nbsp;&nbsp;<label for="t3"><input type="checkbox" name="type[]" value="3" id="t3">直接下级</label>
+			&nbsp;&nbsp;<label for="t4"><input type="checkbox" name="type[]" value="4" id="t4">所有上级</label></td>
+		</tr>
+		<tr>
+			<td class="narrow-label">消息内容</td>
+			<td><textarea cols="60" rows="10" name="content"></textarea></td>
+		</tr>
+		<tr>
+			<td class="narrow-label">&nbsp;</td>
+			<td><input type="submit" name="send" value="发送消息" class="button"></td>
+		</tr>
+	</table>
+</form>
+</div>
+
+{insert_scripts files="./js/global.js"}
+{insert_scripts files="./js/validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+  /**
+   * 检查表单输入的内容
+   */
+	function validate()
+	{
+		var validator = new Validator('listForm');
+		validator.required('mt', "消息类型不能为空!");
+		validator.required('subject', "消息标题不能为空!");
+		validator.required('username', "接收用户不能为空!");
+		validator.required('content', "消息内容不能为空!");
+
+		if( document.getElementById("t1").checked == true 
+			&& document.getElementById("t2").checked == false
+			&& document.getElementById("t3").checked == false
+			&& document.getElementById("t4").checked == false )
+		{
+			//validator.addErrorMsg('群发选项错误');
+		}
+		return validator.passed();  
+    }
+//-->
+</script>
+{/literal}
+{include file="pagefooter.html"}

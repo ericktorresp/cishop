@@ -1,0 +1,111 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <td width="100%" align="left" colspan="7">
+    <span style="margin-left:15px;">用户名：{$aUserWinDetail.0.username}</span>
+    </td>
+  </tr>
+  <tr>
+    <th width="15%">注单编号</th>
+	<th width="15%">游戏</th>
+	<th width="15%">玩法</th>
+	<th width="10%">倍数</th>
+	<th width="15%">投注总金额</th>
+	<th width="15%">中奖总金额</th>
+    <th width="15%">IP</th>
+  </tr>
+{foreach from=$aUserWinDetail item=projectlist key=k}
+    <tr>
+    <td align="center">{$projectlist.projectnum}</td>
+	<td align="center">{$projectlist.cnname}</td>
+	<td align="center">{$projectlist.methodname}</td>
+	<td align="center">{$projectlist.multiple}</td>
+	<td align="right">
+	   {if $projectlist.totalprice <= 0}<font color="Red">{else}<font color="Green">{/if}
+	   {$projectlist.totalprice|escape:money:4}</font>
+	</td>
+	<td align="right">
+	   {if $projectlist.bonus <= 0}<font color="Red">{else}<font color="Green">{/if}
+	   {$projectlist.bonus|escape:money:4}</font>
+	</td>
+    <td align="center">{$projectlist.userip}</td>
+  </tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="7">无相关数据</td></tr>
+{/foreach}
+<tr>
+<td colspan="4" align="center"><b>合计</b></td>
+<td align="right">
+	{if $totalprice <= 0}<font color="Red">{else}<font color="Green">{/if}
+	{$totalprice|escape:money:4}</font>
+</td>
+<td align="right">
+	{if $totalbonus <= 0}<font color="Red">{else}<font color="Green">{/if}
+	{$totalbonus|escape:money:4}</font>
+</td>
+<td align="center">&nbsp;</td>
+</tr>
+</table>
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:10px; padding-top:6px;'>{$pages}</div></td></tr>
+</table>
+</div>
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#EEF8F8';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

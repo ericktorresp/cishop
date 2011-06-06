@@ -1,0 +1,129 @@
+<html>
+<head>
+<title>用户管理 {$systemversions}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="./css/general.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/dialogUI/jquery.dialogUI.js"></script>
+<script type="text/javascript">
+jQuery.blockUI.defaults.message = '加载数据...'; 
+jQuery.blockUI.defaults.css = { 
+        padding:        0, 
+        margin:         '0 auto', 
+        width:          '100px', 
+        top:            '4px', 
+        left:           '8px', 
+        textAlign:      'center', 
+        color:          '#FF0000', 
+        border:         '1px solid #80BDCB', 
+        backgroundColor:'#FFF', 
+        cursor:         'wait' 
+    };
+jQuery.blockUI.defaults.overlayCSS = { 
+        backgroundColor: '#CCC', 
+        opacity:         0.5 
+    };
+jQuery.blockUI.defaults.centerX = false;
+jQuery.blockUI.defaults.centerY = false;
+function getChildList( obj, uid )
+{
+	if( jQuery(obj).parent().find("ul").html() != null )
+	{
+		if( jQuery(obj).attr("src") == "./images/menu_plus.gif" )
+		{
+			jQuery(obj).attr("src","./images/menu_minus.gif");
+			jQuery(obj).parent().find("ul:first").slideDown("fast");
+		}else
+		{
+			jQuery(obj).attr("src","./images/menu_plus.gif");
+			jQuery(obj).parent().find("ul:first").slideUp("fast");
+		}
+	}
+	else
+	{
+		jQuery().ajaxStart($.blockUI).ajaxStop($.unblockUI);
+		html = jQuery(obj).closest("li").html();
+		jQuery(obj).ajaxStart(function(){
+			jQuery(this).attr("src","./images/menu_minus.gif");
+		});
+		jQuery.ajax({
+		type:			"GET",
+		url:			"index.php?controller=user&action=list&frame=menu&uid="+uid,
+		dataType: 		"json",
+		cache:			false,
+		success:		function(data){
+							if( data.error == "empty" ){//没有数据
+								jQuery(obj).parent().append("<ul style='display:none;'><li></li></ul>");
+								jQuery(obj).attr("src","./images/menu_plus.gif");
+							}else if( data.error == "0" ){//有数据
+								dataHtml = "<ul>";
+								jQuery.each(data.result,function(i,n){
+									dataHtml += "<li>";
+									if( n.childcount > 0 )
+									{
+										dataHtml += "<img src=\"./images/menu_plus.gif\" onclick=\"getChildList(this,"+n.userid+")\" style=\"cursor:pointer;\" />";
+									}else{
+										dataHtml += "<img src=\"./images/menu_minus.gif\"  />";
+									}
+									dataHtml += "<a href=\"?controller=user&action=list&frame=show&uid="+n.userid+"\" target=\"userlist_content\">"+replaceHTML(n.username)+"</a> <font color='#A0A0A0'>("+n.childcount+")</font></li>";
+								});
+								dataHtml += "</ul>";
+								jQuery(obj).parent().append(dataHtml);
+							}
+							else
+							{
+								return true;
+							}
+						}
+		});
+	}
+}
+</script>
+
+<style type="text/css">
+body {background: #C62441;}
+#tabbar-div {
+  background: #80001B; padding-left: 10px; height: 21px; padding-top: 0px;}
+#tabbar-div p {margin:0px;}
+.tab-front { background: #C62441; line-height: 20px; font-weight: bold; 
+	padding: 4px 15px 4px 18px; border-right: 2px solid #333333; cursor: hand;  cursor: pointer;}
+.tab-back,.tab-hover {color: #F4FAFB; line-height: 20px; padding: 4px 15px 4px 18px; cursor: hand; cursor: pointer;}
+.tab-hover {background: #2F9DB5;}
+#top-div {padding: 3px 0 2px; background: #BBDDE5; margin: 5px; text-align: center;}
+#main-div {border: 1px solid #9F1E34; padding: 5px; margin: 5px; background: #E3D5BF;}
+#menu-list {padding: 0; margin: 0;}
+#menu-list ul {padding: 0; margin: 0; list-style-type: none; color: #335B64;}
+#menu-list li {padding-left: 16px; line-height: 16px; cursor: hand; cursor: pointer;}
+#main-div a:visited, #main-div a:link { color: #666; text-decoration: none;}
+#main-div a:hover { color: #FF6600; }
+.child{
+	padding-left:8px;
+	border-left:double 1px #CCC;
+	margin-left:3px;
+}
+#main-div ul{ list-style:none; margin:0; padding:0; padding-left:10px; float:left; background:#FFFFFF;}
+#main-div ul li{list-style:none;line-height:20px; width:100%; text-align:left; float:left;}
+#main-div li{ list-style:none;padding-top:2px;}
+</style>
+</head>
+<body>
+
+<div id="tabbar-div"><p><span class="tab-front" id="menu-tab">用户列表</span></p></div>
+<div id="main-div"><div id="child_0">
+{foreach from=$users item=user key=k}
+	<li id="li_{$user.userid}">
+    	{if $user.childcount>0}
+        <img src="./images/menu_plus.gif" id="img_{$user.userid}" onClick="getChildList(this,{$user.userid})" style="cursor:pointer;"> 
+        {else}
+        <img src="./images/menu_minus.gif" id="img_{$user.userid}"> 
+        {/if}
+        <a href="./?controller=user&action=list&frame=show&uid={$user.userid}" target="userlist_content">{$user.username|escape:html}</a> <font color='#A0A0A0'>({$user.childcount})</font>
+    </li>
+{foreachelse}
+	<li>无下级用户</li>
+{/foreach}
+</ul>
+</div></div>
+</body>
+</html>

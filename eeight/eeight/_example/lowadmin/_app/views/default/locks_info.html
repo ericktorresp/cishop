@@ -1,0 +1,80 @@
+{include file="pageheader.html"}
+{insert_scripts files="jquery.js"}
+<script>
+$(document).ready(function(){
+	$("#order").change(function(){
+		$("form").submit();
+	});
+});
+</script>
+<div class="list-div">
+<form action="" method="GET">
+<input type="hidden" name="controller" value="locks">
+<input type="hidden" name="action" value="{$action}">
+<table class="list-form">
+<tr>
+<td style="padding-left:20px;">
+奖期: <select name="issue" id="issue">
+{foreach from=$aIssue item=issue key=k}
+<option value="{$issue.issue}" {if $issue.issue==$sissue}selected="SELECTED"{/if}>{$issue.issue}({$issue.saledate})</option>
+{/foreach}
+</select>
+&nbsp;&nbsp;
+排序:
+<select name="order" id="order">
+<option value="0" {if $order == 0 }selected{/if}>号码</option>
+<option value="1" {if $order == 1 }selected{/if}>封锁值</option>
+</select>
+<input type="submit" class="button" value="查询" id="search"> <br/>
+1. 全体号码假设盈亏值均数 : <b><font color=red>{$aDebug.extend.junshu}</font></b> 元<br/>
+2. 截止目前总销售额(S) : <b><font color=red>{$aDebug.iTotalSale|escape:money}</font></b> 元<br/>
+3. 理论利润率 :  <b><font color=red>{$aDebug.iPercent}</font></b>%<br/>
+4. 全体号码假设盈亏值标准差 : <b><font color=red>{$aDebug.extend.biaozhunfangcha}</font></b><br/>
+5. 全体号码假设盈亏值变异系数 : <b><font color=red>{$aDebug.extend.bianyixishu}</font></b> 倍<br/>
+</td>
+</tr>
+</table>
+</form>
+</div>
+{if isset($lockserror)}
+<div class="list-div">{$lockserror}</div>
+{else}
+<div class="list-div">
+<table id="no-table">
+<tr>
+<th width="10%">号码</th>
+<th width="10%">封锁值</th>
+<th width="10%">号码</th>
+<th width="10%">封锁值</th>
+<th width="10%">号码</th>
+<th width="10%">封锁值</th>
+<th width="10%">号码</th>
+<th width="10%">封锁值</th>
+<th width="10%">号码</th>
+<th width="10%">封锁值</th>
+</tr>
+<tr>
+{foreach from=$adata item=data key=k}
+    <td colspan="2">
+        <table cellpadding="0" cellspacing="0">
+         {foreach from=$data item=amount key=code}
+            <tr>
+                 <td width="50%" align="center" style="border-right: 2px solid #EBEBDC;border-bottom: 2px solid #EBEBDC;">{$code}</td>
+                 {if $amount > 0}
+                 <td width="50%" align="right" style="border-bottom: 2px solid #EBEBDC;color:green;">{$amount|escape:money}</td>
+                 {else}
+                  <td width="50%" align="right" style="border-bottom: 2px solid #EBEBDC;color:red;">{$amount|escape:money}</td>
+                 {/if}
+            </tr>
+         {/foreach}
+        </table>
+    </td>
+{/foreach}
+</tr>
+<tbody id="no-detail">
+</tbody>
+</table>
+
+</div>
+{/if}
+{include file="pagefooter.html"}

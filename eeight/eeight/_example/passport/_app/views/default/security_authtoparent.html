@@ -1,0 +1,27 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table class="list-table">
+<form action="index.php" method="post" name="updateform">
+<input type="hidden" name="flag" value="update" />
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action"	value="authtoparent" />
+<input type="hidden" name="check" value="{$check}" />
+<input type="hidden" name="default" value="{if $auth==0 }self{else}up{/if}" />
+  <tr>
+  	<td class="narrow-label">现在的提现授权方式:</td>
+    <td>
+    	{if $auth==0 }本人发起提现{else}上级发起提现{/if}
+	</td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">请选择提现方式:</td>
+    <td><select name="drawtype">
+    	<option value="self" {if $auth==0 }selected="selected"{/if}>本人发起提现</option>
+    	<option value="up" {if $auth==1 }selected="selected"{/if}>上级发起提现</option>
+    </select></td>
+  </tr>
+  <tr><td></td><td><input type="submit" name="submit" value="提交" class="button" /></td></tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

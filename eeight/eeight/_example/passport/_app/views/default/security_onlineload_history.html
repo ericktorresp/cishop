@@ -1,0 +1,162 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+
+<style type="text/css">
+/*
+ 标签部分的样式
+ */
+.tab-div {
+  background: #FFFFFF;  margin: 0 0 10px 0;
+}
+#tabbar-div {
+  padding-left: 10px;  height: 31px;
+  background: url(/images/blue/helptar_bottom.gif) repeat-x left bottom;
+}
+.tab-front {
+  background: url(/images/blue/helptar_front.gif) repeat-x;
+  line-height: 31px;  float:left;
+  font-weight: bold;  cursor: pointer;  color:#FFFFFF;
+}
+.tab-back {
+  color: #FFF;  float:left;
+  background: url(/images/blue/helptar_back.gif) repeat-x center;
+  line-height: 25px;  cursor: pointer;  color:#555555;  margin:0 5px;
+}
+.tab-back .tabbar-left{
+    background:url(/images/blue/helpback_left.gif) no-repeat center;
+    height:25px;    width:3px;    float:left;
+}
+.tab-back .tabbar-right{
+    background:url(/images/blue/helpback_right.gif) no-repeat center;
+    height:25px;    width:3px;    float:left;
+}
+.content{
+    padding:0 12px;    float:left;
+}
+.tab-front .tabbar-left{
+    background:url(/images/blue/helpfront_left.gif) no-repeat center;
+    height:31px;    width:3px;    float:left;
+}
+.tab-front .tabbar-right{
+    background:url(/images/blue/helpfront_right.gif) no-repeat center;
+    height:31px;    width:3px;    float:left;
+}
+.tabbar-bottom{
+    font-size:0px;    height:3px;    background:#94ADD6;
+    border-left: 1px solid #DBE4F2;
+    border-right: 1px solid #DBE4F2;
+}
+.help-content{
+    padding:5px 15px;
+}
+</style>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	jQuery("#sdate").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		showOthers: true,
+		weekNumbers: true,
+		//onUpdate: function(){alert('1');}
+		showsTime: true
+	});
+	jQuery("#sdate").change(function(){
+		if(! validateInputDate(jQuery("#sdate").val()) )
+		{jQuery("#sdate").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+	});
+	jQuery("#edate").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		showOthers: true,
+		weekNumbers: true,
+		//onUpdate: function(){alert('1');}
+		showsTime: true
+	});
+	jQuery("#edate").change(function(){
+		if(! validateInputDate(jQuery("#edate").val()) )
+		{jQuery("#edate").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+	});
+});	
+</script>
+
+<div class="tab-div">
+	<div id="tabbar-div">
+			<span class="tab-back"  id="general_tab_0">
+		  <span class="tabbar-left"></span>
+		  <span class="content" onClick="self.location.href='index.php?controller=security&action=onlineload'">在线充值</span>
+		  <span class="tabbar-right"></span>
+		</span>
+			<span class="tab-front"  id="general_tab_1">
+		  <span class="tabbar-left"></span>
+
+		  <span class="content">在线充值记录</span>
+		  <span class="tabbar-right"></span>
+		</span>
+	</div>
+  <div class="tabbar-bottom"></div>
+  
+<div class="list-div" id="listDiv">
+<table class="list-table">
+ <tr>
+ <td colspan="5">
+ <FORM name="searchForm" action="" METHOD='get'>
+ <input type='hidden' name="controller" value="security"/>
+    <input type='hidden' name="action" value="onlineloadhistory"/>
+ &nbsp; &nbsp; 充值时间 起始于: <input type="text" id="sdate" name="sdate" size='17' value='{$s.sdate|escape:html}' /> <img src="./images/calendar2.gif"> &nbsp; 至 &nbsp; 
+<input type="text"id="edate" name="edate"  size='17' value='{$s.edate|escape:html}' /> <img src="./images/calendar2.gif" />
+ <input type="submit" value="查看" class="button" />
+ </FORM>
+ </td>
+ </tr>
+ 
+  <tr>
+    <th>交易号</th>
+	<th>状态</th>
+    <th>金额</th>
+    <th>币种</th>
+    <th>充值时间</th>
+  </tr>
+
+{foreach from=$Loadlist item=list key=k1}
+  <tr>
+    <td align="left">{$list.spec_name}</td>
+	<td align="center">
+	{if $list.load_status== 1}
+		成功
+	{elseif $list.load_status== 0}
+		支付中
+	{elseif $list.load_status== 2}
+		无效
+	{else}
+		处理中
+	{/if}
+	</td>
+	<td align="right">{$list.load_amount|escape:money}</td>
+	<td align="center">{$list.load_currency|escape:html}</td>
+	<td align="center">{$list.trans_time|escape:html}</td>
+	
+  </tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="6">无相关数据</td></tr>
+{/foreach}
+</table>
+
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+<input type='hidden' name="p" value="{$s.p}"/>
+<input type='hidden' name="pn" value="{$s.pn}"/>
+</div>
+
+</div>
+{include file="pagefooter.html"}

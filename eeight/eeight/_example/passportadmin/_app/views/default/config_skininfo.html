@@ -1,0 +1,27 @@
+{include file="pageheader.html"}
+
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='1' id='list-table'>
+	<tr>
+	<th>所属模板</th>
+	<th>模板类型</th>
+	<th>模板文件名</th>
+	<th>文件状态</th>
+</th>
+ </tr>
+{foreach from=$aDefaultSkinFileList item=list1 key=k1}
+<tr>
+  <td align="center">{$sSkinName}</td>
+  <td align="center">{if $sSkinName=='default'}<font color=#669900>系统默认</font>{else}自定义{/if}</td>
+  <td align="center">{$list1.fname}</td>
+  <td align="center" style='color:#693'>{if $list1.flag==1||$sSkinName=='default'}正常{elseif $list1.flag==-1}<font 
+  color=#935CC9>特有(增加)</font>{else}<font color=#FF5959>文件缺失</font>{/if}</td>
+</tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">无相关数据</td></tr>
+{/foreach}
+</table>
+
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

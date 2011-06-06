@@ -1,0 +1,65 @@
+{include file="pageheader.html"}
+<div class="list-div">
+<table cellpadding="3" cellspacing="1">
+<tr>
+<td colspan="7" align="left" style="padding-left:40px;">&nbsp;&nbsp;奖金组名称: <font color=red><b>{$aUserGroup.title|escape:html}</b></font></td>
+</tr>
+<tr>
+{if $crowdCount > 1}<th>玩法群</th>{/if}
+<th width="100">玩法组</th>
+<th>奖金</th>
+<th width="85">总利润</th>
+<th width="100">总代返点</th>
+<th width="85">公司留水</th>
+</tr>
+{foreach from=$amethod item=crowd key=k}
+<tr align="center">
+{if $crowdCount > 1}<td rowspan="{$crowd.count}"><b>{$crowd.crowdname}</b></td>{/if}
+{foreach from=$crowd.method item=method key=l}
+{if $l != 0}
+<tr align="center">
+{/if}
+<td align="center">{$method.methodname|eacape:html}</td>
+<td align="left" style="padding-left:20px;">
+{foreach from=$method.nocount item=no key=k2}
+{$no.name}<b>:</b>{$prizelevel.prize.$method.methodid.$k2|escape:money:4}元({$no.count}注)<br/>
+{/foreach}
+</td>
+<td align="center">
+{if ($method.level>1)&&($method.type==0)}
+{foreach from=$method.nocount item=no key=k2}
+<span>{$no.profit|escape:money:2}</span><br/>
+{/foreach}
+{elseif ($method.level>1)&&($method.type==3)}
+{foreach from=$method.nocount item=no key=k2}
+<span>{$no.profit|escape:money:2}</span><br/>
+{/foreach}
+<font color="Red"><b>总计:<span>{$method.totalprofit|escape:money:2}</span></b></font>
+{else}
+<span>{$no.profit|escape:money:2}</span><br/>
+{/if}
+</td>
+<td align="center">
+{$prizelevel.userpoint.$method.methodid|default:0.00}
+</td>
+<td align="center">
+{if ($method.level>1)&&($method.type==0)}
+{foreach from=$method.nocount item=no key=k2}
+<span>{$no.lastprofit|escape:money:2}</span><br/>
+{/foreach}
+{elseif ($method.level>1)&&($method.type==3)}
+{foreach from=$method.nocount item=no key=k2}
+<span>{$no.lastprofit|escape:money:2}<br/>
+{/foreach}
+<font color="Red"><b>总计:<span>{$method.lasttotalprofit|escape:money:2}</span></b></font>
+{else}
+<span>{$no.lastprofit|escape:money:2}
+{/if}
+</td>
+</tr>
+{/foreach}
+{/foreach}
+<tr>
+</table>
+</div>
+{include file="pagefooter.html"}

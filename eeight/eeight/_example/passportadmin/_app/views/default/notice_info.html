@@ -1,0 +1,58 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action="./?controller=notice&action={$form_action}" onsubmit="return validate()">
+  <table cellspacing='1' cellpadding='3' id='list-table'>
+  	<tr>
+  		<td class="narrow-label">公告标题:</td>
+  		<td><input type="text" name="subject" size="50" value="{$s.subject|escape:html}"></td>
+  	</tr>
+
+{if $form_action==update}
+	<tr>
+  		<td class="narrow-label">公告状态</td>
+  		<td><select name="isdel">
+  			<option value="0" {if $s.isdel != 1}SELECTED="selected"{/if}>正常</option>
+			<option value="1" {if $s.isdel == 1}SELECTED="selected"{/if}>已删除</option>
+  		</select></td>
+  	</tr>
+{/if}
+
+  	<tr>
+  		<td class="narrow-label">发布栏目:</td>
+  		<td><select name="channelid">
+			<option value="">请选择...</option>
+			<option value="0" {if isset($s.channelid)&&($s.channelid==0)}selected="selected"{/if}>银行系统</option>
+  			{$s.channelopts}
+  		</select></td>
+  	</tr>
+
+  	<tr><td class="narrow-label">公告内容:</td><td></td></tr>
+	<tr><td colspan=2>{$FCKeditor_1}</td></tr>
+  	<tr><td colspan=2>&nbsp;&nbsp;<input type="submit" value=" 提交 " class="button">
+	<input type="hidden" name='noticeid' value="{$s.id}"><br/><br/></td>
+  	</tr>
+  </table>
+</form>
+</div>
+
+
+{insert_scripts files="./js/validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+  /**
+   * 检查表单输入的内容
+   */
+	function validate()
+	{
+		var validator = new Validator('listForm');
+		validator.required('subject', "公告标题不能为空!");
+		validator.required('channelid', "发布栏目不能为空!");
+		//validator.required('FCKeditor1', "公告内容不能为空!");
+		return validator.passed();
+    }
+//-->
+</script>
+{/literal}
+
+{include file="pagefooter.html"}

@@ -1,0 +1,21 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>test_02.html</title>
+<body>
+<h1>test_02.html</h1>
+文件相对路径为: /views/test_02.html<br/>
+
+{if $var == 1 } <h3> value = {$var} (1)</h3>
+{elseif $var == 2} <h3> value = {$var} (2)</h3>
+{elseif $var == 3} <h3> value = {$var} (3)</h3>
+{elseif $var == 4} <h3> value = {$var} (4)</h3>
+{elseif $var == 5} <h3> value = {$var} (5)</h3>
+{else} <h3> value 大于 5</h3>
+{/if}
+
+{* 此行是模板注释, 不会被显示. *}
+<h3>使用变量默认值, 变量 $name 未定义,其值为: {$name|default:123}</h3>
+
+</body>
+</html>

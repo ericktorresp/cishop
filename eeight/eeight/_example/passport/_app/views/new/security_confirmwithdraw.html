@@ -1,0 +1,91 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkForm(obj)
+{
+	// 提现原始金额不能小于等于0
+	if ({$totalmoney} <= 0 || {$totalmoney} > {$availablebalance} || {$money} <= 0){
+		$.alert("提现金额不正确！");
+		return false;
+	}
+	return true;
+}
+</script>
+<form action="index.php" method="post" name="drawform" onsubmit="return checkForm(this)">
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action" value="onlinewithdraw" />
+<input type="hidden" name="flag" value="withdraw" />
+<input type="hidden" name="real_money" value="{$withdraw}" />
+<input type="hidden" name="api_id" value="{$api_id}" />
+<input type="hidden" name="api_nickname" value="{$api_nickname}" />
+<input type="hidden" name="bankinfoid" value="{$bankinfoid}" />
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<table width="100%" cellpadding="4" cellspacing="1" class="list-table">
+
+<!--<tr>
+	<td class="narrow-label">汇款渠道：</td>
+	<td>{$api_nickname|escape:html}</td>
+</tr>-->
+<tr>
+	<td width="200" align="right" bgcolor="#CCCCCC" class="narrow-label">用户名：</td>
+	<td bgcolor="#CCCCCC">{$username|escape:html}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">实扣金额：</td>
+    <td bgcolor="#CCCCCC">{$totalmoney|escape:money}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">提现金额：</td>
+    <td bgcolor="#CCCCCC">{$withdraw|escape:money}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">提现手续费：</td>
+	<td bgcolor="#CCCCCC">{$charge|escape:money}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">到账金额：</td>
+    <td bgcolor="#CCCCCC">{$money|escape:money}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">开户银行名称：</td>
+	<td bgcolor="#CCCCCC">{$bank|escape:html}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">开户银行省份：</td>
+	<td bgcolor="#CCCCCC">{$province|escape:html}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">开户银行城市：</td>
+	<td bgcolor="#CCCCCC">{$city|escape:html}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">支行名称：</td>
+	<td bgcolor="#CCCCCC">{$branch|escape:html}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">开户人姓名：</td>
+	<td bgcolor="#CCCCCC">{$account_name|escape:html}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">开户人银行账号：</td>
+	<td bgcolor="#CCCCCC">{$account}</td>
+</tr>
+<tr><td></td>
+	<td>
+请确认以上信息准确与否，如有疑问请点击返回按钮返回修改，如确认无误请点击确认提交。<br />
+<input type="submit" value="确认提交"  class="buttonnormal" /> 
+<input type="button" value="返回" onclick="history.back()"  class="buttonnormal" />
+	</td>
+</tr>
+
+</table>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</form>
+{include file="pagefooter.html"}

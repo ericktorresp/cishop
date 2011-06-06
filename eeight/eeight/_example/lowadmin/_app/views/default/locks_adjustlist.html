@@ -1,0 +1,192 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript">
+jQuery.noConflict();
+(function($){
+	$(document).ready(function(){
+		$("#checkall").click(function(){
+			if( $(this).attr("checked") == true ){
+				$("input[type='checkbox'][name^='checkboxes']").attr("checked",true);
+			}else{
+				$("input[type='checkbox'][name^='checkboxes']").attr("checked",false);
+			}
+		});
+
+		$("span",$("#tabbar-div")).click(function(){
+			if( $(this).attr("class") == "tab-front" ){
+				return false;
+			}
+			if( $("#tabloading").css("display") != "none" ){
+				return false;
+			}
+			$("span",$("#tabbar-div")).attr("class","tab-back");
+			$(this).attr("class","tab-front");
+			$("#tabloading").ajaxStart(function(){
+				$(this).show();
+				$("tr[class='loadingdata']",$("#detail-table")).remove();
+			}).ajaxStop(function(){
+				$(this).hide();
+			});
+			var lotteryid = $(this).attr("id");
+			$("#lotteryid").val(lotteryid);
+			$.ajax({
+				type : 'POST',
+				url  : './?controller=locks&action=adjustlist',
+				data : "flag=adjust&lotteryid="+lotteryid,
+				timeout : 20000,
+				success : function(data){
+							if( data == "error" || data == "empty" ){//没有方案
+								$('<tr class="loadingdata"><td align="center" colspan="10">没有相关数据</td></tr>').appendTo("#detail-table");
+							}else{
+								var partn = /<(.*)>.*<\/\1>/;
+								if( partn.exec(data) ){
+									window.top.location.href="./index.php?controller=default";
+									return false;
+								}
+								data = data.replace(/<script>/g,"");
+								data = data.replace(/<\/script>/g,"");
+								data = data.replace(/<\\\/script>/g,"");
+								data = eval(data);
+								if( typeof(data) != 'object' ){
+									window.top.location.href="./index.php?controller=default";
+									return false;
+								}
+								var html = "";
+								$.each(data,function(i,n){
+									html += '<tr class="loadingdata"><td align="center"><input type="checkbox" name="checkboxes[]" value="'+n.groupid+'"></td><td align="center">'+replaceHTML(n.title)+'</td><td align="center">'+n.updatetime+'</td>';
+									if( Number(n.isactive) == 1 ){//已经激活
+										html += '<td align="center"><font color="red">已激活</font></td><td align="center"><a href="./?controller=locks&action=unactive&groupid='+n.groupid+'&lotteryid='+lotteryid+'" onclick="return confirm(\'你确定要取消激活吗？\')">取消激活</a> <a href="./?controller=locks&action=adjustview&groupid='+n.groupid+'&lotteryid='+lotteryid+'">查看</a></td></tr>';
+									}else if( Number(n.isverify) == 1 ){//已经审核，未激活
+										html += '<td align="center"><font color="green">已审核</font></td><td align="center"><a href="./?controller=locks&action=active&groupid='+n.groupid+'&lotteryid='+lotteryid+'" onclick="return confirm(\'你确定要激活吗？\')">激活</a> <a href="./?controller=locks&action=update&groupid='+n.groupid+'&lotteryid='+lotteryid+'">修改</a> <a href="./?controller=locks&action=adjustview&groupid='+n.groupid+'&lotteryid='+lotteryid+'">查看</a></td></tr>';
+									}else{
+										html += '<td align="center"><font color="#000000">未审核</font></td><td align="center"><a href="./?controller=locks&action=check&groupid='+n.groupid+'&lotteryid='+lotteryid+'" onclick="return confirm(\'你确定要审核吗？\')">审核</a> <a href="./?controller=locks&action=update&groupid='+n.groupid+'&lotteryid='+lotteryid+'">修改</a> <a href="./?controller=locks&action=adjustview&groupid='+n.groupid+'&lotteryid='+lotteryid+'">查看</a></td></tr>';
+									}
+								});
+								$(html).appendTo("#detail-table");
+							}
+						},
+				 error : function(){
+				 			$('<tr class="loadingdata"><td align="center" colspan="10">载入数据出错</td></tr>').appendTo("#detail-table");
+				 		}
+			});
+		});
+		var defaultId = Number({$lotteryid});
+		if( defaultId == 0 ){//默认第一个
+			$("span:first",$("#tabbar-div")).click();
+		}else{
+			var isfind = false;
+			$.each($("span",$("#tabbar-div")),function(i,n){
+				if( Number($(n).attr("id")) == defaultId ){
+					isfind = true;
+					$(n).click();
+				}
+			});
+			if( isfind == false ){//没有找到则默认到第一个
+				$("span:first",$("#tabbar-div")).click();
+			}
+		}
+		
+	});
+})(jQuery);
+</script>
+<div class="tab-div">
+<form action="./?controller=locks&action=adjustdel" method="post" name="adjustform">
+<input type="hidden" name="lotteryid" id="lotteryid" value="">
+  <div id="tabbar-div">
+  <!--<span class="tab-front" id="general-tab" >{$lottery.cnname}</span>-->
+  {foreach from=$lotterys item=lottery key=k}
+  	<span class="tab-back" id="{$lottery.lotteryid}">{$lottery.cnname}</span>
+  {/foreach}
+  </div>
+
+	{* 标签 : 基本信息 *}
+  <div id="listDiv" class="list-div">
+  	<table cellspacing='1' cellpadding='2' id="detail-table" width="100%">
+    	<tr>
+        	<th align="center" width="30">&nbsp;</th>
+            <th align="center">变价方案标题</th>
+            <th align="center">最后修改日期</th>
+            <th align="center">状态</th>
+            <th align="center">操作</th>
+        </tr>
+        <tr id="tabloading" style="display:none;">
+        	<td colspan="10" height="100" align="center" valign="middle">正在加载数据......<br><img src="./images/loading.gif"></td>
+        </tr>
+    </table>
+  </div>
+  <div class="button-div"><br/><input type="checkbox" name="checkall" id="checkall">全选<input type="submit" value="批量删除" class="button"  /><input type="button" value="增加变价方案" class="button" onClick="window.location.href='./?controller=locks&action=adjustadd'" /></div>
+</form>
+</div>
+
+
+<script language="JavaScript">
+{literal}
+document.getElementById("tabbar-div").onmouseover = function(e)
+{
+    var obj = Utils.srcElement(e);
+    if (obj.className == "tab-back")
+    {
+        obj.className = "tab-hover";
+    }
+}
+
+document.getElementById("tabbar-div").onmouseout = function(e)
+{
+    var obj = Utils.srcElement(e);
+    if (obj.className == "tab-hover")
+    {
+        obj.className = "tab-back";
+    }
+}
+
+
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+
+if (document.getElementById("listDiv"))
+{
+	document.getElementById("listDiv").onmouseover = function(e) {
+    obj = Utils.srcElement(e);
+    if (obj) {
+		if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+		else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+		else return;
+			for (i = 0; i < row.cells.length; i++){
+				if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E7F4F5';
+				}
+			}
+		}
+
+	document.getElementById("listDiv").onmouseout = function(e) {
+	obj = Utils.srcElement(e);
+	if (obj) {
+		if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+		else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+		else return;
+		  for (i = 0; i < row.cells.length; i++){
+			  if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+				}
+			}
+		}
+}
+
+{/literal}
+</script>
+
+{insert_scripts files="./js/validator.js"}
+
+{include file="pagefooter.html"}

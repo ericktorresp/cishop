@@ -1,0 +1,40 @@
+{include file="pageheader.html"}
+<div class="right_02 d5d8de" >
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="title01">风格设置</div>
+<div class="right_02_04 floatright"></div>
+</div>
+
+<div class="notice04">
+
+
+
+	<form action="?controller=default&action=changestyle" method="POST" >
+	<table>
+	<tr>
+	<td>选择模板</td>
+	<td>
+	<select name="skin">
+		<option value="default"{if ( $_SESSION['skins'] == 'default' )} selected{/if}>default</option>
+		<option value="new" {if ( $_SESSION['skins'] == 'new' )} selected{/if}>new</option>
+	</select>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<input type="submit" value="保存">
+	</td>
+	</tr>
+
+	
+	</table>
+	</form>
+
+</div>
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,21 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table cellspacing='0' cellpadding='0' id='list-table'>
+	<tr bgcolor="#FF0000">
+        <td align="center" height="30" style="color:#FFFFFF;"><strong>公告</strong></td>
+    </tr>
+    <tr>
+    	<td align="center" height="25"><strong>{$notice.subject|escape:html}</strong></td>
+    </tr>
+    <tr>
+    	<td align="center" height="20" valign="top" style="color:#666666">时间：{$notice.sendtime}</td>
+    </tr>
+    <tr>
+    	<td align="left" height="40" style="padding:20px; padding-top:0;">{$notice.content}</td>
+    </tr>
+    <tr>
+    	<td align="center" height="40"><input type="button" value="返回" onclick="history.back(-1);" /></td>
+    </tr>
+</table>
+</div>
+{include file="pagefooter.html"}

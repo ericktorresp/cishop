@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><TITLE>{if $sSysTopMessage}[{$sSysTopMessage}] {/if}{$webtitle} {if $ur_here} - {$ur_here} {/if} {$systemversions}</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<META http-equiv="Pragma" content="no-cache" />
+{if $sSysMetaMessage}{$sSysMetaMessage}{/if}
+<style>{include file="css/blue.css"}</style>
+{insert_scripts files="./js/jquery.js"}
+{insert_scripts files="./js/common.js"}
+</HEAD><BODY>
+{if empty($sys_header_title)}
+<H1>{if $actionlink}<SPAN class="action-span"><A 
+href="{$actionlink.href}">{$actionlink.text|escape:html}</a></SPAN>{/if}{if $actionlink2}<SPAN class="action-span"><A 
+href="{$actionlink2.href}">{$actionlink2.text|escape:html}</a></SPAN>{/if}{if $actionlink3}<SPAN class="action-span"><A 
+href="{$actionlink3.href}">{$actionlink3.text|escape:html}</a></SPAN>{/if}<SPAN class="action-span1"><A 
+href="./index.php" target='_top'>低频游戏</a> {if $ur_here} - {$ur_here} {/if}</SPAN><DIV style="clear:both"></DIV></H1>
+{/if}

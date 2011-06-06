@@ -1,0 +1,253 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+{if $flag != update}
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+{literal}
+<script type="text/javascript">
+jQuery(document).ready(function() {
+		jQuery("#reg_time").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#reg_time").change(function(){
+			if(! validateInputDate(jQuery("#reg_time").val()) )
+			{jQuery("#reg_time").val('');alert("时间格式不正确,正确的格式为:2010-04-09 14:59");}
+		});
+});
+</script>
+{/literal}
+{/if}
+
+{literal}
+<script type="text/javascript">
+
+function getEV(str){
+	return document.getElementById(str).value;
+}
+
+function getEC(str){
+	return document.getElementById(str).checked;
+}
+
+function getFocus(str){
+	return document.getElementById(str).focus();
+}
+
+function checkMyForm(){
+	var pos = '{$flag}';
+	var accName = getEV('acc_name');
+	if ( (accName == '') || (accName.length < 3) ){
+		return [false,'请填写一个合适的财务用名称','acc_name'];	
+	}
+	if (pos != 'update'){
+	var regTime = getEV('reg_time');
+		if ( regTime == '') {
+			return [false,'请填入该账户的注册日期','reg_time'];
+		}	
+	}
+
+	var accCurr = getEV('acc_currency');
+	if (accCurr == ''){
+		return [false,'货币币种必须正确','acc_currency'];
+	}
+
+	var accIdent = getEV('acc_ident');
+	var accKey	 = getEV('acc_key');
+	var accSiteId= getEV('acc_siteid');
+	var accMail	 = getEV('acc_mail');
+	if ( (accIdent == '') && (accMail == '') ){
+		return [false,'商家ID或商家EMAIL,必须有一个不为空','acc_ident'];
+	}
+	
+	if ( accKey == ''){
+		return [false,'商家KEY不应当为空','acc_key'];
+	}
+
+	var attrDraw 	= getEC('payport_attr_draw');
+	var attrDrawL 	= getEC('payport_attr_drawlist');
+	var attrDrawH 	= getEC('payport_attr_drawhand');
+	var attrQues	= getEC('payport_attr_ques');
+	var attrLoad	= getEC('payport_attr_load');
+
+	if ( ( (attrDraw == true) || (attrDrawL == true) ) && (attrDrawH == true) ){
+		return [false, '目前系统不支持这样矛盾的选择 (“提现、批量提现” 与 “人工提现” 不能同时配属于同一账户)' ,'payport_attr_drawhand'];
+		
+	}
+	if (  (attrDraw == false ) && (attrDrawL == false ) && (attrDrawH == false ) && (attrQues == false ) && (attrLoad == false ) ){
+		return[false, '必选一种API功能', 'payport_attr_load']
+	}
+	
+	return [true];
+}
+
+checkme = function(){
+	
+	bCheck = checkMyForm();	
+	
+	if (bCheck[0] == true) {
+		document.getElementById("listForm").submit();
+	}else{
+		getFocus(bCheck[2]);
+		alert(bCheck[1]);
+	}
+	
+}
+	//'ads_payport_id','ads_payport_name','old_acc_name','acc_name','reg_time','acc_ident','acc_key','acc_siteid','acc_mail','acc_currency','acc_receive_host','payport_attr_load','payport_attr_draw','payport_attr_drawlist','payport_attr_drawhand','payport_attr_ques'
+</script>
+{/literal}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" id="listForm" action="?controller=payportmgr&action={$action|default:save}">
+<input type="hidden" name="flag" value="{$flag}">
+<input type="hidden" name="id" value="{$PayAccountDetail.aid}">
+  <table cellspacing='2' cellpadding='5' id='list-table'>
+{if $flag == update}  
+<tr>
+	<td colspan="2"> Tips:  以下带<font color=red>*</font>内容直接影响代码运行流程,一旦启用请勿再更改</td>
+</tr>
+{else}
+<tr>
+	<td class="narrow-label" colspan="2"> <font color=red> 请点击<img src="./images/notice.gif" width="16" height="16" border="0">标记 查看各项资料填写说明</font></td>
+</tr>
+{/if}
+<tr>
+	<td class="narrow-label">支付接口名称:</td>
+	<td>{$PayAccountDetail.payport_name}  (别名:{$PayAccountDetail.payport_nickname})
+	<input type="hidden" id="ads_payport_id" name="ads_payport_id" value="{$PayAccountDetail.payportid}">
+	<input type="hidden" id="ads_payport_name" name="ads_payport_name" value="{$PayAccountDetail.payport_name}">
+	<input type="hidden" id="old_acc_name" name="old_acc_name" value="{$PayAccountDetail.acc_name}">
+	<input type="hidden" id="old_acc_ident" name="old_acc_ident" value="{$PayAccountDetail.acc_ident}">
+	<input type="hidden" id="old_acc_mail" name="old_acc_mail" value="{$PayAccountDetail.acc_mail}">	
+	</td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticeconfigname');" title="分账户名称"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>财务识别名称:</td>
+	<td><input id="acc_name" name="acc_name" size="30" value="{$PayAccountDetail.acc_name|escape:html}" maxlength=40><span id="noticeconfigname" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">只能使用英文数字以及@符号或组合描述 (最多40个字母)</span></td>
+</tr>
+<tr>
+	<td class="narrow-label">
+	<a href="javascript:showNotice('noticeregtime');" title="账户注册时间"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>账户注册时间:</td>
+	<td>
+	{if $flag != update} 
+	<input type="text" id="reg_time" name="reg_time" size="20" value="{$PayAccountDetail.reg_time}"> <sub><img src="./images/calendar2.gif" border="0" style="cursor:pointer"></sub>
+	{else}
+	{$PayAccountDetail.reg_time}
+	{/if}
+	<span id="noticeregtime" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">账户在第三方平台注册时间</span></td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticeident');" title="商家ID"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>{if $ismaildeposit == 0}商家ID{else}开户名{/if}:<font color=red>*</font></td>
+	<td><input id="acc_ident" name="acc_ident" size="40" value="{$PayAccountDetail.acc_ident|escape:html}" maxlength=40><span id="noticeident" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">由支付接口分配的ID</span></td>
+</tr>
+{if $ismaildeposit == 0}
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticekey');" title="商家KEY"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>商家KEY:<font color=red>*</font></td>
+	<td><input id="acc_key" name="acc_key" size="60" value="{$PayAccountDetail.acc_key|escape:html}" maxlength=60><span id="noticekey" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">从支付接口获取的API连接KEY</span></td>
+</tr>
+{else}
+<input id="acc_key" name="acc_key" type="hidden" value="mdeposit">
+{/if}
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticesiteid');" title="商家SITEID"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>{if $ismaildeposit == 0}商家SITEID{else}银行帐号{/if}:<font color=red>*</font></td>
+	<td><input id="acc_siteid" name="acc_siteid" size="60" value="{$PayAccountDetail.acc_siteid|escape:html}" maxlength=60><span id="noticesiteid" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">支付接口有额外分配子账户的情况使用(1topay 称为 SiteId)</span></td>
+</tr>
+
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticemail');" title="商家EMAIL"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>{if $ismaildeposit == 0}商家EMAIL{else}Email地址{/if}:<font color=red>*</font></td>
+	<td><input id="acc_mail" name="acc_mail" size="60" value="{$PayAccountDetail.acc_mail|escape:html}" maxlength=60><span id="noticemail" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">当支付接口以EMAIL做为ID的时候填写</span></td>
+</tr>
+
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticecurrency');" title="货币单位"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>货币单位:</td>
+	<td><input id="acc_currency" name="acc_currency" size="5" value="{$PayAccountDetail.acc_currency|escape:html}" maxlength=3><span id="noticecurrency" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">支付交易中使用的默认货币单位,默认继承接口配置</span></td>
+</tr>
+{if $flag == save}
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticesrcbalance');" title="期初余额"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>期初余额:<font color=red>*</font></td>
+	<td><input id="srcbalance" name="srcbalance" size="12" value="{$PayAccountDetail.srcbalance|escape:money}" maxlength=10>元<span id="noticesrcbalance" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">填写此账户期初余额,之后不可更改</span></td>
+</tr>
+{/if}
+<!-- 
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticebalancelimit');" title="流量限制值"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>流量限制值:<font color=red>*</font></td>
+	<td><input id="balance_limit" name="balance_limit" size="12" value="{$PayAccountDetail.balance_limit|escape:money}" maxlength=10>元<span id="noticebalancelimit" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">对此账户流量的限制值设置</span></td>
+</tr>
+
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticevalidtime');" title="账户有效时间"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>账户有效时间:</td>
+	<td>{if $PayAccountDetail.open_time != 0}从{$PayAccountDetail.open_time}起算{/if} <input name="valid_time" size="3" value="{$PayAccountDetail.valid_time}" maxlength=2>个月
+	<span id="noticevalidtime" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">账户有效时间预设,从账户被设置给用户使用时起算</span></td>
+</tr>
+-->
+{if $ismaildeposit == 0}
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticereceive');" title="银行API网络参数"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>API网络参数:<font color=red>*</font></td>
+	<td>
+	回传接收域名:<input id="acc_receive_host" name="acc_receive_host" size="60" value="{$PayAccountDetail.acc_receive_host|escape:html}" maxlength=100><br>
+	<span id="noticereceive" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">回传接收域名(若此项有值,则将覆盖支付接口的接收域名配置) 默认留空</span></td>
+</tr>
+{/if}
+{if $flag == update}
+<tr>
+	<td class="narrow-label">状态:</td>
+	<td>{if $PayAccountDetail.isenable == 0 }<font color=red>未激活</font>{elseif $PayAccountDetail.isenable == 1}<font color=green>已激活</font>{elseif $PayAccountDetail.isenable == 9}<font color=blue>暂停中</font>{else}<font color=gray>已删除</font>{/if}</td>
+</tr>
+{else}
+<tr>
+	<td class="narrow-label">状态:</td>
+	<td><span style="color:#AAAAAA;font-size:13px">新增的分账户,默认为未激活状态</span></td>
+</tr>
+{/if}
+<tr>
+	<td class="narrow-label">
+	<!--  功能预留,默认数据插入 -->
+	<input type="hidden" name="balance_limit" size="12" value="{$PayAccountDetail.balance_limit|escape:money}">
+	<input type="hidden" name="valid_time" size="12" value="{$PayAccountDetail.valid_time|escape:money}">
+	
+	<a href="javascript:showNotice('noticeattr');" title="接口使用配属"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>接口使用配属:<font color=red>*</font></td>
+	<td>
+	<input type="checkbox" name="payport_attr_load" value="1" id="payport_attr_load" {if $PayAccountDetail.payport_attr_load == 1}Checked{/if}><label for="payport_attr_load">充值</label> 
+	<input type="checkbox" name="payport_attr_draw" value="2" id="payport_attr_draw" {if $PayAccountDetail.payport_attr_draw == 2}Checked{/if}><label for="payport_attr_draw">提现</label>
+	<input type="checkbox" name="payport_attr_drawlist" value="4" id="payport_attr_drawlist" {if $PayAccountDetail.payport_attr_drawlist == 4}Checked{/if}><label for="payport_attr_drawlist">批量提现</label>
+	<input type="checkbox" name="payport_attr_drawhand" value="16" id="payport_attr_drawhand" {if $PayAccountDetail.payport_attr_drawhand == 16}Checked{/if}><label for="payport_attr_drawhand">人工提现</label>
+	<input type="checkbox" name="payport_attr_ques" value="8" id="payport_attr_ques" {if $PayAccountDetail.payport_attr_ques == 8}Checked{/if}><label for="payport_attr_ques">查询(掉单处理)</label>
+	<span id="noticeattr" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">选择此支付接口所提供功能中，可直接API调用的功能 (默认继承支付接口的配置)</span></td>
+</tr>
+
+<tr>
+	<td class="narrow-label">&nbsp;</td>
+	<td><input type="button" class="button" value="保存配置" onClick="javascript:checkme();return false"><input type="reset" class="button" value="重新设置"><input type="button" class="button" value="返回列表" onclick="location.href='?controller=payportmgr&action=list';"></td>
+</tr>
+</table>
+</form>
+</div>
+<script>
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+
+</script>
+
+{include file="pagefooter.html"}

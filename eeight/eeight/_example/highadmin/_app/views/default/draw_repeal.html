@@ -1,0 +1,67 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+
+<script>
+var data_issue = {$data_issue};
+$(document).ready(function(){
+	$("#lottery").change(function(){
+		$("#issuelist").html("");
+		if($("#lottery").val()>0)
+		{
+            shtml ="<select name='issue' id='issue'><option value='0'>游戏奖期选择</option>";
+            /*
+            $.each(data_issue[$("#lottery").val()],function(i,v){
+            shtml = shtml + "<option value='"+v.issue+"'>"+v.issue+"("+v.endtime+")</option>";
+            });
+            */
+            var v = data_issue[$("#lottery").val()];
+            if (typeof v.issue != 'undefined')
+            {
+                shtml = shtml + "<option value='"+v.issue+"'>"+v.issue+ " (" + v.salestart+ " 至 " + v.saleend + ")" +"</option>";
+            }
+			shtml += "</select>";
+		}
+		else
+		{
+			shtml = "<select name='issue' id='issue'><option value='0'>游戏奖期选择</option></select>";
+		}
+		$("#issuelist").html(shtml);
+	});
+});
+</script>
+<div class="list-div">
+<form method="POST" action="{$action}">
+<table>
+<tr>
+<td class="narrow-label">游戏名称</td>
+<td><select name="lottery" id="lottery">
+<option value="0">所有游戏</option>
+{foreach from=$aLottery item=lottery key=k}
+<option value="{$lottery.lotteryid}">{$lottery.cnname}</option>
+{/foreach}
+</select></td>
+</tr>
+<tr>
+<td class="narrow-label">游戏奖期</td>
+<td><span id="issuelist">
+<select name='issue'>
+<option value="0">游戏奖期选择</option>
+</select></span></td>
+</tr>
+
+<tr>
+<td class="narrow-label">撤单原因</td>
+<td><input type="hidden" value="3" name="type">官方未开奖
+</td>
+</tr>
+<tr>
+<td></td>
+<td><input type="submit" value="{$ur_here}" class="button"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

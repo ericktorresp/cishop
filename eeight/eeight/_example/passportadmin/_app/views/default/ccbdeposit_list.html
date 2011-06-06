@@ -1,0 +1,283 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+{literal}
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#download").click(function(){
+			var status = $("#status").val();
+			var username = $("#username").val();
+			var starttime = $("#starttime").val();
+			var endtime = $("#endtime").val();
+			var rid = $("#rid").val();
+			var account = $("#account").val();
+			var acc_name = $("#acc_name").val();
+			if (status == "全部" && username == "" && starttime == "" && endtime == "" && rid == "" && account == "" && acc_name == ""){
+				alert("请选择下载条件");
+				return false;
+			}
+			if (!confirm("确认提交吗？")){
+				return false;
+			}
+			$("#faction").val("downloadreport");
+			document.getElementById("searchForm").target = "_blank";
+			document.getElementById('searchForm').submit();
+			// 归还表单action
+			$("#faction").val("ccbdepositlist");
+			document.getElementById("searchForm").target = "";
+		});
+	});
+	jQuery(document).ready(function() {
+		// 起始时间
+		jQuery("#starttime").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M:00",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#starttime").change(function(){
+			if(! validateInputDate(jQuery("#starttime").val()) )
+			{jQuery("#starttime").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+		});
+		jQuery("#endtime").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M:00",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#endtime").change(function(){
+			if(! validateInputDate(jQuery("#endtime").val()) )
+			{jQuery("#endtime").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+		});
+	});
+var seconds = 60;
+onload = function()
+{
+	window.setInterval(redirection, 1000);
+}
+
+function redirection()
+{
+	seconds --;
+	document.title = '['+seconds+'] PassPort 后台管理 建行充值申请';
+}
+</script>
+<style type="text/css">
+<!--
+body{
+	font-size: 12px;
+}
+.botton01 {
+	background-image: url(../../images/admin_off.jpg);
+	text-align: center;
+	height: 25px;
+	width: 105px;
+	margin-left: 5px;
+	float: left;
+	line-height: 25px;
+	cursor:pointer;
+}
+.botton02 {
+	background-image: url(../../images/admin_on.jpg);
+	text-align: center;
+	height: 25px;
+	width: 105px;
+	margin-left: 5px;
+	float: left;
+	line-height: 25px;
+}
+-->
+</style>
+{/literal}
+<div>
+<div class="botton01" onclick="window.location.href='?controller=ccbreport&action=admininsert'">建行人工录入</div>
+<div class="botton02">建行充值申请</div>
+</div>
+<div class="form-div" style="clear:both;">
+<FORM name="searchForm" id="searchForm" action="" METHOD='get'>
+<input type="hidden" name="controller" value="ccbreport" />
+<input type="hidden" name="action" id="faction" value="ccbdepositlist" />
+&nbsp;&nbsp;
+处理状态: <select name="status" id="status">
+<option >全部</option>
+<option value="-1" {if $aHtml.status == -1}selected{/if}>支付中</option>
+<option value="1" {if $aHtml.status == 1}selected{/if}>支付成功</option>
+<option value="2" {if $aHtml.status == 2}selected{/if}>挂起单</option>
+</select>
+&nbsp;&nbsp;
+充值用户：<input type="text" name="username" id="username" value="{$aHtml.username}" maxlength="10" />
+&nbsp;&nbsp;
+<span style="color:#FF3300">平台充值时间</span> 起始于：
+<input type="text" id="starttime" name="starttime" size='20' value='{$aHtml.starttime}' /> <img src="./images/calendar2.gif"> &nbsp; 至 &nbsp; 
+<input type="text" id="endtime" name="endtime"  size='20' value='{$aHtml.endtime}' /> <img src="./images/calendar2.gif" />
+&nbsp;&nbsp;
+<input type="button" value="下载搜索结果" id="download" />
+<br /><br />
+&nbsp;&nbsp;
+充值ID：<input type="text" name="rid" id="rid" value="{$aHtml.rid}" />
+&nbsp;&nbsp;
+汇款卡：<input type="text" name="account" id="account" value="{$aHtml.account}" />
+&nbsp;&nbsp;
+汇款账户名：<input type="text" name="acc_name" id="acc_name" value="{$aHtml.acc_name}" />
+&nbsp;&nbsp;&nbsp;&nbsp;
+每页记录数:<input name="pn" value="{if $aHtml.pn > 0}{$aHtml.pn}{else}{$syspagesizemax}{/if}" size="5" onKeyup="checkPageSize(this,'ipagesize',{$syspagesizemax});">
+&nbsp;&nbsp;
+<input type="submit" value="搜 索" class="button" /></a>
+<br><br>
+</FORM></div>
+
+
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+  <th colspan="4"></th>
+  <th colspan="5">平台充值信息</th>
+  <th colspan="6">银行查询信息</th>
+  <th></th>
+  <th></th>
+  </tr>
+  <tr>
+	<th>ID</th>
+	<th>状态</th>
+	<th>用户</th>
+	<th>所属总代</th>
+	<th>发起时间</th>
+	<th>收款卡</th>
+	<th>付款卡</th>
+	<th>付款用户名</th>
+	<th>金额</th>
+	<th>抓取时间</th>
+	<th>收款卡</th>
+	<th>金额</th>
+	<th>账户余额</th>
+	<th>付款卡</th>
+	<th>付款户名</th>
+	<th>加游戏币时间</th>
+	<th>耗时</th>
+  </tr>
+  {foreach from=$loadinfo item=load key=k}
+  <tr align="center">
+	<td>{$load.id}</td>
+	<td>
+	{if $load.status == 0}
+	支付中
+	{elseif $load.status == 1}
+    支付成功
+    {elseif $load.status == 2}
+   	挂起单
+   	{elseif $load.status == 3}
+   	已退还
+   	{elseif $load.status == 4}
+   	管理员处理
+   	{elseif $load.status == 5}
+   	已没收
+    {/if}
+	</td>
+	<td>{if $load.user_name != ""}{$load.user_name}{else}--{/if}</td>
+	<td>{if $load.topproxy_name != ""}{$load.topproxy_name}{else}--{/if}</td>
+	<td>{if $load.created > 0}{$load.created}{else}--{/if}</td>
+	<td>{if $load.nickname1 != ""}{$load.nickname1}{else}--{/if}</td>
+	<td>{if $load.account != ""}{$load.account}{else}--{/if}</td>
+	<td>{if $load.account_name != ""}{$load.account_name}{else}--{/if}</td>
+	<td>{if $load.money > 0}{$load.money|escape:money}{else}--{/if}</td>
+	
+	<td>{if $load.create != ""}{$load.create}{else}--{/if}</td>
+	<td>{if $load.nickname2 != ""}{$load.nickname2}{else}--{/if}</td>
+	<td>{if $load.amount > 0}{$load.amount|escape:money}{else}--{/if}</td>
+	<td>{if $load.balance > 0}{$load.balance|escape:money}{else}--{/if}</td>
+	<td>{if $load.full_account != ""}{$load.full_account}{elseif $load.hidden_account != ""}{$load.hidden_account}{else}--{/if}</td>
+	<td>{if $load.acc_name != ""}{$load.acc_name}{else}--{/if}</td>
+	<td>{if $load.add_money_time > 0}{$load.add_money_time}{else}--{/if}</td>
+	<td>{$load.spendtime|escape:html}</td>
+	</td>
+  </tr>
+  {foreachelse}
+    <tr><td class="no-records" colspan="17">无相关数据</td></tr>
+  {/foreach}
+    <tr style='color:#F30'>
+    	<td colspan=2>&nbsp;&nbsp;
+		合计: </td>
+		<td colspan=6></td>
+	<td align="center">{$ftotal|escape:money}</td>
+	<td colspan=2></td>
+	<td align="center">{$fbanktotal|escape:money}</td>
+	<td colspan="5"></td>
+    </tr>
+</table>
+<table id="page-table" cellspacing="0"><tr><td></td><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

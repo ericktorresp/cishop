@@ -1,0 +1,45 @@
+{include file="pageheader.html"}
+
+<div class="form-div">
+<form name="listForm" method="post" action="?controller=config&action=nmparam"  onsubmit="return true()">
+  <table cellspacing='5' cellpadding='10' id='list-table'>
+    <tr>
+      <td align="right">同组域名不能绑给同一总代两个以上:</td>
+      <td>
+      <select name="domainbind_seemgroup">
+      	<option value="1" {if $domainbind_seemgroup == 1}SELECTED{/if}>是</option>
+      	<option value="0" {if $domainbind_seemgroup == 0}SELECTED{/if}>否</option>
+      </select>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">总代间绑定域名不能互为子集:</td>
+      <td>
+      <select name="domainbind_seemdomain">
+      	<option value="1" {if $domainbind_seemdomain == 1}SELECTED{/if}>是</option>
+      	<option value="0" {if $domainbind_seemdomain == 0}SELECTED{/if}>否</option>
+      </select>
+      </td>
+    </tr>
+    
+    <tr>
+      <td align="right" valign="top">监测域名的图片URL:</td>
+      <td>
+      	<input type="text" size="40" name="domainbind_checkimage" value="{$domainbind_checkimage}"> 
+      	
+      	<br />
+      	<br />
+      	 ( 填写不包含URL前段: "<b>htttp://(域名)/</b>" )
+      </td>
+    </tr>
+    
+    <tr>
+      <td> &nbsp; </td>
+      <td align="left">
+	  <input type="submit" name="setimgserver" id="setimgserver" value=" 保 存 " class='button'></td>
+    </tr>
+  </table>
+</form>
+</div>
+
+{include file="pagefooter.html"}

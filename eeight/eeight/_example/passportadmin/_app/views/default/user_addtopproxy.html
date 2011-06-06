@@ -1,0 +1,107 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkadd(obj)
+{
+	p=/^[0-9a-zA-Z]{6,16}$/i;
+	if(!p.test(obj.username.value))
+	{
+		alert("总代的登陆帐号为6~16位.");
+		obj.username.focus();
+		return false;
+	}
+	p1=/^[0-9a-zA-Z]{6,16}$/i;
+	p2=/^[0-9]+$/;
+	p3=/(.)\\1{2,}/i;
+	p4=/^[a-zA-Z]+$/i;
+	s= obj.userpass.value;
+	if(!p1.test(s)||p2.test(s)||p3.test(s)||p4.test(s))
+	{
+		alert("总代的登陆密码为6~16位,而且由数字和字母构成.");
+		obj.userpass.focus();
+		return false;
+	}
+	if(obj.usernick.value.length<2)
+	{
+		alert("总代的昵称不正确。");
+		obj.usernick.focus();
+		return false;
+	}
+	p=/^[0-9]+$/;
+	if(!p.test(obj.num_add.value))
+	{
+		alert("总代开户人数格式不正确.");
+		obj.num_add.focus();
+		return false;
+	}
+	return true;
+}
+function showNotice(objId)
+{
+	var obj = document.getElementById(objId);
+	if(obj.style.display=="none")
+	{
+		obj.style.display="block";
+	}
+	else
+	{
+		obj.style.display="none";
+	}
+}
+</script>
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action="?controller=user&action=savetopproxy" onsubmit="return checkadd(this);";>
+  <table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td class="narrow-label" width="20%">登陆帐号</td>
+<td width="80%"><input type="text" name="username" maxlength="16"> 总代帐号构成：字母数字(6-16位构成)。</td>
+</tr>
+<tr>
+<td class="narrow-label">登陆密码</td>
+<td><input type="password" name="userpass" /> 用户密码构成：字母数字混合构成，且连续三位不能为相同的字符，长度为6~16位</td>
+</tr>
+<tr>
+<td class="narrow-label">用户昵称</td>
+<td><input type="text" name="usernick"> 输入用户昵称,2位至6位字符或者文字。</td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticeUsersale');"><img src="./images/notice.gif" border="0" title="用户昵称"></a>指定销售</td>
+	<td><select name="sales">
+	<option value="0">指定销售</option>
+	{foreach from=$sales item=sale key=k}
+	<option value="{$sale.adminid}">{$sale.adminname|escape:html}</option>
+	{/foreach}
+	</select><span id="noticeUsersale" style="display:none">指定用户对应的销售管理员，销售管理员与总代绑定后，方可查看该总代以及总代下面所有用户的信息。</span>
+	</td>
+</tr>
+<tr>
+	<td class="narrow-label">测试账户</td>
+	<td>
+	   <input type="radio" name="istester" value="1">是<input type="radio" name="istester" value="0" checked>否
+	</td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticeUserdomian');"><img src="./images/notice.gif" border="0" title="总代域名"></a>使用域名</td>
+	<td colspan="1" >
+	{foreach from=$domains item=domain key=k}
+		<div style="width:160px; float:left;">
+			<label for="domain_{$domain.id}">
+				<input type="checkbox" name="domain[]" value="{$domain.id}" id="domain_{$domain.id}">
+				{$domain.domain|escape:html}
+			</label>
+		</div>
+	{/foreach}<br/><span id="noticeUserdomian" style="display:none">只有总代和域名绑定后，用户才能使用这个域名进行登陆。</span>
+	</td>
+</tr>
+<tr>
+	<td class="narrow-label">人数限制</td>
+	<td><input type="text" name="num_add" size="5" value="100"> 开户之后的人数限制(系统设定:开户权限为总代，允许开户)</td>
+</tr>
+<tr>
+<td></td>
+<td colspan="1"><input type="submit" value="增加总代" class="button">
+<input type="reset" value="重置增加" class="button"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

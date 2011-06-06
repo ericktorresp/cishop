@@ -1,0 +1,117 @@
+{include file="pageheader.html"}
+
+{literal}
+<script type="text/javascript">
+function confirmSubmit(frm, ext)
+{
+	if( !frm.elements['doaction'][0].checked && !frm.elements['doaction'][1].checked )
+	{
+		alert('请选择操作的类型');
+		return false;
+	}
+	else if( frm.elements['doaction'][0].checked )
+	{
+//		if( frm.elements['bankcode'].value == '' )
+//		{
+//			alert('请输入银行流水号');
+//			return false;
+//		}
+		return confirm("确认设置为: 提现成功 ?");
+	}
+	else if( frm.elements['doaction'][1].checked  )
+	{
+		var iflag = false;  
+		var radios = frm.elements['failedmsg'];  
+		for (var i = 0; i < radios.length; i++) {
+			if (radios[i].checked == true) {
+             iflag = true;  
+		}
+		}
+		if( iflag == false )
+		{
+			alert('请选提现失败原因');
+			return false;
+		}
+		return confirm("确认设置为: 提现失败 ?");
+	}
+	else
+	{
+		return true;
+	}
+}
+function actDiv( divname, flag )
+{
+    document.getElementById(divname).style.display = flag;
+}
+
+</script>
+{/literal}
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action="./?controller=security&action=userdrawedit" onsubmit="return confirmSubmit(this)">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr><td class="narrow-label">提现发起人:</td><td>{$s.sendername|escape:html}</font></td></tr>
+<!--<tr><td class="narrow-label">所属总代:</td><td>{* $s.proxyname|escape:html *}</font></td></tr>-->
+<tr><td class="narrow-label">银行名称:</td><td>{$s.bankname|escape:html}</td></tr>
+<tr><td class="narrow-label">银行卡号:</td><td>{$s.bankcard|escape:html}</td></tr>
+<tr><td class="narrow-label">所属省份:</td><td>{$s.province|escape:html}</td></tr>
+<tr><td class="narrow-label">真实姓名:</td><td>{$s.realname|escape:html}</td></tr>
+<tr><td class="narrow-label">提现金额:</td><td>{$s.amount|escape:html}</td></tr>
+<tr><td class="narrow-label">发起时间:</td><td>{$s.accepttime|escape:html}</td></tr>
+<!--<tr><td class="narrow-label">用户IP:</td><td>{* $s.clientip|escape:html *}</td></tr>-->
+<!--<tr><td class="narrow-label">CDN IP:</td><td>{* $s.proxyip|escape:html *}</td></tr>-->
+<tr><td class="narrow-label">用户备注:</td><td>{$s.description|escape:html}</td></tr>
+<tr><td colspan=2>&nbsp;</td></tr>
+
+{if $s.opcanupdate==1}
+<tr>
+	<td class="narrow-label">可选操作: </td>
+	<td>
+	<LABEL for='c1' STYLE='color:#690'><INPUT 
+		onClick="javascript:actDiv('d_success','');actDiv('d_failed','none');" 
+		ID='c1' TYPE="radio" NAME="doaction" 
+		VALUE='set_success'>设为:提现成功</LABEL> &nbsp;&nbsp;&nbsp;
+	<LABEL for='c2' STYLE='color:#F30'><INPUT 
+		onClick="javascript:actDiv('d_failed','');actDiv('d_success','none');" 
+		ID='c2' TYPE="radio" NAME="doaction" 
+		VALUE='set_failed'>设为:提现失败 <font color=#909090>( 返还游戏币 )</font></LABEL><br/><br/>
+
+	<DIV id="d_success" style='color:#690;display:none;'>
+<!--	输入银行流水号: <input type="text" style='background:#EEFFCA' 
+		name="bankcode" size='42' maxlength="32" VALUE=''/>
+// -->
+	</DIV>
+
+	<DIV id="d_failed" style='color:#F30;display:none;'>
+	请选择提现失败原因:<br/>
+	   <LABEL style='padding-left:16px;color:#960;'><input type="radio" name="failedmsg" value='农行网上银行系统维护中，暂时不能提现，请稍后再试或换行再试，谢谢您的配合！'/> 农行网上银行系统维护中，暂时不能提现，请稍后再试或换行再试，谢谢您的配合！</LABEL><BR/>
+	   <LABEL style='padding-left:16px;color:#960;'><input type="radio" name="failedmsg" value='工行网上银行系统维护中，暂时不能提现，请稍后再试或换行再试，谢谢您的配合！'/> 工行网上银行系统维护中，暂时不能提现，请稍后再试或换行再试，谢谢您的配合！  </LABEL><BR/>
+	   <LABEL style='padding-left:16px;color:#960;'><input type="radio" name="failedmsg" value='建行网上银行系统维护中，暂时不能提现，请稍后再试或换行再试，谢谢您的配合！'/> 建行网上银行系统维护中，暂时不能提现，请稍后再试或换行再试，谢谢您的配合！</LABEL><BR/>
+	   <LABEL style='padding-left:16px;color:#960;'><input type="radio" name="failedmsg" value='您所提交的卡号 、开户人姓名或开户地不符，请重新核对后再提交申请，谢谢您的配合！'/> 您所提交的卡号 、开户人姓名或开户地不符，请重新核对后再提交申请，谢谢您的配合！</LABEL><BR/>
+	   <LABEL style='padding-left:16px;color:#960;'><input type="radio" name="failedmsg" value='提现申请审核未通过：低于约定提现下限，请重新确认后再提交申请，谢谢您的配合！'/> 提现申请审核未通过：低于约定提现下限，请重新确认后再提交申请，谢谢您的配合！</LABEL><BR/>
+	   <LABEL style='padding-left:16px;color:#960;'><input type="radio" name="failedmsg" value='提现申请审核未通过：所提金额未能符合平台提现申请规定，具体请查看“帮助中心”谢谢您的配合！'/> 提现申请审核未通过：所提金额未能符合平台提现申请规定，具体请查看“帮助中心”谢谢您的配合！</LABEL><BR/>
+	   <LABEL style='padding-left:16px;color:#960;'><input type="radio" name="failedmsg" value='提现申请审核未通过，帐户资金存在相关问题，请联系上级或者在线客服专员，谢谢您的配合！'/> 提现申请审核未通过，帐户资金存在相关问题，请联系上级或者在线客服专员，谢谢您的配合！</LABEL><BR/>
+	</DIV><br/></td></tr>
+	<tr>
+	<td class="narrow-label"><input type="submit" value="确认执行" id="btnSubmit" name="btnSubmit" class="button" /></td><td>
+	<input type="button" value="返回申请列表" class="button" onclick="window.location.href='./?controller=security&action=userdraw'" /></td></tr>
+
+</tr>
+{else}
+<tr><td colspan=2 style='color:#690;padding-left:10px;'>处理信息: </td></tr>
+<!--<tr><td class="narrow-label">管理员:</td><td>&nbsp;&nbsp;{* $s.opname|escape:html *}&nbsp;&nbsp;&nbsp;  <font color=#C0C0C0>[ ID={$s.adminid} ]</font></td></tr>-->
+<tr><td class="narrow-label">处理时间:</td><td>&nbsp;&nbsp;{$s.finishtime|escape:html}</td></tr>
+<tr><td class="narrow-label">处理结果:</td><td>&nbsp;&nbsp;{if $s.status==1}<font color=red>提现失败</font>{else}<font color=#669900>提现成功</font>{/if}</td></tr>
+<!--
+<tr><td class="narrow-label">银行流水号:</td><td>&nbsp;&nbsp;{$s.bankcode|escape:html}</td></tr>
+//-->
+<tr><td class="narrow-label">提现消息状态:</td><td>&nbsp;&nbsp;{if $s.isdel==1}<font color=red>已逻辑删除</font>{else}<font color=#669900>正常 (未被逻辑删除)</font>{/if}</td></tr>
+{/if}
+
+  	<tr><td colspan=2>&nbsp;&nbsp;
+	<input type="hidden" name='id' value="{$s.entry}"><input type="hidden" name='flag' value="withdraw"><br/><br/></td>
+  	</tr>
+  </table>
+</form>
+</div>
+{include file="pagefooter.html"}

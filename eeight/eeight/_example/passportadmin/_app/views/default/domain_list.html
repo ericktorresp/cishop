@@ -1,0 +1,207 @@
+{include file="pageheader.html"}
+<style type="text/css">
+#list-table tr:hover td{background:#EEF8F9;}
+</style>
+
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/jquery.impromptu.2.6.min.js"></script>
+<LINK href="./css/impromptu.css" rel="stylesheet" type="text/css" />
+<script language="javascript">
+//全选
+function checkDomian(id,obj)
+{
+	var tar = document.getElementById("tr_"+id);
+	var checks = tar.getElementsByTagName("INPUT");
+	for(i=0;i<checks.length;i++)
+	{
+		checks[i].checked = obj.checked;
+	}
+}
+//删除域名
+function deldomain(obj)
+{
+	var domian = obj.form.getElementsByTagName("INPUT");
+    ss = '';
+    for( i=0;i<domian.length;i++)
+    {
+        if(domian[i].checked)
+        {
+           ss=ss+'<tr><td>'+domian[i].title+'</td></tr>';
+        }
+    }
+    if(ss=="")
+	{
+		alert("没有域名需要删除.");
+		return false;
+	}
+	else
+	{
+		s="<div style='overflow-y: scroll; height: 200px; width: 100%;'><table class='list-div'><tr><th>删除的域名</th></tr>"+ss+"</table></div>";
+		$.prompt(s,{ buttons: {"确认": true, "取消": false}, show:'slideDown' ,callback:mycallbackform2,focus: 1 });
+	}
+}
+//删除域名
+function mycallbackform2(v,m,f){
+	if(v){
+		document.forms['domainlist'].action="?controller=domain&action=del";
+		document.forms['domainlist'].submit();
+	}
+}
+//编辑域名
+function editdomain()
+{
+	document.forms['domainlist'].action="?controller=domain&action=edit";
+	document.forms['domainlist'].submit();
+}
+//提交前验证
+function checkForm(obj)
+{
+	var checks = obj.form.getElementsByTagName("INPUT");
+	j=checks.length;
+	s ="";
+	for(i=0;i<j;i++)
+	{
+		if((checks[i].type=="checkbox")&&(checks[i].name=="entrys[]")&&(checks[i].checked))
+		{
+			temp = checks[i].title.split("|");
+			s = s+"<tr><td>"+temp[0]+"</td><td>"+temp[1]+"</td></tr>";
+		}		
+	}
+	if(s=="")
+	{
+		alert("没有域名需要回收.");
+		return false;
+	}
+	else
+	{
+		s="<div style='overflow-y: scroll; height: 200px; width: 100%;'><table class='list-div'><tr><th>总代</th><th>回收的域名</th></tr>"+s+"</table></div>";
+		$.prompt(s,{ buttons: {"确认": true, "取消": false}, show:'slideDown' ,callback:mycallbackform,focus: 1 });
+	}
+}
+
+function mycallbackform(v,m,f){
+	if(v){
+		document.forms['user-domain'].submit();
+	}
+}
+//关联
+function assignDomain()
+{
+	document.forms['domainlist'].action="?controller=domain&action=assign";
+	document.forms['domainlist'].submit();
+}
+function showNotice(objId)
+{
+	var obj = document.getElementById(objId);
+	if(obj.style.display=="none")
+	{
+		obj.style.display="block";
+	}
+	else
+	{
+		obj.style.display="none";
+	}
+}
+</script>
+<div class="form-div">
+<Form action="" method="GET">
+<input type="hidden" name="controller" value="domain">
+<input type="hidden" name="action" value="list"> 
+<img src="./images/icon_search.gif">
+域名:&nbsp;&nbsp;<select  name="domainid">
+<option value="0">所有域名</option>
+{foreach from=$domains item=domain key=k}
+<option value="{$domain.id}" {if $domainid == $domain.id}selected="selected"{/if}>{$domain.domain|escape:html}</option>
+{/foreach}
+</select>&nbsp;&nbsp;总代:&nbsp;&nbsp;<select name="userid">
+<option value="0">所有总代</option>
+{foreach from=$agents item=agent key=v}
+<option value="{$v}" {if $agentid == $v}selected="selected"{/if}>{$agent|escape:html}</option>
+{/foreach}
+</select>&nbsp;&nbsp;<input type="submit" value="搜索" class="button"><A href="javascript:showNotice('noticeSearch')"><img src="./images/notice.gif" border="0" title="搜索"></A>
+<span id="noticeSearch" style="display:none; padding-left:30px;">
+不选中总代和域名时候，将分页列出所有总代和域名的关系;<br/>
+若指定了总代，则将总代下面所有的绑定域名列出;<br/>
+若指定可域名，则将与此域名绑定的总代列出;<br/>
+如果同时指定了总代和域名，则根据总代来搜索。
+</span>
+</Form>
+</div>
+<div  class="list-div" id="listDiv">
+<form method="POST" id="user-domain" name="user-domain" action="?controller=domain&action=unset">
+<table id='list-table'>
+<tr>
+<th rowspan="2" width="5%"></th>
+<th rowspan="2" width="10%">总代帐号</th>
+<th rowspan="2" width="85%">拥有域名</th>
+<th colspan="2">域名提醒</th>
+</tr>
+<tr>
+<th>交集</th>
+<th>同组</th>
+</tr>
+{foreach from=$userdomain item=v key=k}
+<tr>
+<td align="center"><input type="checkbox" id="user_{$k}" onclick="javascript:checkDomian({$k},this);"></td>
+<td align="center"><label for="user_{$k}">{$agents.$k}</label></td>
+<td align="left" id="tr_{$k}">
+	{foreach from=$v item=domain key=k1}
+	{if $domain.entry > 0}
+	<div style="width:160px; float:left;"><label for="entry_{$domain.entry}"><input type="checkbox" name="entrys[]" value="{$domain.entry}" id="entry_{$domain.entry}" title="{$agents.$k}|{$domain.domain}">{if $k1==$domainid}<span style="color:#FF0000;">{$domain.domain}</span>{else}{$domain.domain}{/if} [{$domain.bygroupid}]</label></div>
+	{/if}
+	{/foreach}
+</td>
+<td align="center">
+{if $v.checkseemdomain == 1}<img src="./images/no.gif" {if $seemagentlist !== ""}title="{foreach from=$v.seemagentlist item=seemagent}
+{$seemagent}
+
+{/foreach}"{/if}>{else}<img src="./images/yes.gif">{/if}
+</td>
+<td align="center">
+{if $v.checkseemgroup == 1}<img src="./images/no.gif">{else}<img src="./images/yes.gif">{/if}
+</td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="5" class="no-records">没有搜索到相关信息</td>
+</tr>
+{/foreach}
+<tr>
+<td colspan="5" align="right">{$pageinfo}</td>
+</tr>
+{if !empty($userdomain)}
+<tr>
+<td colspan="5"> <font color=blue>域名提醒:</font> (所涉及的系统参数关闭时 检查默认为正常状态)<br />
+<b>交集:</b> <img src="./images/no.gif">符号表示该总代分配的域名存在被包含和类似 (每页第一行总代请人工判断) 
+<br />
+<b>同组:</b> <img src="./images/no.gif">符号表示该总代分配的域名存在同组情况
+</td>
+</tr>
+<tr>
+<td colspan="5" align="center"><input type="button" class="button" value="回收" onclick="javascript:return checkForm(this);"><input type="reset" class="button" value="还原"></td>
+</tr>
+{/if}
+</table>
+</form>
+</div>
+<br/>
+<div class="form-div">
+<form action="" method="POST" id="domainlist" name="domainlist">
+<b>域名管理:</b><div style="width:700px; height:160px; overflow-y:scroll; border:1px double;">{foreach from=$domains item=domain key=k}
+<label for="domains_{$domain.id}" style="width:200px; float:left;"><input type="checkbox" id="domains_{$domain.id}" name="domains[]" value="{$domain.id}" title="{$domain.domain}">{$domain.domain} [{$domain.bygroupid}]</label>
+{/foreach}</div><input type="button" name="del" value="删除" class="button" onclick="deldomain(this);"><input type="button" class="button" value="分配" onClick="javascript:editdomain(this);">
+
+&nbsp;&nbsp;总代:&nbsp;&nbsp;<select name="userid">
+<option value="0">所有总代</option>
+{foreach from=$agents item=agent key=v}
+<option value="{$v}">{$agent}</option>
+{/foreach}
+</select>&nbsp;&nbsp;<input type="button" value="关联" class="button" onclick="javascript:assignDomain();"><a href="javascript:showNotice('noticeAssign');"><img src="./images/notice.gif" border="0"></a><span id="noticeAssign" style="display:none; padding-left:60px;">
+删除：删除选中的域名，同时解除所有总代和该域名的关系。<br/>
+增加：增加一个域名。<br/>
+关联：对域名和总代进行绑定。<br/>
+回收：对总代和域名解除关系。</span>
+
+</form>
+</div>
+{include file="pagefooter.html"}

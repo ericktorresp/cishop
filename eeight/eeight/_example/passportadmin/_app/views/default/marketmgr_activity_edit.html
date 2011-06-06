@@ -1,0 +1,512 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/common2.js"></script>
+<script type="text/javascript" src="./js/jquery.activity.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+<script type="text/javascript">
+jQuery.noConflict();
+	
+	jQuery(document).ready(function() {
+		jQuery("#activitystarttime").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#activitystarttime").change(function(){
+			if(! validateInputDate(jQuery("#activitystarttime").val()) )
+			{jQuery("#activitystarttime").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+		});
+		jQuery("#activityendtime").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#activityendtime").change(function(){
+			if(! validateInputDate(jQuery("#activityendtime").val()) )
+			{jQuery("#activityendtime").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+		});
+		
+		jQuery("#sys_error_close").click(function(){
+			hideError();
+		});
+		jQuery("#first_step").click(function(){
+			showSwitch('first','all');
+		});
+		jQuery("#second_step").click(function(){
+			showSwitch('second','all');
+		});
+		jQuery("#third_step").click(function(){
+			showSwitch('third','all');
+		});
+		
+		//php
+		{foreach from=$aActivityInfo item=question key=k}
+		question_num = question_num+1;
+		jQuery("#secondstep_div").insertQuestion({
+				no			: question_num,
+				acttype 	: jQuery("#activitytype").val(),
+				qid			: {$question.infoid},
+				qtitle		: "{$question.title|escape:html}",
+				qtype		: {$question.type},
+				qscore 		: {$question.score},
+				qhelp 		: "{$question.hint|escape:html}",
+				qminright 	: {$question.minright},
+				qmust 		: {$question.isrequire},
+				qoptions	: {$question.options},
+				qanswer		: {$question.answer}
+		});
+		{/foreach}
+		
+		//++++++++++++++++++++++++++++++++第一步++++++++++++++++++++++++++++++++++++++++++++++//
+		jQuery("#activitytype").change(function(){
+			if( jQuery(this).val() == 1 ){
+				jQuery("#promotiontype_show").hide();
+			}else if( jQuery(this).val() == 2 ){
+				jQuery("#promotiontype_show").show();
+			}
+		});
+		
+		//提交第一步表单
+		jQuery("#firststep").click(function(){
+			hideError();
+			if( jQuery("#activitytype").val() == 0 ){
+				showError("请选择促销类型");
+				return false;
+			}
+			if( jQuery("#activitytitle").val() == "" ){
+				showError("请填写标题");
+				return false;
+			}
+			if( jQuery("#activitystarttime").val() == "" ){
+				showError("请选择活动开始时间");
+				return false;
+			}
+			if( jQuery("#activityendtime").val() == "" ){
+				showError("请选择活动结束时间");
+				return false;
+			}
+			if( jQuery("#activitytype").val() == 2 && false == /^[0-9]*$/.test(jQuery("#activityminscore").val()) ){
+				showError("最低分数不符合要求");
+				return false;
+			}
+			jQuery("#firststep_div").hide();
+			jQuery("#submit_loading").html("正在提交数据，请稍等....").show();
+			///提交到数据库
+			var formdata = jQuery("form[name='firstform']").serialize();
+			jQuery.ajax({
+				type : 'POST',
+				url  : './?controller=marketmgr&action=activityedit',
+				data : formdata,
+				success : function(data){
+					if( data.length < 5 ){//提交成功
+						jQuery("#submit_loading").hide();
+						data = parseInt( data );
+						if( data >= 0 ){	//成功加入
+							hideError();
+							jQuery("#activitytype").attr("disabled",true);
+							jQuery("#first_step").attr("class","tab-back").click(function(){
+								showSwitch("first","second");
+							});
+							jQuery("#second_step").attr("class","tab-front").click(function(){
+								showSwitch("second","first");
+							});
+							jQuery("#second_act_title").html( jQuery("#activitytitle").val() );
+							jQuery("#secondstep_div").show();
+						}else{//失败
+							switch( data ){
+								case -1 : showError("请填写标题"); break;
+								case -2 : showError("请选择活动开始时间和结束时间"); break;
+								case -3 : showError("开始时间不能比现在早"); break;
+								case -4 : showError("结束时间不能早于答题开始时间"); break;
+								case -5 : showError("请选择促销类型"); break;
+								default : showError("超时，请重新登陆后再试"); break;
+							}
+							jQuery("#firststep_div").show();
+						}
+					}else{
+						changeBodyHTML(data);
+					}
+				},
+				error : function(){//处理失败
+					showError("处理失败，请重试");
+					jQuery("#submit_loading").hide();
+					jQuery("#firststep_div").show();
+				}
+			});
+			return false;
+		});
+		
+		//+++++++++++++++++++++++++++++++++++++++++=第二步=++++++++++++++++++++++++++++++++++++++++++++//
+		
+		jQuery("#addquestion").click(function(){//增加问题
+			question_num = question_num+1;
+			jQuery("#secondstep_div").insertQuestion({
+					no			: question_num,
+					acttype 	: jQuery("#activitytype").val()
+			});
+			jQuery("#savequestion").html("保存").attr("disabled",false);
+			jQuery("#confirmquestion").html("编辑确认").attr("disabled",false);
+			jQuery("#third_step").attr("class","tab-back-default").unbind("click");
+			jQuery("#thirdstep").val("完成").attr("disabled",false);
+		});
+		jQuery("#savequestion").click(function(){	//保存
+			submitSecond('save');
+		});
+		jQuery("#confirmquestion").click(function(){ //编辑确认
+			submitSecond('confirm');
+		});
+		
+		//+++++++++++++++++++++++++++++++++++++++++=第三步=++++++++++++++++++++++++++++++++++++++++++++//
+		
+		jQuery("#thirdstep").click(function(){
+			hideError();
+			jQuery(this).val("正在处理...").attr("disabled",true);
+			if( jQuery("#actfeedback").val() == "" ){//未填写消息
+				showError("请填写确认消息");
+				jQuery(this).val("完成").attr("disabled",false);
+				return false;
+			}else{
+				jQuery.ajax({
+					type	: 'POST',
+					url		: './?controller=marketmgr&action=activityedit',
+					data	: jQuery("form[name='thirdform']").serialize(),
+					success : function(data){
+						if( data.length > 10 ){
+							changeBodyHTML(data);
+						}else if( data == 'empty' ){
+							showError("请填写确认消息");
+							jQuery(this).val("完成").attr("disabled",false);
+							return false;
+						}else if( data == 'fail' ){
+							showError("处理失败");
+							jQuery(this).val("完成").attr("disabled",false);
+							return false;
+						}else{
+							changeBodyHTML(data);
+							return false;
+						}
+					}
+				});
+			}
+			return false;
+		});
+		
+	});
+	
+	/*====================================全局参数设置====================================*/
+	//问题初始设置
+	var question_num = 0;	//问题个数
+	//函数列表
+	function showSwitch(s,h){//first|second|third|all   s:show,h:hide
+		if( h == 'all' ){
+			jQuery("span[id$='_step']").attr("class","tab-back");
+			jQuery("div[id$='step_div']").hide();
+			jQuery("#"+s+"step_div").show();
+			jQuery("#"+s+"_step").attr("class","tab-front");
+		}else{
+			jQuery("#"+h+"step_div").hide();
+			jQuery("#"+h+"_step").attr("class","tab-back");
+			jQuery("#"+s+"step_div").show();
+			jQuery("#"+s+"_step").attr("class","tab-front");
+		}
+	}
+	function submitSecond( error ){//保存问题
+		hideError();
+		jQuery("td[id^='question_each_error_']").html("").hide();
+		if( error == 'save' ){//保存
+			jQuery("#savequestion").ajaxStart(function(){
+				jQuery(this).html("正在保存...").attr("disabled",true);
+			}).ajaxStop(function(){
+				if( jQuery(this).html() != '已保存' ){
+					jQuery(this).html("保存").attr("disabled",false);
+				}
+			});
+		}else if( error == 'confirm' ){//编辑确认
+			jQuery("#confirmquestion").html("正在提交...").attr("disabled",true);
+			jQuery("#submit_loading").html("正在提交数据，请稍等....").show();
+			jQuery("#secondstep_div").hide();
+		}
+		jQuery("#questionnum").val(question_num);
+		var temp = jQuery("input,select",document.getElementById("secondstep_div")).serialize();
+		jQuery.ajax({
+			type	: 'POST',
+			url		: './?controller=marketmgr&action=activityedit',
+			data	: temp,
+			success	: function(data){
+				if( /http:\/\/www\.w3\.org\/1999\/xhtml/g.test(data) )
+				{
+					changeBodyHTML(data);
+				}else if( data == 'fail' ){//没有题目
+					if( error == 'confirm' ){
+						showError('操作失败，请先建立题目');
+						jQuery("#confirmquestion").html("编辑确认").attr("disabled",false);
+						jQuery("#submit_loading").hide();
+						jQuery("#secondstep_div").show();
+					}
+				}else if( data == '[]' ){//空题目
+					if( error == 'confirm' ){
+						showError('操作失败，请先建立题目');
+						jQuery("#confirmquestion").html("编辑确认").attr("disabled",false);
+						jQuery("#submit_loading").hide();
+						jQuery("#secondstep_div").show();
+					}
+				}else{//提交成功
+					//分配ID
+					data = eval(data);
+					var isError = false;
+					jQuery.each(data,function(i,n){
+						n.value = parseInt( n.value );
+						if( n.value > 0  ){
+							if( jQuery("#question_id_"+n.key).val() == 0 ){
+								jQuery("#question_id_"+n.key).val(n.value);
+							}
+						}else if( n.value < 0 && error == 'confirm' ){//显示错误
+							isError = true;
+							var temp_img = "<img src='./images/warning_small.gif' align='absmiddle'>";
+							switch( n.value ){
+								case -3 : jQuery("#question_each_error_"+n.key).html(temp_img+"标题不能为空").show(); break;
+								case -4 : jQuery("#question_each_error_"+n.key).html(temp_img+"未选择题目类型").show(); break;
+								case -5 : jQuery("#question_each_error_"+n.key).html(temp_img+"活动已锁定").show(); break;
+								case -6 : jQuery("#question_each_error_"+n.key).html(temp_img+"活动已锁定").show(); break;
+								case -7 : jQuery("#question_each_error_"+n.key).html(temp_img+"类型错误").show(); break;
+								case -8 : jQuery("#question_each_error_"+n.key).html(temp_img+"单选和多选必须给出选项").show(); break;
+								case -9 : jQuery("#question_each_error_"+n.key).html(temp_img+"请选择正确答案").show(); break;
+								case -10 : jQuery("#question_each_error_"+n.key).html(temp_img+"题目分数不合法").show(); break;
+								default : jQuery("#question_each_error_"+n.key).html(temp_img+"操作失败").show(); break;
+							}
+						}
+					});
+					if( error == 'save' ){
+						jQuery("#savequestion").html("已保存").attr("disabled",true);
+						jQuery("input,select",document.getElementById("secondstep_div")).keyup(function(){
+							jQuery("#savequestion").html("保存").attr("disabled",false);
+						}).change(function(){
+							jQuery("#savequestion").html("保存").attr("disabled",false);
+						});
+					}else if( error == 'confirm' ){//编辑确认成功
+						if( isError == true ){
+							jQuery("#confirmquestion").html("编辑确认").attr("disabled",false);
+							jQuery("#submit_loading").hide();
+							jQuery("#secondstep_div").show();
+						}else{
+							jQuery("#submit_loading").hide();
+							jQuery("#confirmquestion").html("编辑确认").attr("disabled",false);
+							jQuery("#first_step").click(function(){
+								showSwitch("first","all");
+							});
+							jQuery("#second_step").attr("class","tab-back").click(function(){
+								showSwitch("second","all");
+							});
+							jQuery("#third_step").attr("class","tab-front").click(function(){
+								showSwitch("third","all");
+							});
+							jQuery("#thirdstep_div").show();
+						}
+					}
+				}
+			}
+		});
+	}
+	function showError( msg ){
+		jQuery("#sys_error_msg").html(msg);
+		jQuery("#sys_error").fadeIn('fast');
+	}
+	function hideError(){
+		jQuery("#sys_error").fadeOut('fast');
+	}
+	function changeBodyHTML( html ){
+		jQuery("body").html(html);
+	}
+	
+
+</script>
+<style type="text/css">
+.tab-back-default{
+  color:#999999;
+  line-height: 20px;
+  padding: 4px 15px 4px 18px;
+  border-right: 1px solid #FFF;
+  cursor: default;
+}
+.questiondiv, .questiondivover{
+	width:100%;
+	margin-top:10px;
+	background-color:#FFFFFF;
+}
+.questiondivover{
+	background-color:#FFFF99;
+}
+
+.questiondiv table{
+	width:90%;
+	margin:auto;
+}
+.questiondivover table{
+	width:90%;
+	margin:auto;
+	background-color:#FFFF99;
+}
+.questiondivover td{
+	background-color:#FFFF99;
+}
+.question_options_div ul{
+	list-style:none;
+	width:100%;
+	margin:0;
+	padding:0;
+}
+.question_options_div ul li{
+	width:100%;
+	height:25px;
+}
+.question_options_div ul li img{
+	cursor:pointer;
+	vertical-align:middle;
+}
+.question_options_div .optioninput{
+	width: 150px;
+	height: 15px;
+	border:1px #999999 solid;
+}
+.question_options_div .optionaddinput{
+	width: 150px;
+	height: 15px;
+	background-color:#CCC;
+	border:1px #999999 solid;
+}
+.showonly_input{
+	border:#999999 1px dashed;
+	color:#666666;
+	background-color:#CCEEEE;
+}
+</style>
+<div class="list-div" id="listDiv">
+	
+    <div id="tabbar-div">
+        <span class="tab-front" id="first_step">第一步：基本信息</span>
+        <span class="tab-back" id="second_step">第二步：题目设置</span>
+        <span class="tab-back" id="third_step">第三步：完成</span>
+    </div>
+    
+    <div class="tab-div" id="submit_loading" style="display:none; text-align:center; height:100px; line-height:100px; font-size:18px;"></div>
+    
+    <div class="list-div" style="border:0;display:none;" id="sys_error">
+    	<table cellspacing='0' cellpadding='2' id="detail-table" style="width:100%;">
+        <tr>
+    	<td align="left" style="background-color:#FFFF66; font-weight:bold; color:#FF0000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./images/warning_small.gif" align="absmiddle"> 错误： &nbsp;<span id="sys_error_msg"></span></td><td align="right" style="background-color:#FFFF66; font-weight:bold; color:#FF0000;"><img src="./images/close_q.png" align="absmiddle" style="margin-right:10px; cursor:pointer" title="关闭" id="sys_error_close"></td>
+    	</tr>
+        </table>
+    </div>
+    
+    <div class="list-div" id="firststep_div" style="border:0;">
+    <form method="POST" name="firstform" action="">
+    <input type="hidden" name="step" value="first">
+    <input type="hidden" name="activityid" id="activityid" value="{$aActivity.activityid}">
+    <table cellspacing='1' cellpadding='3' id="detail-table"> 
+    <tr>
+      <td align="left" height="10" style="background-color:#F4FAFB; height:15px; font-weight:bold;" colspan="2">&nbsp;&nbsp;类型选择</td>
+    </tr>
+    <tr>
+      <td width="150" align="right">促销类型:</td>
+      <td><select name="acttype" id="activitytype" style="color:#FF0000;" disabled="disabled">
+      <option value="0">==请选择类型==</option>
+      <option value="1" {if $aActivity.type==0}selected="selected"{/if}>问卷调查</option>
+      <option value="2" {if $aActivity.type==1}selected="selected"{/if}>有奖竞猜</option>
+      </select></td>
+    </tr>
+    <tr>
+      <td align="left" height="10" style="background-color:#F4FAFB; height:15px; font-weight:bold;" colspan="2">&nbsp;&nbsp;基本信息</td>
+    </tr>
+    <tr>
+      <td width="150" align="right">活动标题：</td>
+      <td><input type="text" name="acttitle" id="activitytitle" value="{$aActivity.title|escape:html}" style="width:100%;"></td>
+    </tr>
+    <tr>
+      <td width="150" align="right">帮助信息:<br /><font color="#999999">可直接显示在标题之下</font></td>
+      <td><textarea name="actdescription" id="activitydesc" style="width:100%; height:50px;">{$aActivity.description|escape:html}</textarea></td>
+    </tr>
+    <tr>
+      <td width="150" align="right">开始时间:</td>
+      <td><input type="text" name="actstarttime" id="activitystarttime" style="width:150px;" value="{$aActivity.starttime|escape:html}">
+      <img src="./images/calendar2.gif"></td>
+    </tr>
+    <tr>
+      <td width="150" align="right">结束时间:</td>
+      <td><input type="text" name="actendtime" id="activityendtime" style="width:150px;" value="{$aActivity.endtime|escape:html}" >
+      <img src="./images/calendar2.gif"></td>
+    </tr>
+    <tr id="promotiontype_show" {if $aActivity.type==0}style="display:none;"{/if}>
+      <td width="150" align="right">最低分数:</td>
+      <td><input type="text" name="actminscore" id="activityminscore" style="width:100px;" value="{$aActivity.minscore}" ><span style="color:#666666;">(只能输入大于或等于0的数字)</span></td>
+    </tr>
+    <tr>
+      <td width="150" align="right">奖金:</td>
+      <td><input type="text" name="actprize" id="actprize" style="width:100px;" onKeyUp="checkMoney(this);" value="{$aActivity.prize}" ><span style="color:#666666;">(只能输入大于或等于0的小数或整数)</span></td>
+    </tr>
+    <tr>
+      <td align="center" colspan="2"><input type="submit" name="firststep" id="firststep" value="下一步" class='button'></td>
+    </tr>
+    </table>
+    </form>
+    </div>
+  
+    <div class="list-div" id="secondstep_div" style="border:0; display:none;">
+    <form action="" method="post" name="secondform">
+    <input type="hidden" name="step" value="second">
+    <input type="hidden" name="actid" id="actid" value="{$aActivity.activityid}">
+    <input type="hidden" name="questionnum" id="questionnum" value="{$iQuestionNum}">
+    	<div class="questiondiv">
+        <table cellspacing='0' cellpadding='2' id="detail-table" style="width:100%;">
+        <tr>
+            <td style="background-color:#0099CC;">&nbsp;&nbsp;<button id="addquestion" type="button">增加问题</button>&nbsp;&nbsp;&nbsp;&nbsp;题目：<span style="color:#FFFFFF;" id="second_act_title">{$aActivity.title}</span></td>
+            <td style="background-color:#0099CC;" align="right"><button type="button" id="confirmquestion">编辑确认</button>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" id="savequestion">保存</button>&nbsp;&nbsp;</td>
+        </tr>
+        </table>
+        </div>
+        
+    </form>
+    </div>
+    
+    <div class="list-div" id="thirdstep_div" style="display:none;">
+    <form method="POST" name="thirdform" action="">
+    <input type="hidden" name="step" value="last">
+    <input type="hidden" name="factid" id="factid" value="{$aActivity.activityid}">
+		<table cellspacing='0' cellpadding='2' id="detail-table" style="width:100%;">
+        <tr>
+      		<td align="left" height="10" style="background-color:#F4FAFB; height:15px; font-weight:bold;" colspan="2">&nbsp;&nbsp;&nbsp;编辑确认</td>
+    	</tr>
+        <tr>
+        	<td width="150" align="right" valign="top"></td>
+        	<td><textarea style="width:70%; height:100px;" name="actfeedback" id="actfeedback">{$aActivity.feedback|escape:html}</textarea></td>
+        </tr>
+        <tr>
+        	<td width="150" align="right"></td>
+        	<td>提交了您的表单会看到什么</td>
+        </tr>
+        <tr>
+        	<td></td>
+            <td><input type="submit" name="thirdstep" id="thirdstep" value="完成" class='button'></td>
+        </tr>
+    	</table>
+    </form>
+    </div>
+
+</div>
+
+{include file="pagefooter.html"}

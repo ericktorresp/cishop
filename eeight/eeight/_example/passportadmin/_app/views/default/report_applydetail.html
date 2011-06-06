@@ -1,0 +1,208 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+	// 通过审核
+	$("#pass").click(function(){
+		if (!confirm("确认提交吗？")){
+			return false;
+		}
+		verify({$id},'pass');
+	});
+	
+	// 未通过审核
+	$("#unpass").click(function(){
+		if (!confirm("确认提交吗？")){
+			return false;
+		}
+		verify({$id},'unpass');
+	});
+	
+	verify = function(id,status){
+		var re = /^\d{1,}$/;
+		if (!re.test(id) || status == ""){
+			alert("您提交的数据有误！");
+			return false;
+		}
+			$.ajax({
+				type:"POST",
+				url:'?controller=report&action=applydetail',
+				data:'id=' + id + '&status=' + status,
+				success:function(data){
+					if (data == true){
+						alert("操作成功！");
+						window.location.reload();
+					} else {
+						alert("操作失败！");
+						return false;
+					}
+				}
+			});
+		}
+});
+</script>
+{/literal}
+<div class="list-div" id="listDiv">
+<form method="POST" name="detailForm" id="detailForm">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <td align="right" width="30%">提现发起人：</td>
+    <td align="left">{$fromuser}</td>
+  </tr>
+  <tr>
+    <td align="right" width="30%">所属总代：</td>
+    <td align="left">{$topusername}</td>
+  </tr>
+  <tr>
+    <td align="right" width="30%">实扣金额：</td>
+    <td align="left">{$totalmoney|escape:money}</td>
+  </tr>
+  <tr>
+    <td align="right" width="30%">到账金额：</td>
+    <td align="left">{$amount|escape:money}</td>
+  </tr>
+  <tr>
+    <td align="right" width="30%">提现手续费：</td>
+    <td align="left">{$charge|escape:money}</td>
+  </tr>
+  <tr>
+    <td align="right" width="30%">开户银行名称：</td>
+    <td align="left">{$bank}</td>
+  </tr>
+  <tr>
+    <td align="right" width="30%">开户银行省份：</td>
+    <td align="left">{$province}</td>
+  </tr>
+  <tr>
+    <td align="right" width="30%">开户银行城市：</td>
+    <td align="left">{$city}</td>
+  </tr>
+  <tr>
+    <td align="right" width="30%">支行名称：</td>
+    <td align="left">{$branch}</td>
+  </tr>
+  <tr>
+    <td align="right" width="30%">开户人姓名：</td>
+    <td align="left">{$account_name}</td>
+  </tr>
+  <tr>
+    <td align="right" width="30%">个人银行账号：</td>
+    <td align="left">{$account}</td>
+  </tr>
+  <tr>
+    <td align="right" width="30%">发起提现时间：</td>
+    <td align="left">{$request_time}</td>
+  </tr>
+  <tr>
+    <td align="right" width="30%">用户IP：</td>
+    <td align="left">{$IP}</td>
+  </tr>
+  <tr>
+    <td align="right" width="30%">CDNIP：</td>
+    <td align="left">{$CDNIP}</td>
+  </tr>
+  <tr>
+    <td colspan="2">管理员处理信息：</td>
+  </tr>
+  <tr>
+    <td align="right" width="30%">管理员：</td>
+    <td align="left">{$operater}</td>
+  </tr>
+  <tr>
+    <td align="right" width="30%">处理时间：</td>
+    <td align="left">{$finish_time}</td>
+  </tr>
+  <tr>
+    <td align="right" width="30%">处理结果：</td>
+    <td align="left">
+    {if $status == 1}
+    等待审核
+    {elseif $status == 2}
+    通过审核
+    {elseif $status == 3}
+    审核未通过
+    {elseif $status == 4}
+    已取消
+    {elseif $status == 5}
+    操作成功
+    {elseif $status == 6}
+    操作失败
+    {elseif $status == 7}
+    正在处理中
+    {/if}
+    </td>
+  </tr>
+  <tr>
+  	<td></td>
+  	<td>
+  	<input type="button" value="返回上一页" onclick="window.location='{$back}'" class="button"/>
+  	{if $status == 1}
+  	<input type="button" value="审核通过" id="pass" class="button"/>
+  	<input type="button" value="审核未通过" id="unpass" class="button"/>
+  	{/if}
+  	</td>
+  </tr>
+</table>
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

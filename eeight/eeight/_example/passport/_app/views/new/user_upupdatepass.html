@@ -1,0 +1,37 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkform(obj)
+{
+  if( !validateUserPss(obj.userpass.value) )
+  {
+  	$.alert("密码不符合规则，请重新输入");
+	obj.userpass.focus();
+	return false;
+  }
+  return true;
+}
+</script>
+<div class="list-div" id="listDiv">
+<table class="list-Table">
+  <form action="index.php" method="post" name="updateform" id="updateform" onsubmit="return checkform(this)">
+    <input type="hidden" name="flag" value="update" />
+    <input type="hidden" name="controller" value="user" />
+    <input type="hidden" name="action"	value="upupdatepass" />
+    <input type="hidden" name="uid" value="{$user.userid}" />
+  <tr>
+  	<td class="narrow-label">登陆帐户名:</td>
+    <td>{$user.username|escape:html}</td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">昵称:</td>
+    <td>{$user.nickname|escape:html}</td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">密码：</td>
+    <td><input type="password" name="userpass" />(由字母和数字组成6-16个字符；且必须包含数字和字母，不允许连续三位相同)</td>
+  </tr>
+  <tr><td></td><td><input type="submit" name="submit" value="提交"  class="buttonnormal" />&nbsp;&nbsp;<input type="button" value="返回列表" onclick="history.back()"  class="buttonnormal" /></td></tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

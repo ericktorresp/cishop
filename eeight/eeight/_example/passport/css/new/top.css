@@ -1,0 +1,131 @@
+@charset "utf-8";
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	overflow:hidden;
+}
+#red_header_01 {
+	background-image: url(/images/new_passport/yellow/top_02.jpg);
+	background-repeat: repeat-x;
+	height: 69px;
+	background-color: #CA4D0A;
+}
+#red_header_02 {
+	background-image: url(/images/new_passport/yellow/top_01.jpg);
+	background-repeat: no-repeat;
+	height: 69px;
+	background-position: left;
+}
+.botton01 {
+	float: right;
+	height: 46px;
+	width: 46px;
+	background-image: url(/images/new_passport/icon.png);
+	background-position: 0px -900px;
+	margin: 5px;
+}
+.botton02 {
+	margin: 5px;
+	float: right;
+	height: 46px;
+	width: 46px;
+	background-image: url(/images/new_passport/icon.png);
+	background-position: 0px -100px;
+}
+.botton03 {
+	margin: 5px;
+	float: right;
+	height: 46px;
+	width: 46px;
+	background-image: url(/images/new_passport/icon.png);
+	background-position: 0px -750px;
+}
+.botton04 {
+	margin: 5px;
+	float: right;
+	height: 46px;
+	width: 46px;
+	background-image: url(/images/new_passport/icon.png);
+	background-position: 0px -1100px;
+}
+.botton05 {
+	margin: 5px;
+	float: right;
+	height: 46px;
+	width: 46px;
+	background-image: url(/images/new_passport/icon.png);
+	background-position: 0px -700px;
+}
+.botton06 {
+	margin: 5px;
+	float: right;
+	height: 46px;
+	width: 46px;
+	background-image: url(/images/new_passport/icon.png);
+	background-position: 0px -1050px;
+}
+.botton07 {
+	margin: 5px;
+	float: right;
+	height: 46px;
+	width: 46px;
+	background-image: url(/images/new_passport/icon.png);
+	background-position: 0px -600px;
+}
+
+body{
+	margin: 0px;
+	padding: 0px;
+}
+
+/*以下是导航菜单按钮样式*/
+
+
+img {
+	border: none;
+}
+
+/* dock - top */
+.dock {
+	position: relative; 
+	height: 50px; 
+	text-align: left;
+	margin-right:50px;
+}
+.dock-container {
+	height: 50px;
+	right:50px;
+	padding-left: 20px;
+	position: absolute;
+}
+a.dock-item {
+	display: block;
+	width: 40px;
+	color: #fff;
+	position: absolute;
+	top: 0px;
+	text-align: center;
+	text-decoration: none;
+	font: bold 12px Arial, Helvetica, sans-serif;
+}
+.dock-item img {
+	border: none; 
+	margin: 5px 10px 0px; 
+	width: 100%; 
+}
+.dock-item span {
+	display: none; 
+	width: 65px;
+	white-space:nowrap;
+}
+.img_01{clear:both;float:left;margin-top:10px;margin-left:250px;position:absolute;}
+
+.gonggaodiv{
+    float:left;
+    margin-left:400px; 
+    line-height: 60px;
+    width:250px;
+    position:absolute;
+    z-index:1;
+
+}

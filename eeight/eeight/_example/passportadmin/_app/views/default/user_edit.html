@@ -1,0 +1,48 @@
+{include file="pageheader.html"}
+<div class="list-div">
+<form method="POST" action="?controller=user&action=save">
+<table>
+<!--
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticechange');"><img src="./images/notice.gif" border="0" title="用户级别"/></a>用户级别</td>
+<td>
+<label for="change_0"><input type="radio" name="change" id="change_0" value="0" checked="checked">{$user.groupname|escape:html}</label>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<label for="change_1"><input type="radio" name="change" id="change_1" value="1">{if $group==4}代理用户{else}会员用户{/if}</label>
+<span id="noticechange" style="display:none">用户级别转化原则：用户可以转化为代理，当代理(非总代)下面没有下级代理并且没有下级用户时候，非星级代理可以转化为用户。</span>
+</td>
+</tr>
+-->
+<tr>
+<td class="narrow-label">用户帐号</td>
+<td>{$user.username|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticeNick');"><img src="./images/notice.gif" border="0"></a>用户昵称</td>
+<td><input type="text" value="{$user.nickname|escape:html}" name="nickname"><input type="hidden" value="{$user.userid}" name="userid">
+<span id="noticeNick" style="display:none">用户昵称格式:2-6个任意字符，中文和全角算一个</span>
+</td>
+</tr>
+<tr>
+<td></td>
+<td><input type="submit" class="button" value="用户修改"><input type="reset" class="button" value="重置修改">
+</td>
+</tr>
+</table>
+</form>
+</div>
+<script>
+function showNotice(objId)
+{
+	var obj = document.getElementById(objId);
+	if(obj.style.display=="none")
+	{
+		obj.style.display="block";
+	}
+	else
+	{
+		obj.style.display="none";
+	}	
+}
+</script>
+{include file="pagefooter.html"}

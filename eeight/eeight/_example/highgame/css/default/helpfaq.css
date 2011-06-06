@@ -1,0 +1,144 @@
+body{
+	font-size:12px;
+	margin:10px;
+	background:url(/highgame/images/default/background_03.jpg) repeat-x;
+}
+/*菜单部分*/
+.menu{
+    height:40px;
+    width:100%;
+    background:url(/highgame/images/default/menu_bg_help.jpg) 0px -6px;
+    background-repeat:repeat-x;
+    text-align:left;
+
+}
+/*菜单左边部分*/
+.menu_left{
+    float:left;
+    background:url(/highgame/images/default/menu_left.jpg) -3px -6px;
+    width:10px;
+    height:40px;
+    border:0px;
+}
+/*菜单右边部分*/
+.menu_right{
+    float:right;
+    background:url(/highgame/images/default/menu_right.jpg) 0px -6px;
+    width:10px;
+    height:40px;
+    border:0px;
+}
+/*当前菜单部分*/
+.tab-front .menu_status{
+    float:left;
+    height:46px;
+    text-align:left;
+    background:url(/highgame/images/default/menu_on.jpg) 0px -6px;
+    background-repeat:repeat-x;
+    color:#FFFFFF;
+    line-height:45px;
+    font-size:14px;
+    font-family:"宋体";
+    padding-left:10px;
+    padding-right:10px;
+    overflow:hide;
+}
+.tab-front .menu_left{
+    float:left;
+    text-align:right;
+    height:46px;
+    width:8px;
+    background:url(/highgame/images/default/menu_on_left.jpg) 0px -6px;
+    background-repeat:no-repeat;  
+}
+.tab-front .menu_right{
+    float:left; 
+    text-align:right;
+    height:46px;
+    width:10px;    
+    background:url(/highgame/images/default/menu_on_right.jpg) 0px -6px;
+    background-repeat:no-repeat;
+}
+/*非当前菜单部分*/
+.tab-back .menu_status{
+    float:left;
+    height:46px;
+    background:url(/highgame/images/default/menu_off.jpg) 0px -6px;
+    background-repeat:repeat-x;
+    line-height:40px;
+    text-align:left;
+    color:#222;
+    font-size:14px;
+    font-family:"宋体";
+    cursor:pointer;
+    padding-left:10px;
+    padding-right:10px;
+	
+}
+.tab-back .menu_left{
+    float:left;
+    height:46px;
+    width:14px;
+    background:url(/highgame/images/default/menu_off_left.jpg) 0px -6px;
+    line-height:56px;
+    text-align:left;
+    background-repeat:no-repeat;
+}
+.tab-back .menu_right{
+    float:left;
+    height:46px;
+    width:10px;
+    background:url(/highgame/images/default/menu_off_right.jpg) 0px -6px;
+    line-height:56px;
+    text-align:left;
+    background-repeat:no-repeat;
+}
+/*****菜单结束*****/
+.lottery_body{
+    width:98%;
+    background-color:#474747;
+    display:block;
+    height:100%;
+    margin:0px;
+}
+.lottery_bigbox_bottom{
+    width:100%;
+    height:16px;
+    background-image:url(/highgame/images/default/boxbottom_bg.jpg) 0px 0px;
+    background-repeat:repeat-x;
+}
+.lottery_bigbox_bottom_left{
+    float:left;
+    width:22px;
+    height:16px;
+    background-image:url(/highgame/images/default/boxbottom_left.jpg) 0px 0;
+}
+.lottery_bigbox_bottom_right{
+    float:right;
+    width:17px;
+    height:16px;
+    background-image:url(/highgame/images/default/boxbottom_right.jpg) 0px 0;
+}
+.lottery_bigbox_middle{
+    width:100%;
+    height:100%;
+    background:#474747;
+    color:#FFFFFF;
+    text-align:center;  
+    padding:0px;
+}
+.lottery_bigbox_middle div{
+    margin:10px;
+    text-align:left;
+    width:98%;
+    border:0px;
+    padding:0px;
+}
+.big{
+    border:1px #737373 solid;
+    height:100%;
+    display:block;
+    margin:5px auto;
+    background:#474747;
+    padding:0px;
+}

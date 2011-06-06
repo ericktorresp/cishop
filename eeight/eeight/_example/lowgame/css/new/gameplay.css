@@ -1,0 +1,1163 @@
+ @charset "utf-8";
+div{@charset "utf-8";}
+td{
+    padding:0;
+}
+.input_01{
+	background-image: url(/lowgame/images/newblue/input_03.jpg);
+	height: 29px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	background-repeat: repeat-x;
+	background-position: center;
+	line-height: 29px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #FF0000;
+	text-align: center;
+	width: 24px;
+}
+#right_02_01{
+	width:752px;
+	margin-top:5px;
+	background-image: url(/lowgame/images/newblue/right_02.png);
+	background-position: 0px -44px;
+	clear: both;
+	background-repeat: repeat-x;
+	height: 44px;
+}
+#right_01 {
+	background-image: url(/lowgame/images/newblue/red/right_02.jpg);
+	background-repeat: repeat-x;
+	height: 28px;
+	line-height: 28px;
+	text-indent: 10px;
+	color: #FFFFFF;
+	text-align: left;
+	font-size: 14px;
+	background-color: #990000;
+}
+.right_02 {
+	width:752px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: left;
+}
+.line_01 {
+	background-image: url(/lowgame/images/newblue/center_14.jpg);
+	background-repeat:no-repeat;
+	height: 55px;
+	width: 6px;
+	float: left;
+}
+#right_03 {
+	background-color: #8f98a3;
+	height: 10px;
+	margin-top: 10px;
+	margin-left: 20px;
+	width: 712px;
+	overflow:hidden;
+}
+#right_04 {
+	background-color: #8f98a3;
+	height: 10px;
+	margin-left: 20px;
+	margin-bottom: 10px;
+	width: 712px;
+	clear: both;
+	overflow:hidden;
+}
+#right_05 {
+	background-color: #8f98a3;
+	margin-left: 20px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	text-align: center;
+	width: 712px;
+}
+.right_06 {
+	text-align: right;
+	width: 700px;
+	margin-top: 10px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	margin-left: 20px;
+	height: 31px;
+}
+.right_07 {
+	text-align: right;
+	height: 31px;
+	line-height: 31px;
+	float: right;
+	margin:0px;
+}
+.right_08 {
+	width: 752px;
+	background-image: url(/lowgame/images/newblue/right_02.png);
+	background-position: bottom;
+	height: 44px;
+	text-align: center;
+	font-size: 12px;
+	line-height: 44px;
+	color: #000000;
+	background-color: #CCCCCC;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.right_09{
+	height: 84px;
+	width: 712px;
+	border: 1px solid #999999;
+}
+.right_10{
+	background-color: #FFFFFF;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-right-color: #8f98a3;
+	border-left-color: #8f98a3;
+	margin-right: 20px;
+	margin-left: 20px;
+	padding-right: 8px;
+	padding-left: 8px;
+	padding-top: 5px;
+}
+.right_02_03{
+	float: left;
+	height:36px;
+	margin-top:8px;
+	width: 720px;
+}
+.ball_blue{
+	background-image: url(/lowgame/images/newblue/ball_blue.png)!important;
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	background-image:none;
+	float: left;
+	height: 50px;
+	width: 34px;
+	font-size: 18px;
+	font-weight: bold;
+	color: #001851;
+	line-height: 50px;
+	text-align: center;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+*.ball_blue {
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,src="/lowgame/images/newblue/ball_blue.png")
+}
+.ball_pink{
+	background-image: url(/lowgame/images/newblue/ball_pink.png)!important;
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	background-image:none;
+	float: left;
+	height: 50px;
+	width: 34px;
+	font-size: 18px;
+	font-weight: bold;
+	color: #001851;
+	line-height: 50px;
+	text-align: center;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+*.ball_pink {
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,src="/lowgame/images/newblue/ball_pink.png")
+}
+.ball_yellow{
+	background-image: url(/lowgame/images/newblue/ball_yellow.png)!important;
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	background-image:none;
+	float: left;
+	height: 50px;
+	width: 34px;
+	font-size: 18px;
+	font-weight: bold;
+	color: #001851;
+	line-height: 50px;
+	text-align: center;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+*.ball_yellow {
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,src="/lowgame/images/newblue/ball_yellow.png")
+}
+.ball_gray{
+	background-image: url(/lowgame/images/newblue/ball_gray.png)!important;
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	background-image:none;
+	float: left;
+	height: 50px;
+	width: 34px;
+	font-size: 18px;
+	font-weight: bold;
+	color: #001851;
+	line-height: 50px;
+	text-align: center;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+*.ball_gray {
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,src="/lowgame/images/newblue/ball_gray.png")
+}
+.ball_green{
+	background-image: url(/lowgame/images/newblue/ball_green.png)!important;
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	background-image:none;
+	float: left;
+	height: 50px;
+	width: 34px;
+	font-size: 18px;
+	font-weight: bold;
+	color: #001851;
+	line-height: 50px;
+	text-align: center;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+*.ball_green {
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,src="/lowgame/images/newblue/ball_green.png")
+}
+.button3{
+	height: 41px;
+	width: 40px;
+	margin-right: 2px;
+	margin-left: 2px;
+	float: left;
+	background-image: url(/lowgame/images/newblue/botton.png);
+	font-size: 18px;
+	line-height: 41px;
+	color: #FFFFFF;
+	background-color: #666666;
+	cursor:pointer;
+}
+.button1{
+	height: 41px;
+	width: 30px;
+	margin-right: 1px;
+	margin-left: 1px;
+	float: left;
+	background-image: url(/lowgame/images/newblue/botton.png);
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	line-height: 41px;
+	color: #000000;
+	font-weight: bold;
+	background-position: -41px 0px;
+	background-color: #CCCCCC;
+	cursor:pointer;
+}
+.button2{
+	height: 41px;
+	width: 68px;
+	background-image: url(/lowgame/images/newblue/botton.png);
+	font-size: 16px;
+	line-height: 41px;
+	color: #FFFFFF;
+	font-weight: bold;
+	margin-top: 0px;
+
+	margin-bottom: 0px;
+	margin-left: 10px;
+	background-position: -82px 0px;
+	background-color: #666666;
+	text-align: center;
+	
+}
+.selddsbox > .selected{
+	height: 41px;
+        width: 68px;
+        margin:10px;
+
+        float: left;
+        background-image: url(/lowgame/images/newblue/botton.png);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 18px;
+        line-height: 41px;
+        color: #000000;
+        font-weight: bold;
+        background-position: -277px 0px;
+        background-color: #ff3300;
+}
+.selddsbox > .button1{
+	height: 41px;
+	width: 68px;
+	background-image: url(/lowgame/images/newblue/botton.png);
+	font-size: 18px;
+	line-height: 41px;
+	color: #FFFFFF;
+	font-weight: bold;
+	margin:10px;
+
+	background-position: -82px 0px;
+	background-color: #666666;
+	text-align: center;
+}
+.margin_2px{
+	height: 30px;
+	margin-right: 2px;
+	margin-left: 2px;
+	float: left;
+	line-height: 25px;
+}
+.margin_15px{
+	height: 44px;
+	margin-right: 12px;
+	margin-left: 12px;
+	float: left;
+	line-height: 44px;
+	text-align: center;
+	padding-top: 0px;
+	padding-right: 6px;
+	padding-bottom: 0px;
+	padding-left: 6px;
+}
+.input_02{
+	font-family: "微软雅黑", Arial, "Microsoft Sans Serif", "宋体";
+	text-align: center;
+	height: 20px;
+	color: #666666;
+}
+.line_02{
+	float: left;
+	width: 2px;
+	margin-right: 5px;
+	margin-left: 5px;
+	height: 44px;
+	background-image: url(/lowgame/images/newblue/center_39.jpg);
+}
+#right_top_01{
+	margin-right:10px;
+	float: left;
+	width:328px;
+	height: 75px;
+	background-image: url(/lowgame/images/newblue/right_02.jpg);
+	background-position: 0px -130px;
+	background-color: #990000;
+}
+.right_top_01_01{
+	float: left;
+	width:8px;
+	height: 75px;
+	background-image: url(/lowgame/images/newblue/right_02.jpg);
+}
+#right_top_01_02{
+	float: left;
+	width:185px;
+	height: 75px;
+	background-image: url(/lowgame/images/newblue/logo_01_blue.jpg);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}
+.nowIssue_info{
+	float: right;
+	width:135px;
+	color: #FFFFFF;
+	text-align: center;
+	line-height: 20px;
+	margin-top: 10px;
+}
+#right_top_01_04{
+	background-image: url(/lowgame/images/newblue/right_02.jpg);
+	background-repeat: no-repeat;
+	background-position: -9px 0px;
+	float: left;
+	height: 75px;
+	width: 2px;
+}
+#right_top_01_05{
+	float: left;
+	height: 75px;
+	width: 125px;
+}
+.right_top_01_06{
+	background-image: url(/lowgame/images/newblue/right_02.jpg);
+	float: left;
+	height: 75px;
+	width: 8px;
+	background-position: -12px 0px;
+}
+#right_top_01_07{
+	color: #FFFFFF;
+	text-align: center;
+	width: 115px;
+	margin-top: 10px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+}
+#right_top_01_08{
+	height: 32px;
+	width: 115px;
+	margin: 5px;
+	background-image: url(/lowgame/images/newblue/right_02.jpg);
+	background-position: 0px -205px;
+}
+#right_top_01_09{
+	float: left;
+	background-image: url(/lowgame/images/newblue/right_02.jpg);
+	background-position: -21px 0px;
+	height: 32px;
+	width: 9px;
+}
+#right_top_01_10{
+	float: left;
+	height: 32px;
+	width: 97px;
+	line-height: 32px;
+	font-size: 18px;
+	color: #00FF00;
+	text-align: center;
+	font-weight: bolder;
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
+#lotery_lefttime{font-size: 18px;}
+#right_top_01_11{
+	float: left;
+	background-image: url(/lowgame/images/newblue/right_02.jpg);
+	background-position: -31px 0px;
+	height: 32px;
+	width: 9px;
+}
+#right_top_02{
+	height: 75px;
+	width: 414px;
+	background-image: url(/lowgame/images/newblue/right_02.jpg);
+	background-position: 0px -130px;
+	float: left;
+	background-color: #990000;
+}
+#right_top_02_01{
+	float: left;
+	line-height: 20px;
+	width: 78px;
+	text-align: center;
+	color: #FFFFFF;
+	margin-top: 10px;
+}
+#right_top_02_02{
+	float: left;
+	height: 55px;
+	width: 320px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background-image: url(/lowgame/images/newblue/right_01_repeat.png);
+	background-position: 0px -75px;
+}
+#right_top_02_03{
+	float: left;
+	height: 55px;
+	width: 5px;
+	background-image: url(/lowgame/images/newblue/right_02.jpg);
+	background-position: 0px -75px;
+}
+#right_top_02_04{
+	float: right;
+	height: 55px;
+	width: 5px;
+	background-image: url(/lowgame/images/newblue/right_02.jpg);
+	background-position: -6px -75px;
+}
+.right_top_02_05{
+	float: left;
+	height: 55px;
+	width: 55px;
+}
+.right_top_02_06{
+
+	margin-top:10px;
+	width:12px;
+	overflow:hidden;
+
+}
+#right_top_03{
+	float: left;
+	height: 75px;
+	background-image: url(/lowgame/images/newblue/right_01_repeat.png);
+	background-position: 0px -130px;
+	width: 198px;
+	background-color: #999999;
+}
+#right_top_03_01{
+	background-image: url(/lowgame/images/newblue/right_02.jpg);
+	background-position: 0px -130px;
+	float: left;
+	height: 75px;
+	width: 17px;
+}
+#right_top_03_02{
+	float: left;
+	height: 75px;
+	width: 149px;
+}
+#right_top_03_03{
+	float: left;
+	background-image: url(/lowgame/images/newblue/right_02.jpg);
+	background-position: -18px -130px;
+	height: 75px;
+	width: 32px;
+}
+#right_top_03_04{
+	color: #FFFFFF;
+	margin-top: 8px;
+	line-height: 20px;
+}
+.right_top_03_05{
+	line-height: 20px;
+}
+.height75{
+	height: 75px;
+}
+.height5{
+	height: 5px;
+	clear: both;
+}
+.neiye01 {
+	clear: both;
+	height: 30px;
+	margin-top: 5px;
+	margin-right: 20px;
+	margin-bottom: 5px;
+	margin-left: 20px;
+}
+/****左边盒子开始******/
+.box{
+    margin-top:10px;  
+}
+/*盒子标题*/
+#mainarea{
+    background:#D5D8DE;
+    width:732px;
+    margin:0px auto;
+    padding:15px 10px;
+}
+/*盒子身体部分*/
+.box_body{
+    width:680px;
+    background:#8F98A3;
+    background-repeat:repeat-y;
+    text-align:left;
+    overflow:auto;
+    display:block;
+}
+/***********选号区CSS开始**************/
+/*整体表格*/
+#select_area{
+    width:98%;
+    overflow:hidden;
+    border:0px;
+    padding:5px 8px 5px 2px;
+}
+.lottery_selectarea_table{
+    width:99%;
+}
+/*整体表格td样式*/
+.lottery_selectarea_table td{
+    height:50px;
+    line-height:50px;
+    text-align:right;
+}
+/*文字说明*/
+.lottery_selectarea_title{
+    letter-spacing:2px;
+    height: 41px;
+	width: 68px;
+	text-align:center;
+	font-size: 18px;
+	color: #FFFFFF;
+	font-weight: bold;
+	margin-top: 0 0 0 10px;
+	background-color: #666666;
+}
+#selectarea_title_left{
+    height: 41px;
+	width: 7px;
+	background-image: url(/lowgame/images/newblue/seltitleleft.jpg);
+	float:right;
+	overflow:hidden;
+}
+#selectarea_title_center{
+    height: 41px;
+	background-image: url(/lowgame/images/newblue/seltitle.jpg);
+	float:right;
+	overflow:hidden;
+	text-align:center;
+	font-size: 18px;
+	line-height: 41px;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+#selectarea_title_right{
+    height: 41px;
+	width: 7px;
+	background-image: url(/lowgame/images/newblue/seltitleright.jpg);
+	float:right;
+	overflow:hidden;
+}
+/*数字按钮未选中效果*/
+.lottery_selectarea_num{
+    height: 41px;
+	width: 30px;
+	line-height:41px;
+	text-align:center;
+	margin-right: 1px;
+	margin-left: 1px;
+	margin-top:6px;
+	float: left;
+	background-image: url(/lowgame/images/newblue/botton.png);
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	line-height: 41px;
+	color: #000000;
+	font-weight: bold;
+	background-position: -41px 0px;
+	background-color: #CCCCCC;
+	cursor:pointer;
+}
+/*数字按钮选中效果*/
+ .lottery_selectarea_num_check{
+    height: 41px;
+	width: 30px;
+	margin-right: 1px;
+	margin-left: 1px;
+	margin-top:6px;
+	float: left;
+	text-align:center;
+	background-image: url(/lowgame/images/newblue/botton.png);
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	line-height: 41px;
+	color: #ffffff;
+	font-weight: bold;
+	cursor:pointer;
+	background-position: -242px 0px;
+	background-color: #ff3300;
+}
+/*大小单双清全按钮*/
+.lottery_selectarea_button{
+    height: 41px;
+	width: 40px;
+	margin-left: 0;
+	margin-top:5px;
+	text-align:center;
+	background-image: url(/lowgame/images/newblue/botton.png);
+	font-size: 18px;
+	line-height: 41px;
+	color: #FFFFFF;
+	font-weight: bold;
+	cursor:pointer;
+	border:0px solid #FF9900;
+}
+.space_button{
+    width:5px;
+    height:1px;
+    border:0px;
+    display:block;
+    float:left;
+}
+#right_04 {
+	background-color: #8f98a3;
+	height: 10px;
+	margin:0px auto 10px auto;
+	width:727px;
+	clear: both;
+}
+.right_02_07{
+    background-image: url(/lowgame/images/newblue/right_02.png);
+	float: left;
+	height: 10px;
+	width: 10px;
+	background-position: -38px -11px;
+	clear: both;
+}
+.right_02_08{
+    background-image: url(/lowgame/images/newblue/right_02.png);
+	float: right;
+	height: 10px;
+	width: 10px;
+	background-position: -49px -11px;
+}
+#right_03 {
+	background-color: #8f98a3;
+	height: 10px;
+	margin:0px auto;
+	width: 727px;
+	clear: both;
+}
+.right_02_05{
+	background-image: url(/lowgame/images/newblue/right_02.png);
+	float: left;
+	height: 10px;
+	width: 10px;
+	background-position: -38px 0px;
+}
+.right_02_06{
+	background-image: url(/lowgame/images/newblue/right_02.png);
+	float: right;
+	height: 10px;
+	width: 10px;
+	background-position: -49px 0px;
+}
+/***********选号区CSS结束**************/
+.right_02_26{
+    overflow:hidden;
+    height:5px;
+	width:752px;
+	background:#D5D8DE;
+}
+.right_02_24{
+	background-image: url(/lowgame/images/newblue/right_02.png);
+	background-position: -74px -9px;
+	float: left;
+	height: 5px;
+	width: 5px;
+	overflow:hidden;
+}
+.right_02_25{
+	background-image: url(/lowgame/images/newblue/right_02.png);
+	background-position: -80px -9px;
+	float: right;
+	height: 5px;
+	width: 5px;
+	overflow:hidden;
+}
+/***********筛选区CSS开始**************/
+#filter_area{
+    width: 727px;
+}
+#filter_title{
+   float:left;
+   margin-left:20px;
+   line-height:20px; 
+}
+#filter_area ul{
+    list-style-type:none;
+    text-align:left;
+    color:#FFFFFF;
+    padding-left:6px;
+    width:80%;
+    margin:0;
+    float:left;
+    border:0px;
+}
+#filter_area ul li{
+    float:left;
+    color:#000;
+    line-height:20px;
+}
+#filter_area input{
+    border:0px;
+}
+/***********筛选区CSS结束**************/
+
+/***********编辑区CSS开始**************/
+#new_edit_area{
+    width: 727px;
+}
+/*编辑区头部CSS开始**/
+.right_02_13{
+	background-image: url(/lowgame/images/newblue/right_01_repeat.png);
+	background-position: bottom;
+	height: 22px;
+	width: 727px;
+}
+.right_02_14{
+	line-height: 22px;
+	font-weight: bold;
+	float: left;
+	margin-left: 20px;
+}
+.right_02_30{
+	line-height: 22px;
+	float: left;
+	margin-left: 20px;
+	color: #333333;
+}
+/*编辑文本部分的CSS*/
+.lottery_editor_textarea{
+    height: 84px;
+	width: 723px;
+	border: 1px solid #999999;
+}
+.right_06 {
+	text-align: right;
+	width: 683px;
+	margin-top: 10px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	margin-left: 20px;
+	height: 30px;
+	line-height: 30px;
+}
+.botton15{
+	background-image: url(/lowgame/images/newblue/botton.png);
+	background-position: -287px -45px;
+	height: 27px;
+	width: 78px;
+	color:#FFF;
+	cursor:pointer;
+	margin-left: 5px;
+	text-align: center;
+	line-height: 27px;
+
+}
+.botton16{
+	background-image: url(/lowgame/images/newblue/botton.png);
+	background-position: -307px -77px;
+	float: right;
+	color:#FFF;
+	cursor:pointer;
+	height: 27px;
+	width: 78px;
+	margin-left: 5px;
+	text-align: center;
+	line-height: 27px;
+
+}
+/***********编辑区CSS结束**************/
+/***********确认区CSS开始**************/
+/*编辑文本部分的CSS*/
+#new_confirm_area{
+    width: 727px;
+    position:relative;
+}
+.lottery_confirm_textarea{
+    height: 75px;
+	width: 723px;
+	border: 1px solid #999999;
+}
+.lottery_confirm_list{
+    color:#000;
+    line-height:25px;
+    padding-top:15px;
+    float:left;
+    text-indent: 35px;
+    height:40px;
+}
+/*确认的数字部分*/
+.lottery_js_word{
+    color:#F00;
+    font-size:12px;
+    text-align:right;
+}
+/*手工输入倍数的CSS*/
+.lottery_input_underline{
+    width:35px;
+    font-size:12px;
+    color:#000;
+    text-align:center;
+}
+/*快速倍数的CSS*/
+.quickbutton{
+    margin-top:5px;
+    color:#FFF;
+    cursor:pointer;
+    font-size:12px;
+    padding: 2px 5px;
+    background:#999;
+}
+.quickbutton_hover{
+    margin-top:5px;
+    color:#FFF;
+    cursor:pointer;
+    font-size:12px;
+    padding: 2px 5px;
+    background:#999;
+    text-decoration:underline;
+}
+/*确认投注按钮*/
+.submit_span{
+	background-image: url(/lowgame/images/newblue/botton.png);
+	background-position: -205px -76px;
+	height: 30px;
+	width: 101px;
+	float: right;
+	font-size: 16px;
+	line-height: 31px;
+	color: #FFFFFF;
+	margin-left: 10px;
+	margin-top: 10px;
+	text-indent: 45px;
+	text-align: left;
+	cursor:pointer;
+	right:5px;
+	top:105px;
+	position:absolute;
+}
+/***********确认区CSS结束**************/
+
+/***********追号区CSS开始**************/
+/*追号总样式*/
+#trace_area{
+    color:#000;
+    width: 727px;
+    background-color:#FFF;
+}
+/*追号头样式*/
+.trace_title{
+    background-image: url(/lowgame/images/newblue/right_01_repeat.png);
+	background-position: 0px -237px;
+	height: 41px;
+	line-height:41px;
+	width: 712px;
+	color:#FFF;
+	font-size:11px;
+	margin-top: 0px 20px;
+}
+.trace_title_td{
+    background-image: url(/lowgame/images/newblue/right_01_repeat.png);
+    background-position: 0px -237px;
+	height: 41px;
+}
+.right_03_02{
+	float: left;
+	width: 6px;
+	background-image: url(/lowgame/images/newblue/right_02.png);
+	background-position: -60px top;
+	height: 41px;
+	line-height:41px;
+}
+.right_02_17{
+	background-image: url(/lowgame/images/newblue/right_02.png);
+	background-position: -67px top;
+	float: right;
+	height: 41px;
+	line-height:41px;
+	width: 6px;
+}
+#trace_check{
+    background-image: url(/lowgame/images/newblue/botton.png);
+	background-position: -155px -43px;
+	height: 31px;
+	width: 74px;
+	float: left;
+	font-size: 11px;
+	line-height: 31px;
+	color: #FFFFFF;
+	text-align: center;
+	margin: 5px;
+	cursor:pointer;
+}
+#trace_stop{
+	height: 31px;
+	font-size: 11px;
+	line-height: 31px;
+	color: #FFFFFF;
+	text-align: center;
+	margin: 3px 5px;
+}
+/*追号头样式结束*/
+/*追号列表的顶部(四种追号)*/
+.lottery_tracearea_table_label{
+    margin-top:5px;
+    height:20px;
+    width:99%;
+}
+/*当前标签*/
+.lottery_td_front{
+	float: left;
+	font-size: 14px;
+	height:45px;
+	line-height: 36px;
+	color:#FFFFFF;
+	font-weight:bold;
+	text-align: center;
+	vertical-align:text-top;
+}
+/*同倍追号*/
+#trace_label_sametimes{
+    width: 90px;
+    background-image: url(/lowgame/images/newblue/botton.png);
+	background-position: 0px -107px;
+}
+.lottery_td_front#trace_label_sametimes{
+    background-image: url(/lowgame/images/newblue/botton.png);
+	background-position: 0px -154px;
+}
+/*翻倍追号*/
+#trace_label_difftimes{
+    width: 129px;
+    background-image: url(/lowgame/images/newblue/botton.png);
+	background-position: -93px -107px;
+}
+.lottery_td_front#trace_label_difftimes{
+    background-image: url(/lowgame/images/newblue/botton.png);
+	background-position: -93px -154px;
+}
+/*利润金额追号*/
+#trace_label_profit{
+    width: 129px;
+    background-image: url(/lowgame/images/newblue/botton.png);
+	background-position: -93px -107px;
+}
+.lottery_td_front#trace_label_profit{
+    background-image: url(/lowgame/images/newblue/botton.png);
+	background-position: -93px -154px;
+}
+/*利润率追号*/
+#trace_label_margin{
+    width: 110px;
+    background-image: url(/lowgame/images/newblue/botton.png);
+	background-position: -225px -107px;
+}
+.lottery_td_front#trace_label_margin{
+    background-image: url(/lowgame/images/newblue/botton.png);
+	background-position: -225px -154px;
+}
+/*未激活标签*/
+.lottery_td_back{
+	float: left;
+	font-size: 14px;
+	height:45px;
+	line-height: 36px;
+	color: #FFFFFF;
+	text-align: center;
+	vertical-align:text-top;
+}
+/*空标签*/
+.lottery_td_space{
+    display:none;
+}
+/*标签下面的内容*/
+.lottery_tracearea_table{
+    height:40px;
+    width:99%; 
+    background-color:#CCCCCC;
+    margin-bottom:10px; 
+    text-align:left;
+}
+/*资金显示*/
+.lottery_tracearea_money{
+    color:#FF0000;
+    font-weight:bold;
+}
+/* 立即生成按钮的CSS */
+#trace_button{
+    background-image: url(/lowgame/images/newblue/botton.png);
+	background-position: 0px -76px;
+	height: 30px;
+	width: 101px;
+	font-size:12px;
+	margin-top:3px;
+	margin-right:10px;
+	line-height: 31px;
+	color: #333333;
+	text-align: center;
+	text-indent: 35px;
+	background-color: #CCCCCC;
+    cursor:pointer;
+    border:0px;
+}
+/*追号文字信息(所选期数部分)*/
+.lottery_tracearea_wordtitle{
+    display:none;
+}
+.lottery_label_div{
+    text-align: left;
+    text-indent: 30px;
+}
+/*追号标签*/
+.lottery_tracearea_table .titletd{ 
+    color:#000; 
+    line-height:25px;
+    text-align: center;
+    background-color:#9C9C9C;
+    border-bottom:1px solid #FFF;
+	border-right:1px solid #FFF;
+}
+/*追号列表 效果*/
+.lottery_tracearea_table td{
+	line-height:30px;
+	text-align: center;
+	border-bottom:1px solid #FFF;
+	border-right:1px solid #FFF;
+}
+/***********追号区CSS结束**************/
+/*调价部分的CSS*/
+/*调价框架*/
+.lottery_adjust_confirm{
+	text-align:left;
+	background-color:#FFF;
+	border:1px solid #131E31;
+}
+.lottery_adjust_confirm .adjusttitlebox{
+	width:100%;
+	background-repeat:repeat-x;
+	background-color:#131E31;
+	height:50px;
+	line-height:50px;
+	background-image: url(/lowgame/images/newblue/alertback.png);
+}
+.lottery_adjust_confirm .adjusttitlebox .adjusttitle{
+	margin-top:8px;
+	margin-left:20px;
+	padding:4px 20px 5px 20px;
+	line-height:30px;
+	font-size:12px;
+	font-weight:bold;
+	color:#FFF;
+}
+.lottery_adjust_confirm .adjustmsg{
+	height:40px;
+	line-height:40px;
+	padding-left:20px;
+	font-size:14px;
+	color:#111111;
+}
+.lottery_adjust_confirm .adjustcodebox{
+    padding-left:40px;
+}
+.lottery_adjust_confirm th{
+	height:30px;
+	line-height:30px;
+	text-align:center;
+	background:#9c9c9c;
+	font-size:12px;
+	color:#111111;
+	border:0;
+	border-left:1px solid #131E31;
+}
+.lottery_adjust_confirm td{
+	background:#CCCCCC;
+	line-height:25px;
+	height:25px;
+	border:1px solid #131E31;
+	border-bottom:0px;
+	border-right:0px;
+}
+.lottery_adjust_confirm table{
+	border:1px solid #131E31;
+	border-left:0px;
+	width:90%;
+}
+.lottery_adjust_confirm .adjustcodebox div{
+	width:90%;
+	height:150px;
+	margin:0 auto;
+	overflow-y:scroll;
+	overflow-x:hidden; 
+	background-color:#FFFFFF;
+}
+.lottery_adjust_confirm ul{
+	list-style:none;
+	padding:0;
+	margin:0;
+	padding-left:40px;
+}
+.lottery_adjust_confirm ul li{
+	height:20px;
+	line-height:20px;
+}
+.lottery_adjust_confirm .confirmbuttonbox{
+	margin:15px auto 0 auto;
+	padding:10px 100px;
+	background-color:#131E31;
+}

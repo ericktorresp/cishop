@@ -1,0 +1,24 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form action="{$action}" method="post">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td class="narrow-label">游戏名称</td>
+<td>{$alottery.cnname}<input type="hidden" name="lotteryid" value="{$alottery.lotteryid}"></td>
+</tr>
+<tr>
+	<td class="narrow-label">封锁表名称</td>
+	<td><input type="text" name="lockname" value="{if isset($alottery.lockname)}{$alottery.lockname}{/if}"></td>
+</tr>
+<tr>
+	<td class="narrow-label">最大封锁值</td>
+	<td><input type="text" name="maxlost" value="{if isset($alottery.maxlost)}{$alottery.maxlost}{/if}"></td>
+</tr>
+<tr>
+	<td class="narrow-label">{if isset($alottery.locksid)}<input type="hidden" name="locksid" value="{$alottery.locksid}">{/if}</td>
+	<td><input type="submit" value="{$ur_here}" class="button"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

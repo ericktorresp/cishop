@@ -1,0 +1,35 @@
+{include file="pageheader.html"}
+<div class="list-div">
+<table>
+<tr>
+<td class="narrow-label" width="15%">用户编号:</td>
+<td witdh="35%">{$userinfo.userid}</td>
+<td class="narrow-label" width="15%">用户级别:</td>
+<td width="35%">{$userex.groupname|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">登陆帐号:</td>
+<td>{$userinfo.username|escape:html}</td>
+<td class="narrow-label">用户昵称:</td>
+<td>{$userinfo.nickname|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">注册时间:</td>
+<td>{$userinfo.registertime|escape:html}</td>
+<td class="narrow-label">注册地址:</td>
+<td>{$userinfo.registerip|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">上次登陆时间:</td>
+<td>{$userinfo.lasttime|escape:html}</td>
+<td class="narrow-label">上次登陆地址:</td>
+<td>{$userinfo.lastip|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">团队资金:</td>
+<td>{$userbank|escape:money}</td>
+<td colspan="2"></td>
+</tr>
+</table>
+</div>
+{include file="pagefooter.html"}

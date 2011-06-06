@@ -1,0 +1,124 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+{insert_scripts files="./js/common2.js"}
+{literal}
+<script type="text/javascript">
+	function checkForm(){
+		var TransferList = document.getElementById("transferfile");
+		var Transfers = document.getElementById("transfers");
+
+		if (TransferList.value == "" && Transfers.value == ""){
+			alert("高级录入与上传录入请至少选择一项");
+			return false;
+		}
+		return true;
+	}
+</script>
+<style type="text/css">
+<!--
+body{
+	font-size: 12px;
+}
+.botton01 {
+	background-image: url(../../images/admin_on.jpg);
+	text-align: center;
+	height: 25px;
+	width: 105px;
+	margin-left: 5px;
+	float: left;
+	line-height: 25px;
+}
+.botton02 {
+	background-image: url(../../images/admin_off.jpg);
+	text-align: center;
+	height: 25px;
+	width: 105px;
+	margin-left: 5px;
+	float: left;
+	line-height: 25px;
+	cursor:pointer;
+}
+-->
+</style>
+{/literal}
+<div>
+<div class="botton01">建行人工录入</div>
+<div class="botton02" onclick="window.location.href='?controller=ccbreport&action=ccbdepositlist'">建行充值申请</div>
+</div>
+<div class="list-div" id="listDiv" style="clear:both;">
+<form method="POST" name="listForm" id="listForm" enctype="multipart/form-data" onsubmit="return checkForm();">
+<input type="hidden" name="controller" value="ccbreport" />
+<input type="hidden" name="action" value="admininsert" />
+<input type="hidden" name="flag" value="manual" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+  <td width="20%" align="right">高级录入:</td>
+  <td><textarea rows="10" cols="70" name="transfers" id="transfers"></textarea><font color="red">只支持.txt文件格式的粘贴</font></td>
+  </tr>
+  <tr>
+  <td width="20%" align="right">上传录入:</td>
+  <td><input type="file" name="transferfile" id="transferfile" />　　<input type="submit" name="提交" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="red">只支持.txt文件格式的上传</font></td>
+  </tr>
+</table>
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户登陆 - {$webtitle} v1.1.0</title>
+<link rel="stylesheet" type="text/css" media="all" href="./js/keypad/keypad.css"  />
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/keypad/jquery.keypad.min.js"></script>
+<script language="javascript">
+function input_hover(obj, color)
+{
+	obj.style.border = '1px solid ' + color;
+}
+	function refreshimg()
+	{
+		$("#validate").attr('src',"index.php?useValid="+Math.random());
+	}
+	jQuery(function(){
+		jQuery("#loginpass").keypad({
+		layout: [
+				'~!@#$%^&*()'+ $.keypad.BACK+$.keypad.CLOSE/**/,
+				'`1234567890'+$.keypad.SHIFT,
+				$.keypad.HALF_SPACE + "',.?|[]-+_={}",
+				$.keypad.HALF_SPACE + 'cdefghijklmab', 
+        		$.keypad.HALF_SPACE + "stuvwxyznopqr"/*+ $.keypad.CLEAR*/
+         		],
+         // 软键盘按键布局 
+		buttonImage:'./js/keypad/keypad1.png',	// 弹出(关闭)软键盘按钮图片地址
+		buttonImageOnly: true,	// True 表示已图片形式显示, false 表示已按钮形式显示
+		buttonStatus: '打开/关闭软键盘', // 打开/关闭软键盘按钮说明文字
+		showOn: 'button', // 'focus'表示已输入框焦点弹出, 
+			// 'button'通过按钮点击弹出,或者 'both' 表示两者都可以弹出 
+			
+		keypadOnly: false, // True 表示只接受软件盘输入, false 表示可以通过键盘和软键盘输入  
+			
+		randomiseNumeric: true, // True 表示对所以数字位置进行随机排列, false 不随机排列
+		randomiseAlphabetic: false, // True 表示对字母进行随机排列, false 不随机排列 
+		
+		shiftText: 'Caps Lock', // SHIFT 按键功能的键的显示文字 
+		shiftStatus: '转换字母大小写', // SHIFT按键功能的TITLE说明文字 
+		
+		closeText: '', // 关闭按键功能的显示文字 
+		closeStatus: '关闭软键盘', // 关闭按键功能的TITLE说明文字 
+		
+		backText: '', // 退格功能键的显示文字 
+		backStatus: '退格', // 退格功能键的说明文字
+			   
+		onClose: null	// 点击软键盘关闭是调用的函数
+		});
+	});
+</script>
+<style>
+body{ padding:0px;margin:0px;font-size:12px "Lucida Grande", Lucida, Verdana, sans-serif;;background-color:#EDEDEB;}
+#l_header{
+	background-image: url(./images/default_header_bg0000.jpg);
+	width:100%;
+	height: 115px;
+	overflow: hidden;
+	background-repeat: repeat-x;
+	background-attachment: fixed;
+}
+
+#l_logo{
+	background-image: url(./images/default_header_logo.jpg);
+	background-repeat: no-repeat;
+	height: 52px;
+	width: 240px;
+	margin: 25px 0px 0px 32px;
+}
+
+#l_form_div{font-size: 16px;font-weight: bold;margin-top:30px;}
+	
+.lf-input {
+	color: #5B5B5B;
+	border: 1px solid #a4a4a4;
+	width: 240px;
+	height: 30px;
+	padding-left:3px;
+	font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	font-size: 26px;
+	font-weight: bold;
+}
+</style>
+</head>
+<body>
+<div id='l_header'><div id='l_logo'></div></div>
+<div id='l_form_div'>
+<form action="" method="post" name="login">
+  <table width="85%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td width="75%" align="right" valign="top"><table width="85%" border="0" cellspacing="2" cellpadding="2">
+        <tr>
+          <td width="16%" align="left">用户名</td>
+          <td width="84%" align="left"><input type="text" name="username" value="" id="username" class="lf-input" onmouseover="input_hover(this, '#FF9146');" onmouseout="input_hover(this, '#a4a4a4');" onfocus="input_hover(this, '#FF9146');" onblur="input_hover(this, '#a4a4a4');" tabindex="1" /></td>
+        </tr>
+        <tr>
+          <td align="left">密码</td>
+          <td align="left"><input type="password" name="loginpass" value="" id="loginpass" class="lf-input" onmouseover="input_hover(this, '#FF9146');" onmouseout="input_hover(this, '#a4a4a4');" onfocus="input_hover(this, '#FF9146');" onblur="input_hover(this, '#a4a4a4');" tabindex="2" /></td>
+        </tr>
+        <tr>
+          <td align="left">验证码</td>
+          <td align="left"><input name="validcode" type="text" class="lf-input" id="validcode" style='width:90px;text-transform: uppercase;' tabindex="3" onfocus="input_hover(this, '#FF9146');" onblur="input_hover(this, '#a4a4a4');" onmouseover="input_hover(this, '#FF9146');" onmouseout="input_hover(this, '#a4a4a4');" value="" size="4" maxlength="4"> <img src="?useValid={$usevalid}" name="validate" align="absbottom" id="validate" style="cursor:pointer; border: 1px solid #999" title="点击刷新" onclick="refreshimg()" valign="bottom" /></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left"><input style='margin-top:20px;' type="image" src='./images/btn_dologin0001.jpg' tabindex="3"/></td>
+          </tr>
+      </table></td>
+      <td><img src='./images/default_header_icon.jpg' /></td>
+    </tr>
+    </table>
+<input type="hidden" name="flag" value="login" />
+</form>
+</div>
+
+</body>
+</html>

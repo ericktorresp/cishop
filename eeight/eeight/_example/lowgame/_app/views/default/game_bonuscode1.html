@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml" xmlns:esun>
+<HEAD><TITLE>{if $sSysTopMessage}[{$sSysTopMessage}] {/if}{$webtitle} {if $ur_here} - {$ur_here} {/if} {$systemversions}</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<META http-equiv="Pragma" content="no-cache" />
+{if $sSysMetaMessage}{$sSysMetaMessage}{/if}
+<style>{include file="css/general.css"}</style>
+<style>{include file="css/main.css"}</style>
+<style>{include file="css/line.css"}</style>
+{insert_scripts files="./js/line.js"}
+</HEAD>
+<BODY>
+{if empty($sys_header_title)}
+<H1>{if $actionlink}<SPAN class="action-span"><A 
+href="{$actionlink.href}">{$actionlink.text|escape:html}</a></SPAN>{/if}{if $actionlink2}<SPAN class="action-span"><A 
+href="{$actionlink2.href}">{$actionlink2.text|escape:html}</a></SPAN>{/if}{if $actionlink3}<SPAN class="action-span"><A 
+href="{$actionlink3.href}">{$actionlink3.text|escape:html}</a></SPAN>{/if}<SPAN class="action-span1"><A 
+href="./index.php" target='_top'>低频游戏</a> {if $ur_here} - {$ur_here} {/if}</SPAN><DIV style="clear:both"></DIV></H1>
+{/if}
+<script l language="javascript">
+fw.onReady(function(){
+	Chart.init();	
+	DrawLine.bind("chartsTable","has_line");
+	DrawLine.add(14,3,10,0);
+	DrawLine.color('#499495');
+	DrawLine.add(4,3,10,0);
+	DrawLine.add(24,3,10,0);
+	DrawLine.draw(Chart.ini.default_has_line);
+	resize();
+});
+function resize(){
+    window.onresize = func;
+    function func(){
+        window.location.href=window.location.href;
+    }
+}
+</script>
+<style>
+	esun\:*{behavior:url(#default#VML)}
+</style>
+<table width="100%" id="titlemessage" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td class="tdleft"><b><span class="redtext">{$lotteryname}基本走势</span></b></td>
+		<td class="tdright">
+			<a href="?controller=game&action=bonuscode&lotteryid={$lotteryid}&issuecount=30">最近30期&nbsp;</a>
+			<a href="?controller=game&action=bonuscode&lotteryid={$lotteryid}&issuecount=50">最近50期&nbsp;</a>
+			<a href="?controller=game&action=bonuscode&lotteryid={$lotteryid}&issuecount=100">最近100期&nbsp;</a>
+		</td>
+		<td class="tdleft">
+			<form method="POST">
+				<input type="hidden" name="controller" value="game">
+				<input type="hidden" name="action" value="bonuscode">
+				<input type="text" value="{$startissue}" name="startissue" id="startissue">&nbsp;&nbsp;期至&nbsp;
+				<input type="text" value="{$endissue}" name="endissue" id="endissue">&nbsp;期&nbsp;
+				<input type="submit" value="" id="showissue">
+			</form>
+		</td>
+	</tr>
+</table>
+<table id="chartsTable" width="100%" cellpadding="0" cellspacing="0">
+	 <tr>
+        <td colspan="44" style="border:0px;">
+          标准形式选择&nbsp;<input type="checkbox" name="checkbox2" value="checkbox" id="has_line" />
+          <span><b>显示走势折线</b></span>
+        </td>
+      </tr>
+      <tr id="title">
+             <td rowspan="2"><strong>期号</strong></td>
+             <td rowspan="2" colspan="{$bonuscodelength}" class="redtext"><strong>开奖号码</strong></td>
+             <td colspan="10"><strong>百位</strong><strong></strong></td>
+             <td colspan="10"><strong>十位</strong></td>
+             <td colspan="10"><strong>个位</strong></td>
+             <td colspan="10"><strong>不定位</strong></td>                         
+       </tr>
+       <tr id="head">
+       		{foreach from=$acodegroup item=codegroup}
+       			{foreach from=$vaildnum item=ivalidnum}
+       				<td class="wdh"><strong>{$ivalidnum}</strong></td>
+       			{/foreach}
+       		{/foreach}
+       		{foreach from=$vaildnum item=ivalidnum}
+       			<td class="wdh"><strong>{$ivalidnum}</strong></td>
+       		{/foreach}
+       	</tr>
+       </tr>
+       {foreach from=$bonuscode item=sbonuscode}
+       		<tr>
+       			<td id="title">{$sbonuscode.issue}</td>
+       			{foreach from=$sbonuscode.wei item=wei}
+       				<td class="wdh" align="center"><div class="ball02">{$wei}</div></td>
+       			{/foreach}
+       			{foreach from=$acodegroup item=codegroup}
+       				{foreach from=$vaildnum item=ivalidnum}
+       					{if $ivalidnum == $sbonuscode.wei.$codegroup.wei}
+       						<td class="charball" align="center">
+       							<div class="ball0{$codegroup.ballstytle}">{$sbonuscode.wei.$codegroup.wei}</div>
+       						</td>
+       					{else}
+       						<td class="wdh" align="center"><div class="ball0{$codegroup.normalstytle}">{$ivalidnum}</div></td>
+       					{/if}
+       				{/foreach}
+       			{/foreach}
+       			{foreach from=$vaildnum item=ivalidnum}
+       				<td class="wdh" align="center">
+       					{if $ivalidnum == $sbonuscode.wei.0}
+       						<div class="ball02">{$sbonuscode.wei.0}</div>
+       					{elseif $ivalidnum == $sbonuscode.wei.1}
+       						<div class="ball02">{$sbonuscode.wei.1}</div>
+       					{elseif $ivalidnum == $sbonuscode.wei.2}
+       						<div class="ball02">{$sbonuscode.wei.2}</div>
+       					{else}
+       						<div class="ball04">{$ivalidnum}</div>
+       				{/if}
+       				</td>
+       			{/foreach}
+       		</tr>
+       {/foreach}
+</table>
+<!-- <div id="quickbuy"><a href="">购买{$lotteryname}</a></div> //-->
+{include file="pagefooter.html"}

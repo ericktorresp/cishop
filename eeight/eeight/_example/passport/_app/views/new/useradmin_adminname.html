@@ -1,0 +1,49 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkform(obj)
+{
+  if( !validateNickName(obj.nickname.value) )
+  {
+  	$.alert("昵称不符合规则，请重新输入");
+	obj.nickname.focus();
+	return false;
+  }
+  return true;
+}
+</script>
+<form action="index.php" method="post" name="updateform" onsubmit="return checkform(this)">
+<input type="hidden" name="flag" value="update" />
+<input type="hidden" name="controller" value="useradmin" />
+<input type="hidden" name="action"	value="adminname" />
+<input type="hidden" name="uid"	value="{$data.userid}" />
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div><table width="100%" border="0" cellspacing="1" cellpadding="4">
+
+    <tr>
+      <td align="right" bgcolor="#CCCCCC">组别:</td>
+      <td align="left" bgcolor="#CCCCCC">{$data.groupname|escape:html}</td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#CCCCCC">帐户:</td>
+      <td align="left" bgcolor="#CCCCCC">{$data.username|escape:html}</td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#CCCCCC">昵称:</td>
+      <td align="left" bgcolor="#CCCCCC"><input type="text" name="nickname" value="{$data.nickname|escape:html}" />(由2至6个字符组成)</td>
+    </tr>
+    <tr>
+        <td align="right" bgcolor="#CCCCCC"></td>
+        <td align="left" bgcolor="#CCCCCC"><input type="submit" name="submit" value="提交"  class="buttonnormal" />&nbsp;&nbsp;<input type="button" value="返回列表"  class="buttonnormal" onclick="window.location='index.php?controller=useradmin&action=adminlist'" /></td>
+    </tr>
+  </table></div>
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</form>
+{include file="pagefooter.html"}

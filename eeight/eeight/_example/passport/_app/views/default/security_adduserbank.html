@@ -1,0 +1,189 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+jQuery("document").ready( function(){
+	
+	// 检查呢称
+	test = function(){
+		var nickname = $("#nickname").val();
+		if (nickname != ""){ // 如果呢称不为空时才检查
+			$("#msg").html("正在提交检查，请等待...");
+			$.ajax({
+				type:"POST",
+				url:'?controller=security&action=adduserbank',
+				data:'flag=checkname&nickname=' + nickname + "&id=<?=$_SESSION['userid']?>",
+				success:function(data){
+					if (data == -1){
+						$("#msg").html("<font color='red'>您填写的别名不正确，别名由1至4个字符或汉字组成，不能使用特殊字符</font>");
+					} else if(data) {
+						$("#msg").html("<font color='red'>您填写的别名已存在，请更换一个</font>");
+					} else {
+						$("#msg").html("<font color='green'>您填写的别名还未使用过，请放心使用，别名由1至4个字符或汉字组成，不能使用特殊字符</font>");
+					}
+				}
+			});
+		} else {
+			$("#msg").html("(由1至4个字符或汉字组成)");
+		}
+	}
+});
+
+// 获取对应的城市列表
+function changeCity(){
+	var ProvinceId = document.getElementById("province").value;
+	$.ajax({
+		type:"POST",
+		url:'?controller=security&action=adduserbank',
+		data:'province=' + ProvinceId + '&flag=getCity',
+		success:function(data){
+			if (data){
+				$("#city").html(data);
+			}
+		}
+	});
+}
+
+// 不允许输入特殊字符
+function exceptSpecial(obj){
+	obj.value = obj.value.replace(/[\<\>\~\!\@\#\$\%\^\&\*\-\+\=\|\\\'\?\,\.\/\[\]\{\}\(\)\"]{1,}/,'');
+}
+
+function checkform(obj){
+	var repSpecial = /[\<\>\~\!\@\#\$\%\^\&\*\-\+\=\|\\\'\"\?\,\.\/\[\]\{\}\(\)]{1,}/;
+  if (obj.nickname.value != ""){
+  	var re = /^(.){1,4}$/;
+  	if( !re.test(obj.nickname.value) || repSpecial.test(obj.nickname.value)){
+		alert("您填写的卡号别名不符合规则，请重新输入");
+		obj.nickname.focus();
+		return false;
+	  }
+  }
+  var bank = document.getElementById("bank");
+  if (bank.value == ""){
+	$("#bank_msg").html("您忘记了选择开户银行！");
+  	bank.focus();
+  	return false;
+  }
+  var province = document.getElementById("province");
+  if (province.value == ""){
+  	$("#province_msg").html("您忘记了选择开户银行！");
+  	province.focus();
+  	return false;
+  }
+  var city = document.getElementById("city");
+  if (city.value == ""){
+	$("#city_msg").html("您忘记了选择开户银行城市！");
+  	city.focus();
+  	return false;
+  }
+  var re = /^(.){1,20}$/;
+  if( !re.test(obj.branch.value) || repSpecial.test(obj.branch.value)){
+  	$("#branch_msg").html("支行名称不符合规则，请重新输入！");
+  	$("#branch_msg").attr("style", "color:#ff3300");
+	obj.branch.focus();
+	return false;
+  }
+  var re = /^(.){1,10}$/;
+  if( !re.test(obj.account_name.value) || repSpecial.test(obj.account_name.value) || obj.account_name == ""){
+	$("#account_name_msg").html("您填写的开户人姓名不符合规则，请重新输入！");
+  	$("#account_name_msg").attr("style", "color:#ff3300");
+	obj.account_name.focus();
+	return false;
+  }
+  var account = document.getElementById("account");
+  if (account.value == ""){
+  	$("#account_msg").html("您忘记了填写银行账号！");
+  	$("#account_msg").attr("style", "color:#ff3300");
+  	account.focus();
+  	return false;
+  }
+  var re = /^\d{16}$|^\d{19}$/;
+  var account = document.getElementById("account");
+  if (!re.test(account.value)){
+	$("#account_msg").html("您填写的卡号格式不正确，请检查！");
+  	$("#account_msg").attr("style", "color:#ff3300");
+	account.focus();
+	return false;
+  }
+  var account_again = document.getElementById("account_again");
+  if (account.value != account_again.value){
+  	$("#account_again_msg").html("您两次填写的银行账号不相同，请核对后重新提交！");
+  	$("#account_again_msg").attr("style", "color:#ff3300");
+  	account_again.focus();
+  	return false;
+  }
+}
+</script>
+<div class="list-div" id="listDiv">
+<table class="list-table">
+<form action="" method="post" name="addform" onsubmit="return checkform(this)">
+<input type="hidden" name="flag" value="{$flag}" />
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action"	value="adduserbank" />
+<input type="hidden" name="oldid" value="{$oldid}"/>
+<tr>
+	<td class="narrow-label" style="color:#FF3300">提示:</td>
+	<td style="color:#FF3300">*为必填信息</td>
+</tr>
+  <tr>
+  	<td class="narrow-label">别名:</td>
+    <td>
+		<input type="text" name="nickname" id="nickname" maxlength="4" onblur="test();" onkeyup="exceptSpecial(this);" onchange="exceptSpecial(this);" /><span id="msg">(自定义银行卡名字，由1至4个字符或汉字组成，不能使用特殊字符)</span>
+    </td>
+  </tr>
+  <tr>
+  	<td class="narrow-label"><font style="color:#FF3300;font-size:18px;font-family:Arial,Helvetica,sans-serif;">*</font>开户银行:</td>
+    <td>
+    	<select name="bank" id="bank">
+    		<option value="">请选择...</option>
+    		{foreach from=$banklist item=bank key=k}
+    			<option value="{$bank.bank_id}#{$bank.bank_name}">{$bank.bank_name}</option>
+    		{/foreach}
+    		</select>&nbsp;&nbsp;&nbsp;<span id="bank_msg" style="color:#ff3300"></span>
+    </td>
+  </tr>
+  <tr>
+	<td class="narrow-label"><font style="color:#FF3300;font-size:18px;font-family:Arial,Helvetica,sans-serif;">*</font>开户银行省份:</td>
+	<td><select name="province" id="province" onchange="changeCity();">
+        	<option value="">请选择</option>
+        	{foreach from=$provincelist item=province key=k}
+        		<option value="{$province.id}#{$province.name}">{$province.name}</option>
+        	{/foreach}
+            </select>&nbsp;&nbsp;<span style="color:red;" id="province_msg"></span>
+    </td>
+   </tr>
+   <tr>
+	<td class="narrow-label"><font style="color:#FF3300;font-size:18px;font-family:Arial,Helvetica,sans-serif;">*</font>开户银行城市:</td>
+	<td><select name="city" id="city">
+        	<option value="">请选择</option>
+            </select>&nbsp;&nbsp;<span style="color:red;" id="city_msg"></span>
+    </td>
+   </tr>
+   <tr>
+  	<td class="narrow-label"><font style="color:#FF3300;font-size:18px;font-family:Arial,Helvetica,sans-serif;">*</font>支行名称:</td>
+    <td>
+		<input type="text" name="branch" maxlength="20" id="branch" onkeyup="exceptSpecial(this);" onchange="exceptSpecial(this);" /><span id="branch_msg">(由1至20个字符或汉字组成，不能使用特殊字符)</span>
+    </td>
+  </tr>
+  <tr>
+  	<td class="narrow-label"><font style="color:#FF3300;font-size:18px;font-family:Arial,Helvetica,sans-serif;">*</font>开户人姓名:</td>
+    <td>
+		<input type="text" name="account_name" maxlength="10" id="account_name" onkeyup="exceptSpecial(this);" onchange="exceptSpecial(this);" /><span id="account_name_msg">(由1至10个字符或汉字组成，不能使用特殊字符)</span>
+    </td>
+  </tr>
+  <tr>
+  	<td class="narrow-label"><font style="color:#FF3300;font-size:18px;font-family:Arial,Helvetica,sans-serif;">*</font>银行账号:</td>
+    <td>
+		<input type="text" name="account" id="account" onkeyup="this.value=this.value.replace(/[^\d]/g,'');" onchange="this.value=this.value.replace(/[^\d]/g,'');" style="width:200px;" /><span id="account_msg" >(银行卡卡号由16位或19位数字组成)</span>
+    </td>
+  </tr>
+  <tr>
+  	<td class="narrow-label"><font style="color:#FF3300;font-size:18px;font-family:Arial,Helvetica,sans-serif;">*</font>确认银行账号:</td>
+    <td>
+		<input type="text" name="account_again" id="account_again" onkeyup="this.value=this.value.replace(/[^\d]/g,'');" onchange="this.value=this.value.replace(/[^\d]/g,'');" onpaste="return false" style="width:200px;" /><span id="account_again_msg">(银行账号只能手动输入，不能粘贴)</span>
+    </td>
+  </tr>
+  <tr><td></td><td><input type="submit" name="submit" value="下一步" class="button" />　<input type="button" value="返回" {if $flag == "add"}onclick="history.back();"{else}onclick="window.location.href='?controller=security&action=userbankinfo&check={$check}'"{/if} class="button" /></td></tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"} 

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户列表 {$systemversions}</title>
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/jquery.blockui.js"></script>
+<script type="text/javascript">
+jQuery.blockUI.defaults.message = '加载数据...'; 
+jQuery.blockUI.defaults.css = { 
+        padding:        0, 
+        margin:         '0 auto', 
+        width:          '100px', 
+        top:            '2px', 
+        left:           '8px', 
+        textAlign:      'center', 
+        color:          '#FF0000', 
+        border:         '1px solid #FF0000', 
+        backgroundColor:'#FFF', 
+        cursor:         'wait' 
+    };
+jQuery.blockUI.defaults.overlayCSS = { 
+        backgroundColor: '#CCC', 
+        opacity:         0.5 
+    };
+function getChildList( obj, uid )
+{
+	if( jQuery(obj).parent().find("ul").html() != null )
+	{
+		if( jQuery(obj).attr("src") == "./images/menu_s01_plus.gif" )
+		{
+			jQuery(obj).attr("src","./images/menu_s01_minus.gif");
+			jQuery(obj).attr("title","隐藏");
+			jQuery(obj).parent().find("ul:first").slideDown("fast");
+		}else
+		{
+			jQuery(obj).attr("src","./images/menu_s01_plus.gif");
+			jQuery(obj).attr("title","展开");
+			jQuery(obj).parent().find("ul:first").slideUp("fast");
+		}
+	}
+	else
+	{
+		jQuery().ajaxStart($.blockUI).ajaxStop($.unblockUI);
+		html = jQuery(obj).closest("li").html();
+		jQuery(obj).ajaxStart(function(){
+			jQuery(this).attr("src","./images/menu_s01_minus.gif");
+			jQuery(obj).attr("title","隐藏");
+			//jQuery(this).closest("li").append("<span id='ajax_loading'><br />加载数据...</span>");
+		});
+		jQuery.ajax({
+		type:			"GET",
+		url:			"index.php?controller=user&action=userlist&frame=menu&uid="+uid,
+		dataType: 		"json",
+		cache:			false,
+		success:		function(data){
+							if( data.error == "empty" ){//没有数据
+								jQuery(obj).parent().append("<ul style='display:none;'><li></li></ul>");
+								jQuery(obj).attr("src","./images/menu_s01_plus.gif");
+							}else if( data.error == "0" ){//有数据
+								dataHtml = "<ul>";
+								jQuery.each(data.result,function(i,n){
+									dataHtml += "<li>";
+									if( n.childcount > 0 )
+									{
+										dataHtml += "<img TITLE='展开' src=\"./images/menu_s01_plus.gif\" onclick=\"getChildList(this,"+n.userid+")\" style=\"cursor:pointer;\" /> ";
+									}
+									dataHtml += "<a TITLE='' href=\"?controller=user&action=userlist&frame=show&uid="+n.userid+"\" target=\"userlist_content\">"+replaceHTML(n.username)+"</a> <span class='number'>("+n.childcount+")</span></li>";
+								});
+								dataHtml += "</ul>";
+								jQuery(obj).parent().append(dataHtml);
+							}
+							else
+							{
+								return true;
+							}
+						}
+		});
+	}
+}
+</script>
+<style type="text/css">
+body, ul, li, td{ margin:0; padding:0; font: 12px "sans-serif", "Arial", "Verdana","宋体";}
+ul{list-style:none; margin:0; padding:0; padding-left:14px; width:100%; float:left;}
+ul li{ line-height:20px; width:100%; text-align:left; float:left; 
+	border-bottom-style: dashed;
+	border-bottom-width: 1px;
+	border-bottom-color: #eaeaea; }
+.red{color:#FF0000;}
+a{ color: #4D4DFF; text-decoration:none; }
+a:visited{ color: #4D4DFF; }
+a:hover{ color: #FF3333; text-decoration:underline; }
+a:link{ color: #4D4DFF; }
+.number{ color: #690; }
+</style>
+</head>
+<body>
+<ul>
+	<li style='color:#690'>全部下级 (用户名)</li>
+    {if empty($users) }
+    <li>无下级用户</li>
+    {else}
+    {foreach from=$users item=user key=k1}
+    <li id="li_{$user.userid}">
+    	{if $user.childcount > 0}<img TITLE='展开' src="./images/menu_s01_plus.gif" onclick="getChildList(this,{$user.userid})" style="cursor:pointer;" />{/if}
+        <a href="?controller=user&action=userlist&frame=show&uid={$user.userid}" target="userlist_content">{$user.username|escape:html}</a><span class='number'> ({$user.childcount})</span>
+    </li>
+    {/foreach}
+    {/if}
+</ul>
+</body>
+</html>

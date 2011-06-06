@@ -1,0 +1,31 @@
+body { background: #D94733;}
+a:visited {color: #505050;}
+a:link { color: #505050;}
+a:hover { color: #DB5733;}
+a:active { color: #505050;}
+#tabbar-div { background: #CD2903; padding-left: 10px; height: 21px; padding-top: 0px;}
+#tabbar-div p { margin: 0px; padding-top:1px;}
+.tab-front { background: #D94733; line-height: 20px; color:#FFF;
+	padding: 4px 15px 4px 18px; border-right: 2px solid #791A02; cursor: hand;  cursor: pointer;}
+.tab-back,.tab-hover { color: #F4FAFB; line-height: 20px; padding: 4px 15px 4px 18px; cursor: hand; cursor: pointer;}
+.tab-hover { background: #2F9DB5; }
+#top-div { padding: 3px 0 2px; background: #BBDDE5; margin: 5px; text-align: center; }
+#main-div { border: 1px solid #CD2903; padding: 5px; margin: 5px; background: #F7F0C7; }
+#menu-list { padding: 0; margin: 0;}
+#menu-list ul { padding: 0; margin: 0; list-style-type: none; color: #CD2903; padding-bottom:3px;}
+#menu-list li { padding-left: 16px; line-height: 16px; cursor: hand; cursor: pointer;}
+#main-div a:visited, #menu-list a:link, #menu-list a:hover {
+  color: #CD2903 text-decoration: none;}
+#menu-list a:active { color: #CD2903;}
+.explode { background: url({$sSystemImagesAndCssPath}/lowgame/images/menu_minus.gif) no-repeat 0px 3px; font-weight: bold;}
+.collapse { background: url({$sSystemImagesAndCssPath}/lowgame/images/menu_plus.gif) no-repeat 0px 3px; font-weight: bold;}
+.menu-item { background: url({$sSystemImagesAndCssPath}/lowgame/images/menu_arrow.gif) no-repeat 0px 3px; font-weight: normal;}
+#help-title { font-size: 14px; color: #000080; margin: 5px 0; padding: 0px;}
+#help-content { margin: 0; padding: 0;}
+.tips { color: #CC0000;}
+.link { color: #000099;}
+.userinfo{
+	background: #FDAA95; padding-left: 10px; padding-top: 0px; border: 1px solid #FB4315;
+}
+.userinfo ul{ list-style:none; padding:0px 0px 2px 0px; margin:0px; width:100%;}
+.userinfo ul li{line-height:20px; color:#111;}

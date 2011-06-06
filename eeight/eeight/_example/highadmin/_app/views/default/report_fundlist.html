@@ -1,0 +1,146 @@
+{include file="pageheader.html"}
+<div class="form-div">
+    <FORM name="searchForm" action="" METHOD='get'>
+    <input type='hidden' name="controller" value="report"/>
+    <input type='hidden' name="action" value="fundlist"/>
+    <img src="./images/icon_search.gif" width="26" height="22" border="0" TITLE="SEARCH" />
+&nbsp;&nbsp;用 户 名: <input type="text" name="username" size='24' value='{$s.username|escape:html}'/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+账户余额(C): <input type="text" name="amount1" size='12' value='{$s.amount1|escape:html}' />&nbsp;&nbsp;
+至 &nbsp; <input type="text" name="amount2" size='12' value='{$s.amount2|escape:html}' />
+<br><br>
+<span style="padding:0 5px 0 26px;">是否是测试账号</span>
+<select name="istester">
+<option value="-1" {if $s.istester=='-1'}SELECTED{/if}>全部类型</option>
+<option value="0" {if $s.istester=='0'}SELECTED{/if}>非测试账号</option>
+<option value="1" {if $s.istester=='1'}SELECTED{/if}>测试账号</option>
+</select>
+<span style="padding:0 5px 0 20px;">是否是冻结账号</span>
+<select name="isfrozen">
+<option value="-1" {if $s.isfrozen=='-1'}SELECTED{/if}>全部类型</option>
+<option value="0" {if $s.isfrozen=='0'}SELECTED{/if}>非冻结账号</option>
+<option value="1" {if $s.isfrozen=='1'}SELECTED{/if}>冻结账号</option>
+</select>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="搜 索" class="button" /> 
+ <a href="javascript:showNotice('noticeSearch');" title="帮助信息"><img src="./images/notice.gif" width="16" height="16" border="0" title="帮助信息"></a>
+ <span class="notice-span" style='line-height:18px;padding:8px 0px 2px 20px;color:#669900' 
+id="noticeSearch"><b><font color=red>公式:</font></b>&nbsp;&nbsp;
+账户余额(C) - 冻结金额(D) = 可用余额(E)<br/>
+<b><font color=red>异常1:</font></b>&nbsp;&nbsp;<font color='#999999'>判断等式是否成立: </font> 帐户余额(C) = 冻结金额(D) + 可用余额(E)<br/>
+<b><font color=red>用户名搜索:</font></b> 输入代理用户名, 统计包含此代理自身及全部下级的游戏币明细<br/>
+</span>
+</FORM></div>
+
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action='' onsubmit="">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th>用户名</th>
+	<th>所属组</th>
+	<th>现金余额(A)</th>
+	<th>信用欠款(B)</th>
+	<th>账户余额(C)</th>
+	<th>冻结金额(D)</th>
+	<th>可用余额(E)</th>
+	<th>异常1</th>
+	<th>操作</th>
+  </tr>
+
+{foreach from=$aUserList item=list key=k1}
+  <tr>
+    <td align="center">{if $s.username!=''}{$list.username}{elseif $list.parentid!=0}{$list.topuname}{else}{$list.username}{/if}</td>
+	<td align="center">{if $list.usertype==0}会员
+				{elseif $list.usertype==1}{if $list.parentid==0 || $s.username==''}总代{else}代理{/if}
+				{elseif $list.usertype==2}总代管理员{/if}</td>
+	<td align="right">{$list.TeamChannelBalance|escape:money:4}</td>
+	<td align="right">0.00</td>
+	<td align="right">{$list.TeamChannelBalance|escape:money:4}</td>
+	<td align="right">{$list.TeamHoldBalance|escape:money:4}</td>
+	<td align="right">{$list.TeamAvailBalance|escape:money:4}</td>
+	<td align="right">{if $list.errBalance1!=0}{$list.errBalance1|escape:money:4}{else}
+	<font color=#D0D0D0>---</font>{/if}</td>
+	<td align="center"><a href='./?controller=report&action=orderlist&sel=1&username={$list.username}&included1=1'>账变</font></td>
+  </tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="9">无相关数据</td></tr>
+{/foreach}
+    <tr style='color:#F30'>
+    	<td colspan=2>&nbsp;&nbsp;&nbsp;&nbsp;
+		合计: &nbsp;&nbsp;</td>
+		<td align="right">{$s.iCountAll|escape:money:4}</td>
+		<td align="right">0.00</td>
+        <td align="right">{$s.iCountAll|escape:money:4}</td>
+        <td align="right">{$s.iCountHold|escape:money:4}</td>
+		<td align="right">{$s.iCountAvail|escape:money:4}</td>
+		<td align="right">{$s.iCountError1|escape:money:4}</td>
+		<td></td>
+    </tr>
+</table>
+
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>总计 {$s.iCounts} 个记录
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=#808080>时间: {$s.now}</font></div></td></tr></table>
+
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#EEF8F8';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

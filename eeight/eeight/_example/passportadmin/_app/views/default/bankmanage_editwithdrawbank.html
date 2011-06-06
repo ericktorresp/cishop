@@ -1,0 +1,117 @@
+{include file="pageheader.html"}
+{literal}
+<script type="text/javascript">
+function check(){
+	var bankcode = document.getElementById("bank_code")
+	if (bankcode.value == ""){
+		alert("您忘记了填写银行代码！");
+		bankcode.focus();
+		return false;
+	}
+	var status = document.getElementById("status").value;
+	if (status == -1){
+		return confirm("您如果不选择状态，默认为启用，是否继续？");
+	}
+}
+</script>
+{/literal}
+<div class="list-div" id="listDiv">
+<form method="POST" enctype="multipart/form-data" name="listForm" id="listForm" onsubmit="return check();">
+<input type="hidden" name="controller" value="bankmanage" />
+<input type="hidden" name="action" value="editwithdrawbank" />
+<input type="hidden" name="flag" value="edit" />
+<input type="hidden" name="id" value="{$id}" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <td align="right">提现平台名称：</td>
+    <td>{$api_name|escape:html}</td>
+  </tr>
+  <tr>
+    <td align="right">银行名称：</td>
+    <td>{$bank_name|escape:html}</td>
+  </tr>
+  <tr>
+    <td align="right">银行代码：</td>
+    <td><input type="text" name="bank_code" id="bank_code" value="{$bank_code}" /></td>
+  </tr>
+  <tr>
+    <td align="right">状态：</td>
+    <td>
+    <select name="status" id="status">
+    	<option value="-1">请选择...</option>
+    	<option value="1" {if $status == 1}selected{/if}>启用</option>
+    	<option value="0" {if $status == 0}selected{/if}>禁用</option>
+    </select>
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><input type="submit" name="submit" value="提交" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="edit" value="取消" class="button" onclick="history.back();" /></td>
+  </tr>
+</table>
+
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

@@ -1,0 +1,313 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+{insert_scripts files="./js/common2.js"}
+{literal}
+<script type="text/javascript">
+	function checkForm(){
+        var accountname = $("#accountname"); //付款人
+		var account = $("#accept_card_num"); // 收款账号
+		var pay_date = $("#pay_date"); // 汇款时间
+		var amount = $("#amount");  // 汇款金额
+        
+        if (accountname.val() == ""){
+            alert("请填写付款人");
+			accountname.focus();
+			return false;
+        }
+		if (account.val() == ""){
+			alert("请填写收款人卡(账)号");
+			account.focus();
+			return false;
+		}
+		if (pay_date.val() == ""){
+			alert("请填写到账时间");
+			pay_date.focus();
+			return false;
+		}
+		if (amount.val() == ""){
+			alert("请填写到账金额");
+			amount.focus();
+			return false;
+		}
+		return true;
+	}
+	
+	
+	function analysis(){
+		var comment = $("#comment").val();
+		var conent = new Array();
+		// 以换行符为分隔，一行一行的读取
+		content = comment.split("\n");
+		var account1 = ""; // 收款账号
+		var amount1 = "";  // 汇款金额
+		var notes1 = "";   // 附言
+		var pay_date1 = ""; // 汇款时间
+        var car_num1 = "";  // 付款账号
+        var accountname1 = ""; // 付款户名
+		for(i=0;i < content.length;i++){
+            if(content[i].indexOf("付款人") >= 0 ){
+				accountname1 = content[i];
+			}
+            if(content[i].indexOf("付款卡(账)号") >= 0 ){
+				car_num1 = content[i];
+			}
+			if(content[i].indexOf("收款人卡(账)号") >= 0 ){
+				account1 = content[i];
+			}
+			if(content[i].indexOf("付款金额") >= 0 ){
+				amount1 = content[i];
+			}
+			if(content[i].indexOf("附言") >= 0 ){
+				notes1 = content[i];
+			}
+			if(content[i].indexOf("交易日期") >= 0 ){
+				pay_date1 = content[i];
+			}
+		}
+		
+		// 替换所有的空格为@louis@
+		var reg = /\s+/g;
+		var newWord = "@louis@";
+		
+		accountname1 = accountname1.replace(reg, newWord); 
+		car_num1 = car_num1.replace(reg, newWord); 
+		account1 = account1.replace(reg, newWord); 
+		amount1 = amount1.replace(reg, newWord); 
+		notes1 = notes1.replace(reg, newWord); 
+		pay_date1 = pay_date1.replace(reg, newWord); 
+
+		var accountname2 = accountname1.split(newWord);
+		var car_num2 = car_num1.split(newWord);
+		var account2 = account1.split(newWord);
+		var amount2 = amount1.split(newWord);
+		var notes2 = notes1.split(newWord);
+		var pay_date2 = pay_date1.split(newWord);
+		
+		if (accountname2.constructor !== Array){
+			return false;
+		}
+		if (car_num2.constructor !== Array){
+			return false;
+		}
+		if (account2.constructor !== Array){
+			return false;
+		}
+		if (amount2.constructor !== Array){
+			return false;
+		}
+		if (notes2.constructor !== Array){
+			return false;
+		}
+		if (pay_date2.constructor !== Array){
+			return false;
+		}
+		
+		for(a=0; a < accountname2.length; a++){
+			if (accountname2[a].trim() == "付款人："){
+				if (typeof(accountname2[a+1]) != "undefined" && accountname2[a+1].trim() != "" && accountname2[a+1].trim() != "收款人："){
+					$("#accountname").val(accountname2[a+1].trim());
+				}
+			}
+		}
+		for(b=0; b < car_num2.length; b++){
+			if (car_num2[b].trim() == "付款卡(账)号："){
+				if (typeof(car_num2[b+1]) != "undefined" && car_num2[b+1].trim() != "" && car_num2[b+1].trim() != "收款人卡(账)号："){
+					$("#card_num").val(car_num2[b+1].trim());
+				}
+			}
+		}
+		for(m=0; m < account2.length; m++){
+			if (account2[m].trim() == "收款人卡(账)号："){
+				if (typeof(account2[m+1]) != "undefined" && account2[m+1].trim() != ""){
+					$("#accept_card_num").val(account2[m+1].trim());
+				}
+			}
+		}
+		for(n=0; n < amount2.length; n++){
+			var reg1 = /\,+/g;
+			if (amount2[n].trim() == "付款金额："){
+				if (typeof(amount2[n+1]) != "undefined" && amount2[n+1].trim() != ""){
+					var tempMoney = amount2[n+1].trim().replace(reg1, ""); 
+					$("#amount").val(parseFloat(tempMoney));
+				}
+			}
+		}
+		for(x=0; x < notes2.length; x++){
+			if (notes2[x].trim() == "附言："){
+				if (typeof(notes2[x+1]) != "undefined" && notes2[x+1].trim() != ""){
+					$("#notes").val(notes2[x+1].trim());
+				}
+			}
+		}
+		var date1 = "";
+		var date2 = "";
+		for(y=0; y < pay_date2.length; y++){
+			if (pay_date2[y].trim() == "交易日期："){
+				if (typeof(pay_date2[y+1]) != "undefined" && pay_date2[y+1].trim() != ""){
+					date1 = pay_date2[y+1].trim();
+					date1 = date1.replace(/年|月/g,"-");
+					date1 = date1.replace(/日/g, " ");
+				}
+			}
+			if (pay_date2[y].trim() == "交易时间："){
+				if (typeof(pay_date2[y+1]) != "undefined" && pay_date2[y+1].trim() != ""){
+					date2 = pay_date2[y+1].trim();
+					date2 = date2.replace(/时|分/g,":");
+					date2 = date2.replace(/秒/g, "");
+					$("#pay_date").val(date1 + date2);
+				}
+			}
+		}
+	}
+	
+	//去除字符串左侧空格
+	String.prototype.LTrim = function(){
+		return this.replace(/(^\s*)/g,"");
+	}
+	//去除字符串右侧空格
+	String.prototype.RTrim = function(){
+		return this.replace(/(\s*$)/g,"");
+	}
+</script>
+<style type="text/css">
+<!--
+body{
+	font-size: 12px;
+}
+.botton01 {
+	background-image: url(../../images/admin_on.jpg);
+	text-align: center;
+	height: 25px;
+	width: 105px;
+	margin-left: 5px;
+	float: left;
+	line-height: 25px;
+}
+.botton02 {
+	background-image: url(../../images/admin_off.jpg);
+	text-align: center;
+	height: 25px;
+	width: 105px;
+	margin-left: 5px;
+	float: left;
+	line-height: 25px;
+	cursor:pointer;
+}
+-->
+</style>
+{/literal}
+<div>
+<div class="botton01">工行人工录入</div>
+<div class="botton02" onclick="window.location.href='?controller=emailreport&action=emaildepositlist'">工行充值申请</div>
+</div>
+<div class="list-div" id="listDiv" style="clear:both;">
+<form method="POST" name="listForm" id="listForm" onsubmit="return checkForm();">
+<input type="hidden" name="controller" value="emailreport" />
+<input type="hidden" name="action" value="admininsert" />
+<input type="hidden" name="flag"	value="manual" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+  <td width="20%" align="right">高级录入:</td>
+  <td><textarea rows="10" cols="50" name="comment" id="comment" onkeyup="javascript:analysis();"></textarea></td>
+  </tr>
+  <tr>
+  <td align="right">普通录入:</td>
+  <td></td>
+  </tr>
+  <tr>
+  <td colspan="2">
+  付款人：<input type="text" name="accountname" id="accountname" />　
+  付款卡(账)号：<input type="text" name="card_num" id="card_num" />　
+  到账金额:<input type="text" name="amount" id="amount" style="width:80px;" />　
+  <br />
+  <br />
+  收款卡(账)号：<input type="text" name="accept_card_num" id="accept_card_num" />　
+  到账时间:<input type="text" name="pay_date" id="pay_date" />　
+  附言:<input type="text" name="notes" id="notes" style="width:90px;" />　
+  手续费:<input type="text" name="fee" id="fee" onkeyup="checkFee(this,99.99);" style="width:60px;" />　　  
+  <input type="submit" name="提交" />
+  </td>
+  </tr>
+</table>
+</form>
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<th>付款人:</th>
+<th>付款卡(账)号:</th>
+<th>收款卡(账)号:</th>
+<th>到账时间:</th>
+<th>到账金额:</th>
+<th>附言:</th>
+<th>手续费:</th>
+{foreach from=$loadinfo item = info key=k}
+<tr>
+	<td width="10%" align="center">{$info.name}</td>
+	<td width="20%" align="center">{$info.card_num}</td>
+	<td width="20%" align="center">{$info.accept_card_num}</td>
+	<td width="20%" align="center">{$info.pay_date}</td>
+	<td width="10%" align="center">{$info.amount|escape:money}</td>
+	<td width="10%" align="center">{$info.notes}</td>
+	<td width="10%" align="center">{$info.fee|escape:money}</td>
+</tr>
+{/foreach}
+</table>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

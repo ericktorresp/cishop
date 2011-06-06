@@ -1,0 +1,63 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+jQuery("document").ready( function(){
+	document.getElementById("out").checked = true;
+	$("#out").click(function(){ // 低频转出
+		$("#chineseMoney").html("");  // 清除大小写
+		$("#faction").val("tran");    // 改变action
+		$("#channel").html("转入频道"); // 改变提示语
+		$("#amount").html("转出金额");  // 改变提示语
+		$("#fmoney").val("");         // 清空金额
+		$("#maxmoney").html("<input type='text' name='fmoney' id='fmoney' size='20' onkeyup=\"checkWithdraw(this,'chineseMoney',{$user.availablebalance});\" />可转金额（<span style='color:#FF0000;'><strong>{$user.availablebalance|escape:money}</strong></span>）");
+		$("#bankmoney").html("");
+		$("#tran").html("出");
+		$("#notice").html("游戏币由低频转出至银行大厅");
+	});
+	$("#in").click(function(){ // 转入低频
+		$("#chineseMoney").html("");   // 清除大小写
+		$("#faction").val("pickup");   // 改变action
+		$("#channel").html("转出频道");  // 改变提示语
+		$("#amount").html("转入金额");   // 改变提示语
+		$("#fmoney").val("");           // 清空金额
+		$("#maxmoney").html("<input type='text' name='fmoney' id='fmoney' size='20' onkeyup=\"checkWithdraw(this,'chineseMoney',{$maxpickup});\" />");
+		$("#bankmoney").html("可转金额（<span style='color:#FF0000;'><strong>{$maxpickup|escape:money}</strong></span>）");
+		$("#tran").html("入");
+		$("#notice").html("游戏币由银行大厅转入至低频");
+	});
+});
+</script>
+<div class="list-div" id="listDiv">
+<form action="index.php" method="post" name="updateform">
+<input type="hidden" name="flag" value="showTranfer" />
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action" id="faction"  value="tran" />
+<table width="100%" cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+  <td colspan="2" style="padding-left:160px;font-weight:bold;"><input type="radio" name="kind" id="out" value="0" checked="checked" ><label for="out" style="font-size:14px;">低频转出</label>　　<input type="radio" name="kind" id="in" value="1" ><label for="in" style="font-size:14px;">转入低频</label></td>
+  </tr>
+  <tr>
+  <td class="narrow-label">提示:</td>
+  <td id="notice">游戏币由低频转出至银行大厅</td>
+  </tr>
+  <tr>
+  	<td class="narrow-label"><span id="channel">转入频道</span>:</td>
+    <td><select name="toChannelId">
+	{foreach from=$aChannelData item=c key=cid}
+      <option value="{$cid}">{$c}</option>
+	{/foreach}
+    </select>　　<span id="bankmoney"></span></td>
+  </tr>
+  <tr>
+  	<td class="narrow-label"><span id="amount">转出金额</span>:</td>
+    <td id="maxmoney"><input type="text" name="fmoney" id="fmoney" size="20" onkeyup="checkWithdraw(this,'chineseMoney',{$user.availablebalance});" />
+    可转金额（<span style="color:#FF0000;"><strong>{$user.availablebalance|escape:money}</strong></span>）</td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">转<span id="tran">出</span>金额(大写)</td>
+    <td><span id="chineseMoney" style="color:#FFFFFF;"></span></td>
+  </tr>
+  <tr><td colspan="2" align="center" height="40"><input type="submit" name="submit" id="adminadd" value="下一步" class='button'></td></tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

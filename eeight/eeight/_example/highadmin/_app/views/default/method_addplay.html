@@ -1,0 +1,481 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+<script>
+jQuery(document).ready(function() {
+	$("#methodform").submit(function(){
+		//对表单的提交验证
+		if($("#methodname").val()=="")
+		{
+			alert("玩法名称为空.");
+			$("#methodname").focus();
+			return false;
+		}
+
+        var tmp = 0;
+        $('#methodform input[name^=modes]').each(function(i){
+            if ($(this).attr('checked')) {
+                tmp++;
+            };
+            //alert(this.checked);
+            //alert($(this).attr('checked'));
+        });
+        if (!tmp) {
+            alert('请至少选择一个模式！');
+            return false;
+        }
+
+        /*
+		if($("#functionname").val()=="")
+		{
+			alert("玩法的中奖函数为空.");
+			$("#functionname").focus();
+			return false;
+		}
+        if($("#initlockfunc").val()=="")
+		{
+			alert("玩法的初始化封锁表函数为空.");
+			$("#initlockfunc").focus();
+			return false;
+		}
+        */
+		if($("#level").val()<=0)
+		{
+			alert("玩法的等级错误.");
+			$("#level").focus();
+			return false;
+		}
+		else
+		{ //对转直注数验证
+			if($("#level").val()<=0)
+			{
+				alert("玩法奖金级别个数错误.");
+				$("#level").focus();
+				return false;
+			}//对各个奖级进行验证
+            var flag = 0;
+			for(i=1;i<=$("#level").val();i++)
+			{
+                if($("#count_"+i+"_use").attr('checked')==true) {
+                    flag++;
+                }
+                /*
+				if($("#count_"+i+"_name").val()=="")
+				{
+					alert(i+"等奖的名称为空.");
+					$("#count_"+i+"_name").focus();
+					return false;
+				}
+				if($("#count_"+i+"_count").val()=="")
+				{
+					alert(i+"等奖的转直注数错误.");
+					$("#count_"+i+"_count").focus();
+					return false;
+				}
+                */
+			}
+            if (!flag) {
+                alert('请至少选择一个奖级！');
+                return false;
+            }
+		}
+		if($("#pid").val()>0)
+		{
+            /*
+            对奖金级别的选择进行验证
+			if($(":checkbox[name^='count['][name$='][use]'][checked=true]").size()==0)
+			{
+				alert("没有选择奖金级别");
+				return false;
+			};
+            */
+		}
+        else
+        {
+            alert('没有选择玩法组');
+            return false;
+        }
+		if($("#description").val()=="")
+		{
+			alert("没有填写玩法描述.");
+			$("#description").focus();
+			return false;
+		}
+
+		$("#pid").attr("disabled",false);
+		$("#level").attr("disabled",false);
+		$("#totalmoney").attr("disabled",false);
+		for(i=1;i<=$("#level").val();i++)
+		{
+			$("#count_"+i+"_count").attr("disabled",false);
+			$("#count_"+i+"_name").attr("disabled",false);
+		}
+		return true;	
+	});
+	jQuery("#level").change(function(){
+		var i= (jQuery("#level").val());
+		s='';
+		t = jQuery("#pid").val();
+		for(j=1;j<=i;j++)
+		{
+			if(t==0)
+			{
+				s=s+j+"等奖转直注数:<input type='text' name='count["+j+"][count]' id='count_"+j+"_count' size='4'>&nbsp;&nbsp;&nbsp;奖级名称:<input type='text' name='count["+j+"][name]' id='count_"+j+"_name' value=''><br/>";
+			}
+			else
+			{
+				s=s+"<input type='checkbox' name='count["+j+"][use]' id='count_"+j+"_use' value='1'>"+j+"等奖转直注数:<input type='text' name='count["+j+"][count]' id='count_"+j+"_count' size='4'>&nbsp;&nbsp;&nbsp;奖级名称:<input type='text' id='count_"+j+"_name' name='count["+j+"][name]' value=''><br/>"
+			}
+		}
+		if(i>1)
+		{
+			s = s+"<input type='checkbox' value='1' name='count[type]' id='count_type'>计算公司留水时候,奖金叠加&nbsp;";
+			s = s+"<input type='checkbox' value='3' name='count[type]' id='count_type_three'>返奖率累加型&nbsp;";
+			s = s+"<label for='count_isdesc'><input type='checkbox' value='1' name='count[isdesc]' id='count_isdesc'>需要帐变描述(兼中兼得)</label>";
+		}
+		jQuery("#zhu_zhi").html(s);
+		if(i>1){
+		    $("#count_type").click(function(){
+		        $("#count_type_three").attr("checked",false);
+		    });
+		    $("#count_type_three").click(function(){
+		        $("#count_type").attr("checked",false);
+		    });
+		}
+	});
+	$("input:radio[name='areatype[type_1][type]']").click(function(){
+		var i = $(":radio:checked[name='areatype[type_1][type]']").val();
+		if(i==1)
+		{
+			jQuery("#no_rule").html("号码形态:<br/><textarea name='areatype[type_1][layout]' rows='6' cols='80'></textarea><br/>"
+			+"大号从第<input type='text' name='areatype[type_1][startpos]' value='' size='4'>位开始<br/>");
+		}
+		else if(i==2)
+		{
+			jQuery("#no_rule").html("号码形态:<br/><textarea name='areatype[type_1][layout]' rows='6' cols='80'></textarea>");
+		}
+		else if(i==3)
+		{
+			jQuery("#no_rule").html("号码形态:<br/><textarea name='areatype[type_1][layout]' rows='6' cols='80'></textarea>"
+					+"<label for='areatype_type_1_smalltype_1'><input type='radio' name='areatype[type_1][smalltype]' id='areatype_type_1_smalltype_1' value='1'>大小单双</label>");
+		}
+	});
+	
+	jQuery("#pid").change(function(){
+        var method_data = {$json_playGroups};
+        i = $("#pid").val();
+
+        if(i==0)    // i不会等于0 所以下面的代码可以去掉
+        {
+            /*
+            $("#functionname").attr('disabled', true);
+            $("#lockname").attr('disabled', true);
+            $("#maxlost").attr('disabled', true);
+            $("#level").attr("disabled",true);
+            $("#isclose").attr('disabled', true).css('backgroundColor', 'gray');
+            $("#islock").attr('disabled', true);
+            $("#totalmoney").attr('disabled', true);
+            */
+            for(k=1;k<=$("#level").val();k++)
+            {
+                $("#count_"+k+"_count").val(method_data[i].nocount[k].count).attr("disabled",true);
+                $("#count_"+k+"_name").val(method_data[i].nocount[k].name).attr("disabled",true);
+            }
+        }
+        else if (i>0)
+        {
+            //$("#lockname").val(method_data[i].lockname).attr('disabled', true);
+            $("#maxlost").val(method_data[i].maxlost).attr('disabled', true);
+            $("#isclose").attr('disabled', false);
+            $("#islock").attr('disabled', false);
+            $("#totalmoney").val(method_data[i].totalmoney).attr('disabled', true);
+            $("#level").val(method_data[i].level);
+            $("#level").change().attr("disabled",true);
+            for(k=1;k<=$("#level").val();k++)
+			{
+				$("#count_"+k+"_count").val(method_data[i].nocount[k].count);
+				$("#count_"+k+"_count").attr("disabled",true);
+				$("#count_"+k+"_name").val(method_data[i].nocount[k].name);
+				$("#count_"+k+"_name").attr("disabled",true);
+			}
+        }
+        if($("#pid").val()<=0)
+        {
+            $("#area").hide();
+        }
+        else
+        {
+            //$("#area").show();
+        }
+	});
+
+    $("#pid").val({$pid}).change(); // 无论新增还是修改都应该预选中玩法组!!
+    $(':input[name^=modes][value=1]').attr('checked', true);
+    // 修改的界面
+	{if isset($aMethod)}
+	var data ={$aMethod};
+	$("#methodid").val(data.methodid);
+	$("#methodname").val(data.methodname);
+    $("#functionname").val(data.functionname);
+    $("#initlockfunc").val(data.initlockfunc);
+    $("#lockname").val(data.lockname);
+    $("#maxcodecount").val(data.maxcodecount);
+    $.each(data.modes, function(k, v){
+        $(':input[name^=modes][value='+v+']').attr('checked', true);
+    });
+    if (data.islock==1) {
+        $("#islock").attr("checked",true);
+    }
+	if (data.isclose==1) {
+        $("#isclose").attr("checked",true);
+    }
+	$("#isprizedynamic").attr("checked",data.isprizedynamic==1);
+	$("#isclose").attr("isclose",data.isclose);
+	$("#description").val(data.description);
+	$("#totalmoney").val(data.totalmoney);
+    //$("#pid").val(data.pid).change();
+	$("#level").val(data.level).change();
+	jQuery("#zhu_zhi").html(s);	
+	$("#locksid").val(data.locksid);
+	//对号码奖级进行描述
+	i = jQuery("#level").val();
+	for(j=1;j<=i;j++)
+	{
+		$("#count_"+j+"_count").val(data.nocount[j].count);
+		if($("#pid").val()>0)
+		{
+			//$("#count_"+j+"_count").attr("disabled",true);
+		}
+		$("#count_"+j+"_name").val(data.nocount[j].name);
+		if($("#pid").val()>0)
+		{
+			//$("#count_"+j+"_name").attr("disabled",true);
+		}
+		$("#count_"+j+"_use").attr("checked",data.nocount[j].use==1);
+	}
+	if(i>1){
+	    $("#count_type").click(function(){
+	        $("#count_type_three").attr("checked",false);
+	    });
+	    $("#count_type_three").click(function(){
+	        $("#count_type").attr("checked",false);
+	    });
+	}
+	$("#count_type").attr("checked",data.nocount.type==1);
+	$("#count_type_three").attr("checked",data.nocount.type==3);
+	$("#count_isdesc").attr("checked",data.nocount.isdesc==1);
+	//$("#pid").attr("disabled",true);
+	/*if($("#pid").val()==0)
+	{
+		$("#area").hide();
+	}
+	else
+	{
+		//$("#area").show();
+		//五个区的加载
+		jQuery(":checkbox[name='areatype[type][1]']").attr("checked",data.areatype.type[1]=="1");	
+		jQuery(":checkbox[name='areatype[type][2]']").attr("checked",data.areatype.type[2]=="1");	
+		jQuery(":checkbox[name='areatype[type][3]']").attr("checked",data.areatype.type[3]=="1");	
+		jQuery(":checkbox[name='areatype[type][4]']").attr("checked",data.areatype.type[4]=="1");	
+		jQuery(":checkbox[name='areatype[type][5]']").attr("checked",data.areatype.type[5]=="1");	
+		//选号区的默认加载
+		if($(":checkbox[name='areatype[type][1]']").attr("checked"))
+		{
+			jQuery(":radio[name='areatype[type_1][type]'][value="+data.areatype.type_1.type+"]").attr("checked",true);
+			jQuery(":radio[name='areatype[type_1][type]'][checked='true']").click();
+			$("textarea[name='areatype[type_1][layout]']").val(data.areatype.type_1.layout);
+			if(data.areatype.type_1.type=="1")
+			{
+				//重复型号码加载				
+				$(":text[name='areatype[type_1][startpos]']").val(data.areatype.type_1.startpos);
+			}
+			else if(data.areatype.type_1.type=="2")
+			{
+				//和值型
+			}
+			else if(data.areatype.type_1.type=="3")
+			{
+				$(":radio[name='areatype[type_1][smalltype]'][value='"+data.areatype.type_1.smalltype+"']").attr("checked",true);
+			}
+		}
+		//筛选区部分
+		if($(":checkbox[name='areatype[type][2]']").attr("checked"))
+		{
+			$(":checkbox[name='areatype[type_2][1]'][value='"+data.areatype.type_2[1]+"']").attr("checked",true);
+			$(":checkbox[name='areatype[type_2][2]'][value='"+data.areatype.type_2[2]+"']").attr("checked",true);
+		}
+		//追号区部分
+		$(":checkbox[name='areatype[type_5][1]'][value='"+data.areatype.type_5[1]+"']").attr("checked",true);
+		$(":checkbox[name='areatype[type_5][2]'][value='"+data.areatype.type_5[2]+"']").attr("checked",true);
+		$(":checkbox[name='areatype[type_5][3]'][value='"+data.areatype.type_5[3]+"']").attr("checked",true);
+		$(":checkbox[name='areatype[type_5][4]'][value='"+data.areatype.type_5[4]+"']").attr("checked",true);
+	}*/
+	{/if}
+});
+</script>
+<div class="list-div" id="listDiv">
+<form id="methodform" action="./?controller=method&action={$action|default:addplay}&lotteryId={$lotteryId}" method="post">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td class="narrow-label">游戏名称</td>
+<td>
+{$aLottery.cnname|escape:html}
+</td>
+</tr>
+<tr>
+<td class="narrow-label">玩法名</td>
+<td><input type="text" name="methodname" id="methodname" value=""></td>
+</tr>
+<tr>
+<td class="narrow-label">玩法别名</td>
+<td><input type="text" name="code" id="code" value="{$method.code}"></td>
+</tr>
+<tr>
+<td class="narrow-label">用于js的玩法类别</td>
+<td><input type="text" name="jscode" id="code" value="{$method.jscode}"></td>
+</tr>
+<tr>
+<td class="narrow-label">号码转义类型</td>
+<td>
+<select id="addslastype" name="addslastype">
+<option value="0" {if $method.addslastype == 0}selected{/if}>不需转义</option>
+<option value="1" {if $method.addslastype == 1}selected{/if}>大小单双型</option>
+<option value="2" {if $method.addslastype == 2}selected{/if}>定单双型</option>
+<option value="3" {if $method.addslastype == 3}selected{/if}>和值单双</option>
+<option value="4" {if $method.addslastype == 4}selected{/if}>和值大小型</option>
+<option value="5" {if $method.addslastype == 5}selected{/if}>上下盘型</option>
+<option value="6" {if $method.addslastype == 6}selected{/if}>奇偶盘</option>
+<option value="7" {if $method.addslastype == 7}selected{/if}>三星特殊号型</option>
+<option value="8" {if $method.addslastype == 8}selected{/if}>三星趣味型</option>
+<option value="9" {if $method.addslastype == 9}selected{/if}>三星区间型</option>
+<option value="10" {if $method.addslastype == 10}selected{/if}>四星趣味型</option>
+<option value="11" {if $method.addslastype == 11}selected{/if}>四星区间型</option>
+<option value="12" {if $method.addslastype == 12}selected{/if}>五星趣味型</option>
+<option value="13" {if $method.addslastype == 13}selected{/if}>五星区间型</option>
+</select>&nbsp;&nbsp;根据相应类型转义成特殊号码:如有新类型，需要重新定义规则
+</td>
+</tr>
+<tr>
+<td class="narrow-label">游戏玩法组</td>
+<td>
+<select name="pid" id="pid">
+<option value="-1">选择玩法组</option>
+{foreach from=$playGroups item=method key=k}
+<option value="{$method.methodid}">{$method.methodname}</option>
+{/foreach}
+</select>
+</tr>
+<tr>
+<td class="narrow-label">中奖函数</td>
+<td><input type="text" name="functionname" id="functionname" value=""></td>
+</tr>
+<tr>
+<td class="narrow-label">对应中奖号码规则</td>
+<td>
+号码起始位置:<input type="text" name="startposition" id="startposition" value="{$rule.startposition}" size="4">
+号码个数:<input type="text" name="codecount" id="codecount" value="{$rule.codecount}" size="4">
+是否需要和值参数<input type="checkbox" name="issum" id="issum" {if $rule.issum == 1}checked{/if}>
+判断中奖标签名:<input type="text" name="tagcheck" id="tagcheck" value="{$rule.tagcheck}" size="20">
+派发奖金标签名:<input type="text" name="tagbonus" id="tagbonus" value="{$rule.tagbonus}" size="20">
+</td>
+</tr>
+<tr>
+<td class="narrow-label">封锁表初始化函数</td>
+<td><input type="text" name="initlockfunc" id="initlockfunc" value=""></td>
+</tr>
+<tr>
+<td class="narrow-label">是否关闭</td>
+<td><label for="isclose"><input type="checkbox" name="isclose" id="isclose" value="1">选中即关闭</label></td>
+</tr>
+<tr>
+<td class="narrow-label">是否封锁</td>
+<td><label for="islock"><input type="checkbox" name="islock" id="islock" value="1">是</label></td>
+</tr>
+<tr>
+<td class="narrow-label">封锁表名称</td>
+<!--
+    <td><select name='locksid' id="locksid"><option value='0'>不使用封锁表</option>{foreach from=$aLocks item=lock key=k}<option value='{$lock.locksid}'>{$lock.lockname}</option>{/foreach}</select></td>
+-->
+<td>
+<!-- <input size=30 name="lockname" id="lockname" value="locks_">（暂用文本框代替，以后应是封锁表列表，下拉框选择） -->
+    <select id="lockname" name="lockname">
+        <option value="">请选择</option>
+        {foreach from=$aLocks item=item key=k}
+        <option value="{$item.locktablename}">{$item.locktablecnname}（{$item.locktablename}）</option>
+        {/foreach}
+    </select>
+</td>
+</tr>
+<tr>
+<td class="narrow-label">最大购买号码个数</td>
+<td><input name="maxcodecount" id="maxcodecount" value="0" size="4">&nbsp;[0表示无限制]</td>
+</tr>
+<tr>
+<td class="narrow-label">奖级个数</td>
+<td><input type="text" name="level" id="level" value="" size="4"></td>
+</tr>
+<tr>
+<td class="narrow-label">转直注数</td>
+<td><span id="zhu_zhi" name="zhu_zhi">
+</span></td>
+</tr>
+<tr>
+<td class="narrow-label">全包成本</td>
+<td><input type="text" name="totalmoney" id="totalmoney" size="8"  value="{$playGroup.totalmoney}"/></td>
+</tr>
+<tr>
+<td class="narrow-label">元角模式</td>
+<td>
+    {foreach from=$modes item=item key=k}
+    <input type="checkbox" name="modes[]" id="modes"  value="{$k}"/>{$item.name}&nbsp;
+    {/foreach}
+</td>
+</tr>
+<tr>
+<td class="narrow-label">玩法描述</td>
+<td>
+	<textarea name="description" id="description" rows="6" cols="60"></textarea></td>
+</tr>
+<tr id="area" style="display:none;">
+<td class="narrow-label">号码形态</td>
+<td>
+
+<fieldset style="width:600px; display:block;">
+<legend><label for="areatype[type][1]"><input type="checkbox" name="areatype[type][1]" id="areatype[type][1]" value="1">选号区</label></legend>
+<label for="areatype_type_1_1"><input type="radio" name="areatype[type_1][type]" id="areatype_type_1_1" value="1">重复型</label>
+<label for="areatype_type_1_2"><input type="radio" name="areatype[type_1][type]" id="areatype_type_1_2" value="2">和值型</label>
+<label for="areatype_type_1_3"><input type="radio" name="areatype[type_1][type]" id="areatype_type_1_3" value="3">特征性</label>
+<br/>
+<span id="no_rule">
+</span>
+</fieldset>
+
+<fieldset style="width:400px; display:block;">
+<legend>
+<label for="areatype[type][2]"><input type="checkbox" name="areatype[type][2]" id="areatype[type][2]" value="1">筛选区</label>
+</legend>
+筛选类型：<label for="areatype2_1"><input type="checkbox" name="areatype[type_2][1]" id="areatype2_1" value="1">跨度</label>
+<label for="areatype2_2"><input type="checkbox" name="areatype[type_2][2]" id="areatype2_2" value="2">定胆</label>
+</fieldset>
+<label for="areatype[type][3]"><input type="checkbox" name="areatype[type][3]" id="areatype[type][3]" value="1">编辑区</label>
+<label for="areatype[type][4]"><input type="checkbox" name="areatype[type][4]" id="areatype[type][4]" value="1">确认区</label>
+<fieldset style="width:400px; display:block;">
+<legend>
+<label for="areatype[type][5]"><input type="checkbox" name="areatype[type][5]" id="areatype[type][5]" value="1">追号区</label>
+</legend>
+追号方式:
+<label for="areatype5_1"><input type="checkbox" name="areatype[type_5][1]" id="areatype5_1" value="1">同倍追号</label>
+<label for="areatype5_2"><input type="checkbox" name="areatype[type_5][2]" id="areatype5_2" value="2">翻倍追号</label>
+<label for="areatype5_3"><input type="checkbox" name="areatype[type_5][3]" id="areatype5_3" value="3">利润率追号</label>
+<label for="areatype5_4"><input type="checkbox" name="areatype[type_5][4]" id="areatype5_4" value="4">利润金额追号</label>
+</fieldset>
+</td>
+</tr>
+<tr>
+<td class="narrow-label"></td>
+<td><input type="hidden" name="methodid" id="methodid" value="" />
+    <input type="submit" class="button" value="{if $action=='editplay'}修改玩法{else}增加玩法{/if}"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

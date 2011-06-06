@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>{$webtitle} {$systemversions}</title>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/jquery.js"></script>
+<script>
+$(function(){
+    if(!$.browser.msie){
+        $("#userlist_menu").attr("scrolling","auto");
+    }
+});
+</script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<frameset cols="180, 6, *" framespacing="0" border="0" id="frame-body">
+  <frame src="./?controller=user&amp;action=list&amp;frame=menu" id="userlist_menu" name="menu-userlist_menu" frameborder="no" scrolling="Yes">
+  <frame src="./?controller=user&amp;action=list&amp;frame=drag" id="drag-user" name="drag-user" frameborder="no" scrolling="no">
+  <frame src="./?controller=user&amp;action=list&amp;frame=show" id="userlist_content" name="userlist_content" frameborder="no" scrolling="auto">
+</frameset><noframes></noframes>
+</head><body></body></html>

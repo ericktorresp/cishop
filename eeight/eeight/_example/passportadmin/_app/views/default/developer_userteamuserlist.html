@@ -1,0 +1,31 @@
+{include file="pageheader.html"}
+<script src="./js/jquery.js"></script>
+<form method="POST" name="listForm" id="listForm" action="./index.php?controller=developer&action=userteamuserlist">
+<div class="list-div">
+<table>
+<tr>
+<th>总代</th>
+<th>用户权限</th>
+<th>操作</th>
+</tr>
+{foreach from=$agent item=a key=k}
+<tr>
+<td class="narrow-label">{$a.username}</td>
+<td align="center">{$a.groupname}({if $a.isspecial==0}<font color="green">普通用户组别</font>{else}<font color="red">特殊用户组别</font>{/if})</td>
+<td align="center">
+<select name="userteam[]" id="userteam">
+<option value="-1">用户组别(权限)</option>
+{foreach from=$userteam item=ut key=k}
+<option value="{$a.userid}#{$ut.teamid}#{$a.username}" {if $ut.isspecial==0}style="color:green;"{else}style="color:red;"{/if} {if $a.teamid == $ut.teamid}selected{/if}>{$ut.groupname}({if $ut.isspecial==0}普通组别{else}特殊组别{/if})</option>
+{/foreach}
+</select>
+</td>
+</tr>
+{/foreach}
+<tr>
+<td colspan="3" align="center"><input type="submit" value="分配用户组别" class="button"></td>
+</tr>
+</table>
+</div>
+</form>
+{include file="pagefooter.html"}

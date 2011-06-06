@@ -1,0 +1,35 @@
+{include file="pageheader.html"}
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action='./?controller=user&action=assignskin' onsubmit="return confirmSubmit(this)">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+	<tr>
+	<th width=100><label><input onclick='CheckBoxSelectAll(this, "checkboxes")' type="checkbox">全选</label></th>
+	<th>总代名称</th>
+	<th>模板风格</th>
+ </tr>
+
+{foreach from=$aDataList item=list key=k1}
+  <tr>
+  <td align="center"><span><input name="checkboxes[]" type="checkbox" value="{$k1}" /></span></td>
+  <td align="center">{$list.username}</td>
+  <td align="center"><select style='background:#eaeaea;width:160px;' name='skins[{$k1}]'>{$list.opts}</select>
+</td>
+  </tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">无相关数据</td></tr>
+{/foreach}
+<tr height=60>
+<td colspan=6>
+	&nbsp;&nbsp;<span>
+    <input type="submit" value="执行分配" id="btnSubmit" name="btnSubmit" class="button" />
+	</span>
+	</td>
+  </tr>
+</table>
+
+<INPUT TYPE="hidden" NAME="act" VALUE='TRUE'>
+</form>
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

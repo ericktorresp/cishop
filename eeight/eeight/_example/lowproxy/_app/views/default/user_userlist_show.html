@@ -1,0 +1,158 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript">
+	jQuery("#loadhtml").hide(); //去掉loading界面
+	jQuery(document).ready(function(){
+		
+	});	
+function checkForm(obj)
+{
+	// 2010-1-29
+    if( obj.username.value == "" && obj.usergroup.value != 0 )
+	{
+		alert("请输入用户名");
+		return false;
+	}
+}
+</script>
+
+<div class="form-div">
+代理平台 -<a href="./?controller=user&action=list&frame=show">用户列表</a>{if !empty($selfdata) }
+        								{if !empty($selfdata.bannners) }
+                                        	{foreach from=$selfdata.bannners item=banner key=k}
+                                             > <a href="./?controller=user&action=list&frame=show&uid={$banner.userid}" target="userlist_content" style="color:#003399; text-decoration:none;">{$banner.username|escape:html}</a>
+                                            {/foreach}
+                                        {/if}
+        								 > {$selfdata.username|escape:html}
+                                    {/if}
+</div>
+<div class="list-div" id="listDiv">
+<form>
+<table cellspacing='1' cellpadding='3' id='list-table'>
+    <tr>
+    <th>用户名</th>
+    <th>所属组</th>
+    <th>频道余额</th>
+    <th>操作</th>
+    </tr>
+    
+    {if !empty($selfdata) }
+    <tr bgcolor="#0099EE">
+    <td align="center">{$selfdata.username|escape:html}</td>
+    <td align="center">{$selfdata.groupname|escape:html}</td>
+    <td align="center">{$selfdata.availablebalance|escape:money}</td>
+    <td align="center">
+    <a href="./?controller=user&action=userinfo&uid={$selfdata.userid}">详情</a>
+    <a href="./?controller=user&action=userteam&uid={$selfdata.userid}">团队</a> 
+    {if $userid == $selfdata.parentid }<a href="./?controller=user&action=upedituser&uid={$selfdata.userid}">编辑</a>{/if}
+    <a href="./?controller=report&action=orders&username={$selfdata.username|escape:urlencode}">帐变</a>
+    </td>
+    </tr>
+    {/if}
+    
+    {foreach from=$users item=user key=id}
+    <tr>
+    <td align="center"><a href="?controller=user&action=list&frame=show&uid={$user.userid}" target="userlist_content">{$user.username|escape:html}</a></td>
+    <td align="center">{$user.groupname|escape:html}</td>
+    <td align="center">{$user.availablebalance|escape:money}</td>
+    <td align="center">
+    <a href="./?controller=user&action=userinfo&uid={$user.userid}">详情</a>
+    <a href="./?controller=user&action=userteam&uid={$user.userid}">团队</a> 
+    {if $userid == $user.parentid }<a href="./?controller=user&action=upedituser&uid={$user.userid}">编辑</a>{/if}
+    <a href="./?controller=report&action=orders&username={$user.username|escape:urlencode}">帐变</a>
+    </td>
+    </tr>
+    {foreachelse}
+    {if empty($selfdata) }
+    <tr>
+    <td colspan="8" class="no-records">没有搜索到用户</td>
+    </tr>
+    {/if}
+    {/foreach}
+    
+	<tr>
+    	<td colspan="6" height="20">
+        	<table border="0" width="100%" cellpadding="0" cellspacing="0">
+            	<tr>
+                	<td align="left">共有  {$page.totalresult}  会员 共{$page.nowpage}/{$page.totalpage} 页 每页{$page.perpage}会员</td>
+                    <td align="right">{$page.first} {$page.pre} {$page.turn} {$page.next} {$page.last} {$page.select}&nbsp;&nbsp;</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    
+</table>
+</form>
+</div>
+
+<div class="form-div" ID="formdiv" style="line-height:30px; margin-top:10px;">
+<form action="" method="get" name="search" onsubmit="return checkForm(this)">
+<input type="hidden" name="controller" value="user" />
+<input type="hidden" name="action" value="list" />
+<input type="hidden" name="frame" value="show" />
+<input type="hidden" name="flag" value="search" />
+<img src="./images/icon_search.gif" border="0">
+用户名:&nbsp;<input type="text" name="username" id="username" style="background-color:#FFF;color:#555; width:100px;"
+value="{$searchdata.username|escape:html}">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;账户余额:&nbsp;&nbsp;
+	<input style="background-color:#FFF;color:#555;width:100px;" name="bank_min" value="{$searchdata.bank_min}" onkeyup="checkMoney(this)">
+	&nbsp;&nbsp;至&nbsp;&nbsp;
+	<input style="background-color:#FFF;color:#555;width:100px;" name="bank_max" value="{$searchdata.bank_max}" onkeyup="checkMoney(this)">&nbsp;元
+    &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户组:&nbsp;&nbsp;<select name="usergroup">
+        			<option value="0" {if $searchdata.usergroup==0 }selected="selected"{/if}>全部</option>
+                    <option value="1" {if $searchdata.usergroup==1 }selected="selected"{/if}>代理用户</option>
+                    <option value="2" {if $searchdata.usergroup==2 }selected="selected"{/if}>会员用户</option>
+                   </select>
+	<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;排&nbsp;&nbsp;序:&nbsp;&nbsp;
+<select style="background-color:#FFF;color:#555" name="sortby">
+	<option value="default" {if $searchdata.sortby=='default' }selected="selected"{/if}>默认排序</option>
+    <option value="username" {if $searchdata.sortby=='username' }selected="selected"{/if}>用户名</option>
+    <option value="bank" {if $searchdata.sortby=='bank' }selected="selected"{/if}>频道余额</option>
+</select>&nbsp;&nbsp;
+<label for="sortbymax"><input type="checkbox" id="sortbymax" name="sortbymax" value="1" style="background-color:#FFF;color:#555" {if $searchdata.sortbymax == 1 }checked="checked"{/if}>从大到小</label>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="submit" class="button" value="立即搜索">
+</FORM>
+</div>
+<script>
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#EEF8F9';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+
+</script>
+{include file="pagefooter.html"}

@@ -1,0 +1,46 @@
+{include file="pageheader.html"}
+{insert_scripts files="jquery.js"}
+<script>
+jQuery(document).ready(function(){
+	var userchoose = "{$prizegroup.topproxy}"; //已经保存的待分配的总代
+	var users =userchoose.split(",");
+	for(i=0;i<users.length;i++)
+	{
+		jQuery("#user_"+users[i]).attr("checked",true);
+	}
+	var userhas ="{$userhas}";//已经分配的用户
+	var users =userhas.split(",");
+	for(i=0;i<users.length;i++)
+	{
+		jQuery("#status_"+users[i]).html("<font color='BLUE'>未同步</font>");
+	}
+	var usersucc = "{$usersucc}";//数据是一致的用户
+	var users =usersucc.split(",");
+	for(i=0;i<users.length;i++)
+	{
+		jQuery("#status_"+users[i]).html("<font color='green'>已同步</font>");
+	}
+});
+
+</script>
+<div class="list-div" id="listDiv">
+<form id="assignForm" action="./index.php?controller=gameinfo&action=assign" method="post">
+<input type="hidden" value="{$lotteryid}" name="lotteryid">
+<table cellspacing='1' cellpadding='3' id='list-table'><tr>
+	<td class="narrow-label">奖金组方案</td>
+	<td>{$prizegroup.title|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">总代用户</td>
+	<td>{foreach from=$user item=u key=k}
+		<div style="float:left; width:250px;"><label for="user_{$u.userid}"><input type="checkbox" id="user_{$u.userid}" name="user[]" value="{$u.userid}">{$u.username|escape:html}</label>[<span id="status_{$u.userid}"><font color="RED">未分配</font></span>]</div>
+	{/foreach}</td>
+</tr>
+<tr>
+	<td class="narrow-label"><input type="hidden" name="prizegroupid" id="prizegroupid" value="{$prizegroup.prizegroupid}"></td>
+	<td><input type="submit" class="button" value="分配奖金组"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,129 @@
+{include file="pageheader.html"}
+
+{literal}
+<script type="text/javascript">
+function confirmSubmit(frm, ext)
+{
+	if (frm.elements['form_action'].value == '')
+	{
+		alert('请选择操作的类型');
+		return false;
+	}
+	else if(frm.elements['form_action'].value == 'bat_delete')
+	{
+		return confirm("确定要删除选中的数据?");
+	}
+	else
+	{
+		return true;
+	}
+}
+</script>
+{/literal}
+
+<div class="form-div">
+    <FORM name="searchForm" action="" METHOD='GET'>
+    <input type='hidden' name="controller" value="marketmgr"/>
+    <input type='hidden' name="action" value="activitylist"/>
+
+<img src="./images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" /> 
+
+活动类型: <select name="type" style="color:#069">
+<option value="-1" {if $s.type=='-1'}SELECTED{/if}>不限</option>
+<option value="0" {if $s.type=='0'}SELECTED{/if}>问卷调查</option>
+<option value="1" {if $s.type=='1'}SELECTED{/if}>有奖竞猜</option>
+</select>&nbsp;&nbsp;
+
+活动状态: <select name="isdel" style="color:#960">
+<option value="-1" {if $s.isdel=='-1'}SELECTED{/if}>不限</option>
+<option value="0" {if $s.isdel=='0'}SELECTED{/if}>正常</option>
+<option value="1" {if $s.isdel=='1'}SELECTED{/if}>已删</option></select>&nbsp;&nbsp;
+
+审核状态: <select name="isverify" style="color:#690">
+<option value="-1" {if $s.isverify=='-1'}SELECTED{/if}>不限</option>
+<option value="0" {if $s.isverify=='0'}SELECTED{/if}>未审核</option>
+<option value="1" {if $s.isverify=='1'}SELECTED{/if}>已审核</option></select>
+
+<input style='margin-left:20px' type="submit" value=" 开始查询 " class="button" />
+</FORM>
+</div>
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action='./?controller=marketmgr&action=activitydel' onsubmit="return confirmSubmit(this)">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+	<tr>
+	<th><label for="IDS"><input onclick='CheckBoxSelectAll(this, "checkboxes")' id="IDS" type="checkbox">ID</label></th>
+    <th>类型</th>
+	<th>活动标题</th>
+	<th>开始时间</th>
+	<th>结束时间</th>
+	<th>发布</th>
+    <th>奖金</th>
+	<th colspan="2">状态</th>
+	<th>操作</th>
+ </tr>
+
+{foreach from=$activity item=v key=k1}
+  <tr>
+  <td class="first-cell" align="center"><label for="checkbox_{$v.activityid}"><input 
+		name="checkboxes[]" type="checkbox" id="checkbox_{$v.activityid}" value="{$v.activityid}"/>{$v.activityid}</label></td>
+
+	<td align="center">{if $v.type==0}<font 
+	color=#690>问卷调查</font>{else}有奖竞猜{/if}</td>
+
+	<td align="left" class="first-cell nowrap">
+		{$v.title|escape:html}</td>
+
+	<td align="center">{$v.starttime|escape:html}</td>
+	<td align="center">{$v.endtime|escape:html}</td>
+	<td align="center">{$v.adminname|escape:html}</td>
+	<td align="center">{$v.prize|escape:money}</td>
+	<td align="center">{if $v.isdel}<font color='#d5d5d5'>已删</font>{else}
+	<font color='#669900'>正常</font>{/if}</td>
+
+	<td align="center">{if $v.isverify==2}<font color='#cccccc'>取消</font>{elseif $v.isverify==1}<font color='#ff3300'>已审</font>{elseif $v.isverify==0}<font color='#d5d5d5'>未审</font>{/if}</td>
+
+	<td align="center">
+	{if $v.isverify==0 || ($v.isverify==1 && strtotime($v.starttime)>time() )}
+	<a href="./?controller=marketmgr&action=activityedit&activityid={$v.activityid}">修改</a>&nbsp;
+	{/if}
+	{if strtotime($v.starttime)<time()}
+	<a href="./?controller=marketmgr&action=activityinfolist&activityid={$v.activityid}">统计</a>&nbsp;
+	{/if}
+	<a href="./?controller=marketmgr&action=activityuserlist&activityid={$v.activityid}">用户</a>&nbsp;
+	{if $v.isverify==0}
+	<a href="./?controller=marketmgr&action=activityverifyview&activityid={$v.activityid}"><font color='#ff3300'>审核</font></a>&nbsp;
+	{/if}
+	{if $v.isverify==1}
+		{if strtotime($v.starttime)>time()}
+			<a href="./?controller=marketmgr&action=cannel&activityid={$v.activityid}" onclick="return comfirm('您确认要取消审核活动?');">取消审核</a>&nbsp;
+		{elseif strtotime($v.endtime)>time()}
+			<a href="./?controller=marketmgr&action=activitycannel&activityid={$v.activityid}" onclick="return confirm('你确认要强制取消活动?活动取消后,用户将不能继续答题.');">强制取消</a>&nbsp;
+		{/if}
+	{/if}
+	</td>
+  </tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">无相关数据</td></tr>
+{/foreach}
+</table>
+
+
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+
+<table id="page-table" cellspacing="0">
+<tr><td>&nbsp;&nbsp;<select style='background:#eaeaea;color:#333' name='form_action'>
+    <option value="">请选择操作类型...</option>
+	<option style='background:#333;color:#f30;' value="bat_delete">批量删除</option></select>
+<input type="submit" value="确定" id="btnSubmit" name="btnSubmit" class="button" />
+</td></tr>
+<tr>
+<td align="right">{$pageinfo}</td>
+</tr>
+</table>
+
+</form>
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

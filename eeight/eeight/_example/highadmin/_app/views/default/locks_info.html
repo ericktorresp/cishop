@@ -1,0 +1,90 @@
+{include file="pageheader.html"}
+{insert_scripts files="jquery.js"}
+<script language="javascript" type="text/javascript">
+$(function(){
+    $("#lockmethod").submit(function(){
+        if($("#lotteryid option:selected").val() == 0){
+            alert("请选择游戏");
+            return false;
+        }
+        if($("#locktablename").val()==""){
+            alert("封锁表名不能为空");
+            return false;
+        }
+        if($("#locktablecnname").val()==""){
+            alert("封锁表中文名不能为空");
+            return false;
+        }
+        if($("#codefunction").val()==""){
+            alert("确认中奖号码的函数不能为空！");
+            return false;
+        }
+        if($("#maxlost").val()==""){
+            alert("封锁值不能为空！");
+            return false;
+        }
+        return true;
+    }); 
+});
+</script>
+<div class="list-div" id="listDiv">
+<form name="lockmethod" id="lockmethod" method="post" action="./?controller=locks&action={$action}">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td class="narrow-label">游戏名称</td>
+<td>
+{if $action == 'methodlockedit'}
+{$alock.cnname}
+<input type="hidden" value="{$alock.lotteryid}" name="lotteryid" id="lotteryid">
+{else}
+<select name="lotteryid" id="lotteryid">
+<option value="0" selected>选择游戏</option>
+{foreach from=$aLottery item=aLotteryDetail key=k}
+<option value="{$aLotteryDetail.lotteryid}">{$aLotteryDetail.cnname}</option>
+{/foreach}
+</select>
+{/if}
+</td>
+</tr>
+<tr>
+<td class="narrow-label">封锁表名称</td>
+<td>
+{if $action == 'methodlockedit'}{$alock.locktablename}
+{else}<input  name="locktablename" id="locktablename" type="text" value="">{/if}
+</td>
+</tr>
+<tr>
+<td class="narrow-label">封锁表中文名称</td>
+<td>
+{if $action == 'methodlockedit'}{$alock.locktablecnname}
+{else}<input  name="locktablecnname" id="locktablecnname" type="text" value="">{/if}
+</td>
+</tr>
+<tr>
+<td class="narrow-label">确认中奖号码的函数</td>
+<td>
+{if $action == 'methodlockedit'}{$alock.codefunction}
+{else}<input  name="codefunction" id="codefunction" type="text" value="">
+&nbsp;<font color="Red">用以确定当前封锁表中与当前彩种的开奖号码对应的号码</font>{/if}
+</td>
+</tr>
+<tr>
+<td class="narrow-label">最大封锁值</td>
+<td>
+<input value="{$alock.maxlost}" type="text" name="maxlost" id="maxlost" onkeyup="this.value=this.value.replace(/[^\d^\.]/g,'')" onafterpaste="this.value=this.value.replace(/[^\d^\.]/g,'')">
+</td>
+</tr>
+<tr>
+<td colspan="8" align="left" style="padding-left:180px;">
+{if $action == 'methodlockedit'}
+<input type="hidden" name="locktableid" value="{$alock.locktableid|escape:html}">
+<input type="submit" class="button" value="修改封锁表">
+{else}
+<input type="submit" class="button" value="增加封锁表">
+{/if}
+</td>
+</tr> 
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

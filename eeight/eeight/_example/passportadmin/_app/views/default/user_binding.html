@@ -1,0 +1,111 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th>用户名</th>
+	<th>开户人姓名</th>
+	<th>银行账号</th>
+	<th>银行名称</th>
+	<th>省份</th>
+	<th>城市</th>
+	<th>支行名称</th>
+	<th>绑定时间</th>
+	<th>操作</th>
+  </tr>
+ <tr><td colspan="9"><font color="green">绑定中的银行卡</font></td></tr>
+  {foreach from=$available_bank item=avabank key=k}
+	<tr>
+		<td>{$avabank.user_name}</td>
+		<td>{$avabank.account_name}</td>
+		<td>{$avabank.account}</td>
+		<td>{$avabank.bank_name}</td>
+		<td>{$avabank.province}</td>
+		<td>{$avabank.city}</td>
+		<td>{$avabank.branch}</td>
+		<td>{$avabank.atime}</td>
+		<td align="center"><a href="?controller=user&action=deluserbank&cardid={$avabank.id}&userid={$avabank.user_id}" onClick="return confirm('您确定要删除:{$avabank.account_name} {$avabank.account} ?');">删除</a></td>
+	</tr>
+  {foreachelse}
+    <tr><td class="no-records" colspan="9">无相关数据</td></tr>
+  {/foreach}
+<tr></tr>
+<tr></tr>
+<tr></tr>
+  <tr><td colspan="9"><font color="red">已取消绑定的银行卡</font></td></tr>
+  {foreach from=$unavailable_bank item=unavabank key=k}
+	<tr>
+		<td>{$unavabank.user_name}</td>
+		<td>{$unavabank.account_name}</td>
+		<td>{$unavabank.account}</td>
+		<td>{$unavabank.bank_name}</td>
+		<td>{$unavabank.province}</td>
+		<td>{$unavabank.city}</td>
+		<td>{$unavabank.branch}</td>
+		<td>{$unavabank.atime}</td>
+		<td align="center">&nbsp;</td>
+	</tr>
+  {foreachelse}
+    <tr><td class="no-records" colspan="9">无相关数据</td></tr>
+  {/foreach}
+</table>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

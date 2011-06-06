@@ -1,0 +1,200 @@
+{include file="pageheader.html"}
+<style type="text/css">
+*{
+    padding:0;
+    margin:0;
+}
+body{font-size:12px;}
+p{
+    line-height:20px;
+    text-indent:2em;
+}
+/*
+ 标签部分的样式
+ */
+.menu_01 {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/menu_01.png);
+	background-repeat: no-repeat;
+	float: left;
+	height: 29px;
+	width: 4px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 2px;
+    cursor:pointer;
+}
+.menu_02 {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/menu_01.png);
+	float: left;
+	height: 29px;
+	line-height: 29px;
+	padding-right: 5px;
+	padding-left: 5px;
+	background-position: 0px -29px;
+	background-color: #CCCCCC;
+    cursor:pointer;
+}
+.menu_03 {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/menu_01.png);
+	background-repeat: no-repeat;
+	float: left;
+	height: 29px;
+	width: 4px;
+	margin-top: 0px;
+	margin-right: 2px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	background-position: -5px 0px;
+    cursor:pointer;
+}
+.menu_01a {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/menu_01.png);
+	background-repeat: no-repeat;
+	float: left;
+	height: 29px;
+	width: 4px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 2px;
+	background-position: -10px 0px;
+    cursor:pointer;
+}
+.menu_02a {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/menu_01.png);
+	float: left;
+	height: 34px;
+	line-height: 29px;
+	padding-right: 5px;
+	padding-left: 5px;
+	color: #FFFFFF;
+	background-repeat: no-repeat;
+	background-position: center -58px;
+	background-color: #333333;
+    cursor:pointer;
+}
+.menu_03a {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/menu_01.png);
+	background-repeat: no-repeat;
+	float: left;
+	height: 29px;
+	width: 4px;
+	margin-top: 0px;
+	margin-right: 2px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	background-position: -15px 0px;
+    cursor:pointer;
+}
+</style>
+<script>
+{literal}
+(function($){
+$(document).ready(function(){
+    $("span[id^='general_tab_']").click(function(){
+        $("span[id^='general_tab_']").attr("class","tab-back");
+        $(this).attr("class","tab-front");
+        $("div[id^='general_table_']").hide();
+        id = $(this).attr("id").replace("general_tab_","");
+        $("#general_table_"+id).show();
+    });
+});
+})(jQuery);
+{/literal}
+</script>
+
+<script type="text/javascript">
+{literal}
+(function($){
+$(document).ready(function(){
+    $("span[id^='general_tab_']").click(function(){
+        $(".title01").find(".menu_01a").attr("class","menu_01");
+        $(".title01").find(".menu_02a").attr("class","menu_02");
+        $(".title01").find(".menu_03a").attr("class","menu_03");
+        $(this).find(".menu_01").attr("class","menu_01a");
+        $(this).find(".menu_02").attr("class","menu_02a");
+        $(this).find(".menu_03").attr("class","menu_03a");
+        $("span[id^='general_table_']").hide();
+        id = $(this).attr("id").replace("general_tab_","")
+        $("#general_table_"+id).show();
+    });
+});
+})(jQuery);
+{/literal}
+
+
+</script>
+{literal}
+<script type="text/javascript">
+window.onload = function(){
+    var Tid = {$tid};
+    if (Tid > 0){
+        $("span[id^='general_tab_']").attr("class","tab-back");
+        $("#general_tab_"+Tid).attr("class","tab-front");
+        $("div[id^='general_table_']").hide();
+        id = Tid;
+        $("#general_table_"+id).show();
+        $(".title01").find(".menu_01a").attr("class","menu_01");
+        $(".title01").find(".menu_02a").attr("class","menu_02");
+        $(".title01").find(".menu_03a").attr("class","menu_03");
+        $("#general_tab_"+Tid).find(".menu_01").attr("class","menu_01a");
+        $("#general_tab_"+Tid).find(".menu_02").attr("class","menu_02a");
+        $("#general_tab_"+Tid).find(".menu_03").attr("class","menu_03a");
+    }
+}
+</script>
+{/literal}
+</head>
+<body>
+
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%">
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+<tr>
+  <td height="43" style="padding-left:10px;">
+  <div class="title01">
+  {foreach from=$data item=d key=k}
+    {if $k==0}
+		<span {if $k==0}class="tab-front"{else}class="tab-back"{/if}  id="general_tab_{$k}">
+		  <span class="menu_01a"></span>
+		  <span class="menu_02a">{$d.tagname|escape:html}</span>
+		  <span class="menu_03a"></span>
+		</span>
+	{else}
+		<span {if $k==0}class="tab-front"{else}class="tab-back"{/if}  id="general_tab_{$k}">
+		  <span class="menu_01"></span>
+		  <span class="menu_02">{$d.tagname|escape:html}</span>
+		  <span class="menu_03"></span>
+		</span>
+	{/if}
+		
+	{/foreach}
+    </
+    </td>
+</tr>
+<tr>
+          <td height="5"></td>
+        </tr>
+        
+      <tr>
+      <td height="37" style="padding:30px;">
+      {foreach from=$data item=d key=k}
+        <div class="help-content" id="general_table_{$k}" {if $k!=0}style="display:none"{/if}>
+            {$d.content}        </div>
+    {/foreach}
+      </td>
+    </tr>
+  </table>
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+
+{include file="pagefooter.html"}

@@ -1,0 +1,52 @@
+{include file="pageheader.html"}
+<style type="text/css">
+.accl {
+	font-size:14px;
+	text-align:right;
+}
+</style>
+<div class="list-div" id="listDiv">
+ 
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td style="font-size:18px;height:30px;">分账户{$htmlstr.accname}关联的用户列表</td>
+</tr>
+<tr>
+<td align="right">
+<form method="POST" action='?controller=userpayport&action=viewacc'  name="list-form" id="list-form">
+&nbsp; 分账户<select name="accid" class="accl">
+{foreach from=$acclist item=acc key=ai}
+<option value="{$ai}" id="acc_{$ai}">{if $acc.isenable == 0}[未激活]{/if}{$acc.accname}</option>
+{/foreach}
+</select>关联用户列表 
+<input type="Submit" name="Submit" value="查看">
+</form> 
+</td>
+</tr>
+<tr>
+<td>
+
+{foreach from=$userlist item=user key=ui}
+
+<!-- {$user.user_id} -->
+<p>
+{if $user.user_level == 0 } 总代:{else} 一代:{/if} &nbsp; 
+{$user.user_name} &nbsp; 
+{if $user.isactive == 1}
+<img src="images/yes.gif" border=0><font color=red>关系已激活</font>
+{/if}
+{/foreach}
+</td>
+</tr>
+</table>
+</div>
+{literal}
+<script type="text/javascript">
+window.onload = function()
+{
+	 document.getElementById("acc_" + {$htmlstr.accid}).selected = true;
+}
+</script>
+{/literal}
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

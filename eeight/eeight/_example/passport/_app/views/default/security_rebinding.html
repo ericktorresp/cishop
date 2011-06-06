@@ -1,0 +1,44 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkform(){
+	var account_name = document.getElementById("account_name");
+	if (account_name.value == ""){
+		alert("您忘记了填写天户人姓名！");
+		account_name.focus();
+		return false;
+	}
+	var account = document.getElementById("account");
+	if(account.value == ""){
+		alert("您忘记了填写银行账号！");
+		account.focus();
+		return false;
+	}
+}
+</script>
+<div class="list-div" id="listDiv">
+<table class="list-table">
+<form method="post" name="addform" onsubmit="return checkform()">
+<input type="hidden" name="flag" value="{$flag}" />
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action"	value="{$action}" />
+<input type="hidden" name="id"	value="{$id}" />
+<tr>
+  	<td colspan="2">别名:{$nickname}&nbsp;&nbsp;&nbsp;&nbsp;卡号：{$account}</td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">开户人姓名:</td>
+    <td>
+		<input type="text" name="account_name" id="account_name" /><font color="#FF3300">(请输入旧的银行卡开户人姓名)</font>
+    </td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">银行账号:</td>
+    <td>
+		<input type="text" name="account" id="account" /><font color="#FF3300">(请输入旧的银行卡卡号)</font>
+    </td>
+  </tr>
+  <tr><td></td><td><input type="submit" name="submit" value="提交" class="button" />　<input type="button" value="取消" onclick="history.back();" class="button" /></td></tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,48 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="{$sSystemImagesAndCssPath}/highgame/js/calendar/css/calendar-brown.css"  />
+<script>
+$(document).ready(function(){
+	jQuery("#searchdate").dynDateTime({
+		ifFormat: "%Y-%m-%d",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		button: ".next()",
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#searchdate").change(function(){
+		if(! validateInputDate(jQuery("#searchdate").val()) )
+		{jQuery("#searchdate").val('');alert("时间格式不正确,正确的格式为:2009-06-10");}
+	});
+});
+</script>
+<div class="form-div" ID="formdiv">
+<form id="getForm">
+<input type="hidden" name="controller" value="report">
+<input type="hidden" name="action" value="userpoint">
+&nbsp;<img src="{$sSystemImagesAndCssPath}/highgame/images/default/icon_search.gif" border="0">
+&nbsp;选择日期:&nbsp;<input type="text" name="searchdate" id="searchdate" value="{$searchdate}" style="background-color:#FFF;color:#555;">
+&nbsp;<img src="{$sSystemImagesAndCssPath}/highgame/images/default/calendar2.gif">&nbsp;
+<input type="submit" value="立即搜索" class="button">
+</form>
+</div>
+<div class="list-div" id="listDiv">
+<table>
+<tr>
+<th width="30%">代理用户</th>
+<th width="30%">日期</th>
+<th width="40%">返点总额</th>
+</tr>
+<tr align="center">
+<td>{$username|escape:html}</td>
+<td>{$searchdate}</td>
+<td>{$userpoint.totalpoint|escape:money:4}&nbsp;元</td>
+</tr>
+</table>
+</div>
+{include file="pagefooter.html"}

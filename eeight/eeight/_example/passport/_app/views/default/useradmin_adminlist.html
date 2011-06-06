@@ -1,0 +1,52 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkform(obj)
+{
+	return confirm("确定要批量删除所选用户吗？");
+} 
+</script>
+<div class="list-div" class="listDiv">
+<table class="list-table">
+<form action="index.php" method="post" name="listform" onsubmit="return checkform(this)">
+<input type="hidden" name="controller" value="useradmin" />
+<input type="hidden" name="action" value="admindelete" />
+<input type="hidden" name="flag" value="delete" />
+	<tr>
+    	<th width="20">&nbsp;</th>
+    	<th width="20%" align="center" height="20">帐号</th>
+        <th width="20%" align="center" height="20">管理员呢称</th>
+        <th width="20%" align="center" height="20">所属组别</th>
+        <th width="40%" align="center">操作</th>
+    </tr>
+    {if empty($users) }
+    <tr>
+    	<td colspan="5" class="no-records">暂时无任何管理员</td>
+    </tr>
+	{else}
+    {foreach from=$users item=user key=k}
+    <tr>
+    	<td width="20"><input type="checkbox" name="select_rows[]" value="{$user.userid}" /></td>
+    	<td align="center" height="20">{$user.username|escape:html}</td>
+        <td align="center" height="20">{$user.nickname|escape:html}</td>
+        <td align="center" height="20">{if empty($user.groupname)}未指定{else}{$user.groupname|escape:html}{if $user.isspecial==0}<span style="color:#666666">[系统默认]</span>{/if}
+        {if $user.issales==1}<span style="color:#FF0000">[指定销售]</span>{/if}{/if}</td>
+        <td align="center">
+        	<a href="index.php?controller=useradmin&action=adminname&uid={$user.userid}">呢称</a>
+        	<a href="index.php?controller=useradmin&action=admingroup&uid={$user.userid}">组别</a> 
+            <a href="index.php?controller=useradmin&action=adminpass&uid={$user.userid}">密码</a> 
+            <a href="index.php?controller=useradmin&action=admindelete&uid={$user.userid}" onclick="return confirm('确定要删除吗？')">删除</a>
+            </td>
+    </tr>
+    {/foreach}
+    {/if}
+    <tr>
+    <td></td>
+    	<td colspan="4" align="center"><input type="checkbox" name="selectall" id="selectall" onclick="selectAll('selectall')" />全选 &nbsp;&nbsp;
+        				<input type="submit" name="submit" value="批量删除" class="button" />&nbsp;&nbsp;
+                        <input type="button" onclick="window.location='index.php?controller=useradmin&action=adminadd'" value="增加管理员"  class="button"/>
+        </td>
+    </tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

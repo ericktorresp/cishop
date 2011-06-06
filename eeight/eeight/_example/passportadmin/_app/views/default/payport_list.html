@@ -1,0 +1,287 @@
+{include file="pageheader.html"}
+<style type="text/css">
+#list-table tr:hover td{background:#EEF8F9;}
+#box-table {font-size:12px;width:100%;text-align:left;border-collapse:collapse;}
+#box-table th {font-size:13px;font-weight:normal;background:#b9c9fe;border-top:4px solid #006699;border-bottom:1px solid #fff;color:#1c3472;text-align:center;}
+#box-table td {background:#e8edff;border-bottom:1px solid #fff;color:#669;border-top:1px solid transparent;}
+#box-table a {color:#669;text-decoration:none}
+#box-table a:hover {color:#000;text-decoration:none}
+#box-table tr:hover td {background:#f9f89b;color:#000;}
+#list-table tr:hover .outoff{background:#FFF;}
+.sbtn {background-color:#EEEEEE;padding:1px; height:18px; weight:120px; color:#f30;
+	cursor:pointer;border:1px solid #AAAAAA;font-size:13px;}
+a:hover.d,a:link.d,a:visited.d {text-decoration:none}	
+</style>
+<script type="text/javascript" src="./js/jquery.js"></script>
+{literal}
+<script type="text/javascript">
+jQuery(document).ready(function() {
+
+	setingaccounts = function(aid){
+		alert('Setting Account ID:'+ aid);
+	}
+	refreshTotalBalance = function (id){
+		jQuery.ajax({
+			type:"GET",
+			url:"?controller=payportmgr&action=balanceedit&flag=refrence",
+			cache:false,
+			data:"id=" + id,
+			success:function(data){
+				if (data != ""){
+					alert('刷新成功, 支付接口总余额:' + data);
+					var datastr = '';
+					if (data < 0) {
+						datastr = '<font color=red>'+data+'</font>';
+						jQuery('#total_balance_'+id).html(datastr);
+					}else{
+						jQuery('#total_balance_'+id).html(data);
+					}
+					
+				}else{
+					alert('刷新失败');
+				}
+			}
+		});
+	}
+	
+	accountlists = function(id){
+		//alert(id);
+		var addbutton = "<span class='sbtn' onClick='javascript:self.location.href=\"?controller=payportmgr&action=accadd&payportid="+ id +"\"'>增加一个分账户</span>"
+		+ "&nbsp; &nbsp; &nbsp; <span class='sbtn' onClick='refreshTotalBalance("+ id +")'>刷新支付接口余额</span>";
+		jQuery("#PPAccount" + id).html("<i> Loading ...... </i>");
+		jQuery("#ShowHideAccListBut" + id).html("<span style='cursor:pointer;' onClick='hiddenAccList("+ id +")'>隐藏</span>");
+		var operateHtml = "";
+		jQuery.ajax({
+			type:"POST",
+			url:"?controller=payportmgr&action=acclist",
+			cache:false,
+			data:"ajax=1&id=" + id,
+			success:function(data,status){
+				data = data.split(',');
+				if (data != ""){
+					operateHtml = addbutton;
+					operateHtml += displayAccountList(id,data);
+				}else{
+					operateHtml = '<p align=center>Not found,  you can '+ addbutton +'</p>';
+				}
+				jQuery("#PPAccount" + id).html(operateHtml);
+			}
+			
+		});
+	}
+
+	hiddenAccList = function(id){
+		jQuery("#PPAccount" + id).html("");
+		jQuery("#ShowHideAccListBut" + id).html("<span style='cursor:pointer;text-decoration:none;' onClick='accountlists("+ id +");'>查看</span>");
+	}
+	
+	function displayAccountList(id,data){
+		var ttl = (data.length) / 12;
+		//aid,acc_name,acc_attr,acc_currency,balance,balance_limit,valid_time,open_time,isenable
+		//<th rowspan=2>BalanceLimit</th>
+		var tempHtml = "<table id='box-table'><tr><th rowspan=2>Id</th><th rowspan=2>识别名称</th><th rowspan=2>货币币种</th><th rowspan=2>期初余额</th><th rowspan=2>转入</th><th rowspan=2>转出</th><th rowspan=2>余额</th>"+
+			"<th rowspan=2>注册时间</th><th rowspan=2>开放时间</th><th rowspan=2>状态</th><th colspan=5>API功能限制</th><th rowspan=2>可用操作</th></tr>"+
+			"<tr><th>充值</th><th>提现</th><th>量提</th><th>手提</th><th>查询</th></tr>";
+		for (ii=0; ii<ttl; ii++){
+			i = ii * 12;
+
+			var imgload = imgdraw = imgdrawlist = imgques = imgdrawhand = statusStr = otimeStr = '';
+			
+			imgload = (data[i+2] & 1) != 0  ? 'yes' : 'no';
+			imgdraw = (data[i+2] & 2) != 0  ? 'yes' : 'no';
+			imgdrawlist = (data[i+2] & 4) != 0  ? 'yes' : 'no';
+			imgques = (data[i+2] & 8) != 0  ? 'yes' : 'no';
+			imgdrawhand = (data[i+2] & 16) != 0  ? 'yes' : 'no';
+			switch (data[i+8]){
+				case '0':
+					statusStr = '<font color=red>禁用</font>';
+					break;
+				case '1':
+					statusStr = '<font color=green>启用</font>';
+					break;
+				case '2':
+					statusStr = '<font color=gray>已删除</font>';
+					break;
+				case '9':
+					statusStr = '<font color=blue>暂停</font>';
+					break;
+				default:
+					statusStr = '--';
+					break;
+			}
+			rtimeStr = (data[i+6] == 0) ? '' : data[i+6];
+			otimeStr = (data[i+7] == 0) ? '' : data[i+7];
+			/*
+			if (data[i+8] == 2){
+				tempHtml += "<div id='hiddenme[]' style='display:none'><tr align=center style='color:#CCCCCC'><td><b>"+ data[i] +"</b></td><td align=left>"+ data[i+1] +"</td><td>"+ data[i+3] +"</td><td align=right>"+ data[i+4] +
+				"</td><td>"+ rtimeStr +"</td><td>"+ otimeStr +"</td><td>"+ statusStr +
+				"</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr></div>";
+			}else{
+		    */
+			if (data[i+8] != 2){
+				//<td>x "+ data[i+5] +"</td>
+			tempHtml += "<tr align=center><td>"+ data[i] +"</td><td align=left>"+ data[i+1] +"</td><td>"+ data[i+3] +"</td><td align=right>"+ data[i+9] +"</td><td align=right>"+ data[i+10] +"</td><td align=right>"+ data[i+11] +"</td><td align=right>"+ data[i+4] +
+			"</td><td>"+ rtimeStr +"</td><td>"+ otimeStr +"</td><td>"+ statusStr +
+			"</td><td><img src='images/"+ imgload +".gif' border=0></td><td><img src='images/"+ imgdraw +".gif' border=0></td>"+
+			"<td><img src='images/"+ imgdrawlist +".gif' border=0></td><td><img src='images/"+ imgdrawhand +".gif' border=0></td><td><img src='images/"+ imgques +".gif' border=0></td><td>";
+			if (data[i+7] != 0){
+				tempHtml += "[<a class=d href=\"?controller=payportmgr&action=accview&payaccountid="+ data[i] +"\">查看</a>]&nbsp; &nbsp;[<span style='cursor:pointer' onClick='javascript:self.location.href=\"?controller=payportmgr&action=accedit&payaccountid="+ data[i] +"\"'>编辑</span>]&nbsp; &nbsp;[<a href='?controller=payportmgr&action=accdelete&payaccountid="+ data[i] +"' onClick=\"return confirm('是否确认删除 "+ data[i+1] +" 这个账户?');\">删除</a>]&nbsp; &nbsp;";
+				if (data[i+8] != 0){
+					tempHtml += "[<a href=\"?controller=payportmgr&action=accactive&opt=close&payaccountid="+ data[i] +"\"' onclick=\"JavaScript:return confirm('确认禁用？');\"><font color=red>禁用</font></a>]";
+				}else{
+					tempHtml += "[<a href=\"?controller=payportmgr&action=accactive&opt=active&payaccountid="+ data[i] +"\"' onclick=\"JavaScript:return confirm('确认启用？');\">启用</a>]";
+				}
+				tempHtml += "&nbsp; &nbsp;[<a href=\"?controller=payportmgr&action=balanceedit&payaccountid="+ data[i] +"\"' target=_blank>追加转帐</a>]";
+				tempHtml += "&nbsp; &nbsp;[<a href=\"?controller=payportmgr&action=transferrecord&payaccountid="+ data[i] +"\"' target=_blank>转帐记录</a>]";
+			}else{
+				tempHtml += "<i>(不可用)</i>";
+			}
+			tempHtml += "</td></tr>";
+			} //end if status=2
+		}
+		tempHtml += "</table>";
+		return tempHtml;
+	}
+
+		
+});
+</script>
+{/literal}
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm">
+	<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<th rowspan=2>接口别名</th>
+<th colspan=2>充值限制</th>
+<th colspan=5>充值手续费</th>
+<th colspan=2>提款限制</th>
+<th colspan=7>提款手续费</th>
+<th rowspan=2>余额</th>
+<th rowspan=2>状态</th>
+<th rowspan=2>可选操作</th>
+<th rowspan=2>分账户</th>
+</tr>
+<tr>
+<th>最小</th>
+<th>最大</th>
+
+<th>按次</th>
+<th>按%</th>
+<th>&lt;界定&lt;</th>
+<th>按次</th>
+<th>按%</th>
+
+<th>最小</th>
+<th>最大</th>
+
+<th>按次</th>
+<th>按%</th>
+<th>&lt;界定&lt;</th>
+<th>按次</th>
+<th>按%</th>
+<th>最低</th>
+<th>最高</th>
+
+</tr>
+
+
+{foreach from=$PayportList  item=Payport key=Pi}
+{if $Payport.status == 2}
+<tr>
+<td align="center">{$Payport.payport_nickname}</td>
+<td colspan=16></td>
+<td align="right">{$Payport.total_balance}</td>
+<td>已删除</td>
+<td colspan=2>-</td>
+</tr>
+{else}
+<tr>
+<td align="center">{$Payport.payport_nickname|escape:html}</td>
+<td align="right">{$Payport.load_limit_min_per}</td>
+<td align="right">{$Payport.load_limit_max_per}</td>
+
+<td align="center">{$Payport.load_fee_per_down}</td>
+<td align="center">{$Payport.load_fee_percent_down}%</td>
+<td align="center">{$Payport.load_fee_step}</td>
+<td align="center">{$Payport.load_fee_per_up}</td>
+<td align="center">{$Payport.load_fee_percent_up}%</td>
+
+<td align="right">{$Payport.draw_limit_min_per}</td>
+<td align="right">{$Payport.draw_limit_max_per}</td>
+
+<td align="center">{$Payport.draw_fee_per_down}</td>
+<td align="center">{$Payport.draw_fee_percent_down}%</td>
+<td align="center">{$Payport.draw_fee_step}</td>
+<td align="center">{$Payport.draw_fee_per_up}</td>
+<td align="center">{$Payport.draw_fee_percent_up}%</td>
+<td align="center">{$Payport.draw_fee_min}</td>
+<td align="center">{$Payport.draw_fee_max}</td>
+
+<td align="right"><span id="total_balance_{$Payport.id}">{if $Payport.total_balance < 0}<font color=red>{$Payport.total_balance}</font>{else}{$Payport.total_balance}{/if}</span></td>
+<td align="center">{if $Payport.status == 0}<img src="images/no.gif" border="0">{else}<img src="images/yes.gif" border="0">{/if}</td>
+<td align="center">
+<a TITLE='查看接口详细参数' href="?controller=payportmgr&action=detail&id={$Payport.id}">查看</a>
+&nbsp;&nbsp;<a href="?controller=payportmgr&action=edit&id={$Payport.id}" TITLE="对支付接口基本信息参数进行修改">编辑</a>
+&nbsp;&nbsp;<a href="?controller=payportmgr&action=setlimit&id={$Payport.id}" TITLE="对支付接口充提参数进行修改">充提参数</a>
+&nbsp;&nbsp;<a href="?controller=payportmgr&action=delete&id={$Payport.id}" TITLE="删除接口" onClick="return confirm('是否确认删除?');">删除</a>
+&nbsp;&nbsp;{if $Payport.status == 0}<a href="?controller=payportmgr&action=enable&id={$Payport.id}" onClick="return confirm('确认启用?');"><font color=green>启用</font></a>{else}<a href="?controller=payportmgr&action=disable&id={$Payport.id}" onClick="return confirm('将影响全局,确认禁用?');"><font color=red>禁用</font></a>{/if}
+</td>
+<td align="center" id="ShowHideAccListBut{$Payport.id}"><span style="cursor:pointer;text-decoration:none;" onClick="JavaScript:accountlists('{$Payport.id}');">查看</span></td>
+</tr>
+
+<div style="display:none"  id="listAccountDIVx">
+<tr>
+<td colspan="22" class="outoff" style="padding:0;margin:0;border:0" id="accountListsDIV{$Payport.id}"><span id="PPAccount{$Payport.id}"> </span></td>
+</tr>
+</div>
+{/if}
+{/foreach}
+
+<tr>
+<td colspan="22" class="outoff">
+<a href="javascript:showNotice('listguide');" title="使用帮助" style="text-decoration:none"><？>简明操作指南</a>
+<span id="listguide" style="display:none;font-size:13px">
+<table>
+<tr>
+<td style="padding:10px;">
+<br> 为减少系统资源开销,请勿经常性点击关于分账户的 [查看] / [隐藏] 
+<br> [分账户]同一支付接口的不同注册账户     
+<br> [用户关系]分账户与用户的对应绑定关系简称
+<br>
+<br>1. 新增操作:依次 增加支付接口 增加分账户 "[增加一个分账户]"
+<br>2. 激活操作:依次 从支付接口开始至分账户激活,只有状态为激活的分账户才能使用到与用户绑定的设置备选中 
+<br>3. 关闭支付接口影响: 强制其下所有分账户状态为未激活、所有相关的用户关系状态为未激活
+<br>4. 删除支付接口影响: 强制其下所有分账户状态为未激活、删除所有关联的用户关系、不能再操作启用
+<br>5. 关闭分账户影响: 强制相关的用户关系状态为未激活、不能再操作
+<br>6. 关闭分账户影响: 删除所有关联的用户关系
+<br>7. 支付接口余额: 查看该余额最新值需手工刷新 "[刷新支付接口余额]"
+<br>8. 分账户余额: 直接显示为最新余额
+</td>
+</tr>
+</table>
+</span>
+</td>
+</tr>
+</table>
+</form>
+</div>
+<script type="text/javascript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+</script>
+{include file="pagefooter.html"}

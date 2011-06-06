@@ -1,0 +1,40 @@
+{include file="pageheader.html"}
+
+<div class="list-div" id="listDiv">
+<form action="index.php" method="post" name="listform">
+<input type="hidden" name="controller" value="useradmin" />
+<input type="hidden" name="action" value="adminproxy" />
+<input type="hidden" name="flag" value="update" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<!--<th><label for="selectall"><input type="checkbox" name="selectall" id="selectall" onclick="selectAll('selectall')" />全选</label></th>-->
+	<th>用户名</th>
+	<th>销售管理员</th>
+</tr>
+{foreach from=$proxys item=proxy key=k}
+<tr>
+<!--<td align="center"><input type="checkbox" name="select_rows[]" value="{$proxy.userid}" /></td>-->
+	<td align="center">{$proxy.username|escape:html}</td>
+	<td align="center">{$proxy.adminname|escape:html}</td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="3">没有相关数据</td>
+</tr>
+{/foreach}
+<!--<tr>
+<td colspan='3'>
+&nbsp;&nbsp;&nbsp;&nbsp;将以上选中记录, 分配给销售管理员:
+<select name="adminuser">
+            	<option value="0">无</option>
+                {if !empty($useradmins)}
+                {foreach from=$useradmins item=useradmin key=admin}
+                <option value="{$useradmin.userid}">{$useradmin.username|escape:html}</option>
+                {/foreach}
+                {/if}
+            </select> <input type="submit" class="button" value="执行"></td>
+</tr>-->
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

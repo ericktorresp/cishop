@@ -1,0 +1,503 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/dialogUI/jquery.dialogUI.js"></script>
+<LINK href="./js/dialogUI/dialogUI.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+jQuery.noConflict();
+(function($){
+	var updata 	 = [];	//上调数据堆栈[正向栈]
+	var downdata = [];	//下调数据堆栈[反向栈]
+	var downlimit= Math.floor({$lotterys.maxlost});
+	var adjustminprofit = {$lotterys.adjustminprofit};
+	
+	$.fn.adjustUpAddLine = function(opts){//===============增加上调线
+		var defaults = {
+				money 	: 0,
+				percent : 0
+		};
+		opts  	  = $.extend( {}, defaults, opts || {} );
+		opts.money   = parseInt(opts.money,10);
+		opts.percent = parseInt(opts.percent,10);
+		var title = $(this).attr("name");
+		title     = title.split("_");
+		if( title.length != 2 ){//数据错误
+			return false;
+		}
+		var atype = title[0];
+		var id	  = Math.floor(Number(title[1]))+1;
+		if( updata.length > id ){//如果是在中间插入则更新后面所有的
+			for( i=updata.length; i>=id; i-- ){//从上往下更新
+				$("input[name='percent_up_"+i+"']").attr("name","percent_up_"+(i+1));
+				$("input[name='money_up_"+i+"']").attr("name","money_up_"+(i+1));
+				$("a[name='up_"+i+"']").attr("name","up_"+(i+1));
+				$("a[name='updel_"+i+"']").attr("name","updel_"+(i+1));
+			}
+			try{
+				updata.splice(id,0,{money:opts.money,percent:opts.percent});
+			}catch(e){
+				alert("您的浏览器版本太低，请升级");
+				return false;
+			}
+		}else{//最后插入的直接入栈
+			updata.push({money:opts.money,percent:opts.percent});
+		}
+		var html = '<tr><td align="center">&nbsp;</td><td align="center"><input type="text" class="james_inputpercent" name="percent_up_'+id+'" value="'+opts.percent+'">%</td><td align="center">&nbsp;</td><td align="center"><span>'+getUpExample(opts.percent)+'</span></td></tr>';
+		html += '<tr><td class="james_line"><input type="text" class="james_inputmoney" name="money_up_'+id+'" value="'+moneyFormat(opts.money)+'"></td><td class="james_line">&nbsp;</td><td class="james_line"><a href="javascript:" class="james_link" name="up_'+id+'">增加</a> <a href="javascript:" class="james_link" name="updel_'+id+'">删除</a></td><td class="james_line">&nbsp;</td></tr>';
+		$html = $(html);
+		$html.insertBefore($(this).closest("tr").prev("tr"));
+		$("a[name='up_"+id+"']",$html).click(function(){
+			$(this).adjustUpAddLine();
+		});
+		$("a[name='updel_"+id+"']",$html).click(function(){
+			$(this).adjustUpDelLine();
+		});
+		$("input[name='percent_up_"+id+"']",$html).keyup(function(){
+			$(this).val( filterPercent($(this).val()) );
+			$(this).parent().next().next().children("span").html( getUpExample($(this).val()) );
+		}).blur(function(){//入数据堆栈
+			id = Number($(this).attr("name").replace("percent_up_",""));
+			updata[id].percent = moneyNumber($(this).val());
+		});
+		$("input[name='money_up_"+id+"']",$html).keyup(function(){
+			$(this).val( moneyFormat($(this).val()) );
+		}).blur(function(){
+			id = Number($(this).attr("name").replace("money_up_",""));
+			updata[id].money = moneyNumber($(this).val());
+		});
+	};
+	$.fn.adjustUpDelLine = function(){	//删除上调的线
+		var title = $(this).attr("name");
+		title     = title.split("_");
+		if( title.length != 2 ){//数据错误
+			return false;
+		}
+		var atype = title[0];
+		var id	  = Math.floor(Number(title[1]));
+		$(this).closest("tr").prev("tr").remove().end().closest("tr").remove();//删除DOM结构
+		if( updata.length > id ){//如果是在中间删除则更新后面所有的
+			for( i=id+1; i<updata.length; i++ ){//从下往上更新
+				$("input[name='percent_up_"+i+"']").attr("name","percent_up_"+(i-1));
+				$("input[name='money_up_"+i+"']").attr("name","money_up_"+(i-1));
+				$("a[name='up_"+i+"']").attr("name","up_"+(i-1));
+				$("a[name='updel_"+i+"']").attr("name","updel_"+(i-1));
+			}
+			try{
+				updata.splice(id,1);
+			}catch(e){
+				alert("您的浏览器版本太低，请升级");
+				return false;
+			}
+		}else{//最后的删除直接出栈
+			updata.pop();
+		}
+	};
+	/***********-=========-*******************/
+	$.fn.adjustDownAddLine = function(opts){//================增加下调线
+		var defaults = {
+				money 	: 0,
+				percent : 0
+		};
+		opts  	  = $.extend( {}, defaults, opts || {} );
+		opts.money   = parseInt(opts.money,10);
+		opts.percent = parseInt(opts.percent,10);
+		var title = $(this).attr("name");
+		title     = title.split("_");
+		if( title.length != 2 ){//数据错误
+			return false;
+		}
+		var atype = title[0];
+		var id	  = Math.floor(Number(title[1]))+1;
+		if( downdata.length > id ){//如果是在中间插入则更新后面所有的
+			for( i=downdata.length; i>=id; i-- ){//从上往下更新
+				$("input[name='percent_down_"+i+"']").attr("name","percent_down_"+(i+1));
+				$("input[name='money_down_"+i+"']").attr("name","money_down_"+(i+1));
+				$("a[name='down_"+i+"']").attr("name","down_"+(i+1));
+				$("a[name='downdel_"+i+"']").attr("name","downdel_"+(i+1));
+			}
+			try{
+				downdata.splice(id,0,{money:opts.money,percent:opts.percent});
+			}catch(e){
+				alert("您的浏览器版本太低，请升级");
+				return false;
+			}
+		}else{//最后插入的直接入栈
+			downdata.push({money:opts.money,percent:opts.percent});
+		}
+		var html = '<tr><td align="center">&nbsp;</td><td align="center"><input type="text" class="james_inputpercent" name="percent_down_'+id+'" value="'+opts.percent+'">%</td><td align="center">&nbsp;</td><td align="center"><span>'+getDownExample(opts.percent).join(" ")+'</span></td></tr>';
+		html += '<tr><td class="james_line"><input type="text" class="james_inputmoney" name="money_down_'+id+'" value="-'+moneyFormat(opts.money)+'"></td><td class="james_line">&nbsp;</td><td class="james_line"><a href="javascript:" class="james_link" name="down_'+id+'">增加</a> <a href="javascript:" class="james_link" name="downdel_'+id+'">删除</a></td><td class="james_line">&nbsp;</td></tr>';
+		$html = $(html);
+		$html.insertBefore($(this).closest("tr").prev("tr"));
+		$("a[name='down_"+id+"']",$html).click(function(){
+			$(this).adjustDownAddLine();
+		});
+		$("a[name='downdel_"+id+"']",$html).click(function(){
+			$(this).adjustDownDelLine();
+		});
+		$("input[name='percent_down_"+id+"']",$html).keyup(function(){
+			$(this).val( filterPercent($(this).val()) );
+			$(this).parent().next().next().children("span").html( getDownExample($(this).val()).join(" ") );
+		}).blur(function(){//入数据堆栈
+			id = Number($(this).attr("name").replace("percent_down_",""));
+			downdata[id].percent = moneyNumber($(this).val());
+		});
+		$("input[name='money_down_"+id+"']",$html).keyup(function(){
+			$(this).val( "-"+moneyFormat($(this).val()) );
+		}).blur(function(){//入数据堆栈
+			id = Number($(this).attr("name").replace("money_down_",""));
+			downdata[id].money = moneyNumber($(this).val());
+		});
+	};
+	$.fn.adjustDownDelLine = function(){	//删除下调的线
+		var title = $(this).attr("name");
+		title     = title.split("_");
+		if( title.length != 2 ){//数据错误
+			return false;
+		}
+		var atype = title[0];
+		var id	  = Math.floor(Number(title[1]));
+		$(this).closest("tr").prev("tr").remove().end().closest("tr").remove();//删除DOM结构
+		if( downdata.length > id ){//如果是在中间删除则更新后面所有的
+			for( i=id+1; i<downdata.length; i++ ){//从下往上更新
+				$("input[name='percent_down_"+i+"']").attr("name","percent_down_"+(i-1));
+				$("input[name='money_down_"+i+"']").attr("name","money_down_"+(i-1));
+				$("a[name='down_"+i+"']").attr("name","down_"+(i-1));
+				$("a[name='downdel_"+i+"']").attr("name","downdel_"+(i-1));
+			}
+			try{
+				downdata.splice(id,1);
+			}catch(e){
+				alert("您的浏览器版本太低，请升级");
+				return false;
+			}
+		}else{//最后的删除直接出栈
+			downdata.pop();
+		}
+	};
+	
+	//百分比输入框输入过滤
+	function filterPercent(str){
+		str = str.replace(/[^\d]/g,"").substr(0,3);
+		str = Number(str) > 100 ? 100 : Number(str);
+		return str;
+	}
+	//金额逗号分隔格式化
+	function moneyFormat(num){
+		num = num.toString().replace(/[^\d]/g,"").substr(0,15);
+		num = Number(num).toString();
+		var newnum = [];
+		for( i=num.length; i>0; i-=3 ){
+			newnum.unshift(num.substring(i,i-3));
+		}
+		num = newnum.join(",");
+		return num;
+	}
+	//获取金额实际数字
+	function moneyNumber(num){
+		return num ? Number(num.replace(/[^\d]/g,"")) : 0;
+	}
+	//换算上调价格比例
+	function getUpExample(p){
+		var result = 1700;
+		return result+parseInt(p,10) * (2000 * (1 - adjustminprofit) - 1900) / 100;
+	}
+	function getDownExample(p){
+		var result = [1700,570,280,6.6];
+		p	       = parseInt(p,10);
+		result[0]  = 1700 - (7*p);
+		result[1]  = Math.round(570-(237*p/100));
+		result[2]  = Math.round(280-(114*p/100));
+		result[3]  = Math.round((6.6-(2.9*p/100))*10)/10;
+		return result;
+	}
+	function createFirstLine(maxlost,upzero,downzero){//创建0线
+		$("#tabloading").nextAll().remove();
+		var html = "";
+		html += '<tr><td align="center">&nbsp;</td><td align="center"><input type="text" class="james_inputpercent" value="'+upzero+'" name="percent_up_0">%</td><td align="center">&nbsp;</td><td align="center"><span>'+getUpExample(upzero)+'</span></td></tr><tr><td class="james_line"><span class="james_word">0</span></td> <td class="james_line">&nbsp;</td><td class="james_line"><a href="javascript:" class="james_link" name="up_0">增加</a></td><td class="james_line">&nbsp;</td></tr>';
+		html += '<tr><td align="center">&nbsp;</td><td align="center"><input type="text" class="james_inputpercent" value="'+downzero+'" name="percent_down_0">%</td><td align="center">&nbsp;</td><td align="center"><span>'+getDownExample(downzero).join(" ")+'</span></td></tr><tr><td class="james_line"><span class="james_word">- '+moneyFormat(maxlost)+'</span></td><td class="james_line">&nbsp;</td><td class="james_line"><a href="javascript:" class="james_link" name="down_0">增加</a></td><td class="james_line">&nbsp;</td></tr>';
+		$html = $(html)
+		$html.appendTo("#detail-table");
+		$("#maxlost").val(maxlost);
+		updata 	 = [];
+		downdata = [];
+		downlimit= maxlost;
+		updata.push({money:0,percent:upzero});
+		downdata.push({money:maxlost,percent:downzero});
+		//绑定事件
+		$("a[name^='up_']",$html).click(function(){
+			$(this).adjustUpAddLine();
+		});
+		$("a[name^='down_']",$html).click(function(){
+			$(this).adjustDownAddLine();
+		});
+		$("input[name^='percent_up_']",$html).keyup(function(){
+			$(this).val( filterPercent($(this).val()) );
+			$(this).parent().next().next().children("span").html( getUpExample($(this).val()) );
+		}).blur(function(){//入数据堆栈
+			id = Number($(this).attr("name").replace("percent_up_",""));
+			updata[id].percent = moneyNumber($(this).val());
+		});
+		$("input[name^='percent_down_']",$html).keyup(function(){
+			$(this).val( filterPercent($(this).val()) );
+			$(this).parent().next().next().children("span").html( getDownExample($(this).val()).join(" ") );
+		}).blur(function(){//入数据堆栈
+			id = Number($(this).attr("name").replace("percent_down_",""));
+			downdata[id].percent = moneyNumber($(this).val());
+		});
+	}
+	/*************************************/
+	$(document).ready(function(){
+		var zeroup 	 = parseInt({$adjust.zeroup},10);
+		var zerodown = parseInt({$adjust.zerodown},10);
+		createFirstLine( downlimit, zeroup, zerodown );
+		//初始化上线
+		{foreach from=$updatas item=updata key=k1 }
+		$("a[name='up_"+(updata.length-1)+"']").adjustUpAddLine({money:{$updata.uplimit},percent:{$updata.percent}});
+		{/foreach}
+		{foreach from=$downdatas item=downdata key=k2 }
+		$("a[name='down_0']").adjustDownAddLine({money:{$downdata.uplimit},percent:{$downdata.percent}});
+		{/foreach}
+		
+		/*$("#viewresult").click(function(){
+			updatastr = "";
+			for(i=0; i<updata.length; i++){
+				updatastr += i+"=>money:"+updata[i].money+", percent:"+updata[i].percent+"\r\n";
+			}
+			downstr = "";
+			for(i=0; i<downdata.length; i++){
+				downstr += i+"=>money:"+downdata[i].money+", percent:"+downdata[i].percent+"\r\n";
+			}
+			alert(updatastr+"\r\n"+downstr);
+		});*/
+		
+		/*******************提交数据*******************/
+		$("#subform").click(function(){
+			$.blockUI({message:"<h3>正在提交数据.....<br><img src='./images/loading.gif'></h3>"});
+			if( $("#lotteryid").val() == "" || Number($("#lotteryid").val()) == 0 || isNaN(Number($("#lotteryid").val())) ){
+				$.alert("数据错误，请刷新页面");
+				return false;
+			}
+			if( $("#groupid").val() == "" || Number($("#groupid").val()) == 0 || isNaN(Number($("#groupid").val())) ){
+				$.alert("数据错误，请刷新页面");
+				return false;
+			}
+			if( $("#title").val() == "" ){//检测方案标题
+				$.alert("请填写方案标题");
+				return false;
+			}
+			isfinish = true
+			$("input[name^='percent_']").each(function(){
+				if( $(this).val() == "" ){
+					isfinish = false;
+				}
+			});
+			$("input[name^='money_']").each(function(){
+				if( $(this).val() == "" ){
+					isfinish = false;
+				}
+			});
+			if( isfinish == false ){
+				$.alert("请把数据填写完整");
+				return false;
+			}
+			//收集数据
+			for(i=0; i<updata.length; i++){
+				updata[i].money   = i==0 ? 0 : moneyNumber($("input[name='money_up_"+i+"']").val());
+				updata[i].percent = moneyNumber($("input[name='percent_up_"+i+"']").val());
+			}
+			for(i=0; i<downdata.length; i++){
+				downdata[i].money   = i==0 ? downdata[i].money : moneyNumber($("input[name='money_down_"+i+"']").val());
+				downdata[i].percent = moneyNumber($("input[name='percent_down_"+i+"']").val());
+			}
+			//检测数据
+			ismoneyup   = true;
+			ispercentup = true;
+			for(i=0; i<updata.length; i++){//检测上调数据合理性
+				if( i>0 ){
+					if( updata[i].money <= updata[i-1].money ){//金额必须逐层往上递增
+						ismoneyup = false;
+						break;
+					}
+					if( updata[i].percent <= updata[i-1].percent ){//调价比例必须逐层往上递增
+						ispercentup = false;
+						break;
+					}
+				}
+			}
+			for(i=0; i<downdata.length; i++){//检测下调数据合理性
+				if( i>0 ){
+					if( downdata[i].money >= downdata[i-1].money ){//金额必须逐层往上递增
+						ismoneyup = false;
+						break;
+					}
+					if( downdata[i].percent >= downdata[i-1].percent ){//调价比例必须逐层往上递增
+						ispercentup = false;
+						break;
+					}
+				}
+			}
+			if( ismoneyup == false || ispercentup == false ){
+				$.alert("数据设置不符合逻辑，请检查\r\n\r\n浮动盈亏值和奖金变化比例都是从0起点向两边增大的扩散");
+				return false;
+			}
+			$("#updata").val( updata.length );
+			$("#downdata").val( downdata.length );
+			var form = $("#adjustform");
+			/*AJAX提交数据*/
+			$.ajax({
+				type	: 'POST',
+				url		: './?controller=locks&action=update',
+				timeout : 20000,
+				data	: $(form).serialize(),
+				global	: false,
+				success	: function(data){
+							var partn = /<script.*>.*<\/script>/;
+							if( data.toLowerCase() == "true" ){
+								alert("操作成功");
+								window.location.href="./?controller=locks&action=adjustlist&lotteryid="+$("#lotteryid").val();
+							}else if( partn.test(data) ){
+								alert("登陆超时，或者帐户在其他地方登陆，请重新登陆");
+								window.location.href="./?controller=default";
+								return false;
+							}else{
+								$.alert(data);
+							}
+						},
+				error	: function(){
+							$.alert("修改数据失败，请重试");
+							return false;
+						}
+			});
+			//$(form).submit();
+		});
+			
+	});
+})(jQuery);
+</script>
+<style type="text/css">
+.james_title{border:0; padding:0; background-color:#FFFFFF;}
+.james_box{width:100%; background:#FFFFFF;}
+.james_box th{
+	line-height: 24px;
+  background: #BBDDE5 url("../images/th_bg.gif") repeat-x;
+  white-space: nowrap;
+}
+.james_box td{
+	height:25px;
+	line-height:25px;
+	text-align:center;
+	}
+.james_line{background:url(./images/line.gif) repeat-x;}
+.james_link{
+	padding:0 5px 0 5px;
+	background:#FFFFFF;
+	}
+.james_word{padding:0 5px 0 5px; background:#FFF;}
+.james_inputmoney{width:100px; text-align:center; color:#993300;}
+.james_inputpercent{width:50px; text-align:center; color:#FF0000;}
+</style>
+<div class="tab-div">
+<form action="./?controller=locks&action=update" method="post" name="adjustform" id="adjustform">
+<input type="hidden" name="lotteryid" id="lotteryid" value="{$lotterys.lotteryid}" />
+<input type="hidden" name="groupid" id="groupid" value="{$adjust.groupid}" />
+<input type="hidden" name="flag" id="flag" value="update" />
+<input type="hidden" name="updata" id="updata" value="" />
+<input type="hidden" name="downdata" id="downdata" value="" />
+<input type="hidden" name="maxlost" id="maxlost" value="{$lotterys.maxlost}" />
+  <div id="tabbar-div">
+  	<span class="tab-front" id="{$lotterys.lotteryid}">{$lotterys.cnname}</span>
+  </div>
+
+	{* 标签 : 基本信息 *}
+  <div id="listDiv">
+  	<div class="james_title">
+    	<table cellspacing='0' cellpadding='0' width="100%">
+        <tr>
+        	<td height="50" style="padding-left:10px;"><strong>变价方案名称:</strong>&nbsp;&nbsp;&nbsp;<input type="text" size="30" name="title" id="title" value="{$adjust.title|escape:html}" /></td>
+            <td align="center" width="100"><input type="button" id="subform" value="保存" class="button"  /></td>
+        </tr>
+        </table>
+    </div>
+  	<table cellspacing='0' cellpadding='2' id="detail-table" class="james_box" width="100%">
+    	<tr>
+            <th align="center" width="25%">浮动盈亏值</th>
+            <th align="center">奖金变化百分比</th>
+            <th align="center" width="15%">操作</th>
+            <th align="center" width="25%">奖金示例</th>
+        </tr>
+        <tr id="tabloading" style="display:none;">
+        	<td colspan="10" height="100" align="center" valign="middle">正在初始化......<br><img src="./images/loading.gif"></td>
+        </tr>
+        <tr>
+        	<td align="center">&nbsp;</td>
+            <td align="center"><input type="text" class="james_inputpercent" value="0" name="percent_up_0">%</td>
+            <td align="center">&nbsp;</td>
+            <td align="center"><span>1700</span></td>
+        </tr>
+        <tr>
+        	<td class="james_line"><span class="james_word">0</span></td>
+            <td class="james_line">&nbsp;</td>
+            <td class="james_line"><a href="javascript:" class="james_link" name="up_0">增加</a></td>
+            <td class="james_line">&nbsp;</td>
+        </tr>
+        <tr>
+        	<td align="center">&nbsp;</td>
+            <td align="center"><input type="text" class="james_inputpercent" value="0" name="percent_down_0">%</td>
+            <td align="center">&nbsp;</td>
+            <td align="center"><span>1700 570 280 6.6</span></td>
+        </tr>
+        <tr>
+        	<td class="james_line"><span class="james_word">-1,500,000</span></td>
+            <td class="james_line">&nbsp;</td>
+            <td class="james_line"><a href="javascript:" class="james_link" name="down_0">增加</a></td>
+            <td class="james_line">&nbsp;</td>
+        </tr>
+    </table>
+  </div>
+  <!--<div class="button-div"><br/><span id="viewresult">查看结果</span></div>-->
+</form>
+</div>
+
+
+<script language="JavaScript">
+{literal}
+document.getElementById("tabbar-div").onmouseover = function(e)
+{
+    var obj = Utils.srcElement(e);
+    if (obj.className == "tab-back")
+    {
+        obj.className = "tab-hover";
+    }
+}
+
+document.getElementById("tabbar-div").onmouseout = function(e)
+{
+    var obj = Utils.srcElement(e);
+    if (obj.className == "tab-hover")
+    {
+        obj.className = "tab-back";
+    }
+}
+
+
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+{/literal}
+</script>
+
+{insert_scripts files="./js/validator.js"}
+
+{include file="pagefooter.html"}

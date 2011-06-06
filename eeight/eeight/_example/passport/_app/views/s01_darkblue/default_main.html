@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$webtitle}-银行大厅 skin:s01_darkblue</title>
+<link href="./css/general.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery("#mainbox").height( jQuery(document).height()-jQuery("#topbox").height() );
+	jQuery("#leftbox").height( jQuery("#mainbox").height() );
+	jQuery(window).resize(function(){
+		jQuery("#mainbox").height( jQuery(document).height()-jQuery("#topbox").height() );
+		jQuery("#leftbox").height( jQuery("#mainbox").height() );
+	});
+	
+	offset = jQuery("#switchPlat").offset();
+	x = offset.left - jQuery("#newWindow").width();
+	jQuery("#newWindow").css({"left":x,"top":offset.top});
+	jQuery("#newWindow").click(function(){
+		jQuery(this).fadeOut("slow");
+	});
+	jQuery("#switchPlat").click(function(){
+		 if( jQuery("#newWindow").css("display") == "none" ){
+			jQuery("#newWindow").fadeIn("slow");
+		 }else{
+		 	jQuery("#newWindow").fadeOut("slow");
+		 }
+	});
+	{if !empty($notice) }
+	changecolor();
+	{/if}
+	jQuery("#dragbutton").click(function(){
+		if( jQuery(this).attr("src") == "./images/arrow_left.gif" ){
+			jQuery("#leftbox").css({width:"0px"}).hide();
+			jQuery(this).attr("src","./images/arrow_right.gif");
+			jQuery("#mainbox").css({width:"100%"});
+		}else{
+			jQuery("#leftbox").css({width:"160px"}).show();
+			jQuery(this).attr("src","./images/arrow_left.gif");
+			jQuery("#mainbox").css({width:"auto"});
+		}
+	});
+
+});
+function changecolor(){
+  var node  = document.getElementById("top_notice");//#33FF33
+  str = node.style.color.toLowerCase();
+  node.style.color = str == "#ffff00" || str == "rgb(255, 255, 0)" ? "#FF0000" : "#FFFF00";  
+  setTimeout("changecolor()",600);  
+}
+</script>
+<style type="text/css">
+body{margin:0; padding:0; border:0; font-size:12px;}
+.openWindows{position:absolute;right:100px;top:30px;border:1px #FF0000 solid;background-color:#FF3300;z-index:100;}
+.floatdiv{position:absolute; z-index:25; top:2px; left:200px;}
+.gonggaodiv{position:absolute; z-index:20; top:2px; right:350px;}
+#header-div {background:#CD2903;}
+#logo-div {height:57px;float:left;cursor:hand;}
+#submenu-div {height:57px;}
+#submenu-div ul {margin:0;padding:0;list-style-type:none;}
+#submenu-div li {float:right;padding:0 10px;margin:5px 0;border-left:1px solid #FFF;}
+#submenu-div .user, a:visited, #submenu-div a:link {color:#FFF;text-decoration:none;}
+#submenu-div a:hover{color:#F5C29A;}
+#loading-div {clear: right;text-align: right;display: block;}
+#menu-div {background: #80BDCB;font-weight: bold;padding-left: 30px;height: 24px;}
+#menu-div ul {margin: 0;padding: 0;list-style-type: none;}
+#menu-div li {float: left;padding: 0 20px;margin: 5px 0;border-right: 1px solid #192E32;}
+#menu-div a:visited, #menu-div a:link {text-decoration: none;color: #335B64;}
+#menu-div a:hover {color: #F5C29A;}
+#submenu-div a.fix-submenu{ margin-left:5px; padding:3px 5px; background:#FFDFE4; color:#640014; }
+#submenu-div a.fix-submenu:hover{ padding:3px 5px; background:#FFF; color:#640014; }
+</style>
+</head>
+<body>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" style="height:100%;">
+	<tr>
+    	<td colspan="3" style="background-color:#CCCCCC;" id="topbox">
+        <!--顶部消息-->
+        	<div id="header-div">
+              <div id="logo-div" onclick="javascript:window.top.location='./index.php';"><img src="./images/admin_logo.gif" title="返回首页" style="cursor: pointer;"/></div>
+              <div id="submenu-div">
+                <ul>
+                  <li><a href="./index.php?controller=default&action=logout" target="_top" style="color:#FFFFFF;">退出系统 - {$nickname|escape:html}</a></li>
+                  <li><a href="./index.php" target="_top" style="color:#FFFFFF;">银行大厅首页</a></li>
+                  {* window.top.frames['header-frame'].document.location.reload() *}
+                <li style="border-left:none;"><a href="javascript:window.top.frames['mainframe'].document.location.reload();" style="color:#FFFFFF;">刷新页面</a></li>
+                </ul>
+            
+                <!-- button //-->
+                <div style="padding: 4px 10px 0 0; clear:right;text-align: right; color: #FFF;float: right;">
+                  <a href="javascript:" class="fix-submenu" id="switchPlat" style="z-index:101;"> 平台快速切换</a>
+                </div>
+                
+                <!-- ajax loading //-->
+                <div id="load-div" style="padding-top:6px;color: #FFF; display: none;"><img src="./images/top_loader.gif" width="16" height="16" alt="正在处理您的请求..." /> 正在处理您的请求...</div>
+              </div>
+            </div>
+        <!--顶部消息结束-->
+        </td>
+    </tr>
+    <tr>
+    	<td style="width:160px; height:100%; background: #D94733;" valign="top" id="leftbox">
+        <!--左侧菜单-->
+        <iframe name="leftframe" id="leftframe" frameborder="0" width="100%" height="100%" scrolling="auto" style="overflow:visible;" src="./index.php?controller=default&action=usermenu"></iframe>
+        <!--左侧菜单结束-->
+        </td>
+        <td style="width:10px; height:100%; background:#CD2903;" valign="middle" id="dragbox"><img src="./images/arrow_left.gif" width="10" height="30" border="0" id="dragbutton" style="cursor:pointer;" /></td>
+        <td id="mainbox" valign="top">
+        <!--内容主窗口-->
+        <iframe name="mainframe" id="mainframe" frameborder="0" width="100%" height="100%" scrolling="auto" style="overflow:visible;" src="./index.php?controller=default&action=welcome"></iframe></td>
+    </tr>
+</table>
+<div id="newWindow" class="openWindows" style="display:none;">
+<table border="0" width="200">
+<tr><td colspan="3" align="center" height="30">切换其他频道</td></tr>
+<tr>
+	<td>综合频道</td>
+    <td colspan="2">:&nbsp;&nbsp;<a href="#" style="color:#FFFFFF;">银行大厅</a></td>
+</tr>
+{if !empty($channel) }
+{foreach from=$channel.0 item=ch key=k}
+<tr>
+	<td>{$ch.channel}</td>
+    <td>:
+    {foreach from=$channel.$k item=child key=m}
+    &nbsp;<a href=".{$child.path}" style="color:#FFFFFF;">{$child.channel}</a>
+    {/foreach}
+    </td>
+</tr>
+{/foreach}
+{/if}
+{if !empty($gpdomain)}
+<tr>
+	<td>高频</td>
+    <td>:
+    {if !empty($gpdomain.yx)}&nbsp;<a href="http://{$gpdomain.yx}" style="color:#FFFFFF;" target="_top">高频游戏</a>{/if}
+    {if !empty($gpdomain.dl)}{if $groupid != 4}&nbsp;<a href="http://{$gpdomain.dl}" style="color:#FFFFFF;" target="_top">高频代理</a>{/if}{/if}
+    </td>
+</tr>
+{/if}
+</table>
+</div>
+<div id="otherwindow" class="floatdiv">
+ 	{if $istester > 0}
+    <div style="height:57px;float:left;line-height:57px;color:#FFFF00;font-size:16px;text-align:right; font-weight:bold;"><img src="./images/admin_logo_test.jpg" title="测试帐户"/>
+    </div>
+    {/if}
+</div>
+<div class="gonggaodiv">
+	{if !empty($notice) }
+    <div style="height:57px;float:left;line-height:57px;color:#FFFF00;font-size:16px;text-align:right; font-weight:bold;">
+    <a href="./?controller=default&action=welcome" target="mainframe" id="top_notice">{$notice.subject|escape:html}</a>
+    </div>
+    {/if}
+</div>
+</body>
+</html>

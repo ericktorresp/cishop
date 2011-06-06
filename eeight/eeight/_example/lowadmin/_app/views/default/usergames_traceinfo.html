@@ -1,0 +1,411 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+<style>
+.code_div{
+	width:300px;
+	height:100px;
+	line-weight:20px;
+	color:#FFFFFF;
+	background:#000000;	
+	position:absolute;
+	text-align:left;
+	display:none;
+	overflow:hidden;
+	border:1px #CCCCCC double;
+}
+.code{
+	width:100%;
+	height:78px;
+	background:#000000;	
+	color:#FFFFFF;
+	word-break:break-all;
+	text-align:left;
+	border:1px #CCCCCC inset;	
+	overflow-y:auto;
+	overflow-x:hidden;
+}
+</style>
+<script type="text/javascript">
+function show_task_detail(id)
+{
+	$.ajax({
+		url:"",
+		type:"POST",
+		data:"id="+id,
+		dataType:"html",
+		success:function(data){
+			alert(data);
+			exit;
+		},
+		error:function(data){
+			alert(data);
+		}
+	});
+}
+function get_data( page )
+{
+	if(page=="")
+	{
+		page = 1;
+	}
+	
+   $("#tabloading").ajaxStart(function(){
+        $(this).show();
+        $("#task_list").hide();
+    }).ajaxStop(function(){
+        $(this).hide();
+    });
+	$.ajax({
+		type:"POST",
+		url:"./index.php?controller=usergames&action=traceinfo",
+		dataType:"json",
+		data:$("#query-form").serialize()+'&page='+page,
+		success:function(json_data){
+			var ipagesize = $("#ipagesize").val();
+			if(json_data.affects==0)
+			{
+				html ="<tr><td colspan='15' class='no-records'>没有找到记录</td></tr>";
+			}
+			else
+			{
+				totalmoney = parseFloat('0.00');
+				finishmoney = parseFloat('0.00');
+				cancelmoney = parseFloat('0.00');
+				html ="";
+				$.each(json_data.results,function(id,task){
+					//页面构建
+					html = html + "<tr align='center'>";
+					html = html + "<td><a href='./index.php?controller=usergames&action=taskdetail&id="+task.taskid+"' target='_blank'>"+task.taskid+"</a></td>";//追号编号
+					html = html + "<td>"+task.username+"</td>";//用户名
+					html = html + "<td>"+task.begintime+"</td>";//开始时间
+					html = html + "<td>"+task.cnname+"</td>";//游戏名称
+					html = html + "<td>"+task.methodname+"</td>";//游戏玩法
+					html = html + "<td>"+task.beginissue+"</td>";//开始期数
+					html = html + "<td>"+task.issuecount+"</td>";//追号总期数
+					html = html + "<td>"+task.finishedcount+"</td>";//完成期数
+					html = html + "<td>"+task.cancelcount+"</td>";//取消期数
+					html = html + "<td>";
+					code = task.codes;
+					if(code.length>20)
+					{
+						html = html + "<a href='javascript:show_code("+id+");'>详细号码</a>";
+						html = html + "<div class='code_div' id='code_"+id+"'>号码详情[<a href='javascript:hide_code("+id+");' style='color:#FFFFFF;'>关闭</a>]<br/>";
+						html = html +"<textarea  class='code' readonly='readonly'>"+code.replace(/\|/g," ")+"</textarea></div>";//追号号码(大小单双转化)
+					}
+					else
+					{
+						p = /^(\d+)/;
+						if(!p.test(code))
+						{
+							code = code.replace(/B/g,"大");
+							code = code.replace(/S/g,"小");
+							code = code.replace(/A/g,"单");
+							code = code.replace(/D/g,"双");
+							html = html+code;
+						}
+						else
+						{
+							html = html+task.codes;//投注内容
+						}					
+					}
+					html =html +"</td>";
+					totalmoney = totalmoney+parseFloat(task.taskprice);
+					finishmoney = finishmoney + parseFloat(task.finishprice);
+					cancelmoney = cancelmoney + parseFloat(task.cancelprice);
+					html = html + "<td>"+parseFloat(task.taskprice).toFixed(2)+"</td>";//追号总金额
+					html = html + "<td>"+parseFloat(task.finishprice).toFixed(2)+"</td>";//完成金额
+					html = html + "<td>"+parseFloat(task.cancelprice).toFixed(2)+"</td>";//取消金额
+					if(task.stoponwin==1)
+					{
+						html = html + "<td>是</td>"; //追中即停
+					}
+					else
+					{
+						html = html + "<td>否</td>"; //追中即停
+					}
+					if(task.status==0)
+					{
+						html = html + "<td><font color='green'>进行中</font></td>";//追号状态
+					}
+					else if(task.status==1)
+					{
+						html = html + "<td><font color='red'>已取消</font></td>";
+					}
+					else
+					{
+						html = html + "<td><font color='blue'>已完成</font></td>";
+					}
+					html = html + "</tr>";
+				});
+				//小结部分
+				html = html + "<tr align='center'><td>小结</td><td colspan='9'></td>";
+				html = html + "<td>"+totalmoney.toFixed(2)+"</td>";
+				html = html + "<td>"+finishmoney.toFixed(2)+"</td>";
+				html = html + "<td>"+cancelmoney.toFixed(2)+"</td>";
+				html = html + "<td colspan='2'></td>";
+				html = html + "</tr>";
+				//构造分页
+				html = html +"<tr id='page-table'><td colspan='15' align='right'><div style='padding-right:30px; padding-top:6px;'>共有"+json_data.affects+"条记录,";
+				i = Math.ceil(json_data.affects/ipagesize);
+				html = html +"共"+i.toString()+"页,当前第"+page+"页,<SPAN ID='tPages'>";
+				if(page>1)
+				{
+					html = html + "<a href='javascript:get_data(1);'>首页</a><a href='javascript:get_data("+(page-1).toString()+");'>上页</a>"
+				}
+				t = (page>5) ?(page-5):1;
+				k = (t+10)<i?(t+10):i;
+				for(j=t;j<=k;j++)
+				{
+					if(j==page)
+					{
+						html =html +"<b>"+j.toString()+"</b>";
+					}
+					else
+					{
+						html = html +"<a href='javascript:get_data("+j.toString()+")'>"+j.toString()+"</a>";
+					}	
+				}
+				if(page<i)
+				{
+					html =html + "<a href='javascript:get_data("+(page+1).toString()+");'>下页</a><a href='javascript:get_data("+i+");'>尾页</a>";
+				}
+				html = html + "</span>,第<select onchange='javascript:get_data(this.value);'>";
+				for(j=1;j<=i;j++)
+				{
+					if(j==page)
+					{
+						html = html +"<option value='"+j+"' selected='selected'>"+j+"</option>";
+					}
+					else
+					{
+						html = html +"<option value='"+j+"'>"+j+"</option>";
+					}
+				}
+				html =html +"</select>页</div></td></tr>";
+			}
+			$("#task_list").html(html);
+			$("#task_list").show();
+		},
+		error:function(data){
+			$("#task_list").show();
+			return false;
+		}		
+	});
+}
+function show_code(id)
+{
+	$("#code_"+id).show("slow");
+}
+function hide_code(id)
+{
+	$("#code_"+id).hide("slow");
+}
+jQuery(document).ready(function() {
+	
+	jQuery("#starttime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#starttime").change(function(){
+		if(! validateInputDate(jQuery("#starttime").val()) )
+		{jQuery("#starttime").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+	});
+	jQuery("#endtime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#endtime").change(function(){
+		if(! validateInputDate(jQuery("#endtime").val()) )
+		{jQuery("#endtime").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+	});
+	jQuery("#lotteryid").change(function(){
+		var data_method = {$data_method};
+		var data_issue = {$data_issue};
+		i =  $("#lotteryid").val();
+		if(i>0)
+		{
+			html = "游戏玩法:<select name='methodid' id='methodid'><option value='0'>所有玩法</option>";			
+			$.each(data_method[i],function(j,k){
+				html = html +"<option value='"+k.methodid+"'>"+k.methodname+"</option>";
+			});
+			html = html +"</select>";
+			html = html + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;游戏奖期:<select name='issueid'><option value='-1'>所有奖期</option>";
+			$.each(data_issue[i],function(j1,k1){
+				html = html +"<option value='"+k1.issue+"'>"+k1.issue+"("+k1.dateend+")</option>";
+			});
+			html = html +"</select>";
+		}
+		else
+		{
+			html = "游戏玩法:<select name='methodid' id='methodid'><option value='0'>所有玩法</option></select>";
+			html = html + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;游戏奖期:<select name='issueid'><option value='-1'>所有奖期</option></select>";	
+		}
+		$("#game_info").html(html);
+	});
+	jQuery(":radio[name='type']").click(function(){
+		if($("#type_1").attr("checked"))
+		{
+			$("#proxy_show").show();
+			$("#include").attr("checked",true);
+			$("#user_show").hide();
+		}
+		else if($("#type_2").attr("checked"))
+		{
+			$("#proxy_show").hide();
+			$("#include").attr("checked",false);
+			$("#user_show").show();
+		}
+		else
+		{
+			$("#proxy_show").hide();
+			$("#include").attr("checked",false);
+			$("#user_show").hide();
+		}
+	});
+	jQuery("#type_1").attr("checked",true);
+	jQuery(":radio[name='type'][value='1']").click();
+	jQuery("#lotteryid").val(0);
+	jQuery("#lotteryid").change();
+	get_data(1);
+});
+</script>
+<div class="form-div" ID="formdiv">
+<form name="query-form" id="query-form">
+<img src="./images/icon_search.gif" border="0">
+游戏时间:<input type="text" name="starttime" id="starttime" value="" style="background-color:#FFF;color:#555;">
+<img src="./images/calendar2.gif">
+至<input type="text" name="endtime" id="endtime" value="" style="background-color:#FFF;color:#555;">
+<img src="./images/calendar2.gif">
+<label for="type_1"><input type="radio" id="type_1" name="type" value="1">总代列表</label>
+<label for="type_2"><input type="radio" id="type_2" name="type" value="2">手工指定</label>
+<span id="proxy_show" style="display:none;">
+总代ID:<select id="proxy" name="proxy">
+<option value="0">不指定</option>
+{foreach from=$aUser item=user key=k}
+<option value="{$user.userid}">{$user.username}</option>
+{/foreach}
+</select>
+</span>
+<span id="user_show" style="display:none;">
+游戏用户:<input type="text" name="username" value="" size="16" style="background-color:#FFF;color:#555;"/>
+</span>
+<label for="include"><input type="checkbox" name="include" id="include" value="1">包含下级</label>
+追号编号:<input type="text" name="taskid" id="taskid">
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;游戏名称:<select name="lotteryid" id="lotteryid">
+<option value="0">所有游戏</option>
+{foreach from=$lottery item=alottery key=k}
+<option value="{$k}">{$alottery}</option>
+{/foreach}
+</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span id="game_info"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;追号状态:
+<select name="taskstatus">
+<option value="-1">所有追号</option>
+<option value="0">追号进行</option>
+<option value="1">追号取消</option>
+<option value="2">追号完毕</option>
+</select>
+ 每页记录数:<input name="pn" id="ipagesize" value="{if $searchpn > 0}{$searchpn}{else}{$syspagesizemax}{/if}" size="5" onKeyup="checkPageSize(this,'ipagesize',{$syspagesizemax});">
+&nbsp; &nbsp; 
+<input type="button" value="查询" class="button" onclick='javascript:get_data(1);'>
+</form>
+</div>
+<div class="list-div" id="listDiv">
+<table>
+<tr>
+<th>追号编号</th>
+<th>游戏用户</th>
+<th>追号时间</th>
+<th>游戏</th>
+<th>玩法</th>
+<th>开始期号</th>
+<th>追号期数</th>
+<th>完成期数</th>
+<th>取消期数</th>
+<th>追号内容</th>
+<th>追号总金额</th>
+<th>完成金额</th>
+<th>取消金额</th>
+<th>追中即停</th>
+<th>追号状态</th>
+</tr>
+<tbody id="task_list">
+</tbody>
+<tr id="tabloading" style="display:none;">
+  <td colspan="15" height="100" align="center" valign="middle">正在加载数据......<br><img src="./images/loading.gif"></td>
+</tr>
+</table>
+</div>
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{include file="pagefooter.html"}

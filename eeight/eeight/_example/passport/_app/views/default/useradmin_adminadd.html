@@ -1,0 +1,76 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkform(obj)
+{
+  if( !validateUserName(obj.username.value) )
+  {
+     alert("登陆帐户名不符合规则，请重新输入");
+	 obj.username.focus();
+	 return false;
+  }
+  if( !validateNickName(obj.nickname.value) )
+  {
+  	alert("呢称不符合规则，请重新输入");
+	obj.nickname.focus();
+	return false;
+  }
+  if( !validateUserPss(obj.userpass.value) )
+  {
+  	alert("密码不符合规则，请重新输入");
+	obj.userpass.focus();
+	return false;
+  }
+  if( obj.userpass.value != obj.confimpass.value )
+  {
+  	alert("两次输入密码不相同");
+	obj.userpass.focus();
+	return false;
+  }
+  return true;
+}
+</script>
+<div class="list-div" id="listDiv">
+<table class="list-table">
+<form action="index.php" method="post" name="updateform" onsubmit="return checkform(this)">
+<input type="hidden" name="flag" value="insert" />
+<input type="hidden" name="controller" value="useradmin" />
+<input type="hidden" name="action"	value="adminadd" />
+  <tr>
+  	<td class="narrow-label">所属组别:</td>
+    <td>
+ 			<select name="groupid">
+            {foreach from=$groups item=group key=k}
+            {if $group.isspecial==0}<option value="{$group.groupid}" style="color:#333333">{$group.groupname|escape:html}[系统默认]
+            {elseif $group.issales==1}<option value="{$group.groupid}" style="color:#FF0000">{$group.groupname|escape:html}[指定销售]
+            {else}<option value="{$group.groupid}">{$group.groupname|escape:html}{/if}
+            </option>
+            {/foreach}
+            </select>   
+    </td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">管理员帐号:</td>
+    <td><input type="text" name="username" />(由0-9,a-z,A-Z组成的6-16个字符)</td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">管理员呢称:</td>
+    <td><input type="text" name="nickname" />(由2至6个字符组成)</td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">密码:</td>
+    <td><input type="password" name="userpass" />(由字母和数字组成6-16个字符；且必须包含数字和字母，不允许连续三位相同)</td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">确认密码:</td>
+    <td><input type="password" name="confimpass" /></td>
+  </tr>
+  <tr>
+  	<td></td>
+  	<td><input type="submit" name="submit" value="提交" class="button" />
+<input type="button" value="返回列表" onclick="window.location='index.php?controller=useradmin&action=adminlist'" class="button" />
+</td>
+</tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

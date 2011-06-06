@@ -1,0 +1,18 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table class="list-table">
+<form action="index.php" method="post" name="updateform">
+<input type="hidden" name="flag" value="check" />
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action"	value="checkpass" />
+<input type="hidden" name="nextcon" value="{$nextcontroller}" />
+<input type="hidden" name="nextact" value="{$nextaction}" />
+  <tr>
+  	<td class="narrow-label">输入资金密码:</td>
+    <td><input type="password" name="secpass" value="" /></td>
+  </tr>
+  <tr><td></td><td><input type="submit" name="submit" value="提交" class="button" />&nbsp;&nbsp;<input type="button" value="重置" onclick="this.form.reset()" class="button" /></td></tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

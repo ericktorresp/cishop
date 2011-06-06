@@ -1,0 +1,51 @@
+{include file="pageheader.html"}
+
+<script type="text/javascript">
+{literal}
+function checkform(obj)
+{
+	return confirm("确定要批量删除所选用户组吗？");
+}
+{/literal}
+</script>
+<form method="POST" action="./index.php" name="listform" onsubmit="return checkform(this)">
+<input type="hidden" name="controller" value="useradmin" />
+<input type="hidden" name="action" value="deletegroup" />
+<input type="hidden" name="flag" value="delete" />
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft " style="width:98%">
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+
+
+    <tr>
+      <td height="43" align="center">组别名称</td>
+      <td align="center" class="line_03">组别信息</td>
+      <td align="center" class="line_03">操作</td>
+    </tr>
+        <tr>
+      <td height="5" colspan="3" align="center"></td>
+      </tr>
+    {foreach from=$groups item=group key=k}
+ {if $group.groupid != 7}
+    <tr>
+      <td height="37" align="center" bgcolor="#CCCCCC"><font color=#c0c0c0>|--</font>
+	<span title='{$group.groupname|escape:html}'>{$group.groupname|escape:html}</span></td>
+      <td align="center" bgcolor="#CCCCCC">{if $group.isspecial==0}{if $group.issales==0}[系统默认]{else}<span style="color:#FF0000">[默认销售]</span>{/if}{/if}
+        {if $group.isspecial>0}{if $group.issales==1}<span style="color:#FF0000">[指定销售]</span>{/if}{/if}</td>
+      <td align="center" bgcolor="#CCCCCC"><a href="./?controller=useradmin&action=rightsgroup&gid={$group.groupid}" class="blue">组别权限</a> </td>
+    </tr>
+     {/if}
+{/foreach}
+  </table>
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+</form>
+{include file="pagefooter.html"}

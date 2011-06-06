@@ -1,0 +1,210 @@
+{include file="pageheader.html"}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/calendar/jquery.dyndatetime.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/js/calendar/css/calendar-blue2.css" type="text/css" />
+
+<style type="text/css">
+/*
+ 标签部分的样式
+ */
+.menu_01a {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/menu_01.png);
+	background-repeat: no-repeat;
+	float: left;
+	height: 29px;
+	width: 4px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 2px;
+	background-position: -10px 0px;
+}
+.menu_02a {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/menu_01.png);
+	float: left;
+	height: 34px;
+	line-height: 29px;
+	padding-right: 5px;
+	padding-left: 5px;
+	color: #FFFFFF;
+	background-repeat: no-repeat;
+	background-position: center -58px;
+	background-color: #333333;
+}
+.menu_03a {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/menu_01.png);
+	background-repeat: no-repeat;
+	float: left;
+	height: 29px;
+	width: 4px;
+	margin-top: 0px;
+	margin-right: 2px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	background-position: -15px 0px;
+}
+.menu_01 {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/menu_01.png);
+	background-repeat: no-repeat;
+	float: left;
+	height: 29px;
+	width: 4px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 2px;
+}
+.menu_02 {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/menu_01.png);
+	float: left;
+	height: 29px;
+	line-height: 29px;
+	padding-right: 5px;
+	padding-left: 5px;
+	background-position: 0px -29px;
+	background-color: #CCCCCC;
+}
+.menu_03 {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/menu_01.png);
+	background-repeat: no-repeat;
+	float: left;
+	height: 29px;
+	width: 4px;
+	margin-top: 0px;
+	margin-right: 2px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	background-position: -5px 0px;
+}
+</style>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	jQuery("#sdate").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		showOthers: true,
+		weekNumbers: true,
+		//onUpdate: function(){alert('1');}
+		showsTime: true
+	});
+	jQuery("#sdate").change(function(){
+		if(! validateInputDate(jQuery("#sdate").val()) )
+		{jQuery("#sdate").val('');$.alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+	});
+	jQuery("#edate").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		showOthers: true,
+		weekNumbers: true,
+		//onUpdate: function(){alert('1');}
+		showsTime: true
+	});
+	jQuery("#edate").change(function(){
+		if(! validateInputDate(jQuery("#edate").val()) )
+		{jQuery("#edate").val('');$.alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+	});
+});	
+</script>
+<FORM name="searchForm" action="" METHOD='get'>
+<input type='hidden' name="controller" value="security"/>
+    <input type='hidden' name="action" value="onlineloadhistory"/>
+<div class="right_02 d5d8de">
+<div id="right_02_01" style="height:44px;">
+<div class="right_02_02"></div>
+<div class="right_02_03">
+<div class="title01">
+
+			<span class="tab-back"  id="general_tab_0">
+		  <span class="menu_01"></span>
+		  <span class="menu_02" onClick="self.location.href='index.php?controller=security&action=onlineload'">在线充值</span>
+		  <span class="menu_03"></span>
+		</span>
+			<span class="tab-front"  id="general_tab_1">
+		  <span class="menu_01a"></span>
+
+		  <span class="menu_02a">在线充值记录</span>
+		  <span class="menu_03a"></span>
+		</span>
+
+</div>
+</div>
+<div class="right_02_04 floatright"></div>
+</div>
+
+   
+
+
+
+
+<div class="neiye01"">
+<div class="margin_2px">充值时间 起始于:</div>
+<div class="margin_2px"><input type="text" id="sdate" name="sdate" size='17' value='{$s.sdate|escape:html}' />
+<img src="{$sSystemImagesAndCssPath}/images/new_passport/icon_06.jpg" width="20" height="17" /></div>
+<div class="margin_2px" style="width:20px;">至</div>
+<div class="margin_2px"><input type="text"id="edate" name="edate"  size='17' value='{$s.edate|escape:html}' />
+  <img src="{$sSystemImagesAndCssPath}/images/new_passport/icon_06.jpg" width="20" height="17" /></div>
+<div class="margin_2px"><input type="submit" value="查看"  class="buttonnormal" /></div></div>
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+    
+    <tr>
+      <td height="37" align="center" bgcolor="#999999">交易号</td>
+      <td align="center" bgcolor="#999999">状态</td>
+      <td align="center" bgcolor="#999999">金额</td>
+      <td align="center" bgcolor="#999999">币种</td>
+	  <td align="center" bgcolor="#999999">充值时间</td>
+    </tr>
+    
+    
+    
+    {foreach from=$Loadlist item=list key=k1}
+<tr>
+		    <td height="37" align="center" bgcolor="#CCCCCC">{$list.spec_name}</td>
+		  <td align="center" bgcolor="#CCCCCC">
+			{if $list.load_status== 1}
+				成功
+			{elseif $list.load_status== 0}
+				支付中
+			{elseif $list.load_status== 2}
+				无效
+			{else}
+				处理中
+			{/if}
+		</td>
+			<td align="center" bgcolor="#CCCCCC">{$list.load_amount|escape:money}</td>
+			<td align="center" bgcolor="#CCCCCC">{$list.load_currency|escape:html}</td>
+			<td align="center" bgcolor="#CCCCCC">{$list.trans_time|escape:html}</td>
+	
+    </tr>
+    {foreachelse}
+    <tr><td height="37" colspan="6" align="center" bgcolor="#CCCCCC">无相关数据</td>
+    </tr>
+    {/foreach}
+    <tr>
+	    <td height="37" colspan="6" align="center">
+	    <table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+		<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+		<input type='hidden' name="p" value="{$s.p}"/>
+		<input type='hidden' name="pn" value="{$s.pn}"/>
+		</td>
+	</tr>
+    
+  </table>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+
+</div>
+</FORM>
+
+
+{include file="pagefooter.html"}

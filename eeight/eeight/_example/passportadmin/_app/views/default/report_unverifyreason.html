@@ -1,0 +1,89 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" id="listForm" action=''>
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th width="20%">原因</th>
+	<th width="10%">管理员</th>
+	<th width="20%">添加时间</th>
+	<th width="10%">状态</th>
+	<th width="20%">操作</th>
+  </tr>
+  {foreach from=$reasonlist item=reason key=k}
+  	<tr align="center">
+  		<td>{$reason.reason}</td>
+  		<td>{$reason.admin_name}</td>
+  		<td>{$reason.atime}</td>
+  		<td>{if $reason.status == 1}<font color="#669900">启用</font>{else}<font color="#FF3300">禁用</font>{/if}</td>
+  		<td>
+  		<a href="?controller=report&action=editunverifyreason&id={$reason.id}">编辑</a>　|　
+  		<a href="?controller=report&action=editunverifyreason&flag=del&id={$reason.id}" onclick="return confirm('确认删除吗？');">删除</a>　|　
+  		<a href="?controller=report&action=editunverifyreason&flag=set&id={$reason.id}" onclick="return confirm('确认修改吗？');">{if $reason.status == 0}<font color="#669900">启用</font>{else}<font color="#FF3300">禁用</font>{/if}</a>
+  		</td>
+  	</tr>
+  {foreachelse}
+    <tr><td class="no-records" colspan="6">无相关数据</td></tr>
+  {/foreach}
+</table>
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

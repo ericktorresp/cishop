@@ -1,0 +1,119 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+
+<div class="form-div" style='line-height:20px;'>
+1, 官方提前开奖 [ 撤销派奖+系统撤单 ]; <br/>
+2, 录入号码错误 [ 撤销派奖+重新判断中奖+重新派奖 ]; <br/>
+3, 官方未开奖 <br/>
+</div>
+
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th>提交时间</th>
+    <th>类型</th>
+	<th>奖期</th>
+    <th>彩种</th>
+    <th>管理员</th>
+    <th>异常信息描述</th>
+    <th>旧验证</th>
+    <th>旧扣款</th>
+	<th>旧返点</th>
+    <th>旧判奖</th>
+    <th>旧派奖</th>
+    <th>旧追号</th>
+    <th>撤派</th>
+	<th>撤单</th>
+  </tr>
+{foreach from=$aErrorOrder item=list key=k}
+  <tr>
+    <td align="center"><a TITLE='详情' href='?controller=data&action=checkissueerrorinfo&entry={$list.entry}'>{$list.writetime}</a></td>
+    <td align="center">{if $list.errortype==1}<font color='#669900'>提前开奖{elseif $list.errortype==2}<font color='#FF3333'>号码录错{else}官方未开奖{/if}</font></td>
+	<td align="center">{$list.issue}</td>
+	<td align="center">{$list.cnname}</td>
+	<td align="center">{$list.adminname}</td>
+	<td align="center">{if $list.errortype==1}<font color='#669900'>{$list.opentime}{elseif $list.errortype==2}<font color=#FF0000><font color=#cccccc>[</font>{$list.oldcode}<font color=#cccccc>] -> [</font>{$list.code}<font color=#cccccc>]</font>{else}----{/if}</font></td>
+
+	<td align="center">{if $list.oldstatuscode==0}<font color="blue">未录入</font>{elseif $list.oldstatuscode==1}<font color="red">待验证</font>{elseif $list.oldstatuscode==2}<font color="green">已验证</font>{else}<b style="color:red;">官方未开</b>{/if}</td>
+
+	<td align="center">{if $list.oldstatusdeduct==0}<font color="blue">未开始</font>{elseif $list.oldstatusdeduct==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}</td>
+	
+	<td align="center">{if $list.oldstatususerpoint==0}<font color="blue">未开始</font>{elseif $list.oldstatususerpoint==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}</td>
+	
+	<td align="center">{if $list.oldstatuscheckbonus==0}<font color="blue">未开始</font>{elseif $list.oldstatuscheckbonus==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}</td>
+	
+	<td align="center">{if $list.oldstatusbonus==0}<font color="blue">未开始</font>{elseif $list.oldstatusbonus==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}</td>
+	
+	<td align="center">{if $list.oldstatustasktoproject==0}<font color="blue">未开始</font>{elseif $list.oldstatustasktoproject==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}</td>
+	
+	<td align="center">{if $list.statuscancelbonus==0}<font color="blue">未开始</font>{elseif $list.statuscancelbonus==1}<font color="red">进行中</font>{elseif $list.statuscancelbonus==2}<font color="green">已完成</font>{else}<font color="green">忽略</font>{/if}</td>
+	
+	<td align="center">{if $list.statusrepeal==0}<font color="blue">未开始</font>{elseif $list.statusrepeal==1}<font color="red">进行中</font>{elseif $list.statusrepeal==2}<font color="green">已完成</font>{else}<font color="green">忽略</font>{/if}</td>
+  </tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="16">无记录</td></tr>
+{/foreach}
+<tfoot align="right">
+	<td colspan="16">{$pageinfo}</td>
+</tfoot>
+</table>
+</div>
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#F6F6EA';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{include file="pagefooter.html"}

@@ -1,0 +1,426 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+<script>
+//时间的正则
+var timestr =/^([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/;
+function checkPoint(obj){
+	var value = obj.value;
+	var grep = /[^0-9.]{1,}/g;
+	value = value.replace(grep,'');
+	var point = /^\.{1,}/g;
+	value = value.replace(point,'');
+	
+	value = value.split('');
+	var i=0;
+	var thisPoint = false;
+	var newValue = '';
+	for(i;i<value.length;i++){
+		if(thisPoint && value[i] == '.'){
+			continue;
+		}
+		if(value[i] == '.' && !thisPoint){
+			thisPoint = true;
+		}
+		newValue += value[i];
+	}
+	valuePart = newValue.split('.');
+	if( valuePart[0] != 0){
+	    valuePart[0] = 0;
+	    newValue = valuePart[0];
+	}
+	var point1 = /[^0-9.]{1,}/g;
+	if(valuePart[1]){
+	    newValue = valuePart[0];
+		valuePointPart = valuePart[1].split('');
+		if(valuePointPart[0]){
+		    newValue += '.'+valuePointPart[0];
+		    if(valuePointPart[1]){
+		      newValue += valuePointPart[1];
+		      if(valuePointPart[2]){
+		          newValue += valuePointPart[2];
+		      }
+		    }	   
+		}
+	}
+	obj.value = newValue;	
+}
+// 限极上调奖金公司留水
+function checkPointTwo(obj){
+	var value = obj.value;
+	var grep = /[^0-9.-]{1,}/g;
+	value = value.replace(grep,'');
+	var point = /^\.{1,}/g;
+	value = value.replace(point,'');
+	
+	value = value.split('');
+	var i=0;
+	var thisPoint = false;
+	var newValue = '';
+	for(i;i<value.length;i++){
+		if(thisPoint && value[i] == '.'){
+			continue;
+		}
+		if(value[i] == '.' && !thisPoint){
+			thisPoint = true;
+		}
+		newValue += value[i];
+	}
+	valuePart = newValue.split('.');
+	if( valuePart[0] != 0 && valuePart[0] != "-0" && valuePart[0] != "-"){
+		var temp = valuePart[0].split('');
+		if (temp[0] == "-"){
+			valuePart[0] = "-0";
+		} else {
+			valuePart[0] = 0;
+		}
+	    newValue = valuePart[0];
+	}
+	var point1 = /[^0-9.]{1,}/g;
+	if(valuePart[1]){
+	    newValue = valuePart[0];
+		valuePointPart = valuePart[1].split('');
+		if(valuePointPart[0]){
+		    newValue += '.'+valuePointPart[0].replace(point1,"");
+		    if(valuePointPart[1]){
+		      newValue += valuePointPart[1].replace(point1,"");
+		      if(valuePointPart[2]){
+		          newValue += valuePointPart[2].replace(point1,"");
+		      }
+		    }	   
+		}
+	}
+	obj.value = newValue;	
+}
+function checkPointLast(obj){
+    var newValue = obj.value;
+    var valuePart = newValue.split('.');
+    if(valuePart[1]){
+        if( valuePart[0] !=0 ){
+            obj.value = "0."+valuePart[1];
+        }else{
+            obj.value = newValue;
+        }
+    }else{
+        obj.value = 0;
+    }
+}
+jQuery(document).ready(function() {
+	$("input:radio[name='type']").click(function(){
+		var i = $(":radio:checked[name='type']").val();
+		if(i==0)
+		{
+			jQuery("#no_rule").html("起始号码:<input type='text' size='4' name='norule[startno]' id='norule_startno' />,"
+			+"结束号码:<input type='text' size='4' name='norule[endno]' id='norule_endno'/>");
+		}
+		else if(i==1)
+		{
+			jQuery("#no_rule").html("起始号码:<input type='text' size='4' name='norule[startno]' id='norule_startno' />,"
+			+"结束号码:<input type='text' size='4' name='norule[endno]' id='norule_endno' />,"
+			+"先重复<input type='text' size='4' name='norule[startrepeat]' id='norule_startrepeat'"
+			+"onBlur=this.value=this.value.replace(/[^\\d]/g,\'\') onkeyup=this.value=this.value.replace(/[^\\d]/g,\'\') />次,"
+			+"<br/>然后从剩下号码中选出作为<input type='text' size='4' name='norule[splen]' id='norule_splen'"
+			+"onBlur=this.value=this.value.replace(/[^\\d]/g,\'\') onkeyup=this.value=this.value.replace(/[^\\d]/g,\'\') />位作为特别号码");
+		}
+		else if(i==2)
+		{
+			jQuery("#no_rule").html("普通起始号码:<input type='text' size='4' name='norule[startno]' id='norule_startno' />,"
+			+"结束号码:<input type='text' size='4' name='norule[endno]' id='norule_endno'/>,"
+			+"选出<input type='text' size='4' name='norule[startrepeat]' id='norule_startrepeat'"
+			+"onBlur=this.value=this.value.replace(/[^\\d]/g,\'\') onkeyup=this.value=this.value.replace(/[^\\d]/g,\'\') />次,"
+			+"<br/>特别起始号码:<input type='text' size='4' name='norule[spstartno]' id='norule_spstartno'/>,"
+			+"结束号码:<input type='text' size='4' name='norule[spendno]' id='norule_spendno'/>,"
+			+"选出<input type='text' size='4' name='norule[sprepeat]' id='norule_sprepeat'"
+			+"onBlur=this.value=this.value.replace(/[^\\d]/g,\'\') onkeyup=this.value=this.value.replace(/[^\\d]/g,\'\') />次,");
+		}
+	});
+	$("#lottery").submit(function(){
+		  if($("#cnname").val()=="")
+		  {
+			  alert("游戏的中文名称为空。");
+			  return false;
+		  }
+		  if($("#enname").val()=="")
+          {
+              alert("游戏的英文名称为空。");
+              return false;
+          }
+		  var i = $(":radio:checked[name='type']").val();
+		  if( $(":radio[name='type']").eq(1).val() == 1 && i == undefined )
+		  {
+		      alert("请选择游戏类型");
+		      return false;
+		  }
+		  if($("#norule_len").val()=="")
+		  {
+			  alert("号码的长度错误。");
+			  return false;
+	      }
+	      var re = /^[1-9][0-9]{0,1}$/
+	      if (!re.test($("#norule_len").val()))
+	      {
+	          alert("号码长度错误：必须为整数，且不超过两位数。");
+	          return false;
+	      }
+		  if($("#norule_startno").val()=="")
+          {
+              alert("起始号码为空.");
+              return false;
+          }
+          if($("#norule_endno").val()=="")
+          {
+              alert("结束号码为空.");
+              return false;
+          }
+		  if(i==1)
+		  {
+			  if($("#norule_startrepeat").val()=="")
+			  {
+				  alert("重复次数错误。");
+				  return false;
+			  }
+			  if($("#norule_splen").val()=="")
+			  {
+				  alert("特别区号码重复次数错误.");
+				  return false;
+			  }
+		  }
+		  else if(i==2)
+		  {
+			  if($("#norule_startrepeat").val()=="")
+              {
+                  alert("重复次数错误。");
+                  return false;
+              }
+              if($("#norule_spstartno").val()=="")
+              {
+                  alert("特别区号码开始号码错误.");
+                  return false;
+              }
+              if($("#norule_spendno").val()=="")
+              {
+                  alert("特别区号码结束号码错误.");
+                  return false;
+              }
+              if($("#norule_sprepeat").val()=="")
+              {
+                  alert("特别区号码重复次数错误.");
+                  return false;
+              }            
+		  }
+		  if($("#issuerule").val()=="")
+		  {
+			  alert("奖期规则错误.");
+			  return false;
+		  }
+		  if($("#minprofit").val()=="")
+          {
+              alert("公司最小留水错误.");
+              return false;
+          }
+		  if($("#mincommissiongap").val()=="")
+		  {
+			  alert("上下级最小点差错误.");
+			  return false;
+		  }
+		  if($("#adjustminprofit").val()=="")
+		  {
+			  alert("限极上调奖金公司留水错误.");
+			  return false;
+		  }
+		  if($("#adjustmaxpercent").val()=="")
+		  {
+			  alert("极限下调奖金返奖率错误.");
+			  return false;
+		  }
+		  if($("#description").val()=="")
+		  {
+			  alert("描述为空.");
+			  return false;
+		  }
+		  var i = $(":checkbox:checked[name='date[]']").length;
+		  if(i==0)
+		  {
+			  alert("请选择开奖日期");
+			  return false;
+		  }
+		  if(!timestr.test(jQuery("#dailystart").val()))
+         {
+            alert("开售时间格式不正确。");
+            return false;
+         }
+		  if(!timestr.test(jQuery("#dailyend").val()))
+         {
+            alert("停售时间格式不正确。");
+            return false;
+         }
+		 if(!timestr.test(jQuery("#canceldeadline").val()))
+	     {
+	        alert("最后撤单时间格式不正确。");
+	        return false;
+	     }
+         if(!timestr.test(jQuery("#edittime").val()))
+         {
+            alert("录入号码时间格式不正确。");
+            return false;
+         }
+         if(!timestr.test(jQuery("#dynamicprizestart").val()))
+         {
+            alert("动态调价开始时间格式不正确。");
+            return false;
+         }
+         if(!timestr.test(jQuery("#dynamicprizeend").val()))
+         {
+            alert("动态调价结束时间时间格式不正确。");
+            return false;
+         }
+         //休市时间		  
+		 return true;
+	 });
+});
+function testTime(obj,str){		
+	if(jQuery("#"+obj).val()!='')
+	{
+		if(!timestr.test(jQuery("#"+obj).val()))
+		{
+			alert(str+"格式不正确。");
+			jQuery("#"+obj).val('');
+		}
+	}
+}
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+    if(obj.style.display=="none")
+    {
+        obj.style.display="block";
+    }
+    else
+    {
+        obj.style.display="none";   
+    }
+}
+</script>
+<div class="list-div" id="listDiv">
+<form name="lottery" id="lottery" method="post" action="./?controller=gameinfo&action={$action|default:add}">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('notice_cnname');"><img src="./images/notice.gif" border="0"></a>中文平台游戏名称</td>
+<td><input type="text" name="cnname" id="cnname" value="{if isset($lottery)}{$lottery.cnname|escape:html}{/if}">
+<span id="notice_cnname" style="display:none;">该游戏在平台中的中文名称.</span>
+</td>
+</tr>
+<tr>
+<td class="narrow-label">英文平台游戏名称</td>
+<td><input type="text" name="enname" id="enname" value="{if isset($lottery)}{$lottery.enname|escape:html}{/if}"></td>
+</tr>
+<tr>
+<td class="narrow-label">游戏类型</td>
+<td>
+{if !isset($lottery)}
+<label for="type_0"><input type="radio" name="type" value="0" id="type_0">&nbsp;数字型</label>&nbsp;
+<label for="type_1"><input type="radio" name="type" value="1" id="type_1">&nbsp;乐透同区型</label>&nbsp;
+<label for="type_2"><input type="radio" name="type" value="2" id="type_2">&nbsp;乐透分区型</label>
+{else}
+{if $lottery.lotterytype==0}数字型{elseif $lottery.lotterytype==1}乐透同区型{elseif $lottery.lotterytype==2}乐透分区型{/if}
+{/if}
+</td>
+</tr>
+<tr>
+<td class="narrow-label">号码形态</td>
+<td>号码总长度:<input type="text" size="4" name="norule[len]" id="norule_len" value="{if isset($lottery)}{$lottery.no_rule.len|escape:html}{/if}" onBlur="this.value=this.value.replace(/[^\d]/g,'');" onkeyup="this.value=this.value.replace(/[^\d]/g,'');">
+<div id="no_rule" style="display:;">
+{if isset($lottery)}
+{if $lottery.lotterytype==0}
+起始号码:<input type='text' size='4' name='norule[startno]' value="{$lottery.no_rule.startno|escape:html}" />,
+结束号码:<input type='text' size='4' name='norule[endno]' value="{$lottery.no_rule.endno|escape:html}"/>
+{elseif $lottery.lotterytype==1}
+起始号码:<input type='text' size='4' name='norule[startno]' value="{$lottery.no_rule.startno|escape:html}" />,
+结束号码:<input type='text' size='4' name='norule[endno]'  value="{$lottery.no_rule.endno|escape:html}"/>,
+先重复<input type='text' size='4' name='norule[startrepeat]'  value="{$lottery.no_rule.startrepeat|escape:html}" onBlur="this.value=this.value.replace(/[^\d]/g,'');" onkeyup="this.value=this.value.replace(/[^\d]/g,'');" />次,
+<br/>然后从剩下号码中选出作为<input type='text' size='4' name='norule[splen]'value="{$lottery.no_rule.splen|escape:html}">位作为特别号码
+{elseif $lottery.lotterytype==2}
+普通起始号码:<input type='text' size='4' name='norule[startno]' value="{$lottery.no_rule.startno|escape:html}" />,
+结束号码:<input type='text' size='4' name='norule[endno]' value="{$lottery.no_rule.endno|escape:html}"/>,
+选出<input type='text' size='4' name='norule[startrepeat]' value="{$lottery.no_rule.startrepeat|escape:html}" onBlur="this.value=this.value.replace(/[^\d]/g,'');" onkeyup="this.value=this.value.replace(/[^\d]/g,'');" />次,
+<br/>特别起始号码:<input type='text' size='4' name='norule[spstartno]'  value="{$lottery.no_rule.spstartno|escape:html}">,
+结束号码:<input type='text' size='4' name='norule[spendno]'  value="{$lottery.no_rule.spendno|escape:html}"/>,
+选出<input type='text' size='4' name='norule[sprepeat]'  value="{$lottery.no_rule.sprepeat|escape:html}" onBlur="this.value=this.value.replace(/[^\d]/g,'');" onkeyup="this.value=this.value.replace(/[^\d]/g,'');" />次
+{/if}
+{/if}
+</div>
+</td>
+</tr>
+<tr>
+<td class="narrow-label">奖期规则</td>
+<td><input type="text" name="issuerule" id="issuerule" value="{if isset($lottery)}{$lottery.issuerule|escape:html}{/if}"></td>
+</tr>
+<tr>
+<td class="narrow-label">公司最小留水</td>
+<td><input type="text" name="minprofit" id="minprofit" size="6" value="{if isset($lottery)}{$lottery.minprofit|escape:html}{/if}"onblur="checkPointLast(this);" onkeyup="checkPoint(this);"></td>
+</tr>
+<tr>
+<td class="narrow-label">上下级最小点差</td>
+<td><input type="text" name="mincommissiongap" id="mincommissiongap" size="6" value="{if isset($lottery)}{$lottery.mincommissiongap|escape:html}{/if}" onBlur="checkPointLast(this);" onkeyup="checkPoint(this);"></td>
+</tr>
+<tr>
+<td class="narrow-label">限极上调奖金公司留水</td>
+<td><input type="text" name="adjustminprofit" id="adjustminprofit" size="12" value="{if isset($lottery)}{$lottery.adjustminprofit|escape:html}{/if}" onBlur="checkPointLast(this);" onkeyup="checkPointTwo(this);"><font color="Red">(限极上调奖金公司留水最小值为&nbsp;{$minprofit})</font></td>
+</tr>
+<tr>
+<td class="narrow-label">极限下调奖金返奖率</td>
+<td><input type="text" name="adjustmaxpercent" id="adjustmaxpercent" size="12" value="{if isset($lottery)}{$lottery.adjustmaxpercent|escape:html}{/if}" onBlur="checkPointLast(this);" onkeyup="checkPoint(this);"></td>
+</tr>
+<tr>
+<td class="narrow-label">游戏描述</td>
+<td><textarea name="description" rows="6" cols="60" id="description">{if isset($lottery)}{$lottery.description|escape:html}{/if}</textarea></td>
+</tr>
+<tr>
+<td class="narrow-label">开奖时间</td>
+<td>
+<label for="date_1"><input type="checkbox" name="date[]" id="date_1" value="1" {if isset($lottery)&&($lottery.weekcycle&1)>0}checked{/if}>&nbsp;星期一</label>&nbsp;
+<label for="date_2"><input type="checkbox" name="date[]" id="date_2" value="2" {if isset($lottery)&&($lottery.weekcycle&2)>0}checked{/if}>&nbsp;星期二</label>&nbsp;
+<label for="date_3"><input type="checkbox" name="date[]" id="date_3" value="4" {if isset($lottery)&&($lottery.weekcycle&4)>0}checked{/if}>&nbsp;星期三</label>&nbsp;
+<label for="date_4"><input type="checkbox" name="date[]" id="date_4" value="8" {if isset($lottery)&&($lottery.weekcycle&8)>0}checked{/if}>&nbsp;星期四</label>&nbsp;
+<label for="date_5"><input type="checkbox" name="date[]" id="date_5" value="16" {if isset($lottery)&&($lottery.weekcycle&16)>0}checked{/if}>&nbsp;星期五</label>&nbsp;
+<label for="date_6"><input type="checkbox" name="date[]" id="date_6" value="32" {if isset($lottery)&&($lottery.weekcycle&32)>0}checked{/if}>&nbsp;星期六</label>&nbsp;
+<label for="date_7"><input type="checkbox" name="date[]" id="date_7" value="64" {if isset($lottery)&&($lottery.weekcycle&64)>0}checked{/if}>&nbsp;星期日</label>
+</td>
+</tr>
+<tr>
+<td class="narrow-label">销售开始时间</td>
+<td><input type="text" name="dailystart" id="dailystart" value="{if isset($lottery)}{$lottery.dailystart|escape:html}{/if}" onchange="javascript:testTime('dailystart','销售开始时间');"></td>
+</tr>
+<tr>
+<td class="narrow-label">销售结束时间</td>
+<td><input type="text" name="dailyend" id="dailyend" value="{if isset($lottery)}{$lottery.dailyend|escape:html}{/if}" onchange="javascript:testTime('dailyend','销售结束时间');"></td>
+</tr>
+<tr>
+<td class="narrow-label">撤单结束时间</td>
+<td><input type="text" name="canceldeadline" id="canceldeadline" value="{if isset($lottery)}{$lottery.canceldeadline|escape:html}{/if}" onchange="javascript:testTime('canceldeadline','撤单结束时间');"></td>
+</tr>
+<tr>
+<td class="narrow-label">录入号码时间</td>
+<td><input type="text" name="edittime" id="edittime" value="{if isset($lottery)}{$lottery.edittime|escape:html}{/if}" onchange="javascript:testTime('edittime','录入号码时间');"></td>
+</tr>
+<tr>
+<td class="narrow-label">动态调价开始时间</td>
+<td><input type="text" name="dynamicprizestart" id="dynamicprizestart" value="{if isset($lottery)}{$lottery.dynamicprizestart|escape:html}{/if}" onchange="javascript:testTime('dynamicprizestart','动态调价开始时间');"></td>
+</tr>
+<tr>
+<td class="narrow-label">动态调价结束时间</td>
+<td><input type="text" name="dynamicprizeend" id="dynamicprizeend" value="{if isset($lottery)}{$lottery.dynamicprizeend|escape:html}{/if}" onchange="javascript:testTime('dynamicprizeend','动态调价结束时间');"></td>
+</tr>
+<tr>
+<td class="narrow-label">休市开始时间</td>
+<td><input type="text" name="yearlybreakstart" id="yearlybreakstart" value="{if isset($lottery)}{$lottery.yearlybreakstart|escape:html}{/if}"></td>
+</tr>
+<tr>
+<td class="narrow-label">休市结束时间</td>
+<td><input type="text" name="yearlybreakend" id="yearlybreakend" value="{if isset($lottery)}{$lottery.yearlybreakend|escape:html}{/if}"></td>
+</tr>
+<tr>
+<td class="narrow-label"></td>
+<td>{if isset($lottery)}<input type="hidden" name="lotteryid" value="{$lottery.lotteryid|escape:html}">{/if}<input type="submit" class="button" value="{if isset($action)&&($action==edit)}修改彩种{else}增加彩种{/if}"><input type="reset" class="button" value="重新设置"></td>
+</tr> 
+</table></form></div>
+{include file="pagefooter.html"}

@@ -1,0 +1,163 @@
+{include file="pageheader.html"}
+{insert_scripts files="jquery.js"}
+<script>
+
+jQuery.fn.countdown = function(options) {
+	if(!options) options = '()';
+	if(jQuery(this).length == 0) return false;
+	var obj = this;
+	if(options.seconds < 0 || options.seconds == 'undefined')
+	{
+		if(options.callback) eval(options.callback);
+		return null;
+	}
+	window.setTimeout(
+		function() {
+			hour = Math.floor(options.seconds/3600);
+			min  = Math.floor((options.seconds-hour*3600)/60);
+			sec  = Math.floor(options.seconds-hour*3600 - min*60); 
+			jQuery(obj).html(hour+'时'+min+'分'+sec);
+			--options.seconds;
+			jQuery(obj).countdown(options);
+		},1000
+	);
+    return this;
+}
+jQuery(document).ready(function(){
+	var data_issue = {$data_issue};
+
+{foreach from=$aLottery item=lottery key=k}	
+	$('#times_{$lottery.lotteryid}').countdown({seconds: data_issue[{$lottery.lotteryid}][0].T,callback: 'get_data({$lottery.lotteryid})'});
+{/foreach}	
+});
+function get_data(lotteryid){
+	issue = $("#issue_"+lotteryid).val();
+	$.ajax({
+		type:"POST",
+		url:"./index.php?controller=draw&action=compare",
+		data:"do=getdata&lotteryid="+lotteryid+"&issue="+issue,
+		dataType:"json",
+		success:function(data){
+			if(data.file=="")
+			{
+				$("#filedown_"+lotteryid).html("<input type='button' class='button' value='刷新' onclick=\"get_data('"+lotteryid+"');\">");
+			}
+			else
+			{
+				$("#filedown_"+lotteryid).html("<a href='./"+data.file+"'>文件下载</a>");
+				$("#filestr_"+lotteryid).html(data.str);
+			}
+		},
+		error:function(data){
+			alert("获取失败");
+		}
+	});
+}
+$(document).ready(function(){
+	$("#checkform").submit(function(){
+		if($("#lottery").val()==0)
+		{
+			alert("游戏彩种不正确.");
+			return false;
+		}
+		if($("#issue").val()==0)
+		{
+			alert("游戏奖期不正确.");
+			return false;
+		}
+		if($("#type_1").attr("checked")==true)
+		{
+			if($("#bakfile").val()=="")
+			{
+				alert("请选择上传文件.");
+				return false;
+			}
+		}
+		else if($("#type_2").attr("checked")==true)
+		{
+			if($("#bakstr").val().length<32)
+			{
+				alert("请输入上传文字串.");
+				return false;
+			}
+		}
+		else
+		{
+			alert("请选择文件核对的方式.");
+			return false;
+		}
+		return true;
+	});
+	$("#lottery").change(function(){
+		var data_issue = {$data_issue}; 
+		$("#issuelist").html("");
+		if($("#lottery").val()>0)
+		{
+			shtml ="<select name='issue' id='issue'><option value='0'>游戏奖期选择</option>";
+			$.each(data_issue[$("#lottery").val()],function(i,v){
+				shtml = shtml + "<option value='"+v.issue+"'>"+v.issue+"("+v.endtime+")</option>";
+			});	
+			shtml = shtml + "</select>";
+		}
+		else
+		{
+			shtml = "<select name='issue' id='issue'><option value='0'>游戏奖期选择</option></select>";
+		}
+		$("#issuelist").html(shtml);
+	});
+	
+});
+</script>
+<div class="list-div">
+<table>
+{foreach from=$aLottery item=lottery key=k}
+<tr>
+<td class="narrow-label">{$lottery.cnname}</td>
+<td width="25%"><select name="issue[{$lottery.lotteryid}]" id="issue_{$lottery.lotteryid}">
+{foreach from=$aIssue.$lottery.lotteryid item=issue key=k2}
+{if ($k2==0)}
+<option value="{$issue.issue}">{$issue.issue}({$issue.endtime})</option>
+{/if}
+{/foreach}
+</select></td>
+<td width="25%" align="center" id="filedown_{$lottery.lotteryid}">当前剩余<span id="times_{$lottery.lotteryid}"></span>秒.</td>
+<td width="25%" align="center" id="filestr_{$lottery.lotteryid}"></td>
+</tr>
+{/foreach}
+</table>
+</div>
+<div class="list-div" id="listDiv">
+<form action="./index.php?controller=draw&action=compare" method="POST" enctype="multipart/form-data" id="checkform">
+<table>
+<tr>
+<th colspan="2">方案比较</th>
+</tr>
+<tr>
+	<td class="narrow-label">游戏名称</td>
+	<td><select name="lottery" id="lottery">
+		<option value="0">游戏彩种</option>
+		{foreach from=$aLottery item=lottery key=k}
+		<option value="{$lottery.lotteryid}">{$lottery.cnname}</option>
+		{/foreach}
+	</select></td>
+</tr>
+<tr>
+	<td class="narrow-label">游戏奖期</td>
+	<td><span id="issuelist"><select name='issue' id='issue'><option value='0'>彩种奖期选择</option></select></span></td>
+</tr>
+<tr>
+	<td class="narrow-label"><label for="type_1"><input type="radio" name="type" id="type_1" value="1">备份文件</label></td>
+	<td><input type="file" name="bakfile" id="bakfile" value=""></td>
+</tr>
+<tr>
+	<td class="narrow-label"><label for="type_2"><input type="radio" name="type" id="type_2" value="2">字符串</label></td>
+	<td><input type='text' id="bakstr" name="bakstr" size="36" maxlength="32"></td>
+</tr>
+<tr>
+	<td class="narrow-label"></td>
+	<td><input type="hidden" name="do" value="checkData"><input type="submit" class="button" value="方案比较"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

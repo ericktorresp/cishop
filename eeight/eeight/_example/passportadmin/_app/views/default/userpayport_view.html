@@ -1,0 +1,78 @@
+{include file="pageheader.html"}
+<style type="text/css">
+.ext {color:blue; font-size:15px;}
+.org {color:red;font-weight:bold;font-size:15px;}
+a:hover.url,a:link.url,a:visited.url { font-size:15px; }
+a:hover.url { color: #FF3300}
+
+a:hover.idx,a:link.idx,a:visited.idx { font-size:15px; weight:30px;text-decoration:none; padding:2px; border:1px solid #888888; background-color:#F4F4F4; color:#666666 }
+a:hover.idx { color: #000000; background-color:#FFCC00; border:1px solid #FF3300}
+</style> 
+
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td colspan={$TA.colsth} style="font-size:18px;height:30px;align:center">{$htmlstr.name}{$htmlstr.lvstr}与分账户关系表</td>
+</tr>
+<tr>
+<td colspan={$TA.colsth}>
+<form method="POST" action='?controller=userpayport&action=viewacc'  name="list-form" id="list-form">
+&nbsp; 分账户<select name="accid">
+{foreach from=$acclist item=acc key=ai}
+<option value={$ai}>{$acc.accname}{if $acc.isenable == 0}[未激活]{/if}</option>
+{/foreach}
+</select>关联用户列表 
+<input type="Submit" name="Submit" value="查看">
+</form> 
+</td>
+</tr>
+<tr>
+<td colspan={$TA.colsth} style="font-size:13px;height:30px;text-align:right;padding-right:30px">用户名字头索引:
+{foreach from=$userindex item=ui}
+<a class="idx" href=#{$ui.username_index}>{$ui.username_index}</a> 
+{/foreach}
+</td>
+</tr>
+	<tr>
+	<th rowspan="2">{$htmlstr.lvstr}列表</th>
+	<th colspan={$TA.cols}>支付接口及分账户</th>
+	</tr>
+	<tr>
+	{foreach from=$PAYPORT item=payname key=payid}
+	<th>{$payname}分账户</th>
+	{/foreach}
+	</tr>
+{foreach from=$AAA item=AA key=iA}
+<tr>
+<td>
+<a name="{$AA.usernameindex}"></a>
+{if $htmlstr.name == null}<a class="url" href="?controller=userpayport&action=list&lv=1&user={$iA}&username={$AA.username}">{$AA.username}</a>{else}{$AA.username}{/if}
+</td>
+	{foreach from=$AA.ppArr item=PP key=iP}
+	<td>
+		{foreach from=$PP.accArr item=ACC key=iC}
+			{if $htmlstr.name == null}
+				{if $ACC.isshow == 1}
+					<span class="org">{$ACC.accname}</span>
+				{/if}
+			{else}
+				{if $PP.ppunextend == 1 && $ACC.isshow == 1}
+					<span class="org">{$ACC.accname}</span>
+				{/if}
+				{if $PP.ppunextend == "" && $ACC.isextend == 1}
+					<span class="ext">{$ACC.extform}</span>
+				{/if}
+		    {/if}	
+		{/foreach}
+	</td>	
+	{/foreach}
+</tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">无相关数据</td></tr>
+{/foreach}	
+	
+</table>
+
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

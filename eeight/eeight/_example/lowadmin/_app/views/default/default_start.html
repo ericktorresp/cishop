@@ -1,0 +1,53 @@
+{include file="pageheader.html"}
+
+{* ------------- 开始 系统警告 -------------- *}
+{if $warning_arr}
+<ul style="padding:0; margin: 0; list-style-type:none; color: #880000;">
+  {foreach from=$warning_arr item=warning key=1}
+  <li style="border: 1px solid #CC0000; background: #FFFFCC; padding: 10px; margin-bottom: 5px;" >注意: {$warning}</li>
+  {/foreach}
+</ul>
+{/if}
+{* ------------- 结束 系统警告 -------------- *}
+
+
+
+{* ------------- 开始 管理员留言 -------------- *}
+<div class="list-div">
+<form name='myform' method='post' action=''><table cellspacing='1' cellpadding='3'>
+<tr><th align='left'>&nbsp;&nbsp;记事本</th></tr>
+<tr><td align="left" style="background:#F5F5F5;padding-bottom:8px;">
+<textarea name="message" style="border:0px;background:#F5F5F5;height:160px;width:99%;color:#000;line-height:21px;">
+{$opNotice|default:无内容}</textarea><br />
+<input type="hidden" name='modmessage' value="1"/>
+<input type="submit" value=" 修改记事本内容 " class="button"/>
+</td></tr></table></div></form><br />
+{* ------------- 结束 管理员留言 -------------- *}
+
+
+
+{* ------------- 开始 系统消息 -------------- *}
+<div class="list-div">
+<table cellspacing='1' cellpadding='3'>
+  <tr>
+    <th colspan="4" class="group-title">系统信息</th>
+  </tr>
+  <tr>
+    <td>程序版本：</td>
+    <td style='width:30%'><font color='#996600'>{$sys_info.project_ver}</font></td>
+    <td>PHP 版本：</td>
+    <td>{$sys_info.php_ver}</td>
+  </tr>
+  <tr>
+    <td width="16%">服务器操作系统：</td>
+    <td width="20%">{$sys_info.os}</td>
+    <td width="16%">Web 服务器：</td>
+    <td width="48%">{$sys_info.web_server}</td>
+  </tr>
+
+</table>
+</div>
+{* ------------- 结束 系统消息 -------------- *}
+
+
+{include file="pagefooter.html"}

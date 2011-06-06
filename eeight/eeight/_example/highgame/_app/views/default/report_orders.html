@@ -1,0 +1,191 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="{$sSystemImagesAndCssPath}/highgame/js/calendar/css/calendar-blue2.css"  />
+<script>
+function show_no(id)
+{
+	$("#code_"+id).show("slow");
+}
+function close_no(id)
+{
+	$("#code_"+id).hide("slow");
+}
+jQuery(document).ready(function() {
+	jQuery("#starttime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		onUpdate:function(){
+			$("#starttime").change();
+		},
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#starttime").change(function(){
+		if(! validateInputDate(jQuery("#starttime").val()) )
+		{
+			jQuery("#starttime").val('');
+			alert("时间格式不正确,正确的格式为:2009-06-10 10:59");
+		}
+		if($("#endtime").val()!="")
+		{
+			if($("#starttime").val()>$("#endtime").val())
+			{
+				$("#starttime").val("");
+				alert("输入的时间不符合逻辑");
+			}
+		}
+	});
+	jQuery("#endtime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		onUpdate:function(){
+			$("#endtime").change();
+		},
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#endtime").change(function(){
+		if(! validateInputDate(jQuery("#endtime").val()) )
+		{
+			jQuery("#endtime").val('');
+			alert("时间格式不正确,正确的格式为:2009-06-10 10:59");
+		}
+		if($("#starttime").val()!="")
+		{
+			if($("#starttime").val()>$("#endtime").val())
+			{
+				$("#endtime").val("");
+				alert("输入的时间不符合逻辑");
+			}
+		}
+	});
+	jQuery("#lotteryid").change(function(){
+		var data_method = {$data_method};
+		var data_issue = {$data_issue};
+		i =  $("#lotteryid").val();
+		if(i>0)
+		{
+			html = "游戏玩法：<select name='methodid' id='methodid'><option value='0'>所有玩法</option>";			
+			$.each(data_method[i],function(j,k){
+				html = html +"<option value='"+k.methodid+"'>"+k.methodname+"</option>";
+			});
+			html = html +"</select>";
+			html = html + "&nbsp;";
+			html = html + "游戏奖期：<select name='issue' id='issue'><option value='0'>所有奖期</option>";			
+			$.each(data_issue[i],function(j,k){
+				//html = html +"<option value='"+k.issue+"'>"+k.issue+"("+k.dateend+")</option>";
+				html = html +"<option value='"+k.issue+"'>"+k.issue+"</option>";
+			});
+			html = html +"</select>";
+		}
+		else
+		{
+			html = "游戏玩法：<select name='methodid' id='methodid'><option value='0'>所有玩法</option></select>";
+			html = html + "&nbsp;";
+			html = html + "游戏奖期：<select name='issue' id='issue'><option value='0'>所有奖期</option></select>";
+		}
+		$("#game_info").html(html);
+	});
+	$("#lotteryid").val({$s.lotteryid});
+	$("#lotteryid").change();
+	$("#methodid").val('{$s.methodid}');
+	$("#issue").val('{$s.issue}');
+});
+</script>
+<div class="list-div" style="padding: 10px 0pt;">
+<form action="./index.php" method="GET" style="display:inline;">
+<input type="hidden" name="controller" value="report">
+<input type="hidden" name="action" value="orders">
+<input type="hidden" name="isgetdata" value="1">
+<img src="{$sSystemImagesAndCssPath}/highgame/images/default/icon_search.gif">&nbsp;时间：<input type="text" name="starttime" id="starttime" value="{if isset($s.starttime)}{$s.starttime|escape:html}{/if}" style="background-color:#FFF;color:#555;width:140px;" />&nbsp;<img src="{$sSystemImagesAndCssPath}/highgame/images/default/calendar2.gif">&nbsp;至&nbsp;<input type="text" name="endtime" id="endtime" value="{if isset($s.endtime)}{$s.endtime|escape:html}{/if}" style="background-color:#FFF;color:#555;width:140px;" />&nbsp;<img src="{$sSystemImagesAndCssPath}/highgame/images/default/calendar2.gif">&nbsp;<select name="type" id="type">
+<option value="0">编号查询</option>
+<option value="1" {if $s.type==1}selected="selected"{/if}>注单编号</option>
+<option value="2" {if $s.type==2}selected="selected"{/if}>追号编号</option>
+<option value="3" {if $s.type==3}selected="selected"{/if}>帐变编号</option>
+</select>：<input type="text" name="code" value="{if isset($s.code)}{$s.code}{/if}" id="code" style="background-color:#FFF;color:#555;width:160px;">{if $showInclude}&nbsp;游戏用户：<input type="text" name="username" id="username" size="16" style="background-color:#FFF;color:#555;width:80px;" value="{$s.username|escape:html}" />&nbsp;<label for="include"><input type="checkbox" name="include" id="include" value="1" {if (isset($s.include)&&($s.include==1))}checked{/if}>包含下级</label>{/if}
+<div style="height:2px;padding:0;margin:0;line-height:2px;"></div><img src="{$sSystemImagesAndCssPath}/highgame/images/default/space.gif" width="26">&nbsp;游戏名称：<select name="lotteryid" id="lotteryid">
+<option value="0">所有游戏</option>
+{foreach from=$lottery item=alottery key=k}
+<option value="{$k}">{$alottery}</option>
+{/foreach}
+</select>&nbsp;<span id="game_info"></span>&nbsp;游戏模式：<select name="modes" id="modes">
+<option value="">所有模式</option>
+{foreach from=$modes item=m}
+<option value="{$m.modeid}"{if $m.modeid==$s.modes} selected="selected"{/if}>{$m.name}</option>
+{/foreach}
+</select>&nbsp;帐变类型：<select name="ordertype" id="ordertype">
+<option value="0">所有类型</option>
+{foreach from=$type item=v key=k}
+<option value="{$v.id}" {if $v.id==$s.ordertype}selected="selected"{/if}>{$v.cntitle}</option>
+{/foreach}
+</select>&nbsp;&nbsp;<input type="submit" value="查询" class="button">
+</form>
+</div>
+<br/>
+<div class="list-div">
+<table>
+<tr>
+<th>帐变编号</th>
+<th>用户名</th>
+<th>时间</th>
+<th>帐变类型</th>
+<th>游戏</th>
+<th>玩法</th>
+<th>期号</th>
+<th>模式</th>
+<th>变动价格</th>
+<th>频道余额</th>
+<th>状态</th>
+<th>转账备注</th>
+</tr>
+{foreach from=$aOrders item=order key=k}
+<tr align="center">
+<td>{if $order.projectid=='0'}
+{$order.entry|escape:html}
+{else}
+<a href="./index.php?controller=gameinfo&action=gamedetail&id={$order.projectid|escape:html}" target="_blank">{$order.entry|escape:html}</a>
+{/if}</td>
+<td>{$order.username|escape:html}</td>
+<td>{$order.times|escape:html}</td>
+<td>{$order.title|escape:html}</td>
+<td>{$lottery.$order.lotteryid|escape:html}</td>
+<td>{$aMehtodName.$order.methodid|escape:html}{if $order.codetype == 'input' && !strpos($aMehtodName.$order.methodid, '混合')}(单式){/if}</td>
+<td>{$order.issue|escape:html}</td>
+<td>{$order.modes}</td>
+<td align="right">{if $order.operations==0}<font color="red">-{else}<font color="green">+{/if}{$order.amount|escape:money:4}</font></td>
+<td align="right">{$order.availablebalance|escape:money:4}</td>
+<td>{if $order.transferstatus==2}成功{else}--{/if}</td>
+<td>{if $order.uniquekey != ''}{$order.description}{else}<font color='#D0D0D0'>-----</font>{/if}</td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="12" class="no-records">{if $s.isgetdata == 0}请选择查询条件之后进行查询{else}没有找到记录..{/if}</td>
+</tr>
+{/foreach}
+<tr align="center">
+<td colspan="8" align="left">
+&nbsp;&nbsp;&nbsp;&nbsp;小结:本页资金变动 :&nbsp;
+{if $pagetotal > 0}<font color="Green">{else}<font color="Red">{/if}<b>{$pagetotal|escape:money:4}</b></font>
+</td>
+<td align="right">
+{if $pagetotal > 0}<font color="Green">{else}<font color="Red">{/if}{$pagetotal|escape:money:4}</font>
+</td>
+<td colspan="3"></td>
+</tr>
+<tr align="right">
+<td colspan="12">{$pageinfo}</td>
+</tr>
+</table>
+</div>
+{include file="pagefooter.html"}

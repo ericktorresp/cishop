@@ -1,0 +1,41 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table>
+<tr>
+<th>ID</th>
+<th>用户组别</th>
+<th>组编号</th>
+<th>特殊组</th>
+<th>启用</th>
+<th>操作</th>
+</tr>
+{foreach from=$usergroup item=ug key=k}
+<tr align="center">
+<td>{$ug.groupid}</td>
+<td>{$ug.groupname}</td>
+<td>{$ug.teamid}</td>
+<td>{if $ug.isspecial==0}<font color="green">否</font>{else}<font color="red">是</font>{/if}</td>
+<td>{if $ug.isdisabled==0}<font color="green">启用</font>{else}<font color="red">禁用</font>{/if}</td>
+<td>
+<a href="./index.php?controller=developer&action=userteamedit&groupid={$ug.groupid}">修改组别</a>
+{if $ug.isspecial==1}
+&nbsp;<a href="./index.php?controller=developer&action=userteamdel&teamid={$ug.teamid}" onclick="return confirm('您确定要删除该组别吗?');">删除组别</a>
+{else}
+{if $ug.isspecial==0 &&$ug.groupid>4}
+&nbsp;<a href="./index.php?controller=developer&action=userteamdel&spid={$ug.groupid}" onclick="return confirm('您确定要删除该组别吗?');">删除组别</a>
+{/if}
+{/if}
+{if $ug.isspecial==1||$ug.groupid==1}&nbsp;<a href="./index.php?controller=developer&action=userteamcopy&groupid={$ug.groupid}">复制组别</a>
+{/if}
+{if $ug.isdisabled==0}
+&nbsp;<a href="./index.php?controller=developer&action=userteamdisable&groupid={$ug.groupid}" onclick="javascript:return confirm('您确认要禁用该用户组别?');">禁用组别</a>
+{else}
+&nbsp;<a href="./index.php?controller=developer&action=userteamenable&groupid={$ug.groupid}"  onclick="javascript:return confirm('您确认要启用该用户组别?');">启用组别</a>
+{/if}
+</td>
+</tr>
+{foreachelse}
+{/foreach}
+</table>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,35 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<th>游戏</th>
+<th>玩法</th>
+<th>封锁</th>
+<th>奖级</th>
+<th>状态</th>
+<th>操作</th>
+</tr>
+{foreach from=$items item=method key=k}
+<tr align="center">
+<td>{$aLottery.cnname}</td>
+<td>{$method.methodname}</td>
+<td>{if $method.islock>0}是{else}否{/if}</td>
+<td>{if $method.level==1}单奖级{else}<font color=red>多奖级</font>{/if}</td>
+<td>{if $method.isclose==1}<font color=#ff0000>停止销售</font>{else}<font color=#669900>销售中</font>{/if}</td>
+<td>
+<a href="./?controller=method&action=editplay&lotteryId={$lotteryId}&pid={$pid}&methodId={$method.methodid}">修改</a>
+{if $method.isclose==1}
+&nbsp;<a href="./?controller=method&action=playstart&lotteryId={$lotteryId}&pid={$pid}&methodId={$method.methodid}" onclick="return confirm('你确定要开始销售\'{$method.cnname}\'的\'{$method.methodname}\'吗?');">开售</a>
+{else}
+&nbsp;<a href="./?controller=method&action=playstop&lotteryId={$lotteryId}&pid={$pid}&methodId={$method.methodid}"  onclick="return confirm('你确定要停止销售\'{$method.cnname}\'的\'{$method.methodname}\'吗?');">停售</a>
+{/if}
+</td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="7" class="no-records">没有相关数据</td>
+</tr>
+{/foreach}
+</table>
+</div>
+{include file="pagefooter.html"}

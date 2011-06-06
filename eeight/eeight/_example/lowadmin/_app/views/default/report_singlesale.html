@@ -1,0 +1,150 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-brown.css"  />
+<script>
+$(document).ready(function(){
+	jQuery("#starttime").dynDateTime({
+		ifFormat: "%Y-%m-%d",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		button: ".next()",
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#starttime").change(function(){
+		if(! validateInputDate(jQuery("#starttime").val()) )
+		{jQuery("#starttime").val('');alert("时间格式不正确,正确的格式为:2009-06-10");}
+	});
+	jQuery("#endtime").dynDateTime({
+		ifFormat: "%Y-%m-%d",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		button: ".next()",
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#endtime").change(function(){
+		if(! validateInputDate(jQuery("#endtime").val()) )
+		{jQuery("#endtime").val('');alert("时间格式不正确,正确的格式为:2009-06-10");}
+	});
+});
+</script>
+<div class="form-div">
+<form method="GET" action="">
+<input type="hidden" name="controller" value="report">
+<input type="hidden" name="action" value="singlesale">
+<img src="./images/icon_search.gif">
+&nbsp;&nbsp;&nbsp;游戏名称：
+<select name="lottery" id="lottery">
+<option value="0">-所有游戏-</option>
+{foreach from=$lottery item=l key=k}
+{if $lotteryid == $k}
+<option value="{$k}" selected>{$l}</option>
+{else}
+<option value="{$k}">{$l}</option>
+{/if}
+{/foreach}
+</select>
+&nbsp;&nbsp;&nbsp;是否包含测试账户：
+<select name="includetestuser" id="includetestuser">
+<option value="0" {if $includetestuser == 0}selected{/if}>不包含测试账户</option>
+<option value="1" {if $includetestuser == 1}selected{/if}>包含测试账户</option>
+</select>
+<div style="line-height:8px">&nbsp;</div>
+<span style="padding:0 5px 0 34px;">日期：</span>
+<input type="text" name="starttime" id="starttime" value="{$starttime}"><img src="./images/calendar2.gif">&nbsp;至
+<input type="text" name="endtime" id="endtime" value="{$endtime}"><img src="./images/calendar2.gif">
+&nbsp; 每页记录数:<input name="pn" id="ipagesize" value="{if $ipn > 0}{$ipn}{else}{$syspagesizemax}{/if}" size="5" onKeyup="checkPageSize(this,'ipagesize',{$syspagesizemax});">
+&nbsp;&nbsp;<input type="submit" value="立即搜索" class="button">
+</form>
+</div>
+<div class="list-div" id="listDiv">
+<table>
+<tr>
+<th width="10%">日期</th>
+<th width="5%">游戏</th>
+<th width="10%">奖期</th>
+<th width="15%">销售总额</th>
+<th width="15%">撤单手续费</th>
+<th width="15%">返奖总额</th>
+<th width="15%">返点总额</th>
+<th width="15%">盈亏</th>
+</tr>
+{foreach from=$asale item=sale key=k}
+<tr align="center">
+<td>{$sale.joindate}</td>
+<td>{$sale.cnname|escape:html}</td>
+<td>{$sale.issue}</td>
+<td>{$sale.sell|escape:money}</td>
+<td>{$sale.charge|escape:money}</td>
+<td>{$sale.bonus|escape:money}</td>
+<td>{$sale.return|escape:money}</td>
+<td>{if $sale.saleresult > 0 }<font color="Black">{else}<font color="Red">{/if}{$sale.saleresult|escape:money}</font></td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="8" class="no-records">没有相关数据</td>
+</tr>
+{/foreach}
+<tr align="center">
+<td width="35%" colspan="3"><b><font color="Blue">合计</font></b></td>
+<td width="15%"><b>{if $totalprice > 0 }<font color="Green">{else}<font color="Red">{/if}{$totalprice|escape:money}&nbsp;元</font></b></td>
+<td width="15%"><b>{if $totalcharge > 0 }<font color="Green">{else}<font color="Red">{/if}{$totalcharge|escape:money}&nbsp;元</font></b></td>
+<td width="15%"><b>{if $totalbonus > 0 }<font color="Green">{else}<font color="Red">{/if}{$totalbonus|escape:money}&nbsp;元</font></b></td>
+<td width="15%"><b>{if $totalpoint > 0}<font color="Green">{else}<font color="Red">{/if}{$totalpoint|escape:money}&nbsp;元</font></b></td>
+<td width="20%"><b>{if $totalresult > 0}<font color="Green">{else}<font color="Red">{/if}{$totalresult|escape:money}&nbsp;元</font></b></td>
+</tr>
+<tfoot align="right">
+	<td colspan="8">{$pageinfo}</td>
+</tfoot>
+</table>
+</div>
+
+<script language="JavaScript">
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#F6F6EA';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{include file="pagefooter.html"}

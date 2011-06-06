@@ -1,0 +1,36 @@
+{include file="pageheader.html"}
+
+{foreach from=$alottery item=lottery key=k}
+<div class="list-div">
+<table>
+<tr>
+<td colspan="5">{$lottery|escape:html}</td>
+</tr>
+<tr align="center">
+<td width="20%">玩法组</td>
+<td width="20%">奖级</td>
+<td width="20%">奖金</td>
+<td width="20%">用户返点</td>
+<td width="20%">最大奖金限额</td>
+</tr>
+{foreach from=$UserMethod.$k item=method key=t}
+{if !empty($method.name)}
+<tr align="center">
+<td>{$method.name|escape:html}
+</td>
+<td>
+{foreach from=$method.nocount item=nocount key=k1}
+{$nocount.name|escape:html}<br/>
+{/foreach}</td>
+<td>{foreach from=$method.nocount item=nocount key=k1}
+{$nocount.bonus|escape:money:4}<br/>
+{/foreach}</td>
+<td>{if isset($method.userpoint)}{$method.userpoint|escape:html}%{/if}</td>
+<td>{$LimitBonus|escape:money:4}</td>
+</tr>
+{/if}
+{/foreach}
+</table>
+</div>
+{/foreach}
+{include file="pagefooter.html"}

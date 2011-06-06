@@ -1,0 +1,177 @@
+{include file="pageheader.html"}
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/css/label.css" type="text/css" />
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/calendar/jquery.dyndatetime.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/js/calendar/css/calendar-blue2.css" type="text/css" />
+<script type="text/javascript">
+	jQuery("#loadhtml").hide();	//去掉loading界面
+	jQuery(document).ready(function() {		
+		jQuery("#time_min").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#time_max").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#helpimg").click(function(){
+			jQuery("#helpnotice").toggle();
+		});
+		
+		// 取消
+		cancelWithdraw = function(id){
+			if (confirm("确认取消吗？")){
+				$.ajax({
+					type:"POST",
+					url:'?controller=security&action=cancelwithdraw',
+					data:'id=' + id + '&flag=ajax',
+					success:function(data){
+						if (data == true){
+							$("#status" + id).html("已取消");
+							$("#cancel" + id).fadeOut("slow");
+							$.alert("取消成功");
+						} else if (data == -1){
+							$.alert("系统结算时间,暂停提现操作");
+						} else {
+							$.alert("取消失败");
+						}
+					}
+				});
+			}
+		}
+	});
+	
+function checkForm(obj)
+{
+	if( jQuery.trim(obj.time_min.value) != "" )
+	{
+		if( false == validateInputDate(obj.time_min.value) )
+		{
+			$.alert("时间格式不正确");
+			obj.time_min.focus();
+			return false;
+		}
+	}
+	if( jQuery.trim(obj.time_max.value) != "" )
+	{
+		if( false == validateInputDate(obj.time_max.value) )
+		{
+			$.alert("时间格式不正确");
+			obj.time_max.focus();
+			return false;
+		}
+	}
+}
+</script>
+<div class="right_02 d5d8de">
+<div id="right_02_01" style="height:44px;">
+<div class="right_02_02"></div>
+<div class="right_02_03">
+<div class="title01">
+        <span  id="general_tab_0">
+		  <span class="menu_01"></span>
+		  <span class="menu_02" onclick="window.location.href='?controller=security&action=onlinewithdraw'">发起提现</span>
+		  <span class="menu_03"></span>
+		</span>
+			<span  id="general_tab_1">
+		  <span class="menu_01a"></span>
+
+		  <span class="menu_02a">提现记录</span>
+		  <span class="menu_03a"></span>
+		</span>
+
+</div>
+</div>
+<div class="right_02_04 floatright"></div>
+</div>
+
+
+<div><table width="100%" border="0" cellspacing="1" cellpadding="0">
+<tr><td height="44" colspan="8">
+<form action="index.php" method="get" name="search" onsubmit="return checkForm(this)"><div style="margin-left:20px;">
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action" value="withdrawlist" />
+<input type="text" size="15" name="time_min" id="time_min" value="{$time_min}" /> <img src="{$sSystemImagesAndCssPath}/images/calendar2.gif" id="time_min_button" /> 至 <input type="text" size="15" name="time_max" id="time_max" value="{$time_max}" />
+<img src="{$sSystemImagesAndCssPath}/images/calendar2.gif" />
+<!--提现方式：<select name="api_id">
+	<option value="">全部</option>
+	{foreach from=$apilist item=api key=k}
+		<option value="{$api.id}" {if $api_id == $api.id}selected{/if}>{$api.payport_nickname}</option>
+	{/foreach}
+</select>&nbsp;&nbsp;-->
+<input type="submit" value="搜索"  class="buttonnormal" /></div>
+</form>
+
+</td></tr>
+<tr>
+    	<th height="37" align="center" bgcolor="#999999">提现编号</th>
+      <th align="center" bgcolor="#999999">时间</th>
+      <th align="center" bgcolor="#999999">提现方式</th>
+      <th align="center" bgcolor="#999999">发起金额</th>
+      <th align="center" bgcolor="#999999">手续费</th>
+      <th align="center" bgcolor="#999999">到账余额</th>
+      <th align="center" bgcolor="#999999">状态</th>
+      <th align="center" bgcolor="#999999">操作</th>
+    </tr>
+    {foreach from=$withdrawlist item=withdraw key=k}
+    <tr align="center">
+    	<td height="37" align="center" bgcolor="#CCCCCC">{$withdraw.no}</td>
+   	  <td align="center" bgcolor="#CCCCCC">{$withdraw.request_time}</td>
+   	  <td align="center" bgcolor="#CCCCCC">{$withdraw.api_nickname}</td>
+   	  <td align="center" bgcolor="#CCCCCC">{$withdraw.source_money|escape:money}</td>
+   	  <td align="center" bgcolor="#CCCCCC">{$withdraw.charge|escape:money}</td>
+   	  <td align="center" bgcolor="#CCCCCC">{$withdraw.amount|escape:money}</td>
+   	  <td align="center" bgcolor="#CCCCCC" id="status{$withdraw.id}">
+    	{if $withdraw.status == 1}
+	    	等待审核
+	    {elseif $withdraw.status == 2}
+	    	通过审核
+	    {elseif $withdraw.status == 3}
+	    	未通过审核
+	    {elseif $withdraw.status == 4}
+	    	已取消
+		{elseif $withdraw.status == 5}
+			提现成功
+		{elseif $withdraw.status == 6}
+			提现失败
+		{else}
+			正在处理中
+		{/if}    	</td>
+   	  <td align="center" bgcolor="#CCCCCC">
+    	<a href="?controller=security&action=viewwithdraw&id={$withdraw.id}">查看</a>
+    	<span id="cancel{$withdraw.id}">{if $withdraw.status == 1}　|　<a onclick="cancelWithdraw({$withdraw.id});" onmouseover="this.style.textDecoration='underline'; this.style.cursor='pointer';" onmouseout="this.style.textDecoration='none'">取消</a>{/if}</span>    	</td>
+    </tr>
+    {/foreach}
+   <tr style="color:#FF3300">
+    	<td height="37" colspan=3 align="center" bgcolor="#CCCCCC"><font color="#FF3300"> 合计: </font></td>
+	  <td align="center" bgcolor="#CCCCCC"><font color="#FF3300">{$total|escape:money}</font></td>
+	  <td align="center" bgcolor="#CCCCCC"><font color="#FF3300">{$chargetotal|escape:money}</font></td>
+	  <td align="center" bgcolor="#CCCCCC"><font color="#FF3300">{$amounttotal|escape:money}</font></td>
+	<td colspan=2 align="center" bgcolor="#CCCCCC"></td>
+    </tr>
+<tr><td height="37" colspan="8" align="center">{$pages}</td>
+</tr>
+</table>
+</div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+{include file="pagefooter.html"}

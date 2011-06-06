@@ -1,0 +1,164 @@
+{include file="pageheader.html"}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/jquery.js"></script>
+<script>
+//生成玩法列表
+function create_method(data,x)
+{
+	jQuery("#method-detail-"+x).html();
+	jQuery.each(data,function(i,v){
+		html = "<tr align='center'>";
+		html = html+"<td>"+v.methodname+"</td>";
+		html = html+"<td>";
+		for(j=1;j<=v.level;j++)
+		{
+			html = html+v.name[j]+"<br/>";
+		}
+		html = html+"</td>";
+		html = html+"<td>";
+		for(j=1;j<=v.level;j++)
+		{
+			html = html+"<span id='bonus_"+v.methodid+"_"+j+"' name='bonus'>0.00</span><br/>";
+		}
+		html = html+"</td>";
+		html = html+"<td><span id='userpoint_"+v.methodid+"' name='userpoint'>0.000</span></td>";
+		html = html+"<td><span id='status_"+v.methodid+"' name='status'>未开通</span></td></tr>";
+		jQuery("#method-detail-"+x).append(html);		
+	});
+}
+function get_user_point(lotteryid,usergroupid)
+{
+	//初始化数据
+	var pl = {$aPL};
+	//效果切换
+	$("#pg_"+lotteryid+" span").removeClass("tab-front");
+	$("#pg_"+lotteryid+" span").addClass("tab-back");
+	$("#tabbar_"+lotteryid+"_"+usergroupid).removeClass("tab-back");
+	$("#tabbar_"+lotteryid+"_"+usergroupid).addClass("tab-front");
+	//数据初始化
+	$("#method-detail-"+lotteryid+" span[name='bonus']").html("0.00");
+	$("#method-detail-"+lotteryid+" span[name='userpoint']").html("0.0%");
+	$("#method-detail-"+lotteryid+" span[name='status']").html("未开通");
+	//数据加载
+	$.each(pl[usergroupid],function(i,v){
+		$.each(v,function(i2,v2){
+			$("#bonus_"+i+"_"+i2).html(v2.bonus);
+			$("#userpoint_"+i).html(v2.userpoint+"%");
+			if(v2.status==1)
+			{
+				$("#status_"+i).html("已经停用");
+			}
+			else
+			{
+				$("#status_"+i).html("使用中");
+			}
+		});
+	});
+}
+jQuery(document).ready(function(){
+	{foreach from=$aMethod item=method key=k}
+	var methods_{$k} ={$method};
+	create_method(methods_{$k},{$k});
+	$("#pg_{$k} span:first-child").click();
+	{/foreach}
+});
+</script>
+<div class="right_021"  style="margin-top:0px;">
+<div id="right_02_01">
+    <div class="right_02_02"></div>
+    <div class="right_02_03" id="lt_big_label"  style="padding:0 10px;font-size:14px;">用户信息</div>
+    <div class="right_02_04"></div>
+</div>
+<div class="list-div">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="narrow-label" width="15%">用户名称：</td>
+<td width="35%">{$userinfo.username|escape:html}</td>
+<td class="narrow-label" width="15%">用户昵称：</td>
+<td width="35%">{$userinfo.nickname|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">用户等级：</td>
+<td>{if $userinfo.usertype==0}
+会员用户
+{elseif $userinfo.usertype==1}
+{if $userinfo.parentid==0}
+总代
+{else}
+代理用户
+{/if}
+{/if}</td>
+<td class="narrow-label"></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="height51">
+<div class="right_02_241"></div>
+<div class="right_02_251"></div>
+</div>
+<div style="margin:10px 0;"></div>
+<div id="right_02_01">
+    <div class="right_02_02"></div>
+    <div class="right_02_03" id="lt_big_label"  style="padding:0 10px;font-size:14px;">帐户信息</div>
+    <div class="right_02_04"></div>
+</div>
+<div class="list-div">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="narrow-label" width="15%">可用游戏币：</td>
+<td width="35%">{$userinfo.availablebalance|escape:money}</td>
+<td class="narrow-label" width="15%">{if $show==1}奖金限额：{/if}</td>
+<td width="35%">{if $show==1}{$bigMoney|escape:money}{/if}</td>
+</tr>
+</table>
+</div>
+<div class="height51">
+<div class="right_02_241"></div>
+<div class="right_02_251"></div>
+</div>
+
+<div id="right_02_01" style="margin-bottom:0;margin-top:10px;">
+    <div class="right_02_02"></div>
+    <div class="right_02_03" id="lt_big_label"  style="padding:0 10px;font-size:14px;">游戏设定</div>
+    <div class="right_02_04"></div>
+</div>
+
+<div style="margin:0 0;"></div>
+<div id="right_02_01" style="margin-top:0;">
+{foreach from=$aLottery item=lottery key=k}
+<div {if $k == $lotid}class="menu_01a"{else}class="menu_01"{/if} style="margin-top:5px;"></div>
+    
+<div {if $k == $lotid}class="menu_02a"{else}class="menu_02"{/if} id="lt_big_label"  style="padding:0 10px;font-size:14px;margin-top:5px;"><a href="{if $newurl == ''}/lowproxy/?controller=channels&action=userset&ltid={$k}{else}{$newurl}&ltid={$k}{/if}">{$lottery}</a></div>
+<div {if $k == $lotid}class="menu_03a"{else}class="menu_03"{/if} style="margin-top:5px;"></div>
+{/foreach}
+</div>
+<div class="list-div">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td colspan="5" id="pg_{$lotid}" style="padding-left:5px;">
+  <div id="tabbar-div">
+  {foreach from=$aPg item=pg key=k1}
+    {foreach from=$pg  item=p  key=k2}
+        <span class="tab-back" id="tabbar_{$k1}_{$k2}" onclick="get_user_point({$k1},{$k2});">{$p}</span>
+    {/foreach}
+  {/foreach}
+  </div>
+</td>
+</tr>
+<tr align="center">
+	<th width="20%">玩法组</th>
+	<th width="20%">奖级</th>
+	<th width="20%">奖金</th>
+	<th width="20%">返点</th>
+	<th width="20%">状态</th>
+</tr>
+<tbody id="method-detail-{$lotid}">
+</tbody>
+</table>
+</div>
+<div class="height51">
+<div class="right_02_241"></div>
+<div class="right_02_251"></div>
+</div>
+</div>
+{include file="pagefooter.html"}

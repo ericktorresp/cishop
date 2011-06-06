@@ -1,0 +1,178 @@
+{include file="pageheader.html"}
+<script>
+function showNotice(objId)
+{
+	var obj = document.getElementById(objId);
+	if(obj.style.display=="none")
+	{
+		obj.style.display="block";
+	}
+	else
+	{
+		obj.style.display="none";	
+	}
+}
+</script>
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action="?controller=usermenu&action={$action|default:add}" onsubmit="return checkEdit();">
+<input type="hidden" name="flag" id="flag" value="save" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+{if $action==edit}
+{else}
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticeParent');"><img src="./images/notice.gif" border="0" title="菜单位置"></a>菜单位置:</td>
+<td><select name="parentid" id="parentid">
+<option value="0" {if $menuparentid==0}selected="selected"{/if}>根目录</option>
+{if count($usermenus.0) > 0 }
+<option style="color:#666666;" disabled="disabled">======游戏菜单======</option>
+{foreach from=$usermenus.0.0 item=admin key=top}
+<option value="{$top}" style="color:green;" {if $menuparentid==$top}selected="selected"{/if}>&nbsp;&nbsp;++{$admin}</option>
+{foreach from=$usermenus.0.$top item=child key=v}
+<option value="{$v}" style="color:red;" {if $menuparentid==$v}selected="selected"{/if}>&nbsp;&nbsp;&nbsp;&nbsp;>>{$child}</option>
+{if count($usermenus.0.$v)>0}{*有三级*}
+{foreach from=$usermenus.0.$v item=son key=k}
+<option value="{$k}" style="color:red;" {if $menuparentid==$k}selected="selected"{/if}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;>>>>{$son}</option>
+{/foreach}
+{/if}
+{/foreach}
+{/foreach}
+{/if}
+{if count($usermenus.1) > 0 }
+<option style="color:#666666;" disabled="disabled">======代理菜单======</option>
+{foreach from=$usermenus.1.0 item=admin key=top}
+<option value="{$top}" style="color:green;" {if $menuparentid==$top}selected="selected"{/if}>&nbsp;&nbsp;++{$admin}</option>
+{foreach from=$usermenus.1.$top item=child key=v}
+<option value="{$v}" style="color:red;" {if $menuparentid==$v}selected="selected"{/if}>&nbsp;&nbsp;&nbsp;&nbsp;>>{$child}</option>
+{if count($usermenus.1.$v)>0}{*有三级*}
+{foreach from=$usermenus.1.$v item=son key=k}
+<option value="{$k}" style="color:red;" {if $menuparentid==$k}selected="selected"{/if}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;>>>>{$son}</option>
+{/foreach}
+{/if}
+{/foreach}
+{/foreach}
+{/if}
+</select><span id="noticeParent" style="display:none;">请指定添加菜单位置,如果为一级菜单，请选择根目录。</span></td>
+</tr>
+{/if}
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticeMenuname');"><img src="./images/notice.gif" border="0" title="菜单名称"></a>菜单名称:</td>
+<td><input type="text" name="menuname" id="menuname" value="{$usermenu.title|escape:html}"><span id="noticeMenuname" style="display:none;">请输入添加菜单的名称，菜单名称格式为:中文字符或者为()。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticeMenudescription');"><img src="./images/notice.gif" border="0" title="菜单描述"></a>菜单描述:</td>
+<td><input type="text" name="description" id="description" value="{$usermenu.description|escape:html}"><span id="noticeMenudescription" style="display:none;">请输入菜单的描述,该描述介绍该菜单的功能。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticeMenucontroller');"><img src="./images/notice.gif" border="0" title="控制器描述"></a>控制器名称:</td>
+<td><input type="text" name="controllername" id="controllername" value="{$usermenu.controller|escape:html}"><span id="noticeMenucontroller" style="display:none;">请输入控制器的名称:全英文小写构成。</span></td>
+
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticeMenuactioner');"><img src="./images/notice.gif" border="0" title="行为器描述"></a>行为器名称:</td>
+<td><input type="text" name="actionname" id="actionname" value="{$usermenu.actioner|escape:html}"><span id="noticeMenuactioner" style="display:none;">请输入行为器的名称:全英文小写构成,如果为一级菜单，请留空。</span></td>
+</tr>
+<tr>
+<td class="narrow-label">菜单关联游戏:</td>
+<td><select name="methodid" id="methodid">
+<option value="0" {if $usermenu.methodid==0}selected="selected"{/if}>无关联</option>
+{if count($methods) > 0 }
+{foreach from=$methods item=lottery key=lot}
+<option value="{$lot}" style="color:green;" {if $usermenu.lotteryid == $lot }selected="selected"{/if}>&nbsp;&nbsp;++{$lottery.title}</option>
+{foreach from=$lottery.method.0 item=methodgroup key=g}
+<option value="{$lot}|{$g}" style="color:red;" {if $usermenu.methodid == $g }selected="selected"{/if}>&nbsp;&nbsp;&nbsp;&nbsp;>>{$methodgroup}</option>
+
+{foreach from=$lottery.method.$g item=method key=m}
+<option value="{$lot}|{$m}" style="color:red;" {if $usermenu.methodid == $m }selected="selected"{/if}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;>>>{$method}</option>
+{/foreach}
+
+{/foreach}
+{/foreach}
+{/if}
+</select><span id="noticeParent" style="display:none;">请指定添加菜单位置,如果为一级菜单，请选择根目录。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticeMenushow');"><img src="./images/notice.gif" border="0" title="表现形式"></a>表现形式:</td>
+<td><label for="ismenu"><input type="checkbox" id="ismenu" name="ismenu" value="1" {if $usermenu.ismenu}checked="checked"{/if}>表现为菜单</label><label for="islink">
+<input type="checkbox" id="islink" name="islink" value="1" {if $usermenu.islink}checked="checked"{/if}>表现为链接</label><label for="islabel">
+<input type="checkbox" id="islabel" name="islabel" value="1" {if $usermenu.islabel}checked="checked"{/if}>表现为标签</label>
+<span id="noticeMenushow" style="display:none;">请选择菜单的表现形式,当一二级菜单表现为菜单时候，将在管理菜单左面显示。</span></td>
+</tr>
+{if $action!=edit}
+<tr>
+<td class="narrow-label">菜单类型:</td>
+<td><input type="radio" id="menutype1" name="menutype" value="1" {if $usermenu.menutype==1 }checked="checked"{/if}><label for="menutype1">代理菜单</label><label for="menutype2">
+<input type="radio" id="menutype2" name="menutype" value="0" {if $usermenu.menutype==0 }checked="checked"{/if}>游戏菜单</label>
+<span id="noticeMenushow" style="display:none;">请选择菜单的表现形式,当一二级菜单表现为菜单时候，将在管理菜单左面显示。</span></td>
+</tr>
+{/if}
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticeMenusort');"><img src="./images/notice.gif" border="0" title="菜单排序"></a>菜单排序:</td>
+<td><input type="text" name="sort" value="{$usermenu.sort|default:0}" id="sort"><span id="noticeMenusort" style="display:none;">请输入菜单的排序大小值,菜单排序值越小，越靠前。</span></td>
+</tr>
+<tr>
+<td class="narrow-label">开启日志:</td>
+<td><label for="actionlog"><input type="checkbox" name="actionlog" id="actionlog" value="1" {if $action==edit}{if $usermenu.actionlog}checked="checked"{/if}{else}checked="checked"{/if}>开启</label></td>
+</tr>
+<tr>
+<td class="narrow-label">&nbsp;</td>
+<td align="left"><input type="hidden" name="menuid" value="{$usermenu.menuid|default:0}"><input type="submit" value="保存菜单" class="button"><input type="reset" value="重新设置" class="button"><input type="button" value="返回列表" onclick="location.href='?controller=usermenu&action=list';" class="button"></td>
+</tr>
+</table>
+</form>
+</div>
+<script>
+function getMethod(lotteryid,obj){
+	var method = []
+	{if count($methods) > 0 }
+	{foreach from=$methods item=lottery key=lot}
+	{foreach from=$lottery.method item=method key=m}
+	method[{$lot}].push({name:{$child},id:{$v}});
+	{/foreach}
+	{/foreach}
+	{/if}
+	for( i=0; i<method[lotteryid].length; i++ )
+	{
+		//obj.options[i+1] = new Option( method[lotteryid][i].name,method[lotteryid][i].id] );
+	}
+}
+function checkEdit()
+{
+	p = /^[\w\u0391-\uFFE5\s\(\)\[\]]+$/;
+	if(!p.test(document.getElementById('menuname').value))
+	{
+		alert("菜单名称格式不正确。");
+		document.getElementById('menuname').focus();
+		return false;
+	}
+	if(document.getElementById('description').value=="")
+	{
+		alert("请输入菜单描述。");
+		document.getElementById('description').focus();
+		return false;
+	}
+	p = /^[a-z0-9]*$/;
+	if(!p.test(document.getElementById('controllername').value))
+	{
+		alert("菜单控制器格式不正确。");
+		document.getElementById('controllername').focus();
+		return false;
+	}
+	if(document.getElementById('parentid').value>0)
+	if(!p.test(document.getElementById('actionname').value))
+	{
+		alert("菜单行为器格式不正确。");
+		document.getElementById('actionname').focus();
+		return false;
+	}
+	p=/^[0-9]+$/;
+	if(!p.test(document.getElementById('sort').value))
+	{
+		alert("菜单排序格式不正确。");
+		document.getElementById('sort').focus();
+		return false;
+	}
+	return true; 	
+}
+</script>
+
+{include file="pagefooter.html"}

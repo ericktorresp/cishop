@@ -1,0 +1,58 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-green.css"  />
+<script language="javascript" type="text/javascript">
+$(function(){
+    jQuery("#yearlybreakstart").dynDateTime({
+		ifFormat: "%Y-%m-%d",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#yearlybreakstart").change(function(){
+		if(! validateInputDate(jQuery("#yearlybreakstart").val()) )
+		{jQuery("#yearlybreakstart").val('');alert("时间格式不正确,正确的格式为:2010-01-18");}
+	});
+	jQuery("#yearlybreakend").dynDateTime({
+		ifFormat: "%Y-%m-%d",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#yearlybreakend").change(function(){
+		if(! validateInputDate(jQuery("#yearlybreakend").val()) )
+		{jQuery("#yearlybreakend").val('');alert("时间格式不正确,正确的格式为:2010-01-18");}
+	});
+});
+</script>
+<div class="list-div" id="listDiv">
+<form name="lottery" method="post" action="./?controller=gameinfo&action=sleepdate">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td class="narrow-label">游戏名称</td>
+<td>{$lottery.cnname|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">年休市开始时间</td>
+<td><input type="text" name="yearlybreakstart" id="yearlybreakstart" value="{if isset($lottery)}{$lottery.yearlybreakstart|escape:html}{/if}"></td>
+</tr>
+<tr>
+<td class="narrow-label">年休市结束时间</td>
+<td><input type="text" name="yearlybreakend" id="yearlybreakend" value="{if isset($lottery)}{$lottery.yearlybreakend|escape:html}{/if}"></td>
+</tr>
+<tr>
+<td class="narrow-label"></td>
+<td><input type="hidden" name="lotteryid" value="{$lottery.lotteryid|escape:html}"><input type="submit" class="button" value="修改年休市时段"><input type="reset" class="button" value="重新设置"></td>
+</tr> 
+</table></form></div>
+{include file="pagefooter.html"}

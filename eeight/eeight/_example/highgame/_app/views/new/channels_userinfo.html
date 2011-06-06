@@ -1,0 +1,200 @@
+{include file="pageheader.html"}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/jquery.js"></script>
+<script>
+//生成玩法列表
+function create_method(data,x)
+{
+	jQuery("#method-detail-"+x).html();
+	if(data.length > 1)
+	{
+    	jQuery.each(data,function(i,v){
+    		html = "<tr align='center'>";
+    		html = html+"<td bgcolor=\"#CCCCCC\">"+v.methodname+"</td>";
+    		html = html+"<td bgcolor=\"#CCCCCC\">";
+    		for(j=1;j<=v.level;j++)
+    		{
+    			html = html+v.name[j]+"<br/>";
+    		}
+    		html = html+"</td>";
+    		html = html+"<td bgcolor=\"#CCCCCC\">";
+    		for(j=1;j<=v.level;j++)
+    		{
+    			html = html+"<span id='bonus_"+v.methodid+"_"+j+"' name='bonus'>0.00</span><br/>";
+    		}
+    		html = html+"</td>";
+    		html = html+"<td id='userpoint_"+v.methodid+"' name='userpoint' bgcolor=\"#CCCCCC\">0.000</td>";
+    		html = html+"<td bgcolor=\"#CCCCCC\"><span id='status_"+v.methodid+"' name='status'>未开通</span></td></tr>";
+    		jQuery("#method-detail-"+x).append(html);		
+    	});
+	}
+	else
+	{
+        jQuery("#lottery_"+x).remove();
+	}
+}
+function get_user_point(lotteryid,usergroupid)
+{
+	//初始化数据
+	var pl = {$aPL};
+	//效果切换
+    $("#pg_"+lotteryid).find(".tab-front").removeClass("tab-front").addClass("tab-back");
+	$("#tabbar_"+lotteryid+"_"+usergroupid).removeClass("tab-back");
+	$("#tabbar_"+lotteryid+"_"+usergroupid).addClass("tab-front");
+	//数据初始化
+	$("#method-detail-"+lotteryid+" span[name='bonus']").html("0.00");
+	$("#method-detail-"+lotteryid+" span[name='userpoint']").html("");
+	$("#method-detail-"+lotteryid+" span[name='status']").html("未开通");
+    var totalUserPoint = 0;
+	//数据加载
+	$.each(pl[usergroupid],function(i,v){
+		$.each(v,function(i2,v2){
+			$("#bonus_"+i+"_"+i2).html(v2.bonus);
+			if(v2.userpoint == '0.0')
+			{
+			    
+			}
+			else
+			{
+    			totalUserPoint += parseFloat(v2.userpoint);
+			    $("#userpoint_"+i).html(v2.userpoint+"%");
+			}
+			if(v2.status==1)
+			{
+				$("#status_"+i).html("已经停用");
+			}
+			else
+			{
+				$("#status_"+i).html("使用中");
+			}
+		});
+	});
+	
+	if( totalUserPoint == 0 )
+	{
+	    $('#title_'+usergroupid+' th[id]').remove();
+	    $('#title_'+usergroupid+' th:eq(3)').attr('width','40%');
+		$('#method-detail-'+lotteryid+' tr').each(function(){
+			$(this).children('td[id]').remove();
+		});
+	}
+}
+jQuery(document).ready(function(){
+	{foreach from=$aMethod item=method key=k}
+	var methods_{$k} ={$method};
+	create_method(methods_{$k},{$k});
+	$("#pg_{$k} span:first-child").click();
+	{/foreach}
+
+	$(".right_02_03 > div").click(function(){
+		if( $($(this).children()[0]).attr("class").indexOf('a')>=0 ){//如果已经是当前标签则不切换
+			return;
+		}
+		var now_id = $(this).attr("value");
+		var old_id;
+		$.each($(".right_02_03").children().children(), function(){
+			if($(this).attr('class').indexOf('a') >= 0)
+			{
+				var bbbbbb = $(this).attr('class').replace('a','');
+				$(this).removeAttr('class').addClass(bbbbbb);
+				old_id = $($(this).parent().get(0)).attr("value");
+			}
+		});
+		$("#pg_" + old_id).hide();
+		$.each($(this).children(),function(i,n){
+			var cls = $(n).attr('class');
+			$(n).removeClass(cls).addClass(cls+'a');
+		});
+		$("#pg_" + now_id).show();
+	});
+});
+</script>
+
+<style>
+/*设置游戏标签*/
+.tab-front {
+    color: #FFF;
+    font-weight: bold;
+    background-image: url(/highgame/images/new_higame/menu_01.png);
+    background-repeat:repeat-x;
+    background-position: 0px -59px;
+}
+.tab-back {
+    background-image: url(/highgame/images/new_higame/menu_01.png);
+    background-position: -105px -30px;
+}
+</style>
+<div class="right_02 d5d8de">
+	<div id="right_02_01" style="height:44px;">
+		<div class="right_02_02"></div>
+		<div class="title01">用户信息</div>
+		<div class="right_02_04 floatright"></div>
+	</div>
+<div>
+<table width="100%" border="0" cellspacing="1" cellpadding="4">
+	<tr>
+
+	</tr>
+    <tr>
+      <td align="center" bgcolor="#67686b">用户名称</td>
+      <td align="center" bgcolor="#67686b">用户等级</td>
+      <td align="center" bgcolor="#67686b">用户昵称</td>
+      <td align="center" bgcolor="#67686b">可用游戏币：</td>
+      {if $show==1}<td align="center" bgcolor="#67686b">奖金限额</td>{/if}
+    </tr>
+    <tr>
+      <td align="center" bgcolor="#CCCCCC">{$userinfo.username|escape:html}</td>
+      <td align="center" bgcolor="#CCCCCC">{if $userinfo.usertype==0}会员用户{elseif $userinfo.usertype==1}{if $userinfo.parentid==0}总代{else}代理用户{/if}{/if}</td>
+      <td align="center" bgcolor="#CCCCCC">{$userinfo.nickname|escape:html}</td>
+      <td align="center" bgcolor="#CCCCCC">{$userinfo.availablebalance|escape:money:4}</td>
+      {if $show==1}<td align="center" bgcolor="#CCCCCC">{$bigMoney|escape:money:4}</td>{/if}
+    </tr>
+  </table>
+</div>
+
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+<div class="right_02 d5d8de" id="lottery_{$k}">
+	<div id="right_02_01" style="height:44px;">
+		<div class="right_02_02"></div>
+		<div class="right_02_03">
+{foreach from=$aLottery item=lottery key=k name="lclick"}
+			<div value="{$k}" style="cursor: pointer;">
+				<div class="menu_01{if $smarty.foreach.lclick.first}a{/if}"></div>
+				<div class="menu_02{if $smarty.foreach.lclick.first}a{/if}">{$lottery}</div>
+				<div class="menu_03{if $smarty.foreach.lclick.first}a{/if}"></div>
+			</div>
+{/foreach}
+		</div>
+		<div class="right_02_04 floatright"></div>
+	</div>
+{foreach from=$aLottery item=lottery key=k name="lclick"}
+<div id="pg_{$k}"{if !$smarty.foreach.lclick.first} style="display:none;"{/if}>
+<table width="100%" border="0" cellspacing="1" cellpadding="4">
+    <tr>
+      <td colspan="5" align="left">
+            {foreach from=$aPg.$k item=pg key=k1}
+  	             <span id="tabbar_{$k}_{$k1}" onclick="get_user_point({$k},{$k1});" class="tab-back">{$pg}</span>
+            {/foreach}
+        </td>
+    </tr>
+    <tr id="title_{$k1}">
+      <th align="center" width="20%" bgcolor="#67686b">玩法组</th>
+      <th align="center" width="20%" bgcolor="#67686b">奖级</th>
+      <th align="center" width="20%" bgcolor="#67686b">奖金</th>
+      <th align="center" width="20%" bgcolor="#67686b" id="point_{$k1}">返点</th>
+      <th align="center" width="20%" bgcolor="#67686b">状态</th>
+    </tr>
+	<tbody id="method-detail-{$k}">
+	</tbody>
+  </table>
+</div>
+{/foreach}
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><TITLE>{if $sSysTopMessage}[{$sSysTopMessage}] {/if}高频后台管理 {if $ur_here} - {$ur_here} {/if} </TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<META http-equiv="Pragma" content="no-cache" />
+{if $sSysMetaMessage}{$sSysMetaMessage}{/if}
+<link href="./css/general.css" rel="stylesheet" type="text/css" />
+<link href="./css/main.css" rel="stylesheet" type="text/css" />
+{insert_scripts files="./js/common.js"}
+</head>
+<body>
+<style>
+#maindiv{margin: 0 auto;}
+</style>
+<div id="maindiv">
+<H1>{if $actionlink}<SPAN class="action-span"><A 
+href="{$actionlink.href}">{$actionlink.text|escape:html}</a></SPAN>{/if}{if $actionlink2}<SPAN class="action-span"><A 
+href="{$actionlink2.href}">{$actionlink2.text|escape:html}</a></SPAN>{/if}{if $actionlink3}<SPAN class="action-span"><A 
+href="{$actionlink3.href}">{$actionlink3.text|escape:html}</a></SPAN>{/if}<SPAN class="action-span1"><A 
+href="./index.php" target='_top'>后台管理</a> {if $ur_here} - {$ur_here} {/if}</SPAN><DIV style="clear:both"></DIV></H1>
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-green.css"  />
+<script>
+$(document).ready(function(){
+    var pageoldwidth = $(".list-div").find("table").width();
+	var pagewidth = $("#footer").width()+32;
+	if(pageoldwidth > pagewidth){
+	    $("#footer").css("width",(pageoldwidth-30)+"px");
+	    $("H1").css("width",(pageoldwidth-20)+"px");
+	    $(".list-div").css("width",pageoldwidth+"px");
+	    $(".form-div").css("width",(pageoldwidth-10)+"px");
+	    $("#maindiv").css("width",(pageoldwidth+10)+"px");
+	}
+	jQuery("#starttime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		button: ".next()",
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#starttime").change(function(){
+		if(! validateInputDate(jQuery("#starttime").val()) )
+		{jQuery("#starttime").val('');alert("时间格式不正确,正确的格式为:2009-06-10");}
+	});
+	jQuery("#endtime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		button: ".next()",
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#endtime").change(function(){
+		if(! validateInputDate(jQuery("#endtime").val()) )
+		{jQuery("#endtime").val('');alert("时间格式不正确,正确的格式为:2009-06-10");}
+	});
+	$("#order").change(function(){
+	    $("#searchform").submit();
+	});
+});
+</script>
+<div class="form-div">
+<form method="GET" action="" id="searchform">
+<input type="hidden" name="controller" value="report">
+<input type="hidden" name="action" value="singlesale">
+<input type="hidden" name="isgetdata" value="1">
+<img src="./images/icon_search.gif">
+&nbsp;&nbsp;&nbsp;游戏名称：
+<select name="lottery" id="lottery">
+<option value="0">-所有游戏-</option>
+{foreach from=$lottery item=l key=k}
+{if $lotteryid == $k}
+<option value="{$k}" selected>{$l}</option>
+{else}
+<option value="{$k}">{$l}</option>
+{/if}
+{/foreach}
+</select>
+&nbsp;&nbsp;&nbsp;是否包含测试账户：
+<select name="includetestuser" id="includetestuser">
+<option value="0" {if $includetestuser == 0}selected{/if}>不包含测试账户</option>
+<option value="1" {if $includetestuser == 1}selected{/if}>包含测试账户</option>
+</select>
+&nbsp;&nbsp;&nbsp;模式：
+<select name="modes" id="modes">
+<option value="-1" {if $modes == -1}selected{/if}>全部模式</option>
+{foreach from=$modelist item=mode key=k}
+<option value="{$mode.modeid}" {if $modes == $mode.modeid}selected{/if}>{$mode.name}</option>
+{/foreach}
+</select>
+&nbsp;&nbsp;&nbsp;排序：
+<select name="order" id="order">
+<option value="0" {if $order == 0}selected{/if}>日期</option>
+<option value="1" {if $order == 1}selected{/if}>盈亏值</option>
+</select>
+<div style="line-height:8px">&nbsp;</div>
+<span style="padding:0 5px 0 34px;">日期：</span>
+<input type="text" name="starttime" id="starttime" value="{$starttime}"><img src="./images/calendar2.gif">&nbsp;至
+<input type="text" name="endtime" id="endtime" value="{$endtime}"><img src="./images/calendar2.gif">
+&nbsp;&nbsp;<input type="submit" value="立即搜索" class="button">
+<a href="javascript:showNotice('noticeSearch');" title="帮助信息"><img src="./images/notice.gif" width="16" height="16" border="0" title="帮助信息"></a>
+<span class="notice-span" style='line-height:18px;padding:8px 0px 2px 20px;color:#669900' id="noticeSearch">
+<font color="Red"><b>差&nbsp;&nbsp;&nbsp;&nbsp;额：</b></font><font color="Green"> 当期开奖号码的封锁值 ≠ 盈亏值</font><br>
+<font color="Red"><b>封锁值：</b></font><font color="Green">当前游戏的所有封锁表中与当期开奖号码相关的号码封锁值总和</font>
+</span>
+</form>
+</div>
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+<tr>
+<th width="80">日期</th>
+<th width="80">游戏</th>
+<th width="120">奖期</th>
+<th width="120">截止投注时间</th>
+<th width="120">开奖时间</th>
+<th>销售总额</th>
+<th>返奖总额</th>
+<th>返点总额</th>
+<th>盈亏值</th>
+<th>开奖号码</th>
+<th>封锁值</th>
+<th>未封锁玩法盈亏值(销量-奖金-返点)</th>
+<th>差额</th>
+</tr>
+{foreach from=$asale item=sale key=k}
+<tr align="center">
+<td>{$sale.joindate}</td>
+<td>{$sale.cnname|escape:html}</td>
+<td>{$sale.issue}</td>
+<td>{$sale.saleend}</td>
+<td>{$sale.writetime}</td>
+<td>{$sale.sell|escape:money:4}</td>
+<td>{$sale.bonus|escape:money:4}</td>
+<td>{$sale.return|escape:money:4}</td>
+<td>{if $sale.saleresult > 0 }<font color="Blue">{else}<font color="Red">{/if}{$sale.saleresult|escape:money:4}</font></td>
+<td>{$sale.code}</td>
+<td>{$sale.lock|escape:money:4}</td>
+<td>{$sale.nolock_sell}-{$sale.nolock_bonus}-{$sale.nolock_return}={if $sale.nolock_saleresult > 0 }<font color="Blue">{else}<font color="Red">{/if}{$sale.nolock_saleresult|escape:money:4}</font></td>
+<td>{if $sale.diff != 0 }<font color="Red">{else}<font color="Green">{/if}{$sale.diff|escape:money:4}</font></td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="13" class="no-records">请选择查询条件之后进行查询</td>
+</tr>
+{/foreach}
+<tr align="center">
+<td width="80" colspan="5"><b><font color="Blue">合计</font></b></td>
+<td><b>{if $totalprice > 0 }<font color="Green">{else}<font color="Red">{/if}{$totalprice|escape:money:4}&nbsp;元</font></b></td>
+<td><b>{if $totalbonus > 0 }<font color="Green">{else}<font color="Red">{/if}{$totalbonus|escape:money:4}&nbsp;元</font></b></td>
+<td><b>{if $totalpoint > 0}<font color="Green">{else}<font color="Red">{/if}{$totalpoint|escape:money:4}&nbsp;元</font></b></td>
+<td><b>{if $totalresult > 0}<font color="Green">{else}<font color="Red">{/if}{$totalresult|escape:money:4}&nbsp;元</font></b></td>
+<td><b><font color="Gray">-------</font></b></td>
+<td><b>{if $totallock > 0}<font color="Green">{else}<font color="Red">{/if}{$totallock|escape:money:4}&nbsp;元</font></b></td>
+<td><b>{if $totaldiff > 0}<font color="Green">{else}<font color="Red">{/if}{$totalnolockwin|escape:money:4}&nbsp;元</font></b></td>
+<td><b>{if $totaldiff > 0}<font color="Green">{else}<font color="Red">{/if}{$totaldiff|escape:money:4}&nbsp;元</font></b></td>
+</tr>
+<tfoot align="right">
+	<td colspan="13">{$pageinfo}</td>
+</tfoot>
+</table>
+</div>
+
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#EEF8F8';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+<div id="footer">{$sSystemMessagesByTom|escape:html} </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+*{
+    padding:0;
+    margin:0;
+}
+.lottery_bigbox{
+	margin: 0 auto;
+	width:90%;
+	padding-bottom:30px;
+	
+}
+.lottery_box {	/* 购彩界面的外部大框架 */
+	width: 100%;  /* 当文本保持浏览器的默认字体大小时，此宽度将创建一个适合 800px 浏览器窗口的容器 */
+	text-align: left; /* 这将覆盖 body 元素上的“text-align: center”。 */
+}
+.lottery_lables { /*标签区*/
+	background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/menu_bg.jpg);
+	overflow:auto;
+	zoom:1;
+}
+.label_back_left{
+    background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/menu_off_left.jpg);
+    float:left;
+    height:46px;
+    width:14px;
+    margin-left:20px;
+    display:block;
+	line-height:46px;
+}
+.label_back_right{
+    background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/menu_off_right.jpg);
+    height:46px;
+    float:left;
+    width:14px;
+    display:block;
+	line-height:46px;
+}
+.label_front_left{
+    background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/menu_on_left.jpg);
+    height:46px;
+    float:left;
+    width:8px;
+    margin-left:20px;
+    display:block;
+	line-height:46px;
+}
+.label_front_right{
+    background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/menu_on_right.jpg);
+    height:46px;
+    float:left;
+    width:10px;
+    display:block;
+	line-height:46px;
+}
+.lottery_lables .label_front, .lottery_lables .label_back {
+	background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/menu_on.jpg);
+    padding:0px 20px;
+	height:46px;
+	line-height:46px;
+	float:left;
+	text-align:center;
+	color:#FFFFFF;
+}
+.lottery_lables .label_back{
+	background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/menu_off.jpg);
+	cursor:pointer;
+	color:#111;
+}
+.lottery_selectarea{
+    background:#474747;
+    border:1px solid #727272;
+    border-top:0;
+    padding:0 3px 3px 3px;
+}
+.lottery_selectarea table{
+    background: #555;
+}
+.lottery_selectarea th{
+	background-color:#474747;
+	height:25px;
+	color:#FFFFFF;
+	text-align:center;
+}
+.lottery_selectarea td{
+	text-align:center;
+	height:20px;
+	background-color:#EAEAEA;
+	color:#333333;
+}
+.lottery_selectarea td#code{
+	background-color:#D8D8D8;
+}
+.lottery_selectarea td#upprize{
+	color:#FFF;
+	background-color: #FF2626;
+	font-weight:bold;
+}
+.lottery_selectarea td#downprize{
+	color:#FFF;
+	background-color: #80BD00;
+	font-weight:bold;
+}
+.menu_left{
+    background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/menu_left.jpg) -2px 0;
+    height:46px;
+    width:11px;
+    float:left;
+}
+.menu_right{
+    background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/menu_right.jpg) -1px 0;
+    height:46px;
+    width:10px;
+    float:right;
+}

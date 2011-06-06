@@ -1,0 +1,122 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+<script language="javascript" type="text/javascript">
+$(function(){
+    $("#issueset").submit(function(){
+        if($(".sort").val()==""){
+            alert("分段序号不正确,不能为空");
+            return false;
+        }
+        if($(".cycle").val()==""){
+            alert("销售周期不正确,不能为空");
+            return false;
+        }
+        if($(".endsale").val()==""){
+            alert("停售时间不正确,不能为空");
+            return false;
+        }
+        if($(".inputcodetime").val()==""){
+            alert("号码录入时间不正确，不能为空");
+            return false;
+        }
+        if($(".droptime").val()==""){
+            alert("撤单时间不正确，不能为空");
+            return false;
+        }
+        return true;
+    });
+});
+</script>
+<div class="list-div" id="listDiv">
+<form name="issueset" id="issueset" method="post" action="./?controller=gameinfo&action={$action|default:addissueset}">
+<input type="hidden" name="issuesetid" value="{$iIssueSetId}">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td class="narrow-label">中文平台游戏名称</td>
+<td>
+{if isset($aLottery)}{$aLottery.cnname|escape:html}{/if}
+</td>
+</tr>
+<tr>
+<td class="narrow-label">销售开始时间</td>
+<td>
+<select name="starthour">{foreach from=$ahour item = hour key = k}<option value="{$hour}" {if $aIssueSet.starthour == $hour} selected {/if}>{$hour}</option>{/foreach}</select>
+：<select name="startminute">{foreach from=$aminuteorsecond item = minute key = k}<option value="{$minute}" {if $aIssueSet.startminute == $minute} selected {/if}>{$minute}</option>{/foreach}</select>
+：<select name="startsecond">{foreach from=$aminuteorsecond item = second key = k}<option value="{$second}" {if $aIssueSet.startsecond == $second} selected {/if}>{$second}</option>{/foreach}</select>
+</td>
+</tr>
+<tr>
+<td class="narrow-label">第一期销售截止时间</td>
+<td>
+<select name="firstendhour">{foreach from=$ahour item = hour key = k}<option value="{$hour}" {if $aIssueSet.firstendhour == $hour} selected {/if}>{$hour}</option>{/foreach}</select>
+：<select name="firstendminute">{foreach from=$aminuteorsecond item = minute key = k}<option value="{$minute}" {if $aIssueSet.firstendminute == $minute} selected {/if}>{$minute}</option>{/foreach}</select>
+：<select name="firstendsecond">{foreach from=$aminuteorsecond item = second key = k}<option value="{$second}" {if $aIssueSet.firstendsecond == $second} selected {/if}>{$second}</option>{/foreach}</select>
+</td>
+</tr>
+<tr>
+<td class="narrow-label">销售结束时间</td>
+<td>
+<select name="endhour">{foreach from=$ahour item = hour key = k}<option value="{$hour}" {if $aIssueSet.endhour == $hour} selected {/if}>{$hour}</option>{/foreach}</select>
+：<select name="endminute">{foreach from=$aminuteorsecond item = minute key = k}<option value="{$minute}" {if $aIssueSet.endminute == $minute} selected {/if}>{$minute}</option>{/foreach}</select>
+：<select name="endsecond">{foreach from=$aminuteorsecond item = second key = k}<option value="{$second}" {if $aIssueSet.endsecond == $second} selected {/if}>{$second}</option>{/foreach}</select>
+</td>
+</tr>
+</tr>
+<tr>
+<td class="narrow-label">序号</td>
+<td>
+<input type="text" value="{$aIssueSet.sort}"  class="sort" name="sort" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;&nbsp;定义分段序号,用于判断段的先后顺序
+</td>
+</tr>
+<tr>
+<td class="narrow-label">销售周期</td>
+<td>
+<input type="text" value="{$aIssueSet.cycle}"  class="cycle" name="cycle" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒
+</td>
+</tr>
+<tr>
+<td class="narrow-label">停售时间</td>
+<td>
+<input type="text" value="{if isset($aIssueSet.endsale)}{$aIssueSet.endsale}{else}0{/if}" class="endsale" name="endsale" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒
+</td>
+</tr>
+<tr>
+<td class="narrow-label">号码录入时间</td>
+<td>
+<input type="text" value="{if isset($aIssueSet.inputcodetime)}{$aIssueSet.inputcodetime}{else}60{/if}" class="inputcodetime" name="inputcodetime" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒
+</td>
+</tr>
+<tr>
+<td class="narrow-label">撤单时间</td>
+<td>
+<input type="text" value="{if isset($aIssueSet.droptime)}{$aIssueSet.droptime }{else}30{/if}" class="droptime" name="droptime" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒
+</td>
+</tr>
+<tr>
+<td class="narrow-label">有效状态</td>
+<td>
+<select name="status" class="status"><option value="0" {if $aIssueSet.status==0} selected{/if}>无效</option><option value="1" {if $aIssueSet.status==1} selected{/if}>有效</option></select>
+</td>
+</tr>
+<tr>
+<!--
+<td class="narrow-label">是否立即生成</td>
+<td>
+<input type="radio" name="iscreatnow" value="1" checked>是<input type="radio" name="iscreatnow" value="0">否
+</td>
+</tr>
+// -->
+<tr>
+<td colspan="8" align="left" style="padding-left:140px;">
+<input type="hidden" name="lotteryid" value="{$aLottery.lotteryid|escape:html}">
+{if $action == addissueset}
+<input type="submit" class="button" value="新增奖期规则">
+{else}
+<input type="submit" class="button" value="确认修改">
+{/if}
+<input type="button" class="button" value="返回列表"  onclick="window.location.href = './?controller=gameinfo&action=issuesetlist&id={$lotteryid}'">
+</td>
+</tr> 
+</table>
+</form></div>
+{include file="pagefooter.html"}

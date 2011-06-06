@@ -1,0 +1,193 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+<script type="text/javascript">
+	jQuery("#loadhtml").hide(); //去掉loading界面
+	/*jQuery(document).ready(function() {
+		jQuery("#regtime_min").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#regtime_max").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+	}); */
+	
+function checkForm(obj)
+{
+    if( obj.username.value == "" && obj.usergroup.value != 0 )
+	{
+		alert("请输入用户名");
+		return false;
+	}
+	/*if( jQuery.trim(obj.regtime_min.value) != "" )
+	{
+		if( false == validateInputDate(obj.regtime_min.value) )
+		{
+			alert("时间格式不正确");
+			obj.regtime_min.focus();
+			return false;
+		}
+	}
+	if( jQuery.trim(obj.regtime_max.value) != "" )
+	{
+		if( false == validateInputDate(obj.regtime_max.value) )
+		{
+			alert("时间格式不正确");
+			obj.regtime_max.focus();
+			return false;
+		}
+	}*/
+}
+</script>
+</head>
+<body>
+<div id="listDiv" class="list-div" >
+<table class="list-table">
+<form action="index.php" method="post">
+	<tr>
+    	<td colspan="6" height="30">导航：根{if !empty($selfdata) }
+        								{if !empty($selfdata.bannners) }
+                                        	{foreach from=$selfdata.bannners item=banner key=k}
+                                             > <a href="?controller=user&action=userlist&frame=show&uid={$banner.userid}" target="userlist_content" style="color:#003399; text-decoration:none;">{$banner.username|escape:html}</a>
+                                            {/foreach}
+                                        {/if}
+        								 > {$selfdata.username|escape:html}
+                                    {/if}</td>
+    </tr>
+    <tr>
+    	<td colspan="6" height="20">
+        	<table border="0" width="100%" cellpadding="0" cellspacing="0">
+            	<tr>
+                	<td align="left">共有  {$page.totalresult}  会员 第{$page.nowpage}/{$page.totalpage} 页 每页{$page.perpage}会员</td>
+                    <td align="right">{$page.first} {$page.pre} {$page.turn} {$page.next} {$page.last} <!--转到{$page.turn}页-->&nbsp;&nbsp;</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+    	<!--<th align="center"><input type="checkbox" name="selectall" id="selectall" onclick="selectAll('selectall')" /></th>-->
+    	<th align="center" height="20">用户名</th>
+        <th align="center">所属组</th>
+        <th align="center">银行余额</th>
+        <!--<th align="center">注册日期</th>-->
+        <th align="center">操作</th>
+    </tr>
+    {if !empty($selfdata) }
+    <tr {if $selfdata.isfrozen !=0 } class="needchangebg forzenuser" {else} class="needchangebg" {/if}>
+    	<!--<td align="center"><input type="checkbox" name="select_rows[]" value="{$user.userid}" /></td>-->
+    	<td align="left" height="20">&nbsp;&nbsp;{$selfdata.username|escape:html}</td>
+        <td align="center">{$selfdata.groupname|escape:html}</td>
+        <td align="center">{$selfdata.availablebalance|escape:money}</td>
+        <!--<td align="center">{$selfdata.registertime}</td>-->
+        <td align="center">
+        	<a href="?controller=user&action=saveup&uid={$selfdata.userid}">充值</a>
+        	<a href="?controller=user&action=upedituser&uid={$selfdata.userid}">编辑</a>
+            <!--<a href="?controller=user&action=upupdatepass&uid={$selfdata.userid}">密码</a>-->
+            <a href="?controller=user&action=upuserteam&uid={$selfdata.userid}">团队</a> 
+     {if $selfdata.isfrozen == 0 }<a href="?controller=user&action=frozenuser&uid={$selfdata.userid}">冻结</a> {/if}
+     {if $selfdata.isfrozen > 0 }<a href="?controller=user&action=unfrozenuser&uid={$selfdata.userid}">解冻</a> {/if}
+            {if $selfdata.parentid==$curruser && $selfdata.authtoparent==1}
+            <a href="?controller=user&action=upwithdraw&uid={$selfdata.userid}">提现</a>
+            {/if}
+            <a href="./?controller=report&action=bankreport&username={$selfdata.username|escape:urlencode}">帐变</a>
+        </td>
+    </tr>
+    {/if}
+    {foreach from=$users item=user key=id}
+    <tr {if $user.isfrozen !=0 } class="needchangebg forzenuser" {else} class="needchangebg" {/if}>
+    	<!--<td align="center"><input type="checkbox" name="select_rows[]" value="{$user.userid}" /></td>-->
+    	<td align="left" height="20">&nbsp;&nbsp;<a href="?controller=user&action=userlist&frame=show&uid={$user.userid}" target="userlist_content" style="color:#003399; text-decoration:none;">{$user.username|escape:html}</a></td>
+        <td align="center">{$user.groupname|escape:html}</td>
+        <td align="center">{$user.availablebalance|escape:money}</td>
+        <!--<td align="center">{$user.registertime}</td>-->
+        <td align="center">
+        	<a href="?controller=user&action=saveup&uid={$user.userid}">充值</a>
+        	<a href="?controller=user&action=upedituser&uid={$user.userid}">编辑</a>
+            <!--<a href="?controller=user&action=upupdatepass&uid={$user.userid}">密码</a>-->
+            <a href="?controller=user&action=upuserteam&uid={$user.userid}">团队</a>
+     {if $user.isfrozen == 0 }<a href="?controller=user&action=frozenuser&uid={$user.userid}">冻结</a> {/if}
+     {if $user.isfrozen > 0 }<a href="?controller=user&action=unfrozenuser&uid={$user.userid}">解冻</a> {/if}
+            {if $user.parentid==$curruser && $user.authtoparent==1}
+            <a href="?controller=user&action=upwithdraw&uid={$user.userid}">提现</a>
+            {/if}
+            <a href="./?controller=report&action=bankreport&username={$user.username|escape:urlencode}">帐变</a>
+        </td>
+    </tr>
+    {foreachelse}
+    <tr class="needchangebg" align="center" style="display:none;">
+        <td colspan="4">没有用户!</td>
+    </tr>
+    {/foreach}
+    <!--<tr>
+    	<td colspan="6" height="30" align="center"><button onclick="parent.location='?controller=user&action=adduser'">增加会员</button></td>
+    </tr>-->
+    <tr>
+    	<td colspan="6" height="20">
+        	<table border="0" width="100%" cellpadding="0" cellspacing="0">
+            	<tr>
+                	<td align="left">共有  {$page.totalresult}  会员 共{$page.nowpage}/{$page.totalpage} 页 每页{$page.perpage}会员</td>
+                    <td align="right">{$page.first} {$page.pre} {$page.turn} {$page.next} {$page.last} <!--转到{$page.turn}页-->&nbsp;&nbsp;</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</form>
+</table>
+</div>
+<div style="clear:both; height:10px;"></div>
+<div>
+<div class="list-div">
+<table class="list-table">
+<form action="" method="get" name="search" onSubmit="return checkForm(this)">
+<input type="hidden" name="controller" value="user" />
+<input type="hidden" name="action" value="userlist" />
+<input type="hidden" name="frame" value="show" />
+<input type="hidden" name="flag" value="search" />
+	<tr><th colspan="3">用户搜索</th></tr>
+	<tr>
+    	<td>用户名：<input type="text" size="30" name="username" value="{$searchdata.username|escape:html}" /></td>
+        <td>用户组：<select name="usergroup">
+        			<option value="0" {if $searchdata.usergroup==0 }selected="selected"{/if}>请选择用户组</option>
+                    <option value="1" {if $searchdata.usergroup==1 }selected="selected"{/if}>代理用户</option>
+                    <option value="2" {if $searchdata.usergroup==2 }selected="selected"{/if}>会员用户</option>
+                   </select>
+        </td>
+    </tr>
+    <tr>
+    	<td>银行余额：<input type="text" size="20" name="bank_min" value="{$searchdata.bank_min}" onKeyUp="checkMoney(this)" />至<input type="text" size="20" name="bank_max" value="{$searchdata.bank_max}" onKeyUp="checkMoney(this)" /></td>
+        <td>排序：<select name="sortby">
+        			<option value="default" {if $searchdata.sortby=='default' }selected="selected"{/if}>默认排序</option>
+        			<option value="username" {if $searchdata.sortby=='username' }selected="selected"{/if}>用户名</option>
+                    <option value="bank" {if $searchdata.sortby=='bank' }selected="selected"{/if}>银行余额</option>
+                    <!--<option value="regtime" {if $searchdata.sortby=='regtime' }selected="selected"{/if}>注册日期</option>-->
+                </select>
+                <input type="checkbox" name="sortbymax" value="1" {if $searchdata.sortbymax == 1 }checked="checked"{/if}  />从大到小
+        </td>
+    </tr>
+    <!--<tr>
+    	<td>注册日期：<input type="text" size="20" name="regtime_min" value="{$searchdata.regtime_min|escape:html}" id="regtime_min" /><img src="./images/calendar2.gif" id="time_min_button" /> 至 <input type="text" size="20" name="regtime_max" value="{$searchdata.regtime_max|escape:html}" id="regtime_max" /><img src="./images/calendar2.gif" /></td>
+    </tr>-->
+    <tr><td colspan="3" align="center" height="30"><input type="submit" name="submit" value="立即搜索" class="button" /></td></tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

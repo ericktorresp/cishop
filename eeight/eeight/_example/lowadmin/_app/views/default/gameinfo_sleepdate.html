@@ -1,0 +1,22 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form name="lottery" method="post" action="./?controller=gameinfo&action=sleepdate">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td class="narrow-label">游戏名称</td>
+<td>{$lottery.cnname|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">年休市开始时间</td>
+<td><input type="text" name="yearlybreakstart" id="yearlybreakstart" value="{if isset($lottery)}{$lottery.yearlybreakstart|escape:html}{/if}"></td>
+</tr>
+<tr>
+<td class="narrow-label">年休市结束时间</td>
+<td><input type="text" name="yearlybreakend" id="yearlybreakend" value="{if isset($lottery)}{$lottery.yearlybreakend|escape:html}{/if}"></td>
+</tr>
+<tr>
+<td class="narrow-label"></td>
+<td><input type="hidden" name="lotteryid" value="{$lottery.lotteryid|escape:html}"><input type="submit" class="button" value="修改年休市时段"><input type="reset" class="button" value="重新设置"></td>
+</tr> 
+</table></form></div>
+{include file="pagefooter.html"}

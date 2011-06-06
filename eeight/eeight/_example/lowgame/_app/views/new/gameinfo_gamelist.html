@@ -1,0 +1,258 @@
+{include file="pageheader.html"}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/calendar/jquery.dyndatetime.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/lowgame/js/calendar/css/calendar-blue2.css" type="text/css" />
+<style>
+.list-div .task_div{
+	width:290px!important;width:325px;
+	height:100px;
+	line-weight:20px;
+	color:#FFF;
+	padding-left:5px;
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/alertback.png);
+	background-color:#131E31;	
+	position:absolute;
+	text-align:left;
+	display:none;
+	overflow:hidden;
+	border:1px #131E31 double;
+	padding:0px;
+}
+.list-div .task_div a{
+    color:#FFF;
+}
+.list-div .task_div a:visited{
+    color:#FFF;
+}
+.code{
+	width:290px!important;width:325px;
+	height:68px;
+	line-weight:20px;
+	color:#000;
+	background:#FFF;	
+	text-align:left;
+	overflow-y:auto;
+	border:1px #131E31 double;
+	border-left:0px;
+}
+</style>
+<script>
+function show_no(id)
+{
+	$("#code_"+id).show("slow");
+}
+function close_no(id)
+{
+	$("#code_"+id).hide("slow");
+}
+jQuery(document).ready(function() {
+	var maxwidth = $(".right_021").width();
+    if(maxwidth < 950){
+      $(".right_021").css("width","950px");
+      $("h1").css("width","970px");
+      $(".right_021").css("margin-left","10px");
+      $(".right_021").css("margin-right","10px");
+    }   
+    jQuery("#starttime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", 
+		onUpdate: function(){
+			$("#starttime").change();
+		},
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#starttime").change(function(){
+		if(! validateInputDate(jQuery("#starttime").val()) )
+		{
+			jQuery("#starttime").val('');
+			alert("时间格式不正确,正确的格式为:2009-06-10 10:59");
+		}
+		if($("#endtime").val()!="")
+		{
+			if($("#starttime").val()>$("#endtime").val())
+			{
+				$("#starttime").val("");
+				alert("输入日期不符合逻辑.");
+			}
+		}
+	});
+	jQuery("#endtime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		onUpdate: function(){
+			$("#endtime").change();
+		},
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#endtime").change(function(){
+		if(! validateInputDate(jQuery("#endtime").val()) )
+		{
+			jQuery("#endtime").val('');
+			alert("时间格式不正确,正确的格式为:2009-06-10 10:59");
+		}
+		if($("#starttime").val()!="")
+		{
+			if($("#starttime").val()>$("#endtime").val())
+			{
+				$("#endtime").val("");
+				alert("输入日期不符合逻辑");
+			}
+		}
+	});
+	jQuery("#lotteryid").change(function(){
+		var data_method = {$data_method};
+		var data_issue = {$data_issue};
+		i =  $("#lotteryid").val();
+		if(i>0)
+		{
+			html = "游戏玩法：<select name='methodid' id='methodid'><option value='0'>所有玩法</option>";			
+			$.each(data_method[i],function(j,k){
+				html = html +"<option value='"+k.methodid+"'>"+k.methodname+"</option>";
+			});
+			html = html +"</select>";
+			html = html + "&nbsp;&nbsp;&nbsp;";
+			html = html + "游戏奖期：<select name='issue' id='issue'><option value='0'>所有奖期</option>";			
+			$.each(data_issue[i],function(j,k){
+				html = html +"<option value='"+k.issue+"'>"+k.issue+"("+k.dateend+")</option>";
+			});
+			html = html +"</select>";			
+		}
+		else
+		{
+			html = "游戏玩法：<select name='methodid' id='methodid'><option value='0'>所有玩法</option></select>";
+			html = html + "&nbsp;&nbsp;&nbsp;";
+			html = html + "游戏奖期：<select name='issue' id='issue'><option value='0'>所有奖期</option></select>";
+		}
+		$("#game_info").html(html);
+	});
+	$("#lotteryid").val({$s.lotteryid});
+	$("#lotteryid").change();
+	$("#methodid").val('{$s.methodid}');
+	$("#issue").val('{$s.issue}');
+});
+</script>
+<div class="right_021">
+<div class="height51">
+<div class="right_02_281"></div>
+<div class="right_02_291"></div>
+</div>
+<div class="list-div" style="padding-left:40px;">
+<form action="./index.php" method="GET" STYLE='padding:3px;line-height:28px;'>
+<input type="hidden" name="controller" value="gameinfo">
+<input type="hidden" name="action" value="gamelist">
+<img src="{$sSystemImagesAndCssPath}/lowgame/images/icon_search.gif" border="0">
+游戏时间：
+<input type="text" name="starttime" id="starttime" value="{if isset($s.starttime)}{$s.starttime|escape:html}{/if}" style="color:#555;width:140px;" />
+<img src="{$sSystemImagesAndCssPath}/lowgame/images/calendar2.gif">
+至
+<input type="text" name="endtime" id="endtime" value="{if isset($s.endtime)}{$s.endtime|escape:html}{/if}" style="color:#555;width:140px;" />
+<img src="{$sSystemImagesAndCssPath}/lowgame/images/calendar2.gif">
+注单编号：<input type="text" name="projectno" value="{if isset($s.projectno)}{$s.projectno}{/if}" id="projectno" style="color:#555;width:160px;">
+<div style="padding-left:8px;padding:0;height:4px!important;height:8px;line-height:4px!important;line-height:8px;font-size:0px;"></div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+游戏名称：<select name="lotteryid" id="lotteryid">
+<option value="0">所有游戏</option>
+{foreach from=$lottery item=alottery key=k}
+<option value="{$k}">{$alottery}</option>
+{/foreach}
+</select>
+&nbsp;
+<span id="game_info"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="submit" value="" class="button">
+</form>
+</div>
+<div class="height51">
+<div class="right_02_241"></div>
+<div class="right_02_251"></div>
+</div>
+<div style="margin:10px 0;"></div>
+<div class="height511">
+<div class="right_02_02"></div>
+<div class="right_02_04"></div>
+</div>
+<div class="list-div" id="listDiv">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<th>注单编号</th>
+<th>投单时间</th>
+<th>游戏</th>
+<th>玩法</th>
+<th>期号</th>
+<th>投注内容</th>
+<th>倍数</th>
+<th>投注总金额</th>
+<th>奖金</th>
+<th>中奖号码</th>
+<th class="thend">状态</th>
+</tr>
+{foreach from=$aProject item=project key=k}
+<tr align="center">
+<td><a href="./index.php?controller=gameinfo&action=gamedetail&id={$project.projectid}" target="_blank" title="查看注单详情">{$project.projectid}</a></td>
+<td>{$project.writetime}</td>
+<td>{$project.cnname}</td>
+<td>{$project.methodname}</td>
+<td>{$project.issue}</td>
+<td>
+{$project.code}
+</td>
+<td>{$project.multiple|escape:html}</td>
+<td>{$project.totalprice|escape:money}</td>
+<td>{$project.bonus|escape:money}</td>
+<td>{$project.nocode|escape:html}</td>
+<td>
+{if ($project.iscancel==0)}
+{if ($project.isgetprize==0)}
+未开奖
+{elseif ($project.isgetprize==2)}
+未中奖
+{elseif ($project.isgetprize==1)}
+{if $project.prizestatus==0}
+未派奖
+{else}
+已派奖
+{/if}
+{/if}
+{elseif ($project.iscancel==1)}
+本人撤单
+{elseif ($project.iscancel==2)}
+管理员撤单
+{elseif ($project.iscancel==3)}
+开错奖撤单
+{/if}</td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="11" class="no-records" align="center">当前没有投单记录</td>
+</tr>
+{/foreach}
+<tr align="center">
+<td>小结</td>
+<td colspan="6"></td>
+<td>{$total.out|escape:money}</td>
+<td>{$total.in|escape:money}</td>
+<td colspan="2"></td>
+</tr>
+<tr align="right">
+<td colspan="12" style="padding-right:20px;">{$pageinfo}</td>
+</tr>
+</table>
+</div>
+<div class="height51">
+<div class="right_02_241"></div>
+<div class="right_02_251"></div>
+</div>
+</div>
+{include file="pagefooter.html"}

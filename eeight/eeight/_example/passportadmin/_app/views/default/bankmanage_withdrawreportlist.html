@@ -1,0 +1,100 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" id="listForm" action=''>
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th width="10%">平台类型</th>
+	<th width="15%">平台名称</th>
+	<th width="15%">报表标题</th>
+	<th width="10%">提现接受编码</th>
+	<th width="20%">添加时间</th>
+	<th width="5%">状态</th>
+	<th width="25%">操作</th>
+  </tr>
+  {foreach from=$reportlist item=report key=k}
+  <tr align="center">
+  	<td>{if $report.platform_type == 1}第三方平台{else}银行平台{/if}</td>
+  	<td>{if $report.platform_type == 1}{$report.api_name}{else}{$report.bank_name}{/if}</td>
+  	<td>{$report.report_name}</td>
+  	<td>{$report.charset}</td>
+  	<td>{$report.atime}</td>
+  	<td>{if $report.status == 0}
+  			<font color="#FF3300">禁用</font>
+  		{elseif $report.status == 1}
+  			<font color="#669900">启用</font>
+  		{else}
+  			删除
+  		{/if}</td>
+  	<td>
+  	<a href="?controller=bankmanage&action=withdrawformat&id={$report.id}">编辑报表列</a>　|　
+  	<a href="?controller=bankmanage&action=withdrawreportedit&id={$report.id}">编辑</a>　|　
+  	{if $report.status != 2}
+  	<a href="?controller=bankmanage&action=withdrawreportedit&id={$report.id}&flag=del" onclick="return confirm('确认删除吗？');">删除</a>　|　
+  	{/if}
+  	<a href="?controller=bankmanage&action=withdrawreportedit&id={$report.id}&flag=set" onclick="return confirm('确认修改吗？');">{if $report.status == 1}<font color="#FF3300">禁用</font>{else}<font color="#669900">启用</font>{/if}</a>
+  	</td>
+  </tr>
+  {/foreach}
+</table>
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

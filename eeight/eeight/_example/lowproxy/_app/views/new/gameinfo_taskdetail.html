@@ -1,0 +1,230 @@
+{include file="pageheader.html"}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/bluejs/dialogUI/jquery.jamesdragn.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/bluejs/dialogUI/jquery.dialogUI.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/bluejs/dialogUI/jquery.dragndrop.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/lowproxy/js/bluejs/dialogUI/dialogUI.css" type="text/css" />
+<style>
+.freediv{
+    margin:0;
+    height:110px;
+    overflow-y:scroll;
+	overflow-x:hidden; 
+}
+.freediv table{
+	border:0px solid #131E31;
+	border-left:0px;
+	width:95%;
+	margin:0;
+	text-align:center;
+}
+.freediv th{
+	height:30px;
+	line-height:30px;
+	text-align:center;
+	background:#9c9c9c;
+	font-size:12px;
+	color:#111111;
+	border:0;
+	border:0px solid #131E31;
+}
+.freediv td{
+	background:#CCCCCC;
+	line-height:25px;
+	height:25px;
+	border:0px solid #131E31;
+}
+</style>
+<script>
+jQuery(document).ready(function(){
+    $("#checkall").click(function(){
+        $(":input").attr("checked",$("#checkall").attr("checked"));
+    });
+});
+function cancel()
+{
+	if($(":input[name='taskid[]'][checked=true]").size()==0)
+	{
+		$.alert("您没有选择选择彩种期数.");
+		return false;
+	}
+	else
+	{
+		var sCharge = ""; // 每一期撤单手续费
+		var temp; // 分解数据
+		var html = ""; // 显示数据
+		var fTotalFee = 0; // 手续费总额
+		var count = 0;   // 统计
+		var tempCharge = "";
+		// 计算终止追号时，应当收取多少手续费
+		$(":input[name='taskid[]'][checked=true]").each(function(){
+			temp = this.value.split("#");
+			temp[1] = Number(temp[1]).toFixed(2);
+			fTotalFee += parseFloat(temp[1]);
+			if (temp[1] > 0){
+				sCharge += "<tr><td>"+temp[2] + "</td><td style='color:red;'>" + temp[1] + "元</td></tr>";
+				count++;
+			}
+		});
+		if (count > 1){
+			times = window.setTimeout("change()");
+			if ({$need} === 1){
+				html += "真的要中止追号任务吗？  将收取撤单手续金额<br><div class='freediv'><table  cellpadding='1' cellspacing='1'><tr><th>奖期</th><th>撤单手续费</th>" + sCharge + "</table></div><br>&nbsp;&nbsp;&nbsp;<font color='red'>总计:" + fTotalFee + "元</font>";
+			} else {
+				html += "真的要中止追号任务吗？" + tempCharge;
+			}
+		} else {
+			times = window.setTimeout("change()");
+			if (fTotalFee > 0 && {$need} === 1 ){
+				tempCharge = "<br /><br /><span id='notice_color'>撤消此单将收取撤单手续费金额: " + fTotalFee + " 元</span>";
+			}
+			html += "真的要中止追号任务吗？" + tempCharge;
+		}
+		$.confirm({
+         message: html,
+         funyes : function(){
+             clearTimeout(times);
+             $("#Form").submit();
+         },
+         funno  : function(){
+             return false;
+         } 
+       });
+	}
+}
+
+function change(){
+	var node  = document.getElementById("notice_color");//#33FF33
+	if (node != null){
+		str = node.style.color.toLowerCase();
+	  	node.style.color = str == "#ff1100" || str == "rgb(255, 17, 0)" ? "#000000" : "#FF1100"; 
+	  	times = window.setTimeout("change()",1000);
+	}
+}
+
+function mycallbackform(v,m,f){
+	clearTimeout(times);
+	if(v){
+			$("#Form").submit();
+	}
+}
+</script>
+<div class="right_021">
+<div class="height51">
+<div class="right_02_281"></div>
+<div class="right_02_291"></div>
+</div>
+<div class="list-div">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="narrow-label">追号编号</td>
+<td>{$task.taskid|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">游戏用户</td>
+<td>{$task.username|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">追号时间</td>
+<td>{$task.begintime|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">游戏</td>
+<td>{$task.cnname|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">玩法</td>
+<td>{$task.methodname|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">追号内容</td>
+<td>{$task.codes}</td>
+</tr>
+<tr>
+<td class="narrow-label">开始期号</td>
+<td>{$task.beginissue|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">追号期数</td>
+<td>{$task.issuecount|escape:html}期</td>
+</tr>
+<tr>
+<td class="narrow-label">完成期数</td>
+<td>{$task.finishedcount|escape:html}期</td>
+</tr>
+<tr>
+<td class="narrow-label">取消期数</td>
+<td>{$task.cancelcount|escape:html}期</td>
+</tr>
+<tr>
+<td class="narrow-label">追号总金额</td>
+<td>{$task.taskprice|escape:money}</td>
+</tr>
+<tr>
+<td class="narrow-label">完成金额</td>
+<td>{$task.finishprice|escape:money}</td>
+</tr>
+<tr>
+<td class="narrow-label">取消金额</td>
+<td>{$task.cancelprice|escape:money}</td>
+</tr>
+<tr>
+<td class="narrow-label">中奖后终止任务</td>
+<td>{if $task.stoponwin==1}是{else}否{/if}</td>
+</tr>
+<tr>
+<td class="narrow-label">追号状态</td>
+<td>{if $task.status==0}进行中{elseif $task.status==1}已取消{elseif $task.status==2}已完成{/if}</td>
+</tr>
+<tr>
+<td class="narrow-label"></td>
+<td><input type="button" class="buttonnormal" value="关闭" onclick="self.close();">
+{if $task.status==0}
+{if $can}
+<input type="button" class="buttonnormal" value="追号终止" onclick="cancel()">
+{/if}
+{/if}</td>
+</tr>
+</table>
+</div>
+<div class="height51">
+<div class="right_02_241"></div>
+<div class="right_02_251"></div>
+</div>
+</div>
+<div class="right_021">
+<div class="height511">
+<div class="right_02_02"></div>
+<div class="right_02_04"></div>
+</div>
+<div class="list-div">
+<form id="Form" action="./?controller=gameinfo&action=canceltask" method="post">
+<input type="hidden" name="id" value="{$task.taskid}" />
+<table cellpadding="0" cellspacing="0">
+<tr>
+<th><input type="checkbox" id="checkall">奖期</th>
+<th>追号倍数</th>
+<th>追号状态</th>
+<th>注单详情</th>
+</tr>
+{foreach from=$aTaskdetail item=taskdetail key=k}
+<tr align="center">
+<td>{if $taskdetail.status<2}
+{if strtotime($taskdetail.canneldeadline)>time()}
+<input type="checkbox" name="taskid[]" value="{$taskdetail.entry}#{$taskdetail.fee}#{$taskdetail.issue}">
+{/if}
+{/if}{$taskdetail.issue|escape:html}</td>
+<td>{$taskdetail.multiple|escape:html}倍</td>
+<td>{if $taskdetail.status==0}进行中{elseif $taskdetail.status==1}已完成{elseif $taskdetail.status==2}已取消{/if}</td>
+<td>{if $taskdetail.projectid}<a href="index.php?controller=gameinfo&action=gamedetail&id={$taskdetail.projectid}">详情</a>{/if}</td>
+</tr>
+{/foreach}
+</table>
+</form>
+</div>
+<div class="height51">
+<div class="right_02_241"></div>
+<div class="right_02_251"></div>
+</div>
+</div>
+{include file="pagefooter.html"}

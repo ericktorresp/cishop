@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>高频后台管理中心-{$gameversion}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="Text/Javascript" language="JavaScript">
+<!--
+{literal}
+if (window.top != window)
+{
+  window.top.location.href = document.location.href;
+}
+{/literal}
+//-->
+$(function(){
+    $("#mainbox").height( $(document).height()-$("#topbox").height() );
+	$("#leftbox").height( $("#mainbox").height() );
+	$(window).resize(function(){
+		$("#mainbox").height( $(document).height()-$("#topbox").height() );
+		$("#leftbox").height( $("#mainbox").height() );
+	});
+	$("#dragbutton").click(function(){
+		if( $(this).attr("src") == "./images/arrow_left.gif" ){
+			$("#leftbox").css({width:"0px"}).hide();
+			$(this).attr("src","./images/arrow_right.gif");
+			$("#mainbox").css({width:"100%"});
+		}else{
+			$("#leftbox").css({width:"170px"}).show();
+			$(this).attr("src","./images/arrow_left.gif");
+			$("#mainbox").css({width:"auto"});
+		}
+	});
+	var width = $("#changeawebsite").width();
+    $("#changeawebsite").css("left",-width);
+    $("#changebutton").click(function(){
+        if( $("#changeawebsite").css("display") == "none" ){
+            $("#changeawebsite").fadeIn("slow");
+        }else{
+            $("#changeawebsite").fadeOut("slow");
+        }
+    });
+    $("#changeawebsite").click(function (){
+        $(this).fadeOut("slow");
+    });
+});
+</script>
+</head>
+<body scroll="no">
+<style type="text/css">
+*{margin:0;padding:0;font-size:12px;}
+#header-div{background: #289573;height:57px;}
+#logo-div{height: 57px;float: left;cursor:hand;}
+#submenu-div{height: 57px;}
+#submenu-div ul {margin: 0;padding: 0;list-style-type: none;}
+#submenu-div li {float: right;padding: 0 10px;margin: 5px 0;border-left: 1px solid #FFF;}
+#submenu-div .user, a:visited, #submenu-div a:link {color: #FFF;text-decoration: none;}
+#submenu-div a:hover {color: #FF9900;}
+#submenu-div a.fix-submenu{ margin-left:5px; padding:3px 5px; background:#DFF7EF; color:#289573; }
+#submenu-div a.fix-submenu:hover{ padding:3px 5px; background:#FFF; color:#333300; }
+#change{position:relative;}
+#changeawebsite{position:absolute;top:1px;z-index:1000;left:-200px;padding:3px;color:#289573;background:#DFF7EF;padding:5px 0;}
+#changeawebsite span{padding:5px 10px;margin:15px 0;}
+#changeawebsite a,#changeawebsite a:visited,#changeawebsite a:link{color:#FF0000;}
+</style>
+<table style="height:100%;" width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td colspan="3" id="topbox" height="57">
+            <div id="header-div">
+              <div id="logo-div" onclick="javascript:window.top.location='./index.php';">
+                   <img src="./images/admin_logo.gif" title="返回首页" style="cursor: pointer;"/>
+              </div>
+              <div id="submenu-div">
+                   <ul>
+	                 <li><a href="./index.php" target="_top">后台管理首页</a></li>
+	                 {* window.top.frames['header-frame'].document.location.reload() *}
+	                 <li style="border-left:none;"><a href="javascript:window.top.frames['main-frame'].document.location.reload();">刷新页面</a></li>
+                   </ul>     
+	               <div id="change" style="padding: 4px 10px 0 0; clear:right;text-align: right; color: #FFF;float: right;">
+                        <a href="javascript:" class="fix-submenu" id="changebutton"  style="z-index:101;">&nbsp;切换其它频道&nbsp;</a><a href="./index.php?action=exit" target="_top" class="fix-submenu">退出系统 - {$adminname|escape:html}</a>
+                        <div id="changeawebsite" style="display:none;">
+                            <center><b>切换其它频道</b></center>
+                            <div style="margin:3px 0;"></div>
+                            {foreach from=$admindomain item=name key=domain}
+                            <span><b>{$name.channelname}</b>：<a href="http://{$domain}" target="_blank">{$name.channeltitle}</a></span><br>
+                            <div style="margin:3px 0;"></div>
+                            {foreachelse}
+                            <span><b>没有配置频道连接</b></span><br>
+                            {/foreach}
+                        </div>
+                    </div>
+            </div>
+           </div>  
+        </td>
+    </tr>
+    <tr>
+        <td width="170" valign="top"  style="height:100%;" id="leftbox">
+            <iframe src="./?action=menu" id="menu-frame" name="menu-frame" frameborder="0" width="100%" height="100%" scrolling="auto" style="overflow:visible;"></iframe>
+        </td>
+        <td width="10" valign="middle"  style="width:10px; height:100%; background:#62AA92;">
+            <img src="./images/arrow_left.gif" width="10" height="30" border="0" id="dragbutton" style="cursor:pointer;" />
+        </td>
+        <td valign="top"  style="height:100%;" id="mainbox">
+            <iframe src="./?action=start" id="main-frame" name="main-frame" frameborder="0" width="100%" height="100%" scrolling="auto" style="overflow:visible;"></iframe>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

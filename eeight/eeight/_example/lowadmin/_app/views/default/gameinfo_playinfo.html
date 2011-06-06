@@ -1,0 +1,351 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+<script>		
+jQuery(document).ready(function() {
+	$("#methodform").submit(function(){
+		//对表单的提交验证
+		if($("#methodname").val()=="")
+		{
+			alert("玩法名称为空.");
+			$("#methodname").focus();
+			return false;
+		}
+		/*if($("#functionname").val()=="")
+		{
+			alert("玩法的中奖函数为空.");
+			$("#functionname").focus();
+			return false;
+		}*/
+		if($("#level").val()<=0)
+		{
+			alert("玩法的等级错误.");
+			$("#level").focus();
+			return false;
+		}
+		else
+		{ //对转直注数验证
+			if($("#level").val()<=0)
+			{
+				alert("玩法奖金级别个数错误.");
+				$("#level").focus();
+				return false;
+			}//对各个奖级进行验证
+			for(i=1;i<=$("#level").val();i++)
+			{
+				if($("#count_"+i+"_name").val()=="")
+				{
+					alert(i+"等奖的名称为空.");
+					$("#count_"+i+"_name").focus();
+					return false;
+				}
+				if($("#count_"+i+"_count").val()=="")
+				{
+					alert(i+"等奖的转直注数错误.");
+					$("#count_"+i+"_count").focus();
+					return false;
+				}
+			}
+		}
+		if($("#pid").val()>0)
+		{ //对奖金级别的选择进行验证
+			if($(":checkbox[name^='count['][name$='][use]'][checked=true]").size()==0)
+			{
+				alert("没有选择奖金级别");
+				return false;
+			};
+		}
+		if($("#description").val()=="")
+		{
+			alert("没有填写玩法描述.");
+			$("#description").focus();
+			return false;
+		}
+		$("#pid").attr("disabled",false);
+		$("#level").attr("disabled",false);
+		$("#totalmoney").attr("disabled",false);
+		for(i=1;i<=$("#level").val();i++)
+		{
+			$("#count_"+i+"_count").attr("disabled",false);
+			$("#count_"+i+"_name").attr("disabled",false);
+		}
+		return true;	
+	});
+	jQuery("#level").change(function(){
+		var i= (jQuery("#level").val());
+		s='';
+		t = jQuery("#pid").val();
+		for(j=1;j<=i;j++)
+		{
+			if(t==0)
+			{
+				s=s+j+"等奖转直注数:<input type='text' name='count["+j+"][count]' id='count_"+j+"_count' size='4'>&nbsp;&nbsp;&nbsp;奖级名称:<input type='text' name='count["+j+"][name]' id='count_"+j+"_name' value=''><br/>";
+			}
+			else
+			{
+				s=s+"<input type='checkbox' name='count["+j+"][use]' id='count_"+j+"_use' value='1'>"+j+"等奖转直注数:<input type='text' name='count["+j+"][count]' id='count_"+j+"_count' size='4'>&nbsp;&nbsp;&nbsp;奖级名称:<input type='text' id='count_"+j+"_name' name='count["+j+"][name]' value=''><br/>"
+			}
+		}
+		if(i>1)
+		{
+			s = s+"<label for='count_type'><input type='checkbox' value='1' name='count[type]' id='count_type'>计算公司留水时候,奖金叠加</label>&nbsp;";
+			s = s+"<label for='count_isdesc'><input type='checkbox' value='1' name='count[isdesc]' id='count_isdesc'>需要帐变描述(兼中兼得)</label>";
+		}
+		jQuery("#zhu_zhi").html(s);
+	});
+	$("input:radio[name='areatype[type_1][type]']").click(function(){
+		var i = $(":radio:checked[name='areatype[type_1][type]']").val();
+		if(i==1)
+		{
+			jQuery("#no_rule").html("号码形态:<br/><textarea name='areatype[type_1][layout]' rows='6' cols='80'></textarea><br/>"
+			+"大号从第<input type='text' name='areatype[type_1][startpos]' value='' size='4'>位开始<br/>");
+		}
+		else if(i==2)
+		{
+			jQuery("#no_rule").html("号码形态:<br/><textarea name='areatype[type_1][layout]' rows='6' cols='80'></textarea>");
+		}
+		else if(i==3)
+		{
+			jQuery("#no_rule").html("号码形态:<br/><textarea name='areatype[type_1][layout]' rows='6' cols='80'></textarea>"
+					+"<label for='areatype_type_1_smalltype_1'><input type='radio' name='areatype[type_1][smalltype]' id='areatype_type_1_smalltype_1' value='1'>大小单双</label>");
+		}
+	});
+	
+	jQuery("#pid").change(function(){
+		var method_data = {$methods};
+		i = $("#pid").val();
+		if(i>0)
+		{
+			$("#functionname").val(method_data[i].functionname);
+			$("#isprizedynamic").attr("checked",method_data[i].isprizedynamic==1);
+			$("#isclose").attr("checked",method_data[i].isclose==1);
+			$("#locksid").val(method_data[i].locksid);
+			$("#level").val(method_data[i].level);
+			$("#level").change();
+			for(k=1;k<=$("#level").val();k++)
+			{
+				$("#count_"+k+"_count").val(method_data[i].nocount[k].count);
+				$("#count_"+k+"_count").attr("disabled",true);
+				$("#count_"+k+"_name").val(method_data[i].nocount[k].name);
+				$("#count_"+k+"_name").attr("disabled",true);
+			}
+			$("#totalmoney").val(method_data[i].totalmoney);
+			$("#level").attr("disabled",true);
+		}
+		else
+		{
+			$("#functionname").val('');
+			$("#isprizedynamic").attr("checked",false);
+			$("#isclose").attr("checked",false);
+			$("#locksid").val(0);
+			$("#level").val(0);
+			$("#level").change();
+			$("#level").attr("disabled",false);
+			$("#totalmoney").val('');
+		}
+		if($("#pid").val()<=0)
+		{
+			$("#area").hide();
+		}
+		else
+		{
+			$("#area").show();
+		}
+	});
+	{if isset($aMethod)}
+	var data ={$aMethod};
+	$("#methodid").val(data.methodid);
+	$("#methodname").val(data.methodname);
+	$("#functionname").val(data.functionname);
+	if($("#functionname").val()!='')
+	{
+		$("#functionname").attr("readonly",true);
+	}
+	$("#isprizedynamic").attr("checked",data.isprizedynamic==1);
+	$("#isclose").attr("isclose",data.isclose);
+	$("#description").val(data.description);
+	$("#totalmoney").val(data.totalmoney);
+	$("#level").val(data.level);	
+	$("#pid").val(data.pid);
+	$("#level").change();	
+	jQuery("#zhu_zhi").html(s);	
+	$("#locksid").val(data.locksid);
+	//对号码奖级进行描述
+	i = jQuery("#level").val();
+	for(j=1;j<=i;j++)
+	{
+		$("#count_"+j+"_count").val(data.nocount[j].count);
+		if($("#pid").val()>0)
+		{
+			$("#count_"+j+"_count").attr("disabled",true);
+		}
+		$("#count_"+j+"_name").val(data.nocount[j].name);
+		if($("#pid").val()>0)
+		{
+			$("#count_"+j+"_name").attr("disabled",true);
+		}
+		$("#count_"+j+"_use").attr("checked",data.nocount[j].use==1);
+	}
+	$("#count_type").attr("checked",data.nocount.type==1);
+	$("#count_isdesc").attr("checked",data.nocount.isdesc==1);
+	$("#pid").attr("disabled",true);
+	if($("#pid").val()>0)
+	{
+		$("#level").attr("disabled",true);
+		$("#totalmoney").attr("disabled",true);
+	}
+	else
+	{
+		$("#level").attr("disabled",false);
+		$("#totalmoney").attr("disabled",false);
+	}
+	if($("#pid").val()==0)
+	{
+		$("#area").hide();
+	}
+	else
+	{
+		$("#area").show();
+		//五个区的加载
+		jQuery(":checkbox[name='areatype[type][1]']").attr("checked",data.areatype.type[1]=="1");	
+		jQuery(":checkbox[name='areatype[type][2]']").attr("checked",data.areatype.type[2]=="1");	
+		jQuery(":checkbox[name='areatype[type][3]']").attr("checked",data.areatype.type[3]=="1");	
+		jQuery(":checkbox[name='areatype[type][4]']").attr("checked",data.areatype.type[4]=="1");	
+		jQuery(":checkbox[name='areatype[type][5]']").attr("checked",data.areatype.type[5]=="1");	
+		//选号区的默认加载
+		if($(":checkbox[name='areatype[type][1]']").attr("checked"))
+		{
+			jQuery(":radio[name='areatype[type_1][type]'][value="+data.areatype.type_1.type+"]").attr("checked",true);
+			jQuery(":radio[name='areatype[type_1][type]'][checked='true']").click();
+			$("textarea[name='areatype[type_1][layout]']").val(data.areatype.type_1.layout);
+			if(data.areatype.type_1.type=="1")
+			{
+				//重复型号码加载				
+				$(":text[name='areatype[type_1][startpos]']").val(data.areatype.type_1.startpos);
+			}
+			else if(data.areatype.type_1.type=="2")
+			{
+				//和值型
+			}
+			else if(data.areatype.type_1.type=="3")
+			{
+				$(":radio[name='areatype[type_1][smalltype]'][value='"+data.areatype.type_1.smalltype+"']").attr("checked",true);
+			}
+		}
+		//筛选区部分
+		if($(":checkbox[name='areatype[type][2]']").attr("checked"))
+		{
+			$(":checkbox[name='areatype[type_2][1]'][value='"+data.areatype.type_2[1]+"']").attr("checked",true);
+			$(":checkbox[name='areatype[type_2][2]'][value='"+data.areatype.type_2[2]+"']").attr("checked",true);
+		}
+		//追号区部分
+		$(":checkbox[name='areatype[type_5][1]'][value='"+data.areatype.type_5[1]+"']").attr("checked",true);
+		$(":checkbox[name='areatype[type_5][2]'][value='"+data.areatype.type_5[2]+"']").attr("checked",true);
+		$(":checkbox[name='areatype[type_5][3]'][value='"+data.areatype.type_5[3]+"']").attr("checked",true);
+		$(":checkbox[name='areatype[type_5][4]'][value='"+data.areatype.type_5[4]+"']").attr("checked",true);
+	}	
+	{/if}
+	
+});
+</script>
+<div class="list-div" id="listDiv">
+<form id="methodform" action="./?controller=gameinfo&action={$action|default:addplay}" method="post">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td class="narrow-label">游戏名称</td>
+<td>
+
+<input type="hidden" value="{$aLottery.lotteryid}" name="lotteryid"/>{$aLottery.cnname|escape:html}
+</td>
+</tr>
+<tr>
+<td class="narrow-label">玩法组名称</td>
+<td><input type="text" name="methodname" id="methodname" value=""></td>
+</tr>
+<tr>
+<td class="narrow-label">游戏玩法组</td>
+<td>
+<select name="pid" id="pid">
+<option value="-1">选择玩法组</option>
+<option value="0">作为玩法组</option>
+{foreach from=$methodlist item=method key=k}
+<option value="{$method.methodid}">{$method.methodname}</option>
+{/foreach}
+</select>
+</tr>
+<tr>
+<td class="narrow-label">中奖函数</td>
+<td><input type="text" name="functionname" id="functionname" value=""></td>
+</tr>
+<tr>
+<td class="narrow-label">是否动态</td>
+<td><label for="isprizedynamic"><input type="checkbox" name="isprizedynamic" id="isprizedynamic" value="1">是</label></td>
+</tr>
+<tr>
+<td class="narrow-label">是否关闭</td>
+<td><label for="isclose"><input type="checkbox" name="isclose" id="isclose" value="1">选中即关闭</label></td>
+</tr>
+<tr>
+<td class="narrow-label">封锁表名称:</td>
+<td><select name='locksid' id="locksid"><option value='0'>不使用封锁表</option>{foreach from=$aLocks item=lock key=k}<option value='{$lock.locksid}'>{$lock.lockname}</option>{/foreach}</select></td>
+</tr>
+<tr>
+<td class="narrow-label">奖级个数</td>
+<td><input type="text" name="level" id="level" value="" size="4"></td>
+</tr>
+<tr>
+<td class="narrow-label">转直注数</td>
+<td><span id="zhu_zhi" name="zhu_zhi">
+</span></td>
+</tr>
+<tr>
+<td class="narrow-label">全包成本</td>
+<td><input type="text" name="totalmoney" id="totalmoney" size="8"  value=""/></td>
+</tr>
+<tr>
+<td class="narrow-label">玩法组描述</td>
+<td>
+	<textarea name="description" id="description" rows="6" cols="60"></textarea></td>
+</tr>
+<tr id="area" style="display:none;">
+<td class="narrow-label">号码形态</td>
+<td>
+
+<fieldset style="width:600px; display:block;">
+<legend><label for="areatype[type][1]"><input type="checkbox" name="areatype[type][1]" id="areatype[type][1]" value="1">选号区</label></legend>
+<label for="areatype_type_1_1"><input type="radio" name="areatype[type_1][type]" id="areatype_type_1_1" value="1">重复型</label>
+<label for="areatype_type_1_2"><input type="radio" name="areatype[type_1][type]" id="areatype_type_1_2" value="2">和值型</label>
+<label for="areatype_type_1_3"><input type="radio" name="areatype[type_1][type]" id="areatype_type_1_3" value="3">特征性</label>
+<br/>
+<span id="no_rule">
+</span>
+</fieldset>
+
+<fieldset style="width:400px; display:block;">
+<legend>
+<label for="areatype[type][2]"><input type="checkbox" name="areatype[type][2]" id="areatype[type][2]" value="1">筛选区</label>
+</legend>
+筛选类型：<label for="areatype2_1"><input type="checkbox" name="areatype[type_2][1]" id="areatype2_1" value="1">跨度</label>
+<label for="areatype2_2"><input type="checkbox" name="areatype[type_2][2]" id="areatype2_2" value="2">定胆</label>
+</fieldset>
+<label for="areatype[type][3]"><input type="checkbox" name="areatype[type][3]" id="areatype[type][3]" value="1">编辑区</label>
+<label for="areatype[type][4]"><input type="checkbox" name="areatype[type][4]" id="areatype[type][4]" value="1">确认区</label>
+<fieldset style="width:400px; display:block;">
+<legend>
+<label for="areatype[type][5]"><input type="checkbox" name="areatype[type][5]" id="areatype[type][5]" value="1">追号区</label>
+</legend>
+追号方式:
+<label for="areatype5_1"><input type="checkbox" name="areatype[type_5][1]" id="areatype5_1" value="1">同倍追号</label>
+<label for="areatype5_2"><input type="checkbox" name="areatype[type_5][2]" id="areatype5_2" value="2">翻倍追号</label>
+<label for="areatype5_3"><input type="checkbox" name="areatype[type_5][3]" id="areatype5_3" value="3">利润率追号</label>
+<label for="areatype5_4"><input type="checkbox" name="areatype[type_5][4]" id="areatype5_4" value="4">利润金额追号</label>
+</fieldset>
+</td>
+</tr>
+<tr>
+<td class="narrow-label"></td>
+<td><input type="hidden" name="methodid" id="methodid" value="" /><input type="submit" class="button" value="{if isset($action)}修改玩法组{else}增加玩法{/if}"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

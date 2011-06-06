@@ -1,0 +1,88 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+<script type="text/javascript">
+$(document).ready(function(){
+	var radio = $('input[type="radio"]');
+	 radio.click(function()
+	 {
+	 	//icbc
+	     if ($(this).attr("value") == "icbc"){
+	     	self.location='{$icbcaction}';
+	     }
+	     
+	     // ccb
+	     if ($(this).attr("value") == "ccb"){
+	     	self.location='{$ccbaction}';
+	     }
+	 });
+});
+</script>
+<div class="list-div" id="listDiv" style="clear:both;">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+	<tr><td colspan="2">请选择银行：</td></tr>
+	<tr align="center">
+		<td style="line-height:40px"><input type="radio" name="bank" value="icbc" id="icbc" style="vertical-align:middle;" />　<label for="icbc"><img src="./images/bank/{$icbc}" width="125" height="35" style="vertical-align:middle;" /></label></td>
+		<td style="line-height:40px"><input type="radio" name="bank" value="ccb" id="ccb" style="vertical-align:middle;" />　<label for="ccb"><img src="./images/bank/{$ccb}" width="125" height="35" style="vertical-align:middle;" /></label></td>
+	</tr>
+</table>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

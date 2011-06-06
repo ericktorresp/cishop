@@ -1,0 +1,89 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+<script type="text/javascript">
+	jQuery("#loadhtml").hide();	//去掉loading界面
+	jQuery(document).ready(function() {
+		jQuery("#ordertime_min").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#ordertime_max").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+	});
+	
+function checkForm(obj)
+{
+	if( jQuery.trim(obj.ordertime_min.value) != "" )
+	{
+		if( false == validateInputDate(obj.ordertime_min.value) )
+		{
+			alert("时间格式不正确");
+			obj.ordertime_min.focus();
+			return false;
+		}
+	}
+	if( jQuery.trim(obj.ordertime_max.value) != "" )
+	{
+		if( false == validateInputDate(obj.ordertime_max.value) )
+		{
+			alert("时间格式不正确");
+			obj.ordertime_max.focus();
+			return false;
+		}
+	}
+}
+</script>
+<div class="list-Form">
+<form action="index.php" method="get" name="search" onsubmit="return checkForm(this)">
+<input type="hidden" name="controller" value="report" />
+<input type="hidden" name="action" value="ctreport" />
+充提时间：<input type="text" size="15" name="ordertime_min" id="ordertime_min" value="{$searchdata.ordertime_min}" /><img src="./images/calendar2.gif" id="time_min_button" /> 至 <input type="text" size="15" name="ordertime_max" id="ordertime_max" value="{$searchdata.ordertime_max}" /><img src="./images/calendar2.gif" />&nbsp;&nbsp;
+               <input type="submit" name="submit" value="查询" />&nbsp;&nbsp;&nbsp;
+</form>
+</table>
+</div>
+<div class="list-div" id="listDiv">
+<table class="list-table">
+	<tr>
+        <th>用户名</th>
+        <th>充值金额</th>
+        <th>提现金额</th>
+        <th>充提结余</th>
+    </tr>
+    {foreach from=$orders item=order key=k}
+    <tr>
+    	<td align="center">{$order.username|escape:html}</td>
+        <td align="center">{$order.cashin|escape:money}</td>
+        <td align="center">{$order.cashout|escape:money}</td>
+        <td align="center">{$order.left|escape:money}</td>
+    </tr>
+    {/foreach}
+    <tr>
+    	<td align="center">小结</td>
+        <td align="center">{$icount.incount|escape:money}</td>
+        <td align="center">{$icount.outcount|escape:money}</td>
+        <td align="center">{$icount.left|escape:money}</td>
+    </tr>
+</table>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,174 @@
+{include file="pageheader.html"}
+<div class="form-div">
+    <FORM name="searchForm" action="" METHOD='get'>
+    <input type='hidden' name="controller" value="report"/>
+    <input type='hidden' name="action" value="banksnapshot"/>
+    <img src="./images/icon_search.gif" width="26" height="22" border="0" TITLE="SEARCH" />
+
+快照生成日期 : <select name="dates" style='width:120px;background:#eaeaea;'>
+<OPTION selected value="-1">请选择...</OPTION>
+{$s.dayopts}
+</select>
+<span style="padding:0 5px 0 5px;">是否是测试账号</span>
+<select name="istester">
+<option value="-1" {if $s.istester=='-1'}SELECTED{/if}>全部类型</option>
+<option value="0" {if $s.istester=='0'}SELECTED{/if}>非测试账号</option>
+<option value="1" {if $s.istester=='1'}SELECTED{/if}>测试账号</option>
+</select>
+<span style="padding:0 5px 0 5px;">是否是冻结账号</span>
+<select name="isfrozen">
+<option value="-1" {if $s.isfrozen=='-1'}SELECTED{/if}>全部类型</option>
+<option value="0" {if $s.isfrozen=='0'}SELECTED{/if}>非冻结账号</option>
+<option value="1" {if $s.isfrozen=='1'}SELECTED{/if}>冻结账号</option>
+</select>
+&nbsp;&nbsp;
+<input type="submit" value="搜 索" class="button" /> 
+ <a href="javascript:showNotice('noticeSearch');" title="帮助信息"><img src="./images/notice.gif" width="16" height="16" border="0" title="帮助信息"></a>
+ <span class="notice-span" style='line-height:18px;padding:8px 0px 2px 20px;color:#669900' 
+id="noticeSearch">&nbsp;&nbsp;&nbsp;当日充提中 <font color=#ff0000>充值</font> 包含: <font color=#ff0000>上级充值, 跨级充值, 小额接收, 特殊金额整理, 理赔充值</font><br/>
+&nbsp;&nbsp;
+当日充提中 <font color=#0000FF>提现</font> 包含: <font color=#0000FF>本人提现, 平台提现成功, 小额扣除, 特殊金额清理, 管理员扣减</font><br/>
+</span>
+</FORM></div>
+
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action='./?controller=adminuser&action=edit' onsubmit="return confirmSubmit(this)">
+<table cellspacing='1' cellpadding='2' id='list-table'>
+  <tr>
+    <th rowspan=2>总代账户</th>
+	<th colspan=5 style='background: #444;color:#FFF'>前次 历史快照报表数据</th>
+	<th colspan=2>当日充提</th>
+	<th colspan=2>当日平台转账</th>
+	<th rowspan=2>当日<br/>现金余额</th>
+	<th rowspan=2>差账金额</th>
+  </tr>
+  <tr>
+	<th>现金余额(A)</th>
+	<th>信用欠款(B)</th>
+	<th>账户余额(C)</th>
+	<th>冻结金额(D)</th>
+	<th>可用余额(E)</th>
+	<th>充值</th>
+	<th>提现</th>
+	<th>转入</th>
+	<th>转出</a></th>
+  </tr>
+
+
+{foreach from=$aDataList item=list key=k1}
+  <tr>
+    <td align="right">{$list.username|escape:html}</td>
+	<td align="right">{$list.ta|escape:money}</td>
+	<td align="right">{$list.tb|escape:money}</td>
+	<td align="right">{$list.tc|escape:money}</td>
+	<td align="right">{$list.td|escape:money}</td>
+	<td align="right">{$list.te|escape:money}</td>
+	<td align="right">
+	   <a  target="_blank" href="./index.php?controller=report&action=orderlist&included1=1&sel=1&username={$list.username|escape:html}&sdate={$s.sdate}&edate={$s.sTimes}&otid={$s.cashinordertypeid}" title="查看账变">   
+	       {$list.cashin|escape:money}
+	   </a>
+	</td>
+	<td align="right">
+	   <a  target="_blank" href="./index.php?controller=report&action=orderlist&included1=1&sel=1&username={$list.username|escape:html}&sdate={$s.sdate}&edate={$s.sTimes}&otid={$s.cashoutordertypeid}" title="查看账变">
+	       {$list.cashout|escape:money}
+	   </a>
+	</td>
+	<td align="right">
+	   <a  target="_blank" href="./index.php?controller=report&action=orderlist&included1=1&sel=1&username={$list.username|escape:html}&sdate={$s.sdate}&edate={$s.sTimes}&otid={$s.tranferinordertypeid}" title="查看账变">   
+	       {$list.tranferin|escape:money}
+	   </a>
+	</font>
+	</td>
+	<td align="right">
+	   <a  target="_blank" href="./index.php?controller=report&action=orderlist&included1=1&sel=1&username={$list.username|escape:html}&sdate={$s.sdate}&edate={$s.sTimes}&otid={$s.tranferoutordertypeid}" title="查看账变">
+	       {$list.tranferout|escape:money}
+	   </a>
+	</td>
+	<td align="right">{$list.todaycash|escape:money}</td>
+	<td align="right">{$list.cashdiff|escape:money}</td>
+  </tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="12">无相关数据</td></tr>
+{/foreach}
+<tr style='color:red'>
+    	<td>&nbsp;&nbsp;&nbsp;&nbsp;合计: &nbsp;&nbsp;</td>
+        <td align="right">{$s.total.ta|escape:money}</td>
+        <td align="right">{$s.total.tb|escape:money}</td>
+		<td align="right">{$s.total.tc|escape:money}</td>
+        <td align="right">{$s.total.td|escape:money}</td>
+		<td align="right">{$s.total.te|escape:money}</td>
+		<td align="right">{$s.total.cashin|escape:money}</td>
+		<td align="right">{$s.total.cashout|escape:money}</td>
+		<td align="right">{$s.total.tranferin|escape:money}</td>
+		<td align="right">{$s.total.tranferout|escape:money}</td>
+		<td align="right">{$s.total.todaycash|escape:money}</td>
+		<td align="right">{$s.total.cashdiff|escape:money}</td>
+    </tr>
+</table>
+
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>总计 {$s.iCounts} 个记录
+&nbsp;&nbsp;&nbsp;&nbsp;<font color=#808080>本次快照生成时间: {$s.sTimes}</font></div></td></tr></table>
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

@@ -1,0 +1,46 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+  <table cellspacing='1' cellpadding='3' id='list-table'>
+    <tr>
+  		<td class="narrow-label">消息编号:</td>
+  		<td>{$info.entry}</td>
+  	</tr>
+	<tr>
+  		<td class="narrow-label">阅读状态</td>
+  		<td>{if $info.readtime>0}<font color='#669900'>已读 - 读取时间: {$info.readtime}</font>{else}<font color=red>[未读]</font>{/if}</td>
+  	</tr>
+	<tr>
+  		<td class="narrow-label">删除状态:</td>
+  		<td>{if $info.deltime>0}<font color='red'>已删 - 删除时间: {$info.deltime}</font>{else}正常{/if}&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href='./?controller=message&action=del&id={$info.entry}' 
+		onclick="javascript:return confirm('您确定要删除此消息?');"><font 
+		color='#996600'>[ 删除此消息 ]</font></a></td>
+  	</tr>
+  	<tr>
+  		<td class="narrow-label">消息类型:</td>
+  		<td>{$info.title|escape:html}</td>
+  	</tr>
+	<tr>
+  		<td class="narrow-label">发送组</td>
+  		<td style='color:#690'>{if $info.sendergroup==0}用户组: ( {$info.sendername|escape:html} ) {else}<font color='red'>管理组</font>{/if}</td>
+  	</tr>
+	<tr>
+  		<td class="narrow-label">接收组:</td>
+  		<td style='color:#960'>{if $info.receivergroup==0}用户组: ( {$info.receivename|escape:html} ) {else}<font color='red'>管理组</font>{/if}</td>
+  	</tr>
+	<tr>
+  		<td class="narrow-label">发送时间:</td>
+  		<td>{$info.sendtime}</td>
+  	</tr>
+	<tr>
+  		<td class="narrow-label">消息主题:</td>
+  		<td>{$info.subject|escape:html}</td>
+  	</tr>
+	<tr>
+  		<td class="narrow-label">消息内容:</td>
+  		<td>{$info.content}</td>
+  	</tr>
+
+  </table>
+</div>
+{include file="pagefooter.html"}

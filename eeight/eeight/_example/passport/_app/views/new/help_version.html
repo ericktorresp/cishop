@@ -1,0 +1,158 @@
+{include file="pageheader.html"}
+<style type="text/css">
+*{
+    padding:0;
+    margin:0;
+}
+body{font-size:12px;}
+p{
+    line-height:20px;
+    text-indent:2em;
+}
+/*
+ 标签部分的样式
+ */
+.tab-div {
+  background: #FFFFFF;
+  margin: 0 0 10px 0;
+}
+#tabbar-div {
+  padding-left: 10px;
+  height: 31px;
+  background: url({$sSystemImagesAndCssPath}/images/blue/helptar_bottom.gif) repeat-x left bottom;
+}
+.tab-front {
+  background: url({$sSystemImagesAndCssPath}/images/blue/helptar_front.gif) repeat-x;
+  line-height: 31px;
+  float:left;
+  font-weight: bold;
+  cursor: pointer;
+  color:#FFFFFF;
+}
+.tab-back {
+  color: #FFF;
+  float:left;
+  background: url({$sSystemImagesAndCssPath}/images/blue/helptar_back.gif) repeat-x center;
+  line-height: 25px;
+  cursor: pointer;
+  color:#555555;
+  margin:0 5px;
+}
+.tab-back .tabbar-left{
+    background:url({$sSystemImagesAndCssPath}/images/blue/helpback_left.gif) no-repeat center;
+    height:25px;
+    width:3px;
+    float:left;
+}
+.tab-back .tabbar-right{
+    background:url({$sSystemImagesAndCssPath}/images/blue/helpback_right.gif) no-repeat center;
+    height:25px;
+    width:3px;
+    float:left;
+}
+.content{
+    padding:0 12px;
+    float:left;
+}
+.tab-front .tabbar-left{
+    background:url({$sSystemImagesAndCssPath}/images/blue/helpfront_left.gif) no-repeat center;
+    height:31px;
+    width:3px;
+    float:left;
+}
+.tab-front .tabbar-right{
+    background:url({$sSystemImagesAndCssPath}/images/blue/helpfront_right.gif) no-repeat center;
+    height:31px;
+    width:3px;
+    float:left;
+}
+.tabbar-bottom{
+    font-size:0px;
+    height:3px;
+    background:#94ADD6;
+    border-left: 1px solid #DBE4F2;
+    border-right: 1px solid #DBE4F2;
+}
+.help-content{
+    padding:5px 15px;
+}
+</style>
+<script>
+{literal}
+(function($){
+$(document).ready(function(){
+	$("span[id^='general_tab_']").click(function(){
+		$("span[id^='general_tab_']").attr("class","tab-back");
+		$(this).attr("class","tab-front");
+		$("div[id^='general_table_']").hide();
+		id = $(this).attr("id").replace("general_tab_","");
+		$("#general_table_"+id).show();
+	});
+});
+})(jQuery);
+{/literal}
+</script>
+</head>
+<body>
+
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width: 98%">
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+	<tr>
+		<td height="43" style="padding-left: 10px;">
+		<div class="title01">
+		{foreach from=$data item=d key=k}
+		<span {if $k==0}class="tab-front"{else}class="tab-back"{/if}  id="general_tab_{$k}">
+		  <span class="menu_01a"></span>
+		  <span class="menu_02a">{$d.tagname|escape:html}</span>
+		  <span class="menu_03a"></span>
+		</span>
+		{/foreach}
+		 </div>
+		</td>
+	</tr>
+	<tr>
+		<td height="5"></td>
+	</tr>
+
+	<tr>
+		<td height="37" style="padding: 30px;">{foreach from=$data item=d key=k}
+        <div class="help-content" id="general_table_{$k}" {if $k!=0}style="display:none"{/if} style="padding:20px;">
+            {$d.content}
+        </div>
+    {/foreach}</td>
+	</tr>
+</table>
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{include file="pagefooter.html"}

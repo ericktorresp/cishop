@@ -1,0 +1,90 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" id="listForm" action=''>
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <td align="right" width="30%">行政区名称：</td>
+    <td>{$province}</td>
+  </tr>
+  <tr>
+    <td align="right">城市名称：</td>
+    <td>{$city}</td>
+  </tr>
+  <tr>
+    <td align="right">邮编：</td>
+    <td>{if $zipcode != ""}{$zipcode}{else}--{/if}</td>
+  </tr>
+  <tr>
+    <td align="right">区号：</td>
+    <td>{if $telecode != ""}{$telecode}{else}--{/if}</td>
+  </tr>
+  <tr>
+    <td align="right">状态：</td>
+    <td>{if $used == 1}<font color="#669900">启用</font>{else}<font color="#FF3300">禁用</font>{/if}</td>
+  </tr>
+  <tr>
+  	<td colspan="5" align="center"><input type="button" name="edit" value="返回上一页" class="button" onclick="history.back();" /></td>
+  </tr>
+</table>
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

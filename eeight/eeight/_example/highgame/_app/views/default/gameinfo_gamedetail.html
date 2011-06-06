@@ -1,0 +1,123 @@
+{include file="pageheader.html"}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/jquery.js"></script>
+<script>
+{if isset($can)}
+function cancel()
+{
+	//撤单部分
+	if(confirm("真的要撤单吗?{if isset($need)}\n撤销此单将收取撤单手续费金额:{$money|eacape:money}元.{/if}"))
+	{
+		document.location.href = "./index.php?controller=gameinfo&action=cancelgame&id={$project.projectid}";
+	}
+}
+{/if}
+</script>
+<div class="list-div">
+<table style="table-layout:fixed;">
+<tr>
+<td class="narrow-label">注单编号:</td>
+<td>{$project.projectid}</td>
+</tr>
+<tr>
+<td class="narrow-label">游戏用户:</td>
+<td>{$project.username}</td>
+</tr>
+<tr>
+<td class="narrow-label">投单时间:</td>
+<td>{$project.writetime}</td>
+</tr>
+<tr>
+<td class="narrow-label">游戏:</td>
+<td>{$project.cnname}</td>
+</tr>
+<tr>
+<td class="narrow-label">玩法:</td>
+<td>{$project.methodname}{if $project.taskid!='0'}&nbsp;(&nbsp;<a href="./index.php?controller=gameinfo&action=taskdetail&id={$project.taskid}" style="color:red;">追号单记录</a>&nbsp;){/if}</td>
+</tr>
+<tr>
+<td class="narrow-label">期号:</td>
+<td>{$project.issue}</td>
+</tr>
+<tr>
+<td class="narrow-label" valign="top">投注内容:</td>
+<td style="word-break:break-all;white-space:normal; width:85%;overflow:hidden;word-wrap:break-word;">{$project.code}</td>
+</tr>
+{if $project.isdynamicprize == 0}
+<tr>
+<td class="narrow-label">倍数:</td>
+<td>{$project.multiple}倍</td>
+</tr>
+{/if}
+<tr>
+<td class="narrow-label">模式:</td>
+<td><span style="line-break:break-all;">{$project.modes}</span></td>
+</tr>
+<tr>
+<td class="narrow-label">投注总金额:</td>
+<td>{$project.totalprice|escape:money:4}</td>
+</tr>
+<tr>
+<td class="narrow-label">奖金:</td>
+<td>{$project.bonus|escape:money:4}{if $description}&nbsp;&nbsp;({$description}){/if}</td>
+</tr>
+<tr>
+<td class="narrow-label">中奖号码:</td>
+<td>{$project.nocode}</td>
+</tr>
+<tr>
+<td class="narrow-label">状态:</td>
+<td>{if ($project.iscancel==0)}
+{if ($project.isgetprize==0)}
+未开奖
+{elseif ($project.isgetprize==2)}
+未中奖
+{elseif ($project.isgetprize==1)}
+{if $project.prizestatus==0}
+未派奖
+{else}
+已派奖
+{/if}
+{/if}
+{elseif ($project.iscancel==1)}
+本人撤单
+{elseif ($project.iscancel==2)}
+管理员撤单
+{elseif ($project.iscancel==3)}
+开错奖撤单
+{/if}</td>
+</tr>
+<tr>
+<td class="narrow-label"></td>
+<td><input type="button" class="button" value="关闭" onclick="self.close();">
+{if isset($can)}
+<input type="button" class="button" value="撤单" onclick="javascript:cancel();">
+{/if}
+</td>
+</tr>
+</table>
+</div>
+<div class="list-div">
+<table style="table-layout:fixed;">
+<tr>
+<td class="narrow-label">可能中奖情况</td>
+<td colspan="4"></td>
+</tr>
+<tr>
+<th>编号</th>
+<th>号码</th>
+<th>倍数</th>
+<th>奖级</th>
+<th>奖金</th>
+</tr>
+{foreach from=$prizelevel item=pl key=k}
+<tr align="center">
+<td>{$k}</td>
+<td align="left" style="word-break:break-all;white-space:normal; width:85%;overflow:hidden;word-wrap:break-word;">{$pl.expandcode}</td>
+<td>{$pl.codetimes}</td>
+<td>{$pl.level}</td>
+<td>{$pl.prize|escape:money:4}</td>
+</tr>
+{/foreach}
+</table>
+</div>
+{include file="pagefooter.html"}

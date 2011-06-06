@@ -1,0 +1,152 @@
+{include file="pageheader.html"}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/dialogUI/alert/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/dialogUI/alert/jquery.jamesdragn.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/dialogUI/alert/jquery.dialogUI.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/dialogUI/alert/jquery.dragndrop.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/js/new_higame/dialogUI/alert/dialogUI.css" type="text/css" />
+<script>
+jQuery(document).ready(function(){
+    $("#checkall").click(function(){
+        $(":input").attr("checked",$("#checkall").attr("checked"));
+    });
+});
+function cancel()
+{
+    if($(":input[name='taskid[]'][checked=true]").size()==0)
+    {
+        $.alert("请选择要终止追号的奖期.");
+        return false;
+    }
+    else
+    {
+    	$.confirm({
+            message: "真的要终止追号任务吗？",
+            funyes : function(){
+                $("#Form").submit();
+            },
+            funno  : function(){
+                return false;
+            } 
+          });
+    }
+}
+</script>
+
+<div class="right_02 d5d8de" style="width:98%;margin-bottom:10px;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div class="list-div">
+<table width="100%" cellpadding="4" cellspacing="1" style="table-layout:fixed;">
+<tr>
+<td width="200" height="37" align="right" bgcolor="#CCCCCC" >追号编号：</td>
+<td bgcolor="#CCCCCC">{$task.taskid|escape:html}</td>
+<td height="37" align="right" bgcolor="#CCCCCC" >游戏：</td>
+<td bgcolor="#CCCCCC">{$task.cnname|escape:html}</td>
+</tr>
+<tr>
+<td height="37" align="right" bgcolor="#CCCCCC" >游戏用户：</td>
+<td bgcolor="#CCCCCC">{$task.username|escape:html}</td>
+<td height="37" align="right" bgcolor="#CCCCCC" >玩法：</td>
+<td bgcolor="#CCCCCC">{$task.methodname|escape:html}</td>
+</tr>
+<tr>
+<td height="37" align="right" bgcolor="#CCCCCC" >追号时间：</td>
+<td bgcolor="#CCCCCC">{$task.begintime|escape:html}</td>
+<td height="37" align="right" bgcolor="#CCCCCC" >开始期号：</td>
+<td bgcolor="#CCCCCC">{$task.beginissue|escape:html}</td>
+</tr>
+<tr>
+<td height="37" align="right" bgcolor="#CCCCCC" >追号期数：</td>
+<td bgcolor="#CCCCCC">{$task.issuecount|escape:html}期</td>
+<td height="37" align="right" bgcolor="#CCCCCC" >完成期数：</td>
+<td bgcolor="#CCCCCC">{$task.finishedcount|escape:html}期</td>
+</tr>
+<tr>
+<td height="37" align="right" bgcolor="#CCCCCC" >取消期数：</td>
+<td bgcolor="#CCCCCC">{$task.cancelcount|escape:html}期</td>
+<td height="37" align="right" bgcolor="#CCCCCC" >追号总金额：</td>
+<td bgcolor="#CCCCCC">{$task.taskprice|escape:money:4}</td>
+</tr>
+<tr>
+<td height="37" align="right" bgcolor="#CCCCCC" >完成金额：</td>
+<td bgcolor="#CCCCCC">{$task.finishprice|escape:money:4}</td>
+<td height="37" align="right" bgcolor="#CCCCCC" >取消金额：</td>
+<td bgcolor="#CCCCCC">{$task.cancelprice|escape:money:4}</td>
+</tr>
+<tr>
+<td height="37" align="right" bgcolor="#CCCCCC" >中奖后终止任务：</td>
+<td bgcolor="#CCCCCC">{if $task.stoponwin==1}是{else}否{/if}</td>
+<td height="37" align="right" bgcolor="#CCCCCC" >追号状态：</td>
+<td bgcolor="#CCCCCC">{if $task.status==0}进行中{elseif $task.status==1}已取消{elseif $task.status==2}已完成{/if}</td>
+</tr>
+<tr>
+<td height="37" align="right" bgcolor="#CCCCCC" >模式：</td>
+<td bgcolor="#CCCCCC" colspan=3>{$task.modes}</td>
+</tr>
+<tr>
+<td height="37" align="right" valign="top" bgcolor="#CCCCCC" >追号内容：</td>
+<td bgcolor="#CCCCCC" style="word-break:break-all;white-space:normal; width:85%;overflow:hidden;word-wrap:break-word;" colspan=3>{$task.codes}</td>
+</tr>
+<tr>
+<td height="37" ></td>
+<td colspan=3><input type="button" class="buttonnormal" value="关闭" onclick="self.close();">
+{if $task.status==0}
+{if $can}
+<input type="button" class="buttonnormal" value="追号终止" onclick="cancel()">
+{/if}
+{/if}</td>
+</tr>
+</table>
+</div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+
+
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%">
+<form id="Form" action="./?controller=gameinfo&action=canceltask" method="post">
+<input type="hidden" name="id" value="{$task.taskid}" />
+<table width="100%" cellpadding="0" cellspacing="1">
+
+<th height="43" align="center">{if $can}
+  <input type="checkbox" id="checkall">{/if}奖期</th>
+<th align="center" class="line_03">追号倍数</th>
+<th align="center" class="line_03">追号状态</th>
+<th align="center" class="line_03">注单详情</th>
+</tr>
+<tr>
+  <th height="5" colspan="4" align="center"></th>
+  </tr>
+<tr>
+{foreach from=$aTaskdetail item=taskdetail key=k}
+<tr align="center">
+<td height="37" bgcolor="#CCCCCC">{if $taskdetail.status<2}
+{if strtotime($taskdetail.canneldeadline)>time()}{if $can}
+<input type="checkbox" name="taskid[]" value="{$taskdetail.entry}">{/if}
+{/if}
+{/if}{$taskdetail.issue|escape:html}</td>
+<td bgcolor="#CCCCCC">{$taskdetail.multiple|escape:html}倍</td>
+<td bgcolor="#CCCCCC">{if $taskdetail.status==0}进行中{elseif $taskdetail.status==1}已完成{elseif $taskdetail.status==2}已取消{/if}</td>
+<td bgcolor="#CCCCCC">
+{if $taskdetail.projectid}<a href="index.php?controller=gameinfo&action=gamedetail&id={$taskdetail.projectid}" class="blue">详情</a>{/if}</td>
+</tr>
+{/foreach}
+</table>
+</form>
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+
+{include file="pagefooter.html"}

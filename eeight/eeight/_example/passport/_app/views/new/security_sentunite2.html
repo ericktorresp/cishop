@@ -1,0 +1,57 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+jQuery("document").ready( function(){
+	jQuery("#chineseMoney").html(changeMoneyToChinese({$money}));
+});
+</script>
+<form action="index.php" method="post" onsubmit="return checkform(this)">
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action"	value="sentunite" />
+<input type="hidden" name="flag" value="confirm" />
+<input type="hidden" name="check" value="{$check}" />
+<input type="hidden" name="sentto" value="{$sentto.userid}" />
+<input type="hidden" name="money" value="{$money}" />
+<div class="right_02 d5d8de" style="width:98%;">
+
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div><table width="100%" border="0" cellspacing="1" cellpadding="4">
+    
+
+    <tr>
+      <td width="200" align="right" bgcolor="#CCCCCC">转出帐号：&nbsp;</td>
+      <td bgcolor="#CCCCCC">{$user.username|escape:html}</td>
+    </tr>
+    <tr> 
+      <td align="right" bgcolor="#CCCCCC">转入帐号：</td>
+      <td bgcolor="#CCCCCC">{$sentto.username|escape:html}</td>
+
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#CCCCCC">可转金额：</td>
+      <td bgcolor="#CCCCCC"><strong>{$user.availablebalance|escape:money}</strong></td>
+    </tr>
+    <tr> 
+      <td align="right" bgcolor="#CCCCCC">转出金额：</td>
+      <td bgcolor="#CCCCCC">{$money|escape:money}</td>
+
+    </tr>
+    <tr>
+    	<td align="right" bgcolor="#CCCCCC">转出金额(大写)：</td>
+        <td bgcolor="#CCCCCC"><span id="chineseMoney"></span></td>
+    </tr>
+    <tr>
+    	<td align="center"></td>
+    	<td><input type="submit"  class="buttonnormal" name="submit" value="提交" /> <input type="button"  class="buttonnormal" value="取消" onclick="history.back()"  /></td>
+    </tr>
+  </table></div>
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+
+</div>
+</form>
+{include file="pagefooter.html"}

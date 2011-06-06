@@ -1,0 +1,45 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<th>游戏</th>
+{if $crowdCount > 1}<th>玩法群</th>{/if}
+<th>玩法组</th>
+<th>封锁</th>
+<th>奖级</th>
+<th>状态</th>
+<th>操作</th>
+</tr>
+{foreach from=$amethod item=crowd key=k}
+<tr align="center">
+<td rowspan="{$crowd.count}">{$crowd.cnname}</td>
+{if $crowdCount > 1}<td rowspan="{$crowd.count}">{$crowd.crowdname}</td>{/if}
+{foreach from=$crowd.method item=method key=l}
+{if $l != 0}
+<tr align="center">
+{/if}
+<td>{$method.methodname}</td>
+<td>{if $method.islock>0}<font color=#669900>是</font>{else}否{/if}</td>
+<td>{if $method.level==1}单奖级{else}<font color=red>多奖级</font>{/if}</td>
+<td>{if $method.isclose==1}停售{else}<font color=#669900>销售中</font>{/if}</td>
+<td>
+{if $method.pid==0}
+<a href="./?controller=method&action=playlist&lotteryId={$method.lotteryid}&pid={$method.methodid}">玩法</a>&nbsp;&nbsp;
+{/if}
+<a href="./?controller=method&action=editplaygroup&lotteryId={$method.lotteryid}&methodId={$method.methodid}">修改</a>
+{if $method.isclose==1}
+&nbsp;<a href="./?controller=method&action=playstart&methodId={$method.methodid}&lotteryId={$lotteryId}" onclick="return confirm('你确定要开始销售 \'{$method.methodname}\'的所有玩法吗?');">开售</a>
+{else}
+&nbsp;<a href="./?controller=method&action=playstop&methodId={$method.methodid}&lotteryId={$lotteryId}"  onclick="return confirm('你确定要停止销售 \'{$method.methodname}\'的所有玩法吗?');">停售</a>
+{/if}
+</td>
+</tr>
+{/foreach}
+{foreachelse}
+<tr>
+<td colspan="7" class="no-records">没有相关数据</td>
+</tr>
+{/foreach}
+</table>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,115 @@
+{include file="pageheader.html"}
+{insert_scripts files="jquery.js"}
+<div style="padding:5px;margin:5px 0;border:1px solid #399677;background:#FFF;">
+<form>
+    &nbsp;彩种<select id="lotteryId" name="lotteryId">
+        <option value="0">请选择</option>
+        {foreach from=$lotteries item=item key=k}
+            {foreach from=$item item=item2 key=k2}
+                <option value="{$item2.lotteryid}">{$item2.cnname}</option>
+            {/foreach}
+        {/foreach}
+    </select>
+    &nbsp;奖期<input type="text" id="issue" name="issue" value="">
+    &nbsp;<input class="button" type="button" value="清除奖期开号标记" onclick="doReset()"/>
+</form>
+</div>
+<script>
+function doReset()
+{
+    if ($('#lotteryId').val() == 0) {
+        alert('请选择彩种');
+        return false;
+    }
+
+    if (!$('#issue').val()) {
+        alert('请输入奖期');
+        return false;
+    }
+
+    $.ajax({
+        type:"POST",
+        url:"index.php?controller=draw&action=resetdrawissue",
+        dataType:"json",
+        data:"lotteryId=" + $('#lotteryId').val() + "&issue=" + $('#issue').val(),
+        success:function(response)
+        {
+            if (response.errno) {
+                alert('重置出错。\nDebug信息：'+response.errstr);
+            }
+            else {
+                alert('重置成功!');
+            }
+        },
+        error:function(data)
+        {
+            alert('调用ajax出错' + data.toString());
+            return false;
+        }
+    });
+}
+$(function(){
+    $('#lotteryId').val({$lotteryId});
+});
+</script>
+
+<div class="list-div">
+<form action="./index.php" method="GET" name="codefrom" id="selectlottery">
+    <input type="hidden" name="controller" value="draw" />
+    <input type="hidden" name="action" value="{$action}" />
+    <input type="hidden" name="lotteryType" value="{$lotteryType}" />
+    {foreach from=$lotteries item=item key=k}
+    <table cellspacing='0' cellpadding='3'>
+    <tr>
+        <td width="60" style="border-bottom:1px solid #EBEBDC;">{$lotteryTypes.$k}：</td>
+        {foreach from=$item item=item2 key=k2}
+        <td style="font-weight:bold;width:auto;border-left:1px solid #EBEBDC;border-bottom:1px solid #EBEBDC;" width="15%">
+            <input type="radio" id="lotteryId{$k2}" name="lotteryId" value="{$item2.lotteryid}" {if $lotteryId==$item2.lotteryid}checked {/if}onclick="this.form.submit();"/><label for="lotteryId{$k2}">{$item2.cnname}</label>
+        </td>
+        {/foreach}
+    </tr>
+    </table>
+    {/foreach}
+</form>
+</div>
+
+<br/>
+
+<div class="list-div">
+<table  cellspacing='1' cellpadding='3'>
+<tr align="center">
+<th width="20%">Draw periods</th>
+<th width="10%">Weight point</th>
+<th width="20%">Open encoding time</th>
+{foreach from=$sources item=item key=k}
+<th width="20%"><a href="{$item.url}" target="_blank">{$item.name}({$item.rank})</a></th>
+{/foreach}
+</tr>
+{foreach from=$histories item=item key=k}
+<tr align="center">
+    <td width="20%">{$k}</td>
+    <td width="10%">{$item.totalrank}</td>
+    <td width="20%">{assign var=tmp value=$issueInfos[$k]}{$tmp.earliestwritetime}</td>
+    {foreach from=$sources item=item3 key=k}
+    <td>
+        {foreach from=$item.detail item=item2 key=k}
+            {if $item2.sourceid == $item3.id}{if $item2.number}{$item2.number}
+            {else}<b style="color:red">No result（{if $tmp.statusfetch == 2}Finished{else}processing{/if}）</b>{/if}
+                <br/>   
+                （{if $item2.totalRetryTimes > 1}<b style="color:red">{$item2.totalRetryTimes}</b>{else}{$item2.totalRetryTimes}{/if} 次，{$item2.His}）
+            {/if}
+        {/foreach}
+    </td>
+    {/foreach}
+</tr>
+{foreachelse}
+<tr>
+<td colspan="{$cols}" class="no-records">No relational periods</td>
+</tr>
+{/foreach}
+<tr>
+<td colspan="{$cols}" align="right">{$pageinfo}</td>
+</tr>
+</table>
+</div>
+{include file="pagefooter.html"}

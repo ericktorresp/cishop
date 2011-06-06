@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml" xmlns:esun>
+<HEAD><TITLE>{if $sSysTopMessage}[{$sSysTopMessage}] {/if}{$webtitle} {if $ur_here} - {$ur_here} {/if} </TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<META http-equiv="Pragma" content="no-cache" />
+{if $sSysMetaMessage}{$sSysMetaMessage}{/if}
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/css/default/style.css" type="text/css" />
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/css/default/line.css" type="text/css" />
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/line.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/calendar/jquery.dyndatetime.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/js/calendar/css/calendar-blue2.css" type="text/css" />
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/common.js"></script>
+</HEAD>
+<BODY style="background: url({$sSystemImagesAndCssPath}/highgame/images/default/background_03.jpg) repeat-x center top; margin:10px;height:100%;">
+{if empty($sys_header_title)}
+<H1>{if $actionlink}<SPAN class="action-span"><A 
+href="{$actionlink.href}">{$actionlink.text|escape:html}</a></SPAN>{/if}{if $actionlink2}<SPAN class="action-span"><A 
+href="{$actionlink2.href}">{$actionlink2.text|escape:html}</a></SPAN>{/if}{if $actionlink3}<SPAN class="action-span"><A 
+href="{$actionlink3.href}">{$actionlink3.text|escape:html}</a></SPAN>{/if}<SPAN class="action-span1"><A 
+href="./" target='_top'>高频游戏</a> {if $ur_here} - {$ur_here} {/if}</SPAN><DIV style="clear:both"></DIV></H1>
+{/if}
+<script language="javascript">
+fw.onReady(function(){
+	Chart.init();	
+	DrawLine.bind("chartsTable","has_line");
+
+	{foreach from=$acodegroup item=codegroup key=k}
+	DrawLine.color('{if $k%2 == 0}#499495{else}#E4A8A8{/if}');
+	DrawLine.add((parseInt({$k})*{$totalNum}+{$bonuscodelength}+1),2,{$totalNum},0);
+	{/foreach}
+	DrawLine.draw(Chart.ini.default_has_line);
+	if($("#chartsTable").width()>$('body').width())
+	{
+	   $('body').width($("#chartsTable").width() + "px");
+	}
+	$("#container").height($("#chartsTable").height() + "px");
+	$("#missedTable").width($("#chartsTable").width() + "px");
+    resize();
+	jQuery("#starttime").dynDateTime({
+		ifFormat: "%Y-%m-%d",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		button: ".next()", //next sibling
+		onUpdate:function(){
+			$("#starttime").change();
+		},
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: false
+	});
+	jQuery("#starttime").change(function(){
+		if(! validateInputDate(jQuery("#starttime").val()) )
+		{
+			jQuery("#starttime").val('');
+			alert("日期格式不正确,正确的格式为:2009-06-10");
+		}
+		if($("#endtime").val()!="")
+		{
+			if($("#starttime").val()>$("#endtime").val())
+			{
+				$("#starttime").val("");
+				alert("输入的日期不符合逻辑.");
+			}
+			else
+			{
+			    if(daysBetween($("#starttime").val(),$("#endtime").val()) > 1)
+			    {
+			        $("#starttime").val("");
+			        alert("输入的时间跨度不能超过2天！");
+			    }
+			}
+		}
+	});
+	jQuery("#endtime").dynDateTime({
+		ifFormat: "%Y-%m-%d",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		button: ".next()", //next sibling
+		onUpdate:function(){
+			$("#endtime").change();
+		},
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: false
+	});
+	jQuery("#endtime").change(function(){
+		if(! validateInputDate(jQuery("#endtime").val()) )
+		{
+			jQuery("#endtime").val('');
+			alert("日期格式不正确,正确的格式为:2009-06-10");
+		}
+		if($("#starttime").val()!="")
+		{
+			if($("#starttime").val()>$("#endtime").val())
+			{
+				$("#endtime").val("");
+				alert("输入的日期不符合逻辑.");
+			}
+			else
+			{
+			    if(daysBetween($("#starttime").val(),$("#endtime").val()) > 1)
+			    {
+			        $("#endtime").val("");
+			        alert("输入的时间跨度不能超过2天！");
+			    }
+			}
+		}
+	});
+});
+function resize(){
+    window.onresize = func;
+    function func(){
+        window.location.href=window.location.href;
+    }
+}
+function daysBetween(start, end){
+   var startY = start.substring(0, start.indexOf('-'));
+   var startM = start.substring(start.indexOf('-')+1, start.lastIndexOf('-'));
+   var startD = start.substring(start.lastIndexOf('-')+1, start.length);
+  
+   var endY = end.substring(0, end.indexOf('-'));
+   var endM = end.substring(end.indexOf('-')+1, end.lastIndexOf('-'));
+   var endD = end.substring(end.lastIndexOf('-')+1, end.length);
+  
+   var val = (Date.parse(endY+'/'+endM+'/'+endD)-Date.parse(startY+'/'+startM+'/'+startD))/86400000;
+   return Math.abs(val);
+}
+function toggleMiss(){
+    $('#missedTable').toggle();
+}
+</script>
+<style>
+	esun\:*{behavior:url(#default#VML)}
+</style>
+<table width="100%" id="titlemessage" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td class="tdleft"><b><span class="redtext">{$lotteryname}基本走势</span></b></td>
+		<td class="tdright">
+			<a href="?controller=game&action=bonuscode&lotteryid={$lotteryid}&issuecount=30">最近30期&nbsp;</a>
+			<a href="?controller=game&action=bonuscode&lotteryid={$lotteryid}&issuecount=50">最近50期&nbsp;</a>
+			<a href="?controller=game&action=bonuscode&lotteryid={$lotteryid}&issuecount=100">最近100期&nbsp;</a>
+		</td>
+		<td class="tdleft">
+			<form method="POST">
+				<input type="hidden" name="controller" value="game">
+				<input type="hidden" name="action" value="bonuscode">
+				<input type="text" value="{$starttime}" name="starttime" id="starttime">
+				<img src="{$sSystemImagesAndCssPath}/highgame/images/default/calendar2.gif" style="vertical-align:middle;">
+				&nbsp;&nbsp;至&nbsp;&nbsp;
+				<input type="text" value="{$endtime}" name="endtime" id="endtime">
+				<img src="{$sSystemImagesAndCssPath}/highgame/images/default/calendar2.gif" style="vertical-align:middle;">
+				<input type="submit" value="" id="showissue">
+			</form>
+		</td>
+	</tr>
+	 <tr>
+        <td colspan="3" style="border:0px;">
+          标注形式选择&nbsp;<input type="checkbox" name="checkbox2" value="checkbox" id="has_line" />
+          <span><b><label for="has_line">显示走势折线</label></b></span>&nbsp;<input type="checkbox" name="checkbox" value="checkbox" id="no_miss" onclick="toggleMiss();" />
+          <span><b><label for="no_miss">不带遗漏数据</label></b></span>
+        </td>
+      </tr>
+</table>
+<div style="position:relative;" id="container">
+<table id="missedTable" width="100%" cellpadding="0" cellspacing="0" style="position:absolute; top:0; left:0;">
+      <tr id="title">
+             <td rowspan="2"><strong>期号</strong></td>
+             <td rowspan="2" colspan="{$bonuscodelength}" class="redtext"><strong>开奖号码</strong></td>
+             {foreach from=$lcodegroup item=w}
+             <td colspan="{$totalNum}"><strong>{$w}位</strong></td>
+             {/foreach}
+             <td colspan="{$totalNum}"><strong>不定位</strong></td>                         
+       </tr>
+       <tr id="head">
+       		{foreach from=$acodegroup item=codegroup}
+       			{foreach from=$vaildnum item=ivalidnum}
+       				<td class="wdh"><strong>&nbsp;</strong></td>
+       			{/foreach}
+       		{/foreach}
+       		{foreach from=$vaildnum item=ivalidnum}
+       			<td class="wdh"><strong>&nbsp;</strong></td>
+       		{/foreach}
+       	</tr>
+       {foreach from=$bonuscode item=sbonuscode name=bc}
+       		<tr>
+       			<td id="title" class="none">{$sbonuscode.issue}</td>
+       			{foreach from=$sbonuscode.wei item=wei}
+       				<td class="wdh" align="center">&nbsp;</td>
+       			{/foreach}
+       			{foreach from=$acodegroup item=codegroup}
+       				{foreach from=$vaildnum item=ivalidnum}
+						<td class="wdh" align="center"><div class="ball0{$codegroup.normalstytle}">{if $sbonuscode.misseddata.$codegroup.wei.$ivalidnum>0}{$sbonuscode.misseddata.$codegroup.wei.$ivalidnum}{/if}</div></td>
+       				{/foreach}
+       			{/foreach}
+       			{foreach from=$sbonuscode.totalmissed item=tm key=num}
+       				<td class="wdh" align="center">
+       					{if $tm.times <= 0}
+       						<div class="ball04">{$tm.missed}</div>
+       				    {/if}
+       				</td>
+       			{/foreach}
+       		</tr>
+       {/foreach}
+</table>
+<table id="chartsTable" width="100%" cellpadding="0" cellspacing="0" style="position:absolute; top:0; left:0;">
+      <tr id="title">
+             <td rowspan="2"><strong>期号</strong></td>
+             <td rowspan="2" colspan="{$bonuscodelength}" class="redtext"><strong>开奖号码</strong></td>
+             {foreach from=$lcodegroup item=w}
+             <td colspan="{$totalNum}"><strong>{$w}位</strong></td>
+             {/foreach}
+             <td colspan="{$totalNum}"><strong>不定位</strong></td>                         
+       </tr>
+       <tr id="head">
+       		{foreach from=$acodegroup item=codegroup}
+       			{foreach from=$vaildnum item=ivalidnum}
+       				<td class="wdh"><strong>{$ivalidnum}</strong></td>
+       			{/foreach}
+       		{/foreach}
+       		{foreach from=$vaildnum item=ivalidnum}
+       			<td class="wdh"><strong>{$ivalidnum}</strong></td>
+       		{/foreach}
+       	</tr>
+       {foreach from=$bonuscode item=sbonuscode name=bc}
+       		<tr>
+       			<td id="title">{$sbonuscode.issue}</td>
+       			{foreach from=$sbonuscode.wei item=wei}
+       				<td class="wdh" align="center"><div class="ball02">{$wei}</div></td>
+       			{/foreach}
+       			{foreach from=$acodegroup item=codegroup}
+       				{foreach from=$vaildnum item=ivalidnum}
+       					{if $ivalidnum == $sbonuscode.wei.$codegroup.wei}
+       						<td class="charball" align="center">
+       							<div class="ball0{$codegroup.ballstytle}">{$sbonuscode.wei.$codegroup.wei}</div>
+       						</td>
+       					{else}
+       						<td class="wdh" align="center"><div class="ball0{$codegroup.normalstytle}">&nbsp;</div></td>
+       					{/if}
+       				{/foreach}
+       			{/foreach}
+       			{foreach from=$sbonuscode.totalmissed item=tm key=num}
+       				<td class="wdh" align="center">
+       					{if $tm.times > 0}
+       					    {if $tm.times > 1}
+       					    <div style="position: absolute;">
+       					        <div class="smallball">{$tm.times}</div>
+       					    </div>
+       					    {/if}
+       						<div class="ball02">{$num}</div>
+       					{else}
+       						<div class="ball04">&nbsp;</div>
+       				    {/if}
+       				</td>
+       			{/foreach}
+       		</tr>
+       {/foreach}
+       <tr>
+        <td id="title" nowrap>出现总次数</td>
+		<td class="wdh" align="center" colspan="{$bonuscodelength}">&nbsp;</td>
+		{foreach from=$appears item=wei}
+			{foreach from=$wei item=ivalidnum}
+			<td class="wdh" align="center">{$ivalidnum}</td>
+			{/foreach}
+		{/foreach}
+		{foreach from=$totalappears item=ta}
+			<td class="wdh" align="center">
+				{$ta}
+			</td>
+		{/foreach}
+       </tr>
+       <tr>
+        <td id="title" nowrap>平均遗漏值</td>
+		<td class="wdh" align="center" colspan="{$bonuscodelength}">&nbsp;</td>
+		{foreach from=$appears item=wei}
+			{foreach from=$wei item=ivalidnum}
+			<td class="wdh" align="center"><script>document.write({$ivalidnum}>0 ? Math.floor({$smarty.foreach.bc.total}/{$ivalidnum}) : {$smarty.foreach.bc.total}+1);</script></td>
+			{/foreach}
+		{/foreach}
+		{foreach from=$totalappears item=ta}
+			<td class="wdh" align="center">
+				<script>document.write({$ta}>0 ? Math.floor({$smarty.foreach.bc.total}/{$ta}) : {$smarty.foreach.bc.total}+1);</script>
+			</td>
+		{/foreach}
+       </tr>
+       <tr>
+        <td id="title" nowrap>最大遗漏值</td>
+		<td class="wdh" align="center" colspan="{$bonuscodelength}">&nbsp;</td>
+		{foreach from=$maxmiss item=mm}
+			{foreach from=$mm item=ivalidnum}
+			<td class="wdh" align="center">{$ivalidnum}</td>
+			{/foreach}
+		{/foreach}
+		{foreach from=$totalmaxmiss item=tmm}
+			<td class="wdh" align="center">
+				{$tmm}
+			</td>
+		{/foreach}
+       </tr>
+       <tr>
+        <td id="title" nowrap>最大连出值</td>
+		<td class="wdh" align="center" colspan="{$bonuscodelength}">&nbsp;</td>
+		{foreach from=$series item=wei}
+			{foreach from=$wei item=ivalidnum}
+			<td class="wdh" align="center">{$ivalidnum}</td>
+			{/foreach}
+		{/foreach}
+		{foreach from=$totalmaxseries item=ts}
+			<td class="wdh" align="center">
+				{$ts}
+			</td>
+		{/foreach}
+       </tr>
+       <tr id="head">
+            <td rowspan="2" id="title"><strong>期号</strong></td>
+            <td rowspan="2" colspan="{$bonuscodelength}" class="redtext" id="title"><strong>开奖号码</strong></td>
+       		{foreach from=$acodegroup item=codegroup}
+       			{foreach from=$vaildnum item=ivalidnum}
+       				<td class="wdh"><strong>{$ivalidnum}</strong></td>
+       			{/foreach}
+       		{/foreach}
+       		{foreach from=$vaildnum item=ivalidnum}
+       			<td class="wdh"><strong>{$ivalidnum}</strong></td>
+       		{/foreach}
+       	</tr>
+        <tr id="title">
+             {foreach from=$lcodegroup item=w}
+             <td colspan="{$totalNum}"><strong>{$w}位</strong></td>
+             {/foreach}
+             <td colspan="{$totalNum}"><strong>不定位</strong></td>                         
+        </tr>
+</table>
+</div>
+<!-- <div id="quickbuy"><a href="">购买{$lotteryname}</a></div> //-->
+{include file="pagefooter.html"}

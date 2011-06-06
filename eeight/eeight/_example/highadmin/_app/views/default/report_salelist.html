@@ -1,0 +1,407 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-green.css"  />
+<style>
+#method_message{
+    position:absolute;
+    top:18px!important;top:21px;
+    left:51px;
+    display:none;
+    border:1px solid #7F9DB9;
+    border-top:0px solid #7F9DB9;
+    background:#FFFFFF;
+    color:#000000;
+    width:142px!important;width:143px;
+    padding-top:3px;
+    min-height:80px;
+    max-height:350px;
+    list-style:none;
+    overflow-y:auto;
+	overflow-x:hidden;
+}
+#crowdname{
+   cursor:default;
+   background:url(./images/arrow_select.gif) no-repeat right top;
+   background-color:#FFFFFF;
+   border:1px solid #7F9DB9;
+}
+#method_message .allcrowd{
+}
+#method_message .crowdid{
+    cursor:default;
+    color:#289573;
+    padding-left:5px;
+    font-weight:bold;
+    heigth:16px;
+    line-height:16px;
+}
+#method_message .allgroup{
+    display:none;
+}
+#method_message .groupid{
+    color:#0000FF;
+    cursor:default;
+    padding-left:10px;
+    heigth:16px;
+    line-height:16px;
+}
+#method_message .allmethod{
+    display:none;
+}
+#method_message .methodid{
+    color:#FF0000;
+    cursor:default;
+    padding-left:15px;
+    heigth:16px;
+    line-height:16px;
+}
+#method_message .select{
+    background:#316AC5;
+    color:#FFFFFF;
+}
+</style>
+<script>
+$(document).ready(function(){
+	jQuery("#starttime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		showOthers: true,
+		weekNumbers: true,
+		//onUpdate: function(){alert('1');}
+		showsTime: true
+	});
+	jQuery("#starttime").change(function(){
+		if(! validateInputDate(jQuery("#sdate").val()) )
+		{jQuery("#starttime").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+	});
+	jQuery("#endtime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#endtime").change(function(){
+		if(! validateInputDate(jQuery("#edate").val()) )
+		{jQuery("#endtime").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+	});
+	var data_method = {$data_method};
+    $("#lotteryid").change(lotterychange);
+	//选择游戏
+    function lotterychange(){
+        var i =  $("#lotteryid").val();
+        var html = "";
+        var nogroup = false;
+        if( i > 0 ){
+            html = "游戏玩法:<input name='select' id='crowdname' value='所有玩法' type='text' size=20 readonly>";
+            html += "<input type=hidden name=crowdid value='' id=crowdid>";
+            html += "<input type=hidden name=pid value='' id=pid>";
+            html += "<input type=hidden name=methodid value='' id=methodid>";
+            html += "<div id='method_message'>";
+            if(data_method[i][0] == undefined){
+                html += "<div class='allcrowd'><div class='crowdid' id='0'>所有玩法</div></div>";
+            }
+            $.each(data_method[i],function(j,k){
+                if(k.crowdname == null){
+                    k.crowdname = '所有玩法';
+                }
+                html += "<div class='allcrowd'>";
+                if(k.crowdid > 0){
+                    if(k.crowdid == {$s.crowdid}){
+                        html += "<div class='crowdid select' id='"+k.crowdid+"'>"+k.crowdname+"</div>";
+                    }else{
+                        html += "<div class='crowdid' id='"+k.crowdid+"'>"+k.crowdname+"</div>";
+                    }
+                }else{
+                    html += "<div class='crowdid' id='0'>所有玩法</div>";
+                }
+                $.each(data_method[i][j].group,function(k,n){
+                    html += "<div class='allgroup'>";
+                    if(n.groupid == {$s.pid}){
+                        html += "<div class='groupid select' id='"+n.groupid+"'>"+n.groupname+"</div>";
+                    }else{
+                        html += "<div class='groupid' id='"+n.groupid+"'>"+n.groupname+"</div>";
+                    }
+                    if(n.method.length>1){
+                        html += "<div class='allmethod'>";
+                        $.each(n.method,function(km,kn){
+                            if(kn.methodid == {$s.methodid}){
+                                html += "<div class='methodid select' id='"+kn.methodid+"'>"+kn.methodname+"</div>";
+                            }else{
+                                html += "<div class='methodid' id='"+kn.methodid+"'>"+kn.methodname+"</div>";
+                            }
+                        });
+                        html += "</div>";
+                    }
+                    html += "</div>";
+                });
+                html += "</div>";
+                if(k.crowdid == 0){
+                    nogroup = true;
+                }
+            });
+            html += "</div>";
+        }else{
+            html = "游戏玩法:<input name='select' id='crowdname' value='所有玩法' type='text' size=20 readonly>";
+        }
+        $("#game_method").html(html);
+        if(nogroup){
+            $(".allgroup").show();
+        }
+        if($.browser.safari){
+            $("#method_message").css("top","21px");
+            $("#method_message").css("left","53px");
+            $("#method_message").css("border-top","1px solid #7F9DB9");
+        }
+        //弹出层失去焦点
+        $("body").click(function(){
+            $("#method_message").hide();
+            var methodname = $(".select").html();
+            if(methodname == null){
+                methodname = '所有玩法';
+            }
+            $("#crowdname").val(methodname);
+        });
+        if($(".select").html() != null){
+            $("#crowdname").val($(".select").html());
+        }
+        //点击选择框
+        $("#crowdname").toggle(function () {
+            $("#method_message").show();
+        },function () {
+            $("#method_message").hide();
+            if($(".select").html() != null){
+                $("#crowdname").val($(".select").html());
+            }
+        });
+        //点击玩法群
+        $(".crowdid").toggle(function(){
+            $("#method_message").find("div").removeClass("select");
+            $(this).addClass("select");
+            $("#crowdname").val($(".select").html());
+            $("#crowdid").val($(this).attr("id"));
+            $("#pid").val(0);
+            $("#methodid").val(0);
+            $(this).siblings().show();
+            $(this).parent().siblings().find(".allgroup").hide();
+        },function(){
+            $("#method_message").find("div").removeClass("select");
+            $(this).addClass("select");
+            $("#crowdname").val($(".select").html());
+            $("#crowdid").val($(this).attr("id"));
+            $("#pid").val(0);
+            $("#methodid").val(0);
+            $(this).siblings().hide();
+            $(this).parent().siblings().find(".allgroup").hide();
+        });
+        //点击玩法组
+        $(".groupid").toggle(function(){
+            $("#method_message").find("div").removeClass("select");
+            $(this).addClass("select");
+            $("#crowdname").val($(".select").html());
+            $("#crowdid").val(0);
+            $("#pid").val($(this).attr("id"));
+            $("#methodid").val(0);
+            $(this).siblings().show();
+            $(this).parent().siblings().find(".allmethod").hide();
+        },function(){
+            $("#method_message").find("div").removeClass("select");
+            $(this).addClass("select");
+            $("#crowdname").val($(".select").html());
+            $("#crowdid").val(0);
+            $("#pid").val($(this).attr("id"));
+            $("#methodid").val(0);
+            $(this).siblings().hide();
+            $(this).parent().siblings().find(".allmethod").hide();
+        });
+        //点击玩法
+        $(".methodid").toggle(function(){
+            $("#method_message").find("div").removeClass("select");
+            $(this).addClass("select");
+            $("#crowdname").val($(".select").html());
+            $("#crowdid").val(0);
+            $("#pid").val(0);
+            $("#methodid").val($(this).attr("id"));
+        },function(){
+            $("#method_message").find("div").removeClass("select");
+            $(this).addClass("select");
+            $("#crowdname").val($(".select").html());
+            $("#crowdid").val(0);
+            $("#pid").val(0);
+            $("#methodid").val($(this).attr("id"));
+        });
+    };
+	$("#lotteryid").val({$s.lottery});
+	$("#lotteryid").change();
+	$("#methodid").val({$s.methodid|default:0});
+});
+</script>
+<div class="form-div">
+<form method="GET" action="">
+<input type="hidden" name="controller" value="report">
+<input type="hidden" name="action" value="salelist">
+<input type="hidden" name="userid" value="{$s.userid}">
+<input type="hidden" name="isgetdata" value="1">
+<img src="./images/icon_search.gif">
+&nbsp;&nbsp;日期：
+<input type="text" name="starttime" id="starttime" value="{$s.starttime|escape:html}"><img src="./images/calendar2.gif">
+&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="text" name="endtime" id="endtime" value="{$s.endtime|escape:html}"><img src="./images/calendar2.gif">
+<div style="line-height:8px;">&nbsp;</div>
+<span style="padding:5px 5px 0 34px;">游戏名称:</span>
+<select name="lottery" id="lotteryid">
+<option value="0">所有游戏</option>
+{foreach from=$lottery item=l key=k}
+<option value="{$k}">{$l}</option>
+{/foreach}
+</select>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span id="game_method" style="position:relative;"></span>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+代理:<select name="proxy">
+<option value="0">所有</option>
+{foreach from=$proxy key=k item=v}
+<option value="{$v.userid}" {if $v.userid==$s.proxy}selected{/if}>{$v.username}</option>
+{/foreach}
+</select>
+&nbsp;&nbsp;&nbsp;模式：
+<select name="modes" id="modes">
+<option value="-1" {if $s.modes == -1}selected{/if}>全部模式</option>
+{foreach from=$modelist item=mode key=k}
+<option value="{$mode.modeid}" {if $s.modes == $mode.modeid}selected{/if}>{$mode.name}</option>
+{/foreach}
+</select>
+<div style="line-height:8px;">&nbsp;</div>
+<span style="padding:0 5px 0 34px;">是否是测试账号</span>
+<select name="istester">
+<option value="-1" {if $s.istester=='-1'}SELECTED{/if}>全部类型</option>
+<option value="0" {if $s.istester=='0'}SELECTED{/if}>非测试账号</option>
+<option value="1" {if $s.istester=='1'}SELECTED{/if}>测试账号</option>
+</select>
+<span style="padding:0 5px 0 20px;">是否是冻结账号</span>
+<select name="isfrozen">
+<option value="-1" {if $s.isfrozen=='-1'}SELECTED{/if}>全部类型</option>
+<option value="0" {if $s.isfrozen=='0'}SELECTED{/if}>非冻结账号</option>
+<option value="1" {if $s.isfrozen=='1'}SELECTED{/if}>冻结账号</option>
+</select>
+&nbsp;&nbsp;
+<input type="submit" value="立即搜索" class="button">
+</form>
+</div>
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+<tr>
+<th width="10%">用户名</th>
+<th width="10%">所属组</th>
+<th width="12%">总代购费</th>
+<th width="12%">总返点</th>
+<th width="12%">实际总代购费</th>
+<th width="12%">中奖金额</th>
+<th width="12%">总结算</th>
+<th width="20%">操作</th>
+</tr>
+{if isset($self)}
+<tr align="center" style="color:red;">
+<td>{$self.username}</td>
+<td>{if $self.usertype==1}代理{else}用户{/if}</td>
+<td align="right">{$self.sum_prize|escape:money:4}</td>
+<td align="right">{$self.sum_point|escape:money:4}</td>
+<td align="right">{$self.real_prize|escape:money:4}</td>
+<td align="right">{$self.sum_bonus|escape:money:4}</td>
+<td align="right">{$self.sum_total|escape:money:4}</td>
+<td></td>
+</tr>
+{/if}
+{foreach from=$aUser item=user key=k}
+<tr align="center">
+<td>{$user.username}</td>
+<td>{if $user.usertype==1}代理{else}用户{/if}</td>
+<td align="right">{$user.sum_prize|escape:money:4}</td>
+<td align="right">{$user.sum_point|escape:money:4}</td>
+<td align="right">{$user.real_prize|escape:money:4}</td>
+<td align="right">{$user.sum_bonus|escape:money:4}</td>
+<td align="right">{$user.sum_total|escape:money:4}</td>
+<td><a href="./index.php?controller=report&action=saledetail&userid={$k}&starttime={$s.starttime}&endtime={$s.endtime}" target="_blank">游戏明细</a>
+<a href="./index.php?controller=report&action=salelist&userid={$k}&starttime={$s.starttime}&endtime={$s.endtime}&modes={$s.modes}&isgetdata=1">查看下级</a></td>
+</tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="8">请选择查询条件之后进行查询</td></tr>
+{/foreach}
+<tr align="center">
+<td colspan="2">合计</td>
+<td align="right">{$total.sum_prize|escape:money:4}</td>
+<td align="right">{$total.sum_point|escape:money:4}</td>
+<td align="right">{$total.real_prize|escape:money:4}</td>
+<td align="right">{$total.sum_bonus|escape:money:4}</td>
+<td align="right">{$total.sum_total|escape:money:4}</td>
+<td></td>
+</tr>
+
+</table>
+</div>
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#EEF8F8';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{include file="pagefooter.html"}

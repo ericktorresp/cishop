@@ -1,0 +1,70 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action="./?controller=iplimit&action={$form_action}" onsubmit="return validate()">
+  <table cellspacing='1' cellpadding='3' id='list-table'>
+    <tr>
+      <td width="150" align="right">IP:</td>
+      <td><input type="text" name="iplimit" id="iplimit" value="{$aIP.limitip}">&nbsp;&nbsp;&nbsp;&nbsp;如果是IP段，只输入前面固定的部分，如192.168</td>
+    </tr>
+    <tr>
+      <td width="150" align="right">说明:</td>
+      <td><input type="text" name="notice" id="notice" value="{$aIP.notice}">&nbsp;&nbsp;&nbsp;&nbsp;最长25个汉字</td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding-left:140px;">
+      {if $form_action == save}
+	       <input type="submit" name="ipadd" id="ipadd" value="增加信任IP" class='button'>
+	  {/if}
+	  {if $form_action == update}
+	       <input type="submit" name="ipadd" id="ipadd" value="修改信任IP" class='button'>
+	       <input type="hidden" value="{$aIP.id}" id="ipid" name="ipid">
+	  {/if}
+	  </td>
+    </tr>
+  </table>
+</form>
+</div>
+
+{insert_scripts files="./js/validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+  /**
+   * 检查表单输入的内容
+   */
+	function validate()
+	{
+		var validator = new Validator('listForm');
+		validator.required('iplimit', "IP不能为空,请输入正确的IP!");
+		if( !validateLimitIP( document.forms['listForm'].elements['iplimit'].value) )
+		{
+			validator.addErrorMsg('IP不符合规则,请输入正确的IP');
+		}
+		if( noticelen(document.forms['listForm'].elements['notice'].value) > 50 )
+		{
+			validator.addErrorMsg('说明内容最长25个汉字');
+		}
+		return validator.passed();  
+    }
+
+//IP验证
+function validateLimitIP( str )
+{
+	var patrn = /^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){0,3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$/;
+	if( patrn.exec(str) )
+	{
+		return true;	
+	}
+	else
+	{
+		return false;
+	}
+}
+//说明文字限制字数
+function noticelen(str){
+   return str.replace(/[^\x00-\xff]/g, "**").length;
+}
+//-->
+</script>
+{/literal}
+{include file="pagefooter.html"}

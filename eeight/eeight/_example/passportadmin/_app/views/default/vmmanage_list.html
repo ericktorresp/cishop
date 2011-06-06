@@ -1,0 +1,100 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+<div class="form-div">
+切换银行:
+<select name="selectTable" onChange="javascript:GotoURL(this.value)" size="1" tabindex="1">
+	<option value="?controller=vmmanage&action=vmlist">未选择</option>
+{foreach from=$depositbanklist item=bank key=ik}		
+	<option value="?controller=vmmanage&action=vmlist&depositbankid={$bank.bankid}" {if $depositbankid == $bank.bankid} SELECTED{/if}>{$bank.bankname}</option>
+{/foreach}
+</select>
+</div>
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" id="listForm" >
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<th>编号</th>
+<th>虚拟机别名</th>
+<th>虚拟机IP</th>
+<th>VPN_IP</th>
+<th>银行</th>
+<th>关联卡</th>
+<th>状态</th>
+<th>操作</th>
+</tr>
+{foreach from=$vminfo item=vm key=k}
+<tr align="center">
+	<td align="center">{$vm.vm_id}</td>
+	<td align="center">{$vm.alias_name|escape:html}</td>
+	<td align="center">{$vm.ip}</td>
+	<td align="center">{$vm.vpn_ip}</td>
+	<td>{$depositbankname}</td>
+	<td align="center">{$vm.nickname|escape:html}</td>
+	<td align="center">{if $vm.is_running == 1}<font color="Blue">启用</font>{else}<font color="Red">禁用</font>{/if}</td>
+	<td align="center"><a href="/?controller=vmmanage&action=edit&id={$vm.vm_id}&depositbankid={$depositbankid}">修改</a>　|　
+	<a href="/?controller=vmmanage&action=delete&id={$vm.vm_id}&depositbankid={$depositbankid}" onclick="return confirm('确定删除吗？');">删除</a>
+	</td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="9" class="no-records">没有搜索到记录</td>
+</tr>
+{/foreach}
+</table>
+</form>
+</div>
+<script>
+function showNotice(objId)
+{
+	var obj = document.getElementById(objId);
+	if(obj.style.display=="none")
+	{
+		obj.style.display="block";
+	}
+	else
+	{
+		obj.style.display="none";
+	}
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH" && row.className != "frozenuser") row.cells[i].style.backgroundColor = '#EEF8F9';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+    $(".frozenuser").find("td").css("backgroundColor","#DDD");
+  }
+}
+
+</script>
+{include file="pagefooter.html"}

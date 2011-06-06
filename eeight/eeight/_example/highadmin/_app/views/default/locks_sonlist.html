@@ -1,0 +1,41 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr> 
+ <th width="10%">游戏</th>
+{if $crowdCount > 1}<th width="10%">玩法群</th>{/if}
+ <th width="20%">封锁表名称</th>
+ <th width="15%">封锁表中文名称</th>
+ <th width="15%">相关玩法</th>
+ <th width="15%">封锁值</th>
+ <th width="15%">操作</th>
+</tr>
+{foreach from=$aLockList item=crowd key=l}
+<tr align="center">
+<td rowspan="{$crowd.count}">{$crowd.cnname}</td>
+{if $crowdCount > 1}<td rowspan="{$crowd.count}">{$crowd.crowdname}</td>{/if}
+{foreach from=$crowd.lock item=aLotteryLock key=k}
+{if $k != 0}<tr align="center">{/if}
+<td align="center">{$aLotteryLock.locktablename}</td>
+<td align="center">{$aLotteryLock.locktablecnname}</td>
+<td align="center" style="color:#39A677;"><b>{ if $aLotteryLock.lockmethodname == ''}<font color="Gray">--暂无--</font>{else}{$aLotteryLock.lockmethodname}{/if}</b></td>
+<td align="center">{$aLotteryLock.maxlost|escape:money:4}</td>
+<td align="center">
+<a href="./?controller=locks&action=methodlockedit&locktableid={$aLotteryLock.locktableid}">修改</a>&nbsp;
+<a href="./?controller=locks&action=delete&locktableid={$aLotteryLock.locktableid}" onclick="return confirm('确定要删除封锁表吗？');">删除</a>
+</td>
+</tr>
+{/foreach}
+{foreachelse}
+<tr>
+<td class="no-records" colspan="8">没有相关记录,请先添加信息。</td>
+</tr>
+{/foreach}
+<tr>
+<td colspan="8" align="center">
+<input type="hidden" name="lotteryid" value="{$aLotteryLock.lotteryid|escape:html}">
+</td>
+</tr> 
+</table>
+</div>
+{include file="pagefooter.html"}

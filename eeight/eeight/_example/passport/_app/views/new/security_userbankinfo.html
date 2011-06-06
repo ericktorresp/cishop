@@ -1,0 +1,45 @@
+{include file="pageheader.html"}
+<body>
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div>
+<table width="100%" cellpadding="4" cellspacing="1" class="list-table">
+<tr><td colspan="11" align="center"><font color="Red">提示：</font>一个游戏账户最多绑定&nbsp;<font style="font-size:16px;color:#FF3300">{$num}</font>&nbsp;张银行卡</td>
+</tr>
+<tr align="center">
+ <th bgcolor="#999999">别名</th>
+ <th bgcolor="#999999">用户名</th>
+ <th bgcolor="#999999">银行名称</th>
+ <th bgcolor="#999999">卡号</th>
+ <th bgcolor="#999999">绑定时间</th>
+ <th bgcolor="#999999">操作</th>
+</tr>
+{foreach from=$banklist item=bank key=k}
+<tr align="center">
+	<td bgcolor="#CCCCCC">{$bank.nickname}</td>
+	<td bgcolor="#CCCCCC">{$bank.user_name}</td>
+	<td bgcolor="#CCCCCC">{$bank.bank_name}</td>
+	<td bgcolor="#CCCCCC">{$bank.account}</td>
+	<td bgcolor="#CCCCCC">{$bank.atime}</td>
+	<td bgcolor="#CCCCCC">
+	<!--<a href="?controller=security&action=viewuserbankinfo&id={$bank.id}">查看</a>
+	　|　--><a href="?controller=security&action=rebinding&flag=reset&id={$bank.id}">重新绑定</a>
+	　|　<a href="?controller=security&action=deluserbank&flag=del&id={$bank.id}">删除</a>	</td>
+</tr>
+{/foreach}
+{if $binded < $num }
+<tr>
+	<td colspan="6"><input type="button"  class="buttonnormal" value="增加绑定" onClick="window.location.href='?controller=security&action=adduserbank'" /></td>
+</tr>
+{/if}
+</table>
+</div>
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+{include file="pagefooter.html"}

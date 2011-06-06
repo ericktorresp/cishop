@@ -1,0 +1,191 @@
+{include file="pageheader.html"}
+{insert_scripts files="jquery.js"}
+<script>
+jQuery(document).ready(function(){
+	jQuery("#nethodids").click(function(){
+		$(":checkbox[name='methodid[]']").attr("checked",jQuery("#nethodids").attr("checked"));
+	});
+	jQuery(":input").change();//数据默认加载
+	//表单验证
+	jQuery("#pgform").submit(function(){
+		jQuery(":input").change();
+		b = true;
+		if($(":input[name^='description'][value!='']").size()!=$(":input[name^='description']").size())
+		{
+			b = false;
+		}
+		if(b==false)
+		{			 
+			alert("奖金描述描述为空");
+			return false;
+		}
+		b= true;
+		$.each($("span[id^='lastprofit_']"),function(){
+			if($(this).html()<{$alottery.minprofit})
+			{
+				b = false;
+			};
+		});
+		if(b==false)
+		{
+			alert("公司留水计算错误.");
+			return false;
+		}
+		if($(":input[name='groupname']").val()=="")
+		{
+			alert("奖金组别名称错误.");
+			$(":input[name='groupname']").focus();
+			return false;
+		}
+		return true;
+	});
+});
+/*
+ * 	三种模式
+ * 	  A:单奖级模式,直接计算
+ *    B:奖金不累加
+ *    C:奖金累加型 
+ */
+function jisuan(methodid,mode,level)
+{
+	var total =jQuery("#totalmoney_"+methodid).val();
+	if(mode==1)
+	{
+		val = jQuery("#prize_"+methodid+"_1").val();
+		if(val=="")
+		{
+			jQuery("#prize_"+methodid+"_1").val('0.00');
+			val ="0.00";
+		}
+		t = jQuery("#nocount_"+methodid+"_1").val();
+		x = (total -val*t)/total;
+		jQuery("#totalprofit_"+methodid).html(x.toFixed(3));
+	}
+	else if(mode==2)
+	{ //奖金累加型
+		var val = new Array();
+		var t = new Array();
+		//获取各个奖级奖金和对应转直价格
+		for(i=1;i<=level;i++)
+		{
+			val[i] = jQuery("#prize_"+methodid+"_"+i).val();
+			t[i] = jQuery("#nocount_"+methodid+"_"+i).val();
+			if(val[i]=="")
+			{
+				val[i] =0;
+				jQuery("#prize_"+methodid+"_"+i).val('0.00');
+			}
+			if(t[i]=="")
+			{
+				t[i] = 0;
+			}
+		}
+		moneys = 0;
+		for(i=1;i<=level;i++)
+		{
+			moneys = moneys + val[i]*t[i];
+		}//总返款
+		x = (total -moneys)/total;
+		jQuery("#totalprofit_"+methodid).html(x.toFixed(3));		
+	}
+	else if(mode==3)
+	{ //奖金不累加型
+		val = jQuery("#prize_"+methodid+"_"+level).val();
+		if(val=="")
+		{
+			jQuery("#prize_"+methodid+"_"+level).val("0.00");
+			val = 0.00;
+		}
+		t = jQuery("#nocount_"+methodid+"_"+level).val();
+		x = (total -val*t)/total;
+		jQuery("#totalprofit_"+methodid+"_"+level).html(x.toFixed(3));
+	}
+	jQuery("#userpoint_"+methodid).change();
+}
+//返点计算
+function fandian( methodid,level)
+{
+	if(level>1)
+	{ //非兼中兼得模式
+		for(i=1;i<=level;i++)
+		{
+			totalprofit = jQuery("#totalprofit_"+methodid+'_'+i).html();
+			userpoint=jQuery("#userpoint_"+methodid).val();
+			if(userpoint=="")
+			{
+				userpoint =0.00;
+				jQuery("#userpoint_"+methodid).val("0.00");
+			}
+			x=totalprofit-userpoint;
+			jQuery("#lastprofit_"+methodid+'_'+i).html(x.toFixed(3));
+		}
+	}
+	else
+	{ //单个返点模式
+		totalprofit = jQuery("#totalprofit_"+methodid).html();
+		userpoint   = jQuery("#userpoint_"+methodid).val();
+		if(userpoint=="")
+		{
+			userpoint =0.00;
+			jQuery("#userpoint_"+methodid).val("0.00");
+		}
+		x           = totalprofit-userpoint;
+		jQuery("#lastprofit_"+methodid).html(x.toFixed(3));
+	}
+}
+</script>
+<div class="list-div" id="listDiv">
+<form name="pgform" id="pgform" action="./index.php?controller=gameinfo&action={$action|default:prizegroupadd}" method="post">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<th width="20"><input type="checkbox" id="nethodids"></th>
+<th width="60">游戏</th>
+<th width="80">玩法组</th>
+<th>奖金</th>
+<th width="60">总利润</th>
+<th width="60">总代返点</th>
+<th width="60">公司留水</th>
+</tr>
+{foreach from=$amethod item=method key=k}
+<tr>
+<td align="center"><input type="checkbox" name="methodid[]" value="{$method.methodid}" {if isset($prizelevel.isclose.$method.methodid)}{if $prizelevel.isclose.$method.methodid==0}checked="checked"{/if}{/if}></td>
+<td align="center">{$method.cnname}<input type="hidden" id="totalmoney_{$method.methodid}" value="{$method.totalmoney}"></td>
+<td align="center">{$method.methodname|eacape:html}</td>
+<td>{foreach from=$method.nocount item=no key=k2}
+{$no.name}:<input type="text" name="prize[{$method.methodid}][{$k2}]" id="prize_{$method.methodid}_{$k2}" value="{$prizelevel.prize.$method.methodid.$k2}" size="10" onchange="jisuan({$method.methodid},{if $method.level==1}1{else}{if $method.type==1}2{else}3{/if}{/if},{if $method.level==1}{$k2}{else}{if $method.type==1}{$method.level}{else}{$k2}{/if}{/if});">元
+({$no.count}<input type="hidden" id="nocount_{$method.methodid}_{$k2}" value="{$no.count}">注)
+{if $method.isdesc}
+<input type="text" name="description[{$method.methodid}][{$k2}]" id="description_{$method.methodid}_{$k2}"  size="40" value="{$prizelevel.description.$method.methodid.$k2}"/>
+{/if}
+<br/>
+{/foreach}</td>
+<td align="center">
+{if ($method.level>1)&&($method.type==0)}
+{foreach from=$method.nocount item=no key=k2}
+<span id="totalprofit_{$method.methodid}_{$k2}"></span><br/>
+{/foreach}
+{else}
+<span id="totalprofit_{$method.methodid}"></span>
+{/if}
+</td>
+<td align="center"><input type="text" name="userpoint[{$method.methodid}]" id="userpoint_{$method.methodid}" value="{$prizelevel.userpoint.$method.methodid|default:0.00}" size="6"
+onchange="fandian({$method.methodid},{if $method.level==1}1{else}{if $method.type==1}1{else}{$method.level}{/if}{/if});"></td>
+<td align="center">
+{if ($method.level>1)&&($method.type==0)}
+{foreach from=$method.nocount item=no key=k2}
+<span id="lastprofit_{$method.methodid}_{$k2}"></span><br/>
+{/foreach}
+{else}
+<span id="lastprofit_{$method.methodid}"></span>
+{/if}
+</td>
+</tr>
+{/foreach}
+<tr>
+<td colspan="2" align="right"><b>奖金组命名</b></td>
+<td colspan="5"><input type="text" name="groupname" value="{$prizegroup.title}">{if isset($prizegroup)}<input type="hidden" name="pgid" value="{$prizegroup.prizegroupid}">{/if}<input type="hidden" name="lotteryid" value="{$alottery.lotteryid}"><input type="submit" class="button" value="保存奖金组"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

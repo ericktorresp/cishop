@@ -1,0 +1,141 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+{literal}
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery("#sdate").dynDateTime({
+			ifFormat: "%Y-%m-%d",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()",
+			showOthers: true,
+			weekNumbers: true,
+			showsTime: true
+		});
+		jQuery("#sdate").change(function(){
+			if(! validateInputDate(jQuery("#sdate").val()) )
+			{jQuery("#sdate").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+		});
+	});
+</script>
+{/literal}
+
+<div class="form-div">
+<FORM name="searchForm" action="" METHOD='get'>
+<input type='hidden' name="controller" value="userclear"/>
+<input type='hidden' name="action" value="report"/>
+<table width="100%" border="0">
+  <tr>
+    <td>
+    清理用户时间: 
+    <input type="text" id="sdate" name="sdate" size='15' value='{$s.sdate|escape:html}' /> 
+    <img src="./images/calendar2.gif">&nbsp;&nbsp;
+    <input type="submit" value="搜 索" class="button" />
+    </td>
+  </tr>
+</table>
+</div>
+</FORM>
+</div>
+
+
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th rowspan="2">总代账户</th>
+    <th colspan="{$iChannelCount}">其它频道小额转入银行</th>
+    <th rowspan="2">频道小额扣除</th>
+    <th rowspan="2">频道小额接收</th>
+  </tr>
+  <tr>
+  {foreach from=$aChannelList item=list key=k}
+    <th>{$list.channel}转入银行</th>
+  {/foreach}
+  </tr>
+  {foreach from=$aResult item=userlist key=l}
+  <tr>
+  <td align="right">{$userlist.username}</td>
+  {foreach from=$aChannelList item=channellist key=k}
+    <td  align="right">
+    {if $userlist.transfer.$channellist.id > 0 }<font color="Green">{else}<font color="Black">{/if}
+    {$userlist.transfer.$channellist.id|escape:money:4}</font>
+    </td>
+  {/foreach}
+  <td  align="right">
+  {if $userlist.smallcashout > 0 }<font color="Green">{else}<font color="Black">{/if}
+  {$userlist.smallcashout|escape:money:4}</font>
+  </td>
+  <td  align="right">
+  {if $userlist.smallcashout > 0 }<font color="Green">{else}<font color="Black">{/if}
+  {$userlist.smallcashin|escape:money:4}</font>
+  </td>
+  </tr>
+  {/foreach}
+  <tr>
+  <td align="right">总计</td>
+  {foreach from=$aChannelList item=channellist key=k}
+    <td  align="right">
+    {if $total.transfer.$channellist.id > 0 }<font color="Green">{else}<font color="Red">{/if}
+    <b>{$total.transfer.$channellist.id|escape:money:4}</b></font>
+    </td>
+  {/foreach}
+  <td  align="right">
+  {if $total.smallcashout > 0 }<font color="Green">{else}<font color="Red">{/if}
+  <b>{$total.smallcashout|escape:money:4}</b></font>
+  </td>
+  <td  align="right">
+  {if $total.smallcashout > 0 }<font color="Green">{else}<font color="Red">{/if}
+  <b>{$total.smallcashin|escape:money:4}</b></font>
+  </td>
+  </tr>
+</table>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="_example/highadmin"/>
+	<buildpathentry kind="src" path="_example/highgame"/>
+	<buildpathentry kind="src" path="_example/lowadmin"/>
+	<buildpathentry kind="src" path="_example/lowgame"/>
+	<buildpathentry kind="src" path="_example/lowproxy"/>
+	<buildpathentry kind="src" path="_example/passport"/>
+	<buildpathentry kind="src" path="_example/passportadmin"/>
+	<buildpathentry kind="src" path="library"/>
+	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+</buildpath>

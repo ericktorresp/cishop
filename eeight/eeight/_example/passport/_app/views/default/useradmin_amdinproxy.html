@@ -1,0 +1,36 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form action="index.php" method="post" name="listform">
+<input type="hidden" name="controller" value="useradmin" />
+<input type="hidden" name="action" value="adminproxy" />
+<input type="hidden" name="flag" value="update" />
+<table>
+	<tr>
+    	<td colspan="5" align="center" height="40">销售管理员
+        	<select name="adminuser">
+            	<option value="0">无</option>
+                {if !empty($useradmins)}
+                {foreach from=$useradmins item=useradmin key=admin}
+                <option value="{$useradmin.userid}">{$useradmin.username|escape:html}</option>
+                {/foreach}
+                {/if}
+            </select>
+        				<input type="submit" name="submit" value="分配" class="button" />
+        </td>
+    </tr>
+	<tr bgcolor="#FF0000">
+    	<th width="20" align="center"><input type="checkbox" name="selectall" id="selectall" onclick="selectAll('selectall')" /></th>
+    	<th width="40%" align="center" height="20">用户名</th>
+        <th align="center" height="20">销售管理员</th>
+    </tr>
+    {foreach from=$proxys item=proxy key=k}
+    <tr  class="needchangebg">
+    	<td width="20"><input type="checkbox" name="select_rows[]" value="{$proxy.userid}" /></td>
+    	<td align="center" height="20">{$proxy.username|escape:html}</td>
+        <td align="center" height="20">{$proxy.adminname|escape:html}</td>
+    </tr>
+    {/foreach}
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

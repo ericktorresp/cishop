@@ -1,0 +1,202 @@
+{include file="pageheader.html"}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/calendar/jquery.dyndatetime.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/lowproxy/js/calendar/css/calendar-blue2.css" type="text/css" />
+<script>
+jQuery(document).ready(function() {
+	jQuery("#starttime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		onUpdate:function(){
+			$("#starttime").change();
+		},
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#starttime").change(function(){
+		if(! validateInputDate(jQuery("#starttime").val()) )
+		{
+			jQuery("#starttime").val('');
+			alert("时间格式不正确,正确的格式为:2009-06-10 10:59");
+		}
+		if($("#endtime").val()!="")
+		{
+			if($("#starttime").val()>$("#endtime").val())
+			{
+				$("#starttime").val("");
+				alert("输入的时间不符合逻辑.");
+			}
+		}
+	});
+	jQuery("#endtime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		showOthers: true,
+		onUpdate:function(){
+			$("#endtime").change();
+		},
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#endtime").change(function(){
+		if(! validateInputDate(jQuery("#endtime").val()) )
+		{
+			jQuery("#endtime").val('');
+			alert("时间格式不正确,正确的格式为:2009-06-10 10:59");
+		}
+		if($("#starttime").val()!="")
+		{
+			if($("#starttime").val()>$("#endtime").val())
+			{
+				$("#endtime").val("");
+				alert("输入的时间不符合逻辑.");
+			}
+		}
+	});
+	jQuery("#lottery").change(function(){
+		var data_method = {$data_method};
+		var i = $("#lottery").val();
+		if(i>0)
+		{
+			html ="游戏玩法：<select name='method' id='method'><option value='0'>所有玩法</option>";
+			$.each(data_method[i],function(i,v){
+				html = html + "<option value='"+i+"'>"+v+"</option>";
+			});
+		}
+		else
+		{
+			html ="游戏玩法：<select name='method' id='method'><option value='0'>所有玩法</option>";
+		}
+		html = html+ "</select>";
+		$("#method_show").html(html);
+	});
+	$("#lottery").val({$s.lottery});
+	$("#lottery").change();
+	$("#method").val({$s.method});
+});
+</script>
+<div class="right_021" >
+<div class="height51">
+<div class="right_02_281"></div>
+<div class="right_02_291"></div>
+</div>
+<div class="list-div">
+<form action="" method="GET" class="list-form">
+<input type="hidden" name="controller" value="report">
+<input type="hidden" name="action" value="list">
+<img src="{$sSystemImagesAndCssPath}/images/icon_search.gif">
+&nbsp;&nbsp;&nbsp;&nbsp;
+游戏名称：<select name="lottery" id="lottery">
+<option value="0">所有游戏</option>
+{foreach from=$aLottery item=lottery key=k}
+<option value="{$k}">{$lottery}</option>
+{/foreach}
+</select>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<span id="method_show"></span>
+<div style="margin:10px 0;"></div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时间：
+<input type="text" name="starttime" id="starttime" value="{$s.starttime}" style="color:#555;width:140px;" />
+&nbsp;
+<img src="{$sSystemImagesAndCssPath}/images/calendar2.gif">
+
+&nbsp;&nbsp;至&nbsp;&nbsp;
+<input type="text" name="endtime" id="endtime" value="{$s.endtime}" style="color:#555;width:140px;" />
+&nbsp;
+<img src="{$sSystemImagesAndCssPath}/images/calendar2.gif">
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+代理：<select name="proxyid">
+<option value="0">选择代理</option>
+{foreach from=$proxy item=v key=k}
+<option value="{$v.userid}" {if $v.userid==$s.proxyid}selected{/if}>{$v.username}</option>
+{/foreach}
+</select>
+{if isset($s.show)}
+销售管理员：
+<select name="proxyadmin">
+<option value="0">销售管理员</option>
+{foreach from=$adminProxy item=proxy key=k}
+<option value="{$proxy.userid}" {if $proxy.userid==$s.proxyadmin}selected{/if}>{$proxy.username}</option>
+{/foreach}
+</select>
+{/if}&nbsp;&nbsp;
+<input type="submit" value="" class="button">
+</form> 
+</div>
+<div class="height51">
+<div class="right_02_241"></div>
+<div class="right_02_251"></div>
+</div>
+<div style="margin:10px 0;"></div>
+<div class="height511">
+<div class="right_02_02"></div>
+<div class="right_02_04"></div>
+</div>
+<div class="list-div">
+<table cellspacing="0" cellpadding="0">
+<tr>
+<th>用户名</th>
+<th>所属组</th>
+<th>总代购费</th>
+<th>返点</th>
+<th>实际总代购费</th>
+<th>中奖金额</th>
+<th>总结算</th>
+<th>操作</th>
+</tr>
+{if isset($self)}
+<tr align="center" style="color:red;">
+<td>{$self.username}</td>
+<td>{if $self.usertype==1}代理{else}用户{/if}</td>
+<td>{$self.sum_prize|escape:money}</td>
+<td>{$self.sum_point|escape:money}</td>
+<td>{$self.real_prize|escape:money}</td>
+<td>{$self.sum_bonus|escape:money}</td>
+<td>{$self.sum_total|escape:money}</td>
+<td></td>
+</tr>
+{/if}
+{foreach from=$aUsers item=user key=k}
+<tr align="center">
+<td><a href="./index.php?controller=report&action=list&userid={$k}&starttime={$s.starttime}&endtime={$s.endtime}&lottery={$s.lottery}&method={$s.method}">{$user.username}</a></td>
+<td>{if $user.usertype==1}代理{else}用户{/if}</td>
+<td>{$user.sum_prize|escape:money}</td>
+<td>{$user.sum_point|escape:money}</td>
+<td>{$user.real_prize|escape:money}</td>
+<td>{$user.sum_bonus|escape:money}</td>
+<td>{$user.sum_total|escape:money}</td>
+<td>
+<a href="./index.php?controller=report&action=list&userid={$k}&starttime={$s.starttime}&endtime={$s.endtime}&lottery={$s.lottery}&method={$s.method}">查看下级</a>
+&nbsp;&nbsp;
+<a href="./index.php?controller=report&action=reportdetail&userid={$k}&starttime={$s.starttime}&endtime={$s.endtime}" target="_blank">游戏明细</a>
+</td>
+</tr>
+{/foreach}
+<tr align="center">
+<td colspan="2">合计</td>
+<td>{$total.sum_prize|escape:money}</td>
+<td>{$total.sum_point|escape:money}</td>
+<td>{$total.real_prize|escape:money}</td>
+<td>{$total.sum_bonus|escape:money}</td>
+<td>{$total.sum_total|escape:money}</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="height51">
+<div class="right_02_241"></div>
+<div class="right_02_251"></div>
+</div>
+</div>
+{include file="pagefooter.html"}

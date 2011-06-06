@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>左侧菜单</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="./css/general.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="./js/jquery.js"></script>
+<script language="JavaScript">
+<!--
+var noHelp   = "<p align='center' style='color: #666'>暂时还没有该部分内容</p>";
+//-->
+</script>
+{literal}
+<style type="text/css">
+body { background: #AAAA66;}
+a:visited {color: #666666;}
+a:link { color: #666666;}
+a:hover { color: #FF3333;}
+a:active { color: #666666;}
+#tabbar-div { background: #666633; padding-left: 10px; height: 21px; padding-top: 0px;}
+#tabbar-div p { margin: 0px; padding-top:1px;}
+.tab-front { background: #AAAA66; line-height: 20px; font-weight: bold; 
+	padding: 4px 15px 4px 18px; border-right: 2px solid #333333; cursor: hand;  cursor: pointer;}
+.tab-back,.tab-hover { color: #F4FAFB; line-height: 20px; padding: 4px 15px 4px 18px; cursor: hand; cursor: pointer;}
+.tab-hover { background: #2F9DB5; }
+#top-div { padding: 3px 0 2px; background: #BBDDE5; margin: 5px; text-align: center; }
+#main-div { border: 1px solid #555522; padding: 5px; margin: 5px; background: #FFF; }
+#menu-list { padding: 0; margin: 0;}
+#menu-list ul { padding: 0; margin: 0; list-style-type: none; color: #666633; padding-bottom:3px;}
+#menu-list li { padding-left: 16px; line-height: 16px; cursor: hand; cursor: pointer;}
+#main-div a:visited, #menu-list a:link, #menu-list a:hover {
+  color: #666633 text-decoration: none;}
+#menu-list a:active { color: #666633;}
+.explode { background: url(./images/menu_minus.gif) no-repeat 0px 3px; font-weight: bold;}
+.collapse { background: url(./images/menu_plus.gif) no-repeat 0px 3px; font-weight: bold;}
+.menu-item { background: url(./images/menu_arrow.gif) no-repeat 0px 3px; font-weight: normal;}
+#help-title { font-size: 14px; color: #000080; margin: 5px 0; padding: 0px;}
+#help-content { margin: 0; padding: 0;}
+.tips { color: #CC0000;}
+.link { color: #000099;}
+
+
+</style>
+{/literal}
+</head>
+<body><div id="tabbar-div">
+<p><span title="{$lang.collapse_all}" class="tab-front" id="menu-tab" > <img id="toggleImg" src="./images/menu_minus.gif" width="9" height="9" border="0" />
+&nbsp;&nbsp;&nbsp;{$lang.leftmenu}</span>
+</p></div>
+
+
+<div id="main-div">
+<div id="menu-list">
+<ul>
+{foreach from=$menus.0 item=menu key=k1}
+  <li class="explode" key="menu_{$k1}" id="menu_{$k1}" name="menu">
+    <span title="menu">{$menu.title|escape:html}</span>
+    <ul>
+    {foreach from=$menus.$k1 item=child key=k2}
+      <li class="menu-item"><a href="./?controller={$child.controller}&action={$child.action}" target="main-frame">{$child.title|escape:html}</a></li>
+    {/foreach}
+    </ul>
+  </li>
+{/foreach}
+</ul>
+</div>
+<div id="help-div" style="display:none">
+<h1 id="help-title"></h1>
+<div id="help-content"></div>
+</div>
+</div>
+
+<script language="JavaScript">
+<!--
+jQuery("#menu-tab").click(function(){
+	if( jQuery("#toggleImg").attr("src") == "./images/menu_minus.gif" ){
+		jQuery(this).attr("title","{$lang.expand_all}");
+		jQuery("#toggleImg").attr("src","./images/menu_plus.gif").attr("title","{$lang.expand_all}");
+		jQuery("li[name='menu']").attr("class","collapse").children("ul").slideUp("fast");
+	}else{
+		jQuery(this).attr("title","{$lang.collapse_all}");
+		jQuery("#toggleImg").attr("src","./images/menu_minus.gif").attr("title","{$lang.collapse_all}");
+		jQuery("li[name='menu']").attr("class","explode").children("ul").slideDown("fast");
+	}
+});
+jQuery("span[title='menu']").click(function(){
+	if( jQuery(this).parent().attr("class") == "explode" ){
+		jQuery(this).parent().attr("class","collapse").children("ul").slideUp("fast");
+	}else{
+		jQuery(this).parent().attr("class","explode").children("ul").slideDown("fast");
+	}
+});
+jQuery("span[title='menu']").click();
+
+
+</script>
+</body>
+</html>

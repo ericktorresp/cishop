@@ -1,0 +1,53 @@
+{include file="pageheader.html"}
+<form action="index.php" method="post" name="updateform" onsubmit="return checkform(this)">
+<input type="hidden" name="flag" value="showTranfer" />
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action"  value="transfer" />
+<input type="hidden" name="iFrom"	value="transfer" />
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div><table width="100%" border="0" cellspacing="1" cellpadding="4">
+    
+
+    <tr>
+      <td width="200" align="right" bgcolor="#CCCCCC">提示:</td>
+      <td align="left" bgcolor="#CCCCCC">资金在不同频道间的分配</td>
+    </tr>
+    <tr>  
+      <td align="right" bgcolor="#CCCCCC">转入频道:</td>
+      <td align="left" bgcolor="#CCCCCC">
+	      <select name="toChannelId">
+			{foreach from=$aChannelData item=c key=cid}
+		      <option value="{$cid}">{$c}</option>
+			{/foreach}
+	      </select>
+      </td>
+
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#CCCCCC">转出金额:</td>
+      <td align="left" bgcolor="#CCCCCC">
+      <input type="text" name="fmoney" size="20" onkeyup="checkWithdraw(this,'chineseMoney',{$user.availablebalance});" />
+    	可转金额（<span style="color:#FF0000;"><strong>{$user.availablebalance|escape:money}</strong></span>）</td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#CCCCCC">转出金额(大写)</td>
+      <td align="left" bgcolor="#CCCCCC"><span id="chineseMoney"></span></td>
+
+    </tr>
+    <tr>
+	    <td align="right"></td>
+	    <td align="left"><input type="submit"  class="buttonnormal" name="submit" value="下一步" /></td>
+	</tr>
+  </table></div>
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</form>
+
+{include file="pagefooter.html"}

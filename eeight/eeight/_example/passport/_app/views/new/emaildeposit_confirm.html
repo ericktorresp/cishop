@@ -1,0 +1,146 @@
+{include file="pageheader.html"}
+<script type='text/javascript'>
+    function loadnotice(){
+        alert("务必复制“充值订单号”粘贴到工行汇款页面“附言”栏内，否则充值将无法到账。");
+    }
+copyCode=function(id){
+try{
+ var clipBoardContent=jQuery("#" + id).html();
+ window.clipboardData.setData("Text",clipBoardContent);
+ var title = jQuery("#" + id + "_title").html();
+ alert( "【" + title + "】复制成功!" );
+}catch(e){
+	alert('您的firefox安全限制限制您进行剪贴板操作，请打开’about:config’将signed.applets.codebase_principal_support’设置为true’之后重试！');
+}
+}
+
+{if $flashtime}
+var startTime = new Date();
+var EndTime=startTime.getTime()+{$flashtime}*60*1000;
+function GetRTime(){
+var NowTime = new Date();
+var nMS =EndTime - NowTime.getTime();
+var nM=Math.floor(nMS/(1000*60)) % 60;
+var nS=Math.floor(nMS/1000) % 60;
+ document.getElementById("RemainM").innerHTML=nM;
+ document.getElementById("RemainS").innerHTML=nS;
+ if (nM <= 0 && nS <= 0){
+ 	top.location="/?controller=default&action=main";
+ }
+setTimeout("GetRTime()",1000);
+}
+window.onload=function(){
+    GetRTime();
+    loadnotice();
+}
+{/if}
+</script>
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<table width="100%" cellpadding="4" cellspacing="1" class="list-table">
+<form action="index.php" method="post" name="drawform" id="drawform">
+<input type="hidden" name="sign" value="{$id}" />
+<tr>
+	<td colspan="3" align="right" bgcolor="#CCCCCC" class="narrow-label"><span style="color:#FF3300;text-align:left;padding-left:30px;">{$loadstep}银行充值</span>
+	{if $flashtime}
+	<span style="color:#0700EE;text-align:left;padding-left:260px;">页面刷新倒计时：<strong id="RemainD"></strong><strong id="RemainM">XX</strong>:<strong id="RemainS">XX</strong></span>
+	{/if}
+	<span style="color:#0700EE;text-align:left;padding-left:360px;"><a href="{$help_url}{if $bankname == 'ccb'}&tag_id=1{/if}" target="_blank">【{$loadstep}银行充值流程】</a></span>
+	</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label"><span id="acc_name_title">收款账户名</span>：</td>
+	<td bgcolor="#CCCCCC">
+	<table>
+	<tr>
+		<td width="130"><span id="acc_name" style="font-size:14px;">{$acc_name|escape:html}</span></td>
+		<td><input type="button" value="点击复制" class="button" onclick="copyCode('acc_name');return false;" /></td>
+	</tr>
+	</table>
+	</td>
+</tr>
+{if $account}
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label"><span id="account_title">收款账号</span>：</td>
+    <td bgcolor="#CCCCCC">
+    <table>
+    	<tr>
+    		<td width="130"><span id="account" style="font-size:14px;">{$account}</span></td>
+    		<td><input type="button" value="点击复制" class="button" onclick="copyCode('account');return false;" /></td>
+    	</tr>
+    </table>
+    </td>
+</tr>
+{/if}
+{if $email}
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label"><span id="email_title">收款E-mail地址</span>：</td>
+    <td bgcolor="#CCCCCC">
+    <table>
+    	<tr>
+    		<td width="130"><span id="email" style="font-size:14px;">{$email}</span></td>
+    		<td><input type="button" value="点击复制" class="button" onclick="copyCode('email');return false;" /></td>
+    	</tr>
+    </table>
+    </td>
+</tr>
+{/if}
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label"><span id="amount_title">订单金额</span>：</td>
+    <td bgcolor="#CCCCCC">
+    <table>
+    	<tr>
+    		<td width="130"><span id="amount" style="font-size:14px;">{$amount|escape:money}</span></td>
+    		<td><input type="button" value="点击复制" class="button" onclick="copyCode('amount');return false;" /></td>
+    	</tr>
+    </table>
+    </td>
+</tr>
+{if $key}
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label"><span id="remark_title">附言(充值订单号)</span>：</td>
+    <td bgcolor="#CCCCCC">
+    <table>
+    	<tr>
+    		<td width="130"><span id="remark" style="color:#FF3300;font-size:14px;">{$key}</span></td>
+    		<td><input type="button" value="点击复制" class="button" onclick="copyCode('remark');return false;" />&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#FF3300;">工行汇款页面附言栏 请使用键盘“CTRL+V”进行粘贴</span></td>
+    	</tr>
+    </table>
+    </td>
+</tr>
+{/if}
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">充值说明：</td>
+	<td bgcolor="#CCCCCC"><span style="font-size:14px;color:#FF3300;">注意事项：</span><br />
+		{if $bankname == "icbc"}
+		1、<span style="color:#FF3300;">务必复制“充值订单号”粘贴到工行“附言”栏内</span>，否则充值将无法到账。<br />
+		2、充值订单号为随机生成，一个订单号只能充值一次，<span style="color:#FF3300;">过期或重复使用</span>充值将无法到账。<br />
+		3、收款账户名和E-mail会不定期更换，请在获取最新信息后充值，否则充值将无法到账。<br />
+		4、“订单金额”与网银转账金额不符，充值将无法到账。<br />
+		5、登陆工行网银，点击“转账汇款”后选择“E-mail汇款”。<br />
+		6、只支持工商银行网银自动转账。<br />
+		7、充值手续费返款会以“手续费返还”形式加入银行账户。
+		{else}
+		1、建行网银转账卡号必须和平台绑定的建行卡号一致，否则充值将无法到账。<br />
+		2、“订单金额”与网银转账金额不符，充值将无法到账。<br />
+		3、收款账户名和收款账号会不定期更换，请在获取最新信息后充值，否则充值将无法到账。<br />
+		4、只支持建设银行网银自动转账。
+		{/if}
+		</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label"></td>
+	<td bgcolor="#CCCCCC"><input type="button" value="点击打开{$shortname}网银" class="button" onclick="window.open('{$bank_url}');" />　　{$bank_url}</td>
+</tr>
+</form>
+</table>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+{include file="pagefooter.html"}

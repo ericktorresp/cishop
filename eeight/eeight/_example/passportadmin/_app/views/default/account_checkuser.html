@@ -1,0 +1,130 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script>
+$(function(){
+   $(".tdlist").bind("click",function(){
+       if($(this).parent().find("input").attr("checked") == false){
+           $(this).parent().find("input").attr("checked",true);
+       }else{
+           $(this).parent().find("input").attr("checked",false);
+       }
+   });
+});
+function CheckBoxSelectAll(obj, chk)
+{
+  if (chk == null)
+  {
+    chk = 'checkboxes';
+  }
+
+  var elems = obj.form.getElementsByTagName("INPUT");
+
+  for (var i=0; i < elems.length; i++)
+  {
+    if (elems[i].name == chk || elems[i].name == chk + "[]")
+    {
+      elems[i].checked = obj.checked;
+    }
+  }
+}
+var seconds = {$sSysAutoReflushSec|default:60};
+onload = function()
+{
+	window.setInterval(redirection, 1000);
+}
+
+function redirection()
+{
+	seconds --;
+	document.title = '[{$sSysTopMessage}]['+seconds+'] PassPort 后台管理 {$ur_here}';
+}
+</script>
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action='./?controller=account&action=erroruseroperation'>
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th width="10%">用户ID</th>
+    <th>用户名</th>
+    <th>处理次数</th>
+    <th>失败时间</th>
+  </tr>
+{foreach from=$aErrorUser item=list key=k}
+  <tr>
+    <td align="center"><input name="checkboxes[]" type="checkbox" value="{$list.userid}">{$list.userid}</td>
+    <td align="center" class="tdlist">{$list.username|escape:html}</td>
+    <td align="center" class="tdlist">{$list.operatimes|escape:html}</td>
+    <td align="center" class="tdlist">{$list.errordate|escape:html}</td>
+  </tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">无异常开户</td></tr>
+{/foreach}
+<tfoot align="right">
+	<td colspan="10">{$pageinfo}</td>
+</tfoot>
+</table>
+<table id="page-table" cellspacing="0">
+  <tr>
+  <td>&nbsp;&nbsp&nbsp;&nbsp;
+    <input type="checkbox" id="selectall" onclick='CheckBoxSelectAll(this, "checkboxes")'>全选
+    <input type="submit" value="批量处理开户失败" id="btnSubmit" name="btnSubmit" class="button" />
+</td>
+</tr>
+</table>
+</form>
+</div>
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#EEF8F9';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{include file="pagefooter.html"}

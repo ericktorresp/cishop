@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>设置资金密码</title>
+<script type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/jquery.js"></script>
+<script type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/common.js"></script>
+
+<script language="javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/alert/jquery.dragndrop.js"></script>
+<script language="javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/alert/jquery.dialogUI.source.js"></script>
+<script language="javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/alert/jquery.jamesdragn.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/js/new_higame/alert/dialogUI.css" type="text/css" />
+
+<script type="text/javascript">
+function checkform(obj)
+{
+  if( !validateUserPss(obj.secpass.value) )
+  {
+  	$.alert("资金密码不符合规则，请重新输入");
+	obj.secpass.focus();
+	return false;
+  }
+  return true;
+}
+</script>
+<style type="text/css">
+body{font-size:12px;}
+</style>
+</head>
+<body>
+<center>设置资金密码</center>
+<br />
+<table align="center">
+<form action="index.php" method="post" name="updateform" onsubmit="return checkform(this)">
+<input type="hidden" name="flag" value="insert" />
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action"	value="setsecurity" />
+<input type="hidden" name="nextcon" value="{$nextcontroller}" />
+<input type="hidden" name="nextact" value="{$nextaction}" />
+	<tr><td colspan="2">你还没有设置资金密码，请先设置</td></tr>
+  <tr>
+  	<td>输入资金密码:</td>
+    <td><input type="password" name="secpass" value="" /><br />(由字母和数字组成6-16个字符；且必须包含数字和字母，不允许连续三位相同，不能和登陆密码相同)</td>
+  </tr>
+  <tr><td colspan="2" align="center" height="40"><input type="submit" name="submit" value="提交" />&nbsp;&nbsp;<input type="button" value="重置" onclick="this.form.reset()" /></td></tr>
+</form>
+</table>
+</body>
+</html>

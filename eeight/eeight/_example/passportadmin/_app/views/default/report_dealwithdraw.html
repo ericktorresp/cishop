@@ -1,0 +1,60 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+<script type="text/javascript">
+function confirmSubmit()
+{
+	var notes = document.getElementById("notes").value;
+	if (notes == ""){
+		alert("请填写出纳处理信息！");
+		return false;
+	}
+	return true;
+}
+
+
+copyCode=function(id){
+try{
+ var clipBoardContent=jQuery("#" + id).html();
+ window.clipboardData.setData("Text",clipBoardContent);
+ var title = jQuery("#" + id + "_title").html();
+ alert( "【" + title + "】复制成功!" );
+}catch(e){
+	alert('您的firefox安全限制限制您进行剪贴板操作，请打开’about:config’将signed.applets.codebase_principal_support’设置为true’之后重试！');
+}
+}
+</script>
+
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action="./?controller=report&action=dealwithdraw" onsubmit="return confirmSubmit()">
+<input type="hidden" name="flag" value="deal" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr><td class="narrow-label">提现发起人:</td><td>{$s.sendername|escape:html}</font></td></tr>
+<tr><td class="narrow-label">所属总代:</td><td>{$s.proxyname|escape:html}</font></td></tr>
+<tr><td class="narrow-label">银行名称:</td><td>{$s.bankname|escape:html}</td></tr>
+<tr><td class="narrow-label"><span id="card_title">银行卡号</span>:</td><td><table><tr><td width="15%"><span id="card">{$s.bankcard|escape:html}</span></td><td><span><input type="button" value="点击复制" class="button" onclick="copyCode('card');return false;" /></span></td></tr></table></td></tr>
+<tr><td class="narrow-label">所属省份:</td><td>{$s.province|escape:html}</td></tr>
+<tr><td class="narrow-label">所属城市:</td><td>{$s.city|escape:html}</td></tr>
+<tr><td class="narrow-label"><span id="uname_title">真实姓名</span>:</td><td><table><tr><td width="15%"><span id="uname">{$s.realname|escape:html}</span></td><td><span><input type="button" value="点击复制" class="button" onclick="copyCode('uname');return false;" /></span></td></tr></table></td></tr>
+<tr><td class="narrow-label"><span id="money_title">提现金额</span>:</td><td><table><tr><td width="15%"><span id="money">{$s.amount|escape:money}</span></td><td><span><input type="button" value="点击复制" class="button" onclick="copyCode('money');return false;" /></span></td></tr></table></td></tr>
+<tr><td class="narrow-label">发起时间:</td><td>{$s.accepttime|escape:html}</td></tr>
+<tr><td class="narrow-label">是否VIP:</td><td style="font-weight: bold">{if $s.identity == 3}VIP{else}--{/if}</td></tr>
+<tr><td class="narrow-label">用户IP:</td><td>{$s.clientip|escape:html}</td></tr>
+<tr><td class="narrow-label">CDN IP:</td><td>{$s.proxyip|escape:html}</td></tr>
+<tr><td class="narrow-label">用户备注:</td><td>{$s.description|escape:html}</td></tr>
+<tr>
+	<td class="narrow-label">出纳处理：</td>
+	<td><textarea name="notes" id="notes" rows="10" cols="70"></textarea>汇款后，出纳请将银行回单信息复制到这里，然后点击提交</td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+	<td class="narrow-label"><input type="submit" value="确认执行" id="btnSubmit" name="btnSubmit" class="button" /></td><td>
+	</td>
+</tr>
+<tr>
+<td colspan=2>&nbsp;&nbsp;<input type="hidden" name='id' value="{$s.entry}"><br/><br/></td>
+</tr>
+  </table>
+</form>
+</div>
+{include file="pagefooter.html"}

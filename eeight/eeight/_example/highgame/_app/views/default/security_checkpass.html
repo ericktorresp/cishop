@@ -1,0 +1,68 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+
+<table width="100%" cellspacing='1' cellpadding='3' id='list-table'>
+<form action="./index.php" method="post" name="listForm" ><!--onsubmit="return validate()"-->
+<input type="hidden" name="flag" value="check" />
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action"	value="checkpass" />
+<input type="hidden" name="nextcon" value="{$nextcontroller}" />
+<input type="hidden" name="nextact" value="{$nextaction}" />
+  <tr>
+  	<td align="right">输入资金密码:</td>
+    <td><input type="password" name="secpass" value="" /></td>
+  </tr>
+  <tr><td colspan="2" align="center" height="40"><input type="submit" name="submit" value="确认提交" class='button' /></td></tr>
+</form>
+</table>
+</div>
+
+
+{insert_scripts files="./js/validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+  /**
+   * 检查表单输入的内容
+   */
+	function validate()
+	{
+		var validator = new Validator('listForm');
+		if( !validateUserPss( document.forms['listForm'].elements['secpass'].value) )
+		{
+			validator.addErrorMsg('资金密码不符合规则');
+		}
+		return validator.passed();  
+    }
+
+
+//密码验证(6－16位数字和字母，不能只是数字，或者只是字母，不能连续三位相同)
+function validateUserPss( str )
+{
+	var patrn = /^[0-9a-zA-Z]{6,16}$/;
+	if( !patrn.exec(str) )
+	{
+		return false;
+	}
+	patrn = /^\d+$/;
+	if( patrn.exec(str) )
+	{
+		return false;
+	}
+	patrn = /^[a-zA-Z]+$/;
+	if( patrn.exec(str) )
+	{
+		return false;
+	}
+	patrn = /(.)\1{2,}/;
+	if( patrn.exec(str) )
+	{
+		return false;
+	}
+	return true;
+}
+//-->
+</script>
+{/literal}
+
+{include file="pagefooter.html"}

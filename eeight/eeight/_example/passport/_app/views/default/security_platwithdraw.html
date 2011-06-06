@@ -1,0 +1,81 @@
+{include file="pageheader.html"}
+<LINK href="./css/label.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+function checkForm(obj)
+{
+	var isok = true;
+	if( obj.money.value < {$min_money} )
+	{
+		//alert("提现金额不能低于最低平台提现金额");
+		jQuery("#notice").html("※提现金额不能低于最低平台提现金额");
+		isok = false;
+	}else{ jQuery("#notice").html(""); }
+	
+	if( obj.bankinfo.value <= 0 )
+	{
+		jQuery("#bankinfo").siblings("span").html("※您忘记了选择银行卡信息");
+		isok = false;
+	}else{ jQuery("#bankinfo").siblings("span").html(""); }
+	
+	return isok;
+	//return true;
+}
+</script>
+<div id="tabbar-div">
+	<span class="tab-back">
+		<span class="tabbar-left"></span>
+		<span class="content" onclick="window.location.href='?controller=security&action=withdraw&check={$check}'">向上级提现</span>
+		<span class="tabbar-right"></span>
+	</span>
+	<span class="tab-front">
+		<span class="tabbar-left"></span>
+		
+		<span class="content">向平台提现</span>
+		<span class="tabbar-right"></span>
+	</span>
+</div>
+<div class="tabbar-bottom"></div>
+<div class="list-div" id="listDiv">
+<table class="list-table">
+<form action="index.php" method="post" name="drawform" onsubmit="return checkForm(this)">
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action" value="platwithdraw" />
+<input type="hidden" name="flag" value="withdraw" />
+<input type="hidden" name="check" value="{$check}" />
+	<tr>
+    	<td class="narrow-label" style="color:#FF3300;">提示:</td>
+        <td>每天限提 <font style="font-size:16px;color:#FF3300;font-weight:bold;">{$times}</font> 次，今天您已经成功发起了 <font style="font-size:16px;color:#FF3300;font-weight:bold;">{$count}</font> 次提现申请</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">用户名:</td>
+        <td>{$user.username|escape:html}</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">可提现金额:</td>
+        <td>{$user.availablebalance|escape:money}</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">提现金额:</td>
+        <td><input type="text" name="money" id="money" size="20" onkeyup="checkWithdraw2(this,'chineseMoney',{$max_money});" />(单笔提现限额:最低：<font style="color:red;">{$min_money|escap:money}</font>元<!--，最高：<font style="color:red;">{$max_money|escap:html}</font>元-->)<span style="color:red;" id="notice"></span></td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">提现金额(大写):</td>
+        <td><span id="chineseMoney"></span></td>
+    </tr>
+    <tr>
+	<td class="narrow-label">收款银行卡信息：</td>
+    <td>
+    	<select name="bankinfo" id="bankinfo">
+    		{foreach from=$banks item=bank key=k}
+    			<option value="{$bank.id}">{if $bank.nickname != ""}{$bank.nickname}--{/if}{$bank.bank_name}--{$bank.account}</option>
+            {/foreach}
+            </select>&nbsp;&nbsp;<span style="color:red;"></span>
+        </td>
+    </tr>
+    <tr>
+    	<td></td><td><input type="submit" name="submit" value="下一步" class="button" /></td>
+    </tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

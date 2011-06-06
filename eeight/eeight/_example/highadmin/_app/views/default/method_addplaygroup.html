@@ -1,0 +1,208 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+<script>		
+jQuery(document).ready(function() {
+	$("#methodform").submit(function(){
+		//对表单的提交验证
+		if($("#methodname").val()=="")
+		{
+			alert("玩法名称为空.");
+			$("#methodname").focus();
+			return false;
+		}
+		/*if($("#functionname").val()=="")
+		{
+			alert("玩法的中奖函数为空.");
+			$("#functionname").focus();
+			return false;
+		}*/
+		if($("#level").val()<=0)
+		{
+			alert("玩法的等级错误.");
+			$("#level").focus();
+			return false;
+		}
+		else
+		{ //对转直注数验证
+			if($("#level").val()<=0)
+			{
+				alert("玩法奖金级别个数错误.");
+				$("#level").focus();
+				return false;
+			}//对各个奖级进行验证
+            var flag = 0;
+			for(i=1;i<=$("#level").val();i++)
+			{
+                if($("#count_"+i+"_use").attr('checked')==true) {
+                    flag++;
+                }
+                /*
+				if($("#count_"+i+"_name").val()=="")
+				{
+					alert(i+"等奖的名称为空.");
+					$("#count_"+i+"_name").focus();
+					return false;
+				}
+				if($("#count_"+i+"_count").val()=="")
+				{
+					alert(i+"等奖的转直注数错误.");
+					$("#count_"+i+"_count").focus();
+					return false;
+				}
+                */
+			}
+            if (!flag) {
+                alert('请至少选择一个奖级！');
+                return false;
+            }
+		}
+});
+	jQuery("#level").change(function(){
+		var i= (jQuery("#level").val());
+		s='';
+		t = jQuery("#pid").val();
+		for(j=1;j<=i;j++)
+		{
+			if(t==0)
+			{
+				s=s+j+"等奖转直注数:<input type='text' name='count["+j+"][count]' id='count_"+j+"_count' size='4'>&nbsp;&nbsp;&nbsp;奖级名称:<input type='text' name='count["+j+"][name]' id='count_"+j+"_name' value=''><br/>";
+			}
+			else
+			{
+				s=s+"<input type='checkbox' name='count["+j+"][use]' id='count_"+j+"_use' value='1'>"+j+"等奖转直注数:<input type='text' name='count["+j+"][count]' id='count_"+j+"_count' size='4'>&nbsp;&nbsp;&nbsp;奖级名称:<input type='text' id='count_"+j+"_name' name='count["+j+"][name]' value=''><br/>"
+			}
+		}
+		if(i>1)
+		{
+			s = s+"<input type='checkbox' value='1' name='count[type]' id='count_type'>计算公司留水时候,奖金叠加&nbsp;";
+			s = s+"<input type='checkbox' value='3' name='count[type]' id='count_type_three'>返奖率累加型&nbsp;";
+			s = s+"<label for='count_isdesc'><input type='checkbox' value='1' name='count[isdesc]' id='count_isdesc'>需要帐变描述(兼中兼得)</label>";
+		}
+		jQuery("#zhu_zhi").html(s);
+		if(i>1){
+		    $("#count_type").click(function(){
+		        $("#count_type_three").attr("checked",false);
+		    });
+		    $("#count_type_three").click(function(){
+		        $("#count_type").attr("checked",false);
+		    });
+		}
+	});
+
+    // 修改玩法組
+    {if isset($json_aMethod)}
+	var data ={$json_aMethod};
+    $("#methodname").val(data.methodname);
+    $("#initlockfunc").val(data.initlockfunc);
+    $("#lockname").val(data.lockname);
+    $("#maxlost").val(data.maxlost);
+	$("#totalmoney").val(data.totalmoney);
+    $("#description").val(data.description);
+    $("#methodid").val(data.methodid);
+	$("#level").val(data.level);
+	$("#level").change();
+	jQuery("#zhu_zhi").html(s);
+	//对号码奖级进行描述
+	i = jQuery("#level").val();
+	for(j=1;j<=i;j++)
+	{
+		$("#count_"+j+"_count").val(data.nocount[j].count);
+		if($("#pid").val()>0)
+		{
+			//$("#count_"+j+"_count").attr("disabled",true);
+		}
+		$("#count_"+j+"_name").val(data.nocount[j].name);
+		if($("#pid").val()>0)
+		{
+			//$("#count_"+j+"_name").attr("disabled",true);
+		}
+		$("#count_"+j+"_use").attr("checked",data.nocount[j].use==1);
+	}
+	if(i>1){
+	    $("#count_type").click(function(){
+	        $("#count_type_three").attr("checked",false);
+	    });
+	    $("#count_type_three").click(function(){
+	        $("#count_type").attr("checked",false);
+	    });
+	}
+	$("#count_type").attr("checked",data.nocount.type==1);
+	$("#count_type_three").attr("checked",data.nocount.type==3);
+	$("#count_isdesc").attr("checked",data.nocount.isdesc==1);
+	{/if}
+    {if $action == 'addplaygroup'}
+        $('#methodform [type=submit]').attr('value', '增加玩法组');
+    {else}
+        $('#methodform [type=submit]').attr('value', '修改玩法组');
+    {/if}
+});
+</script>
+<div class="list-div" id="listDiv">
+<form id="methodform" action="./?controller=method&action={$action}&lotteryId={$lotteryId}" method="post">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td class="narrow-label">游戏组名称</td>
+<td>
+{$aLottery.cnname|escape:html}
+</td>
+</tr>
+<tr>
+<td class="narrow-label">玩法组名称</td>
+<td><input size=30 type="text" name="methodname" id="methodname" value=""></td>
+</tr>
+<!--
+<tr>
+<td class="narrow-label">中奖函数</td>
+<td><input type="text" name="functionname" id="functionname" value=""></td>
+</tr>
+<tr>
+<td class="narrow-label">封锁表初始化函数</td>
+<td><input type="text" name="initlockfunc" id="initlockfunc" value=""></td>
+</tr>
+//-->
+<tr>
+<td class="narrow-label">封锁表名称</td>
+<!--
+    <td><select name='locksid' id="locksid"><option value='0'>不使用封锁表</option>{foreach from=$aLocks item=lock key=k}<option value='{$lock.locksid}'>{$lock.lockname}</option>{/foreach}</select></td>
+-->
+<td>
+<!-- <input size=30 name="lockname" id="lockname" value="locks_">（暂用文本框代替，以后应是封锁表列表，下拉框选择） -->
+    <select id="lockname" name="lockname">
+        <option value="">请选择</option>
+        {foreach from=$aLocks item=item key=k}
+        <option value="{$item.locktablename}">{$item.locktablecnname}（{$item.locktablename}）</option>
+        {/foreach}
+    </select>
+</td>
+</tr>
+<!--<tr>
+<td class="narrow-label">最大封锁值</td>
+<td><input size=30 name="maxlost" id="maxlost" value="500000">(默认50w)</td>
+</tr>-->
+<td class="narrow-label">奖级个数</td>
+<td><input type="text" name="level" id="level" value="" size="4"></td>
+</tr>
+<tr>
+<td class="narrow-label">转直注数</td>
+<td><span id="zhu_zhi" name="zhu_zhi">
+</span></td>
+</tr>
+<tr>
+<td class="narrow-label">全包成本</td>
+<td><input type="text" name="totalmoney" id="totalmoney" size="8"  value=""/></td>
+</tr>
+
+<tr>
+<td class="narrow-label">玩法组描述</td>
+<td>
+	<textarea name="description" id="description" rows="6" cols="60"></textarea></td>
+</tr>
+
+<tr>
+<td class="narrow-label"></td>
+<td><input type="hidden" name="methodid" id="methodid" value="" /><input type="submit" class="button" value=""></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

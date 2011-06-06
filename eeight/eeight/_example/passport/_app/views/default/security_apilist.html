@@ -1,0 +1,31 @@
+{include file="pageheader.html"}
+<body>
+<div class="list-div">
+<table width="100%" class="list-table">
+<tr>
+ <th>取款方式</th>
+ <th>币种</th>
+ <th>到账时间</th>
+ <th>单次最低取款金额</th>
+ <th>单次最高取款金额</th>
+ <th>类型</th>
+ <th>手续费(单次)</th>
+ <th>手续费(金额)</th>
+ <th>操作</th>
+</tr>
+{foreach from=$apiList item=api key=k}
+<tr align="center">
+	<td>{$api.payport_nickname}</td>
+	<td>{$api.currency}</td>
+	<td>{$api.draw_time_note}天</td>
+	<td>￥{$api.draw_limit_min_per|escape:money}</td>
+	<td>￥{$api.draw_limit_max_per|escape:money}</td>
+	<td>{$api.type}</td>
+	<td>{$api.draw_fee_per|escape:percent}%</td>
+	<td>{$api.draw_fee_percent|escape:percent}%</td>
+	<td><a href="?controller=security&action=onlinewithdraw&id={$api.payaccountid}" style="cursor:pointer">立即取款</a></td>
+</tr>
+{/foreach}
+</table>
+</div>
+{include file="pagefooter.html"}

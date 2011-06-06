@@ -1,0 +1,40 @@
+*{margin:0;padding:0;}
+a{font-size:14px;text-decoration:none;}
+a:hover{text-decoration:underline;}
+.redtext{color:#F00;}
+input{vertical-align:middle;}
+.b1 {height:1px; font-size:1px; overflow:hidden; display:block; background:#990000; margin:0 5px;}
+.b2 {height:1px; font-size:1px; overflow:hidden; display:block; background:#990000; margin:0 3px;}
+.b3 {height:1px; font-size:1px; overflow:hidden; display:block; background:#990000; margin:0 2px;}
+.b4 {height:2px; font-size:1px; overflow:hidden; display:block; background:#990000; margin:0 1px;}
+.b5 {height:1px; font-size:1px; overflow:hidden; display:block; background:#DDE0E5; margin:0 5px;}
+.b6 {height:1px; font-size:1px; overflow:hidden; display:block; background:#DDE0E5; margin:0 3px;}
+.b7 {height:1px; font-size:1px; overflow:hidden; display:block; background:#DDE0E5; margin:0 2px;}
+.b8 {height:2px; font-size:1px; overflow:hidden; display:block; background:#DDE0E5; margin:0 1px;}
+.center{text-align: center;line-height: 18px;background-color:#DDE0E5;}
+#showissue {background:url(/highgame/images/default/cx01.gif) repeat scroll 0 0 transparent;border:0 solid #FFFFFF;height:21px;width:53px;}
+body{background:#585858;font-size:12px;font-family: "微软雅黑" , Arial , "Microsoft Sans Serif" ,  "宋体";}
+.top{background:url(/highgame/images/new_higame/red/right_01.jpg);background-repeat:repeat-x;height:28px;line-height:28px;color:#FFFFFF;width:100%;font-size:14px;}
+.top a{color:#FFF;}
+.main{width:95%;margin:0 auto;}
+.search{margin:6px 0 0 0;}
+.search a{color:#000;}
+.search_content{padding:5px 10px;background-color:#DDE0E5;}
+.code{margin:6px 0 0 0;}
+.title{background:#DDE0E5;letter-spacing:1px;color:#990000;font-weight:bold;font-family:Arial, Helvetica, sans-serif;}
+#head{color:#CA5050;font-weight:bold;font-family:Arial, Helvetica, sans-serif;}
+.code #codeTable{width:100%;background:#DDE0E5;color:#1A89D8;}
+#codeTable th{line-height:30px;background:#990000;color:#FFFFFF;}
+#codeTable td{line-height:28px;text-align:center;border-bottom:1px solid #F4F3F6;border-right:1px solid #F4F3F6;}
+#codeTable .totalcode{border-right:0;color:#CA5050;font-weight:bold;font-family:Arial, Helvetica, sans-serif;}
+#codeTable .dxcode{color:#CA5050;font-weight:bold;font-family:Arial, Helvetica, sans-serif;}
+#codeTable .dscode{color:#1A89D8;font-weight:bold;font-family:Arial, Helvetica, sans-serif;}
+#codeTable .sxcode{color:#CA5050;font-weight:bold;font-family:Arial, Helvetica, sans-serif;}
+#codeTable .jocode{color:#1A89D8;font-weight:bold;font-family:Arial, Helvetica, sans-serif;}
+.code #hotcode{width:100%;background:#DDE0E5;color:#1A89D8;}
+#hotcode th{line-height:30px;background:#990000;color:#FFFFFF;}
+#hotcode td{line-height:28px;border-bottom:1px solid #F4F3F6;border-right:1px solid #F4F3F6;}
+#hotcode .number{text-align:center;color:#CA5050;}
+#hotcode .hottitle{text-align:left;padding-left:20px;}
+#hotcode .hottag{text-align:left;padding-left:20px;color:#003399;}
+.footer {margin:6px 0 10px 0;text-align: left;}

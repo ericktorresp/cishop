@@ -1,0 +1,35 @@
+{include file="pageheader.html"}
+
+<div class="list-div" id="listDiv">
+<form action="index.php" method="post" name="updateform">
+<input type="hidden" name="flag" value="update" />
+<input type="hidden" name="controller" value="useradmin" />
+<input type="hidden" name="action"	value="admingroup" />
+<input type="hidden" name="uid"	value="{$data.userid}" />
+  <table cellspacing='1' cellpadding='3' id='list-table'>
+    <tr>
+  	<td align="right" width="20%">所属组别:</td>
+    <td><select name="groupid">
+    		<option value="0" {if $group.groupid == 0 }selected="selected"{/if}>取消权限</option>
+            {foreach from=$groups item=group key=k}
+            {if $group.isspecial==0}<option value="{$group.groupid}" style="color:#333333" {if $group.groupid == $data.groupid }selected="selected"{/if}>{$group.groupname|escape:html}[系统默认]
+            {elseif $group.issales==1}<option value="{$group.groupid}" style="color:#FF0000" {if $group.groupid == $data.groupid }selected="selected"{/if}>{$group.groupname|escape:html}[指定销售]
+            {else}<option value="{$group.groupid}" {if $group.groupid == $data.groupid }selected="selected"{/if}>{$group.groupname|escape:html}{/if}
+            </option>
+            {/foreach}
+            </select></td>
+  </tr>
+  <tr>
+  	<td align="right">管理员帐号:</td>
+    <td>{$data.username|escape:html}</td>
+  </tr>
+  <tr>
+  	<td align="right">管理员呢称:</td>
+    <td>{$data.nickname|escape:html}</td>
+  </tr>
+  <tr><td colspan="2" align="center" height="40"><input type="submit" name="submit" class="button" value="提交" />&nbsp;&nbsp;<input type="button" class="button" value="返回列表" onclick="window.location='index.php?controller=useradmin&action=adminlist'" /></td></tr>
+  </table>
+</form>
+</div>
+
+{include file="pagefooter.html"}

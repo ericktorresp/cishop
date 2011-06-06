@@ -1,0 +1,190 @@
+{include file="pageheader.html"}
+{insert_scripts files="jquery.js"}
+<script>
+$(document).ready(function(){
+	$("#order").change(function(){
+		$("form").submit();
+	});
+	$(".tab-back").hover(function(){
+	    if($(this).attr("class") == "tab-back"){
+	        $(this).attr("class","tab-hover");
+	    }
+	},
+	function(){
+	    if($(this).attr("class") == "tab-hover"){
+	        $(this).attr("class","tab-back");
+	    }
+	});
+	$("#relationmethod").hide();
+	if( {$ishaverelation} == 1){
+	   $("#relationmethod").show();
+    }
+	$(".tabbar-div").find("span").click(function(){
+	    $(".tabbar-div").find("span").attr("class","tab-back");
+	    $(this).attr("class","tab-front");
+	    var id = $(this).attr("id").split("-");
+	    var methodid = id[1];
+	    window.location.href="./index.php?controller=locks&action={$action}&lotteryid={$lotteryid}&lotteryname={$lotteryname}&order={$order}&issue={$issue}&crowdid={$crowdid}&methodid="+methodid+"&seltype=total";
+	});
+	$(":radio") .click(function(){
+	    var id = $(this).attr("id").split("-");
+	    var methodid = id[1];
+	    if($(this).attr("class") == 'methodtotal'){
+	        window.location.href="./index.php?controller=locks&action={$action}&lotteryid={$lotteryid}&lotteryname={$lotteryname}&order={$order}&issue={$issue}&crowdid={$crowdid}&methodid="+methodid+"&seltype=total";
+	    }else{
+	        window.location.href="./index.php?controller=locks&action={$action}&lotteryid={$lotteryid}&lotteryname={$lotteryname}&order={$order}&issue={$issue}&crowdid={$crowdid}&methodid="+methodid+"&seltype=method";
+	    }
+	});
+	$(".allcrowd").find("input").click(function(){
+	    var crowdid = $(this).attr("id");
+	    window.location.href="./index.php?controller=locks&action={$action}&lotteryid={$lotteryid}&lotteryname={$lotteryname}&order={$order}&issue={$issue}&crowdid="+crowdid;
+	});
+});
+</script>
+<style type="text/css">
+.clickon{
+    background-color:#289573;
+    height: 27px;
+    width: 90px;
+    cursor:pointer;
+    border:1px inset #9BD9C5;
+    color:#FFF;
+    font-size:13px;
+    font-weight:bold;
+    margin-left:5px;
+}
+.clickoff{
+    background-color:#9BD9C5;
+    height: 27px;
+    width: 90px;
+    cursor:pointer;
+    border:1px outset #289573;
+    color:#000;
+    margin-left:2px;
+    font-weight:bold;
+}
+.allcrowd{
+    color:#FFFFFF;
+    border:1px solid #399677;
+    padding:5px;
+    background-color:#FFFFFF;
+}
+</style>
+<div class="allcrowd">
+{foreach from=$crowd item=crowddata key =j}
+{if $crowddata.crowdid == $crowdid}
+<input type="button" value="{$crowddata.crowdname}" class="clickon" name="crowd" id="{$crowddata.crowdid}">
+{else}
+<input type="button" value="{$crowddata.crowdname}" class="clickoff" name="crowd" id="{$crowddata.crowdid}">
+{/if}
+{/foreach}
+</div>
+<div class="tab-div" style="padding-top:0;">
+{foreach from=$method item=methodgroup key =j}
+<div class="tabbar-div">
+{foreach from=$methodgroup item=methodtab key =k}
+{if $methodtab.locktablecnname != ''}
+{if $methodtab.methodid == $defaultmethod}
+<span class="tab-front" id="method-{$methodtab.methodid}">{$methodtab.locktablecnname}</span>
+{else}
+<span class="tab-back" id="method-{$methodtab.methodid}">{$methodtab.locktablecnname}</span>
+{/if}
+{/if}
+{/foreach}
+</div>
+{foreachelse}
+<div class="tabbar-div"><p style="color:white;font-weight:bold;font-size:13px;">没有封锁表信息</p></div>
+{/foreach}
+<div class="tabbar-div" style="padding-left:20px;" id="relationmethod">
+{if isset($relation) && !empty($relation)}
+{ if $nototal != 1 }
+<input class="methodtotal" name="relationmethod" id="method-{$methodid}" {if $querytype == 'total'} checked="checked" {/if} type="radio">总计
+{/if}
+{foreach from=$relation item=relationmethod key=k}
+{if $relationmethod.methodid == $methodid && $querytype == 'method' }
+<input name="relationmethod" id="method-{$relationmethod.methodid}" type="radio" checked="checked">{$relationmethod.methodname}
+{else}
+<input name="relationmethod" id="method-{$relationmethod.methodid}" type="radio">{$relationmethod.methodname}
+{/if}
+{/foreach}
+{/if}
+</div>
+<div class="list-div" id="lockmessage" style="border-bottom:0;">
+<form id="query" action="" method="GET">
+<input type="hidden" name="controller" value="locks">
+<input type="hidden" name="action" value="{$action}">
+<input type="hidden" name="lotteryid" value="{$lotteryid}">
+<input type="hidden" name="lotteryname" value="{$lotteryname}">
+<input type="hidden" name="methodid" value="{$methodid}" id="methodid">
+<input type="hidden" name="crowdid" value="{$crowdid}" id="crowdid">
+<input type="hidden" name="seltype" value="{$querytype}">
+<table class="list-form">
+<tr>
+<td style="padding-left:20px;padding-top:5px;">
+奖期: 奖期: <select name="issue" id="issue">
+{foreach from=$aIssue item=issue key=k}
+<option value="{$issue.issue}" {if $issue.issue==$currentissue}selected="SELECTED"{/if}>{$issue.issue}</option>
+{/foreach}
+</select>
+&nbsp;&nbsp;
+排序:
+<select name="order" id="order">
+<option value="0" {if $order == 0 }selected{/if}>号码</option>
+<option value="1" {if $order == 1 }selected{/if}>封锁值</option>
+</select>
+<input type="submit" class="button" value="查询" id="search" align="middle" style="margin-top:-7px;"> <br/>
+1. 全体号码假设盈亏值均数 : <b><font color=red>{$aDebug.extend.junshu|escape:money:4}</font></b> 元<br/>
+2. 截止目前总销售额(S) : <b><font color=red>{$aDebug.iTotalSale|escape:money:4}</font></b> 元<br/>
+3. 理论利润率 :  <b><font color=red>{$aDebug.iPercent|escape:money:4}</font></b>%<br/>
+{if $aDebug.isshowfanca == TRUE}
+4. 全体号码假设盈亏值标准差 : <b><font color=red>{$aDebug.extend.biaozhunfangcha}</font></b><br/>
+5. 全体号码假设盈亏值变异系数 : <b><font color=red>{$aDebug.extend.bianyixishu}</font></b> 倍<br/>
+{/if}
+</td>
+</tr>
+</table>
+</form>
+</div>
+
+<div class="list-div" id="lockdata" style="border-bottom:0;margin-bottom:0;">
+<table id="no-table">
+<tr>
+<th width="10%">号码</th>
+<th width="10%">封锁值</th>
+<th width="10%">号码</th>
+<th width="10%">封锁值</th>
+<th width="10%">号码</th>
+<th width="10%">封锁值</th>
+<th width="10%">号码</th>
+<th width="10%">封锁值</th>
+<th width="10%">号码</th>
+<th width="10%">封锁值</th>
+</tr>
+<tr id="nodata">
+{foreach from=$adata item=data key=k}
+    <td colspan="2">
+        <table cellpadding="0" cellspacing="0">
+         {foreach from=$data item=amount key=code}
+            <tr>
+                {if $amount === '---' }
+                    <td width="50%" align="center" style="border-right: 2px solid #EBEBDC;border-bottom: 2px solid #EBEBDC;color:grey;">---</td>
+                    <td width="50%" align="center" style="border-right: 2px solid #EBEBDC;border-bottom: 2px solid #EBEBDC;color:grey;">---</td>
+                 {else}
+                    <td width="50%" align="center" style="border-right: 2px solid #EBEBDC;border-bottom: 2px solid #EBEBDC;">{$code}</td>
+                    {if $amount >= 0}
+                    <td width="50%" align="right" style="border-bottom: 2px solid #EBEBDC;color:green;">{$amount|escape:money:4}</td>
+                    {else if}
+                    <td width="50%" align="right" style="border-bottom: 2px solid #EBEBDC;color:red;">{$amount|escape:money:4}</td>
+                    {/if}
+                 {/if}
+            </tr>
+         {/foreach}
+        </table>
+    </td>
+{/foreach}
+</tr>
+</table>
+</div>
+
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,145 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+jQuery.noConflict();
+function check_top(thisid,topid)
+{
+	if( jQuery("#"+thisid).attr("checked") == true )
+	{
+		jQuery("#"+topid).attr("checked",true);
+	}
+}
+function clear_son( topid )
+{
+	if( jQuery("#"+topid).attr("checked") == false )
+	{
+		jQuery("#"+topid).parent().parent().nextAll().find(":checkbox").attr("checked",false);
+	}
+}
+function selectAll(obj)
+{
+	jQuery(":checkbox[id!='"+obj+"']").attr("checked",jQuery("#"+obj).attr("checked"));
+}
+function clear_bytop( topid, count )
+{
+	if( jQuery("#"+topid).attr("checked") == false )
+	{
+		jQuery("#"+topid).closest("tr").find(":checkbox").attr("checked",false);
+		for(i=0;i<count-1;i++)
+		{
+			jQuery("#"+topid).closest("tr").nextAll("tr:eq("+i+")").find(":checkbox").attr("checked",false);
+		}
+	}
+}
+</script>
+<form method="POST" name="listForm" action="./index.php" onsubmit="return validate()" >
+<input type="hidden" name="controller" value="useradmin" />
+<input type="hidden" name="action"	value="rightsgroup" />
+<input type="hidden" name="flag" value="update" />
+<input type="hidden" name="gid" value="{$groupid}" />
+<input type="hidden" name="gname" value="{$groupname|escape:html}" />
+<div class="tab-div">
+	<div id="tabbar-div">
+    	<span class="tab-front" id="general-tab">{$groupname|escape:html}</span>
+  	</div>
+	{* 标签 : 权限属性 *}
+    <div class="list-div" id="listDiv">
+        <table cellspacing='1' cellpadding='2' id="detail-table">
+        <tr>{foreach from=$menus.0 item=menu key=top}
+        	{if $top != 1}
+            <td rowspan="{$counts.$top}"  class="first-cell" style='width:16%;'><label for="menu_{$top}" TITLE='{$menu.description|escape:html}'><input type="checkbox" 
+            name="menustrs[]" id="menu_{$top}" value="{$top}" {if isset($groupmenus.$top) }checked="checked"{/if} onclick="clear_bytop('menu_{$top}',{$counts.$top})">{$menu.title|escape:html}</label></td>
+            {foreach from=$menus.$top item=menu2 key=top2}
+                <td width="18%" style='color:#690;padding-left:6px;'><label for="menu_{$top2}" TITLE='{$menu2.description|escape:html}'><input type="checkbox" name="menustrs[]" id="menu_{$top2}" value="{$top2}" {if isset($groupmenus.$top2) }checked="checked"{/if} onclick="check_top('menu_{$top2}','menu_{$top}');clear_son('menu_{$top2}')">{$menu2.title|escape:html}</label></td>
+                <td style="color:#666;width:69%;line-height:18px;padding-left:12px;">
+                {if count($menus.$top2)>0}
+                    {foreach from=$menus.$top2 item=menu3 key=top3}<div style="width:160px;float:left;"><label for="menu_{$top3}" TITLE='{$menu3.description|escape:html}'><input type="checkbox" name="menustrs[]" id="menu_{$top3}" value="{$top3}" {if isset($groupmenus.$top3) }checked="checked"{/if} onclick="check_top('menu_{$top3}','menu_{$top2}');check_top('menu_{$top3}','menu_{$top}')">{$menu3.title|escape:html}</label></div>{/foreach}
+                {else}
+                &nbsp;
+                {/if}
+                </td>
+        </tr>{/foreach}
+        {/if}
+        {/foreach}
+        </table>
+    </div>
+
+    <div class="button-div"><br/><input type="checkbox" name="selectall" id="selectall" onclick="selectAll('selectall')" />全选
+        <input type="submit" value="提交" class="button"  />
+        <input type="reset" value="重置" class="button" />
+        <input type="hidden" name="groupid" value='{$admingroup.groupid}'>
+    </div>
+</div>
+</form>
+
+
+<script language="JavaScript">
+{literal}
+
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+function checkAll(frm, checkbox)
+{
+  for (i = 0; i < frm.elements.length; i++)
+  {
+    if (frm.elements[i].name == 'action_code[]' || frm.elements[i].name == 'chkGroup')
+    {
+      frm.elements[i].checked = checkbox.checked;
+    }
+  }
+}
+
+function check(list, obj)
+{
+  var frm = obj.form;
+
+    for (i = 0; i < frm.elements.length; i++)
+    {
+      if (frm.elements[i].name == "action_code[]")
+      {
+          var regx = new RegExp(frm.elements[i].value + "(?!_)", "i");
+
+          if (list.search(regx) > -1) frm.elements[i].checked = obj.checked;
+      }
+    }
+}
+
+{/literal}
+</script>
+
+{insert_scripts files="./js/validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+  /**
+   * 检查表单输入的内容
+   */
+	function validate()
+	{
+		var validator = new Validator('listForm');
+		validator.required('groupname', "分组名不能为空!");
+		validator.required('sort', "排序值不能为空!");
+		if( document.forms['listForm'].elements['sort'].value < 0 )
+		{
+			validator.addErrorMsg('排序值应大于0');
+		}
+		return validator.passed();  
+    }
+//-->
+</script>
+{/literal}
+
+{include file="pagefooter.html"}

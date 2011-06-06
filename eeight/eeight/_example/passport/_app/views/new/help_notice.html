@@ -1,0 +1,37 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<div class="right_02 d5d8de">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div>
+<table width="100%" cellpadding="4" cellspacing="1" class="list-table">
+<tr>
+    	<th class="font14" style="font-size:20px">{$notice.subject|escape:html}</th>
+    </tr>
+    <tr>
+    	<td align="center" height="20" valign="top" style="color:#666666">时间：{if $notice.checktime != 0}{$notice.checktime|truncate:0,16}{else}{$notice.sendtime|truncate:0,16}{/if}</td>
+    </tr>
+    <tr>
+    	<td align="center">
+        <table width="80%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="left" style="line-height:22px;">{$notice.content}</td>
+  </tr>
+</table>
+        </td>
+    </tr>
+    <tr>
+    	<td align="center" height="40"><input class="buttonnormal" type="button" value="返回" onclick="history.back(-1);" /></td>
+    </tr>
+</table>
+</div>
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+
+</div>
+</div>
+{include file="pagefooter.html"}

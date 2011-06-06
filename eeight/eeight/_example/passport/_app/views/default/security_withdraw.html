@@ -1,0 +1,50 @@
+{include file="pageheader.html"}
+<LINK href="./css/label.css" rel="stylesheet" type="text/css" />
+<div id="tabbar-div">
+	<span class="tab-front">
+		<span class="tabbar-left"></span>
+		<span class="content" >向上级提现</span>
+		<span class="tabbar-right"></span>
+	</span>
+	<span class="tab-back">
+		<span class="tabbar-left"></span>
+		
+		<span class="content" onclick="window.location.href='?controller=security&action=platwithdraw&check={$check}'">向平台提现</span>
+		<span class="tabbar-right"></span>
+	</span>
+</div>
+<div class="tabbar-bottom"></div>
+<div class="list-div" id="listDiv">
+<table class="list-table">
+<form action="index.php" method="post">
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action"	value="withdraw" />
+<input type="hidden" name="flag" value="withdraw" />
+<input type="hidden" name="check" value="{$check}" />
+	<tr>
+    	<td class="narrow-label" style="font-size:14px;color:#FF3300;">提示：</td>
+        <td>您的游戏币会直接提到上级账户，为提高您的资金安全性，建议：<br />1.大额提现使用“向平台提现”；<br />2.提现前先和上级联络确认您本人的提现信息；<br />3.未收到汇款或收到金额与实际提现不一致时，及时联系上级。</td>
+    </tr>
+	<tr>
+    	<td class="narrow-label">用户名：</td>
+        <td>{$user.username|escape:html}</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">您的银行大厅余额：</td>
+        <td>{$user.availablebalance|escape:money}</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">提现金额：</td>
+        <td><input type="text" name="money" size="20" onkeyup="checkWithdraw(this,'chineseMoney',{$user.availablebalance});" /></td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">提现金额(大写)：</td>
+        <td><span id="chineseMoney" ></span></td>
+    </tr>
+    <tr>
+    	<td></td><td><input type="submit" name="submit" value="下一步" class="button" /></td>
+    </tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

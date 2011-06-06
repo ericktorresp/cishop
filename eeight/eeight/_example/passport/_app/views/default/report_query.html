@@ -1,0 +1,118 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+<script language="javascipt" type="text/javascript">
+$(function(){
+    jQuery("#date").dynDateTime({
+			ifFormat: "%Y-%m-%d",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()",
+			showOthers: true,
+			weekNumbers: true,
+			showsTime: true
+		});
+})
+</script>
+<body>
+{if $pid == 0}
+<div class="list-Form">
+<form name="searchForm" action="" METHOD='get'>
+<input type='hidden' name="controller" value="report"/>
+<input type='hidden' name="action" value="query"/>
+<img src="./images/icon_search.gif" width="26" height="22" border="0" TITLE="SEARCH" />
+选择日期：<input  type="text" size="15" name="date" id="date" value="{$date}"/>
+<img src="./images/calendar2.gif" id="time_button" />
+<input type="submit" value="立即搜索"  class="button" />
+</form>
+</div>
+{/if}
+{if $pid == 0}
+<div class="message"><b>用户名:<font color="#FF0000">{$username}</font></b></div>
+{else}
+<div class="message"><b>频道:<font color="#FF0000">{$channelname}</font></b></div>
+{/if}
+<div class="list-div">
+<table width="100%" class="list-table">
+<tr>
+ <th>日期</th>
+ {if $pid == 0}
+ <th>频道</th>
+ {/if}
+ <th>用户名</th>
+ {if $pid != 0}
+ <th>所属组</th>
+ {/if}
+ <th>总代购费</th>
+ <th>总返点</th>
+ <th>实际总代购费</th>
+ <th>中奖金额</th>
+ <th>总结算</th>
+ <th>操作</th>
+</tr>
+{if $pid == 0}
+{foreach from=$aResult item =data key=k}
+{foreach from=$data.user item =user key=l}
+<tr align="center">
+    {if $user.order == 0}
+        <td rowspan="{$data.usercount}">{$date}</td>
+        <td rowspan="{$data.usercount}">{$data.channelname|escape:html}</td>
+    {/if}
+    <td>{if isset($user.username)}{$user.username}{else}{$username}{/if}</td>
+    <td>{if $user.amount>0}<font color="Green">{else}<font color="Red">{/if}{$user.amount|escape:money}</font></td>
+    <td>{if $user.point>0}<font color="Green">{else}<font color="Red">{/if}{$user.point|escape:money}</font></td>
+    <td>{if $user.realamount>0}<font color="Green">{else}<font color="Red">{/if}{$user.realamount|escape:money}</font></td>
+    <td>{if $user.bonus>0}<font color="Green">{else}<font color="Red">{/if}{$user.bonus|escape:money}</font></td>
+    <td>{if $user.win>0}<font color="Green">{else}<font color="Red">{/if}{$user.win|escape:money}</font></td>
+    <td>
+        {if $usertype>0}<a href="/?controller=report&action=query&pid={$l}&channelid={$k}&date={$date}" target="_blank">查看下级</a>
+        &nbsp;&nbsp;{/if}<a href="/?controller=report&action=gamedetail&pid={$l}&channelname={$data.channelname}&channelid={$k}&username={if isset($user.username)}{$user.username}{else}{$username}{/if}&userid={$l}&date={$date}" target="_blank"">游戏明细</a>
+    </td>
+</tr>
+{/foreach}
+{foreachelse}
+<tr align="center">
+    <td colspan="{if $pid == 0}9{else}10{/if}">没有相关数据!</td>
+</tr>
+{/foreach}
+{else}
+<!--下级-->
+{foreach from=$aResult item =data key=k}
+<tr align="center">
+    <td>{$date}</td>
+    <td>{$data.username}</td>
+    <td>{$data.usergroup}</td>
+    <td>{if $data.amount>0}<font color="Green">{else}<font color="Red">{/if}{$data.amount|escape:money}</font></td>
+    <td>{if $data.point>0}<font color="Green">{else}<font color="Red">{/if}{$data.point|escape:money}</font></td>
+    <td>{if $data.realamount>0}<font color="Green">{else}<font color="Red">{/if}{$data.realamount|escape:money}</font></td>
+    <td>{if $data.bonus>0}<font color="Green">{else}<font color="Red">{/if}{$data.bonus|escape:money}</font></td>
+    <td>{if $data.win>0}<font color="Green">{else}<font color="Red">{/if}{$data.win|escape:money}</font></td>
+    <td>
+        {if $usertype>0}<a href="/?controller=report&action=query&pid={$k}&channelid={$channelid}&date={$date}" target="_blank">查看下级</a>
+        &nbsp;&nbsp;{/if}<a href="/?controller=report&action=gamedetail&channelname={$channelname}&username={if isset($data.username)}{$data.username}{else}{$username}{/if}&userid={$k}&channelid={$channelid}&date={$date}" target="_blank"">游戏明细</a>
+    </td>
+</tr>
+{foreachelse}
+<tr align="center">
+    <td colspan="{if $pid == 0}9{else}10{/if}">没有相关数据!</td>
+</tr>
+{/foreach}
+{/if}
+
+{if $pid == 0}
+<tr align="center">
+    <td colspan="3">总计</td>
+    <td>{if $totalamount>0}<font color="Green">{else}<font color="Red">{/if}{$totalamount|escape:money}</font></td>
+    <td>{if $totalpoint>0}<font color="Green">{else}<font color="Red">{/if}{$totalpoint|escape:money}</font></td>
+    <td>{if $totalrealamount>0}<font color="Green">{else}<font color="Red">{/if}{$totalrealamount|escape:money}</font></td>
+    <td>{if $totalbonus>0}<font color="Green">{else}<font color="Red">{/if}{$totalbonus|escape:money}</font></td>
+    <td>{if $totalwin>0}<font color="Green">{else}<font color="Red">{/if}{$totalwin|escape:money}</font></td>
+    <td>&nbsp;</td>
+</tr>
+{/if}
+</table>
+</div>
+{include file="pagefooter.html"}

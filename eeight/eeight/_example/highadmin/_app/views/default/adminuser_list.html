@@ -1,0 +1,115 @@
+{include file="pageheader.html"}
+
+<script type="text/javascript">
+{literal}
+function CheckBoxSelectAll(obj, chk)
+{
+  if (chk == null)
+  {
+    chk = 'checkboxes';
+  }
+
+  var elems = obj.form.getElementsByTagName("INPUT");
+
+  for (var i=0; i < elems.length; i++)
+  {
+    if (elems[i].name == chk || elems[i].name == chk + "[]")
+    {
+      elems[i].checked = obj.checked;
+    }
+  }
+}
+
+ function confirmSubmit(frm, ext)
+  {
+      if (frm.elements['form_action'].value == '')
+      {
+          alert('请选择操作的类型');
+		  return false;
+      }
+	  else if(frm.elements['form_action'].value == 'bat_delete')
+	  {
+		  return confirm("确定要删除选中的数据?");
+	  }
+	  else if( frm.elements['form_action'].value == 'bat_enableall' )
+	  {
+		return confirm("确定启用全部组别?");
+	  }
+	  else
+      {
+          return true;
+      }
+  }
+
+{/literal}
+</script>
+
+<div class="form-div">
+    <FORM name="searchForm" action="" METHOD='get'>
+    <input type='hidden' name="controller" value="adminuser"/>
+    <input type='hidden' name="action" value="list"/>
+    <img src="./images/icon_search.gif" width="26" height="22" border="0" TITLE="SEARCH" />
+    组别过滤: <select name="groupid">
+		<option value="0">全部组别</option>
+		{$aAdminGroup}
+		</select> &nbsp;&nbsp;
+		登陆账号搜索 <input type="text" name="username" value="{$aHtmlValue.username|escape:html}"/>
+    <input type="submit" value="搜 索" class="button" />  (搜索通配符 * 号)
+  </FORM>
+</div>
+<div class="list-div" id="listDiv">
+
+
+<form method="POST" name="listForm" action='./?controller=adminuser&action=edit' onsubmit="return confirmSubmit(this)">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th><input onclick='CheckBoxSelectAll(this, "checkboxes")' type="checkbox"> ID</th>
+    <th>登陆帐号</th>
+    <th>管理员昵称</th>
+    <th>使用语言</th>
+    <th>是否锁定</th>
+    <th>所属管理组</th>
+    <th>操作</th>
+  </tr>
+
+{foreach from=$aUserList item=list key=k1}
+  <tr>
+    <td class="first-cell" ><span><input 
+		name="checkboxes[]" type="checkbox" value="{$list.adminid}"/>{$list.adminid}</span></td>
+	<td align="center">{$list.adminname|escape:html}</td>
+	<td align="center">{$list.adminnick|escape:html}</td>
+	<td align="center">{$list.adminlang|escape:html}</td>
+	<td align="center">{if ($list.islocked==0)}<font color=#BABABA>正常</font>{else}<img src='./images/no.gif'>{/if}</td>
+	<td align="center">{$list.groupname|escape:html}</td>
+	<td align="center">
+      <a href="./?controller=log&action=adminlog&aid={$list.adminid}" title="查看日志: {$list.adminname|escape:html}">查看日志</a>&nbsp;&nbsp;&nbsp;
+      <a href="./?controller=adminuser&action=edit&adminid={$list.adminid}" title="修改管理员: {$list.adminname|escape:html}">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="./?controller=adminuser&action=del&userid={$list.adminid}" title="删除管理员: {$list.adminname|escape:html}" 
+		onclick="javascript:return confirm('您确定要删除管理员: {$list.adminname|escape:html} ?');">删除</a></td>
+  </tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">无相关数据</td></tr>
+{/foreach}
+</table>
+
+
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+
+<table id="page-table" cellspacing="0">
+  <tr>
+  <td>&nbsp;&nbsp;
+	<select style='background:#eaeaea;color:#333' name='form_action'>
+    <option value="">请选择操作类型...</option>
+	<option value="bat_disable">批量锁定</option>
+	<option value="bat_enable">批量解锁</option>
+  </select>
+    <input type="submit" value="确定" id="btnSubmit" name="btnSubmit" class="button" />
+</td>
+</tr>
+</table>
+
+</form>
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

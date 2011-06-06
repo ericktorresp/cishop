@@ -1,0 +1,81 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkForm(obj)
+{
+	// 提现原始金额不能小于等于0
+	if ({$totalmoney} <= 0 || {$totalmoney} > {$availablebalance} || {$money} <= 0){
+		alert("提现金额不正确！");
+		return false;
+	}
+	return true;
+}
+</script>
+<div class="list-div" id="listDiv">
+<table width="100%" class="list-table">
+<form action="index.php" method="post" name="drawform" onsubmit="return checkForm(this)">
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action" value="onlinewithdraw" />
+<input type="hidden" name="flag" value="withdraw" />
+<input type="hidden" name="real_money" value="{$withdraw}" />
+<input type="hidden" name="api_id" value="{$api_id}" />
+<input type="hidden" name="api_nickname" value="{$api_nickname}" />
+<input type="hidden" name="bankinfoid" value="{$bankinfoid}" />
+<!--<tr>
+	<td class="narrow-label">汇款渠道：</td>
+	<td>{$api_nickname|escape:html}</td>
+</tr>-->
+<tr>
+	<td class="narrow-label">用户名：</td>
+	<td>{$username|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">实扣金额：</td>
+    <td>{$totalmoney|escape:money}</td>
+</tr>
+<tr>
+	<td class="narrow-label">提现金额：</td>
+    <td>{$withdraw|escape:money}</td>
+</tr>
+<tr>
+	<td class="narrow-label">提现手续费：</td>
+	<td>{$charge|escape:money}</td>
+</tr>
+<tr>
+	<td class="narrow-label">到账金额：</td>
+    <td>{$money|escape:money}</td>
+</tr>
+<tr>
+	<td class="narrow-label">开户银行名称：</td>
+	<td>{$bank|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">开户银行省份：</td>
+	<td>{$province|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">开户银行城市：</td>
+	<td>{$city|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">支行名称：</td>
+	<td>{$branch|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">开户人姓名：</td>
+	<td>{$account_name|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">开户人银行账号：</td>
+	<td>{$account}</td>
+</tr>
+<tr>
+	<td colspan="2">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请确认以上信息准确与否，如有疑问请点击返回按钮返回修改，<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如确认无误请点击确认提交。<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="确认提交" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="返回" onclick="history.back()" class="button" />
+	</td>
+</tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

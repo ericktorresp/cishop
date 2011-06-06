@@ -1,0 +1,38 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="js/swfobject.js"></script>
+
+{literal}
+<div class="form-div">
+活动标题: 第 3.1415926535 次有奖问答 <br />
+活动状态: 进行中 <br/>
+已参与用户数: 12 人 <br/>
+</div>
+
+<h3>题目内容:</h3>
+<div class="list-div" id="listDiv">
+
+   题目1:<br/>
+
+<div id="flashcontent">
+        <strong>You need to upgrade your Flash Player</strong>
+    </div>
+<script type="text/javascript">
+	// random number
+	var rn = Math.random();
+    var so = new SWFObject("./swf/ampie.swf", "ysfo1", "760", "260", "8", "#FFFFFF");
+    so.addVariable("path", "./swf/");
+    so.addVariable("settings_file", escape("./?controller=marketmgr&action=activityviewxml&settings_file=1"));
+    so.addVariable("data_file", "./?controller=marketmgr%26action=activityviewxml%26data_file=1%26args=5|最喜欢时时彩 SSC,最喜欢时时乐 SSL,这是一个很长很长很长字符串,超短的字符串,最喜欢排列三|130,210,330,470,580&rn="+rn);
+    //so.addVariable("data_file", escape("swf/draw_pie.xml"));
+
+    so.addVariable("loading_settings", "loading settings ......");
+    so.addVariable("loading_data", "loading data ......");
+    so.addVariable("preloader_color", "#999999");
+
+    so.write("flashcontent");
+</script>
+
+
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

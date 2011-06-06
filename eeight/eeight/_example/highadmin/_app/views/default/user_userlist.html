@@ -1,0 +1,81 @@
+{include file="pageheader.html"}
+<div class="form-div" ID="formdiv">
+<FORM action="" method="get">
+<input type="hidden" name="controller" value="user">
+<input type="hidden" name="action" value="userlist">
+<input type="hidden" name="userid" value="{$userid}">
+<img src="./images/icon_search.gif" border="0">
+用户名称:&nbsp;&nbsp;<input type="text" name="username" id="username" size="16" style="background-color:#FFF;color:#555"
+value="{$username|escape:html}">&nbsp;&nbsp;
+&nbsp;&nbsp; 
+用户组:&nbsp;&nbsp;<select style="background-color:#FFF;color:#555;" name="team">
+<option value="0">不限</option>
+<option value="1" {if $userteam==1}selected="selected"{/if}>总代</option>
+<option value="2" {if $userteam==2}selected="selected"{/if}>一级代理</option>
+<option value="3" {if $userteam==3}selected="selected"{/if}>代理用户</option>
+<option value="4" {if $userteam==4}selected="selected"{/if}>会员用户</option>
+</select>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可用余额 E:&nbsp;&nbsp;
+	<input size=10 style="background-color:#FFF;color:#555;" name="minmoney" value="{$minmoney|escape:html}">
+	&nbsp;&nbsp;至&nbsp;&nbsp;
+
+	<input size=10 style="background-color:#FFF;color:#555;" name="maxmoney" value="{$maxmoney|escape:html}">(元)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户排序:&nbsp;&nbsp;<select style="background-color:#FFF;color:#555" name="order">
+	<option value="name" >用户名称</option>
+	<option value="ID" {if $order=="ID"}selected="selected"{/if}>用户ID</option>
+	<option value="money" {if $order=="money"}selected="selected"{/if}>可用余额</option>
+</select>
+<label for="desc"><input type="checkbox" id="desc" name="desc" value="1" style="background-color:#FFF;color:#555" {if isset($desc)&&($desc=='DESC')}checked{/if}>从大到小</label>
+<input type="submit" class="button" value="搜索"><a href="javascript:showNotice('noticeUser');"><img src="./images/notice.gif" border="0"></a><br/>
+<div id="noticeUser" style="display:none; margin-left:40px;">1、用户名称:支持*号搜索<br/>2、用户组:用户所属的组。<br/>3、可用余额：用户可用余额范围搜索。<br/>4、排序:支持三种排序:用户ID,用户名称,可用余额，可以支持两种排序：从小到大以及从大到小，默认为用户Id的从大到小排序。</div>
+</FORM>
+</div>
+{if isset($banner)}
+<div class="list-div">
+<table>
+<tr>
+<td>当前位置:<a href="./index.php?controller=user&action=userlist">用户中心</a>{foreach from=$banner item=u key=k}&nbsp;&gt;&nbsp;<a href="./index.php?controller=user&action=userlist&id={$u.userid}">{$u.username}</a>{/foreach}</td>
+</tr>
+</table>
+</div>
+{/if}
+<div class="list-div">
+<table cellpadding="3" cellspacing="1">
+<tr>
+	<th width="40"><input type="checkbox"></th>
+	<th width="100">用户名</th>
+	<th width="100">所属组</th>
+	<th width="100">频道余额</th>
+	<th>操作</th>
+</tr>
+{if isset($self)}
+<tr align="center">
+	<td><input type="checkbox" name="" value="{$self.userid}"></td>
+	<td><a href="./index.php?controller=user&action=userlist&id={$self.userid}">{$self.username|escape:html}</a></td>
+	<td>{if $self.usertype==0}用户{elseif $self.parentid==0}总代{else}代理{/if}</td>
+	<td align="right">{$self.availablebalance|escape:money:4}</td>
+	<td><a href="./index.php?controller=user&action=team&id={$self.userid}">团队</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="./index.php?controller=user&action=info&id={$self.userid}">详情</a></td>
+</tr>
+{/if}
+{foreach from=$users item=user key=k}
+<tr align="center">
+	<td><input type="checkbox" name="" value="{$user.userid}"></td>
+	<td><a href="./index.php?controller=user&action=userlist&id={$user.userid}">{$user.username|escape:html}</a></td>
+	<td>{if $user.usertype==0}用户{elseif $user.parentid==0}总代{else}代理{/if}</td>
+	<td align="right">{$user.availablebalance|escape:money:4}</td>
+	<td><a href="./index.php?controller=user&action=team&id={$user.userid}">团队</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="./index.php?controller=user&action=info&id={$user.userid}">详情</a></td>
+</tr>
+{foreachelse}
+{if !isset($self)}
+<tr>
+	<td colspan="5" class="no-records">没有找到相关数据</td>
+</tr>
+{/if}
+{/foreach}
+<tr align="right">
+	<td colspan="5">{$pageinfo}</td>
+</tr>
+</table>
+</div>
+{insert_scripts files="global.js"}
+{include file="pagefooter.html"}

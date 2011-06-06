@@ -1,0 +1,440 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/jquery.impromptu.2.6.min.js"></script>
+<LINK href="./css/impromptu.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+	$(document).ready(function(){
+		// 全选/反选
+		$("#selectall").click(function(){
+			if(this.checked){  
+	        	$("input[name='user[]']").each(function(){
+	        		if (this.disabled != true)
+	        		this.checked=true;
+	        	});
+		    }else{  
+		        $("input[name='user[]']").each(function(){
+		        	if (this.disabled != true)
+		        	this.checked=false;
+		        });
+		    }   
+		});
+		
+		var Form = document.getElementById("listForm");
+		$("#sdisable").click(function(){ // 禁用
+			if (checkForm() == true){
+				$("#faction").val("updatestatus");
+				$("#flag").val("sdisable");
+				Form.submit();
+			}
+		});
+		
+		$("#senable").click(function(){ // 启用
+			if (checkForm() == true){
+				$("#faction").val("updatestatus");
+				$("#flag").val("senable");
+				Form.submit();
+			}
+		});
+        
+        
+        $("#changecard").click(function(){ // 批量替换
+            var oldcard = $("#oldcard").val();  // id
+            var newcard = $("#newinsteadcard").val();  // id
+            var oldcardinfo = $("#oldcard").find("option:selected").text(); // text
+            var newcardinfo = $("#newinsteadcard").find("option:selected").text(); // text
+            var bankid = $("#depositbankid").val();
+            if (oldcard == ""){
+                alert("请选择替换前银行卡");
+                $("#oldcard").focus();
+                return false;
+            }
+            if (newcard == ""){
+                alert("请选择替换后银行卡");
+                $("#newcard").focus();
+                return false;
+            }
+            
+            if (oldcard == newcard){
+                alert("替换前银行卡与替换后银行卡不能相同");
+                return false;
+            }
+            
+            $.ajax({
+                type:"POST",
+                url: "?controller=bankmanage&action=initinstead",
+                data: "id=" + oldcard + "&bankid=" + bankid,
+                success: function(result){
+                    var myDate = new Date();
+                    var today = myDate.getFullYear()+"-"+parseInt(myDate.getMonth() + 1) + "-" + myDate.getDate() + " " + parseInt(myDate.getHours() + 1) +":" + parseInt(myDate.getMinutes() + 1);
+                    var ss = "";
+                    if (result == -1){
+                        ss = "您提交的信息有误";
+                        $.prompt(ss,{ buttons: {"取消": false }, show:'slideDown' ,callback:mycallbackform,focus: 1 });
+                    } else {
+                        var userlist = new Array();
+                        userlist = eval(result);
+                        ss =  "<div style='overflow-y: auto; height: 300px; width: 100%;'><table class='list-div'>";
+                        ss += "<tr><th>替换前使用卡</th><th>替换前使用卡</th><th>替换时间</th></tr>";
+                        ss += "<tr><td>"+oldcardinfo+"</td><td>"+newcardinfo+"</td><td>"+today+"</td><tr>"
+                        ss += "</table>";
+                        ss += "<table class='list-div'>";
+                        ss += "<tr><td align='center' colspan='4'>换卡用户详情</td><tr>";
+                        ss += "<tr><th>换卡用户</th><th>所属总代</th><th>用户层级</th><th>用户身份</th></tr>";
+                        for(s=0; s<userlist.length; s++){
+                            var userType = "";
+                            if (userlist[s]['user_type'] == 0){
+                                userType = "普通用户";
+                            } else {
+                                userType = changeToChinese(userlist[s]['user_level']);
+                            }
+                            var identy = "";
+                            if (userlist[s]['identy'] == 'black'){
+                                identy = "<font color='blue'>黑名单用户</font>";
+                            } else if (userlist[s]['identy'] == 'vip'){
+                                identy = "<font color='red'>VIP用户</font>";
+                            } else {
+                                identy = "普通用户";
+                            }
+                            ss += "<tr><th>"+userlist[s]['username']+"</th><th>"+userlist[s]['topproxy']+"</th><th>"+userType+"</th><th>"+identy+"</th></tr>";
+                        }
+                        ss += "</table>";
+                        ss += "</div>";
+                        $.prompt(ss,{ buttons: { "确认": true, "取消": false }, show:'slideDown' ,callback:mycallbackform,focus: 1 });
+                    }
+                }
+            });
+        });
+	});
+    
+    function mycallbackform(v,m,f){
+        if(v){
+            $("#faction").val("batchchangecard");
+            $("#listForm").submit();
+        }
+    }
+    
+    
+    
+    function changeToChinese( level )
+    {
+        if (parseInt(level) == 0){
+            return "总代";
+        }
+        var cnNums	= new Array("零","一","二","三","四","五","六","七","六","九");	//汉字的数字
+        var cnIntRadice = new Array("","十","百","千");	//基本单位
+        var cnIntUnits = new Array("","万","亿","兆");	//对应整数部分扩展单位
+        var maxNum = 999999999999999;	//最大处理的数字
+
+        var IntegerNum;		//金额整数部分
+        var ChineseStr="";	//输出的中文金额字符串
+        var parts;		//分离金额后用的数组，预定义
+
+        if( level == "" )
+        {
+            return "";	
+        }
+
+        level = parseFloat(level);
+        //alert(money);
+        if( level >= maxNum )
+        {
+            alert('超出最大处理数字');
+            return "";
+        }
+        if( level == 0 )
+        {
+            ChineseStr = cnNums[0];
+            //document.getElementById("show").value=ChineseStr;
+            return ChineseStr;
+        }
+        level = level.toString(); //转换为字符串
+        if( level.indexOf(".") == -1 )
+        {
+            IntegerNum = level;
+        }
+        else
+        {
+            parts = level.split(".");
+            IntegerNum = parts[0];
+        }
+        if( parseInt(IntegerNum,10) > 0 )
+        {//获取整型部分转换
+            zeroCount = 0;
+            IntLen = IntegerNum.length;
+            for( i=0;i<IntLen;i++ )
+            {
+                n = IntegerNum.substr(i,1);
+                p = IntLen - i - 1;
+                q = p / 4;
+                m = p % 4;
+                if( n == "0" )
+                {
+                    zeroCount++;
+                }
+                else
+                {
+                    if( zeroCount > 0 )
+                    {
+                        ChineseStr += cnNums[0];
+                    }
+                    zeroCount = 0;	//归零
+                    ChineseStr += cnNums[parseInt(n)]+cnIntRadice[m];
+                }
+                if( m==0 && zeroCount<4 )
+                {
+                    ChineseStr += cnIntUnits[q];
+                }
+            }
+            
+        //整型部分处理完毕
+        }
+        
+        if( ChineseStr == '' )
+        {
+            ChineseStr += cnNums[0];
+        }
+        
+        return ChineseStr + "代";
+
+    }
+	
+	
+	function checkForm(){
+		var count_checked = get_checkbox_count(document.getElementById("listForm"),"user[]");
+		if (count_checked <= 0){
+			alert("请至少选择一项");
+			return false;
+		}
+		if (!confirm("确认提交吗？")){
+			return false;
+		}
+		return true;
+	}
+	
+	// 检查复选框是否有选中值
+	function get_checkbox_count(form,name){
+		var e = form.elements[name];
+	/*	for (key in e){
+			document.writeln(key + ' = ' + e[key] + '<br>');
+		}*/
+		var count = 0;
+		if (e){
+			if (e.length){
+				for(var i=0;i<e.length;i++){
+					if (e[i].checked)
+						count ++;
+				}
+			}
+			else
+				count = e.checked ? 1 : 0;
+		}
+		return count;
+	}
+</script>
+<div class="form-div" ID="formdiv">
+<FORM action="" method="get">
+<input type="hidden" name="controller" value="bankmanage">
+<input type="hidden" name="action" value="view">
+<input type="hidden" name="flag" value="search">
+<input type="hidden" name="depositbankid" id="depositbankid" value="{$depositbankid}">
+<img src="./images/icon_search.gif" border="0">
+用户名称:<input type="text" name="username" id="username" value="{$ahtml.username}" size="16" style="background-color:#FFF;color:#555"
+value="{$username|escape:html}">
+&nbsp; 
+用户身份:<select name="identity" id="identity">
+<option>全部</option>
+<option value="1" {if $ahtml.identity == 1}selected{/if}>VIP用户</option>
+<option value="2" {if $ahtml.identity == 2}selected{/if}>黑名单用户</option>
+<option value="3" {if $ahtml.identity == 3}selected{/if}>普通用户</option>
+</select>
+
+&nbsp;   &nbsp;
+切换受付银行:
+<select name="selectTable" onChange="javascript:GotoURL(this.value)" size="1" tabindex="1">
+	<option value="?controller=bankmanage&action=view">未选择</option>
+{foreach from=$depositbanklist item=bank key=ik}		
+	<option value="?controller=bankmanage&action=view&userid={$useridstr}&depositbankid={$bank.bankid}" {if $depositbankid == $bank.bankid} SELECTED{/if}>{$bank.bankname}</option>
+{/foreach}
+</select>
+
+<br /> &nbsp;  &nbsp;   &nbsp; 
+排序:<select name="card" >
+	<option></option>
+	{foreach from=$account item=acc key=k}
+	<option value="{$acc.acc_name|escape:html}" {if $acc.acc_name == $ahtml.card}selected{/if}>{$acc.acc_name|escape:html}</option>
+	{/foreach}
+</select>
+&nbsp; 
+每页记录数:<input name="pn" value="{if $ahtml.pn > 0}{$ahtml.pn}{else}{$syspagesizemax}{/if}" size="5" onKeyup="checkPageSize(this,'ipagesize',{$syspagesizemax});">
+&nbsp; 
+<input type="submit" class="button" value="搜索">
+
+
+
+</FORM>
+</div>
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" id="listForm" >
+<input type="hidden" name="controller" value="bankmanage" />
+<input type="hidden" name="action" id="faction" value="dealcard" />
+<input type="hidden" name="flag" id="flag" value="" />
+<input type="hidden" name="depositbankid" value="{$depositbankid}">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+    <th colspan="2">统一替换卡：</th>
+    <th colspan="4">
+        <span>替换前使用卡：
+        <select name="oldcard" id="oldcard">
+            <option value="">请选择...</option>
+            {foreach from=$account item=accold key=k}
+            <option value="{$accold.aid}">{$accold.acc_name|escape:html}</option>
+            {/foreach}
+        </select></span>
+     &nbsp;&nbsp;&nbsp;&nbsp;
+        替换后使用卡：
+        <select name="newinsteadcard" id="newinsteadcard">
+            <option value="">请选择...</option>
+            {foreach from=$account item=accnew key=k}
+            <option value="{$accnew.aid}">{$accnew.acc_name|escape:html}</option>
+            {/foreach}
+        </select>
+    </th>
+    <th>
+        <input type="button" value="替换" name="changecard" id="changecard" />
+    </th>
+    
+</tr>
+<tr>
+<th></th>
+<th>用户名称</th>
+<th>所属级别</th>
+<th>用户身份</th>
+<th>已分配卡</th>
+<th>替换{$depositbankname}银行卡</th>
+<th>操作</th>
+</tr>
+{foreach from=$userinfo item=user key=k}
+{if $id > 0}
+<tr>
+	<td align="center"><input type="checkbox" name="user[]" value="{$user.userid}"/></td>
+	<td align="center"><a href="./?controller=bankmanage&action=view&depositbankid={$depositbankid}&userid={$user.userid}&pn={$ahtml.pn}">{$user.username|escape:html}</a></td>
+	<td align="center">
+	{if $user.user_type == 1 && $user.user_level == 0}
+	总代
+	{elseif $user.user_type == 1 && $user.user_level == 1}
+	一级代理
+	{elseif $user.user_type == 1 && $user.user_level > 1}
+	普通代理
+	{elseif $user.user_type == 0 && $user.user_level > 0}
+	会员
+	{/if}
+	</td>
+	<td align="center">
+	{if $user.identity == 1}
+	<font color="#006699">黒名单用户</font>
+	{elseif $user.identity == 2}
+	<font color="Red">VIP用户</font>
+	{elseif $user.identity == 3}
+	普通用户
+	{/if}
+	</td>
+	<td align="center">{$user.current_card|escape:html}</td>
+	<td align="center">
+	<select name="newcard[{$user.userid}]">
+	<option></option>
+	{foreach from=$account item=acc key=k}
+	<option value="{$acc.aid}">{$acc.acc_name|escape:html}</option>
+	{/foreach}
+	</select>
+	</td>
+	<td align="center">
+	{if $user.current_card != ""}
+	{if $user.isactive == 1}
+		<a href="./?controller=bankmanage&action=updatestatus&flag=sdisable&depositbankid={$depositbankid}&userid={$user.userid}"><font color="Red">禁用</font></a>
+	{else}
+		<a href="./?controller=bankmanage&action=updatestatus&flag=senable&depositbankid={$depositbankid}&userid={$user.userid}"><font color="Blue">启用</font></a>
+	{/if}
+	{/if}
+	</td>
+</tr>
+{/if}
+{/foreach}
+{if $id <= 0}
+<tr>
+<td colspan="8" class="no-records">没有搜索到用户</td>
+</tr>
+{/if}
+{if $id > 0}
+<tr>
+<tr>
+<td align="center"><input type="checkbox" id="selectall" /></td>
+<td align="center" colspan="2">
+<input type="button" value="启用" id="senable" /> <input type="button" value="禁用" id="sdisable" />   
+</td>
+<td colspan="4" align="right">{$pages}</td>
+</tr>
+<td colspan="7" align="center">
+<input type="submit" value="替换" />　　
+<input type="reset" value="还原" />
+</td>
+</tr>
+<tr>
+</tr>
+{/if}
+</table>
+</form>
+</div>
+<script>
+function showNotice(objId)
+{
+	var obj = document.getElementById(objId);
+	if(obj.style.display=="none")
+	{
+		obj.style.display="block";
+	}
+	else
+	{
+		obj.style.display="none";
+	}
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH" && row.className != "frozenuser") row.cells[i].style.backgroundColor = '#EEF8F9';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+    $(".frozenuser").find("td").css("backgroundColor","#DDD");
+  }
+}
+
+</script>
+{include file="pagefooter.html"}

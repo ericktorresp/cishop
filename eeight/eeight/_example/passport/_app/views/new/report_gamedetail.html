@@ -1,0 +1,78 @@
+{include file="pageheader.html"}
+
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div class="center">用户名:<font color="#FF0000">{$username}</font>&nbsp;&nbsp;频道:<font color="#FF0000">{$channelname}</font>&nbsp;&nbsp;日期:<font color="#FF0000">{$date}</font></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%">
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+
+    <tr>
+      <td height="43" align="center">游戏</td>
+      <td align="center" class="line_03">玩法</td>
+      <td align="center" class="line_03">总代购费</td>
+      <td align="center" class="line_03">实际总代购费</td>
+      <td align="center" class="line_03">中奖金额</td>
+      <td align="center" class="line_03">总结算</td>
+ </tr>
+ <tr align="center">
+    <td height="5" colspan="6" align="center"></td>
+</tr>
+    
+    {foreach from=$aResult item=l key=k}
+	{foreach from=$l.methodid item=m key=k0}
+	<tr align="center">
+	{if $k0==0}
+	<td rowspan="{$l.count}" align="center" bgcolor="#CCCCCC">{$l.cnname}</td>
+	{/if}
+	<td height="37" align="center" bgcolor="#CCCCCC">{$l.method.$m}</td>
+	<td align="center" bgcolor="#CCCCCC">{if $l.sum_prize.$m > 0}<font color="Green">{else}<font color="Red">{/if}{$l.sum_prize.$m|escape:money}</font></td>
+	<td align="center" bgcolor="#CCCCCC">{if $l.real_prize.$m > 0}<font color="Green">{else}<font color="Red">{/if}{$l.real_prize.$m|escape:money}</font></td>
+	<td align="center" bgcolor="#CCCCCC">{if $l.sum_bonus.$m > 0}<font color="Green">{else}<font color="Red">{/if}{$l.sum_bonus.$m|escape:money}</font></td>
+	<td align="center" bgcolor="#CCCCCC">{if $l.total.$m > 0}<font color="Green">{else}<font color="Red">{/if}{$l.total.$m|escape:money}</font></td>
+	</tr>
+	{/foreach}
+	<tr align="center">
+	<td height="37" colspan="2" bgcolor="#999999">小结</td>
+	<td align="center" bgcolor="#999999">{if $total.sum_prize.$k > 0}<font color="Green">{else}<font color="Red">{/if}{$total.sum_prize.$k|escape:money}</font></td>
+	<td align="center" bgcolor="#999999">{if $total.real_prize.$k > 0}<font color="Green">{else}<font color="Red">{/if}{$total.real_prize.$k|escape:money}</font></td>
+	<td align="center" bgcolor="#999999">{if $total.sum_bonus.$k > 0}<font color="Green">{else}<font color="Red">{/if}{$total.sum_bonus.$k|escape:money}</font></td>
+	<td align="center" bgcolor="#999999">{if $total.total.$k > 0}<font color="Green">{else}<font color="Red">{/if}{$total.total.$k|escape:money}</font></td>
+	</tr>
+	{/foreach}
+    
+    
+    
+    
+    
+
+  </table>
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+
+{include file="pagefooter.html"}
+
+
+
+
+
+
+
+

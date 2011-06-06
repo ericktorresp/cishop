@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><TITLE>{if $sSysTopMessage}[{$sSysTopMessage}] {/if}高频后台管理 {if $ur_here} - {$ur_here} {/if} </TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<META http-equiv="Pragma" content="no-cache" />
+{if $sSysMetaMessage}{$sSysMetaMessage}{/if}
+<link href="./css/general.css" rel="stylesheet" type="text/css" />
+<link href="./css/main.css" rel="stylesheet" type="text/css" />
+{insert_scripts files="./js/common.js"}
+</head>
+<body>
+<style>
+#maindiv{margin: 0 auto;}
+</style>
+<div id="maindiv">
+<H1>{if $actionlink}<SPAN class="action-span"><A 
+href="{$actionlink.href}">{$actionlink.text|escape:html}</a></SPAN>{/if}{if $actionlink2}<SPAN class="action-span"><A 
+href="{$actionlink2.href}">{$actionlink2.text|escape:html}</a></SPAN>{/if}{if $actionlink3}<SPAN class="action-span"><A 
+href="{$actionlink3.href}">{$actionlink3.text|escape:html}</a></SPAN>{/if}<SPAN class="action-span1"><A 
+href="./index.php" target='_top'>后台管理</a> {if $ur_here} - {$ur_here} {/if}</SPAN><DIV style="clear:both"></DIV></H1>
+{insert_scripts files="jquery.js"}
+<script>
+jQuery(document).ready(function(){
+	var data={$pg_data};
+	jQuery.each(data,function(i,k){
+		html =k.title+"<br>";
+		if(k.status==1)
+		{
+			html = html +"&nbsp;&nbsp;[&nbsp;<font color='green'>启用</font>&nbsp;]&nbsp;&nbsp;";
+		}
+		else
+		{
+			html = html + "&nbsp;&nbsp;[&nbsp;<font color='red'>禁用</font>&nbsp;]&nbsp;&nbsp;";
+		}
+		html =html+"<A href='./index.php?controller=gameinfo&action=userpgedit&pgid="+k.userpgid+"'>修改</a>&nbsp;  "
+                  +"<A href='./index.php?controller=gameinfo&action=userpgview&pgid="+k.userpgid+"'>查看</a>&nbsp;  ";
+		if(k.status==1)
+		{
+			html = html+"<A href='./index.php?controller=gameinfo&action=userpgstop&pgid="
+			         +k.userpgid+"' onclick='return confirm(\"你确定要禁用该奖组?\");'>禁用</a><br>";
+		}
+		else
+		{
+			html = html+"<A href='./index.php?controller=gameinfo&action=userpgstart&pgid="
+			            +k.userpgid+"' onclick='return confirm(\"你确定要启用该奖组?\");'>启用</a><br>";
+		}
+		jQuery("#user_"+k.userid+"_"+k.lotteryid).append(html);
+	});
+	var pageoldwidth = $(".list-div").find("table").width();
+	var pagewidth = $("#footer").width()+32;
+	if(pageoldwidth > pagewidth){
+	    $("#footer").css("width",(pageoldwidth-30)+"px");
+	    $("H1").css("width",(pageoldwidth-20)+"px");
+	    $(".list-div").css("width",pageoldwidth+"px");
+	    $("#maindiv").css("width",(pageoldwidth+10)+"px");
+	}
+});
+</script>
+<div class="list-div" id="ListDiv">
+<table name="list-table" cellpadding="3" cellspacing="1">
+<tr>
+	<th width="100">总代</th>
+	{foreach from=$aLottery item=lottery key=k}
+	<th>{$lottery.cnname}</th>
+	{/foreach}
+</tr>
+{foreach from=$aUser item=user key=k}
+<tr align="center">
+<td>{$user.username}</td>
+{foreach from=$aLottery item=lottery key=k}
+	<td id="user_{$user.userid}_{$lottery.lotteryid}" >&nbsp;</td>
+{/foreach}
+</tr>
+{/foreach}
+</table>
+</div>
+<div id="footer">{$sSystemMessagesByTom|escape:html} </div>
+</div>
+</body>
+</html>

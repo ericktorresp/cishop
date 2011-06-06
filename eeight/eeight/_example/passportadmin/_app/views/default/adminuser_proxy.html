@@ -1,0 +1,71 @@
+{include file="pageheader.html"}
+<script>
+function CheckBoxSelectAll(obj, chk)
+{
+  if (chk == null)
+  {
+    chk = 'checkboxes';
+  }
+
+  var elems = obj.form.getElementsByTagName("INPUT");
+
+  for (var i=0; i < elems.length; i++)
+  {
+    if (elems[i].name == chk || elems[i].name == chk + "[]")
+    {
+      elems[i].checked = obj.checked;
+    }
+  }
+}
+</script>
+
+<div class="form-div">
+    <FORM name="searchForm" action="" METHOD='get'>
+    <input type='hidden' name="controller" value="adminuser"/>
+    <input type='hidden' name="action" value="proxy"/>
+    <img src="./images/icon_search.gif" width="26" height="22" border="0" TITLE="SEARCH" />
+    指定销售管理员: <select name="adminid">
+		<option value="0">全部管理员</option>
+		{foreach from=$adminlist item=admin key=k}
+		<option value="{$admin.adminid}" {if $admin.adminid==$adminid}selected="selected"{/if}>{$admin.adminname|escape:html}</option>
+		{/foreach}
+		</select>
+    <input type="submit" value="搜 索" class="button" />
+  </FORM>
+</div>
+<div class="list-div" id="listDiv">
+<form action="?controller=adminuser&action=saveproxy" method="POST">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<th><label for="all"><input type="checkbox" id="all" onclick='CheckBoxSelectAll(this, "userid")'>全选</label></th>
+	<th>总代用户</th>
+	<th>销售管理员</th>
+</tr>
+{foreach from=$agents item=adminproxy key=k}
+<tr>
+<td align="center"><input type="checkbox" name="userid[]" value="{$adminproxy.userid}"></td>
+	<td align="center">{$adminproxy.username|escape:html}</td>
+	<td align="center">{if $adminproxy.adminname}{$adminproxy.adminname|escape:html}{else}<font color=#A0A0A0>未指派</font>{/if}</td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="3">该销售管理员下面还没有总代。</td>
+</tr>
+{/foreach}
+{if $agents}
+<tr>
+<td colspan='3'>
+&nbsp;&nbsp;&nbsp;&nbsp;将以上选中记录, 分配给销售管理员:
+<select name="adminid">
+		<option value="0">取消分配</option>
+		{foreach from=$adminlist item=admin key=k}
+		<option value="{$admin.adminid}">{$admin.adminname}</option>
+		{/foreach}
+		</select> <input type="submit" class="button" value="执行"></td>
+</tr>
+{/if}
+</table>
+</form>
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

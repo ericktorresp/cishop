@@ -1,0 +1,59 @@
+{include file="pageheader.html"}
+<script src="./js/jquery.js"></script>
+<script>
+function checkForm()
+{
+	if($("#userid").val()==0)
+	{
+		alert("请选择总代用户.");
+		return false;
+	}
+	else if($("#userteam").val()==-1)
+	{
+		alert("请选择用户组别.");
+		return false;
+	}
+	return true;
+}
+</script>
+<div class="form-div">
+<form method="POST" action="./index.php?controller=usergroup&action=assign" onsubmit="return checkForm()">
+<img src="./images/icon_search.gif">
+总代:<select name="userid" id="userid">
+<option value="0">总代列表</option>
+{foreach from=$topuser item=user key=k}
+<option value="{$user.userid}">{$user.username}</option>
+{/foreach}
+</select>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+用户组别:
+<select name="userteam" id="userteam">
+<option value="-1">用户组别(权限)</option>
+{foreach from=$usergroup item=ut key=k}
+<option value="{$ut.groupid}#{$ut.teamid}" {if $ut.isspecial==0}style="color:green;"{else}style="color:red;"{/if}>{$ut.groupname}({if $ut.isspecial==0}普通组别{else}特殊组别{/if})</option>
+{/foreach}
+</select>
+<input type="submit" value="分配用户组别" class="button">
+</form>
+</div>
+<div class="list-div">
+<table cellpadding="3" cellspacing="1">
+<tr>
+<th>总代</th>
+<th>用户权限</th>
+</tr>
+{foreach from=$topuser item=user key=k}
+<tr>
+<td class="narrow-label">{$user.username}</td>
+<td align="center">
+{ if isset($user.groupname) }
+{$user.groupname}({if $user.isspecial==0}<font color="green">普通用户组别</font>{else}<font color="red">特殊用户组别</font>{/if})
+{else}
+<font color="Blue">还没有分配用户组</font>
+{/if}
+</td>
+</tr>
+{/foreach}
+</table>
+</div>
+{include file="pagefooter.html"}

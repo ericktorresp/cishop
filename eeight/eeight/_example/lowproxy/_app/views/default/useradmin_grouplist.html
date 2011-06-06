@@ -1,0 +1,61 @@
+{include file="pageheader.html"}
+
+<script type="text/javascript">
+{literal}
+/*function checkform(obj)
+{
+	return confirm("确定要批量删除所选用户组吗？");
+}*/
+{/literal}
+</script>
+
+<div class="list-div" id="listDiv">
+<form method="POST" action="./index.php" name="listform" onsubmit="">
+<input type="hidden" name="controller" value="useradmin" />
+<input type="hidden" name="action" value="deletegroup" />
+<input type="hidden" name="flag" value="delete" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <!--<th width='50'><label>&nbsp;</label></th>-->
+    <th width="40%">组别名称</th>
+	<th width='120'>组别信息</th>
+    <th>操作</th>
+  </tr>
+
+{foreach from=$groups item=group key=k}
+{if $group.groupid != 7}
+  <tr align="center">
+    
+	<!--<td align="center"><span><input type="checkbox" name="select_rows[]" value="{$group.groupid}" /></span></td>-->
+
+	<td align="left" class="first-cell nowrap" valign="top" style="padding-left:1em">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#c0c0c0>|--</font>&nbsp;
+	<span title='{$group.groupname|escape:html}'>{$group.groupname|escape:html}</span></td>
+
+	<td align="center">{if $group.isspecial==0}{if $group.issales==0}<span style="color:#666666">[系统默认]</span>{else}<span style="color:#FF0000">[默认销售]</span>{/if}{/if}
+        {if $group.isspecial>0}{if $group.issales==1}<span style="color:#FF0000">[指定销售]</span>{/if}{/if}</td>
+
+	<td align="center">
+	    <a href="./?controller=useradmin&action=rightsgroup&gid={$group.groupid}">组别权限</a> 
+            <!--<a href="./?controller=useradmin&action=updategroup&gid={$group.groupid}">修改组别</a> -->
+            <!--<a href="./?controller=useradmin&action=deletegroup&gid={$group.groupid}" onclick="return confirm('确定要删除吗？')">删除</a>-->
+	</td>
+  </tr>
+  {/if}
+{/foreach}
+
+
+<!--<tr height=60>
+<td colspan=6 align="center">
+	&nbsp;&nbsp;<span>
+	<input type="checkbox" name="selectall" id="selectall" onclick="selectAll('selectall')"  />全选 &nbsp;&nbsp;
+        				<input type="submit" name="submit" value="批量删除" class='button' />&nbsp;&nbsp;
+                        <input type="button" class='button' onclick="window.location='index.php?controller=useradmin&action=addgroup'" value="增加组别" />
+	</span>
+	</td>
+  </tr>-->
+
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

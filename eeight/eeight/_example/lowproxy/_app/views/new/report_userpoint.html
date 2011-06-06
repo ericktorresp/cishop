@@ -1,0 +1,67 @@
+{include file="pageheader.html"}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/calendar/jquery.dyndatetime.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/lowproxy/js/calendar/css/calendar-blue2.css" type="text/css" />
+<script>
+$(document).ready(function(){
+	jQuery("#searchdate").dynDateTime({
+		ifFormat: "%Y-%m-%d",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		button: ".next()",
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#searchdate").change(function(){
+		if(! validateInputDate(jQuery("#searchdate").val()) )
+		{jQuery("#searchdate").val('');alert("时间格式不正确,正确的格式为:2009-06-10");}
+	});
+});
+</script>
+<div class="right_021">
+<div class="height51">
+<div class="right_02_281"></div>
+<div class="right_02_291"></div>
+</div>
+<div class="list-div" ID="formdiv">
+<form id="getForm">
+<input type="hidden" name="controller" value="report">
+<input type="hidden" name="action" value="userpoint">
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="{$sSystemImagesAndCssPath}/lowproxy/images/icon_search.gif" border="0">
+&nbsp;选择日期:&nbsp;<input type="text" name="searchdate" id="searchdate" value="{$searchdate}" style="color:#555;">
+&nbsp;<img src="{$sSystemImagesAndCssPath}/lowproxy/images/calendar2.gif">&nbsp;
+<input type="submit" value="" class="button">
+</form>
+</div>
+<div class="height51">
+<div class="right_02_241"></div>
+<div class="right_02_251"></div>
+</div>
+<div style="margin:10px 0;"></div>
+<div class="height511">
+<div class="right_02_02"></div>
+<div class="right_02_04"></div>
+</div>
+<div class="list-div" id="listDiv">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<th width="30%">代理用户</th>
+<th width="30%">日期</th>
+<th width="40%">返点总额</th>
+</tr>
+<tr align="center">
+<td>{$username|escape:html}</td>
+<td>{$searchdate}</td>
+<td>{$userpoint.totalpoint|escape:money}&nbsp;元</td>
+</tr>
+</table>
+</div>
+<div class="height51">
+<div class="right_02_241"></div>
+<div class="right_02_251"></div>
+</div>
+</div>
+{include file="pagefooter.html"}

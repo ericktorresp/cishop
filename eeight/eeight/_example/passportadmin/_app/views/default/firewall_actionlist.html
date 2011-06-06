@@ -1,0 +1,83 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+{literal}
+function confirmSubmit(frm, ext)
+{
+	if (frm.elements['form_action'].value == '')
+	{
+		  alert('请选择操作的类型');
+		  return false;
+	}
+	else if(frm.elements['form_action'].value == 'bat_delete')
+	{
+		return confirm("确定要删除选中的数据?");
+	}
+	else if( frm.elements['form_action'].value == 'bat_enableall' )
+	{
+		return confirm("确定启用全部组别?");
+	}
+	else
+	{
+		return true;
+	}
+}
+{/literal}
+</script>
+<div class="form-div">
+    <FORM name="searchForm" action="" METHOD='GET'>
+    <input type='hidden' name="controller" value="firewall"/>
+    <input type='hidden' name="action" value="actionlist"/>
+
+<img src="./images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" /> 
+受限菜单:<select name="fmid" style="background-color:#FFF;color:#555">
+<option value="">不限</option>{$s.fmidoptions}</select>&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+行为状态: <select name="fs" style="background-color:#FFF;color:#555">
+<option value="" {if $s.fs=='-1'}SELECTED{/if}>不限</option>
+<option value="0" {if $s.fs=='0'}SELECTED{/if}>启用中</option>
+<option value="1" {if $s.fs=='1'}SELECTED{/if}>禁用中</option>
+</select>&nbsp;&nbsp;
+
+函数名: <input type="text" name="fname" size='16' value="{$s.fname|escape:html}" />
+<input style='margin-left:20px' type="submit" value=" 开始查询 " class="button" /><br />
+</FORM>
+</div>
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm">
+<table cellspacing='1' cellpadding='3' id='list-table'><tr>
+	<th><label><input onclick='CheckBoxSelectAll(this, "checkboxes")' type="checkbox">全</label></th>
+	<th>启用</th>
+	<th>行为名称</th>
+	<th>消息To用户</th>
+	<th>消息To管理</th>
+	<th>应用函数名</th>
+	<th>中断</th>
+	<th>操作</th>
+</tr>
+{foreach from=$aFwList item=d key=k}
+<tr>
+	<td align="center"><span><input name="checkboxes[]" type="checkbox" value="{$d.entry}" />{$d.id}</span></td>
+	<td align="center">{if $d.isdisabled==0}<img src='./images/yes.gif'>{else}<font color='#eaeaea'><img 
+	src='./images/no.gif'></font>{/if}</td>
+	<td align="center">{$d.actionname|escape:html}</td>
+	<td align="center">{$d.messagetouser|escape:html}</td>
+	<td align="center">{$d.messagetoadmin|escape:html}</td>
+	<td align="center">{$d.functionname|escape:html}</td>
+	<td align="center" style='color:#c0c0c0'>{if $d.isexit==1}<font color='red'>是</font>{else}---{/if}</td>
+	<td align="center"><a href="./?controller=firewall&action=editaction&id={$d.id}">修改行为</a> &nbsp; | &nbsp; <a 
+	onclick="javascript:return confirm('您确定要删除防火墙行为: [{$d.actionname|escape:html}] ?');"
+	href="./?controller=firewall&action=delaction&id={$d.id}">删除</a></td>
+</tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">无相关数据</td></tr>
+{/foreach}
+</table>
+</form>
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

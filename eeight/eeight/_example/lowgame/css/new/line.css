@@ -1,0 +1,227 @@
+*{
+	font-size:12px;
+}
+form {
+  margin: 0px;
+  padding: 0px;
+}
+input, textarea, select {
+  font: 12px "courier new";
+}
+ul{
+	list-style-type: none;
+}
+body{
+	background-color: #585858;
+	margin:0;
+	font-family: "微软雅黑" , Arial , "Microsoft Sans Serif" ,  "宋体";
+	padding:0;
+	clear:both;
+}
+/* 头部信息 */
+h1{
+	height:28px;
+	background:url(/lowgame/images/newblue/right_01.jpg);
+	margin: 0;
+	padding:0px 5px;
+	text-indent: 10px;
+	color: #FFFFFF;
+	text-align: left;
+	line-height: 28px;
+    overflow:hidden;
+    font-weight:normal;
+}
+/* 头部信息 尾部的快捷方式 */
+h1 .action-span{
+	float:right;
+	font-size: 14px;
+	margin: 3px 10px 3px 10px;
+}
+/* 头部信息尾部的快捷方式  */
+h1 .action-span a {
+  color: #FFFFFF;
+  font-size: 14px;
+  text-indent: 10px;
+  text-decoration: none;
+  display:block;
+  text-align:center;
+  width:101px;
+  height:24px;
+  line-height:24px;
+}
+/* 头部信息尾部的快捷方式的特效  */
+h1 .action-span a:hover {
+  color: #FFFFFF;
+  text-decoration:none;
+}
+/* 头部信息 的当前位置 */
+h1 .action-span1{
+    color: #FFFFFF;
+    margin-top:5px;
+    margin-left:10px;
+    line-height:20px;	
+    float:left;
+    font-size: 14px;
+    text-indent: 10px;
+    font-weight:normal;
+    
+}
+h1 .action-span1 a{
+    color: #FFFFFF;
+    float:left;
+    font-size: 14px;
+    text-indent: 10px;
+    font-weight:normal;
+    padding-right:5px;
+    text-decoration:none;
+}
+img{
+	border:0px;	
+    vertical-align: middle;
+}
+table{
+    background:#CCC;
+}
+tr{
+	text-align:center;
+	color:#000;
+}
+.linecontent{
+    width:98%;
+    margin:0 auto;
+}
+tr{
+	text-align:center;
+}
+#chartsTable td{
+	background-color:#FFF;
+}
+.redtext{
+	color:red;
+}
+a{
+	color: #000;
+	text-decoration: none;
+}
+a:hover{
+	color: #000;
+	text-decoration: underline;
+}
+#title{
+	width:55px;
+	height:25px;
+	color:#FFF;
+	text-align:center;
+	padding:0 5px;
+	background:url(/lowgame/images/newblue/right_01.jpg);
+	background-color:#FFF;
+}
+#title td{
+	background:url(/lowgame/images/newblue/right_01.jpg);
+}
+td{
+	text-align:center;
+}
+#head td{
+	background:#99CCFF;
+	background-image: url(/lowgame/images/newblue/right_02.png);
+    background-position: 0px -44px;
+}
+.ball01{
+	font-weight:bold;
+	color:#FFFFFF;
+	width:16px;
+	height:16px;
+	background:url(/lowgame/images/newblue/chartBall02.gif) no-repeat center;
+}
+.ball02{
+	font-weight:bold;
+	color:#FFFFFF;
+	width:16px;
+	height:16px;
+	background:url(/lowgame/images/newblue/chartBall01.gif) no-repeat center;
+}
+.ball03{
+	width:16px;
+	height:16px;
+	color:#33CCCC;
+}
+.ball04{
+	width:16px;
+	height:16px;
+	color:#FF9999;
+}
+td .wdh{
+	width:16px;
+	height:25px;
+}
+#titlemessage{
+	height:35px;
+	color:#000; 
+    background-image: url(/lowgame/images/newblue/right_02.png);
+    background-position: 0px -44px;
+    font-size:13px;
+}
+#showissue{
+	width:53px;
+	height:21px;
+	border:0px solid #FFFFFF;
+	background:url(/lowgame/images/newblue/cx01.gif);
+}
+input{
+	border:1px solid #CCCCCC;
+}
+.tdleft{
+	padding-left:25px;
+	text-align:left;
+}
+.tdright{
+	text-align:right;
+}
+/*页脚样式*/
+.footer {
+	clear: both;
+	background-color:#d5d8de;
+	text-align: center;
+}
+.height51{
+    background-color:#d5d8de;
+	height: 5px;
+	clear: both;
+	overflow:hidden;
+}
+.right_02_241{
+	background-image: url(/lowgame/images/newblue/right_02.png);
+	background-position: -74px -9px;
+	float: left;
+	height: 5px;
+	width: 5px;
+	overflow:hidden;
+}
+.right_02_251{
+	background-image: url(/lowgame/images/newblue/right_02.png);
+	background-position: -80px -9px;
+	float: right;
+	height: 5px;
+	width: 5px;
+	overflow:hidden;
+}
+.right_02_281{
+	background-image: url(/lowgame/images/newblue/right_02.png);
+	background-position: -74px -15px;
+	float: left;
+	height: 5px;
+	width: 5px;
+}
+.right_02_291{
+	background-image: url(/lowgame/images/newblue/right_02.png);
+	background-position: -80px -15px;
+	float: right;
+	height: 5px;
+	width: 5px;
+}
+.right_021 {
+	margin:10px auto;
+	padding:5px 0;
+	display:block;
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>PassPort 后台管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="./css/general.css" rel="stylesheet" type="text/css" />
+{literal}
+<style type="text/css">
+#header-div {
+    background: #278296;
+    border-bottom: 1px solid #FFF;
+}
+
+#logo-div {
+    height: 57px;
+    float: left;
+	cursor:hand;
+}
+
+#submenu-div {
+    height: 57px;
+}
+
+#submenu-div ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#submenu-div li {
+    float: right;
+    padding: 0 10px;
+    margin: 5px 0;
+    border-left: 1px solid #FFF;
+}
+
+#submenu-div .user, a:visited, #submenu-div a:link {
+    color: #FFF;
+    text-decoration: none;
+}
+
+#submenu-div a:hover {
+    color: #F5C29A;
+}
+
+#loading-div {
+    clear: right; 
+    text-align: right;
+    display: block;
+}
+
+#menu-div {
+    background: #80BDCB;
+    font-weight: bold;
+    padding-left: 30px;
+    height: 24px;
+}
+
+#menu-div ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#menu-div li {
+    float: left;
+    padding: 0 20px;
+    margin: 5px 0;
+    border-right: 1px solid #192E32;
+}
+
+#menu-div a:visited, #menu-div a:link {
+    text-decoration: none;
+    color: #335B64;
+}
+
+#menu-div a:hover {
+    color: #F5C29A;
+}
+
+#submenu-div a.fix-submenu{ margin-left:5px; padding:3px 5px; background:#DDEEF2; color:#278296; }
+#submenu-div a.fix-submenu:hover{ padding:3px 5px; background:#FFF; color:#278296; }
+</style>
+
+<script type="text/javascript">
+function modalDialog(url, name, width, height)
+{
+  if (width == undefined)
+  {
+    width = 400;
+  }
+  if (height == undefined)
+  {
+    height = 300;
+  }
+
+  if (window.showModalDialog)
+  {
+    window.showModalDialog(url, name, 'dialogWidth=' + (width) + 'px; dialogHeight=' + (height+5) + 'px; status=off');
+  }
+  else
+  {
+    x = (window.screen.width - width) / 2;
+    y = (window.screen.height - height) / 2;
+
+    window.open(url, name, 'height='+height+', width='+width+', left='+x+', top='+y+', toolbar=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, modal=yes');
+  }
+}
+</script>
+{/literal}
+</head>
+<body>
+
+<div id="header-div">
+  <div id="logo-div" onclick="javascript:window.top.location='./index.php';"><img src="./images/admin_logo.gif" title="返回首页" style="cursor: pointer;"/></div>
+  <div id="submenu-div">
+    <ul>
+	  <li><a href="./index.php" target="_top">后台管理首页</a></li>
+	  {* window.top.frames['header-frame'].document.location.reload() *}
+	<li style="border-left:none;"><a href="javascript:window.top.frames['main-frame'].document.location.reload();">刷新页面</a></li>
+    </ul>
+
+	<!-- button //-->
+	<div id="submenu-div" style="padding: 4px 10px 0 0; clear:right;text-align: right; color: #FFF;float: right;">
+      <a href="./index.php?action=exit" target="_top" class="fix-submenu">退出系统 - {$adminname|escape:html}</a>
+    </div>
+	
+	<!-- ajax loading //-->
+	<div id="load-div" style="padding-top:6px;color: #FFF; display: none;"><img src="./images/top_loader.gif" width="16" height="16" alt="正在处理您的请求..." /> 正在处理您的请求...</div>
+  </div>
+</div>
+</body></html>

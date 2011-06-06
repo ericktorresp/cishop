@@ -1,0 +1,25 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table class="list-table">
+<form action="index.php" method="post" name="updateform">
+<input type="hidden" name="controller" value="user" />
+<input type="hidden" name="action" value="unfrozenuser" />
+<input type="hidden" name="flag" value="update" />
+<input type="hidden" name="uid" value="{$user.userid}" />
+	<tr>
+    	<td class="narrow-label">用户名</td>
+        <td>{$user.username|escape:html}</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">&nbsp;</td>
+        <td><input type="radio" name="frozentype" value="self" checked="checked" />仅解冻此用户，不解冻其下级</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">&nbsp;</td>
+        <td><input type="radio" name="frozentype" value="all" />解冻此用户其所有下级</td>
+    </tr>
+    <tr><td></td><td><input type="submit" name="submit" value="提交" class="button" />&nbsp;&nbsp;<input type="button" value="取消" onclick="history.back()" class="button" /></td></tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

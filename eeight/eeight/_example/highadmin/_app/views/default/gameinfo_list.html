@@ -1,0 +1,51 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+ <th width="80">游戏</th>
+ <th width="80">类型</th>
+ <th width="60">周期(天)</th>
+ <th width="60">周期(秒)</th>
+ <th colspan="2" width="140">销售时间</th>
+ <th width="60">开奖限制(秒)</th>
+ <th width="60">允许录号时间(秒)</th>
+ <th width="60">状态</th>
+ <th width="60">排序</th>
+ <th>操作</th>
+</tr>
+{foreach from=$aLottery item=lottery key=k}
+<tr>
+<td align="center">{$lottery.cnname|escape:html}</td>
+<td align="center">{if $lottery.lotterytype==0}数字型{elseif $lottery.lotterytype==1}乐透分区型(蓝红球)
+{elseif $lottery.lotterytype==2}乐透同区型{elseif $lottery.lotterytype==3}基诺型{elseif $lottery.lotterytype==4}排列型{else}分组型{/if}</td>
+<td align="center">{if $lottery.weekcycle==127}每天{else}非每天{/if}</td>
+<td align="center">{$lottery.cycle}</td>
+<td width="70" align="center">{$lottery.starttime|escape:html}</td>
+<td width="70" align="center">{$lottery.endtime|escape:html}</td>
+<td width="70" align="center">{$lottery.endsale|escape:html}</td>
+<td width="70" align="center">{$lottery.inputcodetime|escape:html}</td>
+<td align="center">{if ($lottery.count_status == $lottery.count_method) || ($lottery.count_method==0)}<font color=red>停止销售</font>{else}<font color=#669900>销售中</font>{/if}</td>
+<td width="70" align="center">{$lottery.sorts|escape:html}</td>
+<td align="center"><a href="./?controller=gameinfo&action=edit&id={$lottery.lotteryid}">修改</a>
+&nbsp;<a href="./?controller=crowd&action=playcrowdlist&lotteryId={$lottery.lotteryid}">玩法群</a>
+&nbsp;<a href="./?controller=method&action=playgrouplist&lotteryId={$lottery.lotteryid}">玩法组</a>
+&nbsp;<a href="./?controller=gameinfo&action=prizegroup&id={$lottery.lotteryid}">奖金组</a>
+&nbsp;<a href="./?controller=gameinfo&action=issuesetlist&id={$lottery.lotteryid}">奖期时间</a><br>
+&nbsp;<a href="./?controller=gameinfo&action=issuelist&lotteryId={$lottery.lotteryid}">奖期</a>
+&nbsp;<a href="./?controller=gameinfo&action=pointset&id={$lottery.lotteryid}">点差</a>
+&nbsp;<a href="./?controller=gameinfo&action=sleepdate&id={$lottery.lotteryid}">休市</a>
+{if ($lottery.count_status == $lottery.count_method) || ($lottery.count_method==0)}
+&nbsp;<a href="./?controller=gameinfo&action=gamestart&id={$lottery.lotteryid}"  onclick="return confirm('您确认要开始销售\'{$lottery.cnname}\'?');">开售</a>
+{else}
+&nbsp;<a href="./?controller=gameinfo&action=gamestop&id={$lottery.lotteryid}" onclick="return confirm('您确认要停止销售\'{$lottery.cnname}\'?');">停售</a>
+{/if}
+</td>
+</tr>
+{foreachelse}
+<tr>
+<td class="no-records" colspan="12">没有相关记录,请先添加游戏信息。</td>
+</tr>
+{/foreach}
+</table>
+</div>
+{include file="pagefooter.html"}

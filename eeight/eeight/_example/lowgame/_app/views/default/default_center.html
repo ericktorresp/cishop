@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$webtitle} {$systemversions}</title>
+<style>{include file="css/general.css"}</style>
+<style>{include file="css/defaultcenter.css"}</style>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+jQuery(document).ready(function(){
+    jQuery("#mainbox").height( jQuery(document).height()-jQuery("#topbox").height() );
+    jQuery("#leftbox").height( jQuery("#mainbox").height() );
+    jQuery(window).resize(function(){
+        jQuery("#mainbox").height( jQuery(document).height()-jQuery("#topbox").height() );
+        jQuery("#leftbox").height( jQuery("#mainbox").height() );
+    });
+    
+    /*offset = jQuery("#switchPlat").offset();
+    x = offset.left - jQuery("#newWindow").width();
+    jQuery("#newWindow").css({"left":x,"top":offset.top});*/
+    jQuery("#newWindow").click(function(){
+        jQuery(this).fadeOut("slow");
+    });
+    jQuery("#switchPlat").click(function(){
+         if( jQuery("#newWindow").css("display") == "none" ){
+            jQuery("#newWindow").fadeIn("slow");
+         }else{
+            jQuery("#newWindow").fadeOut("slow");
+         }
+    });
+    {if !empty($notice) }
+    changecolor();
+    {/if}
+    jQuery("#dragbutton").click(function(){
+        if( jQuery(this).attr("src") == "{$sSystemImagesAndCssPath}/lowgame/images/arrow_left.gif" ){
+            jQuery("#leftbox").css({width:"0px"}).hide();
+            jQuery(this).attr("src","{$sSystemImagesAndCssPath}/lowgame/images/arrow_right.gif");
+            jQuery("#mainbox").css({width:"100%"});
+        }else{
+            jQuery("#leftbox").css({width:"160px"}).show();
+            jQuery(this).attr("src","{$sSystemImagesAndCssPath}/lowgame/images/arrow_left.gif");
+            jQuery("#mainbox").css({width:"auto"});
+        }
+    });
+
+});
+function changecolor(){
+  var node  = document.getElementById("top_notice");//#33FF33
+  str = node.style.color.toLowerCase();
+  node.style.color = str == "#ffff00" || str == "rgb(255, 255, 0)" ? "#FF0000" : "#FFFF00";  
+  setTimeout("changecolor()",600);  
+}
+</script>
+</head>
+<body>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" style="height:100%;">
+    <tr>
+        <td colspan="3" style="background-color:#CCCCCC;" id="topbox">
+        <!--顶部消息-->
+            <div id="header-div">
+              <div id="logo-div" onclick="javascript:window.top.location='./index.php';"><img src="{$sSystemImagesAndCssPath}/lowgame/images/blue/header_logo.jpg" title="返回首页" style="cursor: pointer;position:relative;z-index:20;"/></div>
+              <div id="submenu-div"  style="position:relative;z-index:2;">
+                <ul>
+                  <li><a href="../?controller=default&action=logout" target="_top" style="color:#FFFFFF;">退出系统 - {$username|escape:html}</a></li>
+                  <li><a href="index.php" target="_top" style="color:#FFFFFF;">低频游戏首页</a></li>
+                {* <li style="color:#FFFFFF;"><a href="./?controller=default&action=changestyle&skin=new" target="mainframe">风格设置</a></li> *}
+                <li style="border-left:none;"><a href="javascript:window.top.frames['mainframe'].document.location.reload();" style="color:#FFFFFF;">刷新页面</a></li>
+                </ul>
+            
+                <!-- button //-->
+                <div style="padding: 0px 10px 0 0; margin-top:-2px; clear:right;text-align: right; color: #FFF;float: right;position:relative;z-index:120;">
+                  <a href="javascript:void(0);" class="fix-submenu" id="switchPlat" style="z-index:101; border:0px;"><img src="{$sSystemImagesAndCssPath}/lowgame/images/blue/channels.jpg" border="0"></a>
+                  <div id="newWindow" class="openWindows" style="display:none;">
+<table border="0" width="180">
+<tr>
+    <td class="title">综合</td>
+    <td width="140" align="left">:&nbsp;&nbsp;<a href="../">银行大厅</a></td>
+</tr>
+{if !empty($channel) }
+{foreach from=$channel.0 item=ch key=k}
+<tr>
+    <td class="title" nowrap>{$ch.channel}</td>
+    <td align="left">:
+    {foreach from=$channel.$k item=child key=m}
+    <a href="..{$child.path}">{$child.channel}</a>
+    {/foreach}
+    </td>
+</tr>
+{/foreach}
+{/if}
+</table>
+</div>
+                </div>
+                
+                <!-- ajax loading //-->
+                <div id="load-div" style="padding-top:6px;color: #FFF; display: none;"><img src="{$sSystemImagesAndCssPath}/lowgame/images/top_loader.gif" width="16" height="16" alt="正在处理您的请求..." /> 正在处理您的请求...</div>
+              </div>
+            </div>
+        <!--顶部消息结束-->
+        </td>
+    </tr>
+    <tr>
+        <td style="width:160px; height:100%; background: #D94733;" valign="top" id="leftbox">
+        <!--左侧菜单-->
+        <iframe name="leftframe" id="leftframe" frameborder="0" width="100%" height="100%" scrolling="auto" style="overflow:visible;" src="./index.php?controller=default&action=menu"></iframe>
+        <!--左侧菜单结束-->
+        </td>
+        <td style="width:10px; height:100%; background:#464747;" valign="middle" id="dragbox"><img src="{$sSystemImagesAndCssPath}/lowgame/images/arrow_left.gif" width="10" height="30" border="0" id="dragbutton" style="cursor:pointer;" /></td>
+        <td id="mainbox" valign="top">
+        <!--内容主窗口-->
+        <iframe name="mainframe" id="mainframe" frameborder="0" width="100%" height="100%" scrolling="auto" style="overflow:visible;" src="./index.php?controller=default&action=start"></iframe></td>
+    </tr>
+</table>
+<div id="otherwindow" class="floatdiv">
+    {if $istester > 0}
+    <div style="height:51px;float:left;line-height:51px;color:#FFFF00;font-size:16px;text-align:right; font-weight:bold; border:0px;"><img src="{$sSystemImagesAndCssPath}/lowgame/images/blue/header_test.jpg" title="测试帐户" border="0"/>
+    </div>
+    {/if}
+</div>
+<div class="gonggaodiv">
+    {if !empty($notice) }
+    <div style="height:48px;float:left;line-height:48px;color:#FFFF00;font-size:12px;text-align:left; font-weight:bold;">
+    <a href="./?controller=default&action=start" target="mainframe" id="top_notice">{$notice.subject|escape:html}</a>
+    </div>
+    {/if}
+</div>
+</body>
+</html>

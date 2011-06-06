@@ -1,0 +1,113 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" id="listForm" action=''>
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th>付款卡编号</th>
+    <th>财务识别名</th>
+    <th>网银帐号</th>
+    <th>账户名</th>
+	<th>期初余额</th>
+	<th>转入</th>
+    <th>转出</th>
+    <th>手续费</th>
+    <th>余额</th>
+    <th>差帐</th>
+    <th>状态</th>
+	<th>操作</th>
+  </tr>
+  {foreach from=$banklist item=bank key=k}
+  <tr align="center">
+    <td>{$bank.paycard_id}</td>
+    <td>{$bank.finance_name}</td>
+	<td>{$bank.card_num}</td>
+    <td>{$bank.name}</td>
+    <td>{$bank.init_amount}</td>
+    <td>{$bank.sum_transfer_in}</td>
+    <td>{$bank.sum_transfer_out}</td>
+    <td>{$bank.sum_fee}</td>
+	<td>{$bank.amount}</td>
+    <td>{if $bank.diff != 0}<b>{$bank.diff}</b>{else}{/if}</td>
+	<td>{if $bank.status == 1}<font color="#669900">启用</font>{elseif $bank.status == 0}<font color="#000">禁用{elseif $bank.status == 2}<font color="#f00">正在使用</font>{/if}</td>
+	<td>
+    <a href="?controller=netbankmanage&action=editbankinfo&id={$bank.paycard_id}">编辑</a>|
+	<a href="?controller=netbankmanage&action=delcard&id={$bank.paycard_id}" onclick="return confirm('确认删除吗？');">删除</a>|
+    <a href="?controller=netbankmanage&action=getwithdraworders&id={$bank.paycard_id}" >转帐记录</a>
+    <a href="?controller=netbankmanage&action=editamount&id={$bank.paycard_id}">追加转帐</a>|
+	{if $bank.status == 0}
+	<a href="?controller=netbankmanage&action=enablecard&status=1&id={$bank.paycard_id}" onclick="return confirm('确认修改吗？');"><font color="#669900">启用</font></a>
+	{else}
+	<a href="?controller=netbankmanage&action=enablecard&status=0&id={$bank.paycard_id}" onclick="return confirm('确认修改吗？');"><font color="#FF3300">禁用</font></a>
+    {/if}
+	</td>
+  </tr>
+  {foreachelse}
+    <tr><td class="no-records" colspan="12">无相关数据</td></tr>
+  {/foreach}
+</table>
+
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

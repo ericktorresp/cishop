@@ -1,0 +1,50 @@
+{include file="pageheader.html"}
+<div class="right_021">
+
+<div id="right_02_01" style="margin-bottom:0;margin-top:10px;">
+    <div class="right_02_02"></div>
+    <div class="right_02_03" id="lt_big_label"  style="padding:0 10px;font-size:14px;">游戏设定</div>
+    <div class="right_02_04"></div>
+</div>
+<div style="margin:10px 0;"></div>
+<div id="right_02_01">
+    {foreach from=$alottery item=lottery key=k}
+    <div {if $k == $lotid}class="menu_01a"{else}class="menu_01"{/if} style="margin-top:5px;"></div>
+    <div {if $k == $lotid}class="menu_02a"{else}class="menu_02"{/if} id="lt_big_label"  style="padding:0 10px;font-size:18px;margin-top:5px;"><a href="/lowgame/?controller=channels&action=userset&ltid={$k}">{$lottery|escape:html}</a></div>
+    <div {if $k == $lotid}class="menu_03a"{else}class="menu_03"{/if} style="margin-top:5px;"></div>
+  {/foreach}
+</div>
+<div class="list-div">
+<table cellpadding="0" cellspacing="0">
+<tr align="center">
+<td width="20%" style="font-weight:bold;font-size:14px;">玩法组</td>
+<td width="20%" style="font-weight:bold;font-size:14px;">奖级</td>
+<td width="20%" style="font-weight:bold;font-size:14px;">奖金</td>
+<td width="20%" style="font-weight:bold;font-size:14px;">用户返点</td>
+<td width="20%" style="font-weight:bold;font-size:14px;">最大奖金限额</td>
+</tr>
+{foreach from=$UserMethod.$lotid item=method key=t}
+{if !empty($method.name)}
+<tr align="center">
+<td>{$method.name|escape:html}
+</td>
+<td>
+{foreach from=$method.nocount item=nocount key=k1}
+{$nocount.name|escape:html}<br/>
+{/foreach}</td>
+<td>{foreach from=$method.nocount item=nocount key=k1}
+{$nocount.bonus|escape:money}<br/>
+{/foreach}</td>
+<td>{if isset($method.userpoint)}{$method.userpoint|escape:html}%{/if}</td>
+<td>{$LimitBonus|escape:money}</td>
+</tr>
+{/if}
+{/foreach}
+</table>
+</div>
+<div class="height51">
+<div class="right_02_241"></div>
+<div class="right_02_251"></div>
+</div>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,155 @@
+{include file="pageheader.html"}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/calendar/jquery.dyndatetime.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/js/calendar/css/calendar-blue2.css" type="text/css" />
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery("#ordertime_min").dynDateTime({
+			ifFormat: "%Y-%m-%d",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: false
+		});
+		jQuery("#ordertime_max").dynDateTime({
+			ifFormat: "%Y-%m-%d",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: false
+		});
+	});
+	function showthemap(button,obj)
+	{
+		if( jQuery("#"+obj).html().length >10 )
+		{
+			if( jQuery("#"+button).attr("checked") == true )
+			{
+				jQuery("#"+obj).fadeIn();
+			}
+			else
+			{
+				jQuery("#"+obj).fadeOut();
+			}
+		}
+		else
+		{
+			var htmldata = "";
+			htmldata += '<table cellpadding="0" cellspacing="0" width="100%" border="0" bordercolordark="#FFFFFF" bordercolorlight="#330000" align="center">';
+			htmldata += '<tr><td height="50" align="center" style="color:"><strong>统计报表</strong></td></tr>';
+			htmldata += '<tr><td>';
+			htmldata += '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="100%" height="280" id="MSLine" >';
+			htmldata += '<param name="movie" value="./swf/msline.swf?" />';
+			htmldata += '<param name="FlashVars" value="&dataURL={$flashdata}">';
+			htmldata += '<param name="quality" value="high" />';
+			htmldata += '<embed src="./swf/msline.swf?" flashVars="&dataURL={$flashdata}" quality="high" width="100%" height="280" name="MSLine" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />';
+			htmldata += '</object></td></tr>';
+			htmldata += '</table>';
+			jQuery("#"+obj).html(htmldata);
+			jQuery("#"+obj).fadeIn();
+		}
+	}
+	
+function checkForm(obj)
+{
+	if( jQuery.trim(obj.ordertime_min.value) != "" )
+	{
+		if( false == validateInputDate(obj.ordertime_min.value) )
+		{
+			$.alert("时间格式不正确");
+			obj.ordertime_min.focus();
+			return false;
+		}
+	}
+	if( jQuery.trim(obj.ordertime_max.value) != "" )
+	{
+		if( false == validateInputDate(obj.ordertime_max.value) )
+		{
+			$.alert("时间格式不正确");
+			obj.ordertime_max.focus();
+			return false;
+		}
+	}
+}
+</script>
+
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div class="center">
+<form action="index.php" method="get" name="search" onSubmit="return checkForm(this)">
+		<input type="hidden" name="controller" value="report" />
+		<input type="hidden" name="action" value="reportmap" />
+		        	   类型：	<select name="ordertype">
+		                		<option value="all" {if $search.ordertype == 'all'}selected="selected"{/if}>所有类型</option>
+		                			<option value="platsave" {if $search.ordertype == 'platsave'}selected="selected"{/if}>平台充值金额</option>
+		                            <option value="platdraw" {if $search.ordertype == 'platdraw'}selected="selected"{/if}>平台提现金额</option>
+		                            <option value="save" {if $search.ordertype == 'save'}selected="selected"{/if}>下级充值金额</option>
+		                            <option value="draw" {if $search.ordertype == 'draw'}selected="selected"{/if}>下级提现金额</option>
+		                        </select>
+		               <input type="text" size="13" name="ordertime_min" id="ordertime_min" value="{$search.ordertime_min}" /> <img src="{$sSystemImagesAndCssPath}/images/calendar2.gif" id="time_min_button" /> 至 <input type="text" size="13" name="ordertime_max" id="ordertime_max" value="{$search.ordertime_max}" /> <img src="{$sSystemImagesAndCssPath}/images/calendar2.gif" />
+		               <input type="submit" name="submit" value="查询"  class="buttonnormal" />
+		               <input type="checkbox" name="showmap" id="showmap" onClick="showthemap('showmap','showmapbox')" />显示图表
+      
+	 </form>
+</div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%">
+<table width="100%" border="0" cellspacing="1">
+    
+
+    <tr>
+      <td height="43" align="center">日期</td>
+      {if $search.ordertype != 'platdraw' && $search.ordertype != 'draw' }<td align="center" class="line_03">充值总金额</td>{/if}
+        {if $search.ordertype != 'platsave' && $search.ordertype != 'save' }<td align="center" class="line_03">提现总金额</td>{/if}
+    </tr>
+    <tr>
+      <td height="5"align="center"></td>
+      {if $search.ordertype != 'platdraw' && $search.ordertype != 'draw' }{/if}
+      {if $search.ordertype != 'platsave' && $search.ordertype != 'save' }{/if}    </tr>
+    {foreach from=$totals item=total key=day}
+    <tr>
+     <td height="37" align="center" bgcolor="#CCCCCC">{$total.day}</td>
+        {if $search.ordertype != 'platdraw' && $search.ordertype != 'draw' }<td align="center" bgcolor="#CCCCCC">{$total.savecount|escape:money}</td>{/if}
+        {if $search.ordertype != 'platsave' && $search.ordertype != 'save' }<td align="center" bgcolor="#CCCCCC">{$total.withdrawcount|escape:money}</td>{/if}    </tr>
+    {/foreach}
+  </table>
+
+ <div class="list-Form" id="showmapbox" style="display:none; margin-top:10px; text-align:center;"></div>
+
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+{include file="pagefooter.html"}
+

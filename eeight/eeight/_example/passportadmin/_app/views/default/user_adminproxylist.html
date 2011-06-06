@@ -1,0 +1,87 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th width="30%">所属组别</th>
+	<th width="70%">管理员账号</th>
+  </tr>
+  <tr>
+  	<td align="center">总代：{$topproxy}</td>
+  	<td></td>
+  </tr>
+  {foreach from=$grouplist item=group key=k}
+  <tr>
+  <td align="center">{$group.groupname|escape:html}</td>
+  <td>
+  {foreach from=$group.admin item=admin key=k}
+  {$admin.username}&nbsp;&nbsp;&nbsp;{if ($k + 1) % 7== 0}<br />{/if}
+  {/foreach}
+  </td>
+  </tr>
+  {/foreach}
+  <tr>
+  	<td></td>
+  	<td><input type="button" value="返回上一页" onclick="history.back();" class="button"/></td>
+  </tr>
+</table>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

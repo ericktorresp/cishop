@@ -1,0 +1,48 @@
+{include file="pageheader.html"}
+
+<script type="text/javascript">
+{literal}
+function confirmSubmit(frm){return confirm("确定执行 '负余额清零' 操作?");}
+{/literal}
+</script>
+
+<div class="list-div">
+<form method="POST" action="./?controller=data&action=doresetzero" name="listForm" id="listForm" onsubmit="return confirmSubmit(this)">
+<table>
+<tr>
+<th><label><input onclick='CheckBoxSelectAll(this, "checkboxes")' type="checkbox">全选</label></th>
+<th>用户名</th>
+<th>总代</th>
+<th>冻结状态</th>
+<th>账户余额 C</th>
+<th>冻结金额 D</th>
+<th>可用余额 E</th>
+</tr>
+{foreach from=$userlist item=user key=k}
+<tr>
+<td align="center"><input name="checkboxes[]" type="checkbox" value="{$user.userid}"></td>
+<td align="center">{$user.username}</td>
+<td align="center">{$user.topname}</td>
+<td align="center">{if $user.isfrozen==0}未冻结{elseif $user.isfrozen==1}
+<font color=blue>上级冻结</font>{elseif $user.isfrozen==2}
+<font color=red>公司冻结</font>
+{else}----{/if}</td>
+<td align="right">{$user.channelbalance|escape:money}</td>
+<td align="right">{$user.holdbalance|escape:money}</td>
+<td align="right">{$user.availablebalance|escape:money}</td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="9" class="no-records">暂时没有出现负余额用户。</td>
+</tr>
+{/foreach}
+{if !empty($userlist)}
+<tr>
+<td colspan="9"><br/><input type="submit" class="button" value="执行负余额清零"></td>
+</tr>
+{/if}
+</form>
+</table>
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

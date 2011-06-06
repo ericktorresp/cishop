@@ -1,0 +1,213 @@
+{include file="pageheader.html"}
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/lowgame/css/new/gamespecial.css" type="text/css" />
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/dialogUI/jquery.jamesdragn.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/dialogUI/jquery.dragndrop.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/dialogUI/jquery.dialogUI.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/lowgame/js/bluejs/dialogUI/dialogUI.css" type="text/css" />
+<script type="text/javascript">
+(function($){
+$(document).ready(function(){
+    $(".action-span1").html("<A href='./index.php' target='_top'>低频游戏</a> - 靓号选择");
+	maxTimes  = parseInt({$userinfo.specialmaxtimes},10);
+	userMoney = Number({$userinfo.availablebalance});
+	$("input[name^='select_codes']").click(function(){
+		if( $(this).attr("checked") == true ){
+			$(this).next("input").attr("disabled",false).attr("class","codetimes").val(1);
+		}else{
+			$(this).next("input").attr("disabled",true).attr("class","codetimes_disabled").val("");
+		}
+	});
+	$("input[name^='times_']").keyup(function(){
+		$(this).val( $(this).val().replace(/[^0-9]/g,"").toString().substr(0,5) );
+	}).blur(function(){
+		tempTime = $(this).val() == "" ? 0 : parseInt($(this).val(),10);
+		if( tempTime > maxTimes ){
+			$.alert("最大只能购买"+maxTimes+"倍");
+			$(this).val(maxTimes);
+			return false;
+		}
+	});
+	//全选
+	$("input[name='checkall']").click(function(){
+		if( $(this).attr("checked") == true ){
+			$(this).closest("div").next().find("input[type='checkbox'][name!='checkall']").each(function(){
+				$(this).attr("checked",true).next("input").attr("disabled",false).attr("class","codetimes").val(1);
+			 });
+		}else{
+			$(this).closest("div").next().find("input[type='checkbox'][name!='checkall']").each(function(){
+				$(this).attr("checked",false).next("input").attr("disabled",true).attr("class","codetimes_disabled").val("");
+			 });
+		}
+	});
+	/**提交**/
+	$("input[id='submitsave']").click(function(){
+		tempNums   = 0;
+		codes	   = [];
+		totalmoney = 0;
+		bIsOk	   = true;
+		$("input[name^='select_codes']").each(function(){
+			if( $(this).attr("checked") == true ){
+				if( parseInt($(this).next("input").val(),10) <= 0 ){
+					$.alert("号码: ["+$(this).val()+"] 的倍数错误");
+					bIsOk = false;
+					return false;
+				}else if( parseInt($(this).next("input").val(),10) > maxTimes ){
+					$.alert("号码: ["+$(this).val()+"] 的倍数错误, 最大只能购买"+maxTimes+"倍");
+					bIsOk = false;
+					return false;
+				}
+				tempNums++;
+				codes.push($(this).val());
+				totalmoney += 2 * parseInt($(this).next("input").val(),10);
+			}
+		});
+		if( bIsOk == false ){
+			return false;
+		}
+		if( tempNums <= 0 ){
+			$.alert("请选择要投注的号码");
+			return false;
+		}
+		msg  = '<span style="color:red;font-weight:bold;">由于是靓号区动态调价，实际购买时的奖金可能会有所变化，并且购买后不能撤单</span>';
+		msg += "<br><br>你确定加入第 <font color='red'>"+$("#issue").val()+"</font> 期";
+		msg += "<br><br>加入号码:<br><div style='height:150px;overflow:scroll;overflow-x:hidden;'><font color='blue' size='2'>"+codes.join(" ")+"</div></font>";
+		msg += "<br>总金额:<font color='red'>"+totalmoney+"</font> 游戏币";
+		msg += "<br><br>如果您选择的号码中实际购买时奖金小于或等于不变价时的奖金[{$codedata.fMaxPrize}]：";
+		msg += '<br><input type="radio" name="changechoice" value="2" onclick="document.getElementById(\'dynamicchoice\').value=this.value">只买上调奖金的号码';
+		msg += '<br><input type="radio" name="changechoice" value="1" checked onclick="document.getElementById(\'dynamicchoice\').value=this.value">取消购买';
+		$.confirm({
+			width	: '600px',
+			message : msg,
+			funyes  : function(){
+			            if($("#dynamicchoice").val() == 1){
+						   return false; 
+						}
+						$.blockUI({
+						message:"<h3>正在提交数据,请稍等....</h3>",
+						overlayCSS: {
+									backgroundColor: '#000000',
+									opacity:          0.5,
+									cursor:          'wait'
+								}
+						});
+						var form = $("#buyform");
+						$.ajax({
+							type: 'POST',
+							url : './?controller=game&action=special',
+							data: $(form).serialize(),
+							success: function(data){
+										var partn = /<script.*>.*<\/script>/;
+										if( partn.test(data) ){//超时
+											alert("登陆超时，或者帐户在其他地方登陆，请重新登陆");
+											top.window.location.href="../?controller=default";
+											return false;
+										}else if( data == "success"){//购买成功
+											$.alert("购买成功<br />请注意查看参与游戏记录");
+											form.reset();
+											window.location.reload();
+											return true;
+										}else{//购买失败
+											eval("data = "+ data +";");
+											if( data.stats == 'success' ){
+												$.alert({
+													message: data.data,
+													title: "信息提示",
+													onclose : function(){
+																document.forms[0].reset();
+																window.location.reload();
+															}
+												});
+												return true;
+											}else if( data.stats == 'error' ){
+												$.alert(data.data);
+											}
+											return false;
+										}
+								},
+							error: function(){ 
+									$.alert("请求超时,请重试"); 
+									return false; 
+								}
+						});
+				},
+			funno   : function(){
+					return false;
+				}
+		});
+	});
+	
+});
+})(jQuery);
+</script>
+<div class="right_021">
+<div id="right_02_01">
+   <div class="right_02_02"></div>
+     <div class="right_02_03" id="lt_big_label" style="width:150px;" >
+                <div id="general_tab_{$k}">
+          		    <div class="menu_01a"></div>
+    			    <div class="menu_02a">靓号选择</div>
+    			    <div class="menu_03a"></div>
+    			</div>
+     {foreach from=$labels item=label key=kid}
+                <div id="general_tab_{$k}">
+            	   <div class="menu_01"></div>
+    			   <div class="menu_02" id="general_tab_{$k}" onclick="window.location.href='./?controller={$label.controller}&action={$label.actioner}&curmid={$label.menuid}&pid={$pid}'">{$label.title|escape:html}</div>
+            	   <div class="menu_03"></div>
+            	</div>
+       {/foreach}
+    </div>
+  <div class="right_02_04"></div>
+</div>
+<div class="special">
+<form action="" method="post" name="buyform" id="buyform">
+<input type="hidden" name="pid" value="{$pid}">
+<input type="hidden" name="curmid" value="{$pid}">
+<input type="hidden" name="flag" value="save">
+<input type="hidden" name="lotteryid" value="{$method.lotteryid}">
+<input type="hidden" name="methodid" value="{$method.methodid}">
+<input type="hidden" name="issue" id="issue" value="{$codedata.issue}">
+<input type="hidden" name="dynamicchoice" id="dynamicchoice" value="1">
+<div class="specialdecs">
+<div class="lottery_selectarea">
+    勾选奖金上调的直选靓号后投注，单个靓号最高可投注{$userinfo.specialmaxtimes}倍，投注成功后将不允许撤单。
+</div>
+</div>
+<!-- *******分组奖金区********* -->
+        {foreach from=$codedata.codegroup item=codes key=prize}
+            <div class="lottery_legend">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {if $prize>$codedata.fMaxPrize}<input type="checkbox" name="checkall" />&nbsp;{/if}<span class="{if $prize>$codedata.fMaxPrize}prizeup{elseif $prize<$codedata.fMaxPrize}prizedown{else}prizenormal{/if}"> 2 赔 {$prize}</span></div>
+            <div class="lottery_contentbox">
+               {if $prize>$codedata.fMaxPrize}
+                    <ul>
+                    {foreach from=$codes item=code key=k}
+                    	<li><input type="checkbox" name="select_codes[]" value="{$code}"> {$code} <input type="text" name="times_{$code}" class="codetimes_disabled" value="" disabled>倍</li>
+                    {/foreach}
+                    </ul>
+              {else}
+                    <table border="1" cellpadding="0" cellspacing="0" bordercolordark="#fff8f2" bordercolorlight="#0099FF" width="98%" align="center">
+                    <tr>
+                    {foreach from=$codes item=code key=k}
+                    {if $k!=0 && $k%15==0}</tr><tr>{/if}
+                    	<td style="width:55px; height:30px;" align="center">{$code}</td>
+                    {/foreach}
+                    </tr>
+                    </table>
+              {/if}
+            </div>
+        {if $prize>$codedata.fMaxPrize}
+            <div class="submit_div" id="area_select">
+                  <input type="button" value="确定投注" name="submit" id="submitsave" class="submitsaveonover">
+            </div>
+        {/if}
+        {foreachelse}
+        <div class="lottery_selectarea" id="area_select" align="center" style="font-size:14px;color:#F00;font-weight:bold;">没有靓号</div>
+        {/foreach}
+<!-- *******分组奖金区********* -->
+</form>
+</div>
+<div class="height51">
+<div class="right_02_241"></div>
+<div class="right_02_251"></div>
+</div>
+</div>
+{include file="pagefooter.html"}

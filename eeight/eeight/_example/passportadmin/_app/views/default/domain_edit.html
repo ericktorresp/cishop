@@ -1,0 +1,64 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/jquery.impromptu.2.6.min.js"></script>
+<LINK href="./css/impromptu.css" rel="stylesheet" type="text/css" />
+<script>
+function checkall(name,bool)
+{
+	var obj = document.getElementsByTagName("INPUT");
+	for(i=0;i<obj.length;i++)
+	{
+		if(obj[i].name==name)
+		{
+			obj[i].checked = bool;
+		}
+	}
+}
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+</script>
+<div class="list-div">
+<form action="?controller=domain&action=update" method="POST">
+<table>
+<tr>
+<th width="5%"></th>
+<th width="15%">域名</th>
+<TH width="80%">总代</TH>
+</tr>
+{foreach from=$domain key=k item=v}
+<tr>
+<td align="center"><input type="checkbox" id="domain_{$k}" onclick="checkall('domain[{$k}][]',this.checked);"><input type="hidden" name="domains[]" value="{$k}"></td>
+<td align="center"><label for="domain_{$k}">{$v}</label></td>
+<td align="left">{foreach from=$agents key=k1 item=user}<div style="float:left;width:100px;"><label for="domian_{$k}_{$k1}"><input type="checkbox" name="domain[{$k}][]" id="domian_{$k}_{$k1}" value="{$k1}"{if $user.domian.$k==1}checked="checked"{/if}>{$user.username}</label></div>{/foreach}</td>
+</tr>
+{/foreach}
+<tr>
+<td></td>
+<td align="left" colspan="2"><a href="javascript:showNotice('NoticeUpdate');"><img src="./images/notice.gif" border="0" title="更新域名"></a><input type="submit" class="button" value="更新域名"><input type="reset" class="button" value="还原域名">
+<span id="NoticeUpdate" style="display:none;">
+更新域名:<br/>
+1、如果域名已经分配给总代，取消选中，我们就对总代回收这个域名。<br/>
+2、如果域名没有分配给总代，选中之后,我们将分配域名给总代。
+</span>
+</td>
+</tr>
+</table>
+</form>
+</div>
+
+</div>
+{include file="pagefooter.html"}

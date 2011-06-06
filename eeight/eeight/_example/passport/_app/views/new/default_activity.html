@@ -1,0 +1,155 @@
+{include file="pageheader.html"}
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/js/keypad/keypad.css" type="text/css" />
+<script language="javascript" type="text/javascript">
+function otherChecked(obj){
+	jQuery("#"+obj).attr("checked",true);
+}
+function checkAnswer(obj){ //检查答案
+	var allcheck = true;
+	jQuery("input[id^='require_']").each(function(i,n){
+		ischeck = false;
+		msg     = "必答题必须给出答案";
+		var obj = jQuery("input[name^='answer_"+jQuery(n).val()+"']");
+		if( obj.attr("type") == "radio" ){
+			ischeck = false;
+			obj.each(function(j,m){
+				if( jQuery(m).attr("checked") == true ){
+					if( jQuery(m).val() == "other" ){
+						checkval = jQuery("input[name='other_answer_"+jQuery(n).val()+"']").val();
+						jQuery("input[name='other_answer_"+jQuery(n).val()+"']").val(jQuery.trim(checkval));
+						if( jQuery.trim(checkval) == "" ){
+							msg = "请填写其他内容";
+							ischeck = false;
+						}else{
+							ischeck = true;
+						}
+					}else{
+						ischeck = true;
+					}
+				}
+			});
+		}else if( obj.attr("type") == "checkbox" ){
+			ischeck = false;
+			obj.each(function(j,m){
+				if( jQuery(m).attr("checked") == true ){
+					if( jQuery(m).val() == "other" ){
+						checkval = jQuery("input[name='other_answer_"+jQuery(n).val()+"']").val();
+						jQuery("input[name='other_answer_"+jQuery(n).val()+"']").val(jQuery.trim(checkval));
+						if( jQuery.trim(checkval) == "" ){
+							msg = "请填写其他内容";
+							ischeck = false;
+						}else{
+							ischeck = true;
+						}
+					}else{
+						ischeck = true;
+					}
+				}
+			});
+		}else if( obj.attr("type") == "text" ){
+			ischeck = false;
+			if( obj.val() != "" ){
+				ischeck = true;
+			}
+		}else{
+			ischeck = false;
+			if( jQuery("#answer_"+jQuery(n).val()+"_area").val() != "" ){
+				ischeck = true;
+			}
+		}
+		if( ischeck == false ){
+			allcheck = false;
+			jQuery(n).next("span").html(msg).show();
+		}else{
+			jQuery(n).next("span").hide();
+		}
+	});
+	jQuery("input[id^='minright_']").each(function(i,n){
+		ischeck = true;
+		curight = 0;
+		minright = parseInt(jQuery(n).val());
+		if( minright > 0  ){//多选最少答题
+			jQuery(n).parent().find("input[id^='option_']").each(function(j,m){
+				if( jQuery(m).attr("checked") ==  true ){
+					curight += 1;
+					if( jQuery(m).val() == "other" ){
+						checkval = jQuery(m).parent().next("input[name^='other_answer_']").val();
+						jQuery(m).parent().next("input[name^='other_answer_']").val(checkval);
+						if( jQuery.trim(checkval) == "" ){
+							msg = "请填写其他内容";
+							ischeck = false;
+						}
+					}
+				}
+			});
+			if( curight < minright ){
+				ischeck = false;
+				msg     = "至少选择 "+minright+" 个答案";
+			}
+			if( ischeck == false ){
+				allcheck = false;
+				jQuery(n).prevAll("span").html(msg).show();
+			}else{
+				jQuery(n).prevAll("span").hide();
+			}
+		}
+	});
+	return allcheck;
+}
+</script>
+<div class="list-div" id="listDiv">
+<form method="post" action="./?controller=default&action=activity" onsubmit="return checkAnswer(this)">
+<input type="hidden" name="flag" value="answer" />
+<table class="list-table">
+<tr>
+<td align="center">{$aActivity.title|escape:html}</td>
+</tr>
+<tr>
+<td bgcolor="#000000;"></td>
+</tr>
+<tr>
+<td align="left">尊敬的用户:<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$aActivity.description|escape:html}</td>
+</tr>
+<tr>
+<td bgcolor="#000000;"></td>
+</tr>
+<tr>
+<td align="left">活动时间:{$aActivity.starttime|escape:html}&nbsp;至&nbsp;{$aActivity.endtime|escape:html}</td>
+</tr>
+<tr>
+<td>活动奖励:{if $aActivity.type==1}你只要回答正确达到{$aActivity.minscore}分,{/if}我们将在活动结束后给予您{$aActivity.prize|escape:money}元的奖励。</td>
+</tr>
+<tr>
+<td bgcolor="#000000;"></td>
+</tr>
+{foreach from=$aActivityInfo key=k item=v}
+{if count($v.options) > 0}
+<tr>
+<td>{$k}、{$v.title}
+{if $v.isrequire}
+[<b style="color:#FF0000;">必答</b>]
+<input type="hidden" name="require_{$v.infoid}" id="require_{$v.infoid}" value="{$v.infoid}" />
+{/if}&nbsp;&nbsp;<span id="require_{$v.infoid}_error" style="color:#FF0000; display:none;"></span><br/>
+{if $v.type==0}
+{foreach from=$v.options key=k1 item=v1}
+<label for="option_{$v.infoid}_{$k1}"><input type="radio" name="answer_{$v.infoid}" id="option_{$v.infoid}_{$k1}" value="{$k1}">{if $k1=="other"}其他:</label><input type="text" name="other_answer_{$v.infoid}" value="" onclick="otherChecked('option_{$v.infoid}_{$k1}')">{else}{$v1|escape:html}</label>{/if}<br/>{/foreach}
+{elseif $v.type==1}
+<input type="hidden" name="minright_{$v.infoid}" id="minright_{$v.infoid}" value="{$v.minright}" />
+{foreach from=$v.options key=k1 item=v1}
+<label for="option_{$v.infoid}_{$k1}"><input type="checkbox" name="answer_{$v.infoid}[]" id="option_{$v.infoid}_{$k1}" value="{$k1}">{if $k1=="other"}其他:</label><input type="text"name="other_answer_{$v.infoid}"  value="" onclick="otherChecked('option_{$v.infoid}_{$k1}')">{else}{$v1|escape:html}</label>{/if}<br/>{/foreach}
+{elseif $v.type==2}
+<input type="text" size="60" name="answer_{$v.infoid}" value="">
+{elseif $v.type==3}
+<textarea rows="6" cols="60" name="answer_{$v.infoid}" id="answer_{$v.infoid}_area"></textarea>
+{/if}
+</td>
+</tr>
+{/if}
+{/foreach}
+<tr>
+<td align="center"><input type="hidden" name="actid" value="{$aActivity.activityid}"/><input type="submit" value="提交答案"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

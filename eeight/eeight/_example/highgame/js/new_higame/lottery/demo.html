@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>high lottery demo</title>
+<script language="javascript" src="../jquery.js"></script>
+<script language="javascript" src="../dialogUI/jquery.dragdrop.js"></script>
+<script language="javascript" src="../dialogUI/jquery.dialogUI.js"></script>
+<script language="javascript" src="highgame_lang_zh.js"></script>
+<script language="javascript" src="jquery.highgame.js"></script>
+<link rel="stylesheet" href="../dialogUI/dialogUI.css" type="text/css" />
+<link rel="stylesheet" href="default.css" type="text/css" />
+<script language="javascript">
+(function($){
+$(document).ready(function(){
+	$.gameInit({
+	
+	});
+});
+})(jQuery);
+</script>
+</head>
+<body>
+
+<table cellpadding="0" cellspacing="0" width="840" align="center">
+<tr>
+	<td width="580" valign="top">
+    <form method="post" name="buyform" action="">
+    <div class="headbox">
+    <!--  顶部开奖以及奖期，倒计时等信息  -->
+    	<div class="headright">
+        	<ul>
+            	<li>第<span id="current_issue">2009337</span>期</li>
+                <li>本期截止时间: <span id="current_endtime">2009-12-10 20:20:00</span></li>
+                <li>离当前期截止还剩:<span id="count_down">00:02:33</span></li>
+            </ul>
+            <div class="linkbox">
+            	<a href="#" class="headlink1">历史号码走势</a>
+                <a href="#" class="headlink2">遗漏统计</a>
+                <a href="#" class="headlink3">冷热分析</a>
+            </div>
+        </div>
+    </div>
+    <!--  选号区的标签区  -->
+    <div class="labelbox">
+    	<ul id="lt_big_label"></ul>
+    </div>
+    <!--  选号区的内容区  -->
+    <div class="selectbox">
+    	<div id="lt_samll_label"></div>
+        <div>
+        	<span id="lt_desc"></span><img src="image/help.jpg" width="9" height="12" />
+        </div>
+        <div id="lt_selector"></div>
+        <div id="lt_selbot">
+        	<div class="selectmsg">您选择了<span id="lt_sel_nums">0</span>注，共<span id="lt_sel_money">0</span>游戏币，请填写倍数<input name="lt_sel_times" type="text" id="lt_sel_times" class="textbutton" />倍</div>
+            <div class="selectimg"><img src="image/addbutton.jpg" width="78" height="26" id="lt_sel_insert" /></div>
+        </div>
+    </div>
+    <!--  确认区，即购物栏区  -->
+    <div class="confirmbox">
+    	<div class="cftitle"><span class="cftleft">投注项 2</span><span class="cftright" id="lt_cf_clear" title="删除全部">清空X</span></div>
+        <div class="cfcontent">
+        	<table cellpadding="0" cellspacing="0" id="lt_cf_content"></table>
+        </div>
+    </div>
+    <!--  确认投注区信息  -->
+    <div class="buyresult">
+    	<div class="bs_left">
+        	<p>总注数<span id="lt_cf_nums">0</span>注，总金额<span id="lt_cf_money">0</span>游戏币</p>
+			<p id="lt_issues">起始期：
+            </p>
+        </div>
+        <div class="bs_right"><img src="image/botton_buy.jpg" width="192" height="47" id="lt_sendok" /></div>
+    </div>
+    
+    <!--  追号区  -->
+    <div class="tracebox">
+    	<div class="tbtitlebox">
+        	<div>
+            	<input type="checkbox" name="lt_trace_if" id="lt_trace_if" />&nbsp;我要追号&nbsp;&nbsp;&nbsp;
+        		<input type="checkbox" name="lt_trace_stop" id="lt_trace_stop" disabled="disabled" />&nbsp;中奖后停止追号
+            </div>
+        </div>
+        <div class="tbactionbox" id="lt_trace_box1" style="display:none;">
+        	<div class="tbactleft">
+            	<div class="tbactdays">
+                	<a href="javascript:" class="selected" id="lt_trace_today">今天</a><a href="javascript:" id="lt_trace_tomorrow">明天</a>
+                    可追号： <span class="red" id="lt_trace_alcount">126</span> 期
+                </div>
+                <div class="tbactlabel" id="lt_trace_label"></div>
+                <div class="tbactinput" id="lt_trace_labelhtml"></div>
+            </div>
+            <div class="tbactright">
+            	<img src="image/botton_traceok.jpg" width="78" height="23" id="lt_trace_ok" />
+            </div>
+        </div>
+        <div class="tbcontentbox" id="lt_trace_box2" style="display:none;">
+        	<div class="tbctitle">
+            	<ul>
+                	<li class="issue">期号</li>
+                    <li class="inputtimes">倍数</li>
+                    <li class="rlmoney">投注资金</li>
+                    <li class="last">销售截止</li>
+                </ul>
+            </div>
+            <div class="tbclist" id="lt_trace_issues"></div>
+        </div>
+    </div>
+    </form>
+    </td>
+    <td width="260" align="right" valign="top">
+    <!-- 右边历史号码以及即时开奖号码区 -->
+    <div class="bodyright">
+    	<div class="otherredtitle"><p><img src="image/icon_02.jpg" width="10" height="11" />历史号码</p></div>
+        <div class="othergrabox">
+        	<table cellpadding="0" cellspacing="1">
+            	<tr>
+                 	<th width="50%">期号</th>
+              		<th>开奖号码</th>
+                </tr>
+                <tr>
+                  <td>20091126-22</td>
+                  <td>61557</td>
+                </tr>
+                <tr>
+                  <td class="odd">20091126-22</td>
+                  <td class="odd">61557</td>
+                </tr>
+                <tr>
+                  <td>20091126-22</td>
+                  <td>61557</td>
+                </tr>
+                <tr>
+                  <td class="odd">20091126-22</td>
+                  <td class="odd">61557</td>
+                </tr>
+                <tr>
+                  <td>20091126-22</td>
+                  <td>61557</td>
+                </tr>
+                <tr>
+                  <td class="odd">20091126-22</td>
+                  <td class="odd">61557</td>
+                </tr>
+                <tr>
+                  <td>20091126-22</td>
+                  <td>61557</td>
+                </tr>
+                <tr>
+                  <td class="odd">20091126-22</td>
+                  <td class="odd">61557</td>
+                </tr>
+                <tr>
+                  <td>20091126-22</td>
+                  <td>61557</td>
+                </tr>
+                <tr>
+                  <td class="odd">20091126-22</td>
+                  <td class="odd">61557</td>
+                </tr>
+                <tr>
+                	<td colspan="2" class="more"><a href="#">更多号码 ...</a></td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="otherredtitle"><p><img src="image/icon_02.jpg" width="10" height="11" />即时开奖号码</p></div>
+        <div class="othergrabox">
+        	<table cellpadding="0" cellspacing="1">
+            	<tr>
+                 	<th>游戏</th>
+              		<th>奖期</th>
+                    <th>开奖号码</th>
+                </tr>
+                <tr>
+                  <td>CQSSC</td>
+                  <td>20091126-22</td>
+                  <td>54518</td>
+                </tr>
+                <tr>
+                  <td class="odd">CQSSC</td>
+                  <td class="odd">20091126-22</td>
+                  <td class="odd">54518</td>
+                </tr>
+                <tr>
+                  <td>CQSSC</td>
+                  <td>20091126-22</td>
+                  <td>54518</td>
+                </tr>
+                <tr>
+                  <td class="odd">CQSSC</td>
+                  <td class="odd">20091126-22</td>
+                  <td class="odd">54518</td>
+                </tr>
+                <tr>
+                  <td>CQSSC</td>
+                  <td>20091126-22</td>
+                  <td>54518</td>
+                </tr>
+                <tr>
+                  <td class="odd">CQSSC</td>
+                  <td class="odd">20091126-22</td>
+                  <td class="odd">54518</td>
+                </tr>
+                <tr>
+                  <td>CQSSC</td>
+                  <td>20091126-22</td>
+                  <td>54518</td>
+                </tr>
+                <tr>
+                  <td class="odd">CQSSC</td>
+                  <td class="odd">20091126-22</td>
+                  <td class="odd">54518</td>
+                </tr>
+                <tr>
+                  <td>CQSSC</td>
+                  <td>20091126-22</td>
+                  <td>54518</td>
+                </tr>
+                <tr>
+                  <td class="odd">CQSSC</td>
+                  <td class="odd">20091126-22</td>
+                  <td class="odd">54518</td>
+                </tr>
+                <tr>
+                	<td colspan="3" class="more"><a href="#">更多号码 ...</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    </td>
+</tr>
+<tr>
+	<td colspan="2">
+	<!-- 底部参与游戏记录 -->
+    <div class="bodybottom">
+    	<div class="bottomtitle"><img src="image/icon_03.jpg" width="22" height="22" align="absmiddle" />参与游戏记录</div>
+        <div class="bottombox">
+        	<table cellpadding="0" cellspacing="1">
+            	<tr>
+                 	<th>注单编号</th>
+              		<th>参与时间</th>
+                    <th>玩法</th>
+                    <th>奖期</th>
+                    <th>投注内容</th>
+                    <th>倍数</th>
+                    <th>金额</th>
+                    <th>是否追号</th>
+                </tr>
+                <tr>
+                  <td>20091123-046JSC0136217586</td>
+                  <td>2009-08-24 14:14:54</td>
+                  <td>前三直选</td>
+                  <td>20091119-29</td>
+                  <td>1,3/2,7/2,5</td>
+                  <td>20</td>
+                  <td>80</td>
+                  <td>是</td>
+                </tr>
+                <tr>
+                  <td class="odd">20091123-046JSC0136217586</td>
+                  <td class="odd">2009-08-24 14:14:54</td>
+                  <td class="odd">前三直选</td>
+                  <td class="odd">20091119-29</td>
+                  <td class="odd">1,3/2,7/2,5</td>
+                  <td class="odd">20</td>
+                  <td class="odd">80</td>
+                  <td class="odd">是</td>
+                </tr>
+                <tr>
+                  <td>20091123-046JSC0136217586</td>
+                  <td>2009-08-24 14:14:54</td>
+                  <td>前三直选</td>
+                  <td>20091119-29</td>
+                  <td>1,3/2,7/2,5</td>
+                  <td>20</td>
+                  <td>80</td>
+                  <td>是</td>
+                </tr>
+                <tr>
+                  <td class="odd">20091123-046JSC0136217586</td>
+                  <td class="odd">2009-08-24 14:14:54</td>
+                  <td class="odd">前三直选</td>
+                  <td class="odd">20091119-29</td>
+                  <td class="odd">1,3/2,7/2,5</td>
+                  <td class="odd">20</td>
+                  <td class="odd">80</td>
+                  <td class="odd">是</td>
+                </tr>
+                <tr>
+                  <td>20091123-046JSC0136217586</td>
+                  <td>2009-08-24 14:14:54</td>
+                  <td>前三直选</td>
+                  <td>20091119-29</td>
+                  <td>1,3/2,7/2,5</td>
+                  <td>20</td>
+                  <td>80</td>
+                  <td>是</td>
+                </tr>
+                <tr>
+                  <td class="odd">20091123-046JSC0136217586</td>
+                  <td class="odd">2009-08-24 14:14:54</td>
+                  <td class="odd">前三直选</td>
+                  <td class="odd">20091119-29</td>
+                  <td class="odd">1,3/2,7/2,5</td>
+                  <td class="odd">20</td>
+                  <td class="odd">80</td>
+                  <td class="odd">是</td>
+                </tr>
+                <tr>
+                  <td>20091123-046JSC0136217586</td>
+                  <td>2009-08-24 14:14:54</td>
+                  <td>前三直选</td>
+                  <td>20091119-29</td>
+                  <td>1,3/2,7/2,5</td>
+                  <td>20</td>
+                  <td>80</td>
+                  <td>是</td>
+                </tr>
+                <tr>
+                  <td class="odd">20091123-046JSC0136217586</td>
+                  <td class="odd">2009-08-24 14:14:54</td>
+                  <td class="odd">前三直选</td>
+                  <td class="odd">20091119-29</td>
+                  <td class="odd">1,3/2,7/2,5</td>
+                  <td class="odd">20</td>
+                  <td class="odd">80</td>
+                  <td class="odd">是</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+	</td>
+</tr>
+</table>
+
+</body>
+</html>

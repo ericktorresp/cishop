@@ -1,0 +1,392 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+<style>
+.no_div{
+	width:300px;
+	height:100px;
+	line-weight:20px;
+	color:#FFFFFF;
+	background:#000000;	
+	position:absolute;
+	text-align:left;
+	display:none;
+	overflow:hidden;
+	border:1px #CCCCCC double;
+}
+.code{
+	width:100%;
+	height:78px;
+	background:#000000;	
+	color:#FFFFFF;
+	word-break:break-all;
+	text-align:left;
+	border:1px #CCCCCC inset;	
+	overflow-y:auto;
+	overflow-x:hidden;
+}
+</style>
+<script type="text/javascript">
+function show_no(id)
+{
+	jQuery("#code_"+id).show("slow");
+}
+function hide_no(id)
+{
+	$("#code_"+id).hide("slow");
+}
+function get_data( page )
+{
+	if(page=="")
+	{
+		page = 1;
+	}
+	
+	$("#tabloading").ajaxStart(function(){
+        $(this).show();
+        $("#project-list").hide();
+    }).ajaxStop(function(){
+        $(this).hide();
+    });
+	$.ajax({
+		type:"POST",
+		url:"./index.php?controller=usergames&action=gameinfo",
+		dataType:"json",
+		data:$("#getForm").serialize()+"&page="+page,
+		success:function(json_data)
+		{
+			var ipagesize = $("#ipagesize").val();
+		
+			if(json_data.affects==0)
+			{
+				html ="<tr><td colspan='12' class='no-records'>没有找到记录</td></tr>";
+			}
+			else
+			{		
+				html = "";
+				totaltouzhu =0.00;
+				totalbonus =0.00;
+				$.each(json_data.results,function(id,project){
+					html = html + "<tr align='center'>";
+					html = html + "<td><a href='./index.php?controller=usergames&action=projectdetail&id="+project.projectid+"' target='_blank'>"+project.projectid+"</a></td>";//注单编号
+					html = html + "<td>"+project.username+"</td>";//游戏用户
+					html = html + "<td>"+project.writetime+"</td>";//投注时间
+					html = html + "<td>"+project.cnname+"</td>";//彩种
+					html = html + "<td>"+project.methodname+"</td>";//玩法
+					html = html + "<td>"+project.issue+"</td>";//期号
+					html = html + "";
+					if(project.code.length>20)
+					{
+						html = html+"<td><a href='javascript:show_no("+id+");'>号码详情</a>"
+						+"<div id='code_"+id+"' class='no_div'>号码详情[<a href='javascript:hide_no("+id+");' style='color:#FFFFFF;'>关闭</a>]<br/>"
+						+"<textarea class='code' readonly='readonly'>"+project.code.replace(/\|/g," ")+"</textarea></div></td>";
+					}
+					else
+					{
+						
+						p = /^(\d+)/;
+						if(!p.test(project.code))
+						{
+							code = project.code;
+							code = code.replace(/B/g,"大");
+							code = code.replace(/S/g,"小");
+							code = code.replace(/A/g,"单");
+							code = code.replace(/D/g,"双");
+							html = html+"<td>"+code+"</td>";
+						}
+						else
+						{
+							html = html+"<td>"+project.code+"</td>";//投注内容
+						}
+					}
+					html = html + "<td>"+project.multiple+"</td>";//倍数
+					totaltouzhu = totaltouzhu + parseFloat(project.totalprice);
+					totalbonus = totalbonus+ parseFloat(project.bonus);
+					html = html + "<td align='right'>"+parseFloat(project.totalprice).toFixed(2)+"</td>";//投注总金额
+					html = html + "<td align='right'>"+parseFloat(project.bonus).toFixed(2)+"</td>";//奖金
+					//中奖号码
+					html = html + "<td>";
+					if(project.isgetprize==0)
+					{
+						html =html+ "<font color='blue'>未开奖</font>";
+					}
+					else if(project.isgetprize==1)
+					{
+						html =html+ "<font color='red'>"+project.nocode+"<font>"; 
+					}
+					else if(project.isgetprize==0)
+					{
+						html = html +"<font color='green'>未中奖</font>";
+					}
+					html = html+"</td>";
+					html = html + "<td>";
+					//状态
+					if(project.iscancel==0)
+					{
+						html =html + "<font color='green'>正常</font>";
+					}
+					else if(project.iscancel==1)
+					{
+						html = html + "<font color='blue'>用户撤单</font>";
+					}
+					else if(project.iscancel ==2 )
+					{
+						html = html + "<font color='red'>公司撤单</font>";
+					}
+					html = html + "</td>";
+					html = html + "</tr>";
+				});
+				//小结部分
+                html = html + "<tr align='center'><td>小结</td><td colspan='7'></td>";
+                html = html + "<td align='right'>"+totaltouzhu.toFixed(2)+"</td>";
+                html = html + "<td align='right'>"+totalbonus.toFixed(2)+"</td>";
+                html = html + "<td colspan='2'></td>";
+                html = html + "</tr>";
+				//构造分页
+				html = html +"<tr id='page-table'><td colspan='12' align='right'><div style='padding-right:30px; padding-top:6px;'>共有"+json_data.affects+"条记录,";
+				i = Math.ceil(json_data.affects/ipagesize);
+				html = html +"共"+i.toString()+"页,当前第"+page+"页,<SPAN ID='tPages'>";
+				if(page>1)
+				{
+					html = html + "<a href='javascript:get_data(1);'>首页</a><a href='javascript:get_data("+(page-1).toString()+");'>上页</a>"
+				}
+				t = (page>5) ?(page-5):1;
+				k = (t+10)<i?(t+10):i;
+				for(j=t;j<=k;j++)
+				{
+					if(j==page)
+					{
+						html =html +"<b>"+j.toString()+"</b>";
+					}
+					else
+					{
+						html = html +"<a href='javascript:get_data("+j.toString()+")'>"+j.toString()+"</a>";
+					}	
+				}
+				if(page<i)
+				{
+					html =html + "<a href='javascript:get_data("+(page+1).toString()+");'>下页</a><a href='javascript:get_data("+i+");'>尾页</a>";
+				}
+				html = html + "</span>,第<select onchange='javascript:get_data(this.value);'>";
+				for(j=1;j<=i;j++)
+				{
+					if(j==page)
+					{
+						html = html +"<option value='"+j+"' selected='selected'>"+j+"</option>";
+					}
+					else
+					{
+						html = html +"<option value='"+j+"'>"+j+"</option>";
+					}
+				}
+				html =html +"</select>页</div></td></tr>";
+			}
+			$("#project-list").html(html);
+			$("#project-list").show();
+		},
+		error:function(data)
+		{
+			$("#project-list").show();
+			return false;
+		}
+	});	
+}
+jQuery(document).ready(function() {
+	jQuery("#starttime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#starttime").change(function(){
+		if(! validateInputDate(jQuery("#starttime").val()) )
+		{jQuery("#starttime").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+	});
+	jQuery("#endtime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#endtime").change(function(){
+		if(! validateInputDate(jQuery("#endtime").val()) )
+		{jQuery("#endtime").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+	});
+	jQuery("#lotteryid").change(function(){
+		var data_method = {$data_method};
+		var data_issue = {$data_issue};
+		i =  $("#lotteryid").val();
+		if(i>0)
+		{
+			html = "游戏玩法:<select name='methodid' id='methodid'><option value='0'>所有玩法</option>";			
+			$.each(data_method[i],function(j,k){
+				html = html +"<option value='"+k.methodid+"'>"+k.methodname+"</option>";
+			});
+			html = html +"</select>";
+			html = html + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;游戏奖期:<select name='issueid'><option value='-1'>所有奖期</option>";
+			$.each(data_issue[i],function(j1,k1){
+				html = html +"<option value='"+k1.issue+"'>"+k1.issue+"("+k1.dateend+")</option>";
+			});
+			html = html +"</select>(最近10天)";
+		}
+		else
+		{
+			html = "游戏玩法:<select name='methodid' id='methodid'><option value='0'>所有玩法</option></select>";
+			html = html + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;游戏奖期:<select name='issueid'><option value='-1'>所有奖期</option></select>";	
+		}
+		$("#game_info").html(html);
+	});
+	$(":radio[name='type']").click(function(){
+		i = $(":radio[name='type'][checked=true]").val();
+		if(i==1)
+		{
+			$("#topproxy").show();
+			$("#userinput").hide();
+			$("#include").attr("checked",true);
+		}
+		else if(i==2)
+		{
+			$("#topproxy").hide();
+			$("#userinput").show();
+			$("#include").attr("checked",false);
+		}
+		else
+		{
+			$("#topproxy").hide();
+			$("#userinput").hide();
+			$("#include").attr("checked",false);
+		}	
+	});
+	$(":radio[name='type'][value='1']").attr("checked",true);
+	$(":radio[name='type'][value='1']").click();
+	jQuery("#lotteryid").val(0);
+	jQuery("#lotteryid").change();
+	get_data(1);
+});
+
+</script>
+<div class="form-div" ID="formdiv">
+<form id="getForm">
+<img src="./images/icon_search.gif" border="0">
+游戏时间:<input type="text" name="starttime" id="starttime" value="" style="background-color:#FFF;color:#555;">
+<img src="./images/calendar2.gif">
+至<input type="text" name="endtime" id="endtime" value="" style="background-color:#FFF;color:#555;">
+<img src="./images/calendar2.gif">
+<label for="type_0"><input type="radio" name="type" value="1" id="type_0">指定总代</label>
+<label for="type_1"><input type="radio" name="type" value="2" id="type_1">手工输入</label>
+<span id="topproxy">
+总代:<select name="proxyid" name="proxyid">
+<option value="0">所有用户</option>
+{foreach from=$topproxy item=u key=k}
+<option value="{$u.userid}">{$u.username}</option>
+{/foreach}
+</select>
+</span>
+<span id="userinput">
+游戏用户:<input type="text" name="username" value="" style="background-color:#FFF;color:#555;"/>
+</span>
+<label for="include"><input type="checkbox" name="include" id="include" value="1">包含下级</label>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+游戏名称:<select name="lotteryid" id="lotteryid">
+<option value="0">所有游戏</option>
+{foreach from=$lottery item=alottery key=k}
+<option value="{$k}">{$alottery}</option>
+{/foreach}
+</select>&nbsp; &nbsp;
+<span id="game_info"></span>&nbsp;注单编号:<input type="text" name="projectno" id="projectno">
+&nbsp; &nbsp; 每页记录数:<input name="pn" id="ipagesize" value="{if $searchpn > 0}{$searchpn}{else}{$syspagesizemax}{/if}" size="5" onKeyup="checkPageSize(this,'ipagesize',{$syspagesizemax});">
+&nbsp; &nbsp; 
+
+<input type="button" value="查询" class="button"  onclick='get_data(1);'>
+</form>
+</div>
+<div class="list-div" id="listDiv">
+<table>
+<tr>
+<th width="160">注单编号</th>
+<th width="80">游戏用户</th>
+<th width="120">投注时间</th>
+<th width="40">彩种</th>
+<th width="100">玩法</th>
+<th width="70">期号</th>
+<th width="80">投注内容</th>
+<th width="40">倍数</th>
+<th>投注总金额</th>
+<th width="80">奖金</th>
+<th width="80">中奖号码</th>
+<th width="80">状态</th>
+</tr>
+<tbody id="project-list"></tbody>
+<tr id="tabloading" style="display:none;">
+    <td colspan="12" height="100" align="center" valign="middle">正在加载数据......<br><img src="./images/loading.gif"></td>
+</tr>
+</table>
+</div>
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{include file="pagefooter.html"}

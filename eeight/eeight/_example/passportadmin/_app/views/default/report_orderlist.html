@@ -1,0 +1,251 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+{literal}
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery("#sdate").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M:00",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#sdate").change(function(){
+			if(! validateInputDate(jQuery("#sdate").val()) )
+			{jQuery("#sdate").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+		});
+		jQuery("#edate").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M:00",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#edate").change(function(){
+			if(! validateInputDate(jQuery("#edate").val()) )
+			{jQuery("#edate").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+		});
+	});
+</script>
+{/literal}
+
+<div class="form-div">
+<FORM name="searchForm" action="" METHOD='get'>
+<input type='hidden' name="controller" value="report"/>
+<input type='hidden' name="action" value="orderlist"/>
+<table width="100%" border="0">
+  <tr>
+    <td rowspan="3" width=220><img src="./images/icon_search.gif" width="26" height="22" border="0" TITLE="SEARCH" />
+	账变类型: <select size=7 multiple="multiple" name="otid[]" style='background:#eaeaea;'>
+<option VALUE="-1" {if $s.otid==-1}SELECTED{/if}>全部账变类型..</option>{$s.Ordertypeopts}</select>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td style='line-height:18px;'>
+&nbsp;订 单 号 : <input type="text" name="orderno" size='22' value='{$s.orderno|escape:html}' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+用户地址: <input type="text" name="clientip" size='16' value='{$s.clientip|escape:html}' /> &nbsp;&nbsp;&nbsp;<input type="submit" value="搜 索" class="button" /> <a href="javascript:showNotice('noticeSearch');" title="帮助信息"><img src="./images/notice.gif" width="16" height="16" border="0" title="帮助信息"></a><br/>
+
+&nbsp;管 理 员 : <select name="adminid" style='width:160px;background:#eaeaea;'>
+<option value="-1">不限..</option>
+<option value="-2" {if $s.adminid==-2}SELECTED{/if}>全部管理员</option>{$s.Adminidopts}
+</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+每页记录数: <select name="pn" style='background-color:#e0e0e0'>
+<option value="50" {if $s.pn=='50'}SELECTED{/if}>50</option>
+<option value="75" {if $s.pn=='75'}SELECTED{/if}>75</option>
+<option value="100" {if $s.pn=='100'}SELECTED{/if}>100</option>
+<option value="150" {if $s.pn=='150'}SELECTED{/if}>150</option>
+<option value="200" {if $s.pn=='200'}SELECTED{/if}>200</option></select><br/>
+
+账变时间: <input type="text" id="sdate" name="sdate" size='20' value='{$s.sdate|escape:html}' /> <img src="./images/calendar2.gif"> &nbsp; 至 &nbsp; 
+<input type="text" id="edate" name="edate"  size='20' value='{$s.edate|escape:html}' /> <img src="./images/calendar2.gif" /><br/>
+账变金额: <select name="af1">
+<option value="1" {if $s.af1=='1'}SELECTED{/if}>小于</option>
+<option value="2" {if $s.af1=='2'}SELECTED{/if}>小于等于</option>
+<option value="3" {if $s.af1=='3'}SELECTED{/if}>等于</option>
+<option value="4" {if $s.af1=='4'}SELECTED{/if}>大于</option>
+<option value="5" {if $s.af1=='5'}SELECTED{/if}>大于等于</option></select>
+<input type="text" name="amount1" size='9' value='{$s.amount1|escape:html}' /> &nbsp; &nbsp;
+并且 &nbsp; <select name="af2">
+<option value="1" {if $s.af2=='1'}SELECTED{/if}>小于</option>
+<option value="2" {if $s.af2=='2'}SELECTED{/if}>小于等于</option>
+<option value="3" {if $s.af2=='3'}SELECTED{/if}>等于</option>
+<option value="4" {if $s.af2=='4'}SELECTED{/if}>大于</option>
+<option value="5" {if $s.af2=='5'}SELECTED{/if}>大于等于</option></select>
+<input type="text" name="amount2" size='9' value='{$s.amount2|escape:html}' /><br/>
+
+用户搜索: 
+<label style='color:#690' for='c1' onClick="javascript:actDiv('isearch','');actDiv('itopproxy','none');">
+	<input type="radio" name="sel" value="1" {if $s.sel==1}CHECKED="TRUE"{/if} id='c1' >手动输入</label>
+<label style='color:#00f' for='c2' onClick="javascript:actDiv('isearch','none');actDiv('itopproxy','');">
+	<input type="radio" name="sel" value="2" {if $s.sel==2}CHECKED="TRUE"{/if} id='c2' >总代列表</label>
+&nbsp; | &nbsp;
+
+<span id="isearch" style='color:#690;'>
+	用户名: <input type="text" style='width:100px;background:#eaeaea;' 
+		name="username" size='15' value='{$s.username|escape:html}'/>
+	<label for='c11'><input type="checkbox" {if $s.included1==1}CHECKED="TRUE"{/if} 
+		name="included1" value="1" id='c11' >含下级</label>
+</span>
+
+<span id="itopproxy" style='color:#00f;'>
+	总代: <select name="tproxyid"><option value="-1">请选择...</option>{$s.topproxyopts}</select>
+	<label for='c22'><input type="checkbox" {if $s.included2==1}CHECKED="TRUE"{/if} 
+	name="included2" value="1" id='c22' >含下级</label>
+	<label for='c33'><input type="checkbox" {if $s.included3==1}CHECKED="TRUE"{/if} 
+	name="included3" value="1" id='c33' >不计总代</label>
+</span><br/>
+</td>
+  </tr>
+</table>
+
+<span class="notice-span" style='line-height:18px;padding:8px 0px 2px 20px;color:#669900' 
+id="noticeSearch"><b><font color=red>用户搜索:</font></b> '手动输入' 和 '总代列表' 只可以同时选择一种进行用户身份条件的过滤<br/>
+<b><font color=red>用户地址:</font></b> 支持通配符 * 号, 例: <b><font color=red>192.168.1*</font></b>
+</span></div></FORM></div>
+
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action='./?controller=adminuser&action=edit' onsubmit="return confirmSubmit(this)">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th>订单号</th>
+	<th>账变时间</th>
+	<th>用户名</th>
+	<th>账变类型</th>
+	<th>收入</th>
+    <th>支出</th>
+	<th>可用余额</th>
+    <th>网络地址</th>
+    <th>备注</th>
+    <th>管理员</th>
+  </tr>
+
+{foreach from=$aUserList item=list key=k1}
+  <tr>
+    <td align="center" TITLE='{$list.entry}'>{$list.orderno}</td>
+	<td align="center">{$list.times|escape:html}</td>
+	<td align="center">{$list.username|escape:html}</td>
+	<td align="center">{$list.cntitle|escape:html}</td>
+	<td align="right">{if $list.signamount==1}+{$list.amount|escape:money}{/if}</td>
+	<td align="right">{if $list.signamount==0}-{$list.amount|escape:money}{/if}</td>
+	<td align="center">{$list.availablebalance|escape:money}</td>
+	<td align="center">{$list.clientip}</td>
+	<td align="center">{if $list.ordertypeid == $allowdes}{$list.description}{else}<font color='#D0D0D0'>-----</font>{/if}</td>
+	<td align="center">{if $list.adminname==''}<font color='#D0D0D0'>-----</font>{else}{$list.adminname|escape:html}{/if}</td>
+  </tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">无相关数据</td></tr>
+{/foreach}
+    <tr>
+    	<td colspan=4>&nbsp;&nbsp;&nbsp;&nbsp;
+		小结: &nbsp;&nbsp;本页资金变动: &nbsp;&nbsp;&nbsp;&nbsp;
+		<B>{if $s.iCountAll>=0}<font style='color:#f00'>
+			{$s.iCountAll|escape:money}</font>
+			{else}<font style='color:#690'>{$s.iCountAll|escape:money}</font>{/if}</B></td>
+        <td align="right" style='color:#690'>{$s.iCountSR|escape:money}</td>
+        <td align="right" style='color:#F00'>{$s.iCountZC|escape:money}</td>
+		<td colspan=6></td>
+    </tr>
+{if !empty($s.aStat)}
+    <tr>
+    	<td colspan=4>&nbsp;&nbsp;&nbsp;&nbsp;
+		资金变动总结: 
+        <td align="right" style='color:#690'>{$s.aStat[1].amounts|escape:money}</td>
+        <td align="right" style='color:#F00'>-{$s.aStat[0].amounts|escape:money}</td>
+		<td colspan=6></td>
+    </tr>
+{/if}
+</table>
+
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:10px; padding-top:6px;'>{$pages}</div></td></tr></table>
+
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function actDiv( divname, flag )
+{
+    document.getElementById(divname).style.display = flag;
+}
+{/literal}
+if( {if $s.sel==1}1{else}0{/if} )
+{literal}
+{
+	actDiv('isearch','');
+	actDiv('itopproxy','none');
+}
+else
+{
+	actDiv('isearch','none');
+	actDiv('itopproxy','');
+}
+
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

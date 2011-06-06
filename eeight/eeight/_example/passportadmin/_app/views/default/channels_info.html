@@ -1,0 +1,63 @@
+{include file="pageheader.html"}
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action="./?controller=channels&action={$action|default:add}" onsubmit="javascript:return checkEdit();">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td class="narrow-label">频道组</td>
+<td><select name="pid">
+<option value="0">作为频道组</option>
+{foreach from=$channel item=channela key=k}
+<option value="{$channela.id}" {if $channela.id==$channels.pid}selected="selected"{/if}>{$channela.channel}</option>
+{/foreach}
+</select></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticeChannel');"><img src="./images/notice.gif" border="0" title="频道格式"></a>频道名称<input type="hidden" name="channelid" value="{$channels.id}"></td>
+<td><input type="text" name="channel" id="channel" value="{$channels.channel|escape:html}" size="60" maxlength="20">
+<span id="noticeChannel" style="display:none;">频道名称格式:中文字符,字母+数字。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticePath');"><img src="./images/notice.gif" border="0" title="频道路径"></a>频道路径</td>
+<td align="left"><input type="text" name="path" id="path" value="{$channels.path|escape:html}" size="60" maxlength="30">
+<span id="noticePath" style="display:none;">频道路径格式:以"/"开始，以"/"结束，中间为字母+数字。</span></td>
+</tr>
+<tr>
+<td></td>
+<td><input type="submit" class="button" value="保存频道"><input type="reset" class="button" value="重新设置"><input type="button" class="button" onclick="location.href='?controller=channels&action=list';" value="频道列表"></td>
+</tr>
+</table>
+</Form>
+</div>
+<script language="javascript">
+function checkEdit(){
+	var p=/^[\u0391-\uFFE50-9a-zA-Z]+$/;
+	if(!p.test(document.getElementById('channel').value))
+	{
+		alert("频道格式不正确。");
+		document.getElementById('channel').focus();
+		return false;
+	}
+	var p=/^\/[0-9a-zA-Z]+\/$/i;
+	if(!p.test(document.getElementById('path').value))
+	{
+		alert("频道路径格式不正确.");
+		document.getElementById('path').focus();
+		return false;
+	}
+	return true;
+}
+function showNotice(objId)
+{
+	var obj = document.getElementById(objId);
+	if(obj.style.display=="none")
+	{
+		obj.style.display="block";
+	}
+	else
+	{
+		obj.style.display="none";
+	}
+}
+</script>
+{include file="pagefooter.html"}

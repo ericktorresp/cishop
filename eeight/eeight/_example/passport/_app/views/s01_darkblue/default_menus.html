@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>左侧菜单</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="./css/general.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="./js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="./js/common.js"></script>
+<script language="JavaScript">
+<!--
+var noHelp   = "<p align='center' style='color: #666'>暂时还没有该部分内容</p>";
+jQuery.noConflict();
+(function($){
+	$(document).ready(function(){
+		$("#refreshimg").click(function(){
+			$("#leftusermoney").html("正在载入");
+			$.ajax({
+				type : 'POST',
+				url  : './?controller=default&action=usermenu',
+				data : 'flag=getmoney',
+				timeout : 10000,
+				success : function(data){
+					if( data == "error" ){//
+						$("#leftusermoney").html("<font color='#FF0000'>读取数据出错</font>");
+						return false;
+					}else{
+						var partn = /<(.*)>.*<\/\1>/;
+						if( partn.exec(data) ){
+							window.top.location.href="../index.php?controller=default&action=main";
+							return false;
+						}
+						$("#leftusermoney").html(moneyFormat(data));
+						return true;
+					}
+				},
+				error: function(){
+					$("#leftusermoney").html("<font color='#FF0000'>读取数据出错</font>");
+				}
+			});
+		});
+	});
+})(jQuery);
+//-->
+</script>
+{literal}
+<style type="text/css">
+body { background: #D94733; padding:0; margin:0;}
+a:visited {color: #505050;}
+a:link { color: #505050;}
+a:hover { color: #DB5733;}
+a:active { color: #505050;}
+#tabbar-div { background: #CD2903; padding-left: 10px; height: 21px; padding-top: 0px;}
+#tabbar-div p { margin: 0px; padding-top:1px;}
+.tab-front { background: #D94733; line-height: 20px; color:#FFF;
+	padding: 4px 15px 4px 18px; border-right: 2px solid #791A02; cursor: hand;  cursor: pointer;}
+.tab-back,.tab-hover { color: #F4FAFB; line-height: 20px; padding: 4px 15px 4px 18px; cursor: hand; cursor: pointer;}
+.tab-hover { background: #2F9DB5; }
+#top-div { padding: 3px 0 2px; background: #BBDDE5; margin: 5px; text-align: center; }
+#main-div { border: 1px solid #CD2903; padding: 5px; margin: 5px; background: #F7F0C7; }
+#menu-list { padding: 0; margin: 0;}
+#menu-list ul { padding: 0; margin: 0; list-style-type: none; color: #CD2903; padding-bottom:3px;}
+#menu-list li { padding-left: 16px; line-height: 16px; cursor: hand; cursor: pointer;}
+#main-div a:visited, #menu-list a:link, #menu-list a:hover {
+  color: #CD2903 text-decoration: none;}
+#menu-list a:active { color: #CD2903;}
+.explode { background: url(./images/menu_minus.gif) no-repeat 0px 3px; font-weight: bold;}
+.collapse { background: url(./images/menu_plus.gif) no-repeat 0px 3px; font-weight: bold;}
+.menu-item { background: url(./images/menu_arrow.gif) no-repeat 0px 3px; font-weight: normal;}
+#help-title { font-size: 14px; color: #000080; margin: 5px 0; padding: 0px;}
+#help-content { margin: 0; padding: 0;}
+.tips { color: #CC0000;}
+.link { color: #000099;}
+.userinfo{
+	background: #FDAA95; padding-left: 10px; padding-top: 0px; border: 1px solid #FB4315;
+}
+.userinfo ul{ list-style:none; padding:0px 0px 2px 0px; margin:0px; width:100%;}
+.userinfo ul li{line-height:20px; color:#111;}
+
+</style>
+{/literal}
+</head>
+<body>
+<div id="tabbar-div">
+    <p><span title="{$lang.collapse_all}" class="tab-front" id="menu-tab" > <img id="toggleImg" src="./images/menu_minus.gif" width="9" height="9" border="0" />
+    &nbsp;&nbsp;&nbsp;{$lang.leftmenu}</span>
+    </p>
+</div>
+<div id="main-div">
+    <div class="userinfo" style='margin-bottom:3px;' id="userswitchdiv">
+        <ul>
+            <li id="userswitch" style="cursor:pointer;">呢称:&nbsp;&nbsp;{$nickname|escape:html}</li>
+            {if isset($viewrights.bank) }<li style="display:none;">银行余额:<span id="leftusermoney">{$userinfo.availablebalance|escape:money}</span>&nbsp;<img src="./images/top_loader.gif" id="refreshimg" style="cursor:pointer;" /></li>{/if}
+            {if $userinfo.msgcount > 0}<li style="display:none;"><a href="./index.php?controller=default&action=usermsg" id="showmsglist" target="mainframe">您有 {$userinfo.msgcount} 未读短信</a></li>{/if}
+            {if isset($viewrights.star) }
+            {if !empty($userinfo.parentrank)}<li style="display:none;">上级星级:<img src="./images/star_{$userinfo.parentrank}.gif" /></li>{/if}
+            {if !empty($userinfo.userrank)}<li style="display:none;">您的星级:<img src="./images/star_{$userinfo.userrank}.gif" /></li>{/if}
+            {/if}
+            {if isset($viewrights.useradd) }<li style="display:none;">可开户数额:{$userinfo.addcount}</li>{/if}
+        </ul>
+    </div>
+    <div id="menu-list">
+        <ul>
+            {foreach from=$topmenus item=topmenu key=topkey}
+            <li class="explode" key="menu_{$k1}" id="menu_{$k1}" name="menu">
+            <span title="menu">{$topmenu.title|escape:html}</span>
+                {if isset($sonmenus.$topkey)}
+                <ul>
+                {foreach from=$sonmenus.$topkey item=sonmenu key=sonkey}
+                <li class="menu-item"><a href="{if $sonmenu.islink==1}index.php?controller={$sonmenu.controller}&action={$sonmenu.actioner}{else}javascript:{/if}" target="mainframe">{$sonmenu.title|escape:html}</a></li>
+                {/foreach}
+                </ul>
+                {/if}
+            </li>
+            {/foreach}
+        </ul>
+    </div>
+</div>
+
+<script language="JavaScript">
+<!--
+jQuery("#menu-tab").click(function(){
+	if( jQuery("#toggleImg").attr("src") == "./images/menu_minus.gif" ){
+		jQuery(this).attr("title","{$lang.expand_all}");
+		jQuery("#toggleImg").attr("src","./images/menu_plus.gif").attr("title","{$lang.expand_all}");
+		jQuery("li[name='menu']").attr("class","collapse").children("ul").slideUp("fast");
+	}else{
+		jQuery(this).attr("title","{$lang.collapse_all}");
+		jQuery("#toggleImg").attr("src","./images/menu_minus.gif").attr("title","{$lang.collapse_all}");
+		jQuery("li[name='menu']").attr("class","explode").children("ul").slideDown("fast");
+	}
+});
+jQuery("span[title='menu']").click(function(){
+	if( jQuery(this).parent().attr("class") == "explode" ){
+		jQuery(this).parent().attr("class","collapse").children("ul").slideUp("fast");
+	}else{
+		jQuery(this).parent().attr("class","explode").children("ul").slideDown("fast");
+	}
+});
+
+(function($){
+$(document).ready(function(){
+	var isopen = false;
+	$("#userswitchdiv").hover(
+		function(){
+			$(this).find("li[id!='userswitch']").fadeIn('fast');
+		},function(){
+			if( isopen == false ){
+				$(this).find("li[id!='userswitch']").fadeOut('fast');
+			}
+		}
+	);
+	$("#userswitch").click(function(){
+		if( isopen == false ){
+			isopen = true;
+			$(this).nextAll().fadeIn('fast');
+		}else{
+			isopen = false;
+			$(this).nextAll().fadeOut('fast');
+		}
+	});
+	$("span[title='menu']").click();
+});
+})(jQuery);
+//-->
+</script>
+</body>
+</html>

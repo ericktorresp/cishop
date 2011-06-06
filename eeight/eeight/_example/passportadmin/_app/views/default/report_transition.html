@@ -1,0 +1,182 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+{literal}
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery("#sdate").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#sdate").change(function(){
+			if(! validateInputDate(jQuery("#sdate").val()) )
+			{jQuery("#sdate").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+		});
+		jQuery("#edate").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#edate").change(function(){
+			if(! validateInputDate(jQuery("#edate").val()) )
+			{jQuery("#edate").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+		});
+	});
+</script>
+{/literal}
+
+<div class="form-div">
+    <FORM name="searchForm" action="" METHOD='get'>
+    <input type='hidden' name="controller" value="report"/>
+    <input type='hidden' name="action" value="transition"/>
+    <img src="./images/icon_search.gif" width="26" height="22" border="0" TITLE="SEARCH" />
+时间: <input type="text" id="sdate" name="sdate" size='17' value='{$s.sdate|escape:html}' /> <img src="./images/calendar2.gif"> &nbsp; 至 &nbsp; 
+<input type="text" id="edate" name="edate"  size='17' value='{$s.edate|escape:html}' /> <img src="./images/calendar2.gif" />&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
+转账状态: <select name="itype">
+<option value="1" {if $s.itype=='1'}SELECTED{/if}>全部转账</option>
+<option value="2" {if $s.itype=='2'}SELECTED{/if}>转账成功</option>
+<option value="3" {if $s.itype=='3'}SELECTED{/if}>转账失败</option>
+</select>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="javascript:showNotice('noticeSearch');" title="帮助信息"><img src="./images/notice.gif" width="16" height="16" border="0" title="帮助信息"></a>
+<br><br>
+<span style="padding:0 5px 0 26px;">是否是测试账号</span>
+<select name="istester">
+<option value="-1" {if $s.istester=='-1'}SELECTED{/if}>全部类型</option>
+<option value="0" {if $s.istester=='0'}SELECTED{/if}>非测试账号</option>
+<option value="1" {if $s.istester=='1'}SELECTED{/if}>测试账号</option>
+</select>
+<span style="padding:0 5px 0 20px;">是否是冻结账号</span>
+<select name="isfrozen">
+<option value="-1" {if $s.isfrozen=='-1'}SELECTED{/if}>全部类型</option>
+<option value="0" {if $s.isfrozen=='0'}SELECTED{/if}>非冻结账号</option>
+<option value="1" {if $s.isfrozen=='1'}SELECTED{/if}>冻结账号</option>
+</select>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="submit" value="搜 索" class="button" />
+<span class="notice-span" style='line-height:18px;padding:8px 0px 2px 20px;color:#669900' 
+id="noticeSearch"><b><font color=red>转账结余 = </font></b> 其他频道(转入银行) <b><font color=#ff9933>[减去]</font></b> 银行转出至其他频道<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 正数: 表示其他频道 <font color=red>资金流入</font> 银行频道<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 负数: 表示银行频道 <font color=blue>资金流出</font> 至其他频道
+</span>
+</FORM></div>
+
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action='./?controller=adminuser&action=edit' onsubmit="return confirmSubmit(this)">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th>用户名</th>
+	<th>所属组</th>
+{foreach from=$aChannelTitle item=list2 key=k2}
+	<th>{$list2|escape:html}</th>
+{/foreach}
+	<th>转账结余</th>
+  </tr>
+
+{foreach from=$aUserList item=list key=k1}
+  <tr>
+    <td align="center">{$list.username}</td>
+	<td align="center">{if $list.usertype==0}会员
+				{elseif $list.usertype==1}{if $list.parentid==0}总代{else}代理{/if}
+				{elseif $list.usertype==2}总代管理员{/if}</td>
+{foreach from=$list.channel item=list2 key=k3}
+	<td align="right">{$list2|escape:money}</td>
+{/foreach}
+	<td align="right">{$list.total|escape:money}</td>
+  </tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">无相关数据</td></tr>
+{/foreach}
+    <tr style='color:#F30'>
+    	<td colspan=2>&nbsp;&nbsp;&nbsp;&nbsp;
+		合计: &nbsp;&nbsp;</td>
+{foreach from=$aChannelTotal item=list4 key=k6}
+	<td  align="right">{$list4|escape:money}</th>
+{/foreach}
+    </tr>
+</table>
+
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>总计 {$s.iCounts} 个记录</font></div></td></tr></table>
+
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

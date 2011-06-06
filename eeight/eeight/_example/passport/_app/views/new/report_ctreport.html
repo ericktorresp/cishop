@@ -1,0 +1,124 @@
+{include file="pageheader.html"}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/calendar/jquery.dyndatetime.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/js/calendar/css/calendar-blue2.css" type="text/css" />
+<script type="text/javascript">
+	jQuery("#loadhtml").hide();	//去掉loading界面
+	jQuery(document).ready(function() {
+		jQuery("#ordertime_min").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#ordertime_max").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+	});
+	
+function checkForm(obj)
+{
+	if( jQuery.trim(obj.ordertime_min.value) != "" )
+	{
+		if( false == validateInputDate(obj.ordertime_min.value) )
+		{
+			$.alert("时间格式不正确");
+			obj.ordertime_min.focus();
+			return false;
+		}
+	}
+	if( jQuery.trim(obj.ordertime_max.value) != "" )
+	{
+		if( false == validateInputDate(obj.ordertime_max.value) )
+		{
+			$.alert("时间格式不正确");
+			obj.ordertime_max.focus();
+			return false;
+		}
+	}
+}
+</script>
+
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div class="center">
+<form action="index.php" method="get" name="search" onsubmit="return checkForm(this)">
+			<input type="hidden" name="controller" value="report" />
+			<input type="hidden" name="action" value="ctreport" />
+			充提时间：<input type="text" size="15" name="ordertime_min" id="ordertime_min" value="{$searchdata.ordertime_min}" />
+			<img src="{$sSystemImagesAndCssPath}/images/calendar2.gif" id="time_min_button" /> 至 <input type="text" size="15" name="ordertime_max" id="ordertime_max" value="{$searchdata.ordertime_max}" />
+			<img src="{$sSystemImagesAndCssPath}/images/calendar2.gif" />&nbsp;&nbsp;
+			<input type="submit" name="submit" class="buttonnormal" value="查询" />&nbsp;&nbsp;&nbsp;
+		</form>
+</div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%">
+<table width="100%" border="0" cellspacing="1" cellpadding="4">
+    
+
+    <tr>
+      <td height="43" align="center">用户名</td>
+      <td align="center" class="line_03">充值金额</td>
+      <td align="center" class="line_03">提现金额</td>
+      <td align="center" class="line_03">充提结余</td>
+
+    </tr>
+    <tr align="center">
+  <td height="5" colspan="4" align="center"></td>
+  </tr>
+    {foreach from=$orders item=order key=k}
+    <tr>
+    	<td height="37" align="center" bgcolor="#CCCCCC">{$order.username|escape:html}</td>
+        <td align="center" bgcolor="#CCCCCC">{$order.cashin|escape:money}</td>
+        <td align="center" bgcolor="#CCCCCC">{$order.cashout|escape:money}</td>
+        <td align="center" bgcolor="#CCCCCC">{$order.left|escape:money}</td>
+    </tr>
+    {/foreach}
+    <tr>
+    	<td height="37" align="center" bgcolor="#999999">小结</td>
+        <td align="center" bgcolor="#999999">{$icount.incount|escape:money}</td>
+        <td align="center" bgcolor="#999999">{$icount.outcount|escape:money}</td>
+        <td align="center" bgcolor="#999999">{$icount.left|escape:money}</td>
+    </tr>
+
+  </table>
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+
+{include file="pagefooter.html"}
+
+
+
+

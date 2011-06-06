@@ -1,0 +1,145 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action="?controller=payportmgr&action={$action|default:save}">
+<input type="hidden" name="flag" value="{$flag}">
+<input type="hidden" name="id" value="{$PayportDetail.id}">
+  <table cellspacing='2' cellpadding='5' id='list-table'>
+{if $flag == update}  
+<tr>
+	<td colspan="2"> Tips: 以下带<font color=red>*</font>内容直接影响代码运行流程,勿轻易修改 </td>
+</tr>
+{else}
+<tr>
+	<td class="narrow-label" colspan="2"> <font color=red> 请点击<img src="./images/notice.gif" width="16" height="16" border="0">标记 查看各项资料填写说明</font></td>
+</tr>
+{/if}
+<tr>
+	<td class="narrow-label">支付接口名称:</td>
+	<td>{$PayportDetail.payport_name}</td>
+</tr>
+<tr>
+	<td class="narrow-label">支付接口别名:</td>
+	<td>{$PayportDetail.payport_nickname}</td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticeloadtimenote');" title="充值到帐时间说明"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>充值到帐时间:</td>
+	<td><input name="load_time_note" size="20" value="{$PayportDetail.load_time_note|escape:html}" maxlength=10><span id="noticeloadtimenote" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">说明性文字，10中文字符内</span></td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticedrawtimenote');" title="提现到帐时间"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>提现到帐时间:</td>
+	<td><input name="draw_time_note" size="20" value="{$PayportDetail.draw_time_note|escape:html}" maxlength=10><span id="noticedrawtimenote" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">说明性文字，10中文字符内</span></td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticecurrency');" title="货币币种"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>货币币种:</td>
+	<td><input name="currency" size="5" value="{$PayportDetail.currency|escape:html}" maxlength=3><span id="noticecurrency" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">支付交易中使用的默认货币单位。默认请使用三位国际标准码(遵从ISO-4217标准)，例外请具体按接口说明书设置</span></td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticelimitload');" title="充值限制"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>充值限制:</td>
+	<td>
+	<b>(单笔限额)</b>  最低<input name="load_limit_min_per" size="12" value="{$PayportDetail.load_limit_min_per|escape:money}">元 &nbsp; 
+	最高:<input name="load_limit_max_per" size="12" value="{$PayportDetail.load_limit_max_per|escape:money}">元 &nbsp; 
+	<span id="noticelimitload" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">充值相关的限制值</span></td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticelimitfee');" title="充值手续费限制"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>充值手续费:</td>
+	<td>
+	<b>(低于界定金额手续费)</b> 固定金额:<input name="load_fee_per_down" size="10" value="{$PayportDetail.load_fee_per_down|escape:money}">元/次 &nbsp;&nbsp; 
+	计算百分比:<input name="load_fee_percent_down" size="10" value="{$PayportDetail.load_fee_percent_down|escape:money}">(原值)  &nbsp;  &nbsp; 
+	<br>
+	<b>(高于界定金额手续费)</b> 固定金额:<input name="load_fee_per_up" size="10" value="{$PayportDetail.load_fee_per_up|escape:money}">元/次 &nbsp;&nbsp; 
+	计算百分比:<input name="load_fee_percent_up" size="10" value="{$PayportDetail.load_fee_percent_up|escape:money}">(原值)  &nbsp;  &nbsp; 
+	
+	
+	<span id="noticelimitfee" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">充值手续费相关的限制值</span></td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticeloadfeestep');" title="充值手续费计算界定金额"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>充值界定金额:</td>
+	<td><input name="load_fee_step" size="12" value="{$PayportDetail.load_fee_step}"> 元<span id="noticeloadfeestep" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">充值手续费计算界定金额</span></td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticelimitdraw');" title="提现限制"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>提现限制:</td>
+	<td>
+	<b>(单笔限额)</b> 最低:<input name="draw_limit_min_per" size="12" value="{$PayportDetail.draw_limit_min_per|escape:money}">元 &nbsp; 
+	最高:<input name="draw_limit_max_per" size="12" value="{$PayportDetail.draw_limit_max_per|escape:money}">元 &nbsp; 
+	<span id="noticelimitdraw" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">提现相关的限制值</span></td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticelimitfee2');" title="提现手续费限制"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>提现手续费:</td>
+	<td>
+	<b>(低于界定金额)</b> 手续费:<input name="draw_fee_per_down" size="10" value="{$PayportDetail.draw_fee_per_down|escape:money}">元/次 &nbsp;&nbsp; 
+	百分比手续费:<input name="draw_fee_percent_down" size="10" value="{$PayportDetail.draw_fee_percent_down|escape:money}">(原值)  &nbsp;  &nbsp;
+	<br>
+	<b>(高于界定金额)</b> 手续费:<input name="draw_fee_per_up" size="10" value="{$PayportDetail.draw_fee_per_up|escape:money}">元/次 &nbsp;&nbsp; 
+	百分比手续费:<input name="draw_fee_percent_up" size="10" value="{$PayportDetail.draw_fee_percent_up|escape:money}">(原值)  &nbsp;  &nbsp;
+	<br> 
+	<b>(手续费限值范围)</b>
+	最低:<input name="draw_fee_min" size="12" value="{$PayportDetail.draw_fee_min|escape:money}">元 &nbsp; 
+	最高:<input name="draw_fee_max" size="12" value="{$PayportDetail.draw_fee_max|escape:money}">元 &nbsp; 
+	
+	<span id="noticelimitfee2" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">提现手续费相关的限制值</span></td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticedrawfeestep');" title="提现手续费计算界定金额"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>提现界定金额:</td>
+	<td><input name="draw_fee_step" size="12" value="{$PayportDetail.draw_fee_step}"> 元
+	<span id="noticedrawfeestep" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">提现手续费计算界定金额</span></td>
+</tr>
+
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticeplatload');" title="充值支付接口手续费"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>支付接口充值手续费:</td>
+	<td>
+	计算百分比:<input name="plat_load_percent" size="10" value="{$PayportDetail.plat_load_percent|escape:money}">(原值)  &nbsp;  &nbsp;
+	<b>(限值范围)</b>
+	下限:<input name="plat_load_min" size="12" value="{$PayportDetail.plat_load_min|escape:money}">元 &nbsp; 
+	上限:<input name="plat_load_max" size="12" value="{$PayportDetail.plat_load_max|escape:money}">元 &nbsp; 
+	
+	<span id="noticeplatload" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">支付接口收取手续费标准(充值时)</span></td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticeplatdraw');" title="提现支付接口手续费"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>支付接口提现手续费:</td>
+	<td>
+	计算百分比:<input name="plat_draw_percent" size="10" value="{$PayportDetail.plat_draw_percent|escape:money}">(原值)  &nbsp;  &nbsp;
+	<b>(限值范围)</b>
+	下限:<input name="plat_draw_min" size="12" value="{$PayportDetail.plat_draw_min|escape:money}">元 &nbsp; 
+	上限:<input name="plat_draw_max" size="12" value="{$PayportDetail.plat_draw_max|escape:money}">元 &nbsp; 
+	
+	
+	<span id="noticeplatdraw" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">支付接口收取手续费标准(提现时)</span></td>
+</tr>
+
+
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticeopt');" title="操作次数限制"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>操作次数限制:</td>
+	<td><input name="opt_limit_times" size="12" value="{$PayportDetail.opt_limit_times}"> 次<span id="noticeopt" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">操作次数限制</span></td>
+</tr>
+
+<tr>
+	<td class="narrow-label">是否禁用:</td>
+	<td>{if $PayportDetail.status == 0 }<font color=red>已禁用</font>{else}<font color=green>启用中</font>{/if}</td>
+</tr>
+
+<tr>
+	<td class="narrow-label">&nbsp;</td>
+	<td><input type="submit" class="button" value="保存配置"><input type="reset" class="button" value="重新设置"><input type="button" class="button" value="返回列表" onclick="location.href='?controller=payportmgr&action=list';"></td>
+</tr>
+</table>
+</form>
+</div>
+<script>
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+</script>
+{include file="pagefooter.html"}

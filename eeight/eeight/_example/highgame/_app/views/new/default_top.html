@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>高频游戏平台</title>
+<link href="{$sSystemImagesAndCssPath}/highgame/css/new_higame/defaulttop.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/jquery.js"></script>
+<script type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/top_button/interface.js"></script>
+<script type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/top_button/top.js"></script>
+<script type="text/javascript">
+function changecolor(){
+  var node  = $("#top_notice");//#33FF33
+  str = node.css('color').toLowerCase();
+  node.css('color', (str == "#ffff00" || str == "rgb(255, 255, 0)") ? "#FF0000" : "#FFFF00");
+  setTimeout("changecolor()",600);
+}
+</script>
+<script type="text/javascript">
+function gotolink(string){
+	
+    $.each($("#leftframe").contents().find(".menu_04_04"),function(){
+        if($(this).find("a").html() == string){
+            $("#leftframe").contents().find(".menu_04_041").removeClass('menu_04_041');
+            $("#leftframe").contents().find(".menu_05_05").removeClass('menu_05_05');
+            $(this).parent().addClass('menu_04_041');
+        }
+    });
+}
+</script>
+</head>
+<body>
+
+<div id="red_header_01">
+<div id="red_header_02">
+{if $istester > 0}
+<div style=" clear:both;float:left;margin-top:10px;margin-left:250px;position:absolute;"><img src="{$sSystemImagesAndCssPath}/highgame/images/default/header_test.jpg" title="测试帐户" border="0"/></div>
+{/if}
+
+<div class="dock" id="dock">
+  <div class="dock-container">
+  <a class="dock-item" href="../" target="_top" ><img src="{$sSystemImagesAndCssPath}/highgame/images/new_higame/botton_12.png"  /><span >银行</span></a>
+   	  {if !empty($channel) }
+		{foreach from=$channel.0 item=ch key=k}
+		{foreach from=$channel.$k item=child key=m}
+               <a class="dock-item" href="..{$child.path}" target="_top"><img src="{$sSystemImagesAndCssPath}/highgame/images/new_higame/botton_{$child.id}.png" /><span>{$child.channel}</span></a>
+           
+		  {/foreach}
+		  {/foreach}
+		{/if}
+  <a class="dock-item" href="./?controller=security&action=tran" target="mainframe"><img src="{$sSystemImagesAndCssPath}/highgame/images/new_higame/botton_14.png" onclick="gotolink('频道转账')" /><span>转帐</span></a> 
+  <a class="dock-item" href="./?controller=help&action=playinfo" target="mainframe"><img src="{$sSystemImagesAndCssPath}/highgame/images/new_higame/botton_15.png" onclick="gotolink('玩法介绍')" /><span align="center">玩法介绍</span></a>
+  <a class="dock-item" href="./?controller=help&action=answer" target="mainframe"><img src="{$sSystemImagesAndCssPath}/highgame/images/new_higame/botton_23.png" onclick="gotolink('常见问题')" /><span>常见问题</span></a> 
+  <a class="dock-item" href="javascript:window.top.frames['mainframe'].document.location.reload();"><img src="{$sSystemImagesAndCssPath}/highgame/images/new_higame/botton_25.png"  /><span>刷新页面</span></a>
+  <a class="dock-item" href="./?controller=default&action=changestyle&skin=default" target="mainframe"><img src="{$sSystemImagesAndCssPath}/highgame/images/new_higame/botton_03.png"  /><span>风格设置</span></a>
+  <a class="dock-item" href="../?controller=default&action=logout" target="_top"><img src="{$sSystemImagesAndCssPath}/highgame/images/new_higame/botton_20.png"  /><span>退出</span></a>
+</div>
+</div>
+</div>
+</div>
+<div class="gonggaodiv">
+    {if !empty($notice) }
+    <div style="height:48px;float:left;line-height:48px;color:#FFFF00;font-size:16px;text-align:left; font-weight:bold;">
+    <a href="./?controller=default&action=start" target="mainframe" id="top_notice">{$notice.subject|escape:html}</a>
+    </div>
+    {/if}
+</div>
+</body>
+</html>

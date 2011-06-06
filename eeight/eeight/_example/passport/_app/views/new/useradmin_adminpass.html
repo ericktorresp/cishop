@@ -1,0 +1,62 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkform(obj)
+{
+  if( !validateUserPss(obj.userpass.value) )
+  {
+  	$.alert("密码不符合规则，请重新输入");
+	obj.userpass.focus();
+	return false;
+  }
+  if( obj.userpass.value != obj.confimpass.value )
+  {
+  	$.alert("两次输入密码不相同");
+	obj.userpass.focus();
+	return false;
+  }
+  return true;
+}
+</script>
+<form action="index.php" method="post" name="updateform" onsubmit="return checkform(this)">
+<input type="hidden" name="flag" value="update" />
+<input type="hidden" name="controller" value="useradmin" />
+<input type="hidden" name="action"	value="adminpass" />
+<input type="hidden" name="uid"	value="{$data.userid}" />
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div><table width="100%" border="0" cellspacing="1" cellpadding="4">
+  <tr>
+  	<td align="right" bgcolor="#CCCCCC">组别:</td>
+    <td align="left" bgcolor="#CCCCCC">{$data.groupname|escape:html}</td>
+  </tr>
+  <tr>
+  	<td align="right" bgcolor="#CCCCCC">帐户:</td>
+    <td align="left" bgcolor="#CCCCCC">{$data.username|escape:html}</td>
+  </tr>
+  <tr>
+  	<td align="right" bgcolor="#CCCCCC">昵称:</td>
+    <td align="left" bgcolor="#CCCCCC">{$data.nickname|escape:html}</td>
+  </tr>
+  <tr>
+  	<td align="right" bgcolor="#CCCCCC">密码:</td>
+    <td align="left" bgcolor="#CCCCCC"><input type="password" name="userpass" />(由字母和数字组成6-16个字符；且必须包含数字和字母，不允许连续三位相同)</td>
+  </tr>
+  <tr>
+  	<td align="right" bgcolor="#CCCCCC">确认密码:</td>
+    <td align="left" bgcolor="#CCCCCC"><input type="password" name="confimpass" /></td>
+  </tr>
+  <tr>
+  <td align="right" bgcolor="#CCCCCC"></td>
+  <td align="left" bgcolor="#CCCCCC"><input type="submit" name="submit" value="提交"  class="buttonnormal" />&nbsp;&nbsp;<input type="button" value="返回列表" onclick="window.location='index.php?controller=useradmin&action=adminlist'"  class="buttonnormal" /></td></tr>
+
+  </table></div>
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</form>
+{include file="pagefooter.html"}

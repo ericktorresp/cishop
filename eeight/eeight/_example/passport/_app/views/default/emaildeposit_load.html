@@ -1,0 +1,63 @@
+{include file="pageheader.html"}
+<LINK href="./css/label.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+function checkForm(obj)
+{
+	if (obj.amount.value == ""){
+		alert("请输入限定内金额！");
+		obj.amount.focus();
+		return false;
+	}
+	if(obj.amount.value < {$loadmin})
+	{
+		alert("充值金额不能低于最低充值限额 ");
+		$("#amount").val({$loadmin});
+		$("#chineseMoney").html( changeMoneyToChinese({$loadmin}) );
+		return false;
+	}
+}
+</script>
+<div id="tabbar-div">
+	<span class="tab-front">
+		<span class="tabbar-left"></span>
+		<span class="content" >我要充值</span>
+		<span class="tabbar-right"></span>
+	</span>
+	<!--<span class="tab-back">
+		<span class="tabbar-left"></span>
+		
+		<span class="content" onclick="window.location.href='?controller=emaildeposit&action=emaildepositlist'">充值记录</span>
+		<span class="tabbar-right"></span>
+	</span>-->
+</div>
+<div class="tabbar-bottom"></div>
+<div class="list-div" id="listDiv">
+<table width="100%" class="list-table">
+<form action="index.php" method="post" name="drawform" id="drawform" onsubmit="return checkForm(this)">
+<input type="hidden" name="controller" value="emaildeposit" />
+<input type="hidden" name="action" value="emailload" />
+<input type="hidden" name="flag" value="load" />
+<tr>
+	<td class="narrow-label"><font color="#FF3300">提示：</font></td>
+	<td style="font-size:14px;font-weight:bold;">填入充值范围内的金额</td>
+</tr>
+<tr>
+	<td class="narrow-label">充值金额：</td>
+	<td><input type="text" name="amount" id="amount" size="20" onkeyup="checkemailWithdraw(this,'chineseMoney',{$loadmax});" />&nbsp;&nbsp;(充值额度限定：最低 {$loadmin},最高 {$loadmax})</td>
+</tr>
+<tr>
+	<td class="narrow-label">充值金额(大写)：</td>
+    <td><span id="chineseMoney"></span><input type="hidden" id="hiddenchinese" /></td>
+</tr>
+<tr>
+	<td class="narrow-label">充值银行：</td>
+    <td><img src="../images/bank/ICBC_BANK.jpg" width="125" height="35" /></td>
+</tr>
+<tr>
+	<td class="narrow-label"></td>
+	<td height="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="submit" value="下一步" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="返回" onclick="history.back()" class="button" /></td>
+</tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

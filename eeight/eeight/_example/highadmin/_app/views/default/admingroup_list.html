@@ -1,0 +1,87 @@
+{include file="pageheader.html"}
+
+<script type="text/javascript">
+{literal}
+ function confirmSubmit(frm, ext)
+  {
+      if (frm.elements['form_action'].value == '')
+      {
+          alert('请选择操作的类型');
+		  return false;
+      }
+	  else if(frm.elements['form_action'].value == 'bat_delete')
+	  {
+		  return confirm("确定要删除选中的数据?");
+	  }
+	  else if( frm.elements['form_action'].value == 'bat_enableall' )
+	  {
+		return confirm("确定启用全部组别?");
+	  }
+	  else
+      {
+          return true;
+      }
+  }
+{/literal}
+</script>
+
+<div class="list-div" id="listDiv">
+<form method="POST" action="./?controller=admingroup&action=update" name="listForm" id="listForm" onsubmit="return confirmSubmit(this)">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th width='50'><label><input onclick='CheckBoxSelectAll(this, "checkboxes")' type="checkbox">全</label></th>
+    <th>组别名称</th>
+	<th width='60'>销售组</th>
+	<th width='60'>状态</th>
+    <th>操作</th>
+  </tr>
+
+{foreach from=$aAdminGroup item=list key=k1}
+  <tr align="center">
+    
+	<td align="center"><span><input name="checkboxes[]" type="checkbox" value="{$list.groupid}" /></span></td>
+
+	<td align="left" class="first-cell nowrap" valign="top" style="padding-left:{$list.level}em">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#c0c0c0>|--</font>&nbsp;
+	<span title='{$list.description|escape:html}'>{$list.groupname|escape:html}</span></td>
+
+	<td align="center">
+		{if $list.issales==1}<font color='#ff9933'><img src='./images/yes.gif'></font>
+		{else}<font color='#bababa'>---</font>{/if}</td>
+
+	<td align="center">
+		{if $list.isdisabled==1}<font color='#ff9933'><img TITLE='已禁用' src='./images/no.gif'></font>
+		{else}<font color='#C0C0C0'>正常</font>{/if}</td>
+
+
+	<td align="center">
+	    <a href="./?controller=adminuser&action=list&groupid={$list.groupid}">查看组别成员</a>, &nbsp;
+		<a href="./?controller=admingroup&action=edit&groupid={$list.groupid}">修改组别</a>, &nbsp;
+		<a href="./?controller=admingroup&action=copy&groupid={$list.groupid}">复制组别</a>&nbsp;
+		<a href="./?controller=admingroup&action=add&groupid={$list.groupid}">增加子组别</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="./?controller=admingroup&action=del&groupid={$list.groupid}" onclick="javascript:return confirm('您确定要删除这个管理组?');">删除</a>
+	</td>
+  </tr>
+{/foreach}
+
+
+<tr height=60>
+<td colspan=6>
+	&nbsp;&nbsp;<span>
+	<select style='background:#eaeaea;color:#333' name='form_action'>
+    <option value="">请选择操作类型...</option>
+	<option value="bat_enableall">全部启用</option>
+	<option value="bat_enable">批量启用</option>
+	<option value="bat_disable">批量禁用</option>
+	{*<option style='background:#333;color:#f30;' value="bat_delete">批量删除</option>*}
+  </select>
+    <input type="submit" value="确定" id="btnSubmit" name="btnSubmit" class="button" />
+	</span>
+	</td>
+  </tr>
+
+</table>
+</form>
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

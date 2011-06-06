@@ -1,0 +1,166 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-green.css"  />
+
+<script>
+function doConverseCheck ( ckbox ) {
+    if( ckbox ) {
+        if( ckbox.length ) {
+            for(i = 0; i < ckbox.length; i++) {
+                ckbox[i].checked = !ckbox[i].checked;
+            }
+        }
+        else
+            ckbox.checked = !ckbox.checked;
+    }
+}
+function del( f ) {
+    var b = false;
+    if(f.idArr) {
+        if(f.idArr.length){
+            for(i = 0; i < f.idArr.length; i++) {
+                if(f.idArr[i].checked == true) {
+                    b = true;
+                    break;
+                }
+            }
+            if(!b){
+             alert('没有选中任何一项！');
+             return false;
+            }
+        }
+        else if(f.idArr.checked == false) {
+            alert('没有选中任何一项！');
+            return false;
+        }
+    }
+    else {
+        alert('没有选中任何一项！');
+        return false;
+    }
+
+    if(confirm("确认要执行操作吗？")) {
+        return true;
+    }
+    else
+        return false;
+}
+</script>
+<script>
+$(document).ready(function(){
+    $('#form1').submit(function(){
+        if ($('#rank').val() < 1 || $('#rank').val() > 5) {
+            alert('请正确输入权值！');
+            return false;
+        }
+        return true;
+    });
+    
+	$("#lotteryType").change(function(){
+		var lotteries = {$json_lotteries};
+//console.info(lotteries);
+		$("#lottery").html("");
+        //var shtml ="<select name='lottery' id='lottery'>";
+        var shtml = "<option value='-1'>选择彩种</option>";
+		if($("#lotteryType").val()>=0)
+		{
+            $.each(lotteries[$("#lotteryType").val()],function(i,v){
+                shtml = shtml + "<option value='"+v.lotteryid+"'>"+v.cnname+"</option>";
+            });
+		}
+        //shtml += "</select>";
+		$("#lottery").html(shtml);
+	});
+});
+</script>
+
+<div class="list-div">
+<form id="form1" action="./index.php?controller=draw&action=drawsource" method="post">
+<table id="list-table" cellspacing='1' cellpadding='3'>
+<tr>
+    <th></th>
+    <th>彩种</th>
+    <th>源id</th>
+    <th>开奖源</th>
+    <th>网址</th>
+    <th>是否启用</th>
+    <th>接口实现</th>
+    <th>权重</th>
+    <th>修改时间</th>
+    <th>操作</th>
+</tr>
+    {foreach from=$sourceNums item=item key=k}
+    <tr align="center">
+        <td align="center" rowspan="{$item}"><input type="checkbox" name="deleteItem[]" value="{$k}" id="idArr"/></td>
+        {assign var=tmp value=$originalLotteries[$k]}
+        <td align="center" rowspan="{$item}" title=" {$tmp.lotteryid} ">{$tmp.cnname}</td>
+        {foreach from=$sources.$k item=item2 key=k2}
+        <td align="center">{$item2.id}</td>
+        <td align="center">{$item2.name}</td>
+        <td align="left">&nbsp;&nbsp;{$item2.url}</td>
+        <td align="center">{if $item2.enabled}<img src="./images/yes.gif">{else}<img src="./images/no.gif">{/if}</td>
+        <td align="center">{if $item2.interface}<img src="./images/yes.gif">{else}<img src="./images/no.gif">{/if}</td>
+        <td align="center">{$item2.rank}</td>
+        <td align="center">{$item2.date}</td>
+        <td align="center"><a href="index.php?controller=draw&action=editdrawsource&id={$item2.id}">修改</a> &nbsp;
+            <a href="index.php?controller=draw&action=editrank&id={$item2.id}">权重</a> &nbsp;
+            {if $item2.enabled}<a href="index.php?controller=draw&action=switchsource&id={$item2.id}&enabled=false" onclick="javascript:return confirm('是否真的要执行此操作？');">禁用</a> &nbsp;
+            {else}<a href="index.php?controller=draw&action=switchsource&id={$item2.id}&enabled=true" onclick="javascript:return confirm('是否真的要执行此操作？');"><b>启用</b></a> &nbsp;
+            {/if}
+            <a href="javascript:;" onclick="testSource({$item2.id})">测试</a> &nbsp;
+            <a href="index.php?controller=draw&action=deletesource&id={$item2.id}" onclick="javascript:return confirm('是否真的要删除？');">删除</a>
+        </td>
+        </tr>
+        {/foreach}
+    {/foreach}
+</table>
+<table id="list-table" cellspacing='0' cellpadding='3'>
+<tr align="center">
+    <td>
+    <input type="checkbox" onclick="doConverseCheck(this.form.idArr)"/> &nbsp;
+    <input  class="button" type=button value="批量启用" onClick="if(del(this.form)) {this.form.enabled.value=1; this.form.submit();} else {return false;}">
+    <input  class="button" type=button value="批量禁用" onClick="if(del(this.form)) {this.form.enabled.value=0; this.form.submit();} else {return false;}">
+    <input type="hidden" name="sa" value="batch" /><input type="hidden" name="enabled" value="-1" />
+    </td>
+</tr>
+</table>
+</form>
+</div>
+<div id="tabloading" style="display:none;position:absolute;top:center;left:400px;">
+    <td colspan="13" height="100" align="center" valign="middle">请稍候......<br><img src="./images/loading.gif"></td>
+</div>
+
+<script>
+function testSource(id) {
+    $("#tabloading").ajaxStart(function(){
+        $(this).show();
+        $("#project-list").hide();
+    }).ajaxStop(function(){
+        $(this).hide();
+    });
+
+    $.ajax({
+        type:"GET",
+        url:"index.php?controller=draw&action=testsource&id="+id,
+        dataType:"json",
+        data:"",
+        success:function(response)
+        {
+            if (response.errno) {
+                alert('抓取出错。\nDebug信息：'+response.errstr);
+            }
+            else {
+                alert('抓取成功!\n彩种：' +response.cnname+ '\n奖期：' +response.issue+ '\n号码：' +response.number+ '\n耗时：' +response.time+ '\n');
+            }
+        },
+        error:function(data)
+        {
+            alert('调用ajax出错' + data.toString());
+            return false;
+        }
+    });
+}
+</script>
+{include file="pagefooter.html"}

@@ -1,0 +1,59 @@
+{include file="pageheader.html"}
+<script>
+function showNotice(objId)
+{
+	var obj = document.getElementById(objId);
+	if(obj.style.display == "none")
+	{
+		obj.style.display = "block";
+	}
+	else
+	{ 
+		obj.style.display = "none";
+	}
+}
+</script>
+<div class="list-div">
+<form action="?controller=domaingroup&action=add" method="POST" onSubmit="return checkEdit();">
+<table>
+<tr>
+<td class="narrow-label">域名组名称:</td>
+<td><input type="text" name="domaingroup" id="domaingroup" size="40" maxlength="20" value="">
+<br /><span id="noticedomian" style="display:none;"> 20字符以内, 推荐使用字母数字或组合</span>
+</td>
+</tr>
+<tr>
+<td class="narrow-label">&nbsp;</td>
+<td>
+	<input type="submit" value="保存" class="button">
+	<input type="button" class="button" value="返回设置" onclick="location.href='?controller=domaingroup&action=list';">
+</td>
+</tr>
+</table>
+</form>
+
+<table>
+<tr>
+<td colspan="3" align="center">域名组列表</td>
+</tr>
+<tr>
+<th width="5%">ID</th>
+<th width="30%">域名组名称</th>
+<th>操作</th>
+</tr>
+{foreach from=$domaingroup item=v key=k}
+<tr>
+<td align="center">{$v.id}</td>
+<td>{$v.bygroup} </td>
+<td><a href="./?controller=domaingroup&action=del&id={$v.id}"  onclick="JavaScript:return confirm('确认删除 {$v.bygroup} 不可恢复？');">删除</a></td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="3" class="no-records">没有域名组名称</td>
+</tr>
+{/foreach}
+</table>
+
+</div>
+
+{include file="pagefooter.html"}

@@ -1,0 +1,60 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm">
+  <table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<th>编号</th>
+<th>系统名称</th>
+<th>配置标题</th>
+<th>配置属性</th>
+<th>默认值</th>
+<th>状态</th>
+<th>操作</th>
+</tr>
+{foreach from=$configs item=config key=k}
+<?php $i++;?>
+<tr>
+<td align="center">{$config.configid}</td>
+<td align="center">{$config.configkey|escape:html}</td>
+<td align="center">{$config.title|escape:html}</td>
+<td align="center" id="config{$k}">{$config.configvalue|escape:html}</td>
+<td align="center">{$config.defaultvalue|escape:html}</td>
+<td align="center">{if $config.isdisabled}<font color=#FF3300>禁用</font>{else}<font color=#669900>启用</font>{/if}</td>
+<td align="center">{if $config.parentid==0}<a TITLE='查看下级配置项' href="?controller=config&action=list&id={$config.configid}">下级</a>&nbsp;&nbsp;{/if}<a href="?controller=config&action=set&id={$config.configid}" TITLE="对配置项属性进行设置">设置</a>&nbsp;&nbsp;<a href="?controller=config&action=edit&id={$config.configid}" TITLE="对配置项运行值进行修改">修改</a>&nbsp;&nbsp;<a href="?controller=config&action=del&id={$config.configid}" TITLE="删除配置项" onClick="return confirm('您确定要删除这个配置项?');">删除</a>&nbsp;&nbsp;{if $config.isdisabled}<a href="?controller=config&action=enable&id={$config.configid}" onClick="return confirm('您确定要启用这个配置项?');">启用</a>{else}<a href="?controller=config&action=disable&id={$config.configid}" onClick="return confirm('您确定要禁用这个配置项?');">禁用</a>{/if}</td>
+</tr>
+{/foreach}
+</table>
+</form>
+</div>
+{insert_scripts files="./js/global.js"}
+<script type="text/javascript">
+window.onload = function(){
+	var count = <?php echo $i;?>;
+	for(i=0;i<count;i++){
+		var temp = document.getElementById("config" + i).innerHTML;
+		var aTemp = temp.split(",");
+		var sHtml = "";
+		if (aTemp.length > 10){
+			for(m=0;m<aTemp.length;m++){
+				var br = "";
+				var sign = "";
+				if ((m + 1) % 10 == 0){
+					br = "<br />";
+				} else {
+					br = "";
+				}
+				if (m == aTemp.length - 1){
+					sign = "";
+				} else {
+					sign = ",";
+				}
+				sHtml += aTemp[m] + sign + br;
+			}
+		}
+		if (sHtml != ""){
+			document.getElementById("config" + i).innerHTML = sHtml;
+		}
+	}
+}
+</script>
+{include file="pagefooter.html"}

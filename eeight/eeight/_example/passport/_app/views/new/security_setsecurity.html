@@ -1,0 +1,44 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkform(obj)
+{
+  if( !validateUserPss(obj.secpass.value) )
+  {
+  	$.alert("资金密码不符合规则，请重新输入");
+	obj.secpass.focus();
+	return false;
+  }
+  return true;
+}
+</script>
+<form action="index.php" method="post" name="updateform" onsubmit="return checkform(this)">
+<input type="hidden" name="flag" value="insert" />
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action"	value="setsecurity" />
+<input type="hidden" name="nextcon" value="{$nextcontroller}" />
+<input type="hidden" name="nextact" value="{$nextaction}" />
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div><table width="100%" border="0" cellspacing="1" cellpadding="4">
+    
+    <tr>
+    <td width="200" align="right" bgcolor="#CCCCCC"></td>
+      <td align="left" bgcolor="#CCCCCC">你还没有设置资金密码，请先设置</td>
+      </tr>
+    <tr>
+      <td align="right" bgcolor="#CCCCCC">输入资金密码:</td>
+      <td align="left" bgcolor="#CCCCCC"><input type="password" name="secpass" value="" /><br />(由字母和数字组成6-16个字符；且必须包含数字和字母，不允许连续三位相同，不能和登陆密码相同)</td>
+    </tr>
+	<tr><td align="right" bgcolor="#CCCCCC"></td>
+	<td align="left" bgcolor="#CCCCCC"><input type="submit" name="submit" value="提交" />&nbsp;&nbsp;<input type="button" value="重置" onclick="this.form.reset()" /></td></tr>
+  </table></div>
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</form>
+{include file="pagefooter.html"}

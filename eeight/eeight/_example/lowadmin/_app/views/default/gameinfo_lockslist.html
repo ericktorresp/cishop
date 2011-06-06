@@ -1,0 +1,27 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<th>ID</th>
+<th>游戏</th>
+<th>封锁表名称</th>
+<th>最大封锁值</th>
+<th>操作</th>
+</tr>
+{foreach from=$alocksname item=locks key=k}
+<tr align="center">
+<td>{$locks.locksid|escape:html}</td>
+<td>{$locks.cnname|escape:html}</td>
+<td>{$locks.lockname|escape:html}</td>
+<td>{$locks.maxlost|escape:money}</td>
+<td><a href="./index.php?controller=gameinfo&action=locksedit&locksid={$locks.locksid}">修改</a>&nbsp;|
+&nbsp;<a href="./index.php?controller=gameinfo&action=locksdel&locksid={$locks.locksid}" onclick="return confirm('您确定要删除这个封锁表?');">删除</a></td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="5" class="no-records">没有相关记录</td>
+</tr>
+{/foreach}
+</table>
+</div>
+{include file="pagefooter.html"}

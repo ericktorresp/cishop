@@ -1,0 +1,347 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+{literal}
+<script type="text/javascript">
+	$(document).ready(function(){
+		// 全选/反选
+		$("#selectall").click(function(){
+			if(this.checked){  
+	        	$("input[name='loadid[]']").each(function(){
+	        		if (this.disabled != true)
+	        		this.checked=true;
+	        	});
+		    }else{  
+		        $("input[name='loadid[]']").each(function(){
+		        	if (this.disabled != true)
+		        	this.checked=false;
+		        });
+		    }   
+		});
+	});
+	jQuery(document).ready(function() {
+		// 起始时间
+		jQuery("#starttime").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M:00",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#starttime").change(function(){
+			if(! validateInputDate(jQuery("#starttime").val()) )
+			{jQuery("#starttime").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+		});
+		jQuery("#endtime").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M:00",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#endtime").change(function(){
+			if(! validateInputDate(jQuery("#endtime").val()) )
+			{jQuery("#endtime").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+		});
+		
+		// 处理时间
+		jQuery("#startdeal").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M:00",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#startdeal").change(function(){
+			if(! validateInputDate(jQuery("#startdeal").val()) )
+			{jQuery("#startdeal").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+		});
+		jQuery("#enddeal").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M:00",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#enddeal").change(function(){
+			if(! validateInputDate(jQuery("#enddeal").val()) )
+			{jQuery("#enddeal").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+		});
+	});
+	
+	
+	function checkForm(){
+		var count_checked = get_checkbox_count(document.getElementById("listForm"),"loadid[]");
+		if (count_checked <= 0){
+			alert("请至少选择一项");
+			return false;
+		}
+		var sign = 0;
+		$("input[name='loadid[]']:checked").each(function(){
+			var remark = $("#remark" + this.value).val();
+			if (remark == ""){
+				alert("请填写批注信息");
+				$("#remark" + this.value).focus();
+				sign ++;
+				return false;
+			}
+		});
+		if (sign > 0){
+			return false;
+		}
+		if (!confirm("确认提交吗？")){
+			return false;
+		}
+	}
+	
+	// 检查复选框是否有选中值
+	function get_checkbox_count(form,name){
+		var e = form.elements[name];
+	/*	for (key in e){
+			document.writeln(key + ' = ' + e[key] + '<br>');
+		}*/
+		var count = 0;
+		if (e){
+			if (e.length){
+				for(var i=0;i<e.length;i++){
+					if (e[i].checked)
+						count ++;
+				}
+			}
+			else
+				count = e.checked ? 1 : 0;
+		}
+		return count;
+	}
+</script>
+{/literal}
+<div class="form-div">
+<FORM name="searchForm" action="" METHOD='get'>
+<input type="hidden" name="controller" value="ccbreport" />
+<input type="hidden" name="action" value="unnormallist" />
+&nbsp;&nbsp;
+处理状态: <select name="status">
+<option value="1" {if $aHtml.status == 1}selected{/if}>未处理</option>
+<option value="2" {if $aHtml.status == 2}selected{/if}>已没收</option>
+<option value="3" {if $aHtml.status == 3}selected{/if}>已处理</option>
+<option value="4" {if $aHtml.status == 4}selected{/if}>已退还</option>
+</select>
+&nbsp;&nbsp;
+未自动充值原因: <select name="error_type">
+<option >全部</option>
+<option value="1" {if $aHtml.error_type == 1}selected{/if}>充值违规</option>
+</select>
+&nbsp;&nbsp;
+处理管理员：<input type="text" name="adminname" value="{$aHtml.adminname}" />
+&nbsp;&nbsp;
+用户：<input type="text" name="username" value="{$aHtml.username}" />
+&nbsp;&nbsp;
+所属总代：<input type="text" name="topproxy" value="{$aHtml.topproxy}" />
+&nbsp;&nbsp;
+<br /><br />
+&nbsp;&nbsp;
+<span style="color:#FF3300">汇款时间</span> 起始于：
+<input type="text" id="starttime" name="starttime" size='20' value='{$aHtml.starttime}' /> <img src="./images/calendar2.gif"> &nbsp; 至 &nbsp; 
+<input type="text" id="endtime" name="endtime"  size='20' value='{$aHtml.endtime}' /> <img src="./images/calendar2.gif" />
+<br /><br />
+&nbsp;&nbsp;
+<span style="color:#0000ff">处理时间</span> 起始于：
+<input type="text" id="startdeal" name="startdeal" size='20' value='{$aHtml.startdeal}' /> <img src="./images/calendar2.gif"> &nbsp; 至 &nbsp; 
+<input type="text" id="enddeal" name="enddeal"  size='20' value='{$aHtml.enddeal}' /> <img src="./images/calendar2.gif" />
+&nbsp;&nbsp;
+每页记录数:<input name="pn" value="{if $aHtml.pn > 0}{$aHtml.pn}{else}{$syspagesizemax}{/if}" size="5" onKeyup="checkPageSize(this,'ipagesize',{$syspagesizemax});">
+&nbsp;&nbsp;
+<input type="submit" value="搜 索" class="button" />
+<br><br>
+</FORM></div>
+
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" id="listForm" onsubmit="return checkForm();" >
+<input type="hidden" name="controller" value="ccbreport" />
+<input type="hidden" name="action" value="errordeal" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+  <th colspan="3"></th>
+  <th colspan="4">平台充值信息</th>
+  <th colspan="6">银行查询信息</th>
+  <th colspan="4">充值用户信息</th>
+  <th colspan="4">充值异常处理</th>
+  </tr>
+  <tr>
+    <th></th>
+	<th>状态</th>
+	<th>发起时间</th>
+	<th>收款卡</th>
+	<th>金额</th>
+	<th>付款卡</th>
+	<th>付款户名</th>
+	<th>抓取时间</th>
+	<th>收款卡</th>
+	<th>金额</th>
+	<th>账户余额</th>
+	<th>付款卡</th>
+	<th>付款户名</th>
+	<th>手续费</th>
+	<th>用户</th>
+	<th>所属总代</th>
+	<th>充值异常原因</th>
+	<th>处理时间</th>
+	<th>管理员</th>
+	<th>批注</th>
+	<th>操作</th>
+  </tr>
+  {foreach from=$loadinfo item=load key=k}
+  <tr align="center">
+	<td><input type="checkbox" name="loadid[]" value="{$load.id}" /></td>
+	<td>
+	{if $load.status == 1}
+	未处理
+	{elseif $load.status == 2}
+    已没收
+    {elseif $load.status == 3}
+   	已处理
+    {/if}
+	</td>
+	<td>{if $load.request_time > 0}{$load.request_time}{else}--{/if}</td>
+	<td>{if $load.nickname1 != ""}{$load.nickname1|escape:html}{else}--{/if}</td>
+	<td>{if $load.request_amount > 0}{$load.request_amount|escape:money}{else}--{/if}</td>
+	<td>{if $load.binding_card != ""}{$load.binding_card}{else}--{/if}</td>
+	<td>{if $load.account_name != ""}{$load.account_name}{else}--{/if}</td>
+	<td>{if $load.get_time > 0}{$load.get_time}{else}--{/if}</td>
+	<td>{if $load.nickname2 != ""}{$load.nickname2|escape:html}{else}--{/if}</td>
+	<td>{if $load.pay_amount > 0}{$load.pay_amount|escape:money}{else}--{/if}</td>
+	<td>{if $load.balance > 0}{$load.balance|escape:money}{else}--{/if}</td>
+	<td>{if $load.pay_card != ""}{$load.pay_card}{else}--{/if}</td>
+	<td>{if $load.pay_acc_name != ""}{$load.pay_acc_name|escape:html}{else}--{/if}</td>
+	<td>{if $load.pay_fee > 0}{$load.pay_fee|escape:money}{else}--{/if}</td>
+	<td>{if $load.user_name != ""}{$load.user_name|escape:html}{else}--{/if}</td>
+	<td>{if $load.topproxy_name != ""}{$load.topproxy_name|escape:html}{else}--{/if}</td>
+	<td>
+	{if $load.error_type == 1}
+	 充值违规
+   	{else}
+   	--
+    {/if}
+	</td>
+	<td>{if $load.deal_time > 0}{$load.deal_time}{else}--{/if}</td>
+	<td>{if $load.admin_name != ""}{$load.admin_name}{else}--{/if}</td>
+	<td>{if $load.remark != ""}{$load.remark|escape:html}
+	{elseif $load.status == 1 && $load.admin_id == 0 && $load.remark == ""}
+	<input type="text"	name="remark[{$load.id}]" id="remark{$load.id}" />
+	{/if}
+	</td>
+	<td>{if $load.transfer_id > 0}<a href="/?controller=ccbreport&action=loadview&id={$load.id}" >详情</a>{else}--{/if}</td>
+  </tr>
+  {foreachelse}
+    <tr><td class="no-records" colspan="21">无相关数据</td></tr>
+  {/foreach}
+  <tr>
+  	<td align="center"><input type="checkbox" id="selectall" /></td>
+  	<td colspan="20" style="padding-left:30px;">
+  	<select name="deal" id="deal">
+  	<option value="3">设为已处理</option>
+  	<option value="2">设为已没收</option>
+  	<option value="4">设为已退还</option>
+  	</select>　　
+  	<input type="submit" class="button" value="提交" />
+  	</td>
+  </tr>
+    <tr style='color:#F30'>
+    	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;
+		合计: &nbsp;&nbsp;</td>
+		<td></td>
+	<td align="center">{$fplatetotal|escape:money}</td>
+	<td colspan=4></td>
+	<td align="center">{$fbanktotal|escape:money}</td>
+	<td colspan="3"></td>
+	<td align="center">{$fee|escape:money}</td>
+	<td colspan=7></td>
+    </tr>
+    <tr><td colspan="17"></td><td align="right" nowrap="true" colspan="5">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr>
+</table>
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

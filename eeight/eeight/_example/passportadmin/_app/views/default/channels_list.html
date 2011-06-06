@@ -1,0 +1,35 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<th>频道编号</th>
+<th>频道组</th>
+<th>频道名称</th>
+<th>频道路径</th>
+<th>频道状态</th>
+<th>操作</th>
+</tr>
+{foreach from=$channels item=v key=k}
+<tr>
+<td align="center">{$v.id}</td>
+<td align="center">{$v.pid}</td>
+<td align="center">{$v.channel|escape:html}</td>
+<td>{$v.path|escape:html}</td>
+<td align="center">{if $v.isdisabled}<font color=red>禁用中</font>{else}<font color=#669900>启用中</font>{/if}</td>
+<td align="center">{if $v.isdisabled}<a href="?controller=channels&action=enable&id={$v.id}" onclick="return confirm('您确定要启用该频道?');">启用频道</a>{else}<a href="?controller=channels&action=disable&id={$v.id}" onclick="return confirm('您确定要禁用该频道?');">禁用频道</a>{/if}&nbsp;&nbsp;
+<a href="?controller=channels&action=edit&id={$v.id}">修改频道</a>&nbsp;&nbsp;
+<a href="?controller=channels&action=del&id={$v.id}" onclick="return confirm('您确定要删除该频道?');">删除频道</a></td>
+</tr>
+{/foreach}
+<tr>
+<td align="center" colspan="1"></td>
+<td align="left" colspan="5"><input type="button" class="button" value="增加频道" onclick="location.href='?controller=channels&action=add';">
+<input type="button" class="button" value="启用所有频道" onclick="if(confirm('您确定要启用所有频道?')){location.href='?controller=channels&action=enableall';}">
+<input type="button" class="button" value="禁用所有频道" onclick="if(confirm('您确定要禁用所有频道?')){location.href='?controller=channels&action=disableall';}"></td>
+</tr>
+</table>
+</Form>
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

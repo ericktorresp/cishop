@@ -1,0 +1,44 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+	<tr>
+	<th width=80>ID</th>
+	<th width=60>排序值</th>
+	<th>页签名称</th>
+	<th>最后更新时间</th>
+	<th>管理员</th>
+	<th width=80>状态</th>
+	<th>操作</th>
+ </tr>
+
+{foreach from=$aList item=notice key=k1}
+  <tr>
+  <td  align="center">{$notice.id}</td>
+
+	<td align="center">{$notice.sorts|escape:html}</td>
+	<td align="left" class="first-cell nowrap">
+		<a href="./?controller=notice&action=versionedit&id={$notice.id}"
+		>{$notice.tagname|escape:html}</a></td>
+
+	<td align="center">{$notice.lastupdatetime}</td>
+	<td align="center">{$notice.sendername|escape:html}</td>
+
+	<td align="center">{if $notice.isdel}<font color='#FF0000'>已删</font>{else}
+	<font color='#669900'>正常</font>{/if}</td>
+	<td align="center" width=220>
+	<a href="./?controller=notice&action=versionedit&id={$notice.id}">修改</a> &nbsp; | &nbsp;
+	<a href="./?controller=notice&action=versiondel&id={$notice.id}" 
+		onclick="javascript:return confirm('您确定要删除版本信息: [ {$notice.tagname} ] ?');">删除</a> &nbsp; 
+	</td>
+  </tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">无相关数据</td></tr>
+{/foreach}
+</table>
+
+
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

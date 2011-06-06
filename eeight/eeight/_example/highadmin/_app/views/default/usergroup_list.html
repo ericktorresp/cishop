@@ -1,0 +1,39 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action="?controller=developer&action=savesort">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<th>ID</th>
+<th>用户组别</th>
+<th>组编号</th>
+<th>特殊组</th>
+<th>启用</th>
+<th colspan="4">操作</th>
+</tr>
+{foreach from=$aUserGroup item=usergroup key=k}
+<tr>
+<td align="center">{$usergroup.groupid}</td>
+<td align="center">{$usergroup.groupname|escape:html}</td>
+<td align="center">{$usergroup.teamid}</td>
+<td align="center">{if $usergroup.isspecial == 0}否{else}<font color="Red">是</font>{/if}</td>
+<td align="center">{if $usergroup.isdisabled == 0}<font color="Green">启用</font>{else}<font color="Gray">禁用</font>{/if}</td>
+<td align="center">
+<a href="./index.php?controller=usergroup&action=edit&groupid={$usergroup.groupid}">修改组别</a>&nbsp;
+{if $usergroup.isspecial==1}
+&nbsp;<a href="./index.php?controller=usergroup&action=delete&teamid={$usergroup.teamid}" onclick="return confirm('您确定要删除该组别吗?');">删除组别</a>
+{elseif $usergroup.isspecial==0 && $usergroup.groupid>4}
+&nbsp;<a href="./index.php?controller=usergroup&action=delete&spid={$usergroup.groupid}" onclick="return confirm('您确定要删除该组别吗?');">删除组别</a>
+{/if}
+{if $usergroup.isspecial==1||$usergroup.groupid==1}&nbsp;<a href="./index.php?controller=usergroup&action=copy&groupid={$usergroup.groupid}">复制组别</a>{/if}&nbsp;
+{if $usergroup.isdisabled == 0}
+<a href="./index.php?controller=usergroup&action=disable&groupid={$usergroup.groupid}" onclick="javascript:return confirm('您确认要禁用该用户组别?');">禁用组别</a>
+{else}
+<a href="./index.php?controller=usergroup&action=enable&groupid={$usergroup.groupid}"  onclick="javascript:return confirm('您确认要启用该用户组别?');">启用组别</a>
+{/if}
+</td>
+</tr>
+{/foreach}
+</table>
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

@@ -1,0 +1,37 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+jQuery("document").ready( function(){
+	jQuery("#chineseMoney").html(changeMoneyToChinese({$money}));
+});
+</script>
+<div class="list-div" id="listDiv">
+<table class="list-table">
+<form action="index.php" method="post" onsubmit="this.submit.disabled=true;">
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action"	value="withdraw" />
+<input type="hidden" name="flag" value="confirm" />
+<input type="hidden" name="check" value="{$check}" />
+<input type="hidden" name="money" value="{$money}" />
+	<tr>
+    	<td class="narrow-label">用户名：</td>
+        <td>{$user.username|escape:html}</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">您的银行大厅余额：</td>
+        <td>{$user.availablebalance|escape:money}</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">提现金额：</td>
+        <td>{$money|escape:money}</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">提现金额(大写)：</td>
+        <td><span id="chineseMoney" ></span></td>
+    </tr>
+    <tr>
+    	<td></td><td><input type="submit" name="submit" value="确认提现" class="button" />&nbsp;&nbsp;<input type="button" value="取消" onclick="history.back()" class="button" /></td>
+    </tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,12 @@
+{include file="pageheader.html"}
+<div class="form-div">
+<H1>
+{foreach from=$depositbanklist  item=Bank key=iK}
+	<SPAN class="action-span">
+	<A href="./?controller={$controllerstr}&action={$actionstr}&userid={$useridstr}&depositbankid={$Bank.bankid}">{$Bank.bankname|escape:html}</a>
+	</SPAN>
+{/foreach}
+</H1>
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

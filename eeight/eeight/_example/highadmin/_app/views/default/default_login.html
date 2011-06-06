@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>高频游戏后台管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="./css/general.css" rel="stylesheet" type="text/css" />
+<link href="./css/main.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" media="all" href="./js/keypad/keypad.css"  />
+
+<style type="text/css">
+body { color: white; }
+</style>
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/keypad/jquery.keypad.min.js"></script>
+<script type="text/javascript" src="./js/jquery.md5.js"></script>
+<script language="javascript">
+	jQuery(function(){
+		jQuery("#loginpass_source").keypad({
+		layout: [
+				'~!@#$%^&*()'+ $.keypad.BACK+$.keypad.CLOSE/**/,
+				'`1234567890'+$.keypad.SHIFT,
+				$.keypad.HALF_SPACE + "',.?|[]-+_={}",
+				$.keypad.HALF_SPACE + 'cdefghijklmab', 
+        		$.keypad.HALF_SPACE + "stuvwxyznopqr"/*+ $.keypad.CLEAR*/
+         		],
+         // 软键盘按键布局 
+		buttonImage:'./js/keypad/keypad4.png',	// 弹出(关闭)软键盘按钮图片地址
+		buttonImageOnly: true,	// True 表示已图片形式显示, false 表示已按钮形式显示
+		buttonStatus: '打开/关闭软键盘', // 打开/关闭软键盘按钮说明文字
+		showOn: 'button', // 'focus'表示已输入框焦点弹出, 
+			// 'button'通过按钮点击弹出,或者 'both' 表示两者都可以弹出 
+			
+		keypadOnly: false, // True 表示只接受软件盘输入, false 表示可以通过键盘和软键盘输入  
+			
+		randomiseNumeric: true, // True 表示对所以数字位置进行随机排列, false 不随机排列
+		randomiseAlphabetic: false, // True 表示对字母进行随机排列, false 不随机排列 
+		
+		shiftText: 'Caps Lock', // SHIFT 按键功能的键的显示文字 
+		shiftStatus: '转换字母大小写', // SHIFT按键功能的TITLE说明文字 
+		
+		closeText: '', // 关闭按键功能的显示文字 
+		closeStatus: '关闭软键盘', // 关闭按键功能的TITLE说明文字 
+		
+		backText: '', // 退格功能键的显示文字 
+		backStatus: '退格', // 退格功能键的说明文字
+			   
+		onClose: null	// 点击软键盘关闭是调用的函数
+		});
+	});
+</script>
+{insert_scripts files="./js/common.js,./js/validator.js"}
+<script language="JavaScript">
+<!--
+if (window.parent != window)
+{
+    window.top.location.href = location.href;
+}
+//-->
+</script>
+<script type="text/javascript">
+<!--
+function LoginNow() 
+{ 
+    var loginuser = $("#adminname").val();
+    var typepw = $("#loginpass_source").val();
+    var randnum = $("#captcha_source").val().toUpperCase();
+    if (loginuser == ''){
+        alert('管理员用户名不能为空!');
+        return false;
+    }
+    if  (typepw == '') {
+        alert('管理员密码不能为空!');
+        return false;
+    }
+    if (randnum == '') {
+        alert('您没有输入验证码!');
+        return false;
+    }
+    
+    var submitvc = $.md5(randnum);
+    var submitpw = $.md5( submitvc + $.md5(typepw) );
+        
+    $("#loginpass")[0].value = submitpw;
+    $("#captcha")[0].value = submitvc;
+    document.forms['theForm'].submit();
+}
+$( function() {
+    $("#captcha")[0].value = '';
+});
+//onsubmit="return validate()" 
+//-->
+</script>
+</head>
+
+<body style="background: #289673" onload="document.theForm.adminname.focus();">
+<form method="post" action="./?controller=default&action=index" name='theForm' id="theForm" onSubmit="javascript:LoginNow(); return false;">
+    <input type="hidden" name="adminpass" id="loginpass">
+    <input type="hidden" name="captcha" id="captcha">
+  <table cellspacing="0" cellpadding="0" style="margin-top: 100px" align="center">
+  <tr>
+    <td><img src="./images/login.png" width="178" height="256" border="0"/></td>
+    <td style="padding-left: 50px">
+      <table>
+      <tr>
+      	<td>{$lang.admin_user}：</td>
+      	<td><input type="text" name="adminname" id="adminname" value="{$adminname}" /></td>
+      </tr>
+      <tr>
+      	<td>{$lang.admin_pass}：</td>
+      	<td><input style='margin-right:4px;' type="password" name="adminpass_source" id="loginpass_source" /></td>
+      </tr>
+            <tr>
+      	<td>{$lang.admin_vifity}：</td>
+      	<td><input type="text" name="captcha_source" id="captcha_source"  maxlength='32' class="capital"/></td>
+      </tr>
+      <tr><td colspan="2" style='padding-right:26px;'  align="right"><img src="./index.php?controller=default&action=image" width="145" height="20"  border="1" onclick="this.src='./index.php?controller=default&action=image&'+Math.random()" style="cursor: pointer;border-color:#fff" title="看不清？点击更换另一个验证码。"/></td></tr>
+            <tr><td colspan="2">
+			<input type="hidden" value="1" name="adminlogin" />
+			<label><input type="checkbox" value="1" name="remember" /> 请记住我的用户名。</label></td></tr>
+      <tr><td colspan="2" align="center"><input type="submit" value="{$lang.admin_login}" class="button" /></td></tr>
+      </table>
+    </td>
+  </tr>
+  </table>
+	<input type="hidden" value="1" name="adminlogin" />
+</form>  
+
+  <script language="JavaScript">
+    /**
+     * 检查表单输入的内容
+     */
+    function validate()
+    {
+        var validator = new Validator('theForm');
+        validator.required('adminname', "管理员用户名不能为空!");
+        validator.required('adminpass', "管理员密码不能为空!");
+        validator.required('captcha', "您没有输入验证码!");
+        return validator.passed();  
+    }
+  </script>
+</body>
+</html>

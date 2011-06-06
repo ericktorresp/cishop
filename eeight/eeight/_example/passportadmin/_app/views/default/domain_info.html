@@ -1,0 +1,83 @@
+{include file="pageheader.html"}
+<script>
+function showNotice(objId)
+{
+	var obj = document.getElementById(objId);
+	if(obj.style.display == "none")
+	{
+		obj.style.display = "block";
+	}
+	else
+	{ 
+		obj.style.display = "none";
+	}
+}
+function checkEdit()
+{
+	var obj = document.getElementById('domain');
+	var obj2 = document.getElementById('domainlist');
+	
+	if (obj2 =='' && obj=='')
+	{
+		alert("请输入域名。");
+		return false;
+	}
+	else if(obj && obj2=='')
+	{
+		p =  /^([A-Za-z0-9]+\.)+[A-Za-z0-9]+$/;
+		if(!p.test(obj.value)){
+			alert("域名格式不正确。");
+			return false;
+		}
+	}
+	else
+	{
+		return true;
+	}
+	return true;
+}
+
+function viewname()
+{
+	var nl = document.getElementById("domainlist").value;
+	var anl = nl.split(',');
+	var ianl = anl.length;
+	var sname = '';
+	
+	for (var i=0;i<ianl;i++)
+	{
+		if (ianl > 1) sname = sname + "<br/>("+ (i+1) +")"; 
+		sname = sname + anl[i].trim();
+	}
+	document.getElementById("nametotal").innerHTML = ianl + "个";
+	document.getElementById("nameview").innerHTML = sname;
+}
+</script>
+<div class="list-div">
+<form action="?controller=domain&action=save" method="POST" onSubmit="return checkEdit();">
+<table>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticedomian');"><img src="./images/notice.gif" border="0"></a>域名名称:</td>
+<td>{if isset($domain.domain)}{$domain.domain|escape:html}{else}<input type="text" name="domain" id="domain" size="40" value="">{/if}<span id="noticedomian" style="display:none;">域名规则:去掉恰面的"HTTP://"以及后面的"/",例如:<span style="color:#FF0000">http://www.163.com/</span>, 我们只需要填写<span style="color:#0000FF">www.163.com</span>即可<br/>域名格式：字母数字开始的并以字母数字结束中间带有"."的格式。</span></td>
+</tr>
+<tr>
+	<td class="narrow-label">批量增加域名:</td> 
+	<td><textarea id="domainlist" name="domainlist" rows="5" cols="60" onKeyup="viewname();"></textarea>  <font color=red>(多个用户名之间请用半角英文逗号间隔)</font><br/>
+	</td>
+</tr>
+<tr>
+	<td class="narrow-label">(将添加域名 <font color=red><span id="nametotal"></span></font>)</td>
+	<td><span id="nameview" name="nameview" style="font-size:14px;color:blue"></span></td>
+</tr>
+<tr>
+<td class="narrow-label">&nbsp;</td>
+<td>
+	<input type="submit" value="保存域名" class="button">
+	<input type="reset" class="button" value="重置域名">
+	<input type="button" class="button" value="返回设置" onclick="location.href='?controller=domain&action=list';">
+</td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

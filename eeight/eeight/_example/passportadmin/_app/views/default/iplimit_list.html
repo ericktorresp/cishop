@@ -1,0 +1,122 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script>
+$(function(){
+   $(".tdlist").bind("click",function(){
+       if($(this).parent().find("input").attr("checked") == false){
+           $(this).parent().find("input").attr("checked",true);
+       }else{
+           $(this).parent().find("input").attr("checked",false);
+       }
+   });
+});
+function CheckBoxSelectAll(obj, chk)
+{
+  if (chk == null)
+  {
+    chk = 'checkboxes';
+  }
+
+  var elems = obj.form.getElementsByTagName("INPUT");
+
+  for (var i=0; i < elems.length; i++)
+  {
+    if (elems[i].name == chk || elems[i].name == chk + "[]")
+    {
+      elems[i].checked = obj.checked;
+    }
+  }
+}
+</script>
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action='./?controller=iplimit&action=delete'>
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th width="10%">选择</th>
+    <th>IP</th>
+    <th>说明</th>
+    <th>管理</th>
+  </tr>
+{foreach from=$aIPLimit item=list key=k}
+  <tr>
+    <td align="center"><input name="checkboxes[]" type="checkbox" value="{$list.id}"></td>
+    <td align="center" class="tdlist">{$list.limitip|escape:html}</td>
+    <td align="center" class="tdlist">{$list.notice|escape:html}</td>
+    <td align="center">
+        <a href="./?controller=iplimit&action=edit&id={$list.id}">编辑</a> 
+        <a href="./?controller=iplimit&action=delete&id={$list.id}" onclick="javascript:return confirm('删除后无法恢复,确实要删除吗?点击[确定]删除信息,点击[取消]返回');">删除</a>
+    </td>
+  </tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">无信任IP</td></tr>
+{/foreach}
+<tfoot align="right">
+	<td colspan="10">{$pageinfo}</td>
+</tfoot>
+</table>
+<table id="page-table" cellspacing="0">
+  <tr>
+  <td>&nbsp;&nbsp&nbsp;&nbsp;
+    <input type="checkbox" id="selectall" onclick='CheckBoxSelectAll(this, "checkboxes")'>全选
+    <input type="submit" value="批量删除" id="btnSubmit" name="btnSubmit" class="button" />
+</td>
+</tr>
+</table>
+</form>
+</div>
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#EEF8F9';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{include file="pagefooter.html"}

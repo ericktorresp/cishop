@@ -1,0 +1,48 @@
+{include file="pageheader.html"}
+<div class="list-div">
+<table>
+<tr>
+<th width="5%">方案编号</th>
+<th width="15%">比较项目</th>
+<th width="40%">(运行平台)</th>
+<th width="40%">(备份数据)</th>
+</tr>
+{foreach from=$mResult.PTPC item=res key=k}
+{foreach from=$res item=t key=k1}
+<tr align="center">
+<td>{$k}</td>
+<td><font color="green">{$checkname.$k1}</font></td>
+{foreach from=$t item=t2 key=k2}
+<td>{if isset($t2)}{$t2}{else}<font color="red">不存在</font>{/if}</td>
+{/foreach}
+</tr>
+{/foreach}
+{foreachelse}
+<tr>
+<td colspan="4" class="no-records">没有出现差异</td>
+</tr>
+{/foreach}
+<tr>
+<th width="5%">方案编号</th>
+<th width="15%">比较项目</th>
+<th width="40%">(备份数据)</th>
+<th width="40%">(运行平台)</th>
+</tr>
+{foreach from=$mResult.PCTP item=res key=k}
+{foreach from=$res item=t key=k1}
+<tr align="center">
+<td>{$k}</td>
+<td>{$checkname.$k1}</td>
+{foreach from=$t item=t2 key=k2}
+<td>{if isset($t2)}{$t2}{else}<font color="red">不存在</font>{/if}</td>
+{/foreach}
+</tr>
+{/foreach}
+{foreachelse}
+<tr>
+<td colspan="4" class="no-records">没有出现差异</td>
+</tr>
+{/foreach}
+</table>
+</div>
+{include file="pagefooter.html"}

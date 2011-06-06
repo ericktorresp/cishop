@@ -1,0 +1,210 @@
+{include file="pageheader.html"}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/jquery.js"></script>
+<script type="text/javascript">
+	var result = 0;
+    var isCCB = 0;
+function checkForm(obj)
+{
+		if (obj.bid.value <= 0){
+			alert("请选择充值银行");
+			return false;
+		}
+		if (result > 0 && isCCB == 1){
+			if (result == 1){
+				alert("您现有建行卡为重复绑定，请更换存款银行或绑定新的建行卡");
+				return false;
+			} else if (result == 2){
+				alert("您尚未绑定建行银行卡，请绑定");
+				gotolink("卡号绑定");
+				self.location="/?controller=security&action=userbankinfo";
+				return false;
+			}
+		}
+	if (obj.amount.value == ""){
+		alert("请输入限定内金额！");
+		obj.amount.focus();
+		return false;
+	}
+		var loadmin = document.getElementById("alertmin").value;
+		if(parseInt(obj.amount.value,10) < parseInt(loadmin,10))
+	{
+		alert("充值金额不能低于最低充值限额 ");
+			$("#amount").val(loadmin);
+			$("#chineseMoney").html( changeMoneyToChinese(loadmin) );
+		return false;
+	}
+}
+
+	function changeInfo(obj){
+		var bankinfo = new Array();
+		bankinfo = {$abankinfo};
+		var loadmax = document.getElementById("loadmax");
+		var loadmin = document.getElementById("loadmin");
+		var alertmin = document.getElementById("alertmin");
+		var bid		= document.getElementById("bid");
+		
+		loadmax.innerHTML = bankinfo[obj.value]['loadmax'];
+		loadmin.innerHTML = bankinfo[obj.value]['loadmin'];
+		alertmin.value = bankinfo[obj.value]['loadmin'];
+		bid.value = bankinfo[obj.value]['id'];
+		
+		document.getElementById("amount").onkeyup = function(){
+			checkemailWithdraw(this,'chineseMoney',bankinfo[obj.value]['loadmax']);
+		}
+		
+		// 只有建行才显示用户选卡下拉框
+		if (obj.value == "ccb"){
+            isCCB = 1;
+			var allexist = {$allexist};
+			// 是否全部重复
+			if (allexist == 1){
+				alert("您现有建行卡为重复绑定，请更换存款银行或绑定新的建行卡");
+				result = 1;
+				return false;
+			}
+			var isHave = {$ishave};
+			if (isHave == 0){
+				alert("您尚未绑定建行银行卡，请绑定");
+				gotolink("卡号绑定");
+				self.location="/?controller=security&action=userbankinfo";
+				result = 2;
+				return false;
+			}
+			document.getElementById("selectbank").style.display = "";
+		} else {
+            isCCB = 0;
+			document.getElementById("selectbank").style.display = "none";
+		}
+	}
+
+	function checkbindin(obj){
+		var banklist = new Array();
+		banklist = {$isexist};
+		if (banklist[obj.value] == 1){
+			alert("您选择的建行卡重复绑定，请选择另一张");
+			obj[0].selected = true;
+		}
+	}
+	
+	function gotolink(string){
+		var t = window.top;
+	    $.each(t.$("#leftframe").contents().find(".menu_05"),function(){
+	        if($(this).find("a").html() == string){
+	            t.$("#leftframe").contents().find(".menu_05_05").attr("class",'menu_05');
+	            $(this).addClass('menu_05_05');
+	        }
+	    });
+	}
+
+</script>
+<!--<div id="tabbar-div">
+	<span class="tab-front">
+		<span class="tabbar-left"></span>
+		<span class="content" >我要充值</span>
+		<span class="tabbar-right"></span>
+	</span>-->
+	<!--<span class="tab-back">
+		<span class="tabbar-left"></span>
+		
+		<span class="content" onclick="window.location.href='?controller=emaildeposit&action=emaildepositlist'">充值记录</span>
+		<span class="tabbar-right"></span>
+	</span>-->
+<!--</div>
+<div class="tabbar-bottom"></div>-->
+<div class="right_02 d5d8de">
+<div id="right_02_01" style="height:44px;">
+<div class="right_02_02"></div>
+<div class="right_02_03">
+<div class="title01">
+        <span class="tab-front"  id="general_tab_0">
+		  <span class="menu_01a"></span>
+		  <span class="menu_02a" >我要充值</span>
+		  <span class="menu_03a"></span>
+		</span>
+			<!--<span class="tab-back"  id="general_tab_1">
+		  <span class="menu_01"></span>
+
+		  <span class="menu_02" onClick="self.location.href='index.php?controller=security&action=withdrawlist'">提现记录</span>
+		  <span class="menu_03"></span>
+		</span>-->
+
+</div>
+</div>
+<div class="right_02_04 floatright"></div>
+</div>
+<!--<div class="list-div" id="listDiv">-->
+<div>
+<table width="100%" border="0" cellspacing="1" cellpadding="4">
+<form action="index.php" method="post" name="drawform" id="drawform" onsubmit="return checkForm(this)">
+<input type="hidden" name="controller" value="emaildeposit" />
+<input type="hidden" name="action" value="emailload" />
+<input type="hidden" name="flag" value="load" />
+<input type="hidden" name="bid" id="bid" value="" />
+<tr>
+	<td width="200" align="right" bgcolor="#CCCCCC" class="narrow-label"><font color="#FF3300">提示：</font></td>
+	<td align="left" bgcolor="#CCCCCC" style="color:#FF3300;">平台填写金额必须和网银汇款金额一致，否则充值无法到账。</td>
+</tr>
+<tr>
+	<td width="200" align="right" bgcolor="#CCCCCC" class="narrow-label">充值银行：</td>
+    <td align="left" bgcolor="#CCCCCC">
+    {foreach from = $bankinfo item=bank key=k}
+    	<input type="radio" name="bankradio" value="{$k}" id="{$k}" onclick="javascript:changeInfo(this);" /><label for="{$k}"><img src="{$sSystemImagesAndCssPath}/images/bank/{$k}.jpg" width="125" height="35" /></label>
+    {/foreach}
+    </td>
+</tr>
+<tr id="selectbank" style="display:none;">
+	<td width="200" align="right" bgcolor="#CCCCCC" class="narrow-label">选择付款银行卡：</td>
+    <td align="left" bgcolor="#CCCCCC">
+    <span style="font-size:14px;color:red;">汇款方的卡号必须与平台绑定的建行卡一致，否则充值无法到帐。</span><br />
+    <select name="bank" id="bank" onchange="javascript:checkbindin(this);">
+    {foreach from = $banklist item=list key=k}
+    		<option value="{$list.id}">{$list.bank_name|escape:html}--{$list.hiddenaccount}</option>
+    {/foreach}
+    </select>
+    </td>
+</tr>
+<tr>
+	<td width="200" align="right" bgcolor="#CCCCCC" class="narrow-label">充值金额：</td>
+	<td align="left" bgcolor="#CCCCCC"><input type="text" name="amount" id="amount" size="20" />&nbsp;&nbsp;(充值额度限定：最低 <span id="loadmin"></span>,最高 <span id="loadmax"></span>)<input type="hidden" name="alertmin" id="alertmin" value="0" /></td>
+</tr>
+<tr>
+	<td width="200" align="right" bgcolor="#CCCCCC" class="narrow-label">充值金额(大写)：</td>
+    <td align="left" bgcolor="#CCCCCC"><span id="chineseMoney"></span><input type="hidden" id="hiddenchinese" /></td>
+</tr>
+<tr>
+	<td width="200" align="right" bgcolor="#CCCCCC" class="narrow-label"></td>
+	<td align="left" bgcolor="#CCCCCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="submit" value="下一步" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="返回" onclick="history.back()" class="button" /></td>
+</tr>
+</form>
+</table>
+</div>
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div class="center">
+    <table width="100%" border="0" cellspacing="1" cellpadding="4">
+        <tr>
+            <td colspan="2" align="left" style="padding-left:60px;"><font size="4">已绑<font color="red">提现</font>银行卡<font></td>
+        </tr>
+        {foreach from=$allbanklist item= hide key=k}
+        <tr>
+            <td width="200" align="right" bgcolor="#CCCCCC" class="narrow-label">{$hide.bank_name|escape:html}</td>
+            <td align="left" bgcolor="#CCCCCC">{$hide.hiddenaccount}</td>
+        </tr>
+        {/foreach}
+    </table>
+</div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+{include file="pagefooter.html"}

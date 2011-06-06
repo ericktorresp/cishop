@@ -1,0 +1,26 @@
+{include file="pageheader.html"}
+<center>
+
+
+
+<div class="right_02 d5d8de">
+<div id="right_02_01" style="height:44px;">
+<div class="right_02_02"></div>
+<div style="height:44px;width:90%; float:left; line-height:44px;">网站公告</div>
+<div class="right_02_04 floatright"></div>
+</div>
+{if empty($notice) }
+<center>暂无公告</center>
+{else}
+<div class="notice01" style="font-size:20px;font-weight:bold">{$notice.subject|escape:html}</div>
+<div class="notice02">时间:{if $notice.checktime != 0}{$notice.checktime|truncate:0,16}{else}{$notice.sendtime|truncate:0,16}{/if}</div>
+<div class="notice03"></div>
+<div class="notice04" style="line-height:22px;">{$notice.content}</div>
+{/if}
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</center>
+{include file="pagefooter.html"}

@@ -1,0 +1,473 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>投注界面生成器</title>
+<script language="javascript" type="text/javascript" src="lib/jquery-1.3.2.min.js"></script>
+<script language="javascript" type="text/javascript" src="lib/jquery.dragndrop.js"></script>
+<script language="javascript" type="text/javascript" src="lib/jquery.dialogUI.js"></script>
+<script language="javascript" type="text/javascript" src="lib/jquery.betface.js"></script>
+<link rel="stylesheet" href="./lib/dialogUI.css" type="text/css" />
+<link rel="stylesheet" href="./lib/betface.css" type="text/css" />
+<script language="javascript" type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery.lotteryUI({//3D-ZX 直选
+		lottery :	'3D',
+		methodtype:	'ZX',
+		period	: '20090701',
+		singleprize : 1700,
+		servertime : '2009-07-22 20:19:30',
+		endtime	: '2009-07-22 20:20:00',
+		timer: '#lotery_lefttime',
+		nowIssue   : '#lottery_nowIssue',  //显示当前期的位置
+    	endTimearea: '#lottery_endTime',
+		usermoney : 100000,
+		filterArea: '#filter_area',
+		filterDefault:{},
+		editArea : '#edit_area',
+		editDefault : {
+						button_random_Image : "",
+						button_random_text	: "机选"
+					   },
+		confirmArea : '#confirm_area',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area',
+		submitbutton : '#lottery_submit'
+	});
+	/*jQuery.lotteryUI({	//3D-ZXHZ 直选和值
+		lottery :	'3D',
+		methodtype:	'ZXHZ',
+		period	: '20090701',
+		singleprize : 1700,
+		servertime : '',
+		endtime	: '',
+		usermoney : 100000,
+		confirmArea : '#confirm_area',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area',
+		selectDefault : {
+						layout:[
+								{title:'直选和值', no:'0|1|2|3|4|5|6|7|8|9|10|11|12|13', place:0, cols:2},
+								{title:'', no:'14|15|16|17|18|19|20|21|22|23|24|25|26|27', place:0, cols:0}
+								],
+						isButton : false
+						}
+	
+	});*/
+	/*jQuery.lotteryUI({//3D-TX	通选
+		lottery :	'3D',
+		methodtype:	'TX',
+		period	: '20090701',
+		singleprize : 650,
+		servertime : '',
+		endtime	: '',
+		usermoney : 100000,
+		filterArea: '#filter_area',
+		filterDefault:{},
+		editArea : '#edit_area',
+		editDefault : {
+						button_random_Image : "",
+						button_random_text	: "机选"
+					   },
+		confirmArea : '#confirm_area',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area'
+	
+	});*/
+	/*jQuery.lotteryUI({//3D-ZS	组三
+		lottery :	'3D',
+		methodtype:	'ZS',
+		period	: '20090701',
+		singleprize : 570,
+		servertime : '',
+		endtime	: '',
+		usermoney : 100000,
+		confirmArea : '#confirm_area',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area',
+		selectDefault : {
+						layout:[{title:'组三', no:'0|1|2|3|4|5|6|7|8|9', place:0, cols:1}],
+						isButton : true
+						}
+	
+	});*/
+	/*jQuery.lotteryUI({//3D-ZL	组六
+		lottery :	'3D',
+		methodtype:	'ZL',
+		period	: '20090701',
+		singleprize : 280,
+		servertime : '',
+		endtime	: '',
+		usermoney : 100000,
+		confirmArea : '#confirm_area',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area',
+		selectDefault : {
+						layout:[{title:'组六', no:'0|1|2|3|4|5|6|7|8|9', place:0, cols:1}],
+						isButton : true
+						}
+	
+	});*/
+	/*jQuery.lotteryUI({//3D-HHZX	混合组选
+		lottery :	'3D',
+		methodtype:	'HHZX',
+		period	: '20090701',
+		singleprize : 570,
+		servertime : '',
+		endtime	: '',
+		usermoney : 100000,
+		editArea : '#edit_area',
+		editDefault : {
+						button_random_Image : "",
+						button_random_text	: "机选"
+					   },
+		confirmArea : '#confirm_area',
+		traceArea	: '#trace_area'
+	
+	});*/
+	/*jQuery.lotteryUI({	//3D-ZUXHZ 组选和值
+		lottery :	'3D',
+		methodtype:	'ZUXHZ',
+		period	: '20090701',
+		singleprize : 570,
+		servertime : '',
+		endtime	: '',
+		usermoney : 100000,
+		confirmArea : '#confirm_area',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area',
+		selectDefault : {
+						layout:[
+								{title:'组选和值', no:'1|2|3|4|5|6|7|8|9|10|11|12|13', place:0, cols:2},
+								{title:'', no:'14|15|16|17|18|19|20|21|22|23|24|25|26', place:0, cols:0}
+								],
+						isButton : false
+						}
+	
+	});*/
+	/*jQuery.lotteryUI({	//3D-YMBDW 一码不定位
+		lottery :	'3D',
+		methodtype:	'YMBDW',
+		period	: '20090701',
+		singleprize : 6.6,
+		servertime : '',
+		endtime	: '',
+		usermoney : 100000,
+		confirmArea : '#confirm_area',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area',
+		selectDefault : {
+						layout:[{title:'不定位', no:'0|1|2|3|4|5|6|7|8|9', place:0, cols:1}],
+						isButton : true
+						}
+	
+	});*/
+	/*jQuery.lotteryUI({	//3D-EMBDW 二码不定位
+		lottery :	'3D',
+		methodtype:	'EMBDW',
+		period	: '20090701',
+		singleprize : 31,
+		servertime : '',
+		endtime	: '',
+		usermoney : 100000,
+		confirmArea : '#confirm_area',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area',
+		selectDefault : {
+						layout:[{title:'不定位', no:'0|1|2|3|4|5|6|7|8|9', place:0, cols:1}],
+						isButton : true
+						}
+	
+	});*/
+	/*jQuery.lotteryUI({	//3D-QEZX 前二直选
+		lottery :	'3D',
+		methodtype:	'QEZX',
+		period	: '20090701',
+		singleprize : 170,
+		servertime : '',
+		endtime	: '',
+		usermoney : 100000,
+		confirmArea : '#confirm_area',
+		confirmsplit: ',',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area',
+		selectDefault : {
+						layout:[{title:'百位', no:'0|1|2|3|4|5|6|7|8|9', place:0, cols:1},
+								{title:'十位', no:'0|1|2|3|4|5|6|7|8|9', place:1, cols:1}],
+						isButton : true
+						}
+	
+	});*/
+	/*jQuery.lotteryUI({//3D-QEZUX	前二组选
+		lottery :	'3D',
+		methodtype:	'QEZUX',
+		period	: '20090701',
+		singleprize : 85,
+		servertime : '',
+		endtime	: '',
+		usermoney : 100000,
+		confirmArea : '#confirm_area',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area',
+		selectDefault : {
+						layout:[{title:'组选', no:'0|1|2|3|4|5|6|7|8|9', place:0, cols:1}],
+						isButton : true
+						}
+	
+	});*/
+	/*jQuery.lotteryUI({	//3D-HEZX 后二直选
+		lottery :	'3D',
+		methodtype:	'HEZX',
+		period	: '20090701',
+		singleprize : 170,
+		servertime : '',
+		endtime	: '',
+		usermoney : 100000,
+		confirmArea : '#confirm_area',
+		confirmsplit: ',',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area',
+		selectDefault : {
+						layout:[{title:'十位', no:'0|1|2|3|4|5|6|7|8|9', place:0, cols:1},
+								{title:'个位', no:'0|1|2|3|4|5|6|7|8|9', place:1, cols:1}],
+						isButton : true
+						}
+	
+	});*/
+	/*jQuery.lotteryUI({//3D-HEZUX	后二组选
+		lottery :	'3D',
+		methodtype:	'HEZUX',
+		period	: '20090701',
+		singleprize : 85,
+		servertime : '',
+		endtime	: '',
+		usermoney : 100000,
+		confirmArea : '#confirm_area',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area',
+		selectDefault : {
+						layout:[{title:'组选', no:'0|1|2|3|4|5|6|7|8|9', place:0, cols:1}],
+						isButton : true
+						}
+	
+	});*/
+	/*jQuery.lotteryUI({	//3D-QEDXDS 前二大小单双
+		lottery :	'3D',
+		methodtype:	'QEDXDS',
+		period	: '20090701',
+		singleprize : 6.8,
+		servertime : '',
+		endtime	: '',
+		usermoney : 100000,
+		confirmArea : '#confirm_area',
+		confirmsplit: ',',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area',
+		selectDefault : {
+						type  : 'dxds',
+						layout:[{title:'百位', no:'大|小|单|双', place:0, cols:1},
+								{title:'十位', no:'大|小|单|双', place:1, cols:1}],
+						isButton : true
+						}
+	
+	});*/
+	/*jQuery.lotteryUI({	//3D-HEDXDS 后二大小单双
+		lottery :	'3D',
+		methodtype:	'HEDXDS',
+		period	: '20090701',
+		singleprize : 6.8,
+		servertime : '',
+		endtime	: '',
+		usermoney : 100000,
+		confirmArea : '#confirm_area',
+		confirmsplit: ',',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area',
+		selectDefault : {
+						type  : 'dxds',
+						layout:[{title:'十位', no:'大|小|单|双', place:0, cols:1},
+								{title:'个位', no:'大|小|单|双', place:1, cols:1}],
+						isButton : true
+						}
+	
+	});*/
+	/*jQuery.lotteryUI({	//3D-DWDBW	定位胆[百位、十位、个位]
+		lottery :	'3D',
+		methodtype:	'DWD',
+		period	: '20090701',
+		singleprize : 17,
+		servertime : '',
+		endtime	: '',
+		usermoney : 100000,
+		confirmArea : '#confirm_area',
+		confirmsplit: ',',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area',
+		selectDefault : {
+						layout:[{title:'百位', no:'0|1|2|3|4|5|6|7|8|9', place:0, cols:1}],
+						isButton : true
+						}
+	
+	});*/
+	/*jQuery.lotteryUI({	//P5-HEZX 后二直选
+		lottery :	'P3P5',
+		methodtype:	'HEZX',
+		period	: '20090701',
+		singleprize : 170,
+		servertime : '',
+		endtime	: '',
+		usermoney : 100000,
+		confirmArea : '#confirm_area',
+		confirmsplit: ',',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area',
+		selectDefault : {
+						layout:[{title:'十位', no:'0|1|2|3|4|5|6|7|8|9', place:0, cols:1},
+								{title:'个位', no:'0|1|2|3|4|5|6|7|8|9', place:1, cols:1}],
+						isButton : true
+						}
+	
+	});*/
+	/*jQuery.lotteryUI({//P5/P3-HEZUX	后二组选
+		lottery :	'P3P5',
+		methodtype:	'HEZUX',
+		period	: '20090701',
+		singleprize : 85,
+		servertime : '',
+		endtime	: '',
+		usermoney : 100000,
+		confirmArea : '#confirm_area',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area',
+		selectDefault : {
+						layout:[{title:'组选', no:'0|1|2|3|4|5|6|7|8|9', place:0, cols:1}],
+						isButton : true
+						}
+	
+	});*/
+	/*jQuery.lotteryUI({	//P5/P3-DWD	定位胆[百位、十位、个位]
+		lottery :	'P3P5',
+		methodtype:	'DWD',
+		period	: '20090701',
+		singleprize : 17,
+		servertime : '',
+		endtime	: '',
+		usermoney : 100000,
+		confirmArea : '#confirm_area',
+		confirmsplit: ',',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area',
+		selectDefault : {
+						layout:[{title:'万位', no:'0|1|2|3|4|5|6|7|8|9', place:0, cols:1}],
+						isButton : true
+						}
+	
+	});*/
+	/*jQuery.lotteryUI({	//XSQ-YQRX 双色球，一球任选
+		lottery :	'XSQ',
+		methodtype:	'YQRX',
+		period	: '20090701',
+		singleprize : 8.8,
+		servertime : '2009-07-22 16:25:00',
+		endtime	: '2009-07-22 20:20:00',
+		timer: '#lotery_lefttime',
+		usermoney : 100000,
+		confirmArea : '#confirm_area',
+		confirmsplit: ',',
+		traceArea	: '#trace_area',
+		selectArea	: '#select_area',
+		selectDefault : {
+						layout:[
+								{title:'', no:'01|02|03|04|05|06|07|08|09|10|11', place:0, cols:0},
+								{title:'', no:'12|13|14|15|16|17|18|19|20|21|22', place:0, cols:0},
+								{title:'', no:'23|24|25|26|27|28|29|30|31|32|33', place:0, cols:0}
+								],
+						isButton : true
+						}
+	
+	});*/
+});
+</script>
+<style type="text/css">
+<!--
+body {
+	font: 100% Verdana, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	background: #FFFFFF;
+	margin: 0 auto; /* 最好将 body 元素的边距和填充设置为 0 以覆盖不同的浏览器默认值 */
+	padding: 0;
+	text-align: center; /* 在 IE 5* 浏览器中，这会将容器居中。文本随后将在 #container 选择器中设置为默认左对齐 */
+	color: #000000;
+}
+-->
+</style></head>
+
+<body>
+<br />
+<div id="lottery_box">
+<form action="" method="post" name="trade">
+<input type="hidden" name="lotteryID" id="lotteryID" value="1" />
+<input type="hidden" name="methodID" id="methodID" value="2" />
+  <div class="lottery_lables"><center>
+  		第 <font color="#FF0000"><strong id="lottery_nowIssue">*********</strong></font> 期<br />
+        本期截止时间：<span id="lottery_endTime">****-*-* **:**:**</span><br />
+        离当前期截止还剩: <span id="lotery_lefttime" style="color:#FF0000; font-weight:bold;">**:**:**</span>
+        </center>
+  </div>
+  <div class="lottery_lables" id="area_lables"><a href="javascript:" id="restfor">标签区</a></div>
+  <!--**************************选号区******************************-->
+  <div class="lottery_selectarea" id="area_select">
+  	<fieldset class="lottery_fieldset">
+    	<legend class="lottery_legend">选号区</legend>
+        <div class="lottery_contentbox" id="select_area">
+        
+        </div>
+    </fieldset>
+  </div>
+  <!--**************************筛选区******************************-->
+  <div class="lottery_filterarea" id="area_filter">
+  	<fieldset class="lottery_fieldset">
+    	<legend class="lottery_legend">筛选区</legend>
+        <div class="lottery_contentbox" id="filter_area">
+            
+        </div>
+    </fieldset>
+  </div>
+  <!--**************************编辑区******************************-->
+  <div class="lottery_editarea" id="area_edit">
+  	<fieldset class="lottery_fieldset">
+    	<legend class="lottery_legend">编辑区</legend>
+        <div class="lottery_contentbox" id="edit_area">
+        	
+        </div>
+    </fieldset>
+  </div>
+  <!--**************************确认区******************************-->
+  <div class="lottery_confirmarea" id="area_confirm">
+  	<fieldset class="lottery_fieldset">
+    	<legend class="lottery_legend">确认区</legend>
+        <div class="lottery_contentbox">
+        	<div class="leftcontent" id="confirm_area">
+            	
+            </div>
+            <div class="rightcontent">
+            	<button class="lottery_button lottery_button_confirm" type="button" id="lottery_submit">确认投注</button>
+            </div>
+        </div>
+    </fieldset>
+  </div>
+  <!--**************************追号区******************************-->
+  <div class="lottery_tracearea" id="area_trace">
+  	<fieldset class="lottery_fieldset">
+    	<legend class="lottery_legend">追号区</legend>
+        <div class="lottery_contentbox" style="padding:0; width:100%;" id="trace_area">
+        
+        </div>
+    </fieldset>
+  </div>
+<!-- end #container -->
+</form>
+</div>
+<br />
+</body>
+</html>

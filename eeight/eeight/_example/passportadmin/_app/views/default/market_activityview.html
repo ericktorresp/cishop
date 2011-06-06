@@ -1,0 +1,75 @@
+{include file="pageheader.html"}
+<div class="list-div">
+<table>
+<tr>
+<td class="narrow-label">活动类型</td>
+<td>{if $activity.type==0}调查问卷{else}有奖竞猜{/if}</td>
+</tr>
+<tr>
+<td class="narrow-label">活动主题</td>
+<td>{$activity.title|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">活动目的</td>
+<td>{$activity.description|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">活动时间</td>
+<td>{$activity.starttime|escape:html}&nbsp;至&nbsp;{$activity.endtime|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">最小分数</td>
+<td>{$activity.minscore|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">活动奖金</td>
+<td>{$activity.prize|escape:money}</td>
+</tr>
+<tr>
+<td class="narrow-label">活动用户</td>
+<td>{foreach from=$activityuser item=v key=k}<div style="width:80px; float:left;">{$v.username|escape:html}</div>{/foreach}</td>
+</tr>
+</table>
+</div>
+
+<div class="list-div">
+<table>
+<tr>
+<th>题目</th>
+</tr>
+{foreach from=$activityinfo item=v key=k}
+<tr>
+<td>{$v.infoid|escape:html}、{$v.title|escape:html}[{if $v.isrequire==1}<font style="color:#ff0000;">必答题</font>{else}非必答题{/if}]({$v.score|escape:html}分)<br/>
+
+
+{if $v.type==0}
+{foreach from=$v.option key=k1 item=v1}
+<label for="answer_{$k}_{$k1}"><input type="radio" name="answer_{$k}" id="answer_{$k}_{$k1}" value="{$k1}"{if in_array($k1,$v.answers)}checked{/if}>{if $k1=="other"}其他<inpuit type="text" size="50">{else}{$v1}{/if}</label><br/>
+{/foreach}
+{elseif $v.type==1}
+{foreach from=$v.option key=k1 item=v1}
+<label for="answer_{$k}_{$k1}"><input type="checkbox" name="answer_{$k}" id="answer_{$k}_{$k1}" value="{$k1}"{if in_array($k1,$v.answers)}checked{/if}>{if $k1=="other"}其他<inpuit type="text" size="50">{else}{$v1}{/if}</label><br/>
+{/foreach}
+{elseif $v.type==2}
+<input type="text" name="answer" size="60">
+{elseif $v.type==3}
+<textarea cols="60" rows="6"></textarea>
+{/if}
+<br/>提示信息:{if empty($v.hint)}无提示信息{else}{$v.hint|escape:html}{/if}<br/>最小选择:{$v.minright|escape:html}个
+</td>
+</tr>
+{/foreach}
+</table>
+</div>
+<div class="list-div">
+<form action="./?controller=marketmgr&action=activityverify" method="post">
+<table>
+<tr>
+<td align="center">
+<input type="hidden" name="id" value="{$activity.activityid}">
+<input type="submit" class="button" value="确认审核" onclick="return confirm('确认对活动进行审核?');">
+</td></tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

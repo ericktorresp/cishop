@@ -1,0 +1,173 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/dialogUI/jquery.dialogUI.js"></script>
+<script type="text/javascript">
+(function($){
+$.blockUI.defaults.message = '<span style="font-size:18px;color:blue;font-weight:bold;">正在处理.......</span>'; 
+$.blockUI.defaults.overlayCSS = { 
+        backgroundColor: '#CCC', 
+        opacity:         0.5 
+    };
+$(document).ready(function(){
+	$().ajaxStart($.blockUI).ajaxStop($.unblockUI);
+	$("a[name='activechannel']").click(function(){
+		ids = $(this).attr("id").split("|");
+		uid = parseInt(ids[0],10);
+		cid = ids[1] ? parseInt(ids[1],10) : 0;
+		obj =  this;
+		$.ajax({
+			type : 'GET',
+			url  : './?controller=channels&action=saveuserchannel&ajax=1&uid='+uid+'&cid='+cid,
+			data : '',
+			success : function(data){
+						if( data == "ok" ){
+							alert("激活成功");
+							$html = $('<font color="#669900">启用中</font> [<a href="javascript:" style="color:#A0A0A0" id="'+uid+'|'+cid+'" name="closechannel_'+uid+'_'+cid+'">禁用</a>]');
+							$(obj).parent("span").empty().append($html);
+							$("a[name='closechannel_"+uid+"_"+cid+"']").click(function(){
+								getCloseAjaxData(uid,cid);
+							});
+						}else{
+							alert("激活失败"+data);
+						}
+					},
+			error : function(){
+						alert("激活失败");
+					}
+		});
+	});
+	//关闭频道
+	$("a[name^='closechannel']").click(function(){
+		ids = $(this).attr("id").split("|");
+		uid = parseInt(ids[0],10);
+		cid = ids[1] ? parseInt(ids[1],10) : 0;
+		obj =  this;
+		getCloseAjaxData(uid,cid);
+	});
+	function getCloseAjaxData( uid, cid ){
+		$.ajax({
+			type : 'GET',
+			url  : './?controller=channels&action=saveuserchannel&flag=close&uid='+uid+'&cid='+cid,
+			data : '',
+			success : function(data){
+						if( data == "ok" ){
+							alert("禁用成功");
+							$html = $('<font color="red">禁用中</font> [<a href="javascript:" style="color:#A0A0A0" id="'+uid+'|'+cid+'" name="openchannel_'+uid+'_'+cid+'">启用</a>]');
+							$(obj).parent("span").empty().append($html);
+							$("a[name='openchannel_"+uid+"_"+cid+"']").click(function(){
+								getOpenAjaxData(uid,cid);
+							});
+						}else{
+							alert("禁用失败");
+						}
+					},
+			error : function(){
+						alert("禁用失败");
+					}
+		});
+	}
+	//启用频道
+	$("a[name^='openchannel']").click(function(){
+		ids = $(this).attr("id").split("|");
+		uid = parseInt(ids[0],10);
+		cid = ids[1] ? parseInt(ids[1],10) : 0;
+		obj =  this;
+		getOpenAjaxData(uid,cid);
+	});
+	function getOpenAjaxData(uid,cid){
+		$.ajax({
+			type : 'GET',
+			url  : './?controller=channels&action=saveuserchannel&flag=open&uid='+uid+'&cid='+cid,
+			data : '',
+			success : function(data){
+						if( data == "ok" ){
+							alert("启用成功");
+							$html = $('<font color="#669900">启用中</font> [<a href="javascript:" style="color:#A0A0A0" id="'+uid+'|'+cid+'" name="closechannel_'+uid+'_'+cid+'">禁用</a>]');
+							$(obj).parent("span").empty().append($html);
+							$("a[name='closechannel_"+uid+"_"+cid+"']").click(function(){
+								getCloseAjaxData(uid,cid);
+							});
+						}else{
+							alert("启用失败");
+						}
+					},
+			error : function(){
+						alert("启用失败");
+					}
+		});
+	}
+});
+
+})(jQuery);
+</script>
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action="./?controller=channels&action=saveuserchannel">
+  <table cellspacing='1' cellpadding='3' id='list-table'>
+	<tr>
+	<th>总代</th>
+	<th colspan="{$count}">频道分配</th>
+	</tr>
+	{foreach from=$agents item=agent key=k}
+	<tr>	
+	<td class="narrow-label" style='width:80px'>{$agent.username}</td>
+	{foreach from=$channels item=channel key=s}
+	<td align="center"><label for="userchannel{$agent.userid}_{$channel.id}"><!--<input type="checkbox" id="userchannel{$agent.userid}_{$channel.id}" name="userchannel[{$agent.userid}][{$channel.id}]" value="1" {if isset($Userchannel.$agent.userid.$channel.id)}{if $Userchannel.$agent.userid.$channel.id==0}checked="checked"{/if}{/if}>-->{$channel.channel}</label>&nbsp;
+	(<span>{if isset($Userchannel.$agent.userid.$channel.id)}
+		{if $Userchannel.$agent.userid.$channel.id==0}<font color='#669900'>启用中</font> [<a href='javascript:' style='color:#A0A0A0' id="{$agent.userid}|{$channel.id}" name="closechannel">禁用</a>]{else}<font color='red'>禁用中</font> [<a href='javascript:' style='color:#A0A0A0' id="{$agent.userid}|{$channel.id}" name="openchannel">启用</a>]{/if}
+	{else}<a href='javascript:' style='color:#A0A0A0' id="{$agent.userid}|{$channel.id}" name="activechannel">激活频道</a>{/if}</span> )</td>
+	{/foreach}
+	</tr>
+	{foreachelse}
+	<tr>
+	<td></td>
+	<td class="no-records" colspan="{$count}">当前没有总代或者域名分配</td>
+	</tr>
+	{/foreach}
+    <!--
+	<tr>
+	<td>&nbsp;</td>
+	<td colspan="{$count}"><input type="submit" class="button" value="保存频道分配"></td>
+	</tr>-->
+  </table>
+</form>
+</div>
+<script type="text/javascript">
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#EEF8F9';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{include file="pagefooter.html"}

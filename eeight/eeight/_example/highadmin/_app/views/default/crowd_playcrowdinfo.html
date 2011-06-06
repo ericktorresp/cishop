@@ -1,0 +1,89 @@
+{include file="pageheader.html"}
+<script language="javasctipt" type="text/javascript" src="./js/jquery.js"></script>
+<script>		
+jQuery(document).ready(function() {
+    $(".methodgrouptitle").css("line-heigth",$(".methodgroup").height()+"px");
+    $(".methodgroup").html();
+    var lotteryid = $(".lotterysel").val();
+    $("div[id^='grounp_lottery_']").hide();
+    $("#grounp_lottery_"+lotteryid).show();
+    $(".lotterysel").change(function(){
+        $(".methodgroup").html();
+        var lotteryid = $(this).val();
+        $("div[id^='grounp_lottery_']").hide();
+        $("#grounp_lottery_"+lotteryid).show();
+    });
+	$("#crowdform").submit(function(){
+	    if($("#crowdname").val()==''){
+	        alert('玩法群名称不能为空');
+	        return false;
+	    }
+	});
+});
+</script>
+<div class="list-div" id="listDiv">
+<form id="crowdform" action="./?controller=crowd&action={$action}&lotteryId={$lotteryId}" method="post">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td class="narrow-label">游戏名称</td>
+<td>
+{if $action == 'editplaycrowd'}
+{$aCrowd.cnname|escape:html}
+{else}
+<select class="lotterysel" name="lotteryid">
+{foreach from=$aLottery item=lottery key=k}
+<option value="{$lottery.lotteryid}">{$lottery.cnname}</option>
+{/foreach}
+</select>
+{/if}
+</td>
+</tr>
+<tr>
+<td class="narrow-label">玩法群名称</td>
+<td>
+<input size=30 type="text" name="crowdname" id="crowdname" value="{$aCrowd.crowdname}">
+</td>
+</tr>
+<tr>
+<td class="methodgrouptitle" align="right" style="padding-right:10px;"><b>彩种玩法组</b></td>
+<td class="methodgroup">
+{if $action == 'editplaycrowd'}
+{foreach from=$aMethodGroup item=methodgroup key=k}
+<div style="float:left;width:120px;">
+<input type="checkbox" {if $methodgroup.crowdid == $aCrowd.crowdid} checked {/if} name="methodgroupid[]" id="methodgroupid[]" value="{$methodgroup.methodid}">{$methodgroup.methodname}
+</div>
+{if ($k+1)%5 == 0}<br>{/if}
+{foreachelse}
+没有相关数据
+{/foreach}
+{else}
+{foreach from=$aLastGroup item=lastgroup key=i}
+<div id="grounp_lottery_{$i}"{if $i==1} style="display:block"{else} style="display:none" {/if}>
+{foreach from=$lastgroup item=methodgroup key=k}
+<div style="float:left;width:120px;">
+<input type="checkbox" name="methodgroupid[]" id="methodgroupid[]" value="{$methodgroup.methodid}">{$methodgroup.methodname}
+</div>
+{if ($k+1)%5 == 0}<br>{/if}
+{foreachelse}
+没有相关数据
+{/foreach}
+</div>
+{foreachelse}
+没有相关数据
+{/foreach}
+{/if}
+</td>
+</tr>
+<tr>
+<td class="narrow-label"></td>
+<td>
+{if $action == 'editplaycrowd'}
+<input type="hidden" name="crowdid" id="crowdid" value="{$aCrowd.crowdid}" />
+<input type="hidden" name="lotteryid" id="lotteryid" value="{$aCrowd.lotteryid}" />
+{/if}
+<input type="submit" class="button" value="{if $action == 'editplaycrowd'}修改{else}增加{/if}玩法群"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

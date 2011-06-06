@@ -1,0 +1,232 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery("#sdate").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			showsTime: true
+		});
+		jQuery("#sdate").change(function(){
+			if(!validateInputDate(jQuery("#sdate").val()))
+			{
+				jQuery("#sdate").val('{$sdate|escape:html}');
+				alert("时间格式不正确,正确的格式为:2009-06-10 10:59");
+			}
+		});
+		jQuery("#edate").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#edate").change(function(){
+			if(!validateInputDate(jQuery("#edate").val()))
+			{
+				jQuery("#edate").val('{$edate|escape:html}');
+				alert("时间格式不正确,正确的格式为:2009-06-10 10:59");
+			}
+		});
+		jQuery("#usdate").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#usdate").change(function(){
+			if(!validateInputDate(jQuery("#usdate").val()))
+			{
+				jQuery("#usdate").val('{$usdate|escape:html}');
+				alert("时间格式不正确,正确的格式为:2009-06-10 10:59");
+			}
+		});
+		jQuery("#uedate").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#uedate").change(function(){
+			if(!validateInputDate(jQuery("#uedate").val()))
+			{
+				jQuery("#uedate").val('{$uedate|escape:html}');
+				alert("时间格式不正确,正确的格式为:2009-06-10 10:59");
+			}
+		});
+	});
+</script>
+<div class="form-div">
+<FORM name="searchForm" action="" METHOD='get'>
+    <input type='hidden' name="controller" value="user"/>
+    <input type='hidden' name="action" value="ranklist"/>
+
+
+    <img src="./images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" /> 
+用户名: <input type="text" name="username" style="width:130px;background-color:#FFF;color:#000" value="{$username|escape:html}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+总代: 
+<select name="agent" style="width:86px;background-color:#FFF;color:#000">
+<option value="0">全部</option>
+{foreach from=$users item=user key=k}
+<option value="{$user.userid}" {if $agent==$user.userid}selected="selected"{/if}>{$user.username|escape:html}</option>
+{/foreach}
+</select>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+星级代理: <select name="rank" style="background-color:#FFF;color:#555">
+<option value="0">全部星级</option>
+<option value="1" {if $rank==1}selected="selected"{/if}>一星代理</option>
+<option value="2" {if $rank==2}selected="selected"{/if}>二星代理</option>
+<option value="3" {if $rank==3}selected="selected"{/if}>三星代理</option>
+<option value="4" {if $rank==4}selected="selected"{/if}>四星代理</option>
+<option value="5" {if $rank==5}selected="selected"{/if}>五星代理</option>
+</select>&nbsp;&nbsp;<input style='margin-left:20px' type="submit" value=" 开始查询 " class="button" />
+<a href="javascript:showNotice('noticeSearch');" title="帮助信息"><img src="./images/notice.gif" width="16" height="16" border="0" title="帮助信息"></a>
+<div style='padding: 5px 20px 2px 29px;'/>
+评星开始时间: <input type="text" id="sdate" name="sdate" size='17' value='{$sdate|escape:html}' maxlength="16" /> <img src="./images/calendar2.gif"> &nbsp;&nbsp;
+截止时间: <input type="text"id="edate" name="edate"  size='17' value='{$edate|escape:html}'  maxlength="16" /> <img src="./images/calendar2.gif" />&nbsp;&nbsp;<br/>
+评星更新时间: <input type="text" id="usdate" name="usdate" size='17' value='{$usdate|escape:html}'  maxlength="16"  /> <img src="./images/calendar2.gif"> &nbsp;&nbsp;
+截止时间: <input type="text"id="uedate" name="uedate"  size='17' value='{$uedate|escape:html}'  maxlength="16" /> <img src="./images/calendar2.gif" />&nbsp;&nbsp;&nbsp;&nbsp;
+
+ 
+<br />
+
+<span class="notice-span" style='line-height:18px;padding:8px 0px 2px 20px;color:#669900' 
+id="noticeSearch">查看用户星级:<br/><li>用户名称：支持*号。</li></span>
+</div>
+</FORM>
+</div>
+<div class="list-div" id="listDiv">
+<form>
+<table>
+<tr>
+<th width="10%">用户名</th>
+<th width="10%">所属组</th>
+<th width="10%">代理星级</th>
+<th width="12%">评星时间</th>
+<th width="12%">更新时间</th>
+	<th colspan="2">下级用户星级列表</th>
+</tr>
+{foreach from=$s item=s1 key=k}
+<tr>
+<td rowspan="5" align="center"><a TITLE='查看下级' href="?controller=user&action=ranklist&userid={$k}">{$s1.username|escape:html}</a></td>
+<td rowspan="5" align="center">{$s1.groupname|escape:html}</td>
+<td rowspan="5" align="center">{$s1.userrank|default:<font color=#b0b0b0>----</font>}</td>
+<td rowspan="5" align="center">{$s1.rankcreatetime|default:<font color=#b0b0b0>----</font>}</td>
+<td rowspan="5" align="center">{$s1.rankupdate|default:<font color=#b0b0b0>----</font>}</td>
+<td width="6%" align="center"> 一星({$s1.count.1|default:0}) </td>
+<td>&nbsp;{foreach from=$s1.rank.1 item=u key=kk}{$u}&nbsp;{/foreach}</td>
+</tr>
+<tr>
+<td width="5%" align="center">二星({$s1.count.2|default:0})</td>
+<td>&nbsp;{foreach from=$s1.rank.2 item=u key=kk}{$u}&nbsp;{/foreach}</td>
+</tr>
+<tr>
+<td width="5%" align="center">三星({$s1.count.3|default:0})</td>
+<td>&nbsp;{foreach from=$s1.rank.3 item=u key=kk}{$u}&nbsp;{/foreach}</td>
+</tr>
+<tr>
+
+<td width="5%" align="center">四星({$s1.count.4|default:0})</td>
+<td>&nbsp;{foreach from=$s1.rank.4 item=u key=kk}{$u}&nbsp;{/foreach}</td>
+</tr>
+<tr>
+<td width="5%" align="center">五星({$s1.count.5|default:0})</td>
+<td>&nbsp;{foreach from=$s1.rank.5 item=u key=kk}{$u}&nbsp;{/foreach}</td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="7" class="no-records">无相关数据</td>
+</tr>
+{/foreach}
+<tr>
+<td colspan="7" align="right">{$pages}</td>
+</tr>
+</table>
+</form>
+</div>
+
+<script language="JavaScript">
+{literal}
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+{/literal}
+</script>
+{include file="pagefooter.html"}

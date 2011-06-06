@@ -1,0 +1,47 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+    var tb_pathToImage = "{$sSystemImagesAndCssPath}/images/loading.gif";
+</script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/dialog/jquery.thickbox.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/js/dialog/thickbox.css" type="text/css" />
+<script type="text/javascript">
+function RefreshMsglist()
+{
+	jQuery("#showmsglist").load("./index.php?controller=default&action=usermsg");
+}
+</script>
+
+
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%" id="showmsglist">
+<table width="100%" border="0" cellspacing="1" cellpadding="4">
+
+
+    <tr>
+      <td height="43" align="center">消息标题</td>
+      <td align="center">消息类型</td>
+      <td align="center">发送时间</td>
+      <td align="center">操作</td>
+    </tr>    <tr>
+      <td height="5" colspan="4" align="center"></td>
+      </tr>
+    {foreach from=$msgs item=msg key=k}
+    <tr>
+        <td align="center" bgcolor="#CCCCCC" height="37">{$msg.subject}</td>
+        <td align="center" bgcolor="#CCCCCC">{$msg.title}</td>
+        <td align="center" bgcolor="#CCCCCC">{$msg.sendtime}</td>
+        <td align="center" bgcolor="#CCCCCC"><a href="./index.php?controller=default&action=usermsg&mid={$msg.entry}&height=300&width=400" title="消息">阅读</a></td>
+    </tr>
+    {/foreach}
+  </table>
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+{include file="pagefooter.html"}

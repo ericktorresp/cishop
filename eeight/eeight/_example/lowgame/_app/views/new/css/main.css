@@ -1,0 +1,425 @@
+@CHARSET "UTF-8";
+html{overflow-y:scroll;}
+*{
+	font-size:12px;
+}
+form {
+  margin: 0px;
+  padding: 0px;
+}
+input, textarea, select {
+  font: 12px "courier new";
+  vertical-align:middle;
+}
+ul{
+	list-style-type: none;
+}
+body{
+	background-color: #585858;
+	margin:0;
+	font-family: "微软雅黑" , Arial , "Microsoft Sans Serif" ,  "宋体";
+	padding:0;
+	clear:both;
+}
+img{
+	border:0px;	
+    vertical-align: middle;
+}
+a{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+a:hover{
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+.green{
+	color:#00FF00;
+	background-color: #330000;
+	padding: 2px;
+}
+.buttonnormal{
+	margin: 3px 5px 3px 0;
+	height: 27px;
+	width: 80px;
+	border:0px;
+	color:#FFF;
+	font-weight:bold;
+	text-align: center;
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/botton.png);
+	background-position: -287px -45px;
+	line-height: 27px;
+	background-color: #CCCCCC;
+	cursor:pointer;
+}
+/* 头部信息 */
+h1{
+	height:28px;
+	width:100%;
+	background:url({$sSystemImagesAndCssPath}/lowgame/images/newblue/right_01.jpg);
+	margin: 0;
+	padding:0px;
+	text-indent: 10px;
+	color: #FFFFFF;
+	text-align: left;
+	line-height: 28px;
+    overflow:hidden;
+    font-weight:normal;
+}
+/* 头部信息 尾部的快捷方式 */
+h1 .action-span{
+	float:right;
+	font-size: 14px;
+	margin: 3px 10px 3px 10px;
+}
+/* 头部信息尾部的快捷方式  */
+h1 .action-span a {
+  color: #000;
+  font-size: 13px;
+  text-decoration: none;
+  display:block;
+  text-align:center;
+  width:105px;
+  height:43px;
+  line-height:23px;
+  background:url({$sSystemImagesAndCssPath}/lowgame/images/newblue/botton.png);
+  background-position: -335px -135px;
+}
+/* 头部信息尾部的快捷方式的特效  */
+h1 .action-span a:hover {
+  color: #FFFFFF;
+  background:url({$sSystemImagesAndCssPath}/lowgame/images/newblue/botton.png);
+  background-position: -335px -107px;
+  text-decoration:none;
+}
+/* 头部信息 的当前位置 */
+h1 .action-span1{
+    color: #FFFFFF;
+    margin-top:5px;
+    margin-left:10px;
+    line-height:20px;	
+    float:left;
+    font-size: 14px;
+    text-indent: 10px;
+    font-weight:normal;
+    
+}
+h1 .gonggao{
+    color: #FFFFFF;
+    margin-top:5px;
+    margin-left:10px;
+    line-height:20px;	
+    float:left;
+    font-size: 14px;
+    text-indent: 10px;
+    font-weight:normal;
+    margin-left:200px;
+}
+h1 .action-span1 a{
+    color: #FFFFFF;
+    float:left;
+    font-size: 14px;
+    text-indent: 10px;
+    font-weight:normal;
+    padding-right:5px;
+    text-decoration:none;
+}
+.menu_01 {
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/menu_01.png);
+	background-repeat: no-repeat;
+	float: left;
+	height: 29px;
+	width: 4px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 2px;
+}
+.menu_02 {
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/menu_01.png);
+	float: left;
+	height: 29px;
+	line-height: 29px;
+	padding-right: 5px;
+	padding-left: 5px;
+	background-position: 0px -29px;
+	cursor:pointer;
+	background-color: #CCCCCC;
+}
+.menu_03 {
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/menu_01.png);
+	background-repeat: no-repeat;
+	float: left;
+	height: 29px;
+	width: 4px;
+	margin-top: 0px;
+	margin-right: 2px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	background-position: -5px 0px;
+}
+.menu_01a {
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/menu_01.png);
+	background-repeat: no-repeat;
+	float: left;
+	height: 29px;
+	width: 4px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 2px;
+	background-position: -10px 0px;
+}
+.menu_02a {
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/menu_01.png);
+	float: left;
+	height: 34px;
+	line-height: 29px;
+	padding-right: 5px;
+	cursor:pointer;
+	padding-left: 5px;
+	color: #FFFFFF;
+	background-repeat: no-repeat;
+	background-position: center -58px;
+	background-color: #333333;
+}
+.menu_03a {
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/menu_01.png);
+	background-repeat: no-repeat;
+	float: left;
+	height: 29px;
+	width: 4px;
+	margin-top: 0px;
+	margin-right: 2px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	background-position: -15px 0px;
+}
+/* 搜索区部分 */
+.list-div{
+	clear: both;
+	margin:0 auto;
+	background-color:#d5d8de;
+}
+.list-div .button{
+	width: 60px;
+	border: 0px solid #d5d8de;
+	background-color:#d5d8de;
+	margin-top:0px;
+	margin-top:5px !important;
+	cursor:pointer;
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/botton_33.jpg);
+	background-repeat:no-repeat;
+	height: 33px;
+}
+.list-div table {
+  width: 100%;
+}
+.list-div th {
+  color:#000;
+  background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/right_02.png);
+  background-position: 0px -44px;
+  background-repeat:repeat-x;
+  height:35px;
+  line-height:35px;
+  text-align: center;
+  border-bottom:1px solid #DED8DE;
+  border-right:1px solid #DED8DE;
+}
+.list-div td {
+  height:30px;
+  line-height:30px;
+  background:#CCCCCC;
+  border-bottom:1px solid #DED8DE;
+  border-right:1px solid #DED8DE;
+}
+.list-div td.first-cell{
+  font-weight: bold;
+  padding-left: 10px;
+}
+.list-div input {
+  vertical-align: middle;
+}
+.list-div a:visited, .list-div a:link {
+  text-decoration: underline;
+  color: #192E32;
+}
+.list-div a:hover {
+  color: #9D7250;
+}
+#page-table {
+  width: 100%;
+}
+#page-link {
+  margin-left: 1em;
+  padding-left: 1em;
+  border-left: 1px solid #999;
+}
+/*页脚样式*/
+.footer {
+	clear: both;
+	background-color:#d5d8de;
+	text-align: center;
+}
+.height51{
+    background-color:#d5d8de;
+	height: 5px;
+	clear: both;
+	overflow:hidden;
+}
+.height511{
+    background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/right_02.png);
+    background-position: 0px -44px;
+	height: 5px;
+	clear: both;
+	overflow:hidden;
+}
+.right_02_241{
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/right_02.png);
+	background-position: -74px -9px;
+	float: left;
+	height: 5px;
+	width: 5px;
+	overflow:hidden;
+}
+.right_02_251{
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/right_02.png);
+	background-position: -80px -9px;
+	float: right;
+	height: 5px;
+	width: 5px;
+	overflow:hidden;
+}
+.right_02_281{
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/right_02.png);
+	background-position: -74px -15px;
+	float: left;
+	height: 5px;
+	width: 5px;
+}
+.right_02_291{
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/right_02.png);
+	background-position: -80px -15px;
+	float: right;
+	height: 5px;
+	width: 5px;
+}
+.right_021 {
+	width:97%;
+	margin:0 auto;
+	padding:8px 0;
+	boder:1px solid #FF0000;
+	text-align: left;
+}
+.right_022 {
+	width:750px;
+	margin:0 auto;
+	margin-top:-6px;
+	text-align: left;
+}
+.right_02_02{
+	width:6px;
+	float:left;
+	height: 44px;
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/right_02.png);
+}
+.right_02_03{
+	float: left;
+	height:36px;
+	margin-top:8px;
+}
+.right_02_04{
+	width:6px;
+	float:right;
+	height: 44px;
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/right_02.png);
+	background-position: -7px 0px;
+}
+.floatleft{float: left;}
+.floatright{float: right;}
+#right_02_01{
+	width:100%;
+	margin-top:5px;
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/right_02.png);
+	background-position: 0px -44px;
+	clear: both;
+	background-repeat: repeat-x;
+	height: 44px;
+}
+/*公告*/
+.notice{
+    clear: both;
+	background-color:#d5d8de;
+	text-align: center;
+}
+.notice a{
+    color:#F00;
+}
+.notice td{
+   line-height:25px;
+}
+.notice01{
+	font-size: 14px;
+	line-height: 36px;
+	text-align: center;
+}
+.notice02{
+	line-height: 24px;
+	color: #999999;
+	text-align: center;
+	height: 24px;
+}
+.notice03{
+	background-color: #999999;
+	height: 1px;
+	margin:0 20px;
+	overflow:hidden;
+}
+.notice04{
+	line-height: 30px;
+	padding: 25px;
+	font-size:13px;
+	text-align: left;
+	overflow:hidden;
+}
+/*分页效果*/
+#tPages { padding:1px; }
+/*
+表单部分
+*/
+.notice-span {
+  display: none;
+  color: #666;
+}
+td{
+    padding:1px 10px;
+}
+td.label {
+  text-align: right;
+  vertical-align: top;
+  font-weight: bold;
+  padding: 5px 1em;
+  width: 30%;
+}
+
+td.narrow-label {
+  text-align: right;
+  vertical-align: top;
+  font-weight: bold;
+  padding: 5px 1em;
+  width: 17%;
+}
+
+td.micro-label {
+  text-align: right;
+  vertical-align: top;
+  font-weight: bold;
+  padding: 5px 1em;
+  width: 127px;
+  *width: 150px;
+}
+/*帮助信息*/
+.help{
+	background-color:#d5d8de;
+	padding:3px 15px;
+}

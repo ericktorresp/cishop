@@ -1,0 +1,131 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+<script type="text/javascript">
+	jQuery("#loadhtml").hide();	//去掉loading界面
+	jQuery(document).ready(function() {		
+		jQuery("#ordertime_min").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#ordertime_max").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#helpimg").click(function(){
+			jQuery("#helpnotice").toggle();
+		});
+	});
+	
+function checkForm(obj)
+{
+	if( jQuery.trim(obj.ordertime_min.value) != "" )
+	{
+		if( false == validateInputDate(obj.ordertime_min.value) )
+		{
+			alert("时间格式不正确");
+			obj.ordertime_min.focus();
+			return false;
+		}
+	}
+	if( jQuery.trim(obj.ordertime_max.value) != "" )
+	{
+		if( false == validateInputDate(obj.ordertime_max.value) )
+		{
+			alert("时间格式不正确");
+			obj.ordertime_max.focus();
+			return false;
+		}
+	}
+}
+</script>
+<div class="list-Form">
+<form action="index.php" method="get" name="search" onsubmit="return checkForm(this)">
+<input type="hidden" name="controller" value="report" />
+<input type="hidden" name="action" value="bankreport" />
+        		{if $hassearch>0}用户名：<input type="text" name="username" value="{$searchdata.username|escape:html}" size="10" />&nbsp;{/if}
+        		类型：	<select name="ordertype">
+                		<option value="0">所有类型</option>
+                		{foreach from=$ordertypes item=ordertype key=sk}
+                			<option value="{$ordertype.id}" {if $searchdata.ordertype==$ordertype.id}selected="selected"{/if}>{$ordertype.cntitle}</option>
+                        {/foreach}
+                        </select>
+               <input type="text" size="18" name="ordertime_min" id="ordertime_min" value="{$searchdata.ordertime_min}" /><img src="./images/calendar2.gif" id="time_min_button" /> 至 <input type="text" size="18" name="ordertime_max" id="ordertime_max" value="{$searchdata.ordertime_max}" /><img src="./images/calendar2.gif" />&nbsp;&nbsp;
+               {$searchdata.range}
+               <input type="submit" name="submit" value="查询" />&nbsp;&nbsp;&nbsp;&nbsp;<br />
+               <div style="margin-top:10px;"><input type="hidden" name="lntype" id="lntype" value="" />
+               <input type="submit" name="submit" value="上级充值" onclick="document.getElementById('lntype').value='sjcz';" />&nbsp;&nbsp;
+               <input type="submit" name="submit" value="为下级充值" onclick="document.getElementById('lntype').value='xjcz';" />&nbsp;&nbsp;
+               <input type="submit" name="submit" value="本人提现" onclick="document.getElementById('lntype').value='brtx';" />&nbsp;&nbsp;
+               <input type="submit" name="submit" value="下级提现" onclick="document.getElementById('lntype').value='xjtx';" />&nbsp;&nbsp;
+               <!-- input type="submit" name="submit" value="在线充值" onclick="document.getElementById('lntype').value='zxcz';" > &nbsp;&nbsp;
+               <input type="submit" name="submit" value="在线提现" onclick="document.getElementById('lntype').value='zxtxkk';" >&nbsp;&nbsp;-->
+               <a href="#" id="helpimg" style="text-decoration:none; color:#000000;"><img src="../../../images/notice.gif" style="cursor:pointer; border:0;" />小提示</a></div>
+</form>
+</div>
+<div class="list-Form" style="line-height:22px; padding-left:10px; display:none;" id="helpnotice">
+<span style="color:#00CC00;"><strong>小提示：</strong></span><br />
+<strong>上级充值：</strong>&nbsp;&nbsp;&nbsp;&nbsp;上级给您的所有充值帐变<br />
+<strong>为下级充值：</strong>&nbsp;您给直接和非直接下级的所有充值帐变<br />
+<strong>本人提现：</strong>&nbsp;&nbsp;&nbsp;&nbsp;您向上级发起的所有提现帐变<br />
+<strong>下级提现：</strong>&nbsp;&nbsp;&nbsp;&nbsp;下级向您发起的所有提现帐变<br />
+<!--
+<strong>在线充值：</strong>&nbsp;&nbsp;&nbsp;&nbsp;您发起并完成的在线充值帐变<br />
+<strong>在线提现：</strong>&nbsp;&nbsp;&nbsp;&nbsp;您发起的并完成扣款的提现帐变<br /> 
+-->
+</div>
+<div class="list-div" id="listDiv">
+<table class="list-table">
+	<tr>
+    	<th>帐变编号</th>
+        <th>用户名</th>
+        <th>时间</th>
+        <th>类型</th>
+        <th>收入</th>
+        <th>支出</th>
+        <th>银行余额</th>
+        <th>状态</th>
+        <th>备注</th>
+    </tr>
+    {foreach from=$orders item=order key=k}
+    <tr>
+    	<td align="center">{$order.orderno}</td>
+        <td align="center">{$order.username|escape:html}</td>
+        <td align="center">{$order.times}</td>
+        <td align="center">{$order.cntitle|escape:html}</td>
+        <td align="center">{if $order.operations>0}<font color="#669900">+{$order.amount|escape:money}</font>{else}&nbsp;{/if}</td>
+        <td align="center">{if $order.operations==0}<font color="#FF3300">-{$order.amount|escape:money}</font>{else}&nbsp;{/if}</td>
+        <td align="center">{$order.availablebalance|escape:money}</td>
+        <td align="center">{if $order.transferstatus == 1}失败{elseif $order.transferstatus == 3}失败{else}成功{/if}</td>
+        <td align="center">{if $order.allowdec == 1}{$order.description}{else}<font color='#D0D0D0'>-----</font>{/if}</td>
+    </tr>
+    {/foreach}
+    <tr>
+    	<td align="left" colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;小结: 本页变动金额: <span style="font-size:14px; font-weight:bold; color:#FF0000;">{$icount.left|escape:money}</span> </td>
+        <td align="center"><font color="#669900"><strong>+{$icount.in|escape:money}</strong></font></td>
+        <td align="center"><font color="#FF3300"><strong>-{$icount.out|escape:money}</strong></font></td>
+        <td align="center">&nbsp;</td>
+        <td align="center">&nbsp;</td>
+        <td align="center">&nbsp;</td>
+    </tr>
+    <tr><td colspan="9" align="right" height="30">{$page}</td></tr>
+</table>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,84 @@
+{include file="pageheader.html"}
+<style type="text/css">
+.d {
+	font-size:16px; line-height:22px; color:#006699;
+}
+
+</style>
+<div class="list-div" id="listDiv">
+<table cellspacing='2' cellpadding='5' id='list-table'>
+<tr>
+	<td class="narrow-label">支付接口名称:</td>
+	<td><span class=d>{$PayAccountDetail.payport_name}</span> &nbsp; &nbsp; (别名:<span class=d>{$PayAccountDetail.payport_nickname}</span>)
+	</td>
+</tr>
+<tr>
+	<td class="narrow-label">财务识别名称:</td>
+	<td class=d>{$PayAccountDetail.acc_name|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">账户注册时间:</td>
+	<td class=d>{$PayAccountDetail.reg_time}</td>
+</tr>
+<tr>
+	<td class="narrow-label">商家ID:</td>
+	<td class=d>{$PayAccountDetail.acc_ident|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">商家KEY:</td>
+	<td class=d>{$PayAccountDetail.acc_key|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">商家SITEID:</td>
+	<td class=d>{$PayAccountDetail.acc_siteid|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">商家EMAIL:</td>
+	<td class=d>{$PayAccountDetail.acc_mail|escape:html}</td>
+</tr>
+
+<tr>
+	<td class="narrow-label">货币单位:</td>
+	<td class=d>{$PayAccountDetail.acc_currency|escape:html}</td>
+</tr>
+<!-- 
+<tr>
+	<td class="narrow-label">流量限制值:</td>
+	<td class=d>{$PayAccountDetail.balance_limit|escape:money}</td>
+</tr>
+
+<tr>
+	<td class="narrow-label">账户有效时间:</td>
+	<td class=d>{if $PayAccountDetail.open_time != 0}从{$PayAccountDetail.open_time}起算{/if} {$PayAccountDetail.valid_time}个月</td>
+</tr>
+-->
+<tr>
+	<td class="narrow-label">API网络参数:</td>
+	<td>回传接收域名:<span class=d>{$PayAccountDetail.acc_receive_host|escape:html}</span></td>
+</tr>
+
+<tr>
+	<td class="narrow-label">状态:</td>
+	<td>{if $PayAccountDetail.isenable == 0 }<font color=red>未激活</font>{elseif $PayAccountDetail.isenable == 1}<font color=green>已激活</font>{elseif $PayAccountDetail.isenable == 9}<font color=blue>暂停中</font>{else}<font color=gray>已删除</font>{/if}</td>
+</tr>
+
+<tr>
+	<td class="narrow-label">
+	可使用接口功能:</td>
+	<td>
+	 {if $PayAccountDetail.payport_attr_load == 1}充值&nbsp;{/if} 
+	 {if $PayAccountDetail.payport_attr_draw == 2}提现&nbsp;{/if}
+	 {if $PayAccountDetail.payport_attr_drawlist == 4}批量提现&nbsp;{/if}
+	 {if $PayAccountDetail.payport_attr_drawhand == 16}人工提现&nbsp;{/if}
+	 {if $PayAccountDetail.payport_attr_ques == 8}查询{/if}
+	</td>
+</tr>
+
+<tr>
+	<td class="narrow-label">&nbsp;</td>
+	<td><input type="button" class="button" value="返回列表" onclick="location.href='?controller=payportmgr&action=list';"></td>
+</tr>
+</table>
+</div>
+
+{include file="pagefooter.html"}

@@ -1,0 +1,134 @@
+{include file="pageheader.html"}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/jquery.impromptu.2.6.min.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/css/impromptu.css" type="text/css" />
+
+<style type="text/css">
+/*
+ 标签部分的样式
+ */
+.menu_01a {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/menu_01.png);
+	background-repeat: no-repeat;
+	float: left;
+	height: 29px;
+	width: 4px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 2px;
+	background-position: -10px 0px;
+}
+.menu_02a {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/menu_01.png);
+	float: left;
+	height: 34px;
+	line-height: 29px;
+	padding-right: 5px;
+	padding-left: 5px;
+	color: #FFFFFF;
+	background-repeat: no-repeat;
+	background-position: center -58px;
+	background-color: #333333;
+}
+.menu_03a {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/menu_01.png);
+	background-repeat: no-repeat;
+	float: left;
+	height: 29px;
+	width: 4px;
+	margin-top: 0px;
+	margin-right: 2px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	background-position: -15px 0px;
+}
+.menu_01 {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/menu_01.png);
+	background-repeat: no-repeat;
+	float: left;
+	height: 29px;
+	width: 4px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 2px;
+}
+.menu_02 {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/menu_01.png);
+	float: left;
+	height: 29px;
+	line-height: 29px;
+	padding-right: 5px;
+	padding-left: 5px;
+	background-position: 0px -29px;
+	background-color: #CCCCCC;
+}
+.menu_03 {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/menu_01.png);
+	background-repeat: no-repeat;
+	float: left;
+	height: 29px;
+	width: 4px;
+	margin-top: 0px;
+	margin-right: 2px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	background-position: -5px 0px;
+}
+</style>
+
+<div class="right_02 d5d8de">
+<div id="right_02_01" style="height:44px;">
+<div class="right_02_02"></div>
+<div class="right_02_03">
+<div class="title01">
+        <span class="tab-front"  id="general_tab_0">
+		  <span class="menu_01a"></span>
+		  <span class="menu_02a">在线充值</span>
+		  <span class="menu_03a"></span>
+		</span>
+			<span class="tab-back"  id="general_tab_1">
+		  <span class="menu_01"></span>
+
+		  <span class="menu_02" onClick="self.location.href='index.php?controller=security&action=onlineloadhistory'">在线充值记录</span>
+		  <span class="menu_03"></span>
+		</span>
+
+</div>
+</div>
+<div class="right_02_04 floatright"></div>
+</div>
+
+
+<table  width="100%" cellpadding="0" cellspacing="1">
+  <tr align=center>
+  	<td height="37" bgcolor="#999999">充值方式</td>
+    <td bgcolor="#999999">币种</td>
+    <td bgcolor="#999999">到帐时间</td>
+    <td bgcolor="#999999">最低充值额(单笔)</td>
+    <td bgcolor="#999999">最高充值额(单笔)</td>
+    <td bgcolor="#999999">充值操作</td>
+  </tr>
+
+{foreach from=$Payportlist item=pay key=ipk}
+<tr align="center">
+<td height="37" bgcolor="#CCCCCC"><span class="intro">{$pay.payport_nickname|escape:html}</span>
+<input type="hidden" id="paymentname_{$pay.id}" value="{$pay.payport_nickname|escape:html}">
+<input type="hidden" id="payamountmin_{$pay.id}" value="{$pay.load_limit_min_per|escape:money}">
+<input type="hidden" id="payamountmax_{$pay.id}" value="{$pay.load_limit_max_per|escape:money}"></td>
+<td bgcolor="#CCCCCC">{$pay.currencycn}</td>
+<td bgcolor="#CCCCCC">{$pay.load_time_note|escape:html}</td>
+<td bgcolor="#CCCCCC">{$pay.load_limit_min_per|escape:money} {$pay.currencyunit}</td>
+<td bgcolor="#CCCCCC">{$pay.load_limit_max_per|escape:money} {$pay.currencyunit}</td>
+<td width="120" bgcolor="#CCCCCC"><a href="?controller=security&action=onlineload&flag=startload&transtype={$pay.aid}" title="立即充值" target="_self"><img src="{$sSystemImagesAndCssPath}/images/paymentin.jpg" border="0" alt="立即充值"></a></td>
+</tr>
+{/foreach}
+
+</table>
+
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div></div>
+{include file="pagefooter.html"}

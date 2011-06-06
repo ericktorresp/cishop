@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$webtitle} {$systemversions}</title>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/lowgame/css/new/top.css" type="text/css" />
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/bluejs/top_button/interface.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/bluejs/top_button/top.js"></script>
+<script language="javascript" type="text/javascript">
+jQuery(document).ready(function(){
+    jQuery("#mainbox").height( jQuery(document).height()-jQuery("#topbox").height() );
+    jQuery("#leftbox").height( jQuery("#mainbox").height() );
+    jQuery(window).resize(function(){
+        jQuery("#mainbox").height( jQuery(document).height()-jQuery("#topbox").height() );
+        jQuery("#leftbox").height( jQuery("#mainbox").height() );
+    });
+    {if !empty($notice) }
+    changecolor();
+    {/if}
+});
+function gotolink(string){
+    $.each($("#leftframe").contents().find(".menu_04_04"),function(){
+        if($(this).find("a").html() == string){
+            $("#leftframe").contents().find(".menu_04_041").removeClass('menu_04_041');
+            $("#leftframe").contents().find(".menu_05_05").removeClass('menu_05_05');
+            $(this).parent().addClass('menu_04_041');
+        }
+    });
+}
+function changecolor(){
+  var node  = document.getElementById("top_notice");//#33FF33
+  str = node.style.color.toLowerCase();
+  node.style.color = str == "#ffff00" || str == "rgb(255, 255, 0)" ? "#FF0000" : "#FFFF00";  
+  setTimeout("changecolor()",600);  
+}
+</script>
+</head>
+<body>
+<style>
+    html,body {overflow:hidden} 
+</style>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" style="height:100%;">
+    <tr>
+        <td colspan="2" style="background-color:#CCCCCC;" id="topbox">
+        <!--顶部消息-->
+            <div id="header-div">
+              <div id="logo-div"><img src="{$sSystemImagesAndCssPath}/lowgame/images/newblue/new_top_logo.jpg"  style="cursor: pointer;position:absolute;z-index:0;"/></div>
+              <div class="logo-div" onclick="javascript:window.top.location='./index.php';"><img src="{$sSystemImagesAndCssPath}/lowgame/images/newblue/new_logo.jpg" title="返回首页"/></div>
+              <div class="dock" id="dock">
+                <div class="dock-container">
+				  {if $istester > 0}
+				  <script language="javascript" type="text/javascript" src="http://hxxp.us/client.php?key=L52A9BF4V2572274AMA1E4A3C&client_nickname={$username}"></script>
+  			  <a class="dock-item"><div id='liveadmin'></div><span>客服</span></a>
+				  {/if}
+                    <a class="dock-item" href="../" target="_top" ><img src="{$sSystemImagesAndCssPath}/lowgame/images/newblue/botton_12.png" alt="home" /><span>银行</span></a>
+                    {if !empty($channel) }
+                        {foreach from=$channel.0 item=ch key=k}
+                            {foreach from=$channel.$k item=child key=m}
+                                <a class="dock-item" href="..{$child.path}" target="_top"><img src="{$sSystemImagesAndCssPath}/lowgame/images/newblue/botton_22_0{$m}.png"/><span>{$child.channel}</span></a>
+                            {/foreach}
+                        {/foreach}
+                    {/if} 
+                    <a class="dock-item" href="./?controller=security&action=tran" target="mainframe" onclick="gotolink('频道转账')"><img src="{$sSystemImagesAndCssPath}/lowgame/images/newblue/botton_14.png"/><span>转帐</span></a> 
+                    <a class="dock-item" href="./?controller=help&action=playinfo" target="mainframe" onclick="gotolink('玩法介绍')"><img src="{$sSystemImagesAndCssPath}/lowgame/images/newblue/botton_15.png"/><span>玩法介绍</span></a> 
+                    <a class="dock-item" href="./?controller=help&action=answer" target="mainframe" onclick="gotolink('常见问题')"><img src="{$sSystemImagesAndCssPath}/lowgame/images/newblue/botton_23.png"/><span>常见问题</span></a> 
+                    <a class="dock-item" href="javascript:window.top.frames['mainframe'].document.location.reload();"><img src="{$sSystemImagesAndCssPath}/lowgame/images/newblue/botton_25.png"/><span>刷新页面</span></a> 
+                    {* <a class="dock-item" href="./?controller=default&action=changestyle&skin=default" target="mainframe"><img src="$sSystemImagesAndCssPath/lowgame/images/newblue/botton_03.png"/><span>风格设置</span></a> *}
+                    <a class="dock-item" href="../?controller=default&action=logout" onClick="javascript:readyCloseOCSWin();" target="_top"><img src="{$sSystemImagesAndCssPath}/lowgame/images/newblue/botton_20.png"/><span>退出</span></a>
+                    <script type="text/javascript">
+			  		function readyCloseOCSWin()
+			  		{
+			  			if ( document.getElementById("livechatbutton") != null)
+			  			{
+			  				subWindow.close();
+			  			}
+					}
+			  		</script>
+                </div>
+               </div>
+            </div>
+        <!--顶部消息结束-->
+        </td>
+    </tr>
+    <tr>
+        <td style="width:190px;height:100%; background: #006082;" valign="top" id="leftbox">
+        <!--左侧菜单-->
+        <iframe name="leftframe" id="leftframe" frameborder="0" width="100%" height="100%" scrolling="auto" style="overflow:visible;" src="./index.php?controller=default&action=menu"></iframe>
+        <!--左侧菜单结束-->
+        </td>
+        <td id="mainbox" valign="top">
+        <!--内容主窗口-->
+        <iframe name="mainframe" id="mainframe" frameborder="0" width="100%" height="100%" scrolling="auto" style="overflow:visible;" src="./index.php?controller=default&action=start"></iframe>
+        </td>
+    </tr>
+</table>
+<div id="otherwindow" class="floatdiv">
+    {if $istester > 0}
+    <div style="height:51px;float:left;line-height:51px;color:#FFFF00;font-size:16px;text-align:right; font-weight:bold; border:0px;"><img src="{$sSystemImagesAndCssPath}/lowgame/images/newblue/header_test.jpg" title="测试帐户" border="0"/>
+    </div>
+    {/if}
+</div>
+<div class="gonggaodiv">
+    {if !empty($notice) }
+    <div style="height:48px;float:left;line-height:48px;color:#FFFF00;font-size:16px;text-align:left; font-weight:bold;">
+    <a href="./?controller=default&action=start" target="mainframe" id="top_notice">{$notice.subject|escape:html}</a>
+    </div>
+    {/if}
+</div>
+</body>
+</html>

@@ -1,0 +1,241 @@
+{include file="pageheader.html"}
+<LINK href="./css/label.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="./js/city.js"></script>
+<script type="text/javascript">
+function checkForm(obj)
+{
+	if (obj.real_money.value == ""){
+		alert("您忘记了填写提现金额！");
+		obj.real_money.focus();
+		return false;
+	}
+	if(obj.real_money.value < {$drawlimitminper})
+	{
+		alert("提现金额不能低于最低提现限额 ");
+		$("#real_money").val({$drawlimitminper});
+		showPaymentFee({$drawlimitminper});
+		return false;
+	}
+	
+	/*if(obj.real_money.value > {$drawlimitmaxper})
+	{
+		alert("提现金额不能高于最高提现限额");
+		$("#real_money").val({$drawlimitmaxper});
+		getCharge();
+		obj.real_money.focus();
+		return false;
+	}*/
+	
+	if( obj.money.value <= 0 )
+	{
+		alert("对不起，您的到账金额不能小于等于零");
+		return false;
+	}
+	
+	if( obj.bankinfo.value == "" )
+	{
+		alert("您忘记了选择银行卡信息");
+		return false;
+	}
+}
+
+/* display fee on table */
+function showPaymentFee(i){
+	var drawfeemin = {$drawfeemin};
+	var drawfeemax = {$drawfeemax};
+	var chargeType = {$pay_deduct_in_mode}; // 手续费扣取方式
+	var AccountMoney;
+	var realWithdraw;
+	
+	checkOnlineWithdraw(document.drawform.real_money,{$maxamount});
+	var real_money = document.getElementById("real_money").value;
+	var fee = parseFloat( FormatNumber( paymentFee(real_money) ,2) );
+	if (fee < {$drawfeemin}){
+		fee = {$drawfeemin};
+	}
+	if (fee > {$drawfeemax}){
+		fee = {$drawfeemax};
+	}
+	
+	if (chargeType == 1){ // 内扣
+		realWithdraw = real_money; // 实扣金额
+		AccountMoney = parseFloat(real_money) - parseFloat(fee); // 到账金额
+	} else { // 外扣
+		realWithdraw = parseFloat(real_money) + parseFloat(fee); // 实扣金额
+		AccountMoney = real_money; // 到账金额
+		}
+		if (parseFloat(AccountMoney) <= 0 || isNaN(AccountMoney) || isNaN(realWithdraw)){
+			AccountMoney = 0;
+			realWithdraw = 0;
+			fee = 0;
+		}
+		
+		document.getElementById("real_withdraw").innerHTML = FormatNumber( realWithdraw, 2); // 实扣金额
+		document.getElementById("charge").innerHTML = fee; // 提现手续费
+	jQuery("#money").html(  FormatNumber( AccountMoney ,2) ); // 到账金额
+		document.drawform.money.value = FormatNumber( AccountMoney ,2);
+	jQuery("#chineseMoney").html( changeMoneyToChinese(document.drawform.money.value) );
+}
+
+/* payment fee */
+function paymentFee(i){
+	
+	feedown = {$drawfeeperdown};
+	feeperdown = {$drawfeepercentdown}; 
+	feestep = {$drawfeestep};
+	feeup = {$drawfeeperup};
+	feeperup = {$drawfeepercentup};
+
+	if (i <= feestep){
+		var num = i * feeperdown + feedown;
+	}else{
+		var num = i * feeperup + feeup;
+	}
+	return num;
+
+}
+
+/* format number 0.00 */
+function FormatNumber(srcStr, nAfterDot){
+	
+	var srcStr,nAfterDot;
+	var resultStr,nTen;
+	srcStr = ""+srcStr+"";
+	strLen = srcStr.length;
+	dotPos = srcStr.indexOf(".",0);
+	if (dotPos == -1){
+	   resultStr = srcStr+".";
+	   for (i=0; i<nAfterDot; i++){
+	    resultStr = resultStr+"0";
+	   }
+	   
+	}
+	else{
+	   if ((strLen - dotPos - 1) >= nAfterDot){
+		   
+	    nAfter = dotPos + nAfterDot + 1;
+	    nTen =1;
+	    for(j=0;j<nAfterDot;j++){
+	     nTen = nTen*10;
+	    }
+	    resultStr = Math.round(parseFloat(srcStr)*nTen)/nTen;
+	   }
+	   else{
+	    resultStr = srcStr;
+	    
+	    for (i=0;i<(nAfterDot - strLen + dotPos + 1);i++){
+	     resultStr = resultStr+"0";
+	    }
+	    
+	   }
+	}
+	return resultStr;
+}
+</script>
+<div id="tabbar-div">
+	<span class="tab-front">
+		<span class="tabbar-left"></span>
+		<span class="content" >发起提现</span>
+		<span class="tabbar-right"></span>
+	</span>
+	<span class="tab-back">
+		<span class="tabbar-left"></span>
+		
+		<span class="content" onclick="window.location.href='?controller=security&action=withdrawlist'">提现记录</span>
+		<span class="tabbar-right"></span>
+	</span>
+</div>
+<div class="tabbar-bottom"></div>
+<div class="list-div" id="listDiv">
+<table width="100%" class="list-table">
+<form action="index.php" method="post" name="drawform" id="drawform" onsubmit="return checkForm(this)">
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action" value="onlinewithdraw" />
+<input type="hidden" name="flag" value="confirm" />
+<input type="hidden" name="api_id" value="{$api_id}" />
+<input type="hidden" name="api_nickname" value="{$api_nickname}" />
+<input type="hidden" name="money" value="" />
+<tr>
+	<td class="narrow-label"><font color="#FF3300">提示：</font></td>
+	<td>每天限提&nbsp;<font style="font-size:16px;color:#FF3300;font-weight:bold;">{$withdrawtimes}</font>&nbsp;次，今天您已经成功发起了&nbsp;<font style="font-size:16px;color:#669900;font-weight:bold;">{$todaywithdrawtimes}</font>&nbsp;次提现申请。{if $notice != ""}<br />
+	{$notice}{/if}
+	</td>
+</tr>
+<!--<tr>
+	<td class="narrow-label">汇款渠道：</td>
+	<td>{$api_nickname|escape:html}</td>
+</tr>-->
+<tr>
+	<td class="narrow-label">用户名：</td>
+	<td>{$username|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">可提现金额：</td>
+	<td>{if $pay_deduct_in_mode}{$amount|escape:money}{else}你的账户余额为{$amount|escape:money},您最大可提现金额为{$maxamount|escape:money}{/if}</td>
+</tr>
+<tr>
+	<td class="narrow-label">提现金额：</td>
+    <td><input type="text" name="real_money" id="real_money" size="20" maxlength="{$maxlen}" onkeyup="showPaymentFee(this.value);" />&nbsp;&nbsp;<span style="color:red;"></span>(单笔提现限额：最低：&nbsp;<font style="color:#FF3300">{$drawlimitminper|escape:money}</font>&nbsp;元，最高：&nbsp;<font style="color:#FF3300">{$drawlimitmaxper|escape:money}</font>&nbsp;元)</td>
+</tr>
+<tr>
+	<td class="narrow-label">实扣金额：</td>
+    <td id="real_withdraw"></td>
+</tr>
+<tr>
+	<td class="narrow-label">提现手续费：</td>
+    <td id="charge"></td>
+</tr>
+<tr>
+	<td class="narrow-label">到账金额：</td>
+    <td id="money"></td>
+</tr>
+<tr>
+	<td class="narrow-label">到账金额(大写)：</td>
+    <td><span id="chineseMoney"></span><input type="hidden" id="hiddenchinese" /></td>
+</tr>
+<tr>
+	<td class="narrow-label">收款银行卡信息：</td>
+    <td>
+    	<select name="bankinfo" id="bankinfo">
+    		{foreach from=$banklist item=bank key=k}
+    			<option value="{$bank.id}">{if $bank.nickname != ""}{$bank.nickname}--{/if}{$bank.bank_name}--{$bank.account}</option>
+    		{/foreach}
+    	</select>&nbsp;&nbsp;<span style="color:red;"></span>
+    </td>
+</tr>
+<tr>
+	<td class="narrow-label"></td>
+	<td height="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="submit" value="下一步" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="返回" onclick="history.back()" class="button" /></td>
+</tr>
+{if $drawfeepercentdown > 0 || $drawfeeperdown > 0 || drawfeepercentup > 0 || $drawfeeperup > 0 || $drawfeemin > 0 || $drawfeemax > 0}
+<tr>
+  	<td class="narrow-label" height="25">手续费计算公式:</td>
+    <td>
+    <table width="300">
+    {if $drawfeepercentdown > 0 || $drawfeeperdown > 0}
+    <tr>
+    <th align="left">提现金额低于(等于){$drawfeestep|escape:money}</th>
+    <th>手续费 = (金额) x {$drawfeepercentdown} + {$drawfeeperdown|escape:money}</th>
+    </tr>
+    {/if}
+    {if $drawfeepercentup > 0 || $drawfeeperup > 0}
+    <tr>
+    <th align="left">提现金额大于{$drawfeestep|escape:money}</th>
+    <th>手续费 = (金额) x {$drawfeepercentup} + {$drawfeeperup|escape:money}</th>
+    </tr>
+    {/if}
+    {if $drawfeemin > 0 || $drawfeemax > 0}
+    <tr>
+    <th align="left">手续费小于{$drawfeemin|escape:money}，手续费 = {$drawfeemin|escape:money}</th>
+    <th>手续费大于{$drawfeemax|escape:money}，手续费 = {$drawfeemax|escape:money}</th>
+    </tr>
+    {/if}
+    </table>
+    
+    </td>
+  </tr>
+  {/if}
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

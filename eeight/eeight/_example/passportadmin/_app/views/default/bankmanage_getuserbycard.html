@@ -1,0 +1,134 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript">
+    function checkForm(){
+        if ($("#account").val() == ""){
+            alert("请填写银行账号");
+            return false;
+        } 
+        return true;
+    }
+</script>
+<div class="form-div" ID="formdiv">
+<FORM action="" method="get" onsubmit="return checkForm();">
+<input type="hidden" name="controller" value="bankmanage">
+<input type="hidden" name="action" value="getuserbycard">
+<input type="hidden" name="flag" value="search">
+<img src="./images/icon_search.gif" border="0">
+银行账号:&nbsp;&nbsp;<input type="text" name="account" id="account" value="{$ahtml.account}" size="19" style="background-color:#FFF;color:#555;width:180px;"/>
+&nbsp;&nbsp; 
+<input type="submit" class="button" value="搜索">
+</FORM>
+</div>
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<th>用户名称</th>
+<th>所属总代</th>
+<th>银行</th>
+<th>省份</th>
+<th>城市</th>
+<th>是否冻结</th>
+<th>冻结类型</th>
+<th>是否测试账户</th>
+<th>最后修改时间</th>
+<th>添加时间</th>
+</tr>
+{foreach from=$userlist item=user key=k}
+<tr>
+	<td align="center">{$user.username|escape:html}</td>
+	<td align="center">{$user.topproxyname|escape:html}</td>
+	<td align="center">{$user.bank_name|escape:html}</td>
+	<td align="center">{$user.province|escape:html}</td>
+	<td align="center">{$user.city|escape:html}</td>
+	<td align="center">
+        {if $user.isfrozen == 0}
+            未冻结
+        {else}
+            已冻结
+        {/if}
+    </td>
+	<td align="center">
+	{if $user.frozentype == 0}
+        --
+    {elseif $user.frozentype == 1}
+        不可登陆
+    {elseif $user.frozentype == 2}
+        只可登陆
+    {elseif $user.frozentype == 3}
+        可登陆，可充提
+    {else}
+        未知冻结
+    {/if}
+	</td>
+    <td align="center">
+        {if $user.istester == 0}
+            非测试账户
+        {else}
+            测试账户
+        {/if}
+    </td>
+    <td align="center">{if $user.utime > 0}{$user.utime}{else}--{/if}</td>
+    <td align="center">{if $user.atime > 0}{$user.atime}{else}--{/if}</td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="10" class="no-records">没有搜索到用户</td>
+</tr>
+{/foreach}
+</table>
+</div>
+<script>
+function showNotice(objId)
+{
+	var obj = document.getElementById(objId);
+	if(obj.style.display=="none")
+	{
+		obj.style.display="block";
+	}
+	else
+	{
+		obj.style.display="none";
+	}
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH" && row.className != "frozenuser") row.cells[i].style.backgroundColor = '#EEF8F9';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+    $(".frozenuser").find("td").css("backgroundColor","#DDD");
+  }
+}
+
+</script>
+{include file="pagefooter.html"}

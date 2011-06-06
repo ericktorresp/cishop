@@ -1,0 +1,22 @@
+{include file="pageheader.html"}
+<div class="list-div">
+<table>
+<tr>
+<td class="narrow-label">用户级别</td>
+<td>{$user.groupname}</td>
+</tr>
+<tr>
+<td class="narrow-label">高频游戏币</td>
+<td>{$availablebalance|escape:money:4}&nbsp;&nbsp;游戏币</td>
+</tr>
+<tr>
+<td class="narrow-label">今日参与游戏</td>
+<td>{$userfund.totalin|escape:money:4}&nbsp;&nbsp;游戏币</td>
+</tr>
+<tr>
+<td class="narrow-label">今日中奖</td>
+<td>{$userfund.totalout|escape:money:4}&nbsp;&nbsp;游戏币</td>
+</tr>
+</table>
+</div>
+{include file="pagefooter.html"}

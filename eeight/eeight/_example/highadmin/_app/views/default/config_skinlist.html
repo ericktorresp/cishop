@@ -1,0 +1,29 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+	<tr>
+	<th>模板名称</th>
+	<th>模板类型</th>
+	<th>模板文件数量</th>
+	<th>模板最后更新时间</th>
+	<th>操作</th>
+ </tr>
+
+{foreach from=$aSkinArr item=list key=k1}
+  <tr>
+  <td align="center">{$list.skinname|escape:html}</td>
+  <td align="center">{if $list.skinname=='default'}<font color=#669900>系统默认</font>{else}自定义{/if}</td>
+	<td align="center">{$list.counts}</td>
+	<td align="center">{$list.dirlasttime}</td>
+	<td align="center" width=220>
+	<a href="./?controller=config&action=skininfo&n={$list.skinname}">查看模板详情</a> &nbsp;
+	<a href="./?controller=config&action=skinview&n={$list.skinname}">查看</a> &nbsp;
+	</td>
+  </tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">无相关数据</td></tr>
+{/foreach}
+</table>
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

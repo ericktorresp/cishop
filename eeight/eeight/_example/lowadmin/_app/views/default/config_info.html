@@ -1,0 +1,91 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action="?controller=config&action={$action|default:save}"><input type="hidden" name="configid" value="{$config.configid|default:0}">
+  <table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+	<td class="narrow-label">配置分组:</td>
+	<td>{if is_array($config)}{if $config.parentid==0}作为分组<input type="hidden" name="parent" value="0"/>{else}<select name="parent">
+		{foreach from=$configpar item=configs key=k}
+		<option value="{$configs.configid}" {if $config.parentid == $configs.configid}selected="selected"{/if}>{$configs.title|escape:html}</option>
+		{/foreach}
+	</select>{/if}{else}<select name="parent">
+	<option value="0">作为分组</option>
+		{foreach from=$configpar item=configs key=k}
+		<option value="{$configs.configid}">{$configs.title|escape:html}</option>
+		{/foreach}
+		</select>
+	{/if}</td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticeconfigname');" title="系统名称"><img src="./images/notice.gif" width="16" height="16" border="0"/></a> 系统名称:</td>
+	<td><input name="configkey" size="60" value="{$config.configkey|escape:html}"><span id="noticeconfigname" style="display:none;">系统配置项，在程序中使用，用英文命名。</span></td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticeconfigtitle');" title="显示名称"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>显示标题:</td>
+	<td><input name="title" size="60" value="{$config.title|escape:html}"><span id="noticeconfigtitle" style="display:none;">系统配置时候显示的配置项内容，采用中文名称。</span></td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticeconfig')" title="配置属性"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>配置属性:</td>
+	<td><input name="configvalue" size="60" value="{$config.configvalue|escape:html}">
+	<span id="noticeconfig" style="display:none;">系统运行时候的配置值。</span>
+	</td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticeconfigdefault');" title="系统默认值"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>配置默认值:</td>
+	<td><input name="defaultvalue" size="60" value="{$config.defaultvalue|escape:html}"><span id="noticeconfigdefault" style="display:none;">系统没有指定时,读取的值或者为系统推荐值。</span></td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticeinputtype');" title="配置分组"><img src="./images/notice.gif" width="16" height="16" border="0"></a>配置分组:</td>
+	<td><select name="inputtype">
+		<option value="0">组类型</option>
+		<option value="input" {if $config.forminputtype=="input"}selected="selected"{/if}>输入框</option>
+		<option value="check" {if $config.forminputtype=="check"}selected="selected"{/if}>复选框</option>
+		<option value="select" {if $config.forminputtype=="select"}selected="selected"{/if}>下拉框</option>
+	</select><span id="noticeinputtype" style="display:none;">输入内容时候的内容或者格式选择。</span>
+	</td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticeconfigtype');" title="配置值属性"><img src="./images/notice.gif" width="16" height="16" border="0"></a>配置值属性:</td>
+	<td><select name="configtype">
+		<option value="0">类型</option>
+		<option value="string" {if $config.configvaluetype=="string"}selected="selected"{/if}>字符</option>
+		<option value="num" {if $config.configvaluetype=="num"}selected="selected"{/if}>数字</option>
+		</select><span id="noticeconfigtype" style="display:none;">输入内容时候的内容格式。</span>
+	</td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticedescription');" title="配置描述"><img src="./images/notice.gif" width="16" height="16" border="0"></a>配置描述:</td>
+	<td><textarea name="description" cols="60" rows="6">{$config.description|escape:html}</textarea>
+	<span id="noticedescription" style="display:none;">配置项相关描述，复选框和下拉框的相关内容，每个一行。</span>
+	</td>
+</tr>
+<tr>
+	<td class="narrow-label">是否禁用</td>
+	<td><label for="isdisabled"><input type="checkbox" name="isdisabled" id="isdisabled" value="1" {if $config.isdisabled ==1}checked="checked"{/if}>选中禁用</label></td>
+</tr>
+<tr>
+	<td class="narrow-label">&nbsp;</td>
+	<td><input type="submit" class="button" value="保存配置"><input type="reset" class="button" value="重新设置"><input type="button" class="button" value="返回列表" onclick="location.href='?controller=config&action=list&id={$config.parentid}';"></td>
+</tr>
+</table>
+</form>
+</div>
+<script>
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+</script>
+{include file="pagefooter.html"}

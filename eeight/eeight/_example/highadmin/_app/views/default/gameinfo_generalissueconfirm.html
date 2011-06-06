@@ -1,0 +1,61 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form action="./index.php?controller=gameinfo&action=generalissue&lotteryId={$lottery.lotteryid}" method="post">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td class="narrow-label">彩种</td>
+<td>{$lottery.cnname|escape:html}</td>
+</tr>
+{foreach from=$lottery.issueset item=item key=k}
+{if $item.status != 0}
+<tr>
+<td class="narrow-label">分段销售时间{$k}</td>
+<td>
+开始时间：{$item.starttime} <br/>结束时间：{$item.endtime} <br/>游戏周期：{$item.cycle}秒 <br/>停售时间：{$item.endsale}秒 <br/>开奖号码录入时间：{$item.inputcodetime}秒 <br/>撤单时间：{$item.droptime}秒
+</td>
+</tr>
+{/if}
+{/foreach}
+
+<tr>
+<td class="narrow-label">休市日期</td>
+<td>{$lottery.yearlybreakstart} - {$lottery.yearlybreakend}</td>
+</tr>
+<tr>
+<td class="narrow-label">开奖周期</td>
+	<td>
+		{if ($lottery.weekcycle&1)}星期一&nbsp;&nbsp;&nbsp;{/if}
+		{if ($lottery.weekcycle&2)}星期二&nbsp;&nbsp;&nbsp;{/if}
+		{if ($lottery.weekcycle&4)}星期三&nbsp;&nbsp;&nbsp;{/if}
+		{if ($lottery.weekcycle&8)}星期四&nbsp;&nbsp;&nbsp;{/if}
+		{if ($lottery.weekcycle&16)}星期五&nbsp;&nbsp;&nbsp;{/if}
+		{if ($lottery.weekcycle&32)}星期六&nbsp;&nbsp;&nbsp;{/if}
+		{if ($lottery.weekcycle&64)}星期日&nbsp;&nbsp;&nbsp;{/if}
+	</td>
+</tr>
+<tr>
+<td class="narrow-label">信息确认</td>
+<td><font color=#669900>目前已生成从 {$intersectDates.startday} 到 {$intersectDates.endday} 的奖期。<br/>
+即将生成从 {$date1} 到 {$date2} 之间的奖期 <font color=red>(其中不包括{$date2}当天)</font></font>
+    <input type="hidden" name="startDate" value="{$date1}" /><input type="hidden" name="endDate" value="{$date2}" />
+</td>
+</tr>
+<tr>
+<td class="narrow-label">奖期生成开始奖期</td>
+<td>
+    {if $firstDate}第&nbsp;{$firstDate} &nbsp;期{else}未指定{/if} <input type="hidden" name="firstDate"  size="11" value="{$firstDate}"></td>
+</tr>
+{if $intersectDates.intersect_startday}
+<tr>
+    <td class="narrow-label">提示</td>
+    <td><font color="red">从 {$intersectDates.intersect_startday} 到 {$intersectDates.intersect_endday} 的奖期已存在，并将重新生成！</font></td>
+</tr>
+{/if}
+<tr>
+	<td class="narrow-label"></td>
+	<td><input type="hidden" name="sa" value="addItem"><input type="submit" class="button" value="确认生成奖期"><input type="button" class="button" value="取消" onclick="history.back();"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

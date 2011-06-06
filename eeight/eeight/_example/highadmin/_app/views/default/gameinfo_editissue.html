@@ -1,0 +1,32 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form method="POST" action="./index.php?controller=gameinfo&action=editissue&lotteryId={$lotteryId}&issueId={$issueId}">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+	<td class="narrow-label">彩种</td>
+	<td>{$aLottery.cnname|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">奖期</td>
+	<td>{$aIssue.issue}</td>
+</tr>
+<tr>
+	<td class="narrow-label">销售开始时间</td>
+	<td><input type="text" name="salestart" id="salestart" value="{$aIssue.salestart}" maxlength="19"></td>
+</tr>
+<tr>
+	<td class="narrow-label">销售结束时间</td>
+	<td><input type="text" name="saleend" id="saleend" value="{$aIssue.saleend}" maxlength="19"></td>
+</tr>
+<tr>
+	<td class="narrow-label">最后撤单时间</td>
+	<td><input type="text" name="canneldeadline" id="canneldeadline" value="{$aIssue.canneldeadline}" maxlength="19"></td>
+</tr>
+<tr>
+	<td class="narrow-label"><input type="hidden" name="issueId" value="{$aIssue.issueid}"></td>
+	<td><input type="submit" value="修改奖期信息" class="button"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

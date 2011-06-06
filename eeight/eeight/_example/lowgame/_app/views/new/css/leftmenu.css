@@ -1,0 +1,147 @@
+@charset "utf-8";
+html { overflow-y: scroll; } 
+html { overflow-x: hidden;}
+img{vertical-align:middle;}
+body {
+	background-color: #006082;
+	margin: 0px;
+	font-size: 12px;
+	line-height: 18px;
+	font-family: "微软雅黑", "宋体";
+	margin-bottom:10px;
+}
+a,a:link,a:visited {
+        color: #333333;
+        text-decoration:none;
+    	outline:none;
+}
+a:hover {
+        text-decoration: underline;
+}
+a:focus{
+    -moz-outline-style: none;
+}
+ul{
+	list-style:none;
+    padding: 0px;
+    margin: 0px;
+}
+.menu{
+	margin: 10px;
+	width: 157px;
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/left_01.jpg);
+	background-position: 160px 0px;
+	background-color: #FFFFFF;
+}
+.menu_01{
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/left_01.jpg);
+	background-position: left top;
+	height: 27px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-align: left;
+	line-height: 27px;
+	text-indent: 30px;
+	background-color: #640021;
+}
+
+.menu_02{
+	background-repeat: repeat-y;
+	vertical-align: sub;
+	margin: 10px;
+	width: 135px;
+}
+.menu_03{
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/left_01.jpg);
+	background-repeat: repeat-y;
+	line-height: 32px;
+	margin: 10px;
+	float: left;
+	clear: none;
+}
+.menu_04{
+	clear: none;
+	margin:5px 0px 5px 50px;
+	font-weight: bold;
+	cursor:pointer;
+}
+.menu_05{
+	font-weight: normal;
+	color: #666666;
+	text-indent: 60px;
+	width: 140px;
+	padding: 3px 5px 0px 5px;
+	line-height:20px;
+	height: 20px;
+	cursor:pointer;
+}
+.menu_05_05{
+    clear: none;
+	color: #FFFFFF;
+	width: 140px;
+	padding: 3px 5px 0px 5px;
+    text-indent: 60px;
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/left_01.jpg);
+	background-position: 0px -40px;
+	background-color: #FF3300;
+	height: 20px;
+}
+.menu_05_05 a{
+    color:#FFF;
+}
+.menu_05_05 a:visited{
+    color:#FFF;
+    text-decoration: underline;
+}
+.menu_06{
+	width: 157px;
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/left_01.jpg);
+	background-repeat: no-repeat;
+	background-position: 0px -30px;
+	height: 9px;
+	overflow:hidden;
+}
+.menu_07{
+	width: 36px;
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/icon_s.png);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	height: 36px;
+	float: left;
+}
+.menu_08{
+	height: 36px;
+	padding: 5px;
+}
+.menu_09{
+	height: 36px;
+	float: left;
+	line-height: 36px;
+	text-indent: 5px;
+	cursor:pointer;
+	margin-top:2px;
+}
+.menu_04_04{
+	clear: none;
+	margin:5px 0px 5px 50px;
+	padding: 5px 10px 0px 0px;
+	font-weight: bold;
+	cursor:pointer;
+}
+.menu_04_041{
+    clear: none;
+	color: #FFFFFF;
+	width: 140px;
+	padding: 5px 10px 0px 0px;
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/left_01.jpg);
+	background-position: 0px -40px;
+	background-color: #FF3300;
+	height: 20px;
+}
+.menu_04_041 a{
+    color:#FFF;
+}
+.menu_04_041 a:visited{
+    color:#FFF;
+    text-decoration: underline;
+}

@@ -1,0 +1,138 @@
+{include file="pageheader.html"}
+{insert_scripts files="jquery.js"}
+<script type="text/javascript" src="./js/jquery.impromptu.2.6.min.js"></script>
+<LINK href="./css/impromptu.css" rel="stylesheet" type="text/css" />
+<script>
+{if isset($can)}
+function cancel()
+{
+	times = window.setTimeout("change()");
+	var html = ""; // 显示数据
+	html += "<div style='overflow-y: auto; height: 80px; width: 100%;'><table width='100%' border='0' cellpadding='0' cellspacing='5' bgcolor='#FFFFFF'><tr><td bgcolor='#b5bac5'><table width='100%' border='0' cellpadding='2' cellspacing='1' bgcolor='#b5bac5'><tr><td colspan='2'>真的需要撤单吗？{if isset($need)}<br /><br /><span id='notice_color'>撤销此单将收取撤单手续费金额: {$money|eacape:money} 元</span>{/if}</td></tr></table></td></tr></table></div>";
+	$.prompt(html,{ buttons: { "确认": true, "取消": false }, callback:mycallbackform,focus: 1 });
+}
+
+function mycallbackform(v,m,f){
+	clearTimeout(times);
+	if(v){
+			document.location.href = "./index.php?controller=gameinfo&action=cancelgame&id={$project.projectid}";
+	}
+}
+
+function change(){
+	var node  = document.getElementById("notice_color");//#33FF33
+	if (node != null){
+		str = node.style.color.toLowerCase();
+	  	node.style.color = str == "#ff1100" || str == "rgb(255, 17, 0)" ? "#000000" : "#FF1100"; 
+	  	times = window.setTimeout("change()",1000);
+	}
+}
+{/if}
+</script>
+<div class="list-div">
+<table>
+<tr>
+<td class="narrow-label">注单编号:</td>
+<td>{$project.projectid}</td>
+</tr>
+<tr>
+<td class="narrow-label">游戏用户:</td>
+<td>{$project.username}</td>
+</tr>
+<tr>
+<td class="narrow-label">投单时间:</td>
+<td>{$project.writetime}</td>
+</tr>
+<tr>
+<td class="narrow-label">游戏:</td>
+<td>{$project.cnname}</td>
+</tr>
+<tr>
+<td class="narrow-label">玩法:</td>
+<td>{$project.methodname}{if $project.taskid!='0'}&nbsp;(&nbsp;<a href="./index.php?controller=gameinfo&action=taskdetail&id={$project.taskid}" style="color:red;">追号单记录</a>&nbsp;){/if}</td>
+</tr>
+<tr>
+<td class="narrow-label">期号:</td>
+<td>{$project.issue}</td>
+</tr>
+<tr>
+<td class="narrow-label">投注内容:</td>
+<td><span style="line-break:break-all;">{$project.code}</span></td>
+</tr>
+{if $project.isdynamicprize == 0}
+<tr>
+<td class="narrow-label">倍数:</td>
+<td>{$project.multiple}倍</td>
+</tr>
+{/if}
+<tr>
+<td class="narrow-label">投注总金额:</td>
+<td>{$project.totalprice|escape:money}</td>
+</tr>
+<tr>
+<td class="narrow-label">奖金:</td>
+<td>{$project.bonus|escape:money}{if isset($description)}&nbsp;&nbsp;({$description}){/if}</td>
+</tr>
+<tr>
+<td class="narrow-label">中奖号码:</td>
+<td>{$project.nocode}</td>
+</tr>
+<tr>
+<td class="narrow-label">状态:</td>
+<td>{if ($project.iscancel==0)}
+{if ($project.isgetprize==0)}
+未开奖
+{elseif ($project.isgetprize==2)}
+未中奖
+{elseif ($project.isgetprize==1)}
+{if $project.prizestatus==0}
+未派奖
+{else}
+已派奖
+{/if}
+{/if}
+{elseif ($project.iscancel==1)}
+本人撤单
+{elseif ($project.iscancel==2)}
+管理员撤单
+{elseif ($project.iscancel==3)}
+开错奖撤单
+{/if}</td>
+</tr>
+<tr>
+<td class="narrow-label"></td>
+<td><input type="button" class="button" value="关闭" onclick="self.close();">
+{if isset($can)}
+<input type="button" class="button" value="撤单" onclick="javascript:cancel();">
+{/if}
+</td>
+</tr>
+</table>
+</div>
+<div class="list-div">
+<table>
+<tr>
+<td class="narrow-label">可能中奖情况</td>
+<td colspan="5"></td>
+</tr>
+<tr>
+<th>编号</th>
+<th>号码</th>
+<th>单倍奖金</th>
+<th>倍数</th>
+<th>奖级</th>
+<th>总奖金</th>
+</tr>
+{foreach from=$prizelevel item=pl key=k}
+<tr align="center">
+<td>{$k}</td>
+<td align="left">{$pl.expandcode}</td>
+<td>{$pl.singleprize|escape:money}</td>
+<td>{$pl.codetimes}</td>
+<td>{$pl.level}</td>
+<td>{$pl.prize|escape:money}</td>
+</tr>
+{/foreach}
+</table>
+</div>
+{include file="pagefooter.html"}

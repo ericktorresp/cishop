@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><TITLE>{if $sSysTopMessage}[{$sSysTopMessage}] {/if}{$webtitle} {if $ur_here} - {$ur_here} {/if} </TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<META http-equiv="Pragma" content="no-cache" />
+{if $sSysMetaMessage}{$sSysMetaMessage}{/if}
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/css/new_higame/defaultright.css" type="text/css" />
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/common.js"></script>
+
+<script language="javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/alert/jquery.dragndrop.js"></script>
+<script language="javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/alert/jquery.dialogUI.source.js"></script>
+<script language="javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/alert/jquery.jamesdragn.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/js/new_higame/alert/dialogUI.css" type="text/css" />
+
+</HEAD>
+
+<BODY>
+    <center>
+{if empty($sys_header_title)}
+<div id="right_01">
+<div class="right_01_01"><a href="./index.php" target='_top'>高频游戏</a>{if $ur_here} - {$ur_here} {/if}</div>
+
+<div class="floatleft"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td height="28" align="center">
+        {if !empty($notice)}
+        <div style="height:28px;line-height:28px;font-size:12px;text-align:center;margin-top:-55px;color:#ffffff">
+        <a href="./?controller=default&action=start" target="mainframe" id="top_notice">{$notice.subject|escape:html}</a>
+        </div>
+        {/if}
+    </td>
+  </tr>
+</table></div>
+
+
+</div>
+{/if}
+

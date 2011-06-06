@@ -1,0 +1,243 @@
+@CHARSET "UTF-8";
+html{overflow-y:scroll;}
+*{
+	font-size:12px;
+	padding:0;
+	margin:0;
+}
+body{
+	background:#FFFFFF;
+	margin:0px auto;
+	font: 12px "sans-serif", "Arial", "Verdana","宋体";
+	padding:10px;
+	clear:both;
+}
+img{
+	border:0px;	
+    vertical-align: middle;
+}
+form{
+	padding:0px;
+	margin:0px;
+}
+.list-Form {
+  background: #F3F8FE;
+  border: 1px solid #8BC0E7;
+  padding: 5px;
+  color: #666666;
+  margin: 0 0 10px 0;
+}
+.list-Form select, .form-div input, .form-div img {
+  vertical-align: middle;
+}
+.message{
+    background: #F3F8FE;
+    border: 1px solid #8BC0E7;
+    padding: 5px;
+    color: #666666;
+    margin: 0 0 10px 0;
+}
+/* 头部信息 */
+h1{
+	height:32px;
+	width:100%;
+	border-bottom:1px #A9BADC solid;
+	background:#F4F5F9;
+	font-size:14px;
+	margin: 0 0 6px 0;
+    overflow:hidden;
+}
+h1 span{
+	zoom:1;
+}
+/* 头部信息 尾部的快捷方式 */
+h1 .action-span{
+	float:right;
+	margin: 3px 10px 3px 10px;
+	color:#666666;
+}
+/* 头部信息尾部的快捷方式  */
+h1 .action-span a {
+  color: #003399;
+  font-size: 12px;
+  text-decoration: none;
+  display:block;
+  text-align:center;
+  width:101px;
+  height:24px;
+  line-height:24px;
+  background:#8A8A8A url({$sSystemImagesAndCssPath}/images/new_passport/action_button.jpg) no-repeat;
+  *background:#8A8A8A url({$sSystemImagesAndCssPath}/images/new_passport/action_button.jpg) no-repeat;
+}
+/* 头部信息尾部的快捷方式的特效  */
+h1 .action-span a:hover {
+  background:#8A8A8A url({$sSystemImagesAndCssPath}/images/new_passport/action_button.jpg) no-repeat 1px 1px;
+  *background:#8A8A8A url({$sSystemImagesAndCssPath}/images/new_passport/action_button.jpg) no-repeat 3px 3px;
+  text-decoration:underline;
+}
+/* 头部信息 的当前位置 */
+.action-span1{
+    color:#666666;
+    display:block;
+    float:left;
+    margin-left:10px!important;margin-left:5px;
+    margin-top:0!important;margin-top:10px;
+    height:32px;
+    line-height:32px;
+    font-weight:normal;
+}
+h1 .action-span1 a{
+    text-decoration:none;
+}
+/* 底部信息 */
+#footer{
+    
+    width:100%;
+    border:1px #BBDDE5 solid;
+    background:#F4FAFB;
+    font-size: 12px;
+    margin-top: 6px;
+    overflow:hidden;
+    text-align:center;
+    line-height:20px;
+    color:#666666;	
+}
+/* 搜索区部分 */
+.list-div{
+	border:1px #8BC0E7 solid;
+	width:100%;
+	background:#FFFFFF;
+	color:#FFFFFF;
+}
+.list-div div{
+	line-height:30px;
+    font-size:14px;
+    padding:20px;
+}
+.list-div input{
+    height:18px;
+    line-height:18px;
+    vertical-align: middle;
+}
+.list-div .button{
+    height:25px;
+    line-height:25px;
+    font-size:12px;
+    vertical-align: middle;
+}
+/* 列表部分 */
+.list-div table{
+	width:100%;
+	border:0px;
+	border-collapse: 1px;
+    border-spacing: 1px; 
+	font-size:12px;
+}
+/* 列表部分  头部*/
+.list-div th{
+    color:#21366D;
+    text-align:center;
+    background:#E2EFFC;
+    height:25px;
+    font-size:12px;
+    font-weight:normal;
+    border:0px;
+    border-bottom:1px solid #D1E5FE;
+}
+/* 列表部分  头部*/
+.list-div tr{
+    color:#FFFFFF;
+    background:#464747;
+    border:#313131 1px solid;
+}
+/* 列表部分 没有记录 */
+.list-div .no-records{
+	text-align:center;
+	height:50px;
+	color:#21366D;
+    background:#FAFCFE;
+	font-weight:bold;
+}
+/*列表部分 td*/
+.list-div td{
+	color:#21366D;
+    background:#FAFCFE;
+    line-height: 22px;
+    border-bottom:1px solid #D1E5FE;
+}
+/* 列表部分的连接 */
+.list-div a{
+	color:#21366D;
+	text-decoration: none;
+}
+/* 列表部分的连接特效 */
+.list-div a:hover{
+    color:#21366D;
+    text-decoration:underline;
+}
+/* 列表专用标签 */
+.list-div .narrow-label{
+	width:15%;
+	font-weight:bold;
+	color:#21366D;
+	text-align:right;
+	padding-right:10px;
+}
+/*分页部分*/
+#tPages{
+	border:0px;
+	height:30px;
+	color:#21366D;
+}
+#tPages strong{
+	height:30px;
+	padding: 2px;
+	border:#A9BADC solid 1px;
+	text-align:center;
+	color:#21366D;
+	background:#E2EFFC;
+	margin:1px;
+}
+#tPages a{
+	border:#A9BADC solid 1px;
+	color:#21366D;
+	height:30px;
+    padding: 2px;
+    text-align:center;
+	text-decoration:none;
+    background:#F3F3F3;
+    margin:1px;
+    font-weight:bold;
+}
+#tPages a:hover{
+    border:#A9BADC solid 1px;
+    color:#333333;
+    height:30px;
+    padding: 2px;
+    text-align:center;
+    text-decoration:none;
+    background:#FFFFFF;
+    margin:1px;
+    font-weight:bold;
+}
+/*公告列表样式*/
+.notice-list{
+    width:100%;
+    padding-left:15px;
+    margin:10px 0 40px 0;
+}
+.notice-list li{
+    list-style:none;
+    padding-left:25px;
+    width:80%;
+    line-height:30px;
+    border-bottom:1px dashed #EEEEEE !important;border-bottom:1px dotted #EEEEEE;
+    background:url({$sSystemImagesAndCssPath}/images/new_passport/notice_tag.gif)  10px center  no-repeat;
+}
+.notice-list li a{
+    color:#003399;
+    text-decoration:none;
+}
+.notice-list li a:hover{
+    text-decoration:underline;
+}

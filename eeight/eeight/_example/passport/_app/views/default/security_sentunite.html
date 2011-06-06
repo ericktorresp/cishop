@@ -1,0 +1,59 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkform(obj)
+{
+	if( obj.sentto.value == "" )
+	{
+		alert("请选择要转入的帐号");
+		obj.sentto.focus();
+		return false;
+	}
+	if( obj.money.value == "" )
+	{
+		alert("请输入要转出的金额");
+		obj.money.focus();
+		return false;
+	}
+	return true;
+}
+</script>
+<div class="list-div" id="listDiv">
+<table class="list-table">
+<form action="index.php" method="post" onsubmit="return checkform(this)">
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action"	value="sentunite" />
+<input type="hidden" name="flag" value="insert" />
+<input type="hidden" name="check" value="{$check}" />
+	<tr>
+    	<th colspan="2">帐间互转</th>
+    </tr>
+	<tr>
+    	<td style="narrow-label">转出帐号：</td>
+        <td>{$user.username|escape:html}</td>
+    </tr>
+    <tr>
+    	<td style="narrow-label">转入帐号：</td>
+        <td>
+        <select name="sentto">
+        {foreach from=$unites item=unite key=uk}
+        <option value="{$unite.userid}">{$unite.username|escape:html}</option>
+        {/foreach}
+        </select>
+        </td>
+    </tr>
+    <tr>
+    	<td style="narrow-label">转出金额：</td>
+        <td><input type="text" name="money" size="20" onkeyup="checkWithdraw(this,'chineseMoney',{$user.availablebalance});" />
+        可转金额（<span style="color:#FF0000;"><strong>{$user.availablebalance|escape:money}</strong></span>）</td>
+    </tr>
+    <tr>
+    	<td style="narrow-label">转出金额(大写)：</td>
+        <td><span id="chineseMoney"></span></td>
+    </tr>
+    <tr>
+    	<td></td><td><input type="submit" name="submit" value="下一步" class="button" /></td>
+    </tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

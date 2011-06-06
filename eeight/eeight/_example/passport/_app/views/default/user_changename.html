@@ -1,0 +1,28 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkform(obj)
+{
+  if( !validateNickName(obj.nickname.value) )
+  {
+  	alert("呢称不符合规则，请重新输入");
+	obj.nickname.focus();
+	return false;
+  }
+  return true;
+}
+</script>
+<div class="list-div" id="listDiv">
+<table align="center"  class="list-table">
+<form action="index.php" method="post" name="updateform" onsubmit="return checkform(this)">
+<input type="hidden" name="flag" value="update" />
+<input type="hidden" name="controller" value="user" />
+<input type="hidden" name="action"	value="changename" />
+  <tr>
+  	<td class="narrow-label">呢称:</td>
+    <td><input type="text" name="nickname" value="{$nickname|escape:html}" />(由2至6个字符组成)</td>
+  </tr>
+  <tr><td></td><td><input type="submit" name="submit" value="修改" class="button" />&nbsp;&nbsp;<input type="button" value="重置" onclick="form.reset()" class="button" /></td></tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

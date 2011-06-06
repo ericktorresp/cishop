@@ -1,0 +1,68 @@
+{include file="pageheader.html"}
+<div class="list-div">
+<form action="./?controller=marketmgr&action=activityuserdel" method="post">
+<table>
+<tr>
+	<th><input type="checkbox"></th>
+	<th>用户名</th>
+	<th>答题时间</th>
+	<th>答题分数</th>
+	<th>领奖金额</th>
+	<th>领奖时间</th>
+</tr>
+{foreach from=$aActivityUser item=v key=k}
+<tr>
+	<td align="center"><input name="userid[]" type="checkbox"  id="userid_{$v.userid}" value="{$v.userid}"></td>
+	<td align="center"><label for="userid_{$v.userid}">{$v.username|escap:html}</label></td>
+	<td align="center">{$v.answertime|escap:html}</td>
+	<td align="center">{$v.score|escap:html}</td>
+	<td align="center">{$v.bonusstatus|escap:html}</td>
+	<td align="center">{$v.bonustime|escap:html}</td>
+</tr>
+{foreachelse}
+<tr>
+<td class="no-records" colspan="6">没有相关用户</td>
+</tr>
+{/foreach}
+
+<tr>
+<td colspan="6"><input type="hidden" name="activityid" value="{$activityid}"><input type="submit" class="button" value="删除"></td>
+</tr>
+<tr>
+<td align="right" colspan="6">
+{$pageinfo}
+</td>
+</tr>
+</table>
+</form>
+</div>
+<br />
+<div class="list-div">
+<form action="./?controller=marketmgr&action=activityuseradd" method="POST">
+<table>
+<tr>
+<th>增加答题用户<input type="hidden" name="activityid" value="{$activityid}"></th>
+<th></th>
+</tr>
+<tr>
+<td class="narrow-label">搜索结果:</td>
+<td><select name="ID">
+<option value="0">从用户编号中读取</option>
+</select></td>
+</tr>
+<tr>
+<td class="narrow-label">用户编号:</td>
+<td><textarea style="width:90%; height:50px;" name="IDS"></textarea></td>
+</tr>
+<tr>
+<td class="narrow-label">是否追加:</td>
+<td><label for="append"><input type="checkbox" id="append" name="append" value="1" checked="checked">追加新用户</label></td>
+</tr>
+<tr>
+<td></td>
+<td><input type="submit" class="button" value="增加答题用户"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

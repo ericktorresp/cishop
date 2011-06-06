@@ -1,0 +1,168 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+<script type="text/javascript">
+$(document).ready(function(){
+	// 全选/反选
+	$("#selectall").click(function(){
+		if(this.checked){  
+	    	$("input[name='city[]']").each(function(){
+	    		if (this.disabled != true)
+	    		this.checked=true;
+	    	});
+	    }else{  
+	        $("input[name='city[]']").each(function(){
+	        	if (this.disabled != true)
+	        	this.checked=false;
+	        });
+	    }   
+	});
+	
+	// delete
+	$("#del").click(function(){
+		if (check()){
+			$("#listForm").submit();
+		}
+	});
+	
+	// update
+	$("#set").click(function(){
+		if (check()){
+			$("#act").val("setcitystatus");
+			$("#listForm").submit();
+		}
+	});
+});
+
+
+function check(){
+	var count_checked = get_checkbox_count(document.getElementById("listForm"),"city[]");
+	if (count_checked <= 0){
+		alert("请至少选择一项");
+		return false;
+	} else {
+		return true;
+	}
+}
+
+// 检查复选框是否有选中值
+function get_checkbox_count(form,name){
+	var e = form.elements[name];
+/*	for (key in e){
+		document.writeln(key + ' = ' + e[key] + '<br>');
+	}*/
+	var count = 0;
+	if (e){
+		if (e.length){
+			for(var i=0;i<e.length;i++){
+				if (e[i].checked)
+					count ++;
+			}
+		}
+		else
+			count = e.checked ? 1 : 0;
+	}
+	return count;
+}
+</script>
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" id="listForm">
+<input type="hidden" name="controller" value="config" />
+<input type="hidden" name="action" id="act" value="delcity" />
+<input type="hidden" name="parent_id" value="{$area}" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th width="5%"></th>
+    <th width="20%">城市</th>
+	<th width="15%">邮编</th>
+	<th width="15%">区号</th>
+	<th width="10%">状态</th>
+	<th width="30%">操作</th>
+  </tr>
+  <tr>
+    <td colspan="6">{$province}</td>
+  </tr>
+  {foreach from=$citylist item=city key=k}
+	<tr align="center">
+		<td><input type="checkbox" name="city[]" value="{$city.id}" /></td>
+		<td>{$city.name}</td>
+		<td>{if $city.zipcode}{$city.zipcode}{else}--{/if}</td>
+		<td>{if $city.telecode}{$city.telecode}{else}--{/if}</td>
+		<td>{if $city.used == 1}<font color="#669900">启用</font>{else}<font color="#FF3300">禁用</font>{/if}</td>
+		<td>
+			<a href="?controller=config&action=viewcity&id={$city.id}&parent_id={$area}">查看</a>　|　
+			<a href="?controller=config&action=editcity&id={$city.id}">编辑</a>　|　
+			<a href="?controller=config&action=setcitystatus&cityid={$city.id}&parent_id={$area}" onclick="return confirm('确认修改吗？');">{if $city.used == 1}<font color="#FF3300">禁用</font>{else}<font color="#669900">启用</font>{/if}</a>　|　
+			<a href="?controller=config&action=delcity&id={$city.id}&parent_id={$city.parent_id}" onclick="return confirm('确认删除吗？');">删除</a>
+		</td>
+	</tr>
+  {/foreach}
+  <tr>
+  	<td align="center"><input type="checkbox" name="selectall" id="selectall" /></td>
+  	<td colspan="5" align="center"><input type="button" name="set" id="set" value="更改状态" />
+  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="del" id="del" value="删除" />
+  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="edit" value="返回上一页" class="button" onclick="window.location='?controller=config&action=arealist'" />
+  	</td>
+  </tr>
+</table>
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

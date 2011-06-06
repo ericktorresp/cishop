@@ -1,0 +1,481 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+<!--
+body {
+	font: 100% Verdana, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	background: #FFFFFF;
+	margin: 0 auto; /* 最好将 body 元素的边距和填充设置为 0 以覆盖不同的浏览器默认值 */
+	padding: 0;
+	text-align: center; /* 在 IE 5* 浏览器中，这会将容器居中。文本随后将在 #container 选择器中设置为默认左对齐 */
+	color: #000000;
+}
+
+/* 弹性布局提示 
+1. 由于弹性布局的总体大小取决于用户的默认字体大小，因此弹性布局更难预测。如果正确使用的话，弹性布局对于那些需要较大字体的用户更为方便，因为行的长度仍保持适当比例。
+2. 此布局中 div 的大小取决于 body 元素中的 100% 字体大小。如果您通过对 body 元素或 #container 使用“font-size: 80%”来减小文本的总体大小，请记住整体布局将按比例缩小。您最好增加各个 div 的宽度以对此进行补偿。
+3. 如果字体大小在每个 div 中按不同的量进行更改（例如，#sidebar1 上的字体大小为 70%，#mainContent 上的字体大小为 85%），而不是对总体设计进行更改，则将按比例更改每个 div 的总体大小。您最好根据最终的字体大小来进行调整。
+*/
+#lottery_box {	/* 购彩界面的外部大框架 */
+	width: 700px;  /* 当文本保持浏览器的默认字体大小时，此宽度将创建一个适合 800px 浏览器窗口的容器 */
+	background: #FFFFFF;
+	margin: 0 auto; /* 自动边距（与宽度一起）会将页面居中 */
+	border: solid #FF0000;
+	border:1px;
+	text-align: left; /* 这将覆盖 body 元素上的“text-align: center”。 */
+}
+.lottery_lables, .lottery_selectarea, .lottery_filterarea, .lottery_editarea, .lottery_confirmarea, .lottery_tracearea{
+	width:100%;
+	text-align:center;
+	float:left;
+	padding:10px 0 10px 0; /* 此处填充会使上下保持一定的间隔  */
+}
+
+.lottery_lables { /*标签区*/
+	background: #FF0000;
+	padding: 0px; 
+	/*padding: 0 0 0 20px;  /* 此填充会将出现在它后面的 div 中的元素左对齐。如果在里面使用的是图像（而不是文本），您最好删除填充。 */
+	height:25px;
+}
+.lottery_selectarea{ /*选号区*/
+	background: #fff8f2;
+}
+.lottery_filterarea{ /*筛选区*/
+	background: #fdeedb;
+}
+.lottery_editarea{ /*编辑区*/
+	background: #fff8f2;
+}
+.lottery_editor_textarea{ /*编辑区textarea样式*/
+	width:100%;
+	height:130px;
+	text-align:left;
+}
+.lottery_confirmarea{ /*确认区*/
+	background: #fdeedb;
+}
+.lottery_confirm_textarea{ /*确认区textarea样式*/
+	width:100%;
+	height:130px;
+	text-align:left;
+	float:left;
+}
+.lottery_confirm_list{ /*确认区文字信息*/
+	float:left;
+	text-align:left;
+	margin:10px;
+}
+.lottery_tracearea{ /*追号区*/
+	background: #fff8f2;
+}
+.lottery_fieldset{ /*所有fieldset的样式*/
+	border:1px solid #f9d3cb;
+	text-align:center;
+	width: 95%;
+	margin:0 auto;
+}
+.lottery_legend{ /*所有的legend的样式*/
+	color:#333333;
+	float:left;
+}
+.lottery_contentbox{ /*每个区具体内容的外框*/
+	float:left;
+	text-align:left;
+	padding: 5px 0 5px 50px;
+}
+.lottery_contentbox ul{
+	list-style-type:none;
+	text-align:left;
+	margin:0;
+	padding:0;
+	width:100%;
+}
+.lottery_contentbox ul li{
+	line-height:30px;
+}
+.lottery_contentbox .leftcontent{ /*具体内容左边部分*/
+	float:left;
+	text-align:left;
+	width:75%;
+}
+.lottery_contentbox .rightcontent{ /*具体内容左边部分*/
+	float:left;
+	margin-left:5px;
+	text-align:left;
+	width:25%;
+}
+.lottery_button{ /*按钮总样式*/
+	border:0px;
+	padding:0px;
+	margin:0px;
+	cursor:pointer;
+	height:20px;
+	width:100px;
+	line-height:20px;
+}
+.lottery_button_random{ /*机选按钮样式*/
+	width:60px;
+}
+.lottery_button_import{ /*机选按钮样式*/
+	
+}
+.lottery_button_clear{ /*机选按钮样式*/
+	
+}
+.lottery_button_insert{ /*机选按钮样式*/
+	
+}
+.lottery_button_confirm{ /*机选按钮样式*/
+	
+}
+.lottery_input{ /*文本框输入总样式*/
+	width:20px;
+	text-align:center;
+}
+.lottery_input_underline{ /*下划线型的输入框*/
+	width:30px;
+	font-weight:bold;
+	color:#FF0000;
+	border:0px;
+	border-bottom:1px #000000 solid;
+}
+
+.lottery_js_word{ /*js生成的文字样式*/
+	color: #FF0000;
+	font-weight:bold;
+}
+.lottery_button_confirm{ /*提交按钮的样式*/
+	width:100px;
+	float:left;
+}
+.lottery_tracearea_table, .lottery_tracearea_table_label{
+	border:1px #666666 solid;
+	width:99%;
+	text-align:center;
+	padding:0;
+	margin-bottom:10px;
+	border-right:0;
+}
+
+.lottery_tracearea_table_label{
+	border:0;
+	margin:10px 0 0 0;
+}
+
+.td_front, .td_block{
+	width:90px;
+	border:1px #666666 solid;
+	text-align:center;
+	height:18px;
+	line-height:18px;
+}
+.td_front{
+	border-bottom:0;
+}
+.td_space, .td_longspace{
+	border-bottom:1px #666666 solid;
+}
+.td_space{
+	width:5px;
+}
+
+.lottery_tracearea_table .titletd{border:1px #666666 solid;border-left:0px;}
+.lottery_tracearea_table td{border-right:1px #666666 solid;}
+/*选号区*/
+.lottery_selectarea_table{
+	width:100%;
+	border:0px;
+}
+.lottery_selectarea_table td{
+	height:30px;
+	line-height:30px;
+}
+.lottery_selectarea_title{
+	padding:2px 8px 2px 8px;
+	background-color:#FF6600;
+	line-height:30px;
+	text-align:center;
+	color:#FFFFFF;
+	font-weight:bold;
+	letter-spacing:2px;
+}
+.lottery_selectarea_num{
+	padding:4px 8px 4px 8px;
+	line-height:30px;
+	text-align:center;
+	border:1px #a3a3a2 solid;
+	background-color:#f5f5f5;
+	color:#000;
+	font-weight:bold;
+}
+.lottery_selectarea_button{
+	width:25px;
+	height:24px;
+	background-color:#CCCCCC;
+	border:0;
+	cursor:pointer;
+	margin-left:2px;
+}
+-->
+</style></head>
+
+<body>
+<br />
+<div id="lottery_box">
+  <div class="lottery_lables" id="area_lables">标签区</div>
+  <!--**************************选号区******************************-->
+  <div class="lottery_selectarea" id="area_select">
+  	<fieldset class="lottery_fieldset">
+    	<legend class="lottery_legend">选号区</legend>
+        <div class="lottery_contentbox">
+        	<table border="0" cellpadding="0" cellspacing="0" class="lottery_selectarea_table">
+            <tr>
+            	<td style="padding-right:20px;"><span class="lottery_selectarea_title">百位</span></td>
+                <td><span id="num_0" class="lottery_selectarea_num">0</span> 
+                	<span id="num_1" class="lottery_selectarea_num">1</span> 
+                    <span id="num_2" class="lottery_selectarea_num">2</span> 
+                    <span id="num_3" class="lottery_selectarea_num">3</span> 
+                    <span id="num_4" class="lottery_selectarea_num">4</span> 
+                    <span id="num_5" class="lottery_selectarea_num">5</span> 
+                    <span id="num_6" class="lottery_selectarea_num">6</span> 
+                    <span id="num_7" class="lottery_selectarea_num">7</span> 
+                    <span id="num_8" class="lottery_selectarea_num">8</span> 
+                    <span id="num_9" class="lottery_selectarea_num">9</span> 
+                    &nbsp;&nbsp;
+                    <button type="button" class="lottery_selectarea_button">全</button>&nbsp;
+                    <button type="button" class="lottery_selectarea_button">大</button>&nbsp;
+                    <button type="button" class="lottery_selectarea_button">小</button>&nbsp;
+                    <button type="button" class="lottery_selectarea_button">奇</button>&nbsp;
+                    <button type="button" class="lottery_selectarea_button">偶</button>&nbsp;
+                    <button type="button" class="lottery_selectarea_button">清</button>
+                </td>
+            </tr>
+            <tr>
+            	<td><span class="lottery_selectarea_title">十位</span></td>
+                <td><span id="num_0" class="lottery_selectarea_num">0</span> 
+                	<span id="num_1" class="lottery_selectarea_num">1</span> 
+                    <span id="num_2" class="lottery_selectarea_num">2</span> 
+                    <span id="num_3" class="lottery_selectarea_num">3</span> 
+                    <span id="num_4" class="lottery_selectarea_num">4</span> 
+                    <span id="num_5" class="lottery_selectarea_num">5</span> 
+                    <span id="num_6" class="lottery_selectarea_num">6</span> 
+                    <span id="num_7" class="lottery_selectarea_num">7</span> 
+                    <span id="num_8" class="lottery_selectarea_num">8</span> 
+                    <span id="num_9" class="lottery_selectarea_num">9</span> 
+                    &nbsp;&nbsp;
+                    <button type="button" class="lottery_selectarea_button">全</button>&nbsp;
+                    <button type="button" class="lottery_selectarea_button">大</button>&nbsp;
+                    <button type="button" class="lottery_selectarea_button">小</button>&nbsp;
+                    <button type="button" class="lottery_selectarea_button">奇</button>&nbsp;
+                    <button type="button" class="lottery_selectarea_button">偶</button>&nbsp;
+                    <button type="button" class="lottery_selectarea_button">清</button>
+                </td>
+            </tr>
+            <tr>
+            	<td><span class="lottery_selectarea_title">个位</span></td>
+                <td><span id="num_0" class="lottery_selectarea_num">0</span> 
+                	<span id="num_1" class="lottery_selectarea_num">1</span> 
+                    <span id="num_2" class="lottery_selectarea_num">2</span> 
+                    <span id="num_3" class="lottery_selectarea_num">3</span> 
+                    <span id="num_4" class="lottery_selectarea_num">4</span> 
+                    <span id="num_5" class="lottery_selectarea_num">5</span> 
+                    <span id="num_6" class="lottery_selectarea_num">6</span> 
+                    <span id="num_7" class="lottery_selectarea_num">7</span> 
+                    <span id="num_8" class="lottery_selectarea_num">8</span> 
+                    <span id="num_9" class="lottery_selectarea_num">9</span> 
+                    &nbsp;&nbsp;
+                    <button type="button" class="lottery_selectarea_button">全</button>&nbsp;
+                    <button type="button" class="lottery_selectarea_button">大</button>&nbsp;
+                    <button type="button" class="lottery_selectarea_button">小</button>&nbsp;
+                    <button type="button" class="lottery_selectarea_button">奇</button>&nbsp;
+                    <button type="button" class="lottery_selectarea_button">偶</button>&nbsp;
+                    <button type="button" class="lottery_selectarea_button">清</button>
+                </td>
+            </tr>
+            </table>
+        </div>
+    </fieldset>
+  </div>
+  <!--**************************筛选区******************************-->
+  <div class="lottery_filterarea" id="area_filter">
+  	<fieldset class="lottery_fieldset">
+    	<legend class="lottery_legend">筛选区</legend>
+        <div class="lottery_contentbox">
+            <ul>
+                <li>
+                    <input type="checkbox" />跨度<select disabled="disabled"><option>0</option></select>
+                    <input type="checkbox" />跨度<select disabled="disabled"><option>0</option></select>
+                    <input type="checkbox" />和尾<select disabled="disabled"><option>0</option></select>
+                </li>
+                <li>
+                	<input type="radio" name="selecttype" />直选
+                    <input type="radio" name="selecttype" />组三
+                    <input type="radio" name="selecttype" />组六
+                </li>
+                <li>
+                	<input type="radio" name="filter" />两大一小
+                    <input type="radio" name="filter" />两小一大
+                    <input type="radio" name="filter" />两奇一偶
+                    <input type="radio" name="filter" />两偶一奇
+                    <input type="radio" name="filter" />两质一合
+                    <input type="radio" name="filter" />两合一质
+                </li>
+                <li>
+                	<input type="radio" name="filter" />多出一
+                    <input type="radio" name="filter" />多出二
+                    <input type="radio" name="filter" />全不出
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+  </div>
+  <!--**************************编辑区******************************-->
+  <div class="lottery_editarea" id="area_edit">
+  	<fieldset class="lottery_fieldset">
+    	<legend class="lottery_legend">编辑区</legend>
+        <div class="lottery_contentbox">
+        	<div class="leftcontent">
+            	<textarea name="editor" id="lottery_editor" class="lottery_editor_textarea"></textarea>
+            </div>
+            <div class="rightcontent">
+            	<ul>
+                	<li><button type="button" class="lottery_button  lottery_button_random" id="random_button" title="random"><img src="../keyboard/mykeypad/keypad_back.png" /></button> <input type="text" class="lottery_input" />注</li>
+                    <li><button type="button" class="lottery_button  lottery_button_import" id="random_button" title="random">导入文件</button></li>
+                    <li><button type="button" class="lottery_button  lottery_button_clear" id="random_button" title="random">清空</button></li>
+                    <li><button type="button" class="lottery_button  lottery_button_insert" id="random_button" title="random">添加</button></li>
+                </ul>
+            </div>
+        </div>
+    </fieldset>
+  </div>
+  <!--**************************确认区******************************-->
+  <div class="lottery_confirmarea" id="area_confirm">
+  	<fieldset class="lottery_fieldset">
+    	<legend class="lottery_legend">确认区</legend>
+        <div class="lottery_contentbox">
+        	<div class="leftcontent">
+            	<textarea name="editor" id="lottery_editor" class="lottery_confirm_textarea"></textarea>
+                <div class="lottery_confirm_list">
+                	<ul>
+                    	<li>
+                        	总注数:<span id="lottery_total_order" class="lottery_js_word">123</span>, 
+                        	总金额:<span id="lottery_total_order" class="lottery_js_word">246</span> 游戏币, 
+                            请填写倍数:<input type="text" class="lottery_input lottery_input_underline" /> 倍
+                        </li>
+                        <li>
+                        	<input type="radio" name="lottery_prize_group" class="lottery_input" />
+                            金额:<input type="text" class="lottery_input lottery_input_underline" />游戏币,
+                            奖金：<span id="lottery_total_order" class="lottery_js_word">123</span>游戏币,
+                            请填写倍数:<input type="text" class="lottery_input lottery_input_underline" /> 倍
+                        </li>
+                        <li>
+                        	<input type="radio" name="lottery_prize_group" class="lottery_input" />
+                            奖金:<input type="text" class="lottery_input lottery_input_underline" />游戏币,
+                            金额：<span id="lottery_total_order" class="lottery_js_word">123</span>游戏币,
+                            请填写倍数:<input type="text" class="lottery_input lottery_input_underline" /> 倍
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="rightcontent">
+            	<button class="lottery_button lottery_button_confirm" type="submit">确认投注</button>
+            </div>
+        </div>
+    </fieldset>
+  </div>
+  <!--**************************追号区******************************-->
+  <div class="lottery_tracearea" id="area_trace">
+  	<fieldset class="lottery_fieldset">
+    	<legend class="lottery_legend">追号区</legend>
+       <div class="lottery_contentbox" style="padding:0; width:100%;">
+        	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+            	<tr>
+                	<td height="30" align="left">&nbsp;&nbsp;
+                    <input type="checkbox" />我要追号&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" />中奖后停止追号
+                    </td>
+                </tr>
+                <tr>
+                	<td align="center">
+                        <table class="lottery_tracearea_table_label" cellpadding="0" cellspacing="0">
+                            <tr>
+                            	<td class="td_front">同倍追号</td>
+                                <td class="td_space">&nbsp;</td>
+                                <td class="td_block">翻倍追号</td>
+                                <td class="td_space">&nbsp;</td>
+                                <td class="td_block">利润金额追号</td>
+                                <td class="td_space">&nbsp;</td>
+                                <td class="td_block">利润率追号</td>
+                                <td class="td_longspace">&nbsp;</td>
+                        </table>
+                    	<table class="lottery_tracearea_table" cellpadding="0" cellspacing="0" style="border-top:0;">
+                        	<tr>
+                            	<td height="50" align="center" style="border-right:0;">
+                                	<div>
+                                    	倍数:<input type="text" size="5" class="lottery_input lottery_input_underline" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                        追号期数:<input type="text" size="5" class="lottery_input lottery_input_underline" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                        追号总金额: <span>1206</span> 游戏币
+                                    </div>
+                                </td>
+                                <td align="center" width="100"><button>立即生成</button></td>
+                            </tr>
+                        </table>
+                        <table class="lottery_tracearea_table" cellpadding="0" cellspacing="0">
+                        	<tr><td colspan="6" align="center" bgcolor="#FF6666">可选期号</td></tr>
+                            <tr>
+                            	<td height="20" class="titletd">期号</td>
+                                <td class="titletd">倍数</td>
+                                <td class="titletd">投注金额</td>
+                                <td class="titletd">中奖金额</td>
+                                <td class="titletd">利润(游戏币)</td>
+                                <td class="titletd">利率(%)</td>
+                            </tr>
+                            <tr>
+                            	<td height="20" >期号</td>
+                                <td>倍数</td>
+                                <td>投注金额</td>
+                                <td>中奖金额</td>
+                                <td>利润(游戏币)</td>
+                                <td>利率(%)</td>
+                            </tr>
+                            <tr>
+                            	<td height="20" >期号</td>
+                                <td>倍数</td>
+                                <td>投注金额</td>
+                                <td>中奖金额</td>
+                                <td>利润(游戏币)</td>
+                                <td>利率(%)</td>
+                            </tr>
+                            <tr>
+                            	<td height="20" >期号</td>
+                                <td>倍数</td>
+                                <td>投注金额</td>
+                                <td>中奖金额</td>
+                                <td>利润(游戏币)</td>
+                                <td>利率(%)</td>
+                            </tr>
+                            <tr>
+                            	<td height="20" >期号</td>
+                                <td>倍数</td>
+                                <td>投注金额</td>
+                                <td>中奖金额</td>
+                                <td>利润(游戏币)</td>
+                                <td>利率(%)</td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </fieldset>
+  </div>
+<!-- end #container -->
+</div>
+<br />
+</body>
+</html>

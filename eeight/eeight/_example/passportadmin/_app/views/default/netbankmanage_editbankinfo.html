@@ -1,0 +1,145 @@
+{include file="pageheader.html"}
+{literal}
+<script type="text/javascript">
+function errOut(str,id){
+    document.getElementById('err_'+id).innerHTML = '<font color=red> &nbsp; ' + str + '</font>';
+}
+function resetOut(id){
+    document.getElementById("err_"+id).innerHTML = '';
+}
+function check(){
+    var finance_name = document.getElementById("finance_name");
+    if (finance_name.value == '' ){
+        errOut("财务识别名不能为空",'finance_name');
+            return false;
+    }
+    if (finance_name.value.indexOf(' ') >= 0){
+        errOut("财务识别名输入有误",'finance_name');
+            return false;
+    }
+    
+    var passwd = document.getElementById("passwd");
+    var repasswd = document.getElementById("repasswd");
+    if(passwd.value !='' || repasswd.value != ''){
+        if (passwd.value.length < 6 || passwd.value.indexOf(' ') >= 0){
+            errOut("登录密码输入有误",'passwd');
+            return false;
+        }
+        if(repasswd.value == ''){
+            errOut("确认密码不能为空", 'repasswd');
+            return false;
+        }
+        if (passwd.value != repasswd.value ){
+            errOut("确认密码与登录密码输入不一致", 'repasswd');
+            return false;
+        }
+    }
+//    var amount = document.getElementById("amount");
+//	if (amount.value == ''){
+//		alert("您忘记了填写账户金额！");
+//		amount.focus();
+//		return false;
+//	}
+	var name = document.getElementById("name");
+	if (name.value == ''){
+		errOut("用户名不能为空",'name');
+		return false;
+	}
+        var standName = /^[\u4e00-\u9fa5]+$/;
+        if ( standName.test(name.value) == false || name.value.length > 5 ){
+            errOut("用户名输入有误",'name');
+//            name.focus();
+            return false;
+        }
+	var area = document.getElementById("area")
+	if (area.value == ''){
+		errOut("所在省份不能为空",'area');
+		return false;
+	}
+
+        document.getElementById("listForm").submit();
+}
+function checkpwd()
+{
+    var passwd = document.getElementById("passwd");
+    var repasswd = document.getElementById("repasswd");
+    if(passwd.value != repasswd.value && repasswd.value  !="")
+    {
+        document.getElementById("erro").innerHTML="<font color=red>确认密码与登录密码输入不一致</font>";
+        repasswd.focus();
+        return false;
+    }
+    else
+    {
+        document.getElementById("erro").innerHTML="";
+    }
+
+}
+</script>
+{/literal}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" id="listForm" action="index.php" >
+<input type="hidden" name="controller" value="netbankmanage" />
+<input type="hidden" name="action" value="editbankinfo" />
+<input type="hidden" name="id" value="{$paycard_id}" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+    <tr>
+    <td align="right">财务识别名：</td>
+    <td>
+    <input type="text" name="finance_name" id="finance_name" value="{$finance_name}" onClick="javascript:resetOut('finance_name')"><span id="err_finance_name"></span>
+    </td>
+  </tr>
+  <tr>
+    <td  align="right">网银帐号：</td>
+    <td width="70%">{$card_num|escape:html}</td>
+  </tr>
+  <tr>
+    <td align="right">登录密码：</td>
+    <td><input type="password" name="passwd" id="passwd" value="" onClick="javascript:resetOut('passwd')" /><span id="err_passwd"></span> 为空默认不修改密码 </td>
+  </tr>
+  <tr>
+    <td align="right">确认密码：</td>
+    <td><input type="password" name="repasswd" id="repasswd" value=""  onClick="javascript:resetOut('repasswd')" ><span id="err_repasswd"></span><span id="erro"></span></td>
+  </tr>
+  <!--<tr>
+    <td align="right">账户金额：</td>
+    <td><input type="text" name="amount" id="amount" value="{$amount|escape:html}" /></td>
+  </tr>-->
+   <tr>
+    <td align="right">用户名：</td>
+    <td><input type="text" name="name" id="name" value="{$name|escape:html}"  onClick="javascript:resetOut('name')" /><span id="err_name"></span></td>
+  </tr>
+  <tr>
+    <td align="right">所在省份：</td>
+    <td>
+        <select name="area" id="area" onClick="javascript:resetOut('area')" >
+        <option value="{$area}" SELECTED>{$area|escape:html}</option>
+        {foreach from=$arealist item=area key=k}
+        <option value="{$area.name}">{$area.name}</option>
+        {/foreach}
+        </select>
+        <span id="err_area"></span></td>
+  </tr>
+  <tr>
+    <td align="right">状态：</td>
+    <td>
+    <select name="status" id="status">
+    	<option value="-1">请选择...</option>
+    	<option value="1" {if $status == 1}selected{/if}>启用</option>
+    	<option value="0" {if $status == 0}selected{/if}>禁用</option>
+    </select>
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><input type="button" value="提交" class="button" onClick="javascript:check();return false;" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="edit" value="取消" class="button" onclick="history.back();" /></td>
+  </tr>
+</table>
+</form>
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+
+
+</div>
+
+{include file="pagefooter.html"}

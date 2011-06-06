@@ -1,0 +1,28 @@
+{include file="pageheader.html"}
+<div class="list-div">
+<table cellspacing='1' cellpadding='3'>
+<tr><th align='left'>&nbsp;&nbsp;网站公告</th></tr>
+{if empty($notice) }
+<tr>
+    <td class="no-records">
+    无公告
+    </td>
+</tr>
+{else}
+<tr>
+<td>
+<table cellpadding="0" cellspacing="0" border="0" bordercolordark="#FFFFFF" bordercolorlight="#FF0000" align="center">
+    <tr>
+        <td align="center" height="25"><strong>{$notice.subject|escape:html}</strong></td>
+    </tr>
+    <tr>
+        <td align="center" height="20" valign="top" style="color:#666666;">时间：{$notice.sendtime}</td>
+    </tr>
+    <tr>
+        <td align="left" height="40" style="padding:10px;">{$notice.content}</td>
+    </tr>
+</table>
+</td></tr>
+{/if}
+</table></div>
+{include file="pagefooter.html"}

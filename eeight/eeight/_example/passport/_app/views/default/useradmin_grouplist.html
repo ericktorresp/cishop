@@ -1,0 +1,43 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkform(obj)
+{
+	return confirm("确定要批量删除所选用户组吗？");
+} 
+</script>
+<div class="list-div" id="listDiv">
+<table class="list-table">
+<form action="index.php" method="post" name="listform" onsubmit="return checkform(this)">
+<input type="hidden" name="controller" value="useradmin" />
+<input type="hidden" name="action" value="deletegroup" />
+<input type="hidden" name="flag" value="delete" />
+	<tr>
+    	<th width="20">&nbsp;</th>
+    	<th width="40%">组别</th>
+        <th width="60%">操作</th>
+    </tr>
+    {foreach from=$groups item=group key=k}
+    {if $group.groupid != 7}
+    <tr>
+    	<td width="20"><input type="checkbox" name="select_rows[]" value="{$group.groupid}" /></td>
+    	<td align="center" height="20">{$group.groupname|escape:html}{if $group.isspecial==0}{if $group.issales==0}<span style="color:#666666">[系统默认]</span>{else}<span style="color:#FF0000">[默认销售]</span>{/if}{/if}
+        {if $group.isspecial>0}{if $group.issales==1}<span style="color:#FF0000">[指定销售]</span>{/if}{/if}</td>
+        <td align="center" class="list-over">
+        	<a href="index.php?controller=useradmin&action=rightsgroup&gid={$group.groupid}">组别权限</a> 
+            <a href="index.php?controller=useradmin&action=updategroup&gid={$group.groupid}">修改组别</a> 
+            <a href="index.php?controller=useradmin&action=deletegroup&gid={$group.groupid}" onclick="return confirm('确定要删除吗？')">删除</a>
+            </td>
+    </tr>
+    {/if}
+    {/foreach}
+    <tr>
+    <td></td>
+    	<td colspan="2" align="center"><input type="checkbox" name="selectall" id="selectall" onclick="selectAll('selectall')" />全选 &nbsp;&nbsp;
+        				<input type="submit" name="submit" value="批量删除" class="button" />&nbsp;&nbsp;
+                        <button type="button" onclick="window.location='index.php?controller=useradmin&action=addgroup'" class="button">增加组别</button>
+        </td>
+    </tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

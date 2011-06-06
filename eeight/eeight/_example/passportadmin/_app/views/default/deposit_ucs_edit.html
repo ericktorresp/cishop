@@ -1,0 +1,73 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+{literal}
+<script type="text/javascript">
+<!--
+function viewname()
+{
+	var nl = document.getElementById("userlist").value;
+	var anl = nl.split(',');
+	var ianl = anl.length;
+	var sname = '';
+	
+	for (var i=0;i<ianl;i++)
+	{
+		if (ianl > 1) sname = sname + "<br/>("+ (i+1) +")"; 
+		sname = sname + anl[i].trim();
+	}
+	document.getElementById("nametotal").innerHTML = ianl + "个";
+	document.getElementById("nameview").innerHTML = sname;
+}
+
+function checkform()
+{
+	var namestr = document.getElementById("userlist").value;
+	var aNamestr = namestr.split(',');
+	var iANamestr = aNamestr.length;
+
+	for (var i=0;i<iANamestr;i++)
+	{
+		if (aNamestr[i].length < 1)
+		{
+			alert('提交中含有空字串名称');
+			return false;
+		}
+	}
+
+	document.getElementById("listForm").submit();
+	
+}
+//-->
+</script>
+{/literal}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" id="listForm" action="?controller=deposit&action={$action|default:save}">
+<input type="hidden" name="flag" value="{$flag}">
+<input type="hidden" name="cate" value="{$aText.cate}">
+
+<table cellspacing='2' cellpadding='5' id='list-table'>
+<tr>
+	<td class="narrow-label">{$aText.userlisttext}</td> 
+	<td><textarea id="userlist" name="userlist" rows="5" cols="60" onKeyup="viewname();"></textarea>  <font color=red>(多个用户名之间请用半角英文逗号间隔)</font><br/>
+	</td>
+</tr>
+{if $aText.cate == "vip"}
+<tr>
+	<td class="narrow-label">{$aText.daystext}</td>
+	<td><input id="days" name="days" size="4" value="14" maxlength=2>天 <font color=red>(默认天数为14天)</font></td>
+</tr>
+{/if}
+<tr>
+	<td class="narrow-label">({$aText.viewtext} <font color=red><span id="nametotal"></span></font>)</td>
+	<td><span id="nameview" name="nameview" style="font-size:14px;color:blue"></span></td>
+</tr>
+<tr>
+	<td class="narrow-label">&nbsp;</td>
+	<td><input type="button" class="button" value="确定提交" onclick="checkform();"><input type="button" class="button" value="返回" onclick="javascript:history.back();"></td>
+</tr>
+</table>
+
+</form>
+</div>
+
+{include file="pagefooter.html"}

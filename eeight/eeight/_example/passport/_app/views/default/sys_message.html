@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>系统消息 {$systemversions}</title>
+<LINK href="./css/blue.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="./js/jquery.js"></script>
+</head>
+<body>
+<style type="text/css">
+#listDiv{
+    width:600px;
+    margin:20px auto;
+}
+</style>
+<div class="list-div" id="listDiv">
+<table class="list-table" width="60%">
+	<tr align="center">
+    	<th align="center" height="30">
+        	{if $msg_type == 1 }系统消息
+            {elseif $msg_type == 2 }<span style="color:#FF0000"><strong>温馨提示</strong></span>
+            {elseif $msg_type == 2 }<span style="color:#006699">询问消息？</span>
+            {else}系统消息
+            {/if}
+        </th>
+    </tr>
+    <tr align="center">
+        <td align="center" height="50">
+            {if $msg_type == 2 }<span style="color:#FF0000"><b>{$msg_detail|escape:html}</b></span>
+            {else}{$msg_detail|escape:html}{/if}
+        </td>
+    </tr>
+    <tr align="center">
+    	<td>
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            	<tr align="center"><td height="20">{$auto_redirection}</td></tr>
+                {foreach from=$links item=link key=k}
+                <tr align="center"><td height="20">&nbsp;&nbsp;&nbsp;&nbsp;<a href="{$link.url}" target="_{$link.target}">{$link.title}</a></td></tr>
+                {/foreach}
+            </table>
+        </td>
+    </tr>
+</table>
+</div>
+<script language="JavaScript">
+<!--
+var seconds = document.getElementById('spanSeconds').innerHTML;
+var defaultUrl = "{$default_url}";
+var timeInterval = null;
+
+{literal}
+onload = function()
+{
+ timeInterval = window.setInterval(redirection, 1000);
+    document.getElementById('spanSeconds').innerHTML = seconds;
+}
+
+function redirection()
+{
+  seconds--;
+
+  if (seconds <= 0)
+  {
+   clearInterval(timeInterval);
+   {$target}.location.href= defaultUrl;
+  }
+  else
+  {
+      document.getElementById('spanSeconds').innerHTML = seconds;
+  }
+}
+//-->
+</script>
+</body>
+</html>

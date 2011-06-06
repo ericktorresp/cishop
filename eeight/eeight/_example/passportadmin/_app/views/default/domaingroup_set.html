@@ -1,0 +1,146 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/jquery.impromptu.2.6.min.js"></script>
+<LINK href="./css/impromptu.css" rel="stylesheet" type="text/css" />
+{literal}
+<script type="text/javascript">
+function CheckBoxSelectAll(obj, chk)
+{
+  if (chk == null)
+  {
+    chk = 'checkboxes';
+  }
+
+  var elems = obj.form.getElementsByTagName("INPUT");
+
+  for (var i=0; i < elems.length; i++)
+  {
+    if (elems[i].name == chk || elems[i].name == chk + "[]")
+    {
+      elems[i].checked = obj.checked;
+    }
+  }
+}
+
+function numchange(obj,TYPE,str)
+{
+		var elems = obj.form.getElementsByTagName(TYPE);
+		for (var i=0; i < elems.length; i++)
+	  	{
+			var names= elems[i].name;
+			
+			if(names.substr(0,str.length) == str)
+	    	{
+		    	if(TYPE=="INPUT")
+		    	{
+	      			//elems[i].value = obj.value;
+	      			if (document.getElementById('all_allow').checked == true){
+	      				elems[i].checked = true;
+	      			}else{
+	      				elems[i].checked = false;
+	      			}
+		    	}
+		    	else if(TYPE=="SELECT")
+		    	{
+			    	elems[i].options[obj.selectedIndex].selected = "TRUE" ;
+				}
+	    	}
+	  	}
+}
+
+function checksss()
+{
+	ss ="";
+	var elems = document.getElementsByTagName("INPUT");
+	for (var i=0; i < elems.length; i++)
+	{
+		if (elems[i].name =="domain" || elems[i].name == "domain[]")
+	    {
+		    
+	    	if(elems[i].checked)
+	      	{
+		      	id= elems[i].value;
+		      	domains = document.getElementById("domains_"+id).innerHTML;
+		      	domaingroups = document.getElementById("domaingroup_"+id);
+		      	domaingroup = domaingroups.options[domaingroups.selectedIndex].innerHTML;
+		      	
+		      	s = "<tr><td>"+domains+"</td><td>"+domaingroup+"</td></tr>";
+		      	ss = ss+s;
+		   	}
+	    }
+	}
+	/*if(ss =="")
+	{
+		alert('请勾选希望更新的数据行');
+		return false;
+	}
+	else
+	{*/
+		ss="<div style='overflow-y: auto; height: 200px; width: 100%;'><table class='list-div'><tr><th>域名</th><th>域名组</th></tr>"+ss+"</table></div>";
+		$.prompt(ss,{ buttons: { "确认": true, "取消": false }, show:'slideDown' ,callback:mycallbackform,focus: 1 });
+	//}
+}
+
+function mycallbackform(v,m,f){
+	if(v){
+		document.forms['list-form'].submit();
+	}
+}
+
+</script>
+{/literal}
+
+<div class="list-div">
+<form method="POST" action="?controller=domaingroup&action=set" name="list-form" id="list-form">
+
+<table id='list-table'>
+<tr>
+	<th width="15">ID</th>
+	<th width="30%">域名</th>
+	<th width="40%">域名组名称</th>
+	<th width="15%">域名状态</th>
+</tr>
+{foreach from=$domains item=domain key=v}
+<tr>
+	<td align="center"><label for="domain_{$domain.id}"><input type="checkbox" id="domain_{$domain.id}" name="domain[]" value="{$domain.id}"> {$domain.id} </label></td>
+	<td class="narrow-label" id="domains_{$domain.id}"><span style="cursor:pointer">{$domain.domain}</span></td>
+	<td align="center">
+	<select name="domaingroup[{$domain.id}]" id="domaingroup_{$domain.id}">
+	{foreach from=$domaingroup item=group}
+		<option value="{$group.id}" {if $domain.bygroupid == $group.id}selected="selected"{/if}>{$group.bygroup}</option>
+	{/foreach}
+	</select>
+
+	</td>
+	<td>
+	{if $domain.status == 1}
+	使用中
+	{elseif $domain.status == 2}
+	删除
+	{elseif $domain.status == 3}
+	备用
+	{else}
+	未启用
+	{/if}
+	</td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="4" class="no-records">没有找到符合条件的相关总代</td>
+</tr>
+{/foreach}
+<tr>
+	<td colspan="4"> (勾选需要保存的域名ID 保存新的分组选择) </td>
+</tr>
+<tr> 
+<td colspan="4" align="center"><input class="button" type="button" value="保存" onclick="javascript:return checksss();"><input class="button" type="reset" value="还原"></td>
+</tr>
+</table>
+</form>
+</div>
+<script>
+function ClickBox(u){
+	
+}
+</script>
+{include file="pagefooter.html"}

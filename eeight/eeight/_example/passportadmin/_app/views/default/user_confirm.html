@@ -1,0 +1,102 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/common2.js"></script>
+<div class="list-div">
+<form method="POST" action="?controller=user&action={$next}">
+{if isset($payment)}
+<input type="hidden" name="payment" value="1">
+<input type="hidden" name="channel" value="{$channel|escape:html}">
+
+{/if}
+{if isset($manual)}
+<input type="hidden" name="manual" value="1">
+<input type="hidden" name="channel" value="{$channel|escape:html}">
+
+{/if}
+{if isset($isfee)}
+<input type="hidden" name="isfee" value="1">
+<input type="hidden" name="channel" value="{$channel|escape:html}">
+
+{/if}
+{if isset($credit)}
+<input type="hidden" name="credit" value="{$credit|escape:html}">
+{/if}
+<table>
+<tr>
+<td class="narrow-label" width="20%">用户名称</td>
+<td width="80%">{$user.username|escape:html}<input type="hidden" name="userid" value="{$user.userid}"></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticecash');"><img src="./images/notice.gif" border="0" title="现金金额"></a>现金余额 A</td>
+<td>{$user.cashbalance|escape:money}<span id="noticecash" style="display:none;">现金余额:用户存入平台的真实货币剩余金额。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticecredit');"><img src="./images/notice.gif" border="0" title="信用欠款"/></a>信用欠款 B</td>
+<td>{if isset($userCredit)}{$userCredit|escape:money}{else}无{/if}<span id="noticecredit" style="display:none;">信用欠款:平台借给总代可透支的真实货币金额，此金额在转账中保持不变。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticechannelbalance');"><img src="./images/notice.gif" border="0" title="帐户余额"></a>账户余额 C</td>
+<td>{$user.channelbalance|escape:money}<span id="noticechannelbalance" style="display:none;">账户余额：用户账户中的真实余额。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticeholdbalance');"><img src="./images/notice.gif" border="0" title="冻结金额"></a>冻结金额 D</td>
+<td>{$user.holdbalance|escape:money}<span id="noticeholdbalance" style="display:none;">冻结金额：用户在平台被冻结的游戏币金额。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticeavailablebalance');"><img src="./images/notice.gif" border="0" title="可用余额"></a>可用余额 E</td>
+<td>{$user.availablebalance|escape:money}<span id="noticeavailablebalance" style="display:none;">可用余额：用户在平台可以用来游戏或转账的游戏币。</span></td>
+</tr>
+<tr>
+<td class="narrow-label">{$title2}</td>
+<td>{$money|escape:money}<input type="hidden" name="money" id="money" value="{$money}"></td>
+</tr>
+<tr>
+<td class="narrow-label">大写确认</td>
+<td><span name="moneys" id="moneys"></span></td>
+</tr>
+{if isset($isfee)}
+<tr>
+<td class="narrow-label">{$titlefee2}</td>
+<td>{$fee|escape:money}<input type="hidden" name="fee" id="fee" value="{$fee}"></td>
+</tr>
+<tr>
+<td class="narrow-label">大写确认</td>
+<td><span name="fees" id="fees"></span></td>
+</tr>
+{/if}
+{if empty($description)}
+{else}
+<tr>
+<td class="narrow-label">{$title3|escape:html}</td>
+<td>{$description|escape:html}</td>
+</tr>
+{/if}
+<tr>
+<td></td>
+<td><input type="submit" value="确认无误" class="button"><input type="button" value="返回上一步" class="button" onclick="history.back();"></td>
+</tr>
+</table>
+<input type="hidden" name="description" value="{$description|escape:html}">
+</form>
+</div>
+<script>
+jQuery("document").ready( function(){
+	jQuery("#moneys").html(changeMoneyToChinese({$money}));
+	{if isset($isfee)}
+		jQuery("#fees").html(changeMoneyToChinese({$fee}));
+	{/if}
+});
+function showNotice(objId)
+{
+	var obj = document.getElementById(objId);
+	if(obj.style.display=="none")
+	{
+		obj.style.display="block";
+	}
+	else
+	{
+		obj.style.display="none";
+	}		
+}
+</script>
+{include file="pagefooter.html"}

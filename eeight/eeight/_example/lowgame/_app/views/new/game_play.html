@@ -1,0 +1,432 @@
+{include file="pageheader.html"}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/bluejs/dialogUI/jquery.jamesdragn.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/dialogUI/jquery.dialogUI.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/lottery/lang/lottery-utf8.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/lottery/jquery.lotteryUI.js"></script>
+{if isset($methoddata.methodinfo.areatype.type.1)}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/lottery/jquery.lottery.select.js"></script>
+{/if}
+{if isset($methoddata.methodinfo.areatype.type.2)}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/lottery/jquery.lottery.filter.js"></script>
+{/if}
+{if isset($methoddata.methodinfo.areatype.type.3)}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/lottery/jquery.lottery.editor.js"></script>
+{/if}
+{if isset($methoddata.methodinfo.areatype.type.4)}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/lottery/jquery.lottery.confirm.js"></script>
+{/if}
+{if isset($methoddata.methodinfo.areatype.type.5)}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/lottery/jquery.lottery.trace.js"></script>
+{/if}
+<script language="javascript" type="text/javascript">
+//jQuery("#loadhtml").hide(); //去掉loading界面
+jQuery(document).ready(function(){
+    jQuery.lotteryUI({//3D-ZX 直选
+        lottery :   {$methoddata.lotteryid},
+        methodtype: {$methoddata.methodid},
+        period  : '{$methoddata.issueinfo.issue}',
+        singleprize : {$methoddata.prize.prize},
+        servertime : '{$methoddata.nowtime}',
+        endtime : '{$methoddata.issueinfo.saleend}',
+        timer: '#lotery_lefttime',
+        nowIssue    : '#lottery_nowIssue',  //显示当前期的位置
+        endTimearea : '#lottery_endTime',
+        lastIssue   : '#lottery_lastIssue',
+        lastIssueNo : '#lottery_lastIssueNo',
+        ajaxurl     : './?controller=game&action=play',
+        usermoney : Math.floor(Number({$userinfo.availablebalance})*100)/100,
+        limitbons : parseInt({$userinfo.limitbons},10),
+        bigcancel  : parseInt({$userinfo.bigordercancel},10),
+        canclepre  : {$userinfo.bigordercancelpre},
+        //显示整个投注界面
+        selectArea  : {if isset($methoddata.methodinfo.areatype.type.1)}'#select_area',
+        selectDefault:  {//选号区默认设置
+                    {if $methoddata.methodinfo.areatype.type_1.type == 1}{*重复型*}
+                    type        : 'normal',
+                    layout      : [{$methoddata.methodinfo.areatype.type_1.layout}],   //号码排列
+                    noBigIndex  : parseInt({$methoddata.methodinfo.areatype.type_1.startpos},10), //前面多少个号码是小号
+                    isButton    : true,
+                    {/if}
+                    {if $methoddata.methodinfo.areatype.type_1.type == 2}{*和值型*}
+                    type        : 'normal',
+                    layout:     [{$methoddata.methodinfo.areatype.type_1.layout}],
+                    isButton : false,
+                    {/if}
+                    {if $methoddata.methodinfo.areatype.type_1.type == 3}{*特征型*}
+                    {if $methoddata.methodinfo.areatype.type_1.smalltype == 1}{*大小单双*}
+                    type        : 'dxds',
+                    layout:     [{$methoddata.methodinfo.areatype.type_1.layout}],
+                    isButton : false,
+                    {/if}
+                    {/if}
+                    tableCss    : 'lottery_selectarea_table',   //外表格样式
+                    titleCss    : 'lottery_selectarea_title',   //标题样式
+                    noCss       : 'lottery_selectarea_num',   //号码样式
+                    noSelectCss : 'lottery_selectarea_num_check',   //号码选中样式
+                    buttonCss   : 'lottery_selectarea_button',   //按钮[大小单双清]的样式
+                    test   : ''
+        }{else}null{/if},
+    
+        filterArea: {if isset($methoddata.methodinfo.areatype.type.2)}'#filter_area',
+        filterDefault:{
+                    {if isset($methoddata.methodinfo.areatype.type_2.1)}
+                    {if isset($methoddata.methodinfo.areatype.type_2.2)}
+                    show: 'all'
+                    {else}
+                    show: 'span'
+                    {/if}
+                    {else}
+                    {if isset($methoddata.methodinfo.areatype.type_2.2)}
+                    show: 'fixed'
+                    {/if}
+                    {/if}
+        }{else}null{/if},
+        
+        editArea : {if isset($methoddata.methodinfo.areatype.type.3)}'#edit_area',
+        editDefault : {
+                        
+        }{else}null{/if},       
+        
+        confirmArea : {if isset($methoddata.methodinfo.areatype.type.4)}'#confirm_area',
+        confirmDefault : {
+        
+        }{else}null{/if},
+        
+        traceArea   : {if isset($methoddata.methodinfo.areatype.type.4)}'#trace_area',
+        traceDefault : {
+                    periods : [
+                    {foreach from=$methoddata.taskinfo item=task key=k}
+                    '{$task.issue}',
+                    {/foreach}''
+                    ],
+					fun_select:function(obj){
+						obj.addClass("trace_detail_hover");
+					},
+					fun_unselect:function(obj){
+					    obj.removeClass("trace_detail_hover");
+					},
+                    selectype : [{if isset($methoddata.methodinfo.areatype.type_5.1)}'sametimes',{/if}
+                                 {if isset($methoddata.methodinfo.areatype.type_5.2)}'difftimes',{/if}
+                                 {if isset($methoddata.methodinfo.areatype.type_5.3)}'profit',{/if}
+                                 {if isset($methoddata.methodinfo.areatype.type_5.4)}'margin',{/if}'']
+        }{else}null{/if},
+        
+        submitbutton : '#lottery_submit'
+    });
+     $(".quickbutton").hover(function(){
+        $(this).attr("class","quickbutton_hover");
+     },function(){
+        $(this).attr("class","quickbutton");
+     });
+     {if $methoddata.lotteryid == 1}
+        $("#right_top_01_02").css("background-position","0px 0px");
+     {else if $methoddata.lotteryid == 2}
+        $("#right_top_01_02").css("background-position","0px -75px");
+     {/if}
+     $.each($(".lottery_selectarea_title"),function(i,n){
+         var length = jmz.GetLength($(this).html());
+         var width = (length-4)*8+68;
+         var oldhtml = $(this).html();
+         var leftstr = "<div id='selectarea_title_right'></div>";
+         var rightstr = "<div id='selectarea_title_left'></div>";
+         var newhtml = leftstr+"<div id = 'selectarea_title_center'>"+oldhtml+"</div>"+rightstr;
+         $(this).html(newhtml);
+         $(this).css("width",width+"px");
+         var centerwidth = width-14;
+         $(this).find("#selectarea_title_center").css("width",centerwidth+"px");
+     });
+     $(".lottery_selectarea_title").parent().css("padding-right","12px");
+     $(".lottery_selectarea_title").parent().css("padding-left","8px");
+     $("#trace_detail").css("width","688px");
+     $("#trace_detail").parent().css("width","705px");
+     //追号码头重新加载
+     $("#trace_check").parent().addClass("trace_title");
+     $(".trace_title").before("<td height='30' align='left' class='trace_title_td'><div class='right_03_02'></div></td>");
+     $(".trace_title").after("<td height='30' align='left' class='trace_title_td'><div class='right_02_17'></div></td>");
+     $("#trace_content_area").before("<td class='trace_content_area' height='30' align='left' style='display: none;'></td>");
+     $("#trace_content_area").after("<td class ='trace_content_area' height='30' align='left' style='display: none;'></td>");
+     $(".trace_title").html("<div name='trace_check' id='trace_check'>"+lottery_lang.tip_t_t1+"</div><input type='hidden' name='lottery_istrace' id='lottery_istrace' value='0'><input type='hidden' name='trace_totalamount' id='trace_totalamount' value='0'><input type='checkbox' name='trace_stop' id='trace_stop' value='1' disabled /> "+lottery_lang.tip_t_t2);
+     $("#trace_check").click(function(){//显示追号
+        if( $("#lottery_istrace").val() == 0 ){
+            $("#trace_stop").attr("disabled",false).attr("checked",true);
+            $("#lottery_istrace").val(1);
+            $("#trace_content_area").show();
+            $(".trace_content_area").show();
+        }else{
+            $("#trace_stop").attr("disabled",true).attr("checked",false);
+            $("#lottery_istrace").val(0);
+            $("#trace_content_area").hide();
+            $(".trace_content_area").hide();
+        }
+    });
+    var tracetab = $(".lottery_tracearea_table_label").find("td").size();
+    if(tracetab == 6){
+        $("#trace_label_difftimes").css("background-position","-225px -107px");
+        $("#trace_label_difftimes").css("width","110px");
+        if($("#trace_label_difftimes").attr("class") == "lottery_td_front"){
+                $(this).css("background-position","-225px -154px");
+        }
+        $("#trace_label_difftimes").click(function(){
+            if($("#trace_label_difftimes").attr("class") == "lottery_td_front"){
+                $(this).css("background-position","-225px -154px");
+            }
+        });
+        $("#trace_label_sametimes").click(function(){
+            if($("#trace_label_difftimes").attr("class") == "lottery_td_back"){
+                $("#trace_label_difftimes").css("background-position","-225px -107px");
+            }
+        });
+    }
+    $(".action-span1").html("<A href='./index.php' target='_top'>低频游戏</a> - 参与游戏");
+	$("#trace_detail").find(":checkbox").parent().css("background-color","#9C9C9C");
+    var last_code = '{$methoddata.lastissue.code}';
+    if(last_code == '0'){
+        {if $methoddata.lotteryid == 1}
+            last_code = "000";
+        {else if if $methoddata.lotteryid == 2}
+            last_code = "00000";
+        {/if}
+    }
+    processCode(last_code);
+});
+var jmz = {};
+jmz.GetLength = function(str) {
+    ///<summary>获得字符串实际长度，中文2，英文1</summary>
+    ///<param name="str">要获得长度的字符串</param>
+    var realLength = 0, len = str.length, charCode = -1;
+    for (var i = 0; i < len; i++) {
+        charCode = str.charCodeAt(i);
+        if (charCode >= 0 && charCode <= 128) realLength += 1;
+        else realLength += 2;
+    }
+    return realLength;
+};
+function processCode(code)
+{
+    var cStr = '';
+	var aTmp = new Array;
+	//处理中奖号码
+	if(code.indexOf(' ') == -1)
+	{
+		//无空格
+		aTmp = code.split('');
+	}
+	else
+	{
+		//有空格
+		aTmp = code.split(' ');
+	}
+	for(var ci=0;ci<aTmp.length;ci++)
+	{
+		cStr += '<div class="right_top_02_05"><div class="';
+		switch(ci)
+		{
+			case 0:cStr += 'ball_blue';break;
+			case 1:cStr += 'ball_yellow';break;
+			case 2:cStr += 'ball_pink';break;
+			case 3:cStr += 'ball_green';break;
+			case 4:cStr += 'ball_gray';break;
+			default:cStr += 'ball_green';break;
+		}
+		cStr += '" ';
+		if(aTmp[ci].length > 1)
+		{
+			cStr += 'font-size:14px;';
+		}
+		cStr += ' >';
+		cStr += aTmp[ci];
+		cStr += '</div>';
+		if(aTmp[ci].length == 1)
+		{
+			cStr += '<div class="right_top_02_06" style="margin-bottom:-15px">';
+			if(aTmp[ci]>=5)
+			{
+				cStr += '大';
+			}
+			else
+			{
+				cStr += '小';
+			}
+			cStr += '</div>';
+		}
+		cStr += '<div class="right_top_02_06" style="margin-top:20px;">';
+		if(parseInt(aTmp[ci],10)%2 == 0)
+		{
+			cStr += '双';
+		}
+		else
+		{
+			cStr += '单';
+		}
+		cStr += '</div></div>';
+		cStr += '<div class="line_01"></div>'
+	}
+	cStr = cStr.substring(0,cStr.length-28);
+	var width = (300-(32+24)*aTmp.length)/2+'px';
+	$('#last_code').html(cStr);
+	$('#last_code').css('margin-left',width);
+}
+</script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/lowgame/js/bluejs/dialogUI/dialogUI.css" type="text/css" />
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/lowgame/css/new/gameplay.css" type="text/css" />
+<center>
+	<!-- 顶部倒计时显示信息 -->
+    <div class="right_02 height75">
+    
+    <div id="right_top_01">
+    <div class="right_top_01_01"></div>
+    <div id="right_top_01_02">
+    <div class="nowIssue_info">
+         第&nbsp;<span id="lottery_nowIssue">*********</span> 期<br/>
+         截止日期<br/>&nbsp;<span id="lottery_endTime">****-*-* **:**:**</span>    
+     </div>
+     </div>
+    <div id="right_top_01_04"></div>
+    <div id="right_top_01_05">
+    <div id="right_top_01_07">离当前期截止还剩</div>
+    <div id="right_top_01_08">
+    <div id="right_top_01_09"></div>
+    <div id="right_top_01_10"><span id="lotery_lefttime">**:**:**</span></div>
+    <div id="right_top_01_11"></div>
+    </div>
+    </div>
+    <div class="right_top_01_06"></div>
+    </div>
+    <div id="right_top_02">
+    <div class="right_top_01_01"></div>
+    <div id="right_top_02_01"><span id="no_show_{$methoddata.lotteryid}">{$methoddata.lastissue.issue}期</span><br>开奖号码<br />
+    <font class="green"><a  class="green" href="?controller=game&action=bonuscode&lotteryid={$methoddata.lotteryid}" target="_blank">历史号码</a></font></div>
+    <div id="right_top_02_02">
+    <div id="right_top_02_03" ></div>
+    <div id="last_code"></div>
+    <div id="right_top_02_04"></div>
+    </div>
+    <div class="right_top_01_06"></div>
+    </div>
+    </div>
+  <!--顶部倒计时显示信息结束 -->
+  <!--主题内容部分开始-->
+    <form action="" method="post" name="trade">
+    <input type="hidden" name="lotteryid" id="lotteryid" value="{$methoddata.lotteryid}" />
+    <input type="hidden" name="methodid" id="methodid" value="{$methoddata.methodid}" />
+    <input type="hidden" name="curmid" id="curmid" value="{$methoddata.menuid}" />
+    <input type="hidden" name="flag" id="flag" value="save" />  
+    <!--菜单区开始-->
+    <div id="right_02_01">
+    <div class="right_02_02"></div>
+    <div class="right_02_03" id="lt_big_label" >
+    {foreach from=$labels item=label key=k}
+    <div value="{$k}">
+	    {if $label.menuid==$curmid}
+	         <div class="menu_01a"></div>
+                <div class="menu_02a">
+                <a href="javascript:">{$label.title}</a>
+                </div>
+            <div class="menu_03a"></div>
+	    {else}
+	        <div class="menu_01"></div>
+                <div class="menu_02">
+                    <a href="./?controller={$label.controller}&action={$label.actioner}&curmid={$label.menuid}&pid={$pid}">{$label.title}</a>
+                </div>
+            <div class="menu_03"></div>
+	   {/if}
+	</div>
+   {/foreach}
+    </div>
+    <div class="right_02_04"></div>
+    </div>
+	<!--菜单区结束-->
+	<div id="mainarea">
+	{if isset($methoddata.methodinfo.areatype.type.1)}
+         <!--选号区开始(OK)-->
+        <div id="right_03">
+            <div class="right_02_05"></div>
+            <div class="right_02_06"></div>
+        </div>
+        <div class="box_body" id="select_area"></div>
+        <div id="right_04">
+            <div class="right_02_07"></div>
+            <div class="right_02_08"></div>
+        </div>
+        <!--选号区结束(OK)-->
+    {/if}
+    {if isset($methoddata.methodinfo.areatype.type.2)}
+	   <!--筛选区开始(OK)-->
+	        <div id="right_03">
+                <div class="right_02_05"></div>
+                <div class="right_02_06"></div>
+            </div>
+	        <div class="box_body" id="filter_area"><div id="filter_title">筛选区</div></div>
+	        <div id="right_04">
+                <div class="right_02_07"></div>
+                <div class="right_02_08"></div>
+            </div>
+	 <!--筛选区结束(OK)-->
+	{/if}
+	{if isset($methoddata.methodinfo.areatype.type.3)}
+            <!--编辑区开始-->
+            <div id="new_edit_area">
+                <div class="right_02_13">
+                    <div class="right_02_14">编辑区</div>
+                    <div class="right_02_30">每个号码之间请用一个 空格[ ]、逗号[,] 或者 分号[;] 隔开</div>
+                </div>
+                <textarea class="lottery_editor_textarea" id="lottery_editor" name="editor"></textarea>
+                <div class="right_06">
+                    <div class="floatleft">
+                        <select style="height: 27px;" name="random_input" id="random_input">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>5</option>
+                            <option>10</option>
+                            <option>15</option>
+                            <option>20</option>
+                        </select>
+                    </div>
+                <div class="botton15 floatleft" id="random_button">
+                    <span class="lottery_button_random">机　选</span>
+                </div>
+                <div class="botton16" id="insert_button">
+                    <span class="lottery_button_insert">添　加</span>
+                </div>
+                <div class="botton15 floatright" id="import_button">
+                    <span class="lottery_button_import">导入文件</span>
+                </div>
+                <div class="botton15 floatright" id="clear_button">
+                    <span class="lottery_button_clear">清　空</span>
+                </div>
+                <div class="botton15 floatright" id="delete_button">
+                    <span class="lottery_button_delete">删除重复号</span>
+                </div>
+                <div class="floatleft"></div>
+                </div>
+            </div>
+            <!--编辑区结束-->
+    {/if}
+    {if isset($methoddata.methodinfo.areatype.type.4)}
+            <!--确认区(OK)开始-->
+            <div id="new_confirm_area">
+                <div class="right_02_13">
+                    <div class="right_02_14">确认区</div>
+                </div>
+                <div id="confirm_area" class="confirm_area">
+                    <div class="submit_span" id="lottery_submit">投 注</div>                          
+                </div>
+            </div>
+            <!--确认区(OK)结束-->
+    {/if}
+    {if isset($methoddata.methodinfo.areatype.type.5)}
+            <!--追号区开始-->
+            <div class="box_body" id="trace_area"></div>
+            <!--追号区结束-->
+    {/if}  
+    </div>
+    <div class="right_02_26">
+    <div class="right_02_24"></div>
+    <div class="right_02_25"></div>
+    </div>
+    </form>	
+	<!--主题内容部分结束 -->
+	{include file="pagefooter_short.html"}
+</div>
+</center>
+<!--整体大框结束  -->

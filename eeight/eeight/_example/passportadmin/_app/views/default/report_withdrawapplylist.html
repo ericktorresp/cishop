@@ -1,0 +1,427 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+<script type="text/javascript" src="./js/dialogUI/jquery.dialogUI.js"></script>
+{literal}
+<script>
+	var IdList = "";
+	$(document).ready(function(){
+		withdraw = function(id,status){
+			$("#withdrawdetail" + id).html("请等待...");
+			var operateHtml = "";
+			$.ajax({
+				type:"POST",
+				url:'?controller=report&action=ajaxwithdraw',
+				data:'id=' + id,
+				success:function(data){
+					if (data == -1){
+						alert('数据错误!');
+						operateHtml = displaystr(id, status);
+						$("#withdrawdetail" + id).html(operateHtml);
+					} else if (data == -2){
+						alert('已没有可提现次数!');
+						$("#withdrawdetail" + id).html("--");
+					} else {
+						if (data == 'success'){
+							// 成功后将成功的记录隐藏
+							alert('提现成功');
+							$("#withdrawinfo" + id).fadeOut();
+						} else {
+							alert('提现失败');
+							operateHtml = displaystr(id, status);
+							$("#withdrawdetail" + id).html(operateHtml);
+						}
+					}
+				}
+			});
+		}
+		
+		function displaystr(id, status){
+			var tempHtml = "";
+			if (status == 2 || status == 7){
+				tempHtml = "<span style='cursor:pointer;text-decoration:underline;'' onclick='withdraw("+id+","+status+");'>发起提现</span>";
+			} else {
+				tempHtml = "--";
+			}
+			return tempHtml;
+		}
+		
+		
+		// 全选/反选
+		$("#selectall").click(function(){
+			if(this.checked){  
+	        	$("input[name='applys[]']").each(function(){
+	        		if (this.disabled != true)
+	        		this.checked=true;
+	        	});
+		    }else{  
+		        $("input[name='applys[]']").each(function(){
+		        	if (this.disabled != true)
+		        	this.checked=false;
+		        });
+		    }   
+		});
+	});
+	
+	
+	function OnlinLoadConfirm(){
+		var count_checked = get_checkbox_count(document.getElementById("listForm"),"applys[]");
+		if (count_checked <= 0){
+			alert("请至少选择一项");
+			return false;
+		}
+		if (!confirm("确认提交吗？")){
+			return false;
+		}
+		var status = document.getElementById("listForm").elements['operate'].value;
+		// 如果是通过审核的记录更改为“提现成功”或“提现失败”,则不弹出原因表单
+		if (status == 5) {
+			moveMoney();
+			return false;
+		}
+		if (status == 2) {
+			return true;
+		}
+		var confirmform = "<form name='reasonform' id='reasonform'>";
+		confirmform += "<table width='550' border='0' cellspacing='10' cellpadding='0' bgcolor='#009999'>";
+		confirmform += "<tr><td width='100%' bgcolor='#ccecff'><table width='100%' border='0' cellspacing='0' cellpadding='5' style='font-size:12px'><tr><td bgcolor='#009999' style='color:#FFF'>请选择审核未通过的原因：</td></tr>";
+		confirmform += "<tr><td align='center'><table width='95%' border='0' cellspacing='0' cellpadding='5'><tr><td height='55'><table width='100%' cellpadding='0' cellspacing='0'>";
+		{foreach from=$unverifyreason item = reason key = k}
+		confirmform += "<tr><td colspan='2' align='left'><input value='{$reason.reason}' type='radio' name='reason' />{$reason.reason}</td></tr>";
+		{/foreach}
+		confirmform += "</table></td></tr>";
+		confirmform += "<tr><td align='center'><input type='submit' name='yes' id='yes' value='确定' /><input type='reset' name='no' id='no' value='取消' /></td></tr>";
+		confirmform += "</table></td></tr></table></td></tr></table></form>";
+		$.blockUI({message:confirmform});
+		// 提交
+		$("#yes").click(function(){
+			var value = get_radio_value(document.getElementById("reasonform"), "reason");
+			if (value == ''){
+				if (status == 6){
+					alert('请选择提现失败的原因');
+				} else {
+					alert('请选择未通过审核的原因');
+				}
+				return false;
+			}
+			$("#finalreason").val(value);
+			if (status == 6){
+				moveMoney();
+				return false;
+			} else {
+				var Form = document.getElementById('listForm');
+				Form.submit();
+			}
+			return false;
+		});
+		// 取消
+		$("#no").click(function(){
+			$.unblockUI();
+			return false;
+		});
+		return false;
+	}
+	
+	// 获取单选框的值
+	function get_radio_value(form,name){
+		var e = form.elements[name];
+		var value = '';
+		if (e.length){
+			for(var i=0;i<e.length;i++){
+				if (e[i].checked){
+					value = e[i].value;
+					break;
+				}
+			}
+		}
+		else{
+			if (e.checked) value = e.value;
+		}
+		return value;
+	}
+	
+	// 检查复选框是否有选中值
+	function get_checkbox_count(form,name){
+		var e = form.elements[name];
+	/*	for (key in e){
+			document.writeln(key + ' = ' + e[key] + '<br>');
+		}*/
+		var count = 0;
+		if (e){
+			if (e.length){
+				for(var i=0;i<e.length;i++){
+					if (e[i].checked)
+						count ++;
+				}
+			}
+			else
+				count = e.checked ? 1 : 0;
+		}
+		return count;
+	}
+	
+	// 下载
+	function download(){
+		var status = "{$withdrawInfo.0.status}";
+		if (status != 2) { // 只有审核通过的记录才提供下载
+			alert("您只能下载通过审核的记录");
+			return false;
+		}
+		var checkednum = get_checkbox_count(document.getElementById("listForm"),"applys[]");
+		if (checkednum <= 0){
+			alert("请至少选择一项");
+			return false;
+		}
+		var report = document.getElementById("report");
+		if (report.value == ""){
+			alert("您忘记了选择报表模板！");
+			report.focus();
+			return false;
+		}
+		if (!confirm("确认下载吗？")){
+			return false;
+		}
+		document.getElementById("ddaction").value = "download";
+		document.getElementById("flag").value = "download";
+//		document.getElementById("searchAction").value = "download";
+		document.getElementById("listForm").target = "_blank";
+		var downloadForm = document.getElementById('listForm');
+		downloadForm.submit();
+		// 恢复数据
+		/*document.getElementById("action").value = "withdrawapplylist";
+		document.getElementById("flag").value = "verify";
+		document.getElementById("searchAction").value = "withdrawapplylist";*/
+		window.location.reload();
+	}
+	
+	// 通过审核的记录更改为“提现成功”或“提现失败”
+	function moveMoney(){
+		document.getElementById("ddaction").value = "movemoney";
+		document.getElementById("flag").value = "movemoney";
+		document.getElementById("searchAction").value = "movemoney";
+		var downloadForm = document.getElementById('listForm');
+		downloadForm.submit();
+		// 恢复数据
+		document.getElementById("ddaction").value = "withdrawapplylist";
+		document.getElementById("flag").value = "verify";
+		document.getElementById("searchAction").value = "withdrawapplylist";
+	}
+</script>
+{/literal}
+<div class="form-div">
+<FORM name="searchForm" action="" METHOD='get'>
+<input type='hidden' name="controller" value="report" />
+<input type='hidden' name="action" id="searchAction" value="withdrawapplylist" />
+&nbsp;&nbsp;&nbsp;&nbsp;
+处理状态: <select name="status">
+<option value="0" >全部</option>
+<option value="1" {if $aHtml.status == 1}selected{/if}>等待审核</option>
+<option value="4" {if $aHtml.status == 4}selected{/if}>已取消</option>
+<option value="2" {if $aHtml.status == 2}selected{/if}>审核通过</option>
+<option value="3" {if $aHtml.status == 3}selected{/if}>审核未通过</option>
+<option value="5" {if $aHtml.status == 5}selected{/if}>提现成功</option>
+<option value="6" {if $aHtml.status == 6}selected{/if}>提现失败</option>
+<option value="7" {if $aHtml.status == 7}selected{/if}>处理中</option>
+</select>
+&nbsp;&nbsp;&nbsp;&nbsp;
+用户名：<input type='test' name="username" value="{$aHtml.username}" />
+&nbsp;&nbsp;&nbsp;&nbsp;
+处理管理员：<input type='test' name="operater" value="{$aHtml.operater}" />
+&nbsp;&nbsp;&nbsp;&nbsp;
+账变编号：<input type='test' name="no" value="{$aHtml.no}" />
+<br /><br />
+&nbsp;&nbsp;&nbsp;&nbsp;
+取款方式: <select name="api_id">
+<option value="0" >全部</option>
+{foreach from=$apilist item=api key=k}
+<option value="{$api.id}" {if $aHtml.api_id == $api.id}selected{/if}>{$api.payport_nickname}</option>
+{/foreach}
+</select>
+&nbsp;&nbsp;&nbsp;&nbsp;
+币种: <select name="money_type">
+<option value="0" >全部</option>
+{foreach from=$moneytype item=type key=k}
+<option value="{$type}" {if $aHtml.money_type == $type}selected{/if}>{$type}</option>
+{/foreach}
+</select>
+&nbsp;&nbsp;&nbsp;&nbsp;
+提现明细ID：<input type='test' name="from_no" size="10" value="{if $aHtml.from_no > 0}{$aHtml.from_no}{/if}" />&nbsp;&nbsp;至&nbsp;&nbsp;<input type='test' name="to_no" size="10" value="{if $aHtml.to_no > 0}{$aHtml.to_no}{/if}" />
+&nbsp;&nbsp;&nbsp;&nbsp;
+银行名称：<input type='test' name="bank_name" value="{$aHtml.bank_name}" />
+&nbsp;&nbsp;&nbsp;&nbsp;
+每页记录数:<input name="pn" value="{if $aHtml.pn > 0}{$aHtml.pn}{else}{$syspagesizemax}{/if}" size="5" onKeyup="checkPageSize(this,'ipagesize',{$syspagesizemax});">
+&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="submit" value="搜 索" class="button" />
+<a href="javascript:showNotice('noticeSearch');" title="帮助信息"><img src="./images/notice.gif" width="16" height="16" border="0" title="帮助信息"></a>
+<br><br>
+<span class="notice-span" style='line-height:18px;padding:8px 0px 2px 20px;color:#669900' 
+id="noticeSearch">暂无帮助信息
+</span>
+</FORM></div>
+
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" id="listForm" action='' onsubmit="return OnlinLoadConfirm();">
+<input type='hidden' name="controller" value="report" />
+<input type='hidden' name="action" id="ddaction" value="verify" />
+<input type='hidden' name="finalreason" id="finalreason" value="" />
+<input type='hidden' name="flag" id="flag" value="verify" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th></th>
+	<th>状态<br />Status</th>
+	<th>取款方式<br />Withdrawal<br />Method</th>
+	<th>提现明细ID<br />Withdrawal<br />No.</th>
+	<th>编号<br />Transaction<br />No.</th>
+	<th>收款人<br />Beneficiary<br />Name</th>
+	<th>收款人银行卡号<br />Beneficiary<br />Account</th>
+	<th>省<br />Provice</th>
+	<th>市<br />City</th>
+	<th>支行<br />Branch</th>
+	<th>银行<br />Bank</th>
+	<th>到账金额<br />Amount</th>
+	<th>货币<br />Currency</th>
+	<th>用户名<br />Login<br />ID</th>
+	<th>管理<br />Operator</th>
+	<th>备注<br />Remarks</th>
+	<th>操作<br />Process</th>
+  </tr>
+  {foreach from=$withdrawInfo item=info key=k}
+  <tr align="center" id="withdrawinfo{$info.id}">
+	<td>{if $info.status == 1 || ($info.status == 2 && $aHtml.status != 0) || ($info.status == 7 && $aHtml.status != 0)}<input type="checkbox" id="apply{$k}" name="applys[]" value="{$info.id}" />{/if}</td>
+	<td>
+	{if $info.status == 1}
+    等待审核
+    {elseif $info.status == 2}
+    通过审核
+    {elseif $info.status == 3}
+    审核未通过
+    {elseif $info.status == 4}
+    已取消
+    {elseif $info.status == 5}
+    提现成功
+    {elseif $info.status == 6}
+    提现失败
+    {elseif $info.status == 7}
+    正在处理中
+    {/if}
+	</td>
+	<td>{$info.api_name}</td>
+	<td>{$info.id}</td>
+	<td>{$info.no}</td>
+	<td>{$info.account_name}</td>
+	<td>{$info.account}</td>
+	<td>{$info.province}</td>
+	<td>{$info.city}</td>
+	<td>{$info.branch}</td>
+	<td>{$info.bank_name}</td>
+	<td>{$info.amount|escape:money}</td>
+	<td>{$info.money_type}</td>
+	<td>{$info.user_name}</td>
+	<td>{if $info.operater != ""}{$info.operater}{else}--{/if}</td>
+	<td><a href="?controller=report&action=applydetail&id={$info.id}">详情</a></td>
+	<td id="withdrawdetail{$info.id}">
+	</td>
+  </tr>
+  {foreachelse}
+    <tr><td class="no-records" colspan="17">无相关数据</td></tr>
+  {/foreach}
+  <tr>
+  	<td align="center">{if $aHtml.status == 0 || $aHtml.status == 1 || $aHtml.status == 2 || $aHtml.status == 7}<input type="checkbox" id="selectall" />{/if}</td>
+  	<td colspan="2" align="center">
+  	{if $aHtml.status == 0 || $aHtml.status == 1}
+  		<select name="operate">
+  			<option value="2">审核通过</option>
+  			<option value="3">审核未通过</option>
+  		</select>
+  	{elseif $aHtml.status == 7}
+  		<select name="operate">
+  			<option value="5">提现成功</option>
+  			<option value="6">提现失败</option>
+  		</select>
+  	{/if}
+  	</td>
+  	<td align="center">{if $aHtml.status == 0 || $aHtml.status == 1 || $aHtml.status == 7}<input type="submit" value="提交" class="button" />{/if}</td>
+  	<td align="center" colspan="4">{if $aHtml.status == 2}
+  	<input type="button" name="down" value="下载" class="button" onclick="javascript:download();" />&nbsp;&nbsp;&nbsp;&nbsp;
+  	<select name='report' id="report">
+  		<option value="">请选择模板</option>
+  		{foreach from=$reportlist item=report key=k}
+  			<option value="{$report.id}">{$report.report_name}</option>
+  		{/foreach}
+  	</select>
+  	{/if}</td>
+  	<td colspan="9"></td>
+  </tr>
+    <tr style='color:#F30'>
+    	<td colspan=2>&nbsp;&nbsp;&nbsp;&nbsp;
+		合计: &nbsp;&nbsp;</td>
+		<td colspan=9></td>
+	<td  align="center">{$total|escape:money}</td>
+	<td colspan=5></td>
+    </tr>
+</table>
+
+<table id="page-table" cellspacing="0"><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="?controller=report&action=packslist" >数据包下载</a>&nbsp;&nbsp;&nbsp;{if $aHtml.status == 2}<font color="Red">请使用“文件另存为”的方式下载，暂时不要使用其它下载工具下载</font>{/if}</td><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

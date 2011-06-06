@@ -1,0 +1,50 @@
+{include file="pageheader.html"}
+<div class="form-div">
+<form method="POST" action="?controller=user&action=savestar">
+<input type="hidden" value="{$user.userid}" name="userid">
+<table>
+<tr>
+	<td class="narrow-label" width="20%">用户名称</td>
+	<td width="80%">{$user.username|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">用户昵称</td>
+	<td>{$user.nickname|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">上级用户</td>
+	<td>{$users.username|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">上级星级</td>
+	<td>{if $usergroup==1}总代{else}
+	{if $users.userrank==1}一星{/if}
+	{if $users.userrank==2}二星{/if}
+	{if $users.userrank==3}三星{/if}
+	{if $users.userrank==4}四星{/if}
+	{if $users.userrank==5}五星{/if}
+	{/if}</td>
+</tr>
+<tr>
+	<td class="narrow-label">用户星级</td>
+	<td><select name="userrank">
+	<option value="0" {if $user.userrank==0}selected="selected"{/if}>不评</option>
+	<option value="1" {if $user.userrank==1}selected="selected"{/if}>一星</option>
+	<option value="2" {if $user.userrank==2}selected="selected"{/if}>二星</option>
+	<option value="3" {if $user.userrank==3}selected="selected"{/if}>三星</option>
+	<option value="4" {if $user.userrank==4}selected="selected"{/if}>四星</option>
+	<option value="5" {if $user.userrank==5}selected="selected"{/if}>五星</option>
+	</select></td>
+</tr>
+<tr>
+	<td class="narrow-label">&nbsp;</td>
+	<td>
+	<input type="submit" class="button" value="用户评星 ">
+	<input type="reset" class="button" value="重置评星">
+	<input type="button" class="button" value="用户列表" onclick="location.href='?controller=user&action=view&userid={$user.userid}';">
+	</td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

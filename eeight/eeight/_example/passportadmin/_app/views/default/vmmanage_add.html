@@ -1,0 +1,143 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+<script type="text/javascript">
+	function checkForm(){
+		var alias_name = $("#alias_name");
+		var ip = $("#ip");
+		var vmip = $("#vmip");
+		var starttime = $("#starttime");
+		var endtime = $("#endtime");
+		
+		// check
+		if (alias_name.val() == ""){
+			alert("请填写虚拟机别名");
+			alias_name.focus();
+			return false;
+		}
+		
+		if (vmip.val() == ""){
+			alert("请填写虚拟机IP");
+			vmip.focus();
+			return false;
+		}
+		
+		if (ip.val() == ""){
+			alert("请填写VPN_IP");
+			ip.focus();
+			return false;
+		}
+		return true;
+	}
+</script>
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" id="listForm" onsubmit="return checkForm();" >
+<input type="hidden" name="controller" value="vmmanage" />
+<input type="hidden" name="action" value="addvm" />
+<input type="hidden" name="flag" value="vm" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+	<tr>
+		<td width="30%" align="right">虚拟机别名：</td>
+		<td align="left"><input type="text" name="alias_name" id="alias_name" /></td>
+	</tr>
+	<tr>
+		<td align="right">虚拟机IP：</td>
+		<td align="left"><input type="text" name="vmip" id="vmip" maxlength="15" /></td>
+	</tr>
+	<tr>
+		<td align="right">VPN_IP：</td>
+		<td align="left"><input type="text" name="ip" id="ip" maxlength="15" /></td>
+	</tr>
+	
+	<tr>
+		<td align="right">银行：</td>
+		<td align="left">
+			<select name="bank_id" id="bank_id">
+			{foreach from=$depositbanklist item=dbank key=k}
+				<option value="{$dbank.bankid}" {if $dbank.bankid == $depositbankid}SELECTED{/if}>{$dbank.bankname}</option>
+			{/foreach}
+			</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td align="right">关联银行卡：</td>
+		<td align="left">
+			<select name="card_id" id="card_id">
+			{foreach from=$acclist item=acc key=k}
+				<option value="{$acc.aid}">{$acc.acc_mail}</option>
+			{/foreach}
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">启/禁用：</td>
+		<td align="left">
+			<select name="status" id="status">
+				<option value="1">启用</option>
+				<option value="0">禁用</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center">
+			<input type="submit" value="提交" />　　
+			<input type="reset" value="重置" />
+		</td>
+	</tr>
+</table>
+</form>
+</div>
+<script>
+function showNotice(objId)
+{
+	var obj = document.getElementById(objId);
+	if(obj.style.display=="none")
+	{
+		obj.style.display="block";
+	}
+	else
+	{
+		obj.style.display="none";
+	}
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH" && row.className != "frozenuser") row.cells[i].style.backgroundColor = '#EEF8F9';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+    $(".frozenuser").find("td").css("backgroundColor","#DDD");
+  }
+}
+
+</script>
+{include file="pagefooter.html"}

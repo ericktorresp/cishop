@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>左侧菜单</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="./css/general.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="./js/jquery.js"></script>
+<script language="JavaScript">
+function show(id)
+{
+	if($("#img_"+id).attr("src")=="./images/menu_plus.gif")
+	{
+		$("#img_"+id).attr("src","./images/menu_minus.gif");
+		$("#child_"+id).show();
+	}
+	else
+	{
+		$("#img_"+id).attr("src","./images/menu_plus.gif");
+		$("#child_"+id).hide();
+	}
+}
+function get_menu(userid)
+{	
+	jQuery("#child_"+userid).html('');
+	jQuery("#child_"+userid).show();
+	$.ajax({
+		type:"GET", 
+	    url:"./index.php?controller=user&action=index&do=menu&id="+userid,
+	    dataType:"json", 
+	    async:false,
+	    success:function(data){
+			jQuery.each(data,function(i,v){
+				html = "<div id='title_"+v.userid+"'>";
+				html = html +"<a onclick='show("+v.userid+");'><img src='./images/menu_plus.gif' id='img_"+v.userid+"'></a>";
+				html = html +"<a href='./index.php?controller=user&action=userlist&id="+v.userid+"' target='user-main' onclick='javascript:get_menu("+v.userid+");'";
+				html = html +">"+v.username+"<font color='#A0A0A0'>("+v.childcount+")</font></a><div id='child_"+v.userid+"' style='display:none;' class='child'></div></div>";
+				jQuery("#child_"+userid).append(html);
+			});
+		},
+		error:function(data){
+			
+		}
+	});
+	jQuery("#img_"+userid).attr("src","./images/menu_minus.gif");
+};
+jQuery(document).ready(function(){
+	get_menu(0);
+});
+
+</script>
+<style type="text/css">
+body {background: #A6D2B9;}
+#tabbar-div {
+  background: #289573; padding-left: 10px; height: 21px; padding-top: 0px;}
+#tabbar-div p {margin:0px;}
+.tab-front { background: #62AA92; line-height: 20px; font-weight: bold; 
+	padding: 4px 15px 4px 18px; border-right: 2px solid #333333; cursor: hand;  cursor: pointer;}
+.tab-back,.tab-hover {color: #F4FAFB; line-height: 20px; padding: 4px 15px 4px 18px; cursor: hand; cursor: pointer;}
+.tab-hover {background: #2F9DB5;}
+#top-div {padding: 3px 0 2px; background: #BBDDE5; margin: 5px; text-align: center;}
+#main-div {border: 1px solid #399677; padding: 5px; margin: 5px; background: #FFF;}
+#menu-list {padding: 0; margin: 0;}
+#menu-list ul {padding: 0; margin: 0; list-style-type: none; color: #335B64;}
+#menu-list li {padding-left: 6px; line-height: 16px; cursor: pointer;}
+#main-div a:visited, #menu-list a:link, #menu-list a:hover {
+  color: #335B64 text-decoration: none;}
+.child{
+	padding-left:8px;
+	border-left:double 1px #CCC;
+	margin-left:3px;
+}
+a{
+	cursor: pointer;
+}
+#child_0 { line-height:17px;}
+</style>
+</head>
+<body>
+<div id="tabbar-div">
+<p><span class="tab-front" id="menu-tab">用户列表</span>
+</p></div>
+<div id="main-div"><div id="child_0"></div></div>
+</body>
+</html>

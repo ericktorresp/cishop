@@ -1,0 +1,108 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/jquery.impromptu.2.6.min.js"></script>
+<LINK href="./css/impromptu.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+/*
+ 标签部分的样式
+ */
+.tab-div {
+  background: #FFFFFF;  margin: 0 0 10px 0;
+}
+#tabbar-div {
+  padding-left: 10px;  height: 31px;
+  background: url(/images/blue/helptar_bottom.gif) repeat-x left bottom;
+}
+.tab-front {
+  background: url(/images/blue/helptar_front.gif) repeat-x;
+  line-height: 31px;  float:left;
+  font-weight: bold;  cursor: pointer;  color:#FFFFFF;
+}
+.tab-back {
+  color: #FFF;  float:left;
+  background: url(/images/blue/helptar_back.gif) repeat-x center;
+  line-height: 25px;  cursor: pointer;  color:#555555;  margin:0 5px;
+}
+.tab-back .tabbar-left{
+    background:url(/images/blue/helpback_left.gif) no-repeat center;
+    height:25px;    width:3px;    float:left;
+}
+.tab-back .tabbar-right{
+    background:url(/images/blue/helpback_right.gif) no-repeat center;
+    height:25px;    width:3px;    float:left;
+}
+.content{
+    padding:0 12px;    float:left;
+}
+.tab-front .tabbar-left{
+    background:url(/images/blue/helpfront_left.gif) no-repeat center;
+    height:31px;    width:3px;    float:left;
+}
+.tab-front .tabbar-right{
+    background:url(/images/blue/helpfront_right.gif) no-repeat center;
+    height:31px;    width:3px;    float:left;
+}
+.tabbar-bottom{
+    font-size:0px;    height:3px;    background:#94ADD6;
+    border-left: 1px solid #DBE4F2;
+    border-right: 1px solid #DBE4F2;
+}
+.help-content{
+    padding:5px 15px;
+}
+a:hover.intro ,
+a:visited.intro ,
+a:link.intro,.intro {font-size:13px; color:#FF3300; text-decoration:none}
+a:hover.intro { color:#0066ff}
+.button2{width:120px; height:30px; font-size:13px;background-color:#FFF;color:#FF3300; border:0px}
+</style>
+
+
+<div class="tab-div">
+	<div id="tabbar-div">
+			<span class="tab-front"  id="general_tab_0">
+		  <span class="tabbar-left"></span>
+		  <span class="content">在线充值</span>
+		  <span class="tabbar-right"></span>
+		</span>
+			<span class="tab-back"  id="general_tab_1">
+		  <span class="tabbar-left"></span>
+
+		  <span class="content" onClick="self.location.href='index.php?controller=security&action=onlineloadhistory'">在线充值记录</span>
+		  <span class="tabbar-right"></span>
+		</span>
+	</div>
+  <div class="tabbar-bottom"></div>
+  
+<div class="list-div" id="listDiv">
+<table class="list-table">
+  <tr align=center>
+  	<td>充值方式</td>
+    <td>币种</td>
+    <td>到帐时间</td>
+    <td>最低充值额(单笔)</td>
+    <td>最高充值额(单笔)</td>
+    <td>充值操作</td>
+  </tr>
+
+{foreach from=$Payportlist item=pay key=ipk}
+<tr align="center">
+<td><span class="intro">{$pay.payport_nickname|escape:html}</span>
+<input type="hidden" id="paymentname_{$pay.id}" value="{$pay.payport_nickname|escape:html}">
+<input type="hidden" id="payamountmin_{$pay.id}" value="{$pay.load_limit_min_per|escape:money}">
+<input type="hidden" id="payamountmax_{$pay.id}" value="{$pay.load_limit_max_per|escape:money}">
+</td>
+<td>{$pay.currencycn}</td>
+<td>{$pay.load_time_note|escape:html}</td>
+<td>{$pay.load_limit_min_per|escape:money} {$pay.currencyunit}</td>
+<td>{$pay.load_limit_max_per|escape:money} {$pay.currencyunit}</td>
+<td width="120"><a href="?controller=security&action=onlineload&flag=startload&transtype={$pay.aid}" title="立即充值" target="_self"><img src="images/paymentin.jpg" border="0" alt="立即充值"></a></td>
+</tr>
+{/foreach}
+
+</table>
+</div>
+
+</div>
+
+{include file="pagefooter.html"}

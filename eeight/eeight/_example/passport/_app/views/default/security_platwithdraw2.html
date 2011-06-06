@@ -1,0 +1,57 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+jQuery("document").ready( function(){
+	jQuery("#chineseMoney").html(changeMoneyToChinese({$datas.money}));
+});
+</script>
+<div class="list-div" id="listDiv">
+<table class="list-table">
+<form action="index.php" method="post" name="drawform" onsubmit="this.submit.disabled=true;">
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action" value="platwithdraw" />
+<input type="hidden" name="flag" value="confirm" />
+<input type="hidden" name="check" value="{$check}" />
+<input type="hidden" name="money" value="{$datas.money}" />
+<input type="hidden" name="cardid" value="{$datas.cardid}" />
+	<tr>
+    	<th colspan="2">平台提现</th>
+    </tr>
+    <tr>
+    	<td class="narrow-label">用户名:</td>
+        <td>{$user.username|escape:html}</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">可提现金额:</td>
+        <td>{$user.availablebalance|escape:money}</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">提现金额:</td>
+        <td>{$datas.money|escape:money}</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">提现金额(大写):</td>
+        <td><span id="chineseMoney"></span></td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">开户银行名称:</td>
+        <td>{$datas.bankname|escape:html}</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">开户银行所在省份:</td>
+        <td>{$datas.bankcity|escape:html}</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">开户人姓名:</td>
+        <td>{$datas.truename|escape:html}</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label">个人银行帐号:</td>
+        <td>{$tempaccount|escape:html}</td>
+    </tr>
+    <tr>
+    	<td></td><td><input type="submit" name="submit" value="确认提现" class="button" />&nbsp;&nbsp;<input type="button" value="取消" onclick="history.back()" class="button" /></td>
+    </tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,56 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form action="./index.php?controller=gameinfo&action=issueadd" method="post">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td class="narrow-label">彩种</td>
+<td>{$lottery.cnname|escape:html}<input type="hidden" name="lotteryid" value="{$lottery.lotteryid}"></td>
+</tr>
+<tr>
+<td class="narrow-label">销售时间</td>
+<td>{$lottery.dailystart} - {$lottery.dailyend}</td>
+</tr>
+<tr>
+<td class="narrow-label">号码录入时间</td>
+<td>{$lottery.edittime}</td>
+</tr>
+<tr>
+<td class="narrow-label">撤单结束时间</td>
+<td>{$lottery.canceldeadline}</td>
+</tr>
+<tr>
+<td class="narrow-label">动态调价时间</td>
+<td>{$lottery.dynamicprizestart} - {$lottery.dynamicprizeend}</td>
+</tr>
+<tr>
+<td class="narrow-label">休市日期</td>
+<td>{$lottery.yearlybreakstart} - {$lottery.yearlybreakend}</td>
+</tr>
+<tr>
+<td class="narrow-label">开奖周期</td>
+	<td>
+		{if ($lottery.weekcycle&1)}星期一&nbsp;&nbsp;&nbsp;{/if}
+		{if ($lottery.weekcycle&2)}星期二&nbsp;&nbsp;&nbsp;{/if}
+		{if ($lottery.weekcycle&4)}星期三&nbsp;&nbsp;&nbsp;{/if}
+		{if ($lottery.weekcycle&8)}星期四&nbsp;&nbsp;&nbsp;{/if}
+		{if ($lottery.weekcycle&16)}星期五&nbsp;&nbsp;&nbsp;{/if}
+		{if ($lottery.weekcycle&32)}星期六&nbsp;&nbsp;&nbsp;{/if}
+		{if ($lottery.weekcycle&64)}星期日&nbsp;&nbsp;&nbsp;{/if}
+	</td>
+</tr>
+<tr>
+<td class="narrow-label">奖期生成日期</td>
+<td><input type="text" name="issuestart" size="10"> - <input type="text" name="issueend"  size="10"/></td>
+</tr>
+<tr>
+<td class="narrow-label">奖期生成开始奖期</td>
+<td>第&nbsp;<input type="text" name="issuenostart"  size="6">&nbsp;期</td>
+</tr>
+<tr>
+	<td class="narrow-label"></td>
+	<td><input type="submit" class="button" value="奖期批量生成"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>PassPort 后台管理 {$systemversions}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="./css/general.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="./js/jquery.js"></script>
+{literal}
+<style type="text/css">
+#header-div {
+    background: #80001B;
+    border-bottom: 1px solid #FFF;
+}
+
+#logo-div {
+    height: 57px;
+    float: left;
+	cursor:hand;
+}
+
+#submenu-div {
+    height: 57px;
+}
+
+#submenu-div ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#submenu-div li {
+    float: right;
+    padding: 0 10px;
+    margin: 5px 0;
+    border-left: 1px solid #FFF;
+}
+
+#submenu-div .user, a:visited, #submenu-div a:link {
+    color: #FFF;
+    text-decoration: none;
+}
+
+#submenu-div a:hover {
+    color: #F5C29A;
+}
+
+#loading-div {
+    clear: right; 
+    text-align: right;
+    display: block;
+}
+
+#menu-div {
+    background: #80BDCB;
+    font-weight: bold;
+    padding-left: 30px;
+    height: 24px;
+}
+
+#menu-div ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#menu-div li {
+    float: left;
+    padding: 0 20px;
+    margin: 5px 0;
+    border-right: 1px solid #192E32;
+}
+
+#menu-div a:visited, #menu-div a:link {
+    text-decoration: none;
+    color: #335B64;
+}
+
+#menu-div a:hover {
+    color: #F5C29A;
+}
+
+#submenu-div a.fix-submenu{ margin-left:5px; padding:3px 5px; background:#FFDFE4; color:#640014; }
+#submenu-div a.fix-submenu:hover{ padding:3px 5px; background:#FFF; color:#640014; }
+</style>
+
+<script type="text/javascript">
+function modalDialog(url, name, width, height)
+{
+  if (width == undefined)
+  {
+    width = 400;
+  }
+  if (height == undefined)
+  {
+    height = 300;
+  }
+
+  if (window.showModalDialog)
+  {
+    window.showModalDialog(url, name, 'dialogWidth=' + (width) + 'px; dialogHeight=' + (height+5) + 'px; status=off');
+  }
+  else
+  {
+    x = (window.screen.width - width) / 2;
+    y = (window.screen.height - height) / 2;
+
+    window.open(url, name, 'height='+height+', width='+width+', left='+x+', top='+y+', toolbar=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, modal=yes');
+  }
+}
+
+(function($){
+$(document).ready(function(){
+	var isopen = false;
+	/*$("#switchPlat").click(function(){
+		var frame = window.top.frames['main-frame'].document;
+		if( isopen == false ){
+			isopen = true;
+			try{
+				$("body",frame).append($("#opencontent").html());
+			}catch(e){}
+			$("#newWindow",frame).css('position', $.browser.msie ? 'absolute' : 'fixed');
+			if( $.browser.msie ){
+				$('html,body',frame).css('height','100%');
+			}
+			$("#newWindow",frame).slideDown("fast");
+		}else{
+			isopen = false;
+			$("#newWindow",frame).slideUp("fast");
+		}
+	});*/
+	var offset = $("#switchPlat").offset();
+	var top  = offset.top-2;
+	var left = offset.left-4-$("#newWindow_bak").width();
+	var width = $("#newWindow_bak").width();
+	$("#newWindow_bak").css({left:$("body").width()+"px",top:top+"px"});
+	$("#switchPlat").click(function(){
+		$("#newWindow_bak").animate({left:left+"px",opacity:'toggle'},{duration: "slow"});
+	});
+	{if !empty($notice) }
+	changecolor();
+	{/if}
+});
+})(jQuery);
+function changecolor(){
+  var node  = document.getElementById("top_notice");//#33FF33
+  str = node.style.color.toLowerCase();
+  node.style.color = str == "#ffff00" || str == "rgb(255, 255, 0)" ? "#FF0000" : "#FFFF00";  
+  setTimeout("changecolor()",600);  
+}
+</script>
+{/literal}
+</head>
+<body>
+
+<div id="header-div">
+  <div id="logo-div" onclick="javascript:window.top.location='./index.php';"><img src="./images/admin_logo.gif" title="返回首页" style="cursor: pointer;"/></div>
+  {if $istester > 0}
+              <div style="height:57px;float:left;line-height:57px;color:#FFFF00;font-size:16px;text-align:right; font-weight:bold;"><img src="./images/admin_logo_test.jpg" title="测试帐户"/>
+              </div>
+              {/if}
+  {if !empty($notice) }
+              <div style="height:57px;float:left;line-height:57px;color:#FFFF00;font-size:16px;text-align:right; font-weight:bold;">
+              <a href="./?controller=default&action=start" target="main-frame" id="top_notice">{$notice.subject|escape:html}</a>
+              </div>
+              {/if}
+  <div id="submenu-div">
+    <ul>
+      <li><a href="../?controller=default&action=logout" target="_top">退出系统 - {$username|escape:html}</a></li>
+	  <li><a href="./index.php" target="_top">管理首页</a></li>
+	  {* window.top.frames['header-frame'].document.location.reload() *}
+	<li style="border-left:none;"><a href="javascript:window.top.frames['main-frame'].document.location.reload();">刷新页面</a></li>
+    </ul>
+
+	<!-- button //-->
+	<div id="submenu-div" style="padding: 4px 10px 0 0; clear:right;text-align: right; color: #FFF;float: right;">
+      <a href="javascript:" target="main-frame" class="fix-submenu" id="switchPlat" style="z-index:101;"> 平台快速切换</a>
+    </div>
+	
+	<!-- ajax loading //-->
+	<div id="load-div" style="padding-top:6px;color: #FFF; display: none;"><img src="./images/top_loader.gif" width="16" height="16" alt="正在处理您的请求..." /> 正在处理您的请求...</div>
+  </div>
+</div>
+<div id="opencontent" style="display:none;">
+<div id="newWindow" class="openWindows" style="display:none;position:fixed;right:5px;top:0px;border:1px #666633 solid;background-color:#DDEEF2;z-index:100;">
+<table border="0" width="200" style="font-size:12px;">
+<tr><td colspan="3" align="center" height="30">切换其他频道</td></tr>
+<tr>
+	<td align="center">&nbsp;综合频道</td>
+    <td colspan="2">:&nbsp;&nbsp;<a href="/" target="_top">银行大厅</a></td>
+</tr>
+{if !empty($channel) }
+{foreach from=$channel.0 item=ch key=k}
+<tr>
+	<td align="center">&nbsp;{$ch.channel}</td>
+    <td>:
+    {foreach from=$channel.$k item=child key=m}
+    &nbsp;<a href=".{$child.path}">{$child.channel}</a>
+    {/foreach}
+    </td>
+</tr>
+{/foreach}
+{/if}
+</table>
+</div>
+</div>
+<div id="newWindow_bak" class="openWindows" style="display:none;position:absolute;border:1px #666633 solid;background-color:#DDEEF2;z-index:100;">
+<table border="0" style="font-size:12px;">
+<tr>
+	<td align="center">&nbsp;<strong>综合频道</strong></td>
+    <td>:&nbsp;&nbsp;<a href="../" style="color:#0066FF;" target="_top">银行大厅</a></td>
+
+{if !empty($channel) }
+{foreach from=$channel.0 item=ch key=k}
+
+	<td align="center">&nbsp;<strong>{$ch.channel}</strong></td>
+    <td>:
+    {foreach from=$channel.$k item=child key=m}
+    &nbsp;<a href="..{$child.path}" style="color:#0066FF;" target="_top">{$child.channel}</a>
+    {/foreach}
+    </td>
+{/foreach}
+{/if}
+    </td>
+{/if}
+</tr>
+</table>
+</div>
+</body></html>

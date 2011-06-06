@@ -1,0 +1,47 @@
+{include file="pageheader.html"}
+
+<script type="text/javascript">
+{literal}
+function checkform(obj)
+{
+	return confirm("确定要批量删除所选用户吗？");
+}
+{/literal}
+</script>
+
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th width='50'><label>&nbsp;</label></th>
+    <th width="30%">帐号</th>
+	<th width='30%'>呢称</th>
+    <th width='30%'>组别</th>
+    <!--<th>操作</th>-->
+  </tr>
+  {if empty($users) }
+    <tr>
+    	<td colspan="5" align="center">暂时无任何管理员</td>
+    </tr>
+	{else}
+    {foreach from=$users item=user key=k}
+  <tr align="center">
+    
+	<td align="center"><span>{$k}</span></td>
+
+	<td class="first-cell nowrap" valign="top" align="center"><font color=#c0c0c0>{$user.username|escape:html}</span></td>
+
+	<td align="center">{$user.nickname|escape:html}</td>
+    
+    <td align="center">{if empty($user.groupname)}未指定{else}{$user.groupname|escape:html}{if $user.isspecial==0}<span style="color:#666666">[系统默认]</span>{/if}
+        {if $user.issales==1}<span style="color:#FF0000">[指定销售]</span>{/if}{/if}</td>
+
+	<!--<td align="center">
+	    <a href="index.php?controller=useradmin&action=admingroup&uid={$user.userid}">组别</a> 
+	</td>-->
+  </tr>
+{/foreach}
+{/if}
+
+</table>
+</div>
+{include file="pagefooter.html"}

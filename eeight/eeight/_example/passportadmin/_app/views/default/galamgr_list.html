@@ -1,0 +1,142 @@
+{include file="pageheader.html"}
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm">
+<table cellspacing='1' cellpadding='3' id='list-table'><tr>
+	<th>ID</th>
+	<th>节日</th>
+	<th>日期(段)</th>
+	<th>图片</th>
+	<th>备注</th>
+	<th>更新时间</th>
+	<th>状态</th>
+	<th>操作</th>
+</tr>
+{foreach from=$aList item=gala key=k}
+<tr>
+	<td align="center">{$gala.id}</td>
+	<td align="center">{$gala.gala}</td>
+	<td align="center">{$gala.day} {if $gala.day2 != '0'}至 {$gala.day2}{/if}</td>
+	<td align="center"><a href="/images/previewday/{$gala.imgurl}" target="_blank">{$gala.imgurl}</a></td>
+	<td align="left">{$gala.comment}</td>
+	<td align="center">{$gala.utime}</td>
+	<td align="center">
+	{if $gala.status == 1}
+	<img src="images/yes.gif" border="0" />
+	{else}
+	<img src="images/no.gif" border="0" />
+	{/if}
+	</td>
+	<td align="center">
+	<a href="./?controller=galamgr&action=edit&id={$gala.id}&orderby={$orderby}">编辑</a> &nbsp; &nbsp;  
+	{if $gala.status == 1}
+	<a href="./?controller=galamgr&action=set&flag=unactive&id={$gala.id}&orderby={$orderby}"><font color="#C30">禁用</font></a>
+	{else}
+	<a href="./?controller=galamgr&action=set&flag=active&id={$gala.id}&orderby={$orderby}"><font color="green">启用</font></a>
+	{/if}
+	
+	&nbsp; &nbsp; 
+	<a href="./?controller=galamgr&action=del&id={$gala.id}&orderby={$orderby}" onClick="return confirm('确认删除 {$gala.gala}?');"><font color="#F30">删除</font></a>
+	</td>
+</tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">无相关数据</td></tr>
+{/foreach}
+<tr>
+<td colspan="8" align="right">
+列表排序:<select name="selectTable" onChange="javascript:GotoURL(this.value)" size="1" tabindex="1">
+	<option value="?controller=galamgr&action=list">(默认)</option>
+	<option value="?controller=galamgr&action=list&orderby=time" {if $orderby == 'time'}SELECTED{/if}>按更新时间</option>
+	<option value="?controller=galamgr&action=list&orderby=gala" {if $orderby == 'gala'}SELECTED{/if}>按节日日期</option>
+	<option value="?controller=galamgr&action=list&orderby=status" {if $orderby == 'id'}SELECTED{/if}>按状态</option>
+</select>
+ &nbsp; &nbsp; 
+ </td>
+</tr>
+<tr>
+<td colspan="8">
+<font color=red>
+ * 新图片在节日当天零点前更新有效 <br />
+ * 禁用需在节日当天零点前操作，否则不能起到禁用功能 <br />
+ * 节日日期(段)不能重叠
+</font>
+ </td>
+</tr>
+</table>
+</form>
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+
+</div>
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#EEF8F9';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+
+</script>
+
+<script>
+function GotoURL(str){
+	if (str.substr(0,4) == 'http'){
+		window.open (str);
+		return true;
+		}
+	self.location = str;
+	return true ;
+}
+</script>
+
+{/literal}
+{include file="pagefooter.html"}

@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户列表 {$systemversions}</title>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/common.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/jquery.blockui.js"></script>
+<script type="text/javascript">
+jQuery.blockUI.defaults.message = '加载数据...'; 
+jQuery.blockUI.defaults.css = { 
+        padding:        0, 
+        margin:         '0 auto', 
+        width:          '100px', 
+        top:            '2px', 
+        left:           '8px', 
+        textAlign:      'center', 
+        color:          '#FF0000', 
+        border:         '1px solid #FF0000', 
+        backgroundColor:'#FFF', 
+        cursor:         'wait' 
+    };
+jQuery.blockUI.defaults.overlayCSS = { 
+        backgroundColor: '#CCC', 
+        opacity:         0.5 
+    };
+function getChildList( obj, uid )
+{
+	if( jQuery(obj).parent().find("ul").html() != null )
+	{
+		if( jQuery(obj).attr("src") == "{$sSystemImagesAndCssPath}/images/new_passport/menu_s01_plus.gif" )
+		{
+			jQuery(obj).attr("src","{$sSystemImagesAndCssPath}/images/new_passport/menu_s01_minus.gif");
+			jQuery(obj).attr("title","隐藏");
+			jQuery(obj).parent().find("ul:first").slideDown("fast");
+		}else
+		{
+			jQuery(obj).attr("src","{$sSystemImagesAndCssPath}/images/new_passport/menu_s01_plus.gif");
+			jQuery(obj).attr("title","展开");
+			jQuery(obj).parent().find("ul:first").slideUp("fast");
+		}
+	}
+	else
+	{
+		jQuery().ajaxStart($.blockUI).ajaxStop($.unblockUI);
+		html = jQuery(obj).closest("li").html();
+		jQuery(obj).ajaxStart(function(){
+			jQuery(this).attr("src","{$sSystemImagesAndCssPath}/images/new_passport/menu_s01_minus.gif");
+			jQuery(obj).attr("title","隐藏");
+			//jQuery(this).closest("li").append("<span id='ajax_loading'><br />加载数据...</span>");
+		});
+		jQuery.ajax({
+		type:			"GET",
+		url:			"index.php?controller=user&action=userlist&frame=menu&uid="+uid,
+		dataType: 		"json",
+		cache:			false,
+		success:		function(data){
+							if( data.error == "empty" ){//没有数据
+								jQuery(obj).parent().append("<ul style='display:none;'><li></li></ul>");
+								jQuery(obj).attr("src","{$sSystemImagesAndCssPath}/images/new_passport/menu_s01_plus.gif");
+							}else if( data.error == "0" ){//有数据
+								dataHtml = "<ul>";
+								jQuery.each(data.result,function(i,n){
+									dataHtml += "<li>";
+									if( n.childcount > 0 )
+									{
+										dataHtml += "<img TITLE='展开' src=\"{$sSystemImagesAndCssPath}/images/new_passport/menu_s01_plus.gif\" onclick=\"getChildList(this,"+n.userid+")\" style=\"cursor:pointer;\" /> ";
+									}
+									else
+									{
+										dataHtml += "<img src=\"{$sSystemImagesAndCssPath}/images/new_passport/menu_s01_minus.gif\"  />";
+									}
+									dataHtml += "<a TITLE='' href=\"?controller=user&action=userlist&frame=show&uid="+n.userid+"\" target=\"userlist_content\">"+replaceHTML(n.username)+"</a> <span class='number'>("+n.childcount+")</span></li>";
+								});
+								dataHtml += "</ul>";
+								jQuery(obj).parent().append(dataHtml);
+							}
+							else
+							{
+								return true;
+							}
+						}
+		});
+	}
+}
+</script>
+<style type="text/css">
+html { overflow-x:auto; overflow-y:scroll; } 
+body {
+	background: #585858;
+	margin:0 0 10px;
+	padding:0;
+	font-size:12px;
+}
+#tabbar-div {
+background-image: url({$sSystemImagesAndCssPath}/images/new_passport/yellow/right_yellow_01.jpg);
+	background-repeat: repeat-x;
+	margin:0px;
+ 	padding-left: 0px; height: 27px; padding-top: 0px;}
+#tabbar-div p {margin:0px;}
+.tab-front {line-height: 27px; font-weight: bold; 
+	padding: 4px 15px 4px 10px;cursor: hand;  cursor: pointer;color:#FFFFFF}
+.tab-back,.tab-hover {color: #F4FAFB; line-height: 20px; padding: 4px 15px 4px 18px; cursor: hand; cursor: pointer;}
+.tab-hover {background: #2F9DB5;}
+
+#main-div {border: 1px solid #333333; padding: 5px; margin: 0px; background: #999999; float:left; width:140px;}
+#menu-list {padding: 0; margin: 0;}
+#menu-list ul {padding: 0; margin: 0; list-style-type: none; color: #335B64;}
+#menu-list li {padding-left: 10px; line-height: 16px; cursor: hand; cursor: pointer;}
+#main-div a:visited, #main-div a:link { color: #333333; text-decoration: none;}
+#main-div a:hover { color: #000000; }
+.child{
+	padding-left:8px;
+	border-left:double 1px #CCC;
+	margin-left:0px;
+}
+#main-div ul{ list-style:none; margin:0; padding:0; padding-left:10px; float:left; background:#FFFFFF;}
+#main-div ul li{list-style:none;line-height:20px; width:100%; text-align:left; float:left;  white-space:nowrap; padding:1px;}
+#main-div li{ list-style:none;padding-top:2px;}
+</style>
+
+</head>
+<body>
+<div id="tabbar-div"><p><span class="tab-front" id="menu-tab">用户列表</span></p></div>
+<div id="main-div">
+<ul>
+	<li style='color:#690' >全部下级 (用户名)</li>
+    {if empty($users) }
+    <li>无下级用户</li>
+    {else}
+    {foreach from=$users item=user key=k1}
+    <li id="li_{$user.userid}">
+    	{if $user.childcount > 0}
+    	<img TITLE='展开' src="{$sSystemImagesAndCssPath}/images/new_passport/menu_s01_plus.gif" onclick="getChildList(this,{$user.userid})" style="cursor:pointer;" />
+    	{else}
+    	<img TITLE='展开' src="{$sSystemImagesAndCssPath}/images/new_passport/menu_s01_minus.gif" />
+    	{/if}
+        <a href="?controller=user&action=userlist&frame=show&uid={$user.userid}" target="userlist_content">{$user.username|escape:html}</a><span class='number'> ({$user.childcount})</span>
+    </li>
+    {/foreach}
+    {/if}
+</ul>
+</div>
+</body>
+</html>

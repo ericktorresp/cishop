@@ -1,0 +1,32 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>test_01.html {$systemversions}</title>
+<body>
+<h1>test_01.html</h1>
+文件相对路径为: /views/test_01.html<br/>
+$var2 = {$var2}<br>
+$name = {$name}<br>
+$age = {$age}<br>
+$var1 = {$var1}<br><br>
+
+<hr>
+模板文件中的 $_LANG['tom_out_put01'] => {$lang.tom_out_put01} <br/>
+模板文件中的 $_LANG['tom_out_put02'] => {$msg_tom_out_put02} <br/>
+<hr><br/>
+
+{*************** 数据循环输出 *********************}
+<table width='500'>
+<tr><td>数组编号</td><td>用户ID号</td><td>名字</td><td>年龄</td></tr>
+{foreach from=$data item=d key=k}
+<tr><td>{$k}</td><td>{$d.id}</td><td>{$d.name}</td><td>{$d.age}</td></tr>
+{foreachelse}
+<tr><td colspan=3>no data</td></tr>
+{/foreach}
+</table><br/><br/>
+
+
+{*************** 数据循环输出 *********************}
+
+</body>
+</html>

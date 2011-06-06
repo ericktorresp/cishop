@@ -1,0 +1,18 @@
+{include file="pageheader.html"}
+<div class="list-div">
+<table>
+	<tr>
+		<td class="narrow-label">用户名称</td>
+		<td>{$userinfo.username}</td>
+	</tr>
+	<tr>
+		<td class="narrow-label">用户昵称</td>
+		<td>{$userinfo.nickname}</td>
+	</tr>
+	<tr>
+		<td class="narrow-label">团队余额</td>
+		<td>{$userbank|escape:money}</td>
+	</tr>
+</table>
+</div>
+{include file="pagefooter.html"}

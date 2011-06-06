@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml" xmlns:esun>
+<HEAD><TITLE>{if $sSysTopMessage}[{$sSysTopMessage}] {/if}{$webtitle} {if $ur_here} - {$ur_here} {/if} </TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<META http-equiv="Pragma" content="no-cache" />
+{if $sSysMetaMessage}{$sSysMetaMessage}{/if}
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/css/default/style.css" type="text/css" />
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/css/default/line.css" type="text/css" />
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/calendar/jquery.dyndatetime.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/js/calendar/css/calendar-blue2.css" type="text/css" />
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/common.js"></script>
+<script>
+jQuery(document).ready(function() {
+	jQuery("#starttime").dynDateTime({
+		ifFormat: "%Y-%m-%d",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		button: ".next()", //next sibling
+		onUpdate:function(){
+			$("#starttime").change();
+		},
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: false
+	});
+	jQuery("#starttime").change(function(){
+		if(! validateInputDate(jQuery("#starttime").val()) )
+		{
+			jQuery("#starttime").val('');
+			alert("日期格式不正确,正确的格式为:2009-06-10");
+		}
+		if($("#endtime").val()!="")
+		{
+			if($("#starttime").val()>$("#endtime").val())
+			{
+				$("#starttime").val("");
+				alert("输入的日期不符合逻辑.");
+			}
+		}
+	});
+	jQuery("#endtime").dynDateTime({
+		ifFormat: "%Y-%m-%d",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		button: ".next()", //next sibling
+		onUpdate:function(){
+			$("#endtime").change();
+		},
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: false
+	});
+	jQuery("#endtime").change(function(){
+		if(! validateInputDate(jQuery("#endtime").val()) )
+		{
+			jQuery("#endtime").val('');
+			alert("日期格式不正确,正确的格式为:2009-06-10");
+		}
+		if($("#starttime").val()!="")
+		{
+			if($("#starttime").val()>$("#endtime").val())
+			{
+				$("#endtime").val("");
+				alert("输入的日期不符合逻辑.");
+			}
+		}
+	});
+});
+</script>
+</HEAD>
+<BODY style="background: url({$sSystemImagesAndCssPath}/highgame/{$sSystemImagesAndCssPath}/highgame/images/default/background_03.jpg) repeat-x center top; margin:10px;">
+{if empty($sys_header_title)}
+<H1>{if $actionlink}<SPAN class="action-span"><A 
+href="{$actionlink.href}">{$actionlink.text|escape:html}</a></SPAN>{/if}{if $actionlink2}<SPAN class="action-span"><A 
+href="{$actionlink2.href}">{$actionlink2.text|escape:html}</a></SPAN>{/if}{if $actionlink3}<SPAN class="action-span"><A 
+href="{$actionlink3.href}">{$actionlink3.text|escape:html}</a></SPAN>{/if}<SPAN class="action-span1"><A 
+href="./" target='_top'>高频游戏</a> {if $ur_here} - {$ur_here} {/if}</SPAN><DIV style="clear:both"></DIV></H1>
+{/if}
+<style>
+	esun\:*{behavior:url(#default#VML)}
+</style>
+<table width="100%" id="titlemessage" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td class="tdleft"><b><span class="redtext">{$lotteryname}冷热分析</span></b></td>
+		<td class="tdright">
+			<a href="?controller=game&action=hotcode&lotteryid={$lotteryid}&issuecount=30">最近30期&nbsp;</a>
+			<a href="?controller=game&action=hotcode&lotteryid={$lotteryid}&issuecount=50">最近50期&nbsp;</a>
+			<a href="?controller=game&action=hotcode&lotteryid={$lotteryid}&issuecount=100">最近100期&nbsp;</a>
+		</td>
+		<td class="tdleft">
+			<form method="POST">
+				<input type="hidden" name="controller" value="game">
+				<input type="hidden" name="action" value="hotcode">
+				<input type="text" value="{$starttime}" name="starttime" id="starttime">
+				<img src="{$sSystemImagesAndCssPath}/highgame/images/default/calendar2.gif" style="vertical-align:middle;">
+				&nbsp;&nbsp;至&nbsp;&nbsp;
+				<input type="text" value="{$endtime}" name="endtime" id="endtime">
+				<img src="{$sSystemImagesAndCssPath}/highgame/images/default/calendar2.gif" style="vertical-align:middle;">
+				<input type="submit" value="" id="showissue">
+			</form>
+		</td>
+	</tr>
+</table>
+<table id="chartsTable" width="100%" cellpadding="0" cellspacing="0">
+      <tr id="title">
+        {foreach from=$codegroup item=wei}
+        <td colspan="2"><strong>{$wei}位</strong></td>
+        {/foreach}
+      </tr>
+      <tr id="head">
+        {foreach from=$codegroup item=wei}
+        <td>号码</td>
+        <td>出现次数</td>
+        {/foreach}
+      </tr>
+      {foreach from=$bonuscode item=bc}
+      <tr>
+      {foreach from=$bc item=wei key=k}
+        <td align="center"><div class="ball0{if $k%2==0}1{else}2{/if}">{$wei.digit}</div></td>
+        <td align="left"><img src="{$sSystemImagesAndCssPath}/highgame/images/default/tiao1.gif" height="9" width="{$wei.percent}">{$wei.count} ({$wei.percent}%)</td>
+      {/foreach}
+      </tr>
+      {/foreach}
+</table>
+<!-- <div id="quickbuy"><a href="">购买{$lotteryname}</a></div> //-->
+{include file="pagefooter.html"}

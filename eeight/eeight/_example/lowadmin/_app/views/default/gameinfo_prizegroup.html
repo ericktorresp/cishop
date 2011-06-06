@@ -1,0 +1,42 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<th>ID</th>
+<th>奖金组名称</th>
+<th>状态</th>
+<th>操作</th>
+</tr>
+{foreach from=$aPrizeGroup item=prizegroup key=v}
+<tr align="center">
+<td>{$prizegroup.prizegroupid}</td>
+<td>{$prizegroup.title}</td>
+<td>{if $prizegroup.status==0}
+<font color="green">不需要审核</font>
+{elseif $prizegroup.status==1}
+<font color="red">内容需要审核</font>
+{elseif $prizegroup.status==2}
+<font color="red">用户需要审核</font>
+{elseif $prizegroup.status==3}
+<font color="red"><b>内容用户需要审核</b></font>
+{elseif $prizegroup.status==4}
+<font color="blue">已审核,同步中</font>
+{/if}</td>
+<td><a href="./index.php?controller=gameinfo&action=prizelevel&pgid={$prizegroup.prizegroupid}">详情</a> |
+<a href="./index.php?controller=gameinfo&action=prizegroupedit&pgid={$prizegroup.prizegroupid}">修改</a> |
+<a href="./index.php?controller=gameinfo&action=assign&pgid={$prizegroup.prizegroupid}">分配</a>{if ($prizegroup.status<>0)&&($prizegroup.status<>4)}  |
+<A href="./index.php?controller=gameinfo&action=verify&pgid={$prizegroup.prizegroupid}">审核</A>
+{/if}
+</td>
+</tr>
+{foreachelse}
+<tr>
+<td class="no-records" colspan="4">没有相关数据</td>
+</tr>
+{/foreach}
+<tr>
+<td align="right" colspan="4">{$pageinfo}</td>
+</tr>
+</table>
+</div>
+{include file="pagefooter.html"}

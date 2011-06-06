@@ -1,0 +1,139 @@
+{include file="pageheader.html"}
+{literal}
+<script type="text/javascript">
+function checkForm(){
+	var re = /^[0-9]+.?[0-9]*$/;
+	var province = document.getElementById("province");
+	if (province.value == ''){
+		alert("您忘记了填写要修改的行政区名称！");
+		province.focus();
+		return false;
+	}
+	
+	var zipcode = document.getElementById("zipcode");
+	if (zipcode.value != ""){
+		if (!re.test(zipcode.value)){
+			alert("您填写的邮编格式不正确，请检查");
+			return false;
+		}
+	}
+	var telecode = document.getElementById("telecode");
+	if (telecode.value != ""){
+		if (!re.test(telecode.value)){
+			alert("您填写的区号格式不正确，请检查");
+			return false;
+		}
+	}
+	var orders = document.getElementById("orders");
+	if (orders.value != ""){
+		if (!re.test(orders.value)){
+			alert("您填写的排序格式不正确，请检查");
+			return false;
+		}
+	}
+	var used = document.getElementById("used").value;
+	if (used < 0){
+		return confirm("您如果不选择状态，默认为启用，是否继续？");
+	}
+}
+</script>
+{/literal}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" id="listForm" onsubmit="return checkForm();">
+<input type="hidden" name="controller" value="config" />
+<input type="hidden" name="action" value="editarea" />
+<input type="hidden" name="flag" value="edit" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <td align="right">行政区名称：</td>
+    <td><input type="text" name="province" id="province" value="{$name}" /></td>
+  </tr>
+  <tr>
+    <td align="right">邮编：</td>
+    <td><input type="text" name="zipcode" id="zipcode" value="{$zipcode}" /></td>
+  </tr>
+  <tr>
+    <td align="right">区号：</td>
+    <td><input type="text" name="telecode" id="telecode" value="{$telecode}" /></td>
+  </tr>
+  <tr>
+    <td align="right">排序：</td>
+    <td><input type="text" name="orders" id="orders" value="{$orders}" /></td>
+  </tr>
+  <tr>
+    <td align="right">状态：</td>
+    <td>
+    	<select name="used" id="used">
+    		<option value="-1">请选择</option>
+    		<option value="1" {if $used == 1}selected{/if}>启用</option>
+    		<option value="0" {if $used == 0}selected{/if}>禁用</option>
+    	</select>
+    </td>
+  </tr>
+  <tr>
+  	<td></td>
+  	<td><input type="submit" name="submit" value="提交" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="edit" value="返回上一页" class="button" onclick="history.back();" /></td>
+  </tr>
+</table>
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

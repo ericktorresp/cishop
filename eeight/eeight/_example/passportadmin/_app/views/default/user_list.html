@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>用户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="./css/general.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/transport.js"></script>
+<script>
+function getchild(id)
+{
+    var callback = function(res)
+    {
+      if (res.length > 0)
+      {
+        obj= document.getElementById('child_'+id);
+        obj.innerHTML = res;
+        obj.style.display="";
+        obj= document.getElementById('img_'+id);
+        obj.src="./images/menu_minus.gif";
+      }      
+    }
+    Ajax.call('?controller=user&action=list', "userid=" +id, callback, "GET", "text");
+    parent.frames['user_view'].location.href='?controller=user&action=view&userid='+id;
+}
+
+function show(id)
+{
+	obj= document.getElementById('child_'+id);
+	if(obj.style.display=="none")
+	{
+		obj.style.display="";
+		document.getElementById('img_'+id).src="./images/menu_minus.gif";
+	}
+	else
+	{
+		obj.style.display="none";
+		document.getElementById('img_'+id).src="./images/menu_plus.gif";
+	}
+}
+</script>
+
+<style type="text/css">
+body {background: #80BDCB;}
+#tabbar-div {
+  background: #278296; padding-left: 10px; height: 21px; padding-top: 0px;}
+#tabbar-div p {margin: 1px 0 0 0;}
+.tab-front { background: #80BDCB; line-height: 20px; font-weight: bold; 
+	padding: 4px 15px 4px 18px; border-right: 2px solid #335b64; cursor: hand;  cursor: pointer;}
+.tab-back,.tab-hover {color: #F4FAFB; line-height: 20px; padding: 4px 15px 4px 18px; cursor: hand; cursor: pointer;}
+.tab-hover {background: #2F9DB5;}
+#top-div {padding: 3px 0 2px; background: #BBDDE5; margin: 5px; text-align: center;}
+#main-div {border: 1px solid #345C65; padding: 5px; margin: 5px; background: #FFF;}
+#menu-list {padding: 0; margin: 0;}
+#menu-list ul {padding: 0; margin: 0; list-style-type: none; color: #335B64;}
+#menu-list li {padding-left: 16px; line-height: 16px; cursor: hand; cursor: pointer;}
+#main-div a:visited, #menu-list a:link, #menu-list a:hover {
+  color: #335B64 text-decoration: none;}
+.child{
+	padding-left:8px;
+	border-left:double 1px #CCC;
+	margin-left:3px;
+}
+a{
+	cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<div id="tabbar-div">
+<p><span class="tab-front" id="menu-tab">用户列表</span>
+</p></div>
+<div id="main-div">
+<div id="child_0">
+{foreach from=$users item=user key=k}
+<div id="title_{$user.userid}">
+{if $user.childcount>0}
+<img src="./images/menu_plus.gif" id="img_{$user.userid}" onclick="show({$user.userid});"> 
+<a onclick="javascript:getchild({$user.userid});">{$user.username|escape:html} <font color='#A0A0A0'>({$user.childcount})</font></a>
+<div id="child_{$user.userid}" style="display:none;" class="child"></div>
+{else}
+<img src="./images/menu_minus.gif" id="img_{$user.userid}"> 
+<a href="?controller=user&action=view&userid={$user.userid}" target="user_view">{$user.username|escape:html} <font color='#A0A0A0'>({$user.childcount})</font></a>
+{/if}
+</div>
+{foreachelse}
+当前没有用户
+{/foreach}
+</div>
+</div>
+</body>
+</html>

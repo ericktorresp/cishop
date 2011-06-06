@@ -1,0 +1,180 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-green.css"  />
+{literal}
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery("#sdate").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M:00",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#sdate").change(function(){
+			if(! validateInputDate(jQuery("#sdate").val()) )
+			{jQuery("#sdate").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+		});
+		jQuery("#edate").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M:59",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#edate").change(function(){
+			if(! validateInputDate(jQuery("#edate").val()) )
+			{jQuery("#edate").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+		});
+		$("#changeorder").html($("#ordernum").val());
+		$("#ordernum").change(function(){
+		    $("#changeorder").html($(this).val());
+		});
+	});
+</script>
+{/literal}
+<div class="form-div">
+<form name="searchForm" action="" METHOD='get'>
+<input type='hidden' name="controller" value="marketmgr"/>
+<input type='hidden' name="action" value="playuserorder"/>
+<img src="./images/icon_search.gif">
+&nbsp;&nbsp;日期：
+<input type="text" name="sdate" id="sdate" value="{$s.sdate|escape:html}"><img src="./images/calendar2.gif">
+&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="text" name="edate" id="edate" value="{$s.edate|escape:html}"><img src="./images/calendar2.gif">
+&nbsp;&nbsp;<span>游戏名称:</span>
+<select name="lottery" id="lottery">
+<option value="0">所有游戏</option>
+{foreach from=$alottery item=l key=k}
+<option value="{$l.lotteryid}" {if $s.lottery == $l.lotteryid} selected{/if}>{$l.cnname}</option>
+{/foreach}
+</select>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span id="gamelist">
+</span>
+<div style="line-height:8px;margin-left:34px;">&nbsp;</div>
+<span style="margin-left:34px;"><b>数据搜索类型</b>&nbsp;&nbsp;
+<select name="searchtype" id="searchtype">
+<option value="0" {if $s.searchtype == 0} selected{/if}>参与人数最多的奖期</option>
+<option value="1" {if $s.searchtype == 1} selected{/if}>参与人数最多的游戏</option>
+<option value="2" {if $s.searchtype == 2} selected{/if}>参与人数最多的玩法</option>
+<option value="3" {if $s.searchtype == 3} selected{/if}>销量最好的奖期</option>
+</select>&nbsp;&nbsp;
+<b>参与排名个数</b>&nbsp;&nbsp;<input size="4"  name="ordernum" id="ordernum" type="text" value="{$s.ordernum}">
+[前<span id="changeorder"></span>名]</span>&nbsp;&nbsp;
+<input type="submit" value="查询" class="button">
+</form>
+</div>
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th width="10%">排序</th>
+	<th width="15%">游戏</th>
+	{if $s.searchtype == 2}
+	   <th width="15%"><font color="Red"><b>玩法</b></font></th>
+	{/if}
+	{if $s.searchtype == 0||$s.searchtype == 3}
+	   <th width="15%"><font color="Red">奖期</b></font></th>
+	{/if}
+	{if $s.searchtype==3}
+	   <th width="25%"><font color="Red"><b>销售总额</b></font></th>
+	{/if}
+	{if $s.searchtype == 0||$s.searchtype == 1||$s.searchtype == 2}
+	   <th width="10%"><font color="Red"><b>参与人数</b></font></th>
+	{/if}
+  </tr>
+{foreach from=$aPlayUserOrder item=userlist key=k}
+    <tr>
+    <td align="center">{$userlist.order}</td>
+	<td align="center">{$userlist.cnname}</td>
+	{if $s.searchtype == 2}
+	   <td align="center">{$userlist.methodname}</td>
+	{/if}
+	{if $s.searchtype == 0||$s.searchtype == 3}
+	   <td align="center">{$userlist.issue}</td>
+	{/if}
+	{if $s.searchtype == 3}
+	<td align="center">
+	   {if $userlist.totalprice <= 0}<font color="Red">{else}<font color="Green">{/if}
+	   {$userlist.totalprice|escape:money:4}</font>
+	</td>
+	{/if}
+	{if $s.searchtype == 0||$s.searchtype == 1||$s.searchtype == 2}
+	   <td align="center">{$userlist.usercount}</td>
+	{/if}
+  </tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="6">无相关数据</td></tr>
+{/foreach}
+</table>
+</div>
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#EEF8F8';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

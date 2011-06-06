@@ -1,0 +1,32 @@
+{include file="pageheader.html"}
+<div class="list-div">
+<form method="POST" action="?controller=account&action=clear">
+<table>
+<tr>
+<td class="narrow-label" width="20%">清理天数</td>
+<td width="80%"><input type="text" name="day" id="day" size="4" value="{$configs.unactiveclearday|escape:html}">&nbsp;天内没有任何帐变。</td>
+</tr>
+<tr>
+<td class="narrow-label">用户资金</td>
+<td><input type="text" name="min" size="10" value="{$configs.unactiveclearmincash|escape:html}">&nbsp;元&nbsp;到&nbsp;&nbsp;<input name="max" value="{$configs.unactiveclearmaxcash|escape:html}" type="text" size="10">元</td>
+</tr>
+<tr>
+<td class="narrow-label">清理时间</td>
+<td><input type="text" name="start" size="10" value="{$configs.unactiveclearstart|escape:html}">&nbsp;&nbsp;到&nbsp;&nbsp;<input name="end" value="{$configs.unactiveclearend|escape:html}" type="text" size="10"></td>
+</tr>
+<tr>
+<td class="narrow-label">清理行为</td>
+<td><label for="action_freeze"><input name="actions" value="freeze" type="radio" id="action_freeze" {if (isset($configs.freeze)&&($configs.freeze==1)) }checked="checked"{/if}>冻结</label>&nbsp;&nbsp;<label for="action_del"><input type="radio" name="actions" id="action_del" value="delete" {if (isset($configs.delete)&&($configs.delete==1)) }checked="checked"{/if}>删除</label></td>
+</tr>
+<tr>
+<td class="narrow-label">是否清理</td>
+<td><label for="run"><input type="checkbox" name="run" id="run" value="1" {if $configs.unactiveclearrun==1}checked="checked"{/if}>执行清理</label></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td><input type="submit" class="button" value="更新设置"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,51 @@
+{include file="pageheader.html"}
+<div class="form-div">
+<form name="listForm" method="post" action="?controller=config&action=adminimg"  onsubmit="return validate()">
+  <table cellspacing='1' cellpadding='3' id='list-table'>
+    <tr>
+      <td align="right">图片服务器设置</td>
+      <td><input size="40" type="text" name="imgserver" id="imgserver" value="{$config}"></td>
+    </tr>
+    <tr>
+      <td align="right">图片服务器描述</td>
+      <td><textarea readonly rows="3" cols="60" name="description">输入完整的图片服务器路径:如http://www.imgserver.com,必须有http    如不输入，不使用图片服务器。如果有输入请确认路径正确无误，否则无法加载图片和CSS样式表。</textarea></td>
+    </tr>
+    <tr>
+      <td colspan="2" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  <input type="submit" name="setimgserver" id="setimgserver" value="设置图片服务器" class='button'></td>
+    </tr>
+  </table>
+</form>
+</div>
+
+{insert_scripts files="./js/validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+  /**
+   * 检查表单输入的内容
+   */
+	function validate()
+	{
+		var validator = new Validator('listForm');
+		if( !validateimgserver( document.forms['listForm'].elements['imgserver'].value) )
+		{
+			validator.addErrorMsg('图片服务器域名不符合规则');
+		}
+		return validator.passed();  
+    }
+//图片服务器格式:http://www.imgserver.com
+function validateimgserver( str )
+{
+	var patrn = /^(http:\/\/).*/;
+	if( str != '' && !patrn.exec(str) )
+	{
+		return false;
+	}
+	return true;
+}
+//-->
+</script>
+{/literal}
+
+{include file="pagefooter.html"}

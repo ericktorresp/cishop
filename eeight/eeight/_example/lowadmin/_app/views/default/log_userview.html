@@ -1,0 +1,17 @@
+{include file="pageheader.html"}
+
+<div class="tab-div"><div id="tabbody-div">
+<table width="100%">
+<tr><td class="narrow-label">编号</td><td>{$s.entry}</td></tr>
+<tr><td class="narrow-label">时间</td><td>{$s.times|escape:html}</td></tr>
+<tr><td class="narrow-label">用户</td><td>{$s.username|escape:html} [{$s.userid}]</td></tr>
+<tr><td class="narrow-label">IP地址</td><td>clientip={$s.clientip} | proxyip={$s.proxyip}</td></tr>
+<tr><td class="narrow-label">访问地址</td><td>{$s.querystring|escape:html}</td></tr>
+<tr><td class="narrow-label">控制器</td><td>{$s.controller|escape:html}</td></tr>
+<tr><td class="narrow-label">行为器</td><td>{$s.actioner|escape:html}</td></tr>
+<tr><td class="narrow-label">日志标题</td><td>{$s.title|escape:html}</td></tr>
+<tr><td class="narrow-label">日志详情</td><td>{$s.content|escape:html}</td></tr>
+<tr><td class="narrow-label">相关数据</td><td><TEXTAREA style='width:94%;height:400px;background-color:#eaeaea'>{$s.request}</TEXTAREA></td></tr>
+</table></div></div>
+
+{include file="pagefooter.html"}

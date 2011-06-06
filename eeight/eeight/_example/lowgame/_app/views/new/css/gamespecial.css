@@ -1,0 +1,93 @@
+/*靓号区投注页面*/
+.special{
+    background-color:#d5d8de;
+	padding:3px 0;
+}
+.specialdecs{
+    padding-left:20px;
+    line-height:35px;
+}
+.lottery_selectarea{
+    background-color:#d5d8de;
+    border:0px;
+    padding:2px 30px;
+    color:#000;
+}
+.special .submit_div{
+    background-color:#d5d8de;
+    clear:both;
+    text-align: right;
+    margin:0;
+}
+/*确认投注按钮*/
+.special .submitsaveonover{
+	height: 30px;
+	width: 101px;
+	border:0px;
+	font-size: 14px;
+	line-height: 31px;
+	color: #FFFFFF;
+	margin:5px 40px 5px 0;
+	background-image: url({$sSystemImagesAndCssPath}/lowgame/images/newblue/botton.png);
+	background-position: -205px -76px;
+	text-indent: 28px;
+	text-align: center;
+	cursor:pointer;
+	font-weight:bold;
+	font-family: "微软雅黑" , Arial , "Microsoft Sans Serif" ,  "宋体";
+}
+.lottery_legend{ /*所有的legend的样式*/
+    background-color: #d5d8de;
+    float:left;
+    width:100%;
+	color:#000000;
+	font-size:13px;
+	font-weight:bold;
+	float:left;
+	line-height:25px;
+	padding:5px 0;
+	border-bottom:1px solid #727272;
+	border-top:1px solid #727272;
+}
+.lottery_legend .prizeup{
+	color:#000;
+	font-size:20px;
+}
+.lottery_legend .prizenormal{
+	color:#000000;
+	font-size:20px;
+}
+.lottery_legend .prizedown{
+	color:#009900;
+	font-size:20px;
+}
+.special .lottery_contentbox{ /*每个区具体内容的外框*/
+	width:96%;
+	float:left;
+	text-align:center;
+	margin:5px 0 5px 2%;
+	padding:10px 0;
+	border:1px dashed #727272;
+	display:inline;
+}
+.lottery_contentbox ul{
+	width:100%;
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+.lottery_contentbox ul li{
+	width:145px;
+	height:25px;
+	line-height:25px;
+	float:left;
+}
+.lottery_contentbox .codetimes, .lottery_contentbox .codetimes_disabled{
+	width:25px;
+	font-weight:bold;
+	color: #FF2F2F;
+	border:0px;
+	background-color: #d5d8de;
+	border-bottom:1px #2F2F2F solid;
+	text-align:center;
+}

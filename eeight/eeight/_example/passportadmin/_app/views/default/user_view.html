@@ -1,0 +1,266 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery("#rdate").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			showsTime: true
+		});
+		jQuery("#rdate").change(function(){
+			if(!validateInputDate(jQuery("#rdate").val()))
+			{
+				jQuery("#rdate").val('{$rdate|escape:html}');
+				alert("时间格式不正确,正确的格式为:2009-06-10 10:59");
+			}
+		});
+		jQuery("#redate").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			showsTime: true
+		});
+		jQuery("#redate").change(function(){
+			if(!validateInputDate(jQuery("#redate").val()))
+			{
+				jQuery("#redate").val('{$redate|escape:html}');
+				alert("时间格式不正确,正确的格式为:2009-06-10 10:59");
+			}
+		});
+		$(".frozenuser").find("td").css("backgroundColor","#DDD");
+	});	
+</script>
+<div class="form-div" ID="formdiv">
+<FORM action="" method="get">
+<input type="hidden" name="controller" value="user">
+<input type="hidden" name="action" value="view">
+<input type="hidden" name="userid" value="{$id}">
+<img src="./images/icon_search.gif" border="0">
+用户名称:&nbsp;&nbsp;<input type="text" name="username" id="username" size="16" style="background-color:#FFF;color:#555"
+value="{$username|escape:html}">&nbsp;&nbsp;
+&nbsp;&nbsp; 
+用户组:&nbsp;&nbsp;<select style="background-color:#FFF;color:#555;" name="team">
+<option value="0">不限</option>
+{foreach from=$usergroup item=group key=k}
+<option value="{$group.groupid}" {if $userteam==$group.groupid}selected="selected"{/if}>{$group.groupname|escape:html}</option>
+{/foreach}
+</select>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可用余额 E:&nbsp;&nbsp;
+	<input size=10 style="background-color:#FFF;color:#555;" name="minmoney" value="{$minmoney}">
+	&nbsp;&nbsp;至&nbsp;&nbsp;
+	<input size=10 style="background-color:#FFF;color:#555;" name="maxmoney" value="{$maxmoney}">(元)
+&nbsp;&nbsp;&nbsp;&nbsp;排序:&nbsp;&nbsp;
+<select style="background-color:#FFF;color:#555" name="order">
+	<option value="ID" {if $order=="ID"}selected="selected"{/if}>用户ID</option>
+	<option value="name" {if $order=="name" || $order == ""}selected="selected"{/if}>用户名称</option>
+	<option value="money" {if $order=="money"}selected="selected"{/if}>可用余额</option>
+	<option value="date" {if $order=="date"}selected="selected"{/if}>注册时间</option>
+</select>
+	
+	<br/>
+&nbsp;&nbsp;注册时间:&nbsp;<input type="text" id="rdate" name="rdate" size='17' style="background-color:#FFF;color:#555" value="{$rdate|escape:html}"/> <img src="./images/calendar2.gif"> &nbsp;&nbsp;至&nbsp;&nbsp;<input name="redate" id="redate" style="background-color:#FFF;color:#555" value="{$redate|escape:html}"><img src="./images/calendar2.gif">
+&nbsp;&nbsp;<label for="desc"><input type="checkbox" id="desc" name="desc" value="1" style="background-color:#FFF;color:#555" {if $desc=="DESC"}checked="checked"{/if}>从大到小</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+每页记录数:<input name="pn" value="{if $ahtml.pn > 0}{$ahtml.pn}{else}{$syspagesizemax}{/if}" size="5" onKeyup="checkPageSize(this,'ipagesize',{$syspagesizemax});">
+&nbsp; &nbsp;
+<input type="submit" class="button" value="搜索"><a href="javascript:showNotice('noticeUser');"><img src="./images/notice.gif" border="0"></a><br/>
+<div id="noticeUser" style="display:none; margin-left:40px;">1、用户名称:支持*号搜索<br/>2、用户组:用户所属的组。<br/>3、可用余额：用户可用余额范围搜索。<br/>4、注册时间:用户注册时间范围搜索。<br/>5、排序:支持四种排序:用户ID,用户名称,可用余额以及用户的注册时间，可以支持两种排序：从小到大以及从大到小，默认为用户Id的从大到小排序。</div>
+</FORM>
+</div>
+{if $id>0}
+<div class="form-div">
+当前用户位置：<a href="?controller=user&action=view">用户中心</a>{foreach from=$usertree item=user key=k}
+&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="?controller=user&action=view&userid={$user.userid}">{$user.username|escape:html}</a>
+{/foreach}
+</div>
+{/if}
+<SPAN id="noticeuser2" style="display:none;" class="form-div">
+<ul>
+<li>团队:查看用户的团队信息。</li>
+<li>修改:编辑用户的昵称以及用户身份。</li>
+<li>密码:修改用户的登陆密码以及资金密码。</li>
+<li>冻结:对用户或者用户以及他的所有下级进行冻结(完全冻结,部分冻结)。</li>
+<li>解冻:对冻结的用户进行解冻。</li>
+<li>帐变:查看用户帐变信息。</li>
+<li>充值:对用户进行现金充值或者理赔充值。</li>
+<li>提现:对总代进行资金取现操作。</li>
+<li>跨级提现:对代理和会员进行资金取现操作。</li>
+<li>信用:对用户进行信用欠款进行操作(增加或者删除)，目前只针对总代。</li>
+<li>评星:对代理进行评星,目前只针对代理，不包括总代和会员。</li>
+<li>删除:对用户进行逻辑删除。</li>
+</ul>
+</SPAN>
+<div class="list-div" id="listDiv">
+<form>
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<th>用户名称</th>
+<th>所属组</th>
+<th>现金余额 A</th>
+<th>账户余额 C</th>
+<th>冻结金额 D</th>
+<th>可用余额 E</th>
+<th>注册日期</th>
+<th>操作 &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:showNotice('noticeuser2');">[相关帮助]</a></th>
+</tr>
+{if isset($me)}
+{if $me.isfrozen != 0}<tr class="frozenuser">{else}<tr>{/if}
+<td align="center"><a TITLE='查看下级' href="?controller=user&action=view&userid={$me.userid}" {if $me.isspecial==1||$me.groupid==1}style="color:#FF0000;"{/if}>{$me.username|escape:html}</a></td>
+<td align="center">{$me.groupname|escape:html}</td>
+<td align="right">{$me.cashbalance|escape:money}</td>
+<td align="right">{$me.channelbalance|escape:money}</td>
+<td align="right">{$me.holdbalance|escape:money}</td>
+<td align="right">{$me.availablebalance|escape:money}</td>
+<td align="center">{$me.registertime|escape:date}</td>
+<td align="center">
+<a href="?controller=user&action=adminproxylist&userid={$me.userid}">总代管理员</a>&nbsp;
+<a href="?controller=user&action=binding&userid={$me.userid}">绑定</a>&nbsp;
+<a href="?controller=user&action=team&userid={$me.userid}">团队</a>&nbsp;
+<a href="?controller=user&action=edit&userid={$me.userid}">修改</a>&nbsp;
+{if $me.status == 0}
+<a href="?controller=user&action=changepass&userid={$me.userid}">密码</a>&nbsp;
+{/if}
+{if $me.isfrozen==0}<a href="?controller=user&action=freeze&userid={$me.userid}">冻结</a>{else}<a href="?controller=user&action=unfreeze&userid={$me.userid}">解冻</a>{/if}&nbsp;
+<a href="?controller=report&action=orderlist&username={$me.username}&sel=1">帐变</a>&nbsp;
+<a href="?controller=user&action=topup&userid={$me.userid}">充值</a>&nbsp;
+{if $me.parentid==0}
+<a href="?controller=user&action=withdraw&userid={$me.userid}">提现</a>&nbsp;
+<a href="?controller=user&action=credit&userid={$me.userid}">信用</a>
+{else}
+<a href="?controller=user&action=kuati&userid={$me.userid}">跨级提现</a>&nbsp;
+{if $me.groupid==4||$me.isspecial==4}
+{else}
+<a href="?controller=user&action=star&userid={$me.userid}">评星</a>
+{/if}
+{/if}&nbsp;
+{if $me.ocs_status==0}
+<a href="?controller=user&action=ocsopen&userid={$me.userid}" title="启用在线客户服务功能"><font color="green">开启OCS</font></a>
+{else}
+<a href="?controller=user&action=ocsclose&userid={$me.userid}" title="禁用在线客户服务功能"><font color="red">关闭OCS</font></a>
+{/if}
+&nbsp;<a href="?controller=user&action=del&userid={$me.userid}" onclick="return confirm('您确定要删除吗?');">删除</a></td>
+</tr>
+{/if}
+{foreach from=$users item=user key=k}
+{if $user.isfrozen != 0}<tr class="frozenuser">{else}<tr>{/if}
+<td align="center">{if $user.userid==$id}{$user.username|escape:html}{else}<a href="?controller=user&action=view&userid={$user.userid}">{$user.username|escape:html}</a>{/if}</td>
+<td align="center">{$user.groupname|escape:html}</td>
+<td align="right">{$user.cashbalance|escape:money}</td>
+<td align="right">{$user.channelbalance|escape:money}</td>
+<td align="right">{$user.holdbalance|escape:money}</td>
+<td align="right">{$user.availablebalance|escape:money}</td>
+<td align="center">{$user.registertime|escape:date}</td>
+<td align="center">
+{if $user.groupid == 1 || $user.isspecial == 1}
+<a href="?controller=user&action=adminproxylist&userid={$user.userid}">总代管理员</a>&nbsp;
+{/if}
+<a href="?controller=user&action=binding&userid={$user.userid}">绑定</a>&nbsp;
+<a href="?controller=user&action=team&userid={$user.userid}">团队</a>&nbsp;
+<a href="?controller=user&action=edit&userid={$user.userid}">修改</a>&nbsp;
+{if $user.status == 0}
+<a href="?controller=user&action=changepass&userid={$user.userid}">密码</a>&nbsp;
+{/if}
+{if $user.isfrozen==0}<a href="?controller=user&action=freeze&userid={$user.userid}">冻结</a>{else}<a href="?controller=user&action=unfreeze&userid={$user.userid}">解冻</a>{/if}&nbsp;
+<a href="?controller=report&action=orderlist&username={$user.username}&sel=1">帐变</a>&nbsp;
+<a href="?controller=user&action=topup&userid={$user.userid}">充值</a>&nbsp;
+<!--<a href="?controller=user&action=deduction&userid={$user.userid}">扣减</a>&nbsp;-->
+{if $user.parentid==0}
+<a href="?controller=user&action=withdraw&userid={$user.userid}">提现</a>&nbsp;
+<a href="?controller=user&action=credit&userid={$user.userid}" TITLE='编辑信用: {$user.username}'>信用</a>
+{else}
+<a href="?controller=user&action=kuati&userid={$user.userid}">跨级提现</a>
+{if $user.groupid==4||$user.isspecial==4}
+{else}
+<a href="?controller=user&action=star&userid={$user.userid}">评星</a>
+{/if}
+{/if}&nbsp;
+{if $user.ocs_status==0}
+<a href="?controller=user&action=ocsopen&userid={$user.userid}" title="启用在线客户服务功能"><font color="green">开启OCS</font></a>
+{else}
+<a href="?controller=user&action=ocsclose&userid={$user.userid}" title="禁用在线客户服务功能"><font color="red">关闭OCS</font></a>
+{/if}
+&nbsp;<a href="?controller=user&action=del&userid={$user.userid}" onclick="return confirm('您确定要删除吗?');">删除</a></td>
+</tr>
+{foreachelse}
+{if !(isset($me))}
+<tr>
+<td colspan="8" class="no-records">没有搜索到用户</td>
+</tr>
+{/if}
+{/foreach}
+<tr>
+<td colspan="8" align="right">
+{$pages}
+</td>
+</tr>
+</table>
+</form>
+</div>
+<script>
+function showNotice(objId)
+{
+	var obj = document.getElementById(objId);
+	if(obj.style.display=="none")
+	{
+		obj.style.display="block";
+	}
+	else
+	{
+		obj.style.display="none";
+	}
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH" && row.className != "frozenuser") row.cells[i].style.backgroundColor = '#EEF8F9';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+    $(".frozenuser").find("td").css("backgroundColor","#DDD");
+  }
+}
+
+</script>
+{include file="pagefooter.html"}

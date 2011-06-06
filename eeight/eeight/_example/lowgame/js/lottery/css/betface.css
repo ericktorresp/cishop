@@ -1,0 +1,343 @@
+@charset "utf-8";
+/* 弹性布局提示 
+1. 由于弹性布局的总体大小取决于用户的默认字体大小，因此弹性布局更难预测。如果正确使用的话，弹性布局对于那些需要较大字体的用户更为方便，因为行的长度仍保持适当比例。
+2. 此布局中 div 的大小取决于 body 元素中的 100% 字体大小。如果您通过对 body 元素或 #container 使用“font-size: 80%”来减小文本的总体大小，请记住整体布局将按比例缩小。您最好增加各个 div 的宽度以对此进行补偿。
+3. 如果字体大小在每个 div 中按不同的量进行更改（例如，#sidebar1 上的字体大小为 70%，#mainContent 上的字体大小为 85%），而不是对总体设计进行更改，则将按比例更改每个 div 的总体大小。您最好根据最终的字体大小来进行调整。
+*/
+.lottery_bigbox{
+	margin: 0 auto; /* 自动边距（与宽度一起）会将页面居中 */
+	width:90%;
+}
+.lottery_header{ /* 购彩界面头部信息区*/
+	width:100%;
+	margin-bottom:10px;
+}
+.lottery_header .headerleft,.lottery_header .headerright{
+	height:60px;
+	width:90%;
+	background-color:#CCCCCC;
+	float:left;
+	border:1px #FF9900 solid;
+	line-height:20px;
+	text-align:center;
+	font-weight:bold;
+	}
+.lottery_header .headerright{
+	width:99%;
+	float:right;
+	}
+.lottery_header .issueNo{
+	width:180px;
+	border:1px #FF3300 solid;
+	height:20px;
+	text-align:center;
+	background-color:#FF3300;
+	color:#FFFFFF;
+	margin:0 auto;
+	}
+.lottery_box {	/* 购彩界面的外部大框架 */
+	width: 100%;  /* 当文本保持浏览器的默认字体大小时，此宽度将创建一个适合 800px 浏览器窗口的容器 */
+	background: #FFFFFF;
+	border:1px solid #FF0000;
+	text-align: left; /* 这将覆盖 body 元素上的“text-align: center”。 */
+}
+.lottery_lables, .lottery_selectarea, .lottery_filterarea, .lottery_editarea, .lottery_confirmarea, .lottery_tracearea{
+	width:100%;
+	text-align:center;
+	float:left;
+	padding:10px 0 10px 0; /* 此处填充会使上下保持一定的间隔  */
+}
+
+.lottery_lables { /*标签区*/
+	background:#FF0000;
+	padding: 0px;
+	text-align:left;
+	height:25px;
+}
+.lottery_lables .label_front, .lottery_lables .label_back {
+	margin:2px 0 0 20px;
+	background:#fff8f2;
+	padding:0 20px 0 20px;
+	height:25px;
+	float:left;
+	line-height:25px;
+	text-align:center;
+}
+.lottery_lables .label_back{
+	background:#FFCC99;
+	cursor:pointer;
+}
+.lottery_selectarea{ /*选号区*/
+	background: #fff8f2;
+}
+.lottery_filterarea{ /*筛选区*/
+	background: #fdeedb;
+}
+.lottery_editarea{ /*编辑区*/
+	background: #fff8f2;
+}
+.lottery_editor_textarea{ /*编辑区textarea样式*/
+	width:550px;
+	height:130px;
+	text-align:left;
+	font-size:12px;
+}
+.lottery_editor_word{
+	color:#666666;
+}
+.lottery_confirmarea{ /*确认区*/
+	background: #fdeedb;
+}
+.lottery_confirm_textarea{ /*确认区textarea样式*/
+	width:550px;
+	height:130px;
+	text-align:left;
+	float:left;
+	font-size:12px;
+	background-color:#CCCCCC;
+	cursor:pointer;
+}
+.lottery_confirm_list{ /*确认区文字信息*/
+	float:left;
+	clear:left;
+	text-align:left;
+	margin:10px;
+	width:100%;
+}
+.lottery_confirm_list .quickbutton{/*倍数快速输入按钮*/
+	padding:2px 3px 2px 3px;
+	color:#FF0000;
+	background-color:#CCCCCC;
+	cursor:pointer;
+	border:1px #666666 solid;
+	}
+.lottery_tracearea{ /*追号区*/
+	background: #fff8f2;
+}
+.lottery_fieldset{ /*所有fieldset的样式*/
+	border:1px solid #f9d3cb;
+	text-align:center;
+	width: 95%;
+	margin:0 auto;
+}
+.lottery_legend{ /*所有的legend的样式*/
+	color:#333333;
+	float:left;
+}
+.lottery_contentbox{ /*每个区具体内容的外框*/
+	float:left;
+	text-align:left;
+	padding: 5px 0 5px 50px;
+}
+.lottery_contentbox ul{
+	list-style-type:none;
+	text-align:left;
+	margin:0;
+	padding:0;
+	width:100%;
+}
+.lottery_contentbox ul li{
+	line-height:30px;
+}
+.lottery_contentbox .leftcontent{ /*具体内容左边部分*/
+	float:left;
+	text-align:left;
+	width:75%;
+}
+.lottery_contentbox .rightcontent{ /*具体内容左边部分*/
+	float:left;
+	margin-left:5px;
+	text-align:left;
+	width:25%;
+}
+.lottery_button{ /*按钮总样式*/
+	border:0px;
+	padding:0px;
+	margin:0px;
+	cursor:pointer;
+	height:20px;
+	width:100px;
+	line-height:20px;
+}
+.lottery_button_random{ /*机选按钮样式*/
+	cursor:pointer;
+}
+.lottery_button_import{ /*机选按钮样式*/
+	cursor:pointer;
+}
+.lottery_button_clear{ /*机选按钮样式*/
+	cursor:pointer;
+}
+.lottery_button_insert{ /*机选按钮样式*/
+	cursor:pointer;
+}
+.lottery_button_confirm{ /*机选按钮样式*/
+	margin-top:10px;
+	cursor:pointer;
+}
+.lottery_button_delete{ /*删除重复号*/
+	cursor:pointer;
+}
+.lottery_input{ /*文本框输入总样式*/
+	width:20px;
+	text-align:center;
+}
+.lottery_input_underline{ /*下划线型的输入框*/
+	width:40px;
+	font-weight:bold;
+	color:#FF0000;
+	border:0px;
+	border-bottom:1px #000000 solid;
+}
+.lottery_input_random{
+	
+}
+
+.lottery_js_word{ /*js生成的文字样式*/
+	color: #FF0000;
+	font-weight:bold;
+}
+.lottery_button_confirm{ /*提交按钮的样式*/
+	width:100px;
+	float:left;
+}
+.lottery_editarea_table{ /*编辑区表格样式*/
+	width:100%;
+}
+.lottery_tracearea_table, .lottery_tracearea_table_label{
+	border:1px #666666 solid;
+	width:99%;
+	text-align:center;
+	padding:0;
+	margin-bottom:10px;
+	border-right:0;
+}
+.lottery_tracearea_table .titletd{border:1px #666666 solid;border-left:0px; color:#000000; font-weight:bold;}
+.lottery_tracearea_table td{border-right:1px #666666 solid; color:#FF0000;}
+
+.lottery_tracearea_table_label{
+	border:0;
+	margin:10px 0 0 0;
+}
+
+.lottery_td_front, .lottery_td_back{
+	width:90px;
+	border:1px #666666 solid;
+	text-align:center;
+	height:18px;
+	line-height:18px;
+}
+.lottery_td_front{
+	border-bottom:0;
+}
+.lottery_td_space, .lottery_td_line{
+	border-bottom:1px #666666 solid;
+}
+.lottery_td_space{
+	width:5px;
+}
+.lottery_label_div{
+	height:70px;
+	line-height:70px;
+	text-align:left;
+	padding-left:20px;
+	color:#000000;
+}
+.lottery_tracearea_money{
+	color:#FF0000;
+	font-weight:bold;
+}
+.lottery_tracearea_wordtitle{
+	color:#000;
+	display:none;
+}
+/*选号区*/
+.lottery_selectarea_table{
+	width:100%;
+	border:0px;
+}
+.lottery_selectarea_table td{
+	height:30px;
+	line-height:30px;
+}
+.lottery_selectarea_title{
+	padding:2px 8px 2px 8px;
+	background-color:#FF6600;
+	line-height:30px;
+	text-align:center;
+	color:#FFFFFF;
+	font-weight:bold;
+	letter-spacing:2px;
+}
+.lottery_selectarea_num, .lottery_selectarea_num_check{
+	width:22px;
+	line-height:22px;
+	text-align:center;
+	border:1px #a3a3a2 solid;
+	background-color:#f5f5f5;
+	color:#000;
+	font-weight:bold;
+	cursor:pointer;
+	float:left;
+	margin:0;
+	padding:0;
+	margin-right:4px;
+}
+.lottery_selectarea_num_check{
+	background-color:#0066FF;
+	color:#FFFFFF;
+}
+.lottery_selectarea_button{
+	width:22px;
+	height:22px;
+	background-color:#CCCCCC;
+	border:0;
+	cursor:pointer;
+	margin-left:2px;
+	cursor:pointer;
+}
+.lottery_adjust_confirm{
+	text-align:left;
+}
+.lottery_adjust_confirm .adjusttitlebox{
+	width:100%;
+	background:red;
+	width:100%;
+	height:25px;
+	line-height:25px;
+}
+.lottery_adjust_confirm .adjusttitlebox .adjusttitle{
+	margin-top:10px;
+	margin-left:20px;
+	background:#fdeedb;
+	padding:0px 20px 5px 20px;
+	line-height:30px;
+	font-size:13px;
+	font-weight:bold;
+}
+.lottery_adjust_confirm .adjustmsg{
+	height:40px;
+	line-height:40px;
+	padding-left:20px;
+	font-size:14px;
+}
+.lottery_adjust_confirm .adjustcodebox{
+    padding-left:40px;
+}
+.lottery_adjust_confirm .adjustcodebox div{
+	width:300px;height:150px;overflow-y:scroll;overflow-x:hidden; background-color:#FFFFFF;
+}
+.lottery_adjust_confirm ul{
+	list-style:none;
+	padding:0;
+	margin:0;
+	padding-left:40px;
+}
+.lottery_adjust_confirm ul li{
+	height:20px;
+	line-height:20px;
+}
+.lottery_adjust_confirm .confirmbuttonbox{
+	margin-top:15px;
+	padding-left:50px;
+}

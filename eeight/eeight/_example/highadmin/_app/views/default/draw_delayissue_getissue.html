@@ -1,0 +1,65 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+<script>
+$(document).ready(function(){
+    $('#form1').submit(function(){
+        if ($('#endIssue').val() < $('#startIssue').val()) {
+            alert('结束奖期必须大于开始奖期！');
+            return false;
+        }
+        return true;
+    });
+});
+</script>
+<div class="list-div" id="listDiv">
+<form id="form1" action="./index.php?controller=draw&action=delayissue" method="post">
+<table cellspacing='1' cellpadding='3'>
+<tr><td colspan="4"><font size="3"><b>彩种 {$lottery.cnname}(id={$lottery.lotteryid}) 的奖期延迟记录</font></b></td></tr>
+<tr>
+    <td>登记时间</td>
+    <td>开始奖期</td>
+    <td>结束奖期</td>
+    <td>延时</td>
+</tr>
+    {foreach from=$issueDelays item=item key=k}
+    <tr>
+        <td>{$item.date}</td>
+        <td>{$item.startissue}</td>
+        <td>{$item.endissue}</td>
+        <td>{$item.delay}秒</td>
+    </tr>
+    {/foreach}
+<tr><td colspan="4"><font size="3"><b>新增一个奖期延时：</font></b></td></tr>
+</table>
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td class="narrow-label">选择要延后的开始奖期</td>
+<td><select name="startIssue" id="startIssue">
+    <option value="-1">请选择</option>
+    {foreach from=$issues item=item key=k}
+    <option value="{$item.issue}">{$item.issue}期（{$item.salestart} - {$item.saleend}）</option>
+    {/foreach}
+    </select>
+</td>
+</tr>
+<tr>
+<td class="narrow-label">选择要延后的结束奖期</td>
+<td><select name="endIssue" id="endIssue">
+    <option value="-1">请选择</option>
+    {foreach from=$issues item=item key=k}
+    <option value="{$item.issue}">{$item.issue}期（{$item.salestart} - {$item.saleend}）</option>
+    {/foreach}
+    </select>
+</td>
+</tr>
+<td class="narrow-label">延长时间</td>
+<td><input type="text" name="delay" size="6" value=""/>秒</td>
+</tr>
+<tr>
+	<td class="narrow-label"></td>
+	<td><input type="hidden" name="lotteryId" value="{$lottery.lotteryid}"><input type="hidden" name="sa" value="setDelay"><input type="submit" class="button" value="提交"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

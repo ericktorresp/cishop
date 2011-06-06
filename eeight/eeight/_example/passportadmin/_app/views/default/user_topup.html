@@ -1,0 +1,154 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/common2.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#isfee").click(function(){
+		if(this.checked){ // 显示 
+        	$("#feelower").show();
+        	$("#feeuper").show();
+	    }else{   // 隐藏
+	        $("#feelower").hide();
+        	$("#feeuper").hide();
+	    }   
+	});
+});
+function checkForm(){
+	var money = document.getElementById("money").value;
+	if (parseFloat(money) <= 0 || isNaN(parseFloat(money))){
+		alert("充值金额不正确");
+		return false;
+	}
+	
+	
+	// 手续费必须与人工充值一并使用
+	if (document.form1.isfee.checked == true){
+		if (document.form1.manual.checked == false){
+			alert("手续费必须和人工充值一并使用");
+			return false;
+		}
+		var fee = document.getElementById("fee").value;
+		if (fee == "" || parseFloat(fee) <= 0 || (parseFloat(fee) > 0 && parseFloat(fee) >= 100)){
+			alert("手续费金额不正确");
+			return false;
+		}
+	}
+	
+	var payment = document.getElementById("payment");
+	var manual = document.getElementById("manual");
+	if (payment.checked == true && manual.checked == true){
+		alert("不能同时选择理赔充值和人工充值");
+		return false;
+	}
+	return true;
+}
+</script>
+<div class="form-div">
+<form action="?controller=user&action=confirm&next=savetopup" name="form1" id="form1" method="POST" onsubmit="return checkForm();">
+<input type="hidden" name="userid" value="{$userfund.userid}">
+<table cellspacing='1' cellpadding='2' id="detail-table">
+<tr>
+<td class="narrow-label" width="50%">用户帐号</td>
+<td width="50%">{$userfund.username|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticecash');"><img src="./images/notice.gif" border="0" title="现金金额"></a>现金余额 A</td>
+<td>{$userfund.cashbalance|escape:money}<span id="noticecash" style="display:none;">现金余额:用户存入平台的真实货币剩余金额。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticecredit');"><img src="./images/notice.gif" border="0" title="信用欠款"/></a>信用欠款 B</td>
+<td>{if isset($credit)}{$credit|escape:money}{else}无{/if}<span id="noticecredit" style="display:none;">信用欠款:平台借给总代可透支的真实货币金额，此金额在转账中保持不变。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticechannelbalance');"><img src="./images/notice.gif" border="0" title="帐户余额"></a>账户余额 C</td>
+<td>{$userfund.channelbalance|escape:money}<span id="noticechannelbalance" style="display:none;">账户余额：用户账户中的真实余额。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticeholdbalance');"><img src="./images/notice.gif" border="0" title="冻结金额"></a>冻结金额 D</td>
+<td>{$userfund.holdbalance|escape:money}<span id="noticeholdbalance" style="display:none;">冻结金额：用户在平台被冻结的游戏币金额。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticeavailablebalance');"><img src="./images/notice.gif" border="0" title="可用余额"></a>可用余额 E</td>
+<td>{$userfund.availablebalance|escape:money}<span id="noticeavailablebalance" style="display:none;">可用余额：用户在平台可以用来游戏或转账的游戏币。</span></td>
+</tr>
+
+
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticeadd');"><img src="./images/notice.gif" border="0" title="信用充值"></a>现金充值(小写)</td>
+<td>
+	<input type="text" name="money" id="money" value="" size="12" onkeyup="checkWithdraw(this,'chineseMoney',10000000.0000);" >
+	<span id="noticeadd" style="display:none;">用户充值:<b style="color:#FF0000;">现金金额增加</b>,信用欠款不变,<b style="color:#FF0000;">帐户余额增加</b>,冻结金额不变,<b style="color:#FF0000;">可用余额增加</b>。</span>
+	</td>
+</tr>
+<tr>
+<td class="narrow-label">现金充值(大写)</td>
+<td><span id="chineseMoney"></span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticelipei');"><img src="./images/notice.gif" title="理赔充值" border="0"></a><label for="payment"><input type="checkbox" value="1" name="payment" id="payment" {if $userfund.parentid>0}checked="checked"{/if}>理赔充值</label></td>
+<td><select name="channel">
+<option value="0">银行</option>
+{foreach from=$channels item=channel key=k}
+<option value="{$channel.id}">{$channel.channel}</option>
+{/foreach}
+</select><span id="noticelipei" style="display:none;">由于平台失误，需要对用户资金进行增加现金金额，需要进行此操作。用户资金将在该用户的银行频道中的现金资金增加。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('manualload');"><img src="./images/notice.gif" title="人工充值" border="0"></a><label for="manual"><input type="checkbox" value="1" name="manual" id="manual">人工充值</label></td>
+<td><select name="channel">
+<option value="0">银行</option>
+{foreach from=$channels item=channel key=k}
+<option value="{$channel.id}">{$channel.channel}</option>
+{/foreach}
+</select><span id="manualload" style="display:none;">由于email充值异常造成充值记录挂起，管理员手工对用户充值。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('feeback');"><img src="./images/notice.gif" title="返手续费" border="0"></a><label for="isfee"><input type="checkbox" value="1" name="isfee" id="isfee">返手续费</label></td>
+<td><select name="channel3">
+<option value="0">银行</option>
+{foreach from=$channels item=channel key=k}
+<option value="{$channel.id}">{$channel.channel}</option>
+{/foreach}
+</select><span id="feeback" style="display:none;">返还用户email充值时发生的手续费。</span></td>
+</tr>
+<tr id="feelower" style="display:none;">
+<td class="narrow-label"><a href="javascript:showNotice('feeload');"><img src="./images/notice.gif" border="0" title="信用充值"></a>手续费金额(小写)</td>
+<td>
+	<input type="text" name="fee" id="fee" value="" size="12" onkeyup="checkWithdraw1(this,'chineseFeeMoney',99.99);" >
+	<span id="feeload" style="display:none;">返手续费:<b style="color:#FF0000;">现金金额增加</b>,信用欠款不变,<b style="color:#FF0000;">帐户余额增加</b>,冻结金额不变,<b style="color:#FF0000;">可用余额增加</b>。</span>
+	</td>
+</tr>
+<tr id="feeuper" style="display:none;">
+<td class="narrow-label">手续费金额(大写)</td>
+<td><span id="chineseFeeMoney"></span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticelipeireson');"><img src="./images/notice.gif" title="充值备注" border="0"></a>充值备注</td>
+<td><input type="text" name="description" size="30"><span id="noticelipeireson" style="display:none;">记录充值理由或者为平台失误原因。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"></td>
+<td><input type="submit" value="用户充值" class="button"><input type="reset" value="重置充值" class="button"></td>
+</tr>
+</table>
+</form>
+</div>
+<script>
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+</script>
+{include file="pagefooter.html"}

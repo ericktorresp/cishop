@@ -1,0 +1,138 @@
+{include file="pageheader.html"}
+<style type="text/css">
+.d {
+	font-size:16px; line-height:22px; color:#006699;
+}
+</style>
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+	<td class="narrow-label">支付接口名称:</td>
+	<td class=d>{$PayportDetail.payport_name|escape:html}</td>
+</tr>
+
+<tr>
+	<td class="narrow-label">支付接口别名:</td>
+	<td class=d>{$PayportDetail.payport_nickname|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">语言编码</td>
+	<td class=d>{$PayportDetail.lang_code}</td>
+</tr>
+<tr>
+	<td class="narrow-label">货币单位:</td>
+	<td class=d>{$PayportDetail.currency|escape:html}</td>
+</tr>
+
+<tr>
+	<td class="narrow-label">充值到帐时间说明:</td>
+	<td class=d>{$PayportDetail.load_time_note|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">提现到帐时间:</td>
+	<td class=d>{$PayportDetail.draw_time_note|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">充值限额(单笔):</td>
+	<td>
+	<b>最少金额:</b> <span class=d>{$PayportDetail.load_limit_min_per|escape:money}</span>元 &nbsp; 
+	<b>最大限额:</b> <span class=d>{$PayportDetail.load_limit_max_per|escape:money}</span>元 &nbsp; 
+	</td>
+</tr>
+<tr>
+	<td class="narrow-label">充值界定金额:</td>
+	<td><span class=d>{$PayportDetail.load_fee_step|escape:money}元</span></td>
+</tr>
+<tr>
+	<td class="narrow-label">充值手续费:</td>
+	<td>
+	<b>(低于界定金额手续费)</b> 固定金额:<span class=d>{$PayportDetail.load_fee_per_down|escape:money}</span>元/次 &nbsp;&nbsp; 
+	计算百分比:<span class=d>{$PayportDetail.load_fee_percent_down|escape:money}</span>(原值) &nbsp; 
+	<br>
+	<b>(高于界定金额手续费)</b> 固定金额:<span class=d>{$PayportDetail.load_fee_per_up|escape:money}</span>元/次 &nbsp;&nbsp; 
+	计算百分比:<span class=d>{$PayportDetail.load_fee_percent_up|escape:money}</span>(原值) &nbsp; 
+	
+	</td>
+</tr>
+
+<tr>
+	<td class="narrow-label">提现限额(单笔):</td>
+	<td>
+	<b>最少金额:</b> <span class=d>{$PayportDetail.draw_limit_min_per|escape:money}</span>元 &nbsp; 
+	<b>最大限额:</b> <span class=d>{$PayportDetail.draw_limit_max_per|escape:money}</span>元 &nbsp; 
+	</td>
+</tr>
+<tr>
+	<td class="narrow-label">提现界定金额:</td>
+	<td><span class=d>{$PayportDetail.draw_fee_step|escape:money}</span>元</td>
+</tr>
+<tr>
+	<td class="narrow-label">提现手续费:</td>
+	<td>
+	<b>(低于界定金额)</b> 手续费:<span class=d>{$PayportDetail.draw_fee_per_down|escape:money}</span>元/次 &nbsp;&nbsp; 
+	百分比手续费:<span class=d>{$PayportDetail.draw_fee_percent_down|escape:money}</span>(原值) &nbsp;
+	<br>
+	<b>(高于界定金额)</b> 手续费:<span class=d>{$PayportDetail.draw_fee_per_up|escape:money}</span>元/次 &nbsp;&nbsp; 
+	百分比手续费:<span class=d>{$PayportDetail.draw_fee_percent_up|escape:money}</span>(原值) &nbsp;
+	<br> 
+	<b>(提现手续费硬性收取限值范围)</b>
+	最低:<span class=d>{$PayportDetail.draw_fee_min|escape:money}</span>元 &nbsp; 
+	最高:<span class=d>{$PayportDetail.draw_fee_max|escape:money}</span>元 &nbsp; 
+	</td>
+</tr>
+<tr>
+	<td class="narrow-label">支付接口充值手续费:</td>
+	<td>
+	计算百分比:<span class=d>{$PayportDetail.plat_load_percent|escape:money}</span>(原值)  &nbsp;  &nbsp;
+	<b>(限值范围)</b>
+	下限:<span class=d>{$PayportDetail.plat_load_min|escape:money}</span>元 &nbsp; 
+	上限:<span class=d>{$PayportDetail.plat_load_max|escape:money}</span>元 &nbsp; 
+</tr>
+<tr>
+	<td class="narrow-label">支付接口提现手续费:</td>
+	<td>
+	计算百分比:<span class=d>{$PayportDetail.plat_draw_percent|escape:money}</span>(原值)  &nbsp;  &nbsp;
+	<b>(限值范围)</b>
+	下限:<span class=d>{$PayportDetail.plat_draw_min|escape:money}</span>元 &nbsp; 
+	上限:<span class=d>{$PayportDetail.plat_draw_max|escape:money}</span>元 &nbsp; 
+</tr>
+<tr>
+	<td class="narrow-label">接口网络参数:</td>
+	<td>
+	<b>域名URL:</b>  <span class=d>{$PayportDetail.payport_host|escape:html}</span>
+	<br><b>充值URL:</b> <span class=d>{$PayportDetail.payport_url_load|escape:html}</span>
+	<br><b>提现URL:</b> <span class=d>{$PayportDetail.payport_url_draw|escape:html}</span>
+	<br><b>查询URL:</b> <span class=d>{$PayportDetail.payport_url_ques|escape:html}</span>
+	</td>
+</tr>
+<tr>
+	<td class="narrow-label">银行API网络参数:</td>
+	<td>
+	<b>接收域名:</b> <span class=d>{$PayportDetail.receive_host|escape:html}</span>
+	<br><b>接收URL:</b> <span class=d>{$PayportDetail.receive_url|escape:html}</span>
+	<br><b>持续等待接收URL:</b> <span class=d>{$PayportDetail.receive_url_keep|escape:html}</span>
+	</td>
+</tr>
+
+<tr>
+	<td class="narrow-label">运行状态</td>
+	<td><label for="isdisabled">{if $PayportDetail.status == 1}<font color=green>启用中</font>{elseif $PayportDetail.status == 0} <font color=red>已禁用</font> {else} <font color=gray>已删除</font> {/if}</label></td>
+</tr>
+
+<tr>
+	<td class="narrow-label">接口使用配属</td>
+	<td>
+	平台可直接使用：<span class=d>{if $PayportDetail.payport_attr_load == 1 }充值{/if} &nbsp;
+	{if $PayportDetail.payport_attr_draw == 2 }提现{/if} &nbsp;
+	{if $PayportDetail.payport_attr_drawlist == 4 }批量提现{/if} &nbsp;
+	{if $PayportDetail.payport_attr_drawhand == 16 }人工提现{/if} &nbsp;
+	{if $PayportDetail.payport_attr_ques == 8 }查询{/if} </span>&nbsp;
+	</td>
+</tr>
+
+<tr><td colspan=2>支付接口介绍:</td></tr>
+<tr><td colspan=2>{$PayportDetail.payport_intro}</td></tr>
+
+</table>
+</div>
+{include file="pagefooter.html"}

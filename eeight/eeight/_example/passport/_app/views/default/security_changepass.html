@@ -1,0 +1,119 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkform(obj)
+{
+  if( !validateUserPss(obj.newpass.value) )
+  {
+  	alert("密码不符合规则，请重新输入");
+	obj.newpass.focus();
+	return false;
+  }
+  if( obj.newpass.value != obj.confirm_newpass.value )
+  {
+  	alert("两次输入密码不相同");
+	obj.newpass.focus();
+	return false;
+  }
+  if( obj.oldpass == "" ){
+  	alert("请输入原始密码");
+	obj.oldpass.focus();
+	return false;
+  }
+  return true;
+}
+</script>
+</head>
+<body>
+<div class="list-div" id="listDiv">
+<form action="index.php" method="post" name="changepass" onsubmit="return checkform(this)">
+<table class="list-table">
+<tr>
+<th colspan="2">修改登陆密码</th>
+</tr>
+{if $displayflag != 'security' }
+<tr>
+<td class="narrow-label">输入旧登陆密码:
+</td>
+<td><input type="password" name="oldpass" />
+</td>
+</tr>
+{/if}
+<tr>
+<td class="narrow-label">输入新登陆密码：</td>
+<td><input type="password" name="newpass" />
+(由字母和数字组成6-16个字符；且必须包含数字和字母，不允许连续三位相同，不能和资金密码相同)
+</td>
+</tr>
+<tr>
+<td class="narrow-label">确认新登陆密码：</td>
+<td>
+<input type="password" name="confirm_newpass" />
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<input type="submit" name="submit" value="修改" class="button" />
+<input type="reset" value="重置" onclick="this.form.reset()"  class="button"/>
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action" value="changeloginpass" />
+<input type="hidden" name="check" value="{$check}" />
+<input type="hidden" name="flag" value="changepass" />
+<input type="hidden" name="changetype" value="loginpass" />
+
+{if $displayflag == 'security' }
+<input type="button" value="重新登陆" onclick="top.location.href='/?controller=default&action=logout'" class="button" />
+{/if}
+</td>
+</tr>
+</table>
+</form>
+</div>
+<br>
+
+{if $displayflag != 'security' }
+<div class="list-div" id="listDiv">
+<form action="index.php" method="post" name="changepass" onsubmit="return checkform(this)">
+<table class="list-table">
+<tr>
+<th colspan="2">修改资金密码</th>
+</tr>
+{if $securitypwd != ''}
+<tr>
+<td class="narrow-label">
+输入旧资金密码:
+</td>
+<td>
+<input type="password" name="oldpass" />
+</td>
+</tr>
+{/if}
+<tr>
+<td class="narrow-label">
+输入新资金密码：
+</td>
+<td>
+<input type="password" name="newpass" />(由字母和数字组成6-16个字符；且必须包含数字和字母，不允许连续三位相同，不能和登陆密码相同)
+</td>
+</tr>
+<tr>
+<td class="narrow-label">
+确认新资金密码：
+</td>
+<td>
+<input type="password" name="confirm_newpass" />
+</td>
+</tr>
+<tr>
+<td></td>
+<td><input type="submit" name="submit" value="修改" class="button" />
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action" value="changeloginpass" />
+<input type="hidden" name="check" value="{$check}" />
+<input type="reset" value="重置" onclick="this.form.reset()"  class="button"/>
+<input type="hidden" name="flag" value="changepass" />
+<input type="hidden" name="changetype" value="secpass" /></td>
+</tr>
+</table></form></div>
+{/if}
+{include file="pagefooter.html"}

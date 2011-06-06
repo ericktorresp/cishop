@@ -1,0 +1,53 @@
+{include file="pageheader.html"}
+<div class="list-div">
+<form action="?controller=user&action=batchangepass" method="POST" enctype="multipart/form-data" name="book">
+{if $step==1}
+<table>
+<tr>
+<td width="10%" class="narrow-label">用户名:</td>
+<td width="90%"><textarea rows="10" cols="80" name="list" id="list">{$content|escape:html}</textarea></td>
+</tr>
+<tr>
+<td class="narrow-label">上传文件:</td>
+<td><input type="file" name="usernamefile" size="60"><input type="submit" class="button" name="upload" value="导入文件"></td>
+</tr>
+<tr>
+<td class="narrow-label"></td>
+<td><input type="button" class="button" value="清空数据" onclick="clearcontent();">
+<input type="submit" class="button" value="批量修改" name="change"><input type="hidden" name="step" value="1"></td>
+</tr>
+</table>
+{elseif $step==2}
+<table>
+<tr>
+<th width="10%"><input type="checkbox"></th>
+<th width="30%">用户名</th>
+<th width="30%">总代</th>
+<th width="30%">密码</th>
+</tr>
+{foreach from=$users item=user key=key}
+{foreach from=$user.child item=u key=k}
+<tr>
+<td align="center"><input type="checkbox" name="userid[{$key}][]" value="{$user.cid.$k}" checked="checked"></td>
+<td align="center">{$u}</td>
+{if $k==0}
+<td align="center" rowspan="{$user.count}">{$user.username}</td>
+<td align="center" rowspan="{$user.count}">{$user.random}<input type="hidden" name="pass[{$key}]" value="{$user.random}"></td>
+{/if}
+</tr>
+{/foreach}
+{/foreach}
+<tr>
+<td colspan="4" align="center"><input type="button" class="button" value="返回修改" onclick="location.href='?controller=user&action=batchangepass';"><input type="submit" class="button" name="change" value="确认修改"><input type="hidden" name="step" value="2"></td>
+</tr>
+</table>
+{/if}
+</form>
+</div>
+<script>
+function clearcontent()
+{
+	document.book.list.value='';
+}
+</script>
+{include file="pagefooter.html"}

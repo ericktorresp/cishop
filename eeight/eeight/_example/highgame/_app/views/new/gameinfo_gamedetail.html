@@ -1,0 +1,226 @@
+{include file="pageheader.html"}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/dialogUI/alert/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/dialogUI/alert/jquery.jamesdragn.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/dialogUI/alert/jquery.dialogUI.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/dialogUI/alert/jquery.dragndrop.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/js/new_higame/dialogUI/alert/dialogUI.css" type="text/css" />
+<script>
+{if isset($can)}
+function cancel_lottery(s)
+{
+	if(s == true)
+	{
+		document.location.href = "./index.php?controller=gameinfo&action=cancelgame&id={$project.projectid}";
+	}
+	
+}
+
+function cancel()
+{
+    	$.confirm({
+            message: "真的要撤单吗?{if isset($need)}\n撤销此单将收取撤单手续费金额:{$money|eacape:money}元.{/if}",
+            funyes : function(){
+    			cancel_lottery(true);
+            },
+            funno  : function(){
+                return false;
+            } 
+          });
+}
+
+
+
+{/if}
+</script>
+
+<div class="right_02 d5d8de">
+<div class="height5" style="overflow:hidden;">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+
+<table width="100%" cellpadding="4" cellspacing="1" style="table-layout:fixed;">
+<tr>
+<td width="200px" height="37" align="right" bgcolor="#CCCCCC" class="narrow-label">注单编号:</td>
+<td align="left" bgcolor="#CCCCCC">{$project.projectid}</td>
+<td width="200px" height="37" align="right" bgcolor="#CCCCCC" class="narrow-label">游戏:</td>
+<td align="left" bgcolor="#CCCCCC">{$project.cnname}</td>
+</tr>
+<tr>
+<td height="37" align="right" bgcolor="#CCCCCC" class="narrow-label">游戏用户:</td>
+<td align="left" bgcolor="#CCCCCC">{$project.username}</td>
+<td height="37" align="right" bgcolor="#CCCCCC" class="narrow-label">玩法:</td>
+<td align="left" bgcolor="#CCCCCC">{$project.methodname}{if $project.taskid!='0'}&nbsp;(&nbsp;<a href="./index.php?controller=gameinfo&action=taskdetail&id={$project.taskid}" style="color:red;">追号单记录</a>&nbsp;){/if}</td>
+</tr>
+<tr>
+<td height="37" align="right" bgcolor="#CCCCCC" class="narrow-label">投单时间:</td>
+<td align="left" bgcolor="#CCCCCC">{$project.writetime}</td>
+<td height="37" align="right" bgcolor="#CCCCCC" class="narrow-label">期号:</td>
+<td align="left" bgcolor="#CCCCCC">{$project.issue}</td>
+</tr>
+{if $project.isdynamicprize == 0}
+<tr>
+<td height="37" align="right" bgcolor="#CCCCCC" class="narrow-label">倍数:</td>
+<td align="left" bgcolor="#CCCCCC">{$project.multiple}倍</td>
+{/if}
+<td height="37" align="right" bgcolor="#CCCCCC" class="narrow-label">模式:</td>
+<td align="left" bgcolor="#CCCCCC"><span style="line-break:break-all;">{$project.modes}</span></td>
+</tr>
+
+<tr>
+<td height="37" align="right" bgcolor="#CCCCCC" class="narrow-label">投注总金额:</td>
+<td align="left" bgcolor="#CCCCCC">{$project.totalprice|escape:money:4}</td>
+<td height="37" align="right" bgcolor="#CCCCCC" class="narrow-label">中奖号码:</td>
+<td align="left" bgcolor="#CCCCCC">{$project.nocode}</td>
+</tr>
+
+<tr>
+<td height="37" align="right" bgcolor="#CCCCCC" class="narrow-label">状态:</td>
+<td align="left" bgcolor="#CCCCCC">{if ($project.iscancel==0)}
+{if ($project.isgetprize==0)}
+未开奖
+{elseif ($project.isgetprize==2)}
+未中奖
+{elseif ($project.isgetprize==1)}
+{if $project.prizestatus==0}
+未派奖
+{else}
+已派奖
+{/if}
+{/if}
+{elseif ($project.iscancel==1)}
+本人撤单
+{elseif ($project.iscancel==2)}
+管理员撤单
+{elseif ($project.iscancel==3)}
+开错奖撤单
+{/if}</td>
+<td height="37" align="right" bgcolor="#CCCCCC" class="narrow-label">奖金:</td>
+<td align="left" bgcolor="#CCCCCC">{$project.bonus|escape:money:4}{if $description}&nbsp;&nbsp;({$description}){/if}</td>
+</tr>
+{if $project.lotterytype == 3 && $project.codetype == 'dxds' && $project.nocode != ''}
+<tr>
+<td class="narrow-label"  align="right" style="line-height:40px;" align="left" bgcolor="#CCCCCC">和值及盘面：</td>
+<td align="left" bgcolor="#CCCCCC">{$nohepan}</td>
+</tr>
+{/if}
+<tr>
+<td height="37" align="right" valign="top" bgcolor="#CCCCCC" class="narrow-label">投注内容:</td>
+<td align="left" bgcolor="#CCCCCC" style="word-break:break-all;white-space:normal; width:85%;overflow:hidden;word-wrap:break-word;" colspan=3>{$project.code}</td>
+</tr>
+
+<tr>
+<td height="37" align="right" class="narrow-label"></td>
+<td align="left" colspan="3"><input type="button" class="buttonnormal" value="关闭" onclick="self.close();">
+{if isset($can)}
+<input type="button" class="buttonnormal" value="撤单" onclick="javascript:cancel();">
+{/if}
+</td>
+</tr>
+</table>
+
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+{if $project.bonus > 0 && $project.lotterytype == 3 && $project.codetype == 'digital'}
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%">
+
+<table width="100%" cellpadding="0" cellspacing="1" style="table-layout:fixed;">
+
+<tr>
+<td height="43" colspan="5" align="left" class="narrow-label">
+<strong>实际中奖情况</strong>
+</td>
+<tr>
+<td colspan="{if $levelcount > 1}6{else}5{/if}" style="padding-left:80px;line-height:30px;">
+<strong>实际中奖号码:</strong>&nbsp;<b><font color="Red">{$samecode}</font></b>
+</td>
+</tr>
+</tr>
+<tr align="center" style="line-height:30px;background:#999999;font-weight:bold;">
+<td>奖级</td>
+{if $levelcount > 1}<td>奖级说明</td>{/if}
+<td>单倍奖金</td>
+<td>倍数</td>
+<td>中奖注数</td>
+<td>总奖金(单倍奖金*倍数*中奖注数)</td>
+</tr>
+{foreach from=$realprize item=rp key=k}
+<tr align="center"  style="line-height:30px;">
+<td bgcolor="#CCCCCC">{$rp.level}</td>
+{if $levelcount > 1}<td bgcolor="#CCCCCC">{$rp.leveldesc}</td>{/if}
+<td bgcolor="#CCCCCC">{$rp.singleprize|escape:money:4}</td>
+<td bgcolor="#CCCCCC">{$rp.codetimes}</td>
+<td bgcolor="#CCCCCC">{$rp.nocount}</td>
+<td bgcolor="#CCCCCC">{$rp.prize|escape:money:4}</td>
+</tr>
+{/foreach}
+<tr align="center"  style="line-height:30px;">
+<td bgcolor="#CCCCCC" colspan="{if $levelcount > 1}4{else}3{/if}"><b><font color="Red">总计</font></b></td>
+<td bgcolor="#CCCCCC">{$totalcount}</td>
+<td bgcolor="#CCCCCC">{$totalprize|escape:money:4}</td>
+</tr>
+</table>
+
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+{/if}
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%">
+
+<table width="100%" cellpadding="0" cellspacing="1" style="table-layout:fixed;">
+
+<tr>
+<td height="43" colspan="5" align="left" class="narrow-label"><strong>可能中奖情况</strong></td>
+</tr>
+<tr><tr>
+  <td height="5" colspan="5"></td>
+</tr>
+<th height="37" align="center" bgcolor="#999999">编号</th>
+<th align="center" bgcolor="#999999">奖级</th>
+{if $project.lotterytype == 3 && $project.codetype == 'digital' && $levelcount > 1}
+<th align="center" bgcolor="#999999">奖级说明</th>
+{/if}
+<th align="center" bgcolor="#999999">号码</th>
+<th align="center" bgcolor="#999999">倍数</th>
+<th align="center" bgcolor="#999999">奖金</th>
+</tr>
+{foreach from=$prizelevel item=pl key=k}
+<tr align="center">
+<td height="37" align="center" bgcolor="#CCCCCC">{$k}</td>
+<td align="center" bgcolor="#CCCCCC">{$pl.level}</td>
+{if $project.lotterytype == 3 && $project.codetype == 'digital' && $levelcount > 1}
+<td align="center" bgcolor="#CCCCCC">{$pl.leveldesc}</td>
+{/if}
+<td align="center" bgcolor="#CCCCCC" style="word-break:break-all;white-space:normal; width:85%;overflow:hidden;word-wrap:break-word;">{$pl.expandcode}</td>
+<td align="center" bgcolor="#CCCCCC">{$pl.codetimes}</td>
+<td align="center" bgcolor="#CCCCCC">{$pl.prize|escape:money:4}</td>
+</tr>
+{/foreach}
+</table>
+
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+
+
+{include file="pagefooter.html"}

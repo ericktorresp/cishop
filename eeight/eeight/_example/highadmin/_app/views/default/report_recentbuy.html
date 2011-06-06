@@ -1,0 +1,88 @@
+{include file="pageheader.html"}
+<div class="form-div">
+<form method="GET" action="">
+<input type="hidden" name="controller" value="report">
+<input type="hidden" name="action" value="recentbuy">
+<img src="./images/icon_search.gif">
+&nbsp;&nbsp;&nbsp;代理用户：
+<input name="username" id="username" type="text" value="{$username}" size="15">
+&nbsp;&nbsp;&nbsp;模式：
+<select name="modes" id="modes">
+<option value="-1" {if $modes == -1}selected{/if}>全部模式</option>
+{foreach from=$modelist item=mode key=k}
+<option value="{$mode.modeid}" {if $modes == $mode.modeid}selected{/if}>{$mode.name}</option>
+{/foreach}
+</select>
+&nbsp;&nbsp;&nbsp;日期：
+<select id="daynum" name="daynum">
+<option value="0" selected>选择查询天数</option>
+<option value="1" {if $daynum == 1} selected {/if}>1</option>
+<option value="2" {if $daynum == 2} selected {/if}>2</option>
+<option value="3" {if $daynum == 3} selected {/if}>3</option>
+<option value="4" {if $daynum == 4} selected {/if}>4</option>
+<option value="5" {if $daynum == 5} selected {/if}>5</option>
+</select>
+&nbsp;&nbsp;
+<input type="submit" value="查询" class="button">
+</form>
+</div>
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+<tr>
+<th width="33%"">代理用户</th>
+<th width="33%">日期</th>
+<th width="“34%">金额</th>
+</tr>
+{foreach from=$arecentbuy item=recentbuy key=k}
+<tr align="center">
+<td>{$username}</td>
+<td>{$recentbuy.date}</td>
+<td>{$recentbuy.amount|escape:money:4}</td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="3" class="no-records">没有相关数据</td>
+</tr>
+{/foreach}
+</table>
+</div>
+<script language="JavaScript">
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#EEF8F8';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{include file="pagefooter.html"}

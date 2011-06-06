@@ -1,0 +1,11 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv" style="background: #F5F5EF;">
+<ul>
+{foreach from=$aimg item=img key =k}
+<li style="list-style:none;margin:5px 10px;"><img src="{$img}"></li>
+{foreachelse}
+<p><b><font color="Red">没有模版图片</font></b><p>
+{/foreach}
+</ul>
+</div>
+{include file="pagefooter.html"}

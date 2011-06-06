@@ -1,0 +1,115 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.impromptu.2.6.min.js"></script>
+<LINK href="./css/impromptu.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+function checksss()
+{
+	ss ="";
+	var elems = document.getElementsByName("select_rows[]");
+	for (var i=0; i < elems.length; i++)
+	{
+		if(elems[i].checked)
+	      	{
+		      	id= elems[i].value;
+		      	username = document.getElementById("username_"+id).value; //innerHTML;
+		      	num_add = document.getElementById("addcount_"+id).value;
+		      	if(num_add==""){
+			      	num_add =0;
+			      	document.getElementsByName("addcount_"+id).value = '0';
+		      	}
+		        //s = "\n 为 "+username+" 新增 "+num_add+" 个开户限额";
+				s = "<tr><td>"+username+"</td><td>"+num_add+"</td></tr>";
+		      	ss = ss+s;
+		   	}
+	}
+	
+	if(ss =="")
+	{
+		alert('请勾选希望更新的数据行');
+		return false;
+	}
+	else
+	{
+		ss="<div style='overflow-y: auto; height: 200px; width: 100%;'><table class='list-div'><tr><th>用户名</th><th>新增开户数额</th></tr>"+ss+"</table></div>";
+		$.prompt(ss,{ buttons: { "确认": true, "取消": false }, show:'slideDown' ,callback:mycallbackform,focus: 1 });
+	}
+	//return false;
+}
+
+function mycallbackform(v,m,f){
+	if(v){
+document.getElementById('list-form').submit();
+	}
+}
+
+jQuery("document").ready( function(){
+	var addcounts = {$selfdata.addcount};	//总的直接下级用户数
+	var usercounts = {$userscount};	//总的直接下级用户数
+	jQuery("#accordset").click(function(){
+		jQuery("#selectall").attr("checked",true);
+		selectAll('selectall');
+		var accordvalue = parseInt(jQuery("#accordcount").val());
+		if( accordvalue*usercounts > addcounts )
+		{
+			usercounts = usercounts <= 0 ? 1 : usercounts;
+			alert("你的开户数额不够分配，统一设定最多设置为 "+parseInt(addcounts/usercounts) );
+		}
+		else{ 
+		    var tempaccordvalue = addcounts-(accordvalue*usercounts);
+		    tempaccordvalue = isNaN(tempaccordvalue) ? 0 : tempaccordvalue;
+			jQuery("#leftcount").html( tempaccordvalue );
+			jQuery("input[name^='addcount_']").val(jQuery("#accordcount").val()); 
+		}
+	});
+	jQuery("input[name^='addcount_']").blur(function(){
+		var temp_count = 0;
+		var $value
+		jQuery("input[name^='addcount_']").each(function(index,dom){
+			$value = parseInt(jQuery(dom).val());
+			$value = isNaN($value) ? 0 : $value;
+			temp_count += $value;
+		});
+		if( temp_count > addcounts  )
+		{
+			alert("超过你可以分配数额"+(temp_count-addcounts)+"个");
+			jQuery("#leftcount").html( 0 );
+			jQuery(this).val( (jQuery(this).val())-(temp_count-addcounts) );
+		}
+		else
+		{
+			jQuery("#leftcount").html( (addcounts-temp_count) );
+		}
+	});
+});
+</script>
+<div class="list-div" id="listDiv">
+<table class="list-table">
+<form name="list-form" id="list-form" action="index.php" method="post">
+<input type="hidden" name="controller" value="user" />
+<input type="hidden" name="action" value="distribute" />
+<input type="hidden" name="flag" value="distribute" />
+	<tr>
+    	<td colspan="2" height="30" >可以分配的用户数额：<span id="leftcount">{$selfdata.addcount}</span></td>
+        <td colspan="2">统一设定: <input type="text" name="accordcount" id="accordcount" />&nbsp;&nbsp;<input type="button" id="accordset" value="统一" class="button" /></td>
+        <td align="center"><input type="button" value="提交" class="button" onClick="javascript:return checksss();" /></td>
+    </tr>
+    <tr bgcolor="#FF0000">
+    	<th height="22" align="center"><input type="checkbox" name="selectall" id="selectall" onclick="selectAll('selectall')" /></th>
+        <th align="center">用户名</th>
+        <th align="center">新增用户数额</th>
+        <th align="center">本人剩余用户数额</th>
+        <th align="center">下级剩余开户数额</th>
+    </tr>
+    {foreach from=$users item=user key=k}
+    <tr class="needchangebg">
+    	<td height="25" align="center"><input type="checkbox" name="select_rows[]" value="{$user.userid}" /></td>
+        <td align="center">{$user.username|escape:html}<input type="hidden" name="username_{$user.userid}" id="username_{$user.userid}" value="{$user.username}"></td>
+        <td align="center"><input type="text" name="addcount_{$user.userid}"   id="addcount_{$user.userid}" value=""/></td>
+        <td align="center">{$user.addcount}</td>
+        <td align="center">{$user.childaddcount}</td>
+    </tr>
+    {/foreach}
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,102 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form method="POST" enctype="multipart/form-data" name="listForm" id="listForm">
+<input type="hidden" name="controller" value="bankmanage" />
+<input type="hidden" name="action" value="withdrawreportedit" />
+<input type="hidden" name="flag" value="edit" />
+<input type="hidden" name="id" value="{$id}" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <td align="right" width="40%">报表名称：</td>
+    <td><input type="text" name="report_name" id="report_name" value="{$report_name}" /></td>
+  </tr>
+  <tr>
+    <td align="right">平台接受的报表编码：</td>
+    <td><input type="text" name="charset_type" id="charset_type" value="{$charset}" /></td>
+  </tr>
+  <tr>
+    <td align="right">状态：</td>
+    <td>
+    <select name="status">
+    	<option value="1" {if $status == 1}selected{/if}>启用</option>
+    	<option value="0" {if $status == 0}selected{/if}>不启用</option>
+    </select>
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><input type="submit" name="submit" value="提交" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="edit" value="取消" class="button" onclick="history.back();" /></td>
+  </tr>
+</table>
+</form>
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <td colspan="{$colnum}" align="center">报表格式预览</td>
+  </tr>
+  <tr>
+  {foreach from=$report_content item=content key=k}
+    <td>{$content.title}</td>
+  {/foreach}
+  </tr>
+</table>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

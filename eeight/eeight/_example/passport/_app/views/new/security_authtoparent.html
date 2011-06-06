@@ -1,0 +1,40 @@
+{include file="pageheader.html"}
+
+<form action="index.php" method="post" name="updateform">
+<input type="hidden" name="flag" value="update" />
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action"	value="authtoparent" />
+<input type="hidden" name="check" value="{$check}" />
+<input type="hidden" name="default" value="{if $auth==0 }self{else}up{/if}" />
+
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div><table width="100%" border="0" cellspacing="1" cellpadding="4">
+    
+
+    <tr>
+      <td width="200" align="right" bgcolor="#CCCCCC">现在的提现授权方式:</td>
+      <td align="left" bgcolor="#CCCCCC">{if $auth==0 }本人发起提现{else}上级发起提现{/if}</td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#CCCCCC">请选择提现方式:</td>
+      <td align="left" bgcolor="#CCCCCC"><select name="drawtype">
+    	<option value="self" {if $auth==0 }selected="selected"{/if}>本人发起提现</option>
+    	<option value="up" {if $auth==1 }selected="selected"{/if}>上级发起提现</option>
+    </select></td>
+    </tr>
+	    <tr><td align="right"></td>
+	    <td align="left"><input type="submit" name="submit" value="提交"  class="buttonnormal"  /></td>
+    </tr>
+  </table></div>
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</form>
+
+{include file="pagefooter.html"}

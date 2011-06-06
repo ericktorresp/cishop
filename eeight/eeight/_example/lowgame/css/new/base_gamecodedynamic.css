@@ -1,0 +1,31 @@
+/*奖金动态投注页面*/
+.codedynamic{
+    background-color:#d5d8de;
+}
+.codedynamic th{
+    background-color:#373737;
+    color:#FFF;  
+    line-height:35px;
+    text-align: center;
+    border-bottom:1px solid #8c8c8c;
+    border-right:1px solid #8c8c8c;
+}
+.codedynamic td{
+    line-height:25px;
+    text-align: center;
+    border-bottom:1px solid #8c8c8c;
+    border-right:1px solid #8c8c8c;
+}
+.codedynamic td#code{
+	background-color:#d5d8de;
+}
+.codedynamic td#upprize{
+	color:#FFF;
+	background-color: #DF3131;
+	font-weight:bold;
+}
+.codedynamic td#downprize{
+	color:#FFF;
+	background-color: #40AD40;
+	font-weight:bold;
+}

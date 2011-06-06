@@ -1,0 +1,844 @@
+@CHARSET "UTF-8";
+*{
+	font-size:12px;
+}
+img{
+    border:0px;    
+}
+select{
+	border:0px;
+} 
+body{
+    margin:0 auto;
+    width:100%;
+    background-image:url(/lowgame/images/blue/bg.gif);
+    overflow-x:hidden;
+    font-size:12px;
+    font-family:"宋体";  
+}
+/* 整体框架 */
+.lottery_bigbox{
+    margin: 0 auto;
+    width:894px;
+}
+/* 整体框架底部*/
+.lottery_bigbox{
+    margin: 0 auto;
+    width:894px;
+}
+.lottery_bigbox_bottom{
+    float:left;
+    width:894px;
+    height:17px;
+    background-image:url(/lowgame/images/blue/boxbottom_bg.jpg);
+}
+.lottery_bigbox_bottom_left{
+    float:left;
+    width:22px;
+    height:17px;
+    background-image:url(/lowgame/images/blue/boxbottom_left.jpg);
+}
+.lottery_bigbox_bottom_right{
+    float:right;
+    width:18px;
+    height:17px;
+    background-image:url(/lowgame/images/blue/boxbottom_right.jpg);
+}
+/* 头部信息 */
+.header_info{
+    border:1px #898989 solid;
+    padding:0px;
+    clear:both;
+    background-color:#9E9E9E;
+    clear:both;
+    width:890px;
+    height:57px;
+    line-height:24px;
+    font-size:14px;
+}
+/* 当期信息 */
+.nowIssue_info{
+    margin-left:20px;
+    float:left;
+    font-size:14px;
+    filter:progid:dximagetransform.microsoft.shadow(color=#B9B9B9, direction=135, strength=1);
+}
+/* 当前奖期信息 */
+#lottery_nowIssue{
+    font-weight:bold;
+    color:#CC0000;
+}
+/*当期奖期截至时间*/
+#lottery_endTime{
+
+}
+/* 当期奖期剩余时间 */
+#lotery_lefttime{
+    color:#CC0000;
+    border:1px solid #646464;
+    padding:2px 5px 2px 5px;
+    font-weight:bold;
+    background-color:#c1c1c1;
+}
+/*历史号码按钮*/
+.history_issue_button{
+    margin-top:25px;
+    float:left;
+}
+/*前期号码显示*/
+.no_show{
+	width:149px;
+	height:50px;
+	border:0px;
+	margin:2px 20px 2px 0px;
+	display:block;
+	float:right;
+	font-size:14px;
+	text-align:center;
+}
+#no_show_1{
+    background:url(/lowgame/images/blue/header_noshow_1.jpg);	
+}
+#no_show_2{
+    background:url(/lowgame/images/blue/header_noshow_2.jpg);	
+}
+/*号码*/
+.ball{
+ height:24px;
+ margin:0 auto;
+ color:#333333;
+ font-size:12px;
+ line-height:20px;
+ letter-spacing:18px;
+ text-align:justify;
+ padding:0px 0px 0px 17px;
+ *padding:0px 0px 0px 0px !important; 
+ _padding:0px 0px 0px 0px;
+ border:0px;
+}
+/*************投注部分***************/
+/*投注部分*/
+.lottery_body{
+    margin: 7px auto;
+    width:100%;
+    background:url(/lowgame/images/blue/box.jpg);
+    overflow:auto;
+    background-repeat:repeat-y;
+}
+/*****菜单开始*****/
+/*菜单部分*/
+.menu{
+    height:46px;
+    width:100%;
+    background:url(/lowgame/images/blue/menu_bg.jpg);
+    background-repeat:repeat-x;
+    text-align:left;
+}
+/*菜单左边部分*/
+.menu_left{
+    float:left;
+    background:url(/lowgame/images/blue/menu_left.jpg);
+    width:13px;
+    height:46px;
+}
+/*菜单右边部分*/
+.menu_right{
+    float:right;
+    background:url(/lowgame/images/blue/menu_right.jpg);
+    width:12px;
+    height:46px;
+}
+/*当前菜单部分*/
+.menu_on{
+    float:left;
+    height:46px;
+    text-align:left;
+    background:url(/lowgame/images/blue/menu_on.jpg);
+    background-repeat:repeat-x;
+    color:#FFFFFF;
+    line-height:52px;
+    font-size:14px;
+    font-family:"宋体";
+    padding-left:10px;
+    padding-right:10px;
+    overflow:hide;
+}
+.menu_on_left{
+    float:left;
+    text-align:right;
+    height:46px;
+    width:8px;
+    background:url(/lowgame/images/blue/menu_on_left.jpg);
+    background-repeat:no-repeat;  
+}
+.menu_on_right{
+    float:left;	
+    text-align:right;
+    height:46px;
+    width:10px;    
+    background:url(/lowgame/images/blue/menu_on_right.jpg);
+    background-repeat:no-repeat;
+}
+/*非当前菜单部分*/
+.menu_off{
+    float:left;
+    height:40px;
+    background:url(/lowgame/images/blue/menu_off.jpg);
+    background-repeat:repeat-x;
+    line-height:43px;
+    text-align:left;
+    color:#000000;
+    font-size:14px;
+    font-family:"宋体";
+    cursor:pointer;
+    padding-left:10px;
+    padding-right:10px;
+	padding-top:4px;
+}
+.menu_off_left{
+    float:left;
+    height:46px;
+    width:14px;
+    background:url(/lowgame/images/blue/menu_off_left.jpg);
+    line-height:56px;
+    text-align:left;
+    background-repeat:no-repeat;
+}
+.menu_off_right{
+    float:left;
+    height:46px;
+    width:10px;
+    background:url(/lowgame/images/blue/menu_off_right.jpg);
+    line-height:56px;
+    text-align:left;
+    background-repeat:no-repeat;
+}
+/*****菜单结束*****/
+/*****左边开始*****/
+.left_content{
+    width:651px;
+    float:left;
+    margin:5px 0px 5px 5px;
+}
+/****左边盒子开始******/
+.box{
+    margin-top:10px;  
+}
+/*盒子标题*/
+.box_title{
+    background-image:url(/lowgame/images/blue/box_title_bg.jpg);
+    height:32px;
+    width:632px;
+    text-align:left;
+    line-height:15px;
+    font-size:12px;
+    vertical-align:middle;
+}
+.box_title_right{
+    float:right;
+    background:url(/lowgame/images/blue/box_title_right.jpg);
+    width:13px;
+    height:32px;
+}
+.box_title_left{
+    float:left;
+    background:url(/lowgame/images/blue/box_title_left.jpg);
+    width:6px;
+    height:32px;
+}
+.box_title_caption{
+    padding-left:5px;
+    font-size:14px; 
+    font-family:'宋体'; 
+    line-height:32px; 
+    font-weight:bold; 
+    text-align:left;
+}
+/*盒子身体部分*/
+.box_body{
+    margin:0px;
+    width:632px;
+    background-image:url(/lowgame/images/blue/box_bg.jpg);
+    background-repeat:repeat-y;
+    text-align:left;
+    overflow:auto;
+    display:block;
+}
+/*盒子底部*/
+.box_bottom{
+    height:7px;
+    background:url(/lowgame/images/blue/box_bottom_bg.jpg);
+    background-repeat:repeat-x;
+    width:632px;
+}
+.box_bottom_right{
+    height:7px;
+    float:right;
+    background:url(/lowgame/images/blue/box_bottom_right.jpg);
+    background-repeat:no-repeat;
+    width:8px;
+    text-align:right;
+}
+.box_bottom_left{
+    height:7px;
+    float:left;
+    background:url(/lowgame/images/blue/box_bottom_left.jpg);
+    background-repeat:no-repeat;
+    width:7px;
+}
+/***********选号区CSS开始**************/
+/*整体表格*/
+#select_area{
+    width:98%;
+    overflow:hidden;
+    border:0px;
+    padding:5px;
+}
+.lottery_selectarea_table{
+    width:98%;
+    border:0px;
+    margin:0px;
+}
+/*整体表格td样式*/
+.lottery_selectarea_table td{
+    height:33px;
+    line-height:33px;
+    height:31px;
+    background:url(/lowgame/images/blue/select_bg.jpg);
+    background-repeat:repeat-x;
+    background-position:bottom;
+}
+/*文字说明*/
+.lottery_selectarea_title{
+    padding:2px 4px 2px 4px;
+    line-height:30px;
+    text-align:center;
+    color:#EBAB00;
+    font-weight:bold;
+    font-size:14px;
+    font-family:"宋体";
+    letter-spacing:2px;
+}
+/*数字按钮未选中效果*/
+.lottery_selectarea_num{
+    width:27px;
+    height:29px;
+    background-image:url(/lowgame/images/blue/select_num_off.jpg);
+    background-repeat:no-repeat;
+    line-height:28px;
+    text-align:center;
+    color:#000;
+    font-weight:bold;
+    cursor:pointer;
+    float:left;
+    margin:0;
+    padding:0px 3px 1px 0px;
+}
+/*数字按钮选中效果*/
+ .lottery_selectarea_num_check{
+    width:27px;
+    height:29px;
+    background-image:url(/lowgame/images/blue/select_num_on.jpg);
+    background-repeat:no-repeat;
+    line-height:28px;
+    text-align:center;
+    color:#FFFFFF;
+    font-weight:bold;
+    cursor:pointer;
+    float:left;
+    margin:0;
+    padding:0px 3px 1px 0px;
+}
+/*大小单双清全按钮*/
+.lottery_selectarea_button{
+    width:24px;
+    height:22px;
+    background-image:url(/lowgame/images/blue/24x22.jpg);   /*select_num_button.jpg*/
+    background-repeat:no-repeat;
+    border:0px;
+    line-height:22px;
+    padding:0px 2px 0px 0px;
+    margin-left:-5px; 
+    cursor:pointer;   
+}
+.space_button{
+    width:15px;
+    height:1px;
+    border:0px;
+    display:block;
+    float:left;
+}
+/***********选号区CSS结束**************/
+/***********筛选区CSS开始**************/
+#filter_area{
+    width:98%;
+    border:0px;
+    padding:5px 0px 5px 0px;
+    margin:0px;
+}
+#filter_area ul{
+    list-style-type:none;
+    text-align:left;
+    color:#FFFFFF;
+    padding-left:30px;
+    width:80%;
+    border:0px;
+}
+#filter_area input{
+    border:0px;
+}
+/***********筛选区CSS结束**************/
+/***********编辑区CSS开始**************/
+/*编辑区整体表格*/
+#edit_area{
+    padding-left:5px;
+}
+.lottery_editarea_table{
+    border:0px;
+    width:100%;
+}
+/*编辑文本部分的CSS*/
+.lottery_editor_textarea{
+    width:500px;
+    height:130px;
+    text-align:left;
+    font-size:12px;
+    background-color:#F5F5F5;
+    border:1px solid #CCCCCC;
+    scrollbar-3d-light-color:#D4D0C8;   /*立体滚动条亮边的颜色*/
+    scrollbar-arrow-color:#000000;      /*上下按钮上三角箭头的颜色*/
+    scrollbar-base-color:#FFFFFF;       /*滚动条的基本颜色*/
+    scrollbar-face-color:#D4D0C8;       /*立体滚动条凸出部分的颜色*/
+	margin-bottom: 8px;
+}
+/*编辑框按钮的ul*/
+#edit_area ul{
+    list-style-type:none;
+    text-align:left;
+    color:#FFFFFF;
+    margin:0px;
+    padding-left:0px;
+    width:100%;
+}
+/*编辑框按钮的ul*/
+#edit_area li{
+    list-style-type:none;
+    text-align:left;
+    color:#FFFFFF;
+    margin:0px;
+    padding-left:0px;
+    width:100%;
+    height:25px;
+}
+/*按钮总样式*/
+.lottery_button{ 
+    border:0px;
+    padding:0px;
+    margin:0px;
+    cursor:pointer;
+    height:20px;
+    width:100px;
+    line-height:25px;
+}
+ /*机选随机按钮样式*/
+.lottery_button_random{
+    cursor:pointer;
+    float:right;
+    padding-right:5px;
+}
+/*机选导入文件按钮样式*/
+.lottery_button_import{ 
+    cursor:pointer;
+}
+/*机选清除按钮样式*/
+.lottery_button_clear{ 
+    cursor:pointer;
+}
+/*机选添加按钮样式*/
+.lottery_button_insert{ 
+    cursor:pointer;
+}
+.lottery_button_delete{
+	cursor:pointer;
+}
+/*机选按钮样式*/
+.lottery_button_confirm{ 
+    margin-top:10px;
+    cursor:pointer;
+}
+.lottery_editor_word{
+    color:#FFFFFF;
+}
+/***********编辑区CSS结束**************/
+/***********确认区CSS开始**************/
+.confirm_area{
+    color:#FFFFFF;
+    font-size:12px;
+    font-family:"宋体";
+    width:98%;
+    float:left;
+    padding:5px 0px 0px 10px;
+}
+/*确认区的编辑框*/
+.lottery_confirm_textarea{
+    width:500px;
+    height:130px;
+    text-align:left;
+    font-size:12px;
+    background-color:#F5F5F5;
+    border:1px solid #CCCCCC;
+    scrollbar-3d-light-color:#D4D0C8;   /*立体滚动条亮边的颜色*/
+    scrollbar-arrow-color:#000000;      /*上下按钮上三角箭头的颜色*/
+    scrollbar-base-color:#FFFFFF;       /*滚动条的基本颜色*/
+    scrollbar-face-color:#D4D0C8;       /*立体滚动条凸出部分的颜色*/
+	margin-bottom: 8px;
+}
+.lottery_confirm_list{
+    color:#FFFFFF;
+}
+/*确认的数字部分*/
+.lottery_js_word{
+    color:#EBAB00;
+    font-weight:bold;
+    font-size:12px;
+    text-align:right;
+}
+/*手工输入倍数的CSS*/
+.lottery_input_underline{
+    width:30px;
+    font-weight:bold;
+    font-size:12px;
+    color:#EBAB00;
+    border:0px;
+    text-align:right;
+    border-bottom:1px #FFFFFF solid;
+    background-color:#3c3c3c;
+}
+/*快速倍数的CSS*/
+.quickbutton{
+    margin-top:5px;
+    color:#C80000;
+    cursor:pointer;
+    font-size:12px;
+    padding: 2px 5px;
+    background:#C1C1C1;
+    border:1px solid #646464;
+}
+.quickbutton_hover{
+    margin-top:5px;
+    color:#C80000;
+    cursor:pointer;
+    font-size:12px;
+    padding: 2px 5px;
+    background:#C1C1C1;
+    border:1px solid #646464;
+    text-decoration:underline;
+}
+/*确认投注按钮*/
+.submit_span{
+    padding-left:400px;
+    margin-bottom:10px;
+    border:0px;
+    cursor:pointer;
+}
+/***********确认区CSS结束**************/
+/***********追号区CSS开始**************/
+/*追号总样式*/
+#trace_area{
+    color:#FFFFFF;
+    background-color:#000000;
+}
+#trace_area  .lottery_input_underline{
+    background-color:#242424;
+}
+/*追号列表的顶部(四种追号)*/
+.lottery_tracearea_table_label{
+    height:20px;
+    width:99%;
+    border:none;
+}
+/*当前标签*/
+.lottery_td_front{
+    height:20px;
+    width:90px;
+    border:0px;
+    text-align:center;
+    background:url(/lowgame/images/blue/td_front.jpg);
+    background-repeat:no-repeat;
+}
+/*未激活标签*/
+.lottery_td_back{
+    height:20px;
+    width:90px;
+    border:0px;
+    text-align:center;
+    background:url(/lowgame/images/blue/td_back.jpg);
+    background-repeat:no-repeat;
+    color:#000000;
+}
+/*空标签*/
+.lottery_td_space{
+    height:20px;
+    width:5px;
+    border:none;    
+    border-bottom:1px #242424 solid;
+}
+/*尾部效果*/
+.lottery_td_line{
+    border-bottom:1px #242424 solid;
+}
+/*标签下面的内容*/
+.lottery_tracearea_table{
+    border:1px #242424 solid;
+    height:40px;
+    width:99%; 
+    background-color:#242424;
+    margin-bottom:10px; 
+    text-align:left;
+}
+/* 立即生成按钮的CSS */
+#trace_button{
+    background:url(/lowgame/images/blue/init.jpg);
+    border:0px;
+    background-repeat:no-repeat;
+    width:74px;
+    height:21px;
+    color:#333333;
+    cursor:pointer;
+    font-size:12px;
+	margin-top:3px;
+}
+/*追号列表*/
+#trace_detail{
+    width:100%;
+    text-align:center;
+    padding:1px;
+    margin-bottom:10px;
+	border:1px solid #373737;
+}
+#trace_check,#trace_stop{
+    border:0px;
+}
+/*追号标签*/
+.lottery_tracearea_table .titletd{ 
+    color:#FFFFFF; 
+    font-weight:bold;
+    background-color:#000000;
+    border:0px;
+}
+/*追号文字信息(所选期数部分)*/
+.lottery_tracearea_wordtitle{
+    display:none;
+}
+/*追号列表 效果*/
+#trace_detail input{
+    border:0px;
+}
+#trace_detail td{
+    border:0px;
+	line-height:19px;
+	border-top-style: none;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #2D2D2D;
+}
+#trace_detail .lottery_input{
+    border:1px #333333 solid;
+    background:#FFFFFF;
+    color:#000000;
+    text-align:center;
+    font-weight:normal;
+    height:14px;
+    line-height:12px;
+}
+/*选中之后的效果*/
+.trace_detail_hover{
+    line-height:22px;
+    background-image:url(/lowgame/images/blue/tr2.jpg);
+    background-repeat:repeat-x;
+    color:#000000;
+}
+
+/*标签总样式*/
+.lottery_tracearea_table_label{
+    border:0px;
+    margin:0px;
+}
+/*资金显示*/
+.lottery_tracearea_money{
+    color:#FF0000;
+    font-weight:bold;
+}
+/***********追号区CSS结束**************/
+/****左边盒子结束******/
+/*****左边结束*****/
+/*****右边开始*****/
+.right_content{
+    float:right;
+    width:231px;
+    margin:5px auto;
+}
+/********右边整体盒子开始*******/
+/*右边盒子*/
+.right_box{
+    width:231px; 
+    margin-top:10px;
+}
+/*右边盒子标题*/
+.right_box_title{
+    background-image:url(/lowgame/images/blue/right_box_title_bg.jpg);
+    background-repeat:repeat-x;
+    height:37px;
+    line-height:20px;
+    text-align:left;
+}
+/*右边盒子标题右边*/
+.right_box_right{
+    float:right;
+    background-image:url(/lowgame/images/blue/right_box_title_right.jpg);
+    height:37px;
+    width:7px;
+}
+/*右边盒子标题左边*/
+.right_box_left{
+    float:left;
+    background-image:url(/lowgame/images/blue/right_box_left.jpg);
+    height:37px;
+    width:6px;
+}
+/*右边盒子标题内容*/
+.right_box_title_caption{
+    line-height:37px;
+    font-size:14px;
+    font-weight:bold;
+    color:#000000;
+    font-family:'宋体';
+    height:20px;
+    margin:5px;
+}
+/*右边盒子底部*/
+.right_box_bottom{
+    background:url(/lowgame/images/blue/right_box_bottom_bg.jpg);
+    height:7px;
+    background-repeat:repeat-x;
+}
+/*右边盒子底部右边*/
+.right_box_bottom_right{
+    background:url(/lowgame/images/blue/right_box_bottom_right.jpg);
+    height:7px;
+    width:7px;
+    float:right;
+    background-repeat:no-repeat;
+}
+/*右边盒子底部左边*/
+.right_box_bottom_left{
+    background:url(/lowgame/images/blue/right_box_bottom_left.jpg);
+    height:7px;
+    width:6px;
+    float:left;    
+    background-repeat:no-repeat;
+}
+/*右边盒子底部中间*/
+.right_box_body{
+    background:url(/lowgame/images/blue/right_box_body.jpg);
+    background-repeat:repeat-y;
+    padding:5px;
+    color:#FFFFFF;
+}
+/*历史号码部分*/
+.history_issue_list{
+    width:98%;
+    text-align:center;
+    border:1px #cccccc solid;    
+    background-color:#E4E4E4;
+}
+.histroy_issue_list_th{
+    background-color:#000000;
+    color:#CCCCCC;
+    font-weight:bold;
+    line-height:30px;
+    height:30px;
+    border:0px;
+}
+.histroy_issue_list_th td{
+    border:0px;
+
+}
+.histroy_issue_list_td{
+    color:#000000;
+    line-height:25px;
+    height:25px;
+    border:1px #000000 solid;
+}
+
+.histroy_issue_list_td td{
+    border-top-style: none;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-style: none;
+	border-right-color: #868686;
+	border-bottom-color: #868686;
+}
+/********右边整体盒子结束*******/
+/*****右边结束*****/
+/*调价部分的CSS*/
+/*调价框架*/
+.lottery_adjust_confirm{
+	text-align:left;
+	background-color:#EAEAEA;
+	border:1px solid #333333;
+}
+.lottery_adjust_confirm .adjusttitlebox{
+	width:100%;
+	background:#666666;
+	width:100%;
+	height:25px;
+	line-height:25px;
+}
+.lottery_adjust_confirm .adjusttitlebox .adjusttitle{
+	margin-top:8px;
+	margin-left:20px;
+	background:#EAEAEA;
+	padding:4px 20px 5px 20px;
+	line-height:30px;
+	font-size:12px;
+	font-weight:bold;
+	color:#111111;
+}
+.lottery_adjust_confirm .adjustmsg{
+	height:40px;
+	line-height:40px;
+	padding-left:20px;
+	font-size:14px;
+	color:#111111;
+}
+.lottery_adjust_confirm .adjustcodebox{
+    padding-left:40px;
+}
+.lottery_adjust_confirm th{
+	height:22px;
+	text-align:center;
+	background:#CCCCCC;
+	font-size:12px;
+	color:#111111;
+}
+.lottery_adjust_confirm .adjustcodebox div{
+	width:300px;height:150px;overflow-y:scroll;overflow-x:hidden; background-color:#FFFFFF;
+}
+.lottery_adjust_confirm ul{
+	list-style:none;
+	padding:0;
+	margin:0;
+	padding-left:40px;
+}
+.lottery_adjust_confirm ul li{
+	height:20px;
+	line-height:20px;
+}
+.lottery_adjust_confirm .confirmbuttonbox{
+	margin-top:15px;
+	padding-left:50px;
+	margin-bottom:25px;
+}

@@ -1,0 +1,44 @@
+{include file="pageheader.html"}
+<LINK href="{$sSystemImagesAndCssPath}/lowgame/css/gamecodedynamic.css" rel="stylesheet" type="text/css" />
+<div class="lottery_bigbox">
+    <div class="lottery_box">
+        <div class="lottery_lables">
+        <div class="menu_left"></div>
+            <div class="label_back_left"></div>
+        	   <div class="label_back" onclick="window.location.href='./?controller=game&action=special&curmid={$pid}&pid={$pid}'">靓号选择</div>
+            <div class="label_back_right"></div>
+        	{foreach from=$labels item=label key=kid}
+        	<div class="label_front_left"></div>
+                <div {if $label.menuid==$curmid}class="label_front"{else}class="label_back" onclick="window.location.href='./?controller={$label.controller}&action={$label.actioner}&curmid={$label.menuid}&pid={$pid}'"{/if}>{$label.title|escape:html}</div>
+            <div class="label_front_right"></div>
+            {/foreach}
+        <div class="menu_right"></div>
+        </div>
+         <!-- *******分组奖金区********* -->
+        <div class="lottery_selectarea" id="area_select">
+                <table border="0" cellpadding="1" cellspacing="1" width="100%">
+                <tr>
+                	<th>号码</th>
+                    <th>奖金</th>
+                    <th>号码</th>
+                    <th>奖金</th>
+                    <th>号码</th>
+                    <th>奖金</th>
+                    <th>号码</th>
+                    <th>奖金</th>
+                    <th>号码</th>
+                    <th>奖金</th>
+                </tr>
+                <tr>
+                {foreach from=$codedata.codes item=code key=k}
+                {if $k!=0 && $k%5==0}</tr><tr>{/if}
+                	<td id="code">{$code.code}</td>
+                    <td {if $code.prize>$codedata.fMaxPrize}id="upprize"{elseif $code.prize<$codedata.fMaxPrize}id="downprize"{/if}>{$code.prize}</td>
+                {/foreach}
+                </tr>
+                </table>
+      	</div>
+        <!-- *******分组奖金区********* -->
+    </div>
+</div>
+{include file="pagefooter.html"}

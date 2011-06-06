@@ -1,0 +1,52 @@
+{include file="pageheader.html"}
+<script>
+function checkform(obj)
+{
+	var partn = /^(.){2,6}$/;
+	if( !partn.exec(obj.newname.value) )
+	{
+		$.alert("组别名称不合法");
+		obj.newname.focus();
+		return false;
+	}
+	return true;
+}
+</script>
+<form action="index.php" method="post" name="updateform" onsubmit="return checkform(this)">
+<input type="hidden" name="gid" value="{$groupid}" />
+<input type="hidden" name="gname" value="{$groupname|escape:html}" />
+<input type="hidden" name="flag" value="update" />
+<input type="hidden" name="controller" value="useradmin" />
+<input type="hidden" name="action"	value="updategroup" />
+<div class="right_02 d5d8de" style="width:98%;">
+
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div><table width="100%" border="0" cellspacing="1" cellpadding="4">
+    
+    <tr>
+      <td align="right" bgcolor="#CCCCCC">原组别名称:</td>
+      <td align="left" bgcolor="#CCCCCC">{$groupname|escape:html}</td>
+   </tr>
+    <tr>   
+      <td align="right" bgcolor="#CCCCCC">修改后组别名称:</td>
+      <td align="left" bgcolor="#CCCCCC"><input type="text" name="newname" />(2至6个字符组成)</td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#CCCCCC">&nbsp;</td>
+      <td align="left" bgcolor="#CCCCCC"><input type="submit" name="submit" value="提交"  class="buttonnormal"  />&nbsp;&nbsp;
+  <input type="button"  class="buttonnormal" value="返回列表"  onclick="window.location='index.php?controller=useradmin&action=grouplist'" /></td>
+     
+    </tr>
+  </table></div>
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+
+</div>
+</form>
+{include file="pagefooter.html"}
+

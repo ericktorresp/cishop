@@ -1,0 +1,172 @@
+{include file="pageheader.html"}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/calendar/jquery.dyndatetime.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/js/calendar/css/calendar-blue2.css" type="text/css" />
+<script language="javascipt" type="text/javascript">
+$(function(){
+    jQuery("#date").dynDateTime({
+			ifFormat: "%Y-%m-%d",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()",
+			showOthers: true,
+			weekNumbers: true,
+			showsTime: true
+		});
+})
+</script>
+<body>
+
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+
+<div class="center">{if $pid == 0}<b>用户名:<font color="#FF0000">{$username}</font></b>{else}<b>频道:<font color="#FF0000">{$channelname}</font></b>{/if}</div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+{if $pid == 0}
+<form name="searchForm" action="" METHOD='get'>
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+
+<div class="center">
+
+<input type='hidden' name="controller" value="report"/>
+<input type='hidden' name="action" value="query"/>
+<div><img src="{$sSystemImagesAndCssPath}/images/icon_search.gif" width="26" height="22" border="0" TITLE="SEARCH" />
+选择日期：<input  type="text" size="15" name="date" id="date" value="{$date}"/>
+<img src="{$sSystemImagesAndCssPath}/images/calendar2.gif" id="time_button" />
+<input type="submit" value="立即搜索"   class="buttonnormal" />
+</div>
+
+</div>
+
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</form>
+{/if}
+
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%">
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+    {if $pid == 0}      {else}
+      {/if}
+      
+    <tr>
+      <td height="43" align="center">日期</td>
+      {if $pid == 0}
+      <td align="center" class="line_03">频道</td>
+      {/if}
+      
+      <td align="center" class="line_03">用户名</td>
+       {if $pid != 0}
+       <td align="center" class="line_03">所属组</td>
+        {/if}
+
+      <td align="center" class="line_03">总代购费</td>
+      <td align="center" class="line_03">总返点</td>
+      <td align="center" class="line_03">实际总代购费</td>
+      <td align="center" class="line_03">中奖金额</td>
+      <td align="center" class="line_03">总结算</td>
+      <td align="center" class="line_03">操作</td>
+    </tr>
+
+<tr align="center">
+    <td height="5" colspan="{if $pid == 0}9{else}10{/if}" align="center"></td>
+</tr>
+{if $pid == 0}
+{foreach from=$aResult item =data key=k}
+{foreach from=$data.user item =user key=l}
+    <tr>
+
+     
+
+
+      {if $user.order == 0}
+        <td height="37" rowspan="{$data.usercount}" align="center" bgcolor="#CCCCCC">{$date}</td>
+        <td align="center" bgcolor="#CCCCCC" rowspan="{$data.usercount}">{$data.channelname|escape:html}</td>
+    {/if}
+    <td align="center" bgcolor="#CCCCCC">{if isset($user.username)}{$user.username}{else}{$username}{/if}</td>
+    <td align="center" bgcolor="#CCCCCC">{if $user.amount>0}<font color="Green">{else}<font color="Red">{/if}{$user.amount|escape:money}</font></td>
+    <td align="center" bgcolor="#CCCCCC">{if $user.point>0}<font color="Green">{else}<font color="Red">{/if}{$user.point|escape:money}</font></td>
+    <td align="center" bgcolor="#CCCCCC">{if $user.realamount>0}<font color="Green">{else}<font color="Red">{/if}{$user.realamount|escape:money}</font></td>
+    <td align="center" bgcolor="#CCCCCC">{if $user.bonus>0}<font color="Green">{else}<font color="Red">{/if}{$user.bonus|escape:money}</font></td>
+    <td align="center" bgcolor="#CCCCCC">{if $user.win>0}<font color="Green">{else}<font color="Red">{/if}{$user.win|escape:money}</font></td>
+    <td align="center" bgcolor="#CCCCCC">
+        {if $usertype>0}<a href="/?controller=report&action=query&pid={$l}&channelid={$k}&date={$date}" target="_blank">查看下级</a>
+        &nbsp;&nbsp;{/if}<a href="/?controller=report&action=gamedetail&pid={$l}&channelname={$data.channelname}&channelid={$k}&username={if isset($user.username)}{$user.username}{else}{$username}{/if}&userid={$l}&date={$date}" target="_blank"">游戏明细</a>    </td>
+    </tr>
+
+    {/foreach}
+{foreachelse}
+<tr align="center">
+    <td height="37" colspan="{if $pid == 0}9{else}10{/if}" align="center" bgcolor="#CCCCCC">没有相关数据!</td>
+</tr>
+{/foreach}
+{else}
+
+
+
+<!--下级-->
+<tr align="center">
+    <td height="5" colspan="{if $pid == 0}9{else}10{/if}" align="center"></td>
+</tr>
+{foreach from=$aResult item =data key=k}
+<tr align="center">
+    <td height="37" align="center" bgcolor="#CCCCCC">{$date}</td>
+    <td align="center" bgcolor="#CCCCCC">{$data.username}</td>
+    <td align="center" bgcolor="#CCCCCC">{$data.usergroup}</td>
+    <td align="center" bgcolor="#CCCCCC">{if $data.amount>0}<font color="Green">{else}<font color="Red">{/if}{$data.amount|escape:money}</font></td>
+    <td align="center" bgcolor="#CCCCCC">{if $data.point>0}<font color="Green">{else}<font color="Red">{/if}{$data.point|escape:money}</font></td>
+    <td align="center" bgcolor="#CCCCCC">{if $data.realamount>0}<font color="Green">{else}<font color="Red">{/if}{$data.realamount|escape:money}</font></td>
+    <td align="center" bgcolor="#CCCCCC">{if $data.bonus>0}<font color="Green">{else}<font color="Red">{/if}{$data.bonus|escape:money}</font></td>
+    <td align="center" bgcolor="#CCCCCC">{if $data.win>0}<font color="Green">{else}<font color="Red">{/if}{$data.win|escape:money}</font></td>
+    <td align="center" bgcolor="#CCCCCC">
+        {if $usertype>0}<a href="/?controller=report&action=query&pid={$k}&channelid={$channelid}&date={$date}" target="_blank">查看下级</a>
+        &nbsp;&nbsp;{/if}<a href="/?controller=report&action=gamedetail&channelname={$channelname}&username={if isset($data.username)}{$data.username}{else}{$username}{/if}&userid={$k}&channelid={$channelid}&date={$date}" target="_blank"">游戏明细</a>    </td>
+</tr>
+{foreachelse}
+<tr align="center">
+    <td height="37" colspan="{if $pid == 0}9{else}10{/if}" align="center" bgcolor="#CCCCCC">没有相关数据!</td>
+</tr>
+{/foreach}
+{/if}
+
+
+{if $pid == 0}
+<tr align="center">
+    <td height="37" colspan="3" align="center" bgcolor="#CCCCCC">总计</td>
+    <td align="center" bgcolor="#CCCCCC">{if $totalamount>0}<font color="Green">{else}<font color="Red">{/if}{$totalamount|escape:money}</font></td>
+    <td align="center" bgcolor="#CCCCCC">{if $totalpoint>0}<font color="Green">{else}<font color="Red">{/if}{$totalpoint|escape:money}</font></td>
+    <td align="center" bgcolor="#CCCCCC">{if $totalrealamount>0}<font color="Green">{else}<font color="Red">{/if}{$totalrealamount|escape:money}</font></td>
+    <td align="center" bgcolor="#CCCCCC">{if $totalbonus>0}<font color="Green">{else}<font color="Red">{/if}{$totalbonus|escape:money}</font></td>
+    <td align="center" bgcolor="#CCCCCC">{if $totalwin>0}<font color="Green">{else}<font color="Red">{/if}{$totalwin|escape:money}</font></td>
+    <td align="center" bgcolor="#CCCCCC">&nbsp;</td>
+</tr>
+{/if}
+  </table>
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+
+{include file="pagefooter.html"}

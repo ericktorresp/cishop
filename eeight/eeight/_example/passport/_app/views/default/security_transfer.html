@@ -1,0 +1,34 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form action="index.php" method="post" name="updateform" onsubmit="return checkform(this)">
+<input type="hidden" name="flag" value="showTranfer" />
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action"  value="transfer" />
+<input type="hidden" name="iFrom"	value="transfer" />
+<table class="list-table">
+  <tr>
+  	<td class="narrow-label">提示:</td>
+    <td>资金在不同频道间的分配</td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">转入频道:</td>
+    <td><select name="toChannelId">
+	{foreach from=$aChannelData item=c key=cid}
+      <option value="{$cid}">{$c}</option>
+	{/foreach}
+    </select></td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">转出金额:</td>
+    <td><input type="text" name="fmoney" size="20" onkeyup="checkWithdraw(this,'chineseMoney',{$user.availablebalance});" />
+    可转金额（<span style="color:#FF0000;"><strong>{$user.availablebalance|escape:money}</strong></span>）</td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">转出金额(大写)</td>
+    <td><span id="chineseMoney"></span></td>
+  </tr>
+  <tr><td></td><td><input type="submit" name="submit" value="下一步" class="button" /></td></tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

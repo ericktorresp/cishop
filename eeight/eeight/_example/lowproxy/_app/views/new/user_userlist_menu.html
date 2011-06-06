@@ -1,0 +1,115 @@
+<html>
+<head>
+<title>用户管理 {$systemversions}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/lowproxy/css/new/leftmenu.css" type="text/css" />
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/common.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowproxy/js/dialogUI/jquery.dialogUI.js"></script>
+<script type="text/javascript">
+jQuery.blockUI.defaults.message = '加载数据...'; 
+jQuery.blockUI.defaults.css = { 
+        padding:        0, 
+        margin:         '0 auto', 
+        width:          '100px', 
+        top:            '4px', 
+        left:           '8px', 
+        textAlign:      'center', 
+        color:          '#FF0000', 
+        border:         '1px solid #80BDCB', 
+        backgroundColor:'#FFF', 
+        cursor:         'wait' 
+    };
+jQuery.blockUI.defaults.overlayCSS = { 
+        backgroundColor: '#CCC', 
+        opacity:         0.5 
+    };
+jQuery.blockUI.defaults.centerX = false;
+jQuery.blockUI.defaults.centerY = false;
+function getChildList( obj, uid )
+{
+	if( jQuery(obj).parent().find("ul").html() != null )
+	{
+		if( jQuery(obj).attr("src") == "{$sSystemImagesAndCssPath}/lowproxy/images/menu_plus.gif" )
+		{
+			jQuery(obj).attr("src","{$sSystemImagesAndCssPath}/lowproxy/images/menu_minus.gif");
+			jQuery(obj).parent().find("ul:first").slideDown("fast");
+		}else
+		{
+			jQuery(obj).attr("src","{$sSystemImagesAndCssPath}/lowproxy/images/menu_plus.gif");
+			jQuery(obj).parent().find("ul:first").slideUp("fast");
+		}
+	}
+	else
+	{
+		jQuery().ajaxStart($.blockUI).ajaxStop($.unblockUI);
+		html = jQuery(obj).closest("li").html();
+		jQuery(obj).ajaxStart(function(){
+			jQuery(this).attr("src","{$sSystemImagesAndCssPath}/lowproxy/images/menu_minus.gif");
+		});
+		jQuery.ajax({
+		type:			"GET",
+		url:			"index.php?controller=user&action=list&frame=menu&uid="+uid,
+		dataType: 		"json",
+		cache:			false,
+		success:		function(data){
+							if( data.error == "empty" ){//没有数据
+								jQuery(obj).parent().append("<ul style='display:none;'><li></li></ul>");
+								jQuery(obj).attr("src","{$sSystemImagesAndCssPath}/lowproxy/images/menu_plus.gif");
+							}else if( data.error == "0" ){//有数据
+								dataHtml = "<ul>";
+								jQuery.each(data.result,function(i,n){
+									dataHtml += "<li>";
+									if( n.childcount > 0 )
+									{
+										dataHtml += "<img src=\"{$sSystemImagesAndCssPath}/lowproxy/images/menu_plus.gif\" onclick=\"getChildList(this,"+n.userid+")\" style=\"cursor:pointer;\" />";
+									}else{
+										dataHtml += "<img src=\"{$sSystemImagesAndCssPath}/lowproxy/images/menu_minus.gif\"  />";
+									}
+									dataHtml += "<a href=\"?controller=user&action=list&frame=show&uid="+n.userid+"\" target=\"userlist_content\">"+replaceHTML(n.username)+"</a> <font color='#A0A0A0'>("+n.childcount+")</font></li>";
+								});
+								dataHtml += "</ul>";
+								jQuery(obj).parent().append(dataHtml);
+							}
+							else
+							{
+								return true;
+							}
+						}
+		});
+	}
+}
+</script>
+</head>
+<body style="background-color: #00713D;magin-bottom:10px;">
+<style type="text/css">
+html{overflow-y:scroll;}
+.menu_01{background-image: url({$sSystemImagesAndCssPath}/lowproxy/images/new/right_01.jpg);background-repeat:repeat-x;margin:0;}
+#main-div {border: 1px outset #00713D; padding: 5px; margin: 5px; background: #FFFFFF;}
+#main-div a:visited, #main-div a:link { color: #666; text-decoration: none;}
+#main-div a:hover { color: #FF6600; }
+#main-div ul{ list-style:none; margin:0; padding:0; padding-left:10px;}
+#main-div ul li{list-style:none;line-height:20px; width:100%; text-align:left;padding-left:12px;}
+#main-div li{ list-style:none;padding-top:2px;padding-left:12px;}
+</style>
+<div class="menu_01">用户列表</div>
+<div id="main-div">
+<div id="child_0">
+<ul style="padding-left:0px;">
+{foreach from=$users item=user key=k}
+	<li id="li_{$user.userid}">
+    	{if $user.childcount>0}
+        <img src="{$sSystemImagesAndCssPath}/lowproxy/images/menu_plus.gif" id="img_{$user.userid}" onClick="getChildList(this,{$user.userid})" style="cursor:pointer;">
+        {else}
+        <img src="{$sSystemImagesAndCssPath}/lowproxy/images/menu_minus.gif" id="img_{$user.userid}">
+        {/if}
+        <a href="./?controller=user&action=list&frame=show&uid={$user.userid}" target="userlist_content">{$user.username|escape:html}</a> <font color='#A0A0A0'>({$user.childcount})</font>
+   </li>
+{foreachelse}
+	<li>无下级用户</li>
+{/foreach}
+</ul>
+</div>
+</div>
+</body>
+</html>

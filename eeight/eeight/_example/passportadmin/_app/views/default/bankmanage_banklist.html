@@ -1,0 +1,97 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" id="listForm" action=''>
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th width="20%">银行名称</th>
+	<th width="20%">银行卡类型</th>
+	<th width="20%">卡号长度</th>
+	<th width="10%">状态</th>
+	<th width="20%">操作</th>
+  </tr>
+  {foreach from=$aBank item=bank key=k}
+  <tr align="center">
+	<td>{$bank.bank_name}</td>
+	<td>{if $bank.card_type != ""}{$bank.card_type}{else}--{/if}</td>
+	<td>{if $bank.code_length != ""}{$bank.code_length}{else}--{/if}</td>
+	<td>{if $bank.status == 1}<font color="#669900">启用</font>{else}<font color="#FF3300">禁用</font>{/if}</td>
+	<td>
+	<a href="?controller=bankmanage&action=banklist&flag=edit&id={$bank.id}">修改</a>　|　
+	<a href="?controller=bankmanage&action=banklist&flag=delete&id={$bank.id}" onclick="return confirm('确认删除吗？');">删除</a>　|　
+	{if $bank.status == 1}
+	<a href="?controller=bankmanage&action=banklist&flag=set&status=0&id={$bank.id}" onclick="return confirm('确认修改吗？');"><font color="#FF3300">禁用</font></a>
+	{else}
+	<a href="?controller=bankmanage&action=banklist&flag=set&status=1&id={$bank.id}" onclick="return confirm('确认修改吗？');"><font color="#669900">启用</font></a>
+	{/if}
+	</td>
+  </tr>
+  {foreachelse}
+    <tr><td class="no-records" colspan="5">无相关数据</td></tr>
+  {/foreach}
+</table>
+
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

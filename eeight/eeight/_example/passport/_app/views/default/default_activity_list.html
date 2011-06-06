@@ -1,0 +1,23 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form method="post" action="./?controller=default&action=activity">
+
+<table class="list-table">
+<tr>
+	<th>活动标题</th>
+    <th>开始时间</th>
+    <th>结束时间</th>
+    <th>操作</th>
+</tr>
+{foreach from=$aActivity item=activity key=k}
+<tr>
+	<td>{$activity.title|escape:html}</td>
+    <td>{$activity.starttime|escape:html}</td>
+    <td>{$activity.endtime|escape:html}</td>
+    <td><a href="./index.php?controller=default&action=activity&actid={$activity.activityid}">立即参加</a></td>
+</tr>
+{/foreach}
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,100 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td width="30%" align="center">异常类型</td>
+<td align="left" colspan="3">
+&nbsp;&nbsp;{if $aResult.errortype==1}<font color='#669900'>提前开奖{elseif $aResult.errortype==2}<font color='#FF3333'>号码录错{else}官方未开奖{/if}</font>
+</td>
+</tr>
+<tr><td width="30%" align="center">错误的奖期编号</td><td align="left" colspan="3">&nbsp;&nbsp;{$aResult.issue}</td></tr>
+<tr><td width="30%" align="center">彩种</td><td align="left" colspan="3">&nbsp;&nbsp;{$aResult.cnname}</td></tr>
+<tr><td width="30%" align="center">异常登记的管理员</td><td align="left" colspan="3">&nbsp;&nbsp;{$aResult.adminname}</td></tr>
+<tr>
+<td width="30%" align="center">异常信息描述</td>
+<td align="left" colspan="3">
+&nbsp;&nbsp;{if $aResult.errortype==1}<font color='#669900'>{$aResult.opentime}{elseif $aResult.errortype==2}<font color=#FF0000><font color=#cccccc>[</font>{$aResult.oldcode}<font color=#cccccc>] -> [</font>{$aResult.code}<font color=#cccccc>]</font>{else}----{/if}</font>
+</td>
+</tr>
+<tr>
+<td align="center">旧验证状态</td>
+<td align="left">
+&nbsp;&nbsp;{if $aResult.oldstatuscode==0}<font color="blue">未录入</font>{elseif $aResult.oldstatuscode==1}<font color="red">待验证</font>{elseif $aResult.oldstatuscode==2}<font color="green">已验证</font>{else}<b style="color:red;">官方未开</b>{/if}
+</td>
+<td align="center">新验证状态</td>
+<td align="left">
+&nbsp;&nbsp;{if $aResult.statuscode==0}<font color="blue">未录入</font>{elseif $aResult.statuscode==1}<font color="red">待验证</font>{elseif $aResult.statuscode==2}<font color="green">已验证</font>{else}<b style="color:red;">官方未开</b>{/if}
+</td>
+</tr>
+<tr>
+<td align="center">旧扣款状态</td>
+<td align="left">
+&nbsp;&nbsp;{if $aResult.oldstatusdeduct==0}<font color="blue">未开始</font>{elseif $aResult.oldstatusdeduct==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}
+</td>
+<td align="center">新扣款状态</td>
+<td align="left">
+&nbsp;&nbsp;{if $aResult.statusdeduct==0}<font color="blue">未开始</font>{elseif $aResult.statusdeduct==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}
+</td>
+</tr>
+<tr>
+<td align="center">旧返点状态</td>
+<td align="left">
+&nbsp;&nbsp;{if $aResult.oldstatususerpoint==0}<font color="blue">未开始</font>{elseif $aResult.oldstatususerpoint==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}
+</td>
+<td align="center">新返点状态</td>
+<td align="left">
+&nbsp;&nbsp;{if $aResult.statususerpoint==0}<font color="blue">未开始</font>{elseif $aResult.statususerpoint==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}
+</td>
+</tr>
+<tr>
+<td align="center">旧判断状态</td>
+<td align="left">
+&nbsp;&nbsp;{if $aResult.oldstatuscheckbonus==0}<font color="blue">未开始</font>{elseif $aResult.oldstatuscheckbonus==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}
+</td>
+<td align="center">新判断状态</td>
+<td align="left">
+&nbsp;&nbsp;{if $aResult.statuscheckbonus==0}<font color="blue">未开始</font>{elseif $aResult.statuscheckbonus==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}
+</td>
+</tr>
+<tr>
+<td align="center">旧派奖状态</td>
+<td align="left">
+&nbsp;&nbsp;{if $aResult.oldstatusbonus==0}<font color="blue">未开始</font>{elseif $aResult.oldstatusbonus==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}
+</td>
+<td align="center">新派奖状态</td>
+<td align="left">
+&nbsp;&nbsp;{if $aResult.statusbonus==0}<font color="blue">未开始</font>{elseif $aResult.statusbonus==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}
+</td>
+</tr>
+<tr>
+<td align="center">旧追号状态</td>
+<td align="left">
+&nbsp;&nbsp;{if $aResult.oldstatustasktoproject==0}<font color="blue">未开始</font>{elseif $aResult.oldstatustasktoproject==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}
+</td>
+<td align="center">新追号状态</td>
+<td align="left">
+&nbsp;&nbsp;{if $aResult.statustasktoproject==0}<font color="blue">未开始</font>{elseif $aResult.statustasktoproject==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}
+</td>
+</tr>
+<tr>
+<td align="center">错误的开奖号码</td>
+<td align="left">&nbsp;&nbsp;{if !empty($aResult.oldcode)}{$aResult.oldcode}{else}<font color="Gray">----</font>{/if}</td>
+<td align="center">正确的开奖号码</td>
+<td align="left">&nbsp;&nbsp;{if !empty($aResult.oldcode)}{$aResult.code}{else}<font color="Gray">----</font>{/if}</td>
+</tr>
+<tr>
+<td align="center">撤派</td>
+<td align="left" colspan="3">
+&nbsp;&nbsp;{if $aResult.statuscancelbonus==0}<font color="blue">未开始</font>{elseif $aResult.statuscancelbonus==1}<font color="red">进行中</font>{elseif $aResult.statuscancelbonus==2}<font color="green">已完成</font>{else}<font color="green">忽略</font>{/if}
+</td>
+</tr>
+<tr>
+<td align="center">撤单</td>
+<td align="left" colspan="3">
+&nbsp;&nbsp;{if $aResult.statusrepeal==0}<font color="blue">未开始</font>{elseif $aResult.statusrepeal==1}<font color="red">进行中</font>{elseif $aResult.statusrepeal==2}<font color="green">已完成</font>{else}<font color="green">忽略</font>{/if}
+</td>
+</tr>
+<tr><td width="30%" align="center">异常登记的时间</td><td align="left" colspan="3">&nbsp;&nbsp;{$aResult.writetime}</td></tr>
+</table>
+</div>
+{include file="pagefooter.html"}

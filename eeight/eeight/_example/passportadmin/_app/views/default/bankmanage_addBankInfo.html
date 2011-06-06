@@ -1,0 +1,166 @@
+{include file="pageheader.html"}
+{literal}
+<script type="text/javascript">
+function check(){
+	var bank_name = document.getElementById("bank_name");
+	if (bank_name.value == '') {
+		alert("您忘记了填写银行名称！");
+		bank_name.focus();
+		return false;
+	}
+	/*var card_type = document.getElementById("card_type");
+	if (card_type.value == '') {
+		alert("您忘记了填写银行卡类型！");
+		card_type.focus();
+		return false;
+	}
+	var code_length = document.getElementById("code_length");
+	if (code_length.value == '') {
+		alert("您忘记了填写银行卡号长度！");
+		code_length.focus();
+		return false;
+	}
+	var url = document.getElementById("url");
+	var strRegex = /^([http|HTTP]+:\/\/)?[[A-Za-z0-9]+\.]?[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\:+!]*([^<>])*$/;
+	var re = new RegExp(strRegex);
+	if (url.value == '') {
+		alert("为了您的操作方便，请填写网银地址！");
+		url.focus();
+		return false;
+	}
+	if (!re.test(domain.value)){
+		alert("您填写的网银地址错误，请核对后重新填写！");
+		url.focus();
+		return false;
+	}
+	var logo = document.getElementById("logo");
+	if (logo.value == '') {
+		alert("为了方便用户辨认，请上传一张银行logo吧！");
+		return false;
+	}*/
+}
+
+
+function changelogo(){
+	var fileimg = document.listForm.logo.value;
+	if (fileimg != ""){
+		document.getElementById("img_logo").innerHTML = "<img src='" + fileimg +"'  width='150px' height= '150px' />";
+	}
+}
+</script>
+{/literal}
+<div class="list-div" id="listDiv">
+<form method="POST" enctype="multipart/form-data" name="listForm" id="listForm" onsubmit="return check();">
+<input type="hidden" name="controller" value="bankmanage" />
+<input type="hidden" name="action" value="addbankinfo" />
+<input type="hidden" name="flag" value="add" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <td align="right">银行名称：</td>
+    <td><input type="text" name="bank_name" id="bank_name" /></td>
+  </tr>
+  <tr>
+    <td align="right">卡类型：</td>
+    <td><input type="text" name="card_type" id="card_type" /></td>
+  </tr>
+  <tr>
+    <td align="right">卡号长度：</td>
+    <td><input type="text" name="code_length" id="code_length" />(用逗号分隔,例如：16,19)</td>
+  </tr>
+  <tr>
+    <td align="right">网银地址：</td>
+    <td><input type="text" name="url" id="url" /></td>
+  </tr>
+  <tr>
+    <td align="right">银行logo：</td>
+    <td><span id="img_logo"></span><br /><input type="file" name="logo" id="logo" onchange="changelogo();" /></td>
+  </tr>
+  <tr>
+    <td align="right">是否接受批量提现：</td>
+    <td>
+    <select name="manual">
+    	<option value="0">不接受</option>
+    	<option value="1">接受</option>
+    </select>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">状态：</td>
+    <td>
+    <select name="status">
+    	<option value="1">启用</option>
+    	<option value="0">禁用</option>
+    </select>
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><input type="submit" name="submit" value="提交" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="edit" value="取消" class="button" onclick="history.back();" /></td>
+  </tr>
+</table>
+
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

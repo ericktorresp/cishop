@@ -1,0 +1,124 @@
+{include file="pageheader.html"}
+<script src="js/jquery.js"></script>
+<script>
+jQuery(document).ready(function(){
+	$("#checkall").click(function(){
+		$(":input").attr("checked",$("#checkall").attr("checked"));
+	});
+});
+function cancel()
+{
+    if($(":input[name='taskid[]'][checked=true]").size()==0)
+    {
+        alert("您没有选择选择彩种期数.");
+        return false;
+    }
+    else
+    {
+        if(confirm("真的要中止追号任务吗？"))
+        {
+              $("#Form").submit();
+        }
+    }
+}
+</script>
+<div class="list-div">
+<table>
+<tr>
+<td class="narrow-label">追号编号</td>
+<td>{$task.taskid|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">游戏用户</td>
+<td>{$task.username|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">追号时间</td>
+<td>{$task.begintime|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">彩种</td>
+<td>{$task.cnname|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">玩法</td>
+<td>{$task.methodname|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">追号内容</td>
+<td>{$task.codes}</td>
+</tr>
+<tr>
+<td class="narrow-label">开始期号</td>
+<td>{$task.beginissue|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">追号期数</td>
+<td>{$task.issuecount|escape:html}期</td>
+</tr>
+<tr>
+<td class="narrow-label">完成期数</td>
+<td>{$task.finishedcount|escape:html}期</td>
+</tr>
+<tr>
+<td class="narrow-label">取消期数</td>
+<td>{$task.cancelcount|escape:html}期</td>
+</tr>
+<tr>
+<td class="narrow-label">追号总金额</td>
+<td>{$task.taskprice|escape:money}</td>
+</tr>
+<tr>
+<td class="narrow-label">完成金额</td>
+<td>{$task.finishprice|escape:money}</td>
+</tr>
+<tr>
+<td class="narrow-label">取消金额</td>
+<td>{$task.cancelprice|escape:money}</td>
+</tr>
+<tr>
+<td class="narrow-label">中奖后终止任务</td>
+<td>{if $task.stoponwin==1}是{else}否{/if}</td>
+</tr>
+<tr>
+<td class="narrow-label">追号状态</td>
+<td>{if $task.status==0}进行中{elseif $task.status==1}已取消{elseif $task.status==2}已完成{/if}</td>
+</tr>
+<tr>
+<td class="narrow-label"></td>
+<td><input type="button" class="button" value="关闭" onclick="self.close();">
+{if $task.status==0}
+<input type="button" class="button" value="追号终止" onclick="cancel()">
+{/if}</td>
+</tr>
+</table>
+</div>
+<br/>
+<div class="list-div">
+<form id="Form" action="./?controller=usergames&action=canceltask" method="post">
+<input type="hidden" name="uid" value="{$task.userid}"/>
+<input type="hidden" name="id" value="{$task.taskid}" />
+<table>
+<tr>
+<th><input type="checkbox" id="checkall">奖期</th>
+<th>追号倍数</th>
+<th>追号状态</th>
+<th>注单详情</th>
+</tr>
+{foreach from=$aTaskdetail item=taskdetail key=k}
+<tr align="center">
+<td>{if $taskdetail.status<2}
+{if strtotime($taskdetail.canneldeadline)>time()}
+<input type="checkbox" name="taskid[]" value="{$taskdetail.entry}">
+{/if}
+{/if}{$taskdetail.issue|escape:html}</td>
+<td>{$taskdetail.multiple|escape:html}倍</td>
+<td>{if $taskdetail.status==0}进行中{elseif $taskdetail.status==1}已完成{elseif $taskdetail.status==2}已取消{/if}</td>
+<td>{if $taskdetail.projectid}<a href="index.php?controller=usergames&action=projectdetail&id={$taskdetail.projectid}">详情</a>{/if}
+</td>
+</tr>
+{/foreach}
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

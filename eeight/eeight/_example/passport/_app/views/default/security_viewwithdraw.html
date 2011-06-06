@@ -1,0 +1,106 @@
+{include file="pageheader.html"}
+<LINK href="./css/label.css" rel="stylesheet" type="text/css" />
+<div id="tabbar-div">
+	<span class="tab-back">
+		<span class="tabbar-left"></span>
+		
+		<span class="content" onclick="window.location.href='?controller=security&action=onlinewithdraw'">发起提现</span>
+		<span class="tabbar-right"></span>
+	</span>
+	<span class="tab-front">
+		<span class="tabbar-left"></span>
+		<span class="content" >提现记录</span>
+		<span class="tabbar-right"></span>
+	</span>
+</div>
+<div class="tabbar-bottom"></div>
+<div class="list-div" id="listDiv">
+<table width="100%" class="list-table">
+<form method="post" name="drawform" id="drawform">
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action" value="cancelwithdraw" />
+<input type="hidden" name="id" value="{$id}" />
+<tr>
+	<td class="narrow-label">提现编号：</td>
+	<td>{$no}</td>
+</tr>
+<tr>
+	<td class="narrow-label">用户名：</td>
+	<td>{$user_name}</td>
+</tr>
+<tr>
+	<td class="narrow-label">汇款渠道：</td>
+	<td>{$api_name}</td>
+</tr>
+<tr>
+	<td class="narrow-label">币种：</td>
+	<td>{$money_type}</td>
+</tr>
+<tr>
+	<td class="narrow-label">提现金额：</td>
+	<td>{$source_money|escape:money}</td>
+</tr>
+<tr>
+	<td class="narrow-label">提现手续费：</td>
+    <td>{$charge|escape:money}</td>
+</tr>
+<tr>
+	<td class="narrow-label">到账金额：</td>
+    <td>{$amount|escape:money}</td>
+</tr>
+<tr>
+	<td class="narrow-label">银行名称：</td>
+    <td>{$bank_name}</td>
+</tr>
+<tr>
+	<td class="narrow-label">省份：</td>
+    <td>{$province}</td>
+</tr>
+<tr>
+	<td class="narrow-label">城市：</td>
+    <td>{$city}</td>
+</tr>
+<tr>
+	<td class="narrow-label">开户支行：</td>
+    <td>{$branch}</td>
+</tr>
+<tr>
+	<td class="narrow-label">开户人姓名：</td>
+    <td>{$account_name}</td>
+</tr>
+<tr>
+	<td class="narrow-label">开户银行账号：</td>
+    <td>{$account}</td>
+</tr>
+<tr>
+	<td class="narrow-label">提现申请时间：</td>
+    <td>{$request_time}</td>
+</tr>
+<tr>
+	<td class="narrow-label">状态：</td>
+    <td>
+    {if $status == 1}
+    	等待审核
+    {elseif $status == 2}
+    	通过审核
+    {elseif $status == 3}
+    	未通过审核
+    {elseif $status == 4}
+    	已取消
+	{elseif $status == 5}
+		提现成功
+	{elseif $status == 6}
+		提现失败
+	{else}
+		正在处理中
+	{/if}   
+    </td>
+</tr>
+<tr>
+	<td class="narrow-label"></td>
+	<td height="30"><input type="button" value="返回" onclick="history.back()" class="button" /></td>
+</tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

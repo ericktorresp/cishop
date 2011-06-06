@@ -1,0 +1,406 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="{$sSystemImagesAndCssPath}/highgame/js/new_higame/calendar/css/calendar-blue2.css"  />
+<style type="text/css">
+#method_message{
+    position:absolute;
+    top:18px!important;top:21px;
+    left:51px;
+    display:none;
+    border:1px solid #7F9DB9;
+    background:#FFFFFF;
+    color:#000000;
+    width:142px!important;width:143px;
+    padding-top:3px;
+    min-height:80px;
+    max-height:350px;
+    list-style:none;
+    overflow-y:auto;
+	overflow-x:hidden;
+}
+#crowdname{
+   cursor:default;
+   background:url({$sSystemImagesAndCssPath}/highgame/images/new_higame/arrow_select.gif) no-repeat right top;
+   background-color:#FFFFFF;
+   border:1px solid #7F9DB9;
+}
+#method_message .allcrowd{
+}
+#method_message .crowdid{
+    cursor:default;
+    color:#289573;
+    padding-left:5px;
+    font-weight:bold;
+    heigth:16px;
+    line-height:16px;
+}
+#method_message .allgroup{
+    display:none;
+}
+#method_message .groupid{
+    color:#0000FF;
+    cursor:default;
+    padding-left:10px;
+    heigth:16px;
+    line-height:16px;
+}
+#method_message .allmethod{
+    display:none;
+}
+#method_message .methodid{
+    color:#FF0000;
+    cursor:default;
+    padding-left:15px;
+    heigth:16px;
+    line-height:16px;
+}
+#method_message .select{
+    background:#316AC5;
+    color:#FFFFFF;
+}
+</style>
+<script>
+jQuery(document).ready(function() {
+	jQuery("#starttime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		onUpdate:function(){
+			$("#starttime").change();
+		},
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#starttime").change(function(){
+		if(! validateInputDate(jQuery("#starttime").val()) )
+		{
+			jQuery("#starttime").val('');
+			$.alert("时间格式不正确,正确的格式为:2009-06-10 10:59");
+		}
+		if($("#endtime").val()!="")
+		{
+			if($("#starttime").val()>$("#endtime").val())
+			{
+				$("#starttime").val("");
+				$.alert("输入的时间不符合逻辑.");
+			}
+		}
+	});
+	jQuery("#endtime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		showOthers: true,
+		onUpdate:function(){
+			$("#endtime").change();
+		},
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#endtime").change(function(){
+		if(! validateInputDate(jQuery("#endtime").val()) )
+		{
+			jQuery("#endtime").val('');
+			$.alert("时间格式不正确,正确的格式为:2009-06-10 10:59");
+		}
+		if($("#starttime").val()!="")
+		{
+			if($("#starttime").val()>$("#endtime").val())
+			{
+				$("#endtime").val("");
+				$.alert("输入的时间不符合逻辑.");
+			}
+		}
+	});
+	var data_method = {$data_method};
+	$("#lotteryid").change(lotterychange);
+	//选择游戏
+	function lotterychange(){
+		var i =  $("#lotteryid").val();
+		var html = "";
+		var issue_html = "";
+		var nogroup = false;
+		if( i > 0 ){
+			html = "游戏玩法:<input name='select' id='crowdname' value='所有玩法' type='text' size=20 readonly>";
+			html += "<input type=hidden name=crowdid value='' id=crowdid>";
+			html += "<input type=hidden name=pid value='' id=pid>";
+			html += "<input type=hidden name=methodid value='' id=methodid>";
+			html += "<div id='method_message'>";
+			if(data_method[i][0] == undefined){
+			    html += "<div class='allcrowd'><div class='crowdid' id='0'>所有玩法</div></div>";
+			}
+			$.each(data_method[i],function(j,k){
+			    if(k.crowdname == null){
+			        k.crowdname = '所有玩法';
+			    }
+				html += "<div class='allcrowd'>";
+				if(k.crowdid > 0){
+				    if(k.crowdid == {$s.crowdid}){
+                        html += "<div class='crowdid select' id='"+k.crowdid+"'>"+k.crowdname+"</div>";
+                    }else{
+                        html += "<div class='crowdid' id='"+k.crowdid+"'>"+k.crowdname+"</div>";
+                    }
+				}else{
+				    html += "<div class='crowdid' id='0'>所有玩法</div>";
+				}
+				$.each(data_method[i][j].group,function(k,n){
+				    if(n.groupid == {$s.pid}){
+				        html += "<div class='allgroup'><div class='groupid select' id='"+n.groupid+"'>"+n.groupname+"</div>";
+				    }
+				    else{
+				        html += "<div class='allgroup'><div class='groupid' id='"+n.groupid+"'>"+n.groupname+"</div>";
+				    }
+				    if(n.method.length>1){
+				        html += "<div class='allmethod'>";
+				        $.each(n.method,function(km,kn){
+				            if(kn.methodid == {$s.methodid}){
+				                html += "<div class='methodid select' id='"+kn.methodid+"'>"+kn.methodname+"</div>";
+				            }else{
+				                html += "<div class='methodid' id='"+kn.methodid+"'>"+kn.methodname+"</div>";
+				            }
+				        });
+				        html += "</div>";
+				    }
+				    html += "</div>";
+				});
+				html += "</div>";
+				if(k.crowdid == 0){
+				    nogroup = true;
+				}
+			});
+			html += "</div>";       
+		}else{
+			html = "游戏玩法:<input name='select' id='crowdname' value='所有玩法' type='text' size=20 readonly>";
+		}
+		$("#game_method").html(html);
+		if(nogroup){
+		    $(".allgroup").show();
+		}
+		if($.browser.safari){
+		    $("#method_message").css("top","21px");
+		    $("#method_message").css("left","53px");
+		    $("#method_message").css("border-top","1px solid #7F9DB9");
+		}
+		var methodname = $(".select").html();
+		if(methodname == null){
+		    methodname = '所有玩法';
+		}
+		$("#crowdname").val(methodname);
+		//弹出层失去焦点
+		$("body").click(function(){
+		    $("#method_message").hide();
+		    var methodname = $(".select").html();
+		    if(methodname == null){
+		        methodname = '所有玩法';
+		    }
+		    $("#crowdname").val(methodname);
+		});
+		//点击选择框
+		$("#crowdname").toggle(function () {
+		    $("#method_message").show();
+		},function () {
+		    $("#method_message").hide();
+		    if($(".select").html() != null){
+		        $("#crowdname").val($(".select").html());
+		    }
+		});
+		//点击玩法群
+		$(".crowdid").toggle(function(){
+		    $("#method_message").find("div").removeClass("select");
+		    $(this).addClass("select");
+		    $("#crowdname").val($(".select").html());
+		    $("#crowdid").val($(this).attr("id"));
+		    $("#pid").val(0);
+		    $("#methodid").val(0);
+		    $(this).siblings().show();
+		    $(this).parent().siblings().find(".allgroup").hide();
+		},function(){
+		    $("#method_message").find("div").removeClass("select");
+		    $(this).addClass("select");
+		    $("#crowdname").val($(".select").html());
+		    $("#crowdid").val($(this).attr("id"));
+		    $("#pid").val(0);
+		    $("#methodid").val(0);
+		    $(this).siblings().hide();
+		    $(this).parent().siblings().find(".allgroup").hide();
+		});
+		//点击玩法组
+		$(".groupid").toggle(function(){
+		    $("#method_message").find("div").removeClass("select");
+		    $(this).addClass("select");
+		    $("#crowdname").val($(".select").html());
+		    $("#crowdid").val(0);
+		    $("#pid").val($(this).attr("id"));
+		    $("#methodid").val(0);
+		    $(this).siblings().show();
+		    $(this).parent().siblings().find(".allmethod").hide();
+		},function(){
+		    $("#method_message").find("div").removeClass("select");
+		    $(this).addClass("select");
+		    $("#crowdname").val($(".select").html());
+		    $("#crowdid").val(0);
+		    $("#pid").val($(this).attr("id"));
+		    $("#methodid").val(0);
+		    $(this).siblings().hide();
+		    $(this).parent().siblings().find(".allmethod").hide();
+		});
+		//点击玩法
+		$(".methodid").toggle(function(){
+		    $("#method_message").find("div").removeClass("select");
+		    $(this).addClass("select");
+		    $("#crowdname").val($(".select").html());
+		    $("#crowdid").val(0);
+		    $("#pid").val(0);
+		    $("#methodid").val($(this).attr("id"));
+		},function(){
+		    $("#method_message").find("div").removeClass("select");
+		    $(this).addClass("select");
+		    $("#crowdname").val($(".select").html());
+		    $("#crowdid").val(0);
+		    $("#pid").val(0);
+		    $("#methodid").val($(this).attr("id"));
+		});
+	};
+	$("#lotteryid").val({$s.lotteryid});
+	$("#lotteryid").change();
+	$("#methodid").val({$s.methodid});
+});
+</script>
+<form action="" method="GET" class="list-form">
+<input type="hidden" name="controller" value="report">
+<input type="hidden" name="action" value="list">
+<input type="hidden" name="isgetdata" value="1">
+
+<div class="right_02 d5d8de">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+
+<div class="neiye01">
+<div class="margin_2px" style="clear:both;">时间：<input type="text" name="starttime" id="starttime" value="{$s.starttime}" class="input_02" style="width:150px;"  />
+<img src="{$sSystemImagesAndCssPath}/highgame/images/new_higame/icon_06.jpg" width="20" height="17" style="cursor:pointer" />&nbsp;至&nbsp;<input type="text" class="input_02" name="endtime" id="endtime" style="width:150px;" value="{$s.endtime}" />
+<img src="{$sSystemImagesAndCssPath}/highgame/images/new_higame/icon_06.jpg" width="20" height="17" style="cursor:pointer" />
+</div>
+</div>
+
+<div class="neiye01">
+<div class="margin_2px">
+游戏名称：<select name="lotteryid" id="lotteryid" style="width:90px;">
+  	<option value="0">所有游戏</option>
+{foreach from=$aLottery item=lottery key=k}
+<option value="{$k}">{$lottery}</option>
+{/foreach}
+  </select> 
+<span id="game_method" style="position:relative;"></span>&nbsp;
+代理：<select name="proxyid" style="width:90px;">
+  	<option value="0">选择代理</option>
+    {foreach from=$proxy item=v key=k}
+	<option value="{$v.userid}" {if $v.userid==$s.proxyid}selected{/if}>{$v.username}</option>
+	{/foreach}
+  </select>
+  {if isset($s.show)}
+销售管理员：<select name="proxyadmin">
+<option value="0">销售管理员</option>
+{foreach from=$adminProxy item=proxy key=k}
+<option value="{$proxy.userid}" {if $proxy.userid==$s.proxyadmin}selected{/if}>{$proxy.username}</option>
+{/foreach}
+</select>
+{/if}
+
+<input type="submit" value="" class="search_button"  />
+</div>
+
+</div>
+
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</form>
+
+
+
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%">
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+<tr>
+	<td height="43" align="center">用户名</td>
+    <td align="center" class="line_03">所属组</td>
+    <td align="center" class="line_03">总代购费</td>
+    <td align="center" class="line_03">返点</td>
+    <td align="center" class="line_03">实际总代购费</td>
+    <td align="center" class="line_03">中奖金额</td>
+    <td align="center" class="line_03">总结算</td>
+    <td align="center" class="line_03">操作</td>
+</tr>
+<tr align="center" style="color:red;">
+  <td height="5" colspan="8" align="center"></td>
+  </tr>
+{if isset($self)}
+
+<tr align="center" style="color:red;">
+<td height="37" align="center" bgcolor="#CCCCCC">{$self.username}</td>
+<td align="center" bgcolor="#CCCCCC">{if $self.usertype==1}代理{else}用户{/if}</td>
+<td align="center" bgcolor="#CCCCCC">{$self.sum_prize|escape:money:4}</td>
+<td align="center" bgcolor="#CCCCCC">{$self.sum_point|escape:money:4}</td>
+<td align="center" bgcolor="#CCCCCC">{$self.real_prize|escape:money:4}</td>
+<td align="center" bgcolor="#CCCCCC">{$self.sum_bonus|escape:money:4}</td>
+<td align="center" bgcolor="#CCCCCC">{$self.sum_total|escape:money:4}</td>
+<td bgcolor="#CCCCCC"></td>
+</tr>
+{/if}
+{foreach from=$aUsers item=user key=k}
+<tr align="center">
+<td height="37" align="center" bgcolor="#CCCCCC"><a href="./index.php?controller=report&action=list&userid={$k}&starttime={$s.starttime}&endtime={$s.endtime}&lottery={$s.lottery}&method={$s.method}" class="blue">{$user.username}</a></td>
+<td align="center" bgcolor="#CCCCCC">{if $user.usertype==1}代理{else}用户{/if}</td>
+<td align="center" bgcolor="#CCCCCC">{$user.sum_prize|escape:money:4}</td>
+<td align="center" bgcolor="#CCCCCC">{$user.sum_point|escape:money:4}</td>
+<td align="center" bgcolor="#CCCCCC">{$user.real_prize|escape:money:4}</td>
+<td align="center" bgcolor="#CCCCCC">{$user.sum_bonus|escape:money:4}</td>
+<td align="center" bgcolor="#CCCCCC">{$user.sum_total|escape:money:4}</td>
+<td bgcolor="#CCCCCC">
+<a href="./index.php?controller=report&action=list&userid={$k}&starttime={$s.starttime}&endtime={$s.endtime}&lottery={$s.lottery}&method={$s.method}&isgetdata=1" class="blue">查看下级</a>
+&nbsp;&nbsp;
+<a href="./index.php?controller=report&action=reportdetail&userid={$k}&starttime={$s.starttime}&endtime={$s.endtime}" target="_blank" class="blue">游戏明细</a></td>
+</tr>
+{foreachelse}
+{if $user.usertype==1}
+<tr>
+<td height="37" colspan="8" align="center" class="no-records">请选择查询条件之后进行查询</td>
+</tr>
+{/if}
+{/foreach}
+
+
+
+<tr align="center">
+<td height="37" colspan="2" bgcolor="#999999">合计</td>
+<td align="center" bgcolor="#999999">{$total.sum_prize|escape:money:4}</td>
+<td align="center" bgcolor="#999999">{$total.sum_point|escape:money:4}</td>
+<td align="center" bgcolor="#999999">{$total.real_prize|escape:money:4}</td>
+<td align="center" bgcolor="#999999">{$total.sum_bonus|escape:money:4}</td>
+<td bgcolor="#999999">{$total.sum_total|escape:money:4}</td>
+<td bgcolor="#999999"></td>
+</tr>
+</table>
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+{include file="pagefooter.html"}

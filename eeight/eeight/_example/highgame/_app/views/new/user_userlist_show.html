@@ -1,0 +1,154 @@
+	{include file="pageheader.html"}
+<script type="text/javascript">
+	jQuery("#loadhtml").hide(); //去掉loading界面
+	jQuery(document).ready(function(){
+		
+	});	
+function checkForm(obj)
+{
+    if( obj.username.value != "" && obj.usergroup.value == 0 )
+	{
+		$.alert("请选择用户组");
+		return false;
+	}
+}
+</script>
+<div id="right_01">
+<div class="right_01_01">
+高频游戏 - <a href="./?controller=user&action=list&frame=show">用户列表</a>{if !empty($selfdata) }
+        								{if !empty($selfdata.bannners) }
+                                        	{foreach from=$selfdata.bannners item=banner key=k}
+                                             > <a href="./?controller=user&action=list&frame=show&uid={$banner.userid}" target="userlist_content" style="color:#003399; text-decoration:none;">{$banner.username|escape:html}</a>
+                                            {/foreach}
+                                        {/if}
+        								 > {$selfdata.username|escape:html}
+                                    {/if}
+</div>
+</div>	
+
+
+
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft " style="width:98%">
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+    <tr>
+      <td height="43" align="center">用户名</td>
+      <td align="center" class="line_03">所属组</td>
+      <td align="center" class="line_03">频道余额</td>
+      <td align="center" class="line_03">操作</td>
+    </tr>
+    <tr>
+    <td height="5" colspan="4" align="center" style="overflow:hidden;"></td>
+    </tr>
+    {if !empty($selfdata) }
+    <tr>
+      <td height="37" align="center" bgcolor="#CCCCCC">{$selfdata.username|escape:html}</td>
+      <td align="center" bgcolor="#CCCCCC">{$selfdata.groupname|escape:html}</td>
+      <td align="center" bgcolor="#CCCCCC">{$selfdata.availablebalance|escape:money:4}</td>
+      <td align="center" bgcolor="#CCCCCC">
+	      <a href="./?controller=user&action=userinfo&uid={$selfdata.userid}" class="blue">详情</a>
+	      <a href="./?controller=user&action=userteam&uid={$selfdata.userid}" class="blue">团队</a> 
+	      {if $userid == $selfdata.parentid }
+	      <a href="./?controller=user&action=upedituser&uid={$selfdata.userid}" class="blue">编辑</a>{/if}
+	      <a href="./?controller=report&action=orders&username={$selfdata.username|escape:urlencode}" class="blue">帐变</a>
+      </td>
+    </tr>
+    {/if}
+    {foreach from=$users item=user key=id}
+    <tr>
+      <td height="37" align="center" bgcolor="#CCCCCC"><a href="?controller=user&action=list&frame=show&uid={$user.userid}" target="userlist_content" style="color:#000000">{$user.username|escape:html}</a></td>
+      <td align="center" bgcolor="#CCCCCC">{$user.groupname|escape:html}</td>
+      <td align="center" bgcolor="#CCCCCC">{$user.availablebalance|escape:money:4}</td>
+      <td align="center" bgcolor="#CCCCCC">
+      	<a href="./?controller=user&action=userinfo&uid={$user.userid}" class="blue">详情</a>
+    	<a href="./?controller=user&action=userteam&uid={$user.userid}" class="blue">团队</a> 
+    	{if $userid == $user.parentid }<a href="./?controller=user&action=upedituser&uid={$user.userid}" class="blue">编辑</a>{/if}
+    	<a href="./?controller=report&action=orders&username={$user.username|escape:urlencode}" class="blue">帐变</a>
+      </td>
+    </tr>
+    {foreachelse}
+    {if empty($selfdata) }
+    <tr>
+    <td height="37" colspan="8" class="no-records">没有搜索到用户</td>
+    </tr>
+    {/if}
+    {/foreach}
+    <tr>
+    	<td colspan="6" height="37">
+       	  <table border="0" width="100%" cellpadding="0" cellspacing="0">
+            	<tr>
+                	<td align="left">共有  {$page.totalresult}  会员 共{$page.nowpage}/{$page.totalpage} 页 每页{$page.perpage}会员</td>
+                    <td align="right" id="tPages">{$page.first} {$page.pre} {$page.turn} {$page.next} {$page.last} {$page.select}&nbsp;&nbsp;</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    
+  </table></div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+<form action="" method="get" name="search" onsubmit="return checkForm(this)">
+<input type="hidden" name="controller" value="user" />
+<input type="hidden" name="action" value="list" />
+<input type="hidden" name="frame" value="show" />
+<input type="hidden" name="flag" value="search" />
+<div class="right_02 d5d8de">
+<div class="right_02_26">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+
+<div class="neiye01"">
+<div class="margin_2px">用户名:</div>
+<div class="margin_2px"><input type="text" name="username" id="username" class="input_02" style="width:100px;" value="{$searchdata.username|escape:html}" />
+</div>
+<div class="margin_2px">用户余额：</div>
+<div class="margin_2px"><input type="text" class="input_02" style="width:100px;" name="bank_min" value="{$searchdata.bank_min}" onkeyup="checkMoney(this)" />至
+<input class="input_02" style="width:100px;" name="bank_max" value="{$searchdata.bank_max}" onkeyup="checkMoney(this)">&nbsp;元
+</div>
+</div>
+ 
+<div></div>
+<div class="neiye01">
+<div class="margin_2px">用户组:</div>
+<div class="margin_2px">
+  <select name="usergroup" id="select" style="width:100px; height:24px;">
+    <option value="0" {if $searchdata.usergroup==0 }selected="selected"{/if}>全部</option>
+    <option value="1" {if $searchdata.usergroup==1 }selected="selected"{/if}>代理用户</option>
+    <option value="2" {if $searchdata.usergroup==2 }selected="selected"{/if}>会员用户</option>
+  </select>
+</div>
+<div class="margin_2px">排&nbsp;&nbsp;序：</div>
+<div class="margin_2px">
+  <select name="sortby" id="select" style="width:100px; height:24px;">
+    <option value="default" {if $searchdata.sortby=='default' }selected="selected"{/if}>默认排序</option>
+    <option value="username" {if $searchdata.sortby=='username' }selected="selected"{/if}>用户名</option>
+    <option value="bank" {if $searchdata.sortby=='bank' }selected="selected"{/if}>频道余额</option>
+  </select>
+</div>
+<div class="margin_2px"><label for="sortbymax"><input type="checkbox" id="sortbymax" name="sortbymax" value="1" style="background-color:#FFF;color:#555" {if $searchdata.sortbymax == 1 }checked="checked"{/if}>从大到小</label>
+						</div>
+<div class="margin_2px"><input type="submit" class="search_button" value=""></div>
+
+</div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</form>
+
+{include file="pagefooter.html"}

@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$webtitle}-{$gameversion}</title>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/css/default/style.css" type="text/css" />
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/css/default/defaultcenter.css" type="text/css" />
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+jQuery(document).ready(function(){
+    jQuery("#mainbox").height( jQuery(document).height()-jQuery("#topbox").height() );
+    jQuery("#leftbox").height( jQuery("#mainbox").height() );
+    jQuery(window).resize(function(){
+        jQuery("#mainbox").height( jQuery(document).height()-jQuery("#topbox").height() );
+        jQuery("#leftbox").height( jQuery("#mainbox").height() );
+    });
+
+    /*offset = jQuery("#switchPlat").offset();
+    x = offset.left - jQuery("#newWindow").width();
+    jQuery("#newWindow").css({"left":x,"top":offset.top});*/
+    jQuery("#newWindow").click(function(){
+        jQuery(this).fadeOut("slow");
+    });
+    jQuery("#switchPlat").click(function(){
+        if( jQuery("#newWindow").css("display") == "none" ){
+            jQuery("#newWindow").fadeIn("slow");
+        }else{
+            jQuery("#newWindow").fadeOut("slow");
+        }
+    });
+    {if !empty($notice) }
+      changecolor();
+    {/if}
+    jQuery("#dragbutton").click(function(){
+        if( jQuery(this).attr("src") == "{$sSystemImagesAndCssPath}/highgame/images/default/arrow_left.gif" ){
+            jQuery("#leftbox").css({width:"0px"}).hide();
+            jQuery(this).attr("src","{$sSystemImagesAndCssPath}/highgame/images/default/arrow_right.gif");
+            jQuery("#mainbox").css({width:"100%"});
+        }else{
+            jQuery("#leftbox").css({width:"160px"}).show();
+            jQuery(this).attr("src","{$sSystemImagesAndCssPath}/highgame/images/default/arrow_left.gif");
+            jQuery("#mainbox").css({width:"auto"});
+        }
+    });
+});
+function changecolor(){
+  var node  = $("#top_notice");//#33FF33
+  str = node.css('color').toLowerCase();
+  node.css('color', (str == "#ffff00" || str == "rgb(255, 255, 0)") ? "#FF0000" : "#FFFF00");
+  setTimeout("changecolor()",600);
+}
+</script>
+</head>
+<body>
+<!-- header -->
+<div id="topbox">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td height="65" align="right" background="{$sSystemImagesAndCssPath}/highgame/images/default/top_bg.jpg">
+    <a href="./" target="_top"><img src="{$sSystemImagesAndCssPath}/highgame/images/default/logo.jpg" border=0 align="left"></a>
+    <table width="430" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="260" align="right">
+        {* <a href="./?controller=default&action=changestyle&skin=new" target="mainframe" class="fff600">风格设置</a> <span class="fff600">|</span> *}
+        <a href="./" target="_top" class="fff600">高频游戏平台</a> <span class="fff600">|</span> <a href="javascript:window.top.frames['mainframe'].document.location.reload();" class="fff600">刷新页面</a></td>
+        <td width="101" align="center"><a href="javascript:void(0);" class="fix-submenu" id="switchPlat" style="z-index:101; border:0px;"><img src="{$sSystemImagesAndCssPath}/highgame/images/default/botton_01.jpg" width="91" height="27" border="0" /></a></td>
+        <td align="left"><a href="../?controller=default&action=logout" class="fff600"><strong>退出系统</strong></a></td>
+      </tr>
+    </table>
+                      <div id="newWindow" class="openWindows" style="display:none;">
+<table border="0" width="180">
+<tr>
+    <td class="title">综合</td>
+    <td width="140" align="left">:&nbsp;<a href="../">银行大厅</a></td>
+</tr>
+{if !empty($channel) }
+{foreach from=$channel.0 item=ch key=k}
+<tr>
+    <td class="title" nowrap>{$ch.channel}</td>
+    <td align="left">:
+    {foreach from=$channel.$k item=child key=m}
+    <a href="..{$child.path}">{$child.channel}</a>
+    {/foreach}
+    </td>
+</tr>
+{/foreach}
+{/if}
+</table>
+</div>
+    </td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td height="28" background="{$sSystemImagesAndCssPath}/highgame/images/default/background_top_02.jpg" align="center">
+        {if !empty($notice)}
+        <div style="height:28px;line-height:28px;font-size:12px;text-align:center; font-weight:bold;">
+        <a href="./?controller=default&action=start" target="mainframe" id="top_notice">{$notice.subject|escape:html}</a>
+        </div>
+        {/if}
+    </td>
+  </tr>
+</table>
+</div>
+<!-- header end -->
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" style="background-color: rgb(255, 255, 255);">
+    <tr>
+        <td style="width:160px;" valign="top" id="leftbox">
+        <!--左侧菜单-->
+        <iframe name="leftframe" id="leftframe" frameborder="0" width="100%" height="100%" scrolling="auto" style="overflow:visible;" src="./index.php?controller=default&action=menu"></iframe>
+        <!--左侧菜单结束-->
+        </td>
+        <td style="width:10px; height:100%; background:#000;" valign="middle" id="dragbox"><img src="{$sSystemImagesAndCssPath}/highgame/images/default/arrow_left.gif" width="10" height="30" border="0" id="dragbutton" style="cursor:pointer;" /></td>
+        <td id="mainbox" valign="top">
+        <!--内容主窗口-->
+        <iframe name="mainframe" id="mainframe" frameborder="0" width="100%" height="100%" scrolling="auto" style="overflow:visible;" src="./index.php?controller=default&action=start"></iframe></td>
+    </tr>
+</table>
+
+<div id="otherwindow" class="floatdiv">
+    {if $istester > 0}
+    <div style="height:51px;float:left;line-height:51px;color:#FFFF00;font-size:16px;text-align:right; font-weight:bold; border:0px;"><img src="{$sSystemImagesAndCssPath}/highgame/images/default/header_test.jpg" title="测试帐户" border="0"/>
+    </div>
+    {/if}
+</div>
+
+</body>
+</html>

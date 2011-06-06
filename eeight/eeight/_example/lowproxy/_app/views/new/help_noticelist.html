@@ -1,0 +1,35 @@
+{include file="pageheader.html"}
+<center>
+<div class="right_021">
+ <div id="right_02_01">
+    <div class="right_02_02"></div>
+    <div class="right_02_03" id="lt_big_label"  style="width:96%; font-size:14px; padding-left:10px;">公告列表</div>
+    <div class="right_02_04"></div>
+</div>
+<div class="list-div" id="listDiv">
+<table cellspacing='0' cellpadding='0' id='list-table'>
+{if !empty($notices) }
+<tr>
+<td style="text-align:center; line-height:45px; font-size:14px; font-weight:bold">公告标题</td>
+<td style="text-align:center; line-height:45px; font-size:14px; font-weight:bold">发布时间</td>
+</tr>
+    {foreach from=$notices item=notice key=k}
+    <tr>
+    	<td style="padding-left:30px; line-height:37px; background-color:#CCCCCC;width:65%"><a href="?controller=help&action=notice&nid={$notice.id}">{$notice.subject|escape:html}</a></td>
+        <td style="padding-left:30px; line-height:37px; background-color:#CCCCCC">{if $notice.checktime != 0}{$notice.checktime|truncate:0,16}{else}{$notice.sendtime|truncate:0,16}{/if}</td>
+    </tr>
+    {/foreach}
+{else}
+<tr>
+<td colspan="2" style="font-size:16px; text-align:center; line-height:50px;">暂无公告</td>
+</tr> 
+{/if}
+</table>
+</div>
+<div class="height51">
+<div class="right_02_241"></div>
+<div class="right_02_251"></div>
+</div>
+</div>
+</center>
+{include file="pagefooter.html"}

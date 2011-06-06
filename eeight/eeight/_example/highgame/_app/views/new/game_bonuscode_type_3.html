@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:esun>
+<head><title>{if $sSysTopMessage}[{$sSysTopMessage}] {/if}{$webtitle} {if $ur_here} - {$ur_here} {/if} </title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Pragma" content="no-cache" />
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/calendar/jquery.dyndatetime.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/js/calendar/css/calendar-blue2.css" type="text/css" />
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/css/new_higame/line.3.css" type="text/css" />
+</head>
+<body>
+<script language="javascript">
+function resize(){
+    window.onresize = func;
+    function func(){
+        if($(".main").width()<950){
+            $(".main").css("width","950px");
+            $(".main").css("padding","0 10px");
+        }else{
+            $(".main").css("{width:95%;margin:0 auto;}");
+        }
+    }
+}
+$(document).ready(function(){
+	resize();
+	if($(".main").width()<950){
+		$(".main").css("width","950px");
+		$(".main").css("padding","0 10px");
+	}
+	jQuery("#starttime").dynDateTime({
+		ifFormat: "%Y-%m-%d",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		button: ".next()", //next sibling
+		onUpdate:function(){
+			$("#starttime").change();
+		},
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: false
+	});
+	jQuery("#starttime").change(function(){
+		if(! validateInputDate(jQuery("#starttime").val()) )
+		{
+			jQuery("#starttime").val('');
+			$.alert("日期格式不正确,正确的格式为:2009-06-10");
+		}
+		if($("#endtime").val()!="")
+		{
+			if($("#starttime").val()>$("#endtime").val())
+			{
+				$("#starttime").val("");
+				$.alert("输入的日期不符合逻辑.");
+			}
+			else
+			{
+			    if(daysBetween($("#starttime").val(),$("#endtime").val()) > 1)
+			    {
+			        $("#starttime").val("");
+			        $.alert("输入的时间跨度不能超过2天！");
+			    }
+			}
+		}
+	});
+	jQuery("#endtime").dynDateTime({
+		ifFormat: "%Y-%m-%d",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		button: ".next()", //next sibling
+		onUpdate:function(){
+			$("#endtime").change();
+		},
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: false
+	});
+	jQuery("#endtime").change(function(){
+		if(! validateInputDate(jQuery("#endtime").val()) )
+		{
+			jQuery("#endtime").val('');
+			$.alert("日期格式不正确,正确的格式为:2009-06-10");
+		}
+		if($("#starttime").val()!="")
+		{
+			if($("#starttime").val()>$("#endtime").val())
+			{
+				$("#endtime").val("");
+				$.alert("输入的日期不符合逻辑.");
+			}
+			else
+			{
+			    if(daysBetween($("#starttime").val(),$("#endtime").val()) > 1)
+			    {
+			        $("#endtime").val("");
+			        $.alert("输入的时间跨度不能超过2天！");
+			    }
+			}
+		}
+	});
+});
+function daysBetween(start, end){
+   var startY = start.substring(0, start.indexOf('-'));
+   var startM = start.substring(start.indexOf('-')+1, start.lastIndexOf('-'));
+   var startD = start.substring(start.lastIndexOf('-')+1, start.length);
+  
+   var endY = end.substring(0, end.indexOf('-'));
+   var endM = end.substring(end.indexOf('-')+1, end.lastIndexOf('-'));
+   var endD = end.substring(end.lastIndexOf('-')+1, end.length);
+  
+   var val = (Date.parse(endY+'/'+endM+'/'+endD)-Date.parse(startY+'/'+startM+'/'+startD))/86400000;
+   return Math.abs(val);
+}
+</script>
+<div class="main">
+<!--页面头部 -->
+{if empty($sys_header_title)}
+<div class="top">&nbsp;&nbsp;&nbsp;&nbsp;<a href="./" target='_top'>高频游戏</a> {if $ur_here} - {$ur_here} {/if}</div>
+{/if}
+<!--搜索区 -->
+<div class="search">
+<b class="b5"></b><b class="b6"></b><b class="b7"></b><b class="b8"></b>
+<div class="search_content">
+<table width="100%" id="titlemessage" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td><b><span class="redtext">{$lotteryname}历史开奖号码</span></b></td>
+		<td>
+			<a href="?controller=game&action=bonuscode&lotteryid={$lotteryid}&issuecount=30">最近30期&nbsp;</a>
+			<a href="?controller=game&action=bonuscode&lotteryid={$lotteryid}&issuecount=50">最近50期&nbsp;</a>
+			<a href="?controller=game&action=bonuscode&lotteryid={$lotteryid}&issuecount=100">最近100期&nbsp;</a>
+		</td>
+		<td>
+			<form method="POST">
+				<input type="hidden" name="controller" value="game">
+				<input type="hidden" name="action" value="bonuscode">
+				<input type="text" value="{$starttime}" name="starttime" id="starttime">
+				<img src="{$sSystemImagesAndCssPath}/highgame/images/default/calendar2.gif" style="vertical-align:middle;">
+				&nbsp;&nbsp;至&nbsp;&nbsp;
+				<input type="text" value="{$endtime}" name="endtime" id="endtime">
+				<img src="{$sSystemImagesAndCssPath}/highgame/images/default/calendar2.gif" style="vertical-align:middle;">
+				<input type="submit" id="showissue" value="">
+			</form>
+		</td>
+	</tr>
+</table>
+</div>
+<b class="b8"></b><b class="b7"></b><b class="b6"></b><b class="b5"></b>
+</div>
+<!--号码区 -->
+<div class="code">
+<b class="b1"></b><b class="b2"></b><b class="b3"></b><b class="b4"></b>
+<table id="codeTable" cellpadding="0" cellspacing="0">
+      <tr id="title">
+             <th><strong>期号</strong></th>
+             <th colspan="{$bonuscodelength}"><strong>开奖号码</strong></th>
+             <th width="50"><strong>大小</strong></th>
+             <th width="50"><strong>单双</strong></th>
+             <th width="50"><strong>上下</strong></th>
+             <th width="50"><strong>奇偶</strong></th>
+             <th width="50"><strong>总计</strong></th>
+       </tr>
+       {foreach from=$bonuscode item=sbonuscode name=bc}
+       		<tr>
+       			<td class="title">{$sbonuscode.issue}</td>
+				{foreach from=$sbonuscode.wei item=w name=n}
+				<td class="code">{$w}</td>
+				{/foreach}
+				<td class="dxcode">{$sbonuscode.bigsmall}</td>
+				<td class="dscode">{$sbonuscode.oddeven}</td>
+				<td class="sxcode">{$sbonuscode.updowns}</td>
+				<td class="jocode">{$sbonuscode.oddevens}</td>
+				<td class="totalcode">{$sbonuscode.total}</td>
+			</tr>
+		{/foreach}
+</table>
+<b class="b8"></b><b class="b7"></b><b class="b6"></b><b class="b5"></b>
+</div>
+<!--底部区 -->
+<div class="footer">
+<b class="b5"></b><b class="b6"></b><b class="b7"></b><b class="b8"></b>
+<div class="center">
+	资金安全建议：为了您的资金安全，建议定期更换您的资金密码。<br />浏览器建议：首选为IE6或IE7浏览器，其次为火狐和Google浏览器。 <br />分辨率建议：使用800×600以上的分辨率。
+</div>
+<b class="b8"></b><b class="b7"></b><b class="b6"></b><b class="b5"></b>
+</div>
+</div>

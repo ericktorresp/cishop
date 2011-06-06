@@ -1,0 +1,79 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="{$sSystemImagesAndCssPath}/highgame/js/new_higame/calendar/css/calendar-blue2.css"  />
+<script>
+$(document).ready(function(){
+	jQuery("#searchdate").dynDateTime({
+		ifFormat: "%Y-%m-%d",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		button: ".next()",
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#searchdate").change(function(){
+		if(! validateInputDate(jQuery("#searchdate").val()) )
+		{jQuery("#searchdate").val('');$.alert("时间格式不正确,正确的格式为:2009-06-10");}
+	});
+});
+</script>
+
+
+
+<div class="right_02 d5d8de">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+
+<div class="neiye01"">
+<form id="getForm">
+<input type="hidden" name="controller" value="report">
+<input type="hidden" name="action" value="userpoint">
+<div class="margin_2px">游戏时间：</div>
+<div class="margin_2px" style="width:190px;"><input type="text" name="searchdate" id="searchdate" value="{$searchdate}" class="input_02" style="width:150px;"  />
+  <img src="{$sSystemImagesAndCssPath}/highgame/images/new_higame/icon_06.jpg" width="20" height="17" style="cursor:pointer" /></div>
+
+<div class="margin_2px"><input type="submit" value="" class="search_button" />
+</div>
+</form>
+</div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+
+
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%">
+<table  width="100%" border="0" cellspacing="1" cellpadding="0">
+<tr>
+	<td height="43" align="center">代理用户</td>
+    <td align="center" class="line_03">日期</td>
+    <td align="center" class="line_03">返点总额</td>
+</tr>
+<tr align="center">
+  <td height="5" colspan="3" align="center"></td>
+  </tr>
+<tr align="center">
+<td height="37" align="center" bgcolor="#999999">{$username|escape:html}</td>
+<td align="center" bgcolor="#999999">{$searchdate}</td>
+<td colspan="2" align="center" bgcolor="#999999">{$userpoint.totalpoint|escape:money:4}&nbsp;元</td>
+</tr>
+</table>
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,224 @@
+{include file="pageheader.html"}
+<style type="text/css">
+.list-div{
+	border:1px #999999 solid;
+	width:100%;
+	background:#cccccc;
+	color:#FFFFFF;
+}
+.list-div div{
+	line-height:30px;
+    font-size:14px;
+    padding:20px;
+}
+/* 列表部分 */
+.list-div table{
+	width:100%;
+	border:0px;
+	border-collapse: 1px;
+    border-spacing: 1px; 
+	font-size:12px;
+}
+/* 列表部分  头部*/
+.list-div th{
+    color:#21366D;
+    text-align:center;
+    background:#999999;
+    height:25px;
+    font-size:12px;
+    font-weight:normal;
+    border:0px;
+    border-bottom:1px solid #D1E5FE;
+}
+/* 列表部分  头部*/
+.list-div tr{
+    color:#FFFFFF;
+    background:#464747;
+    border:#000 1px solid;
+}
+/* 列表部分 没有记录 */
+.list-div .no-records{
+	text-align:center;
+	height:50px;
+	color:#21366D;
+    background:#FAFCFE;
+	font-weight:bold;
+}
+/*列表部分 td*/
+.list-div td{
+	color:#21366D;
+    background:#cccccc;
+    line-height: 22px;
+    border-bottom:1px solid #999999;
+}
+/* 列表部分的连接 */
+.list-div a{
+	color:#21366D;
+	text-decoration: none;
+}
+/* 列表部分的连接特效 */
+.list-div a:hover{
+    color:#21366D;
+    text-decoration:underline;
+}
+/* 列表专用标签 */
+.list-div .narrow-label{
+	width:15%;
+	font-weight:bold;
+	color:#21366D;
+	text-align:right;
+	padding-right:10px;
+}
+
+</style>
+<script type="text/javascript">
+function checksss()
+{
+	ss ="";
+	var elems = document.getElementsByName("select_rows[]");
+	for (var i=0; i < elems.length; i++)
+	{
+		if(elems[i].checked)
+	      	{
+		      	id= elems[i].value;
+		      	username = document.getElementById("username_"+id).value; //innerHTML;
+		      	num_add = document.getElementById("addcount_"+id).value;
+		      	if(num_add==""){
+			      	num_add =0;
+			      	document.getElementsByName("addcount_"+id).value = '0';
+		      	}
+		        //s = "\n 为 "+username+" 新增 "+num_add+" 个开户限额";
+                s = "<tr><td>"+username+"</td><td>"+num_add+"</td></tr>";
+				//s = "<tr><td>"+username+"</td><td>""</td></tr>";
+		      	ss = ss+s;
+		   	}
+	}
+	
+	if(ss =="")
+	{
+		$.alert('请勾选希望更新的数据行');
+		return false;
+	}
+	else
+	{
+		ss="<div style='overflow-y: auto; height: 200px; width:270px;padding:2px;'><table class='list-div'><th>用户名</th><th>新增开户数额</th>"+ss+"</table></div>";
+		//$.confirm(ss,{ buttons: { "确认": true, "取消": false }, show:'slideDown' ,callback:mycallbackform,focus: 1 });
+		$.confirm({
+            message: ss,
+            funyes : function(){
+							mycallbackform(true);
+                     },
+            funno  : function(){
+                             return false;
+                     } 
+     });
+	}
+	//return false;
+}
+
+function mycallbackform(v,m,f){
+	if(v){
+		document.getElementById('list-form').submit();
+	}
+}
+
+jQuery("document").ready( function(){
+	var addcounts = {$selfdata.addcount};	//总的直接下级用户数
+	var usercounts = {$userscount};	//总的直接下级用户数
+	jQuery("#accordset").click(function(){
+		jQuery("#selectall").attr("checked",true);
+		selectAll('selectall');
+		var accordvalue = parseInt(jQuery("#accordcount").val());
+		if( accordvalue*usercounts > addcounts )
+		{
+			usercounts = usercounts <= 0 ? 1 : usercounts;
+			$.alert("你的开户数额不够分配，统一设定最多设置为 "+parseInt(addcounts/usercounts) );
+		}
+		else{ 
+		    var tempaccordvalue = addcounts-(accordvalue*usercounts);
+		    tempaccordvalue = isNaN(tempaccordvalue) ? 0 : tempaccordvalue;
+			jQuery("#leftcount").html( tempaccordvalue );
+			jQuery("input[name^='addcount_']").val(jQuery("#accordcount").val()); 
+		}
+	});
+	jQuery("input[name^='addcount_']").blur(function(){
+		var temp_count = 0;
+		var $value
+		jQuery("input[name^='addcount_']").each(function(index,dom){
+			$value = parseInt(jQuery(dom).val());
+			$value = isNaN($value) ? 0 : $value;
+			temp_count += $value;
+		});
+		if( temp_count > addcounts  )
+		{
+			$.alert("超过你可以分配数额"+(temp_count-addcounts)+"个");
+			jQuery("#leftcount").html( 0 );
+			jQuery(this).val( (jQuery(this).val())-(temp_count-addcounts) );
+		}
+		else
+		{
+			jQuery("#leftcount").html( (addcounts-temp_count) );
+		}
+	});
+});
+</script>
+
+<form name="list-form" id="list-form" action="index.php" method="post">
+<input type="hidden" name="controller" value="user" />
+<input type="hidden" name="action" value="distribute" />
+<input type="hidden" name="flag" value="distribute" />
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div class="center">
+可以分配的用户数额：<span id="leftcount" style="margin-right:30px;">{$selfdata.addcount}</span>统一设定: <input type="text" name="accordcount" id="accordcount"  /> <input type="button"  class="buttonnormal" id="accordset" value="统一"  />
+<input type="button"  class="buttonnormal" value="提交"  onClick="javascript:return checksss();" />
+</div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+
+
+
+
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%">
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+    <tr>
+      <td height="43" align="center"><input type="checkbox" name="selectall" id="selectall" onclick="selectAll('selectall')" /></td>
+      <td align="center" class="line_03">用户名</td>
+      <td align="center" class="line_03">新增用户数额</td>
+      <td align="center" class="line_03">本人剩余用户数额</td>
+      <td align="center" class="line_03">下级剩余开户数额</td>
+    </tr>
+    
+    <tr align="center">
+  <td height="5" colspan="5" align="center"></td>
+  </tr>
+    
+    {foreach from=$users item=user key=k}
+    <tr>
+      <td height="37" align="center" bgcolor="#CCCCCC"><input type="checkbox" name="select_rows[]" value="{$user.userid}" /></td>
+      <td align="center" bgcolor="#CCCCCC">{$user.username|escape:html}<input type="hidden" name="username_{$user.userid}" id="username_{$user.userid}" value="{$user.username}"></td>
+      <td align="center" bgcolor="#CCCCCC"><input type="text" name="addcount_{$user.userid}"   id="addcount_{$user.userid}" value=""/></td>
+      <td align="center" bgcolor="#CCCCCC">{$user.addcount}</td>
+      <td align="center" bgcolor="#CCCCCC">{$user.childaddcount}</td>
+    </tr>
+    {/foreach}
+  </table>
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+</form>
+{include file="pagefooter.html"}

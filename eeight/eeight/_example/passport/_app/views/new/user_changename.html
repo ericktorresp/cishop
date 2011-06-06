@@ -1,0 +1,44 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkform(obj)
+{
+  if( !validateNickName(obj.nickname.value) )
+  {
+  	$.alert("昵称不符合规则，请重新输入");
+	obj.nickname.focus();
+	return false;
+  }
+  return true;
+}
+</script>
+
+<form action="index.php" method="post" name="updateform" onsubmit="return checkform(this)">
+<input type="hidden" name="flag" value="update" />
+<input type="hidden" name="controller" value="user" />
+<input type="hidden" name="action"	value="changename" />
+
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div>
+<table width="100%" border="0" cellspacing="1" cellpadding="4">
+    <tr>
+      <td width="200" align="right" bgcolor="#CCCCCC">昵称:</td>
+      <td align="left" bgcolor="#CCCCCC"><input type="text" name="nickname" value="{$nickname|escape:html}" />(由2至6个字符组成)</td>
+    </tr>
+    <tr>  
+      <td align="right">&nbsp;</td>
+      <td align="left"><input type="submit"  class="buttonnormal" name="submit" value="修改" /> <input type="button"  class="buttonnormal" value="重置" onclick="form.reset()" /></td>
+
+    </tr>
+  </table></div>
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</form>
+
+{include file="pagefooter.html"}

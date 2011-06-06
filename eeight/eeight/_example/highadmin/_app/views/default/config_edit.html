@@ -1,0 +1,41 @@
+{include file="pageheader.html"}
+<div class="list-div">
+<form action="?controller=config&action=update" method="post">
+	<table>
+        <tr>
+        	<td class="narrow-label">配置标题</td>
+            <td width="80%">
+                <input type="hidden" name="configid" value="{$config.configid}">
+                <input type="hidden" name="parentid" value="{$config.parentid}">
+                {$config.title}
+            </td>
+        </tr>
+        <tr>
+        	<td class="narrow-label">配置默认值</td>
+            <td>{$config.defaultvalue|escape:html}</td>
+        </tr>
+        <tr>
+        	<td class="narrow-label">配置运行值</td>
+            <td>
+            {if $config.forminputtype == "input"}
+            <input type="text" name="configvalue" size="60" value="{$config.configvalue|escape:html}">
+            {elseif $config.forminputtype == "check"}
+            {foreach from=$des item=rs key=k} 
+            <label for="configvalue[{$k}]"><input type="checkbox" name="configvalue[{$k}]" id="configvalue[{$k}]" value="{$rs|escape:html}" {if in_array($rs,$configvalue)}checked="checked"{/if} />{$rs|escape:html}</label>&nbsp;
+            {/foreach}
+            {elseif $config.forminputtype == "select"}
+            <select name="configvalue">
+            	{foreach from=$des item=rs key=k} 
+                <option value="{$rs|escape:html}"{if $rs==$config.configvalue}selected="selected"{/if}>{$rs|escape:html}</option>
+            	{/foreach}
+            </select> 
+            {/if}
+            </td>
+        </tr>
+        <tr>
+        	<td class="narrow-label"></td>
+        	<td><input type="submit" class="button" value="修改配置"><input type="reset" class="button" value="重新配置"><input type="button" class="button" value="返回列表" onClick="location.href='?controller=config&action=list&id={$config.parentid}';"></td>
+        </tr>
+    </table></form>
+</div>
+{include file="pagefooter.html"}

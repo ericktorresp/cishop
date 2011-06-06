@@ -1,0 +1,195 @@
+{include file="pageheader.html"}
+<script>
+function cancel()
+{
+	//撤单部分
+	if(confirm("您确定要将此单撤掉吗？"))
+	{
+		document.location.href = "./index.php?controller=usergames&action=projectcancel&id={$aProject.projectid}&uid={$aProject.userid}";
+	}
+}
+</script>
+<div class="list-div">
+<table cellpadding="3" cellspacing="1">
+<tr>
+<td class="narrow-label">注单编号:</td>
+<td>{$aProject.projectid}</td>
+</tr>
+<tr>
+<td class="narrow-label">游戏用户:</td>
+<td>{$aProject.username}</td>
+</tr>
+<tr>
+<td class="narrow-label">投单时间:</td>
+<td>{$aProject.writetime}</td>
+</tr>
+<tr>
+<td class="narrow-label">游戏:</td>
+<td>{$aProject.cnname}</td>
+</tr>
+<tr>
+<td class="narrow-label">玩法:</td>
+<td>{$aProject.methodname}{if $aProject.taskid!='0'}(&nbsp;<a href="./index.php?controller=usergames&action=taskdetail&id={$aProject.taskid}">追号单详情</a>&nbsp;){/if}</td>
+</tr>
+<tr>
+<td class="narrow-label">期号:</td>
+<td>{$aProject.issue}</td>
+</tr>
+<tr>
+<td class="narrow-label">模式：</td>
+<td>{if $aProject.modes>0}{assign var=tmp value=$modes[$aProject.modes]}{$tmp.name}{else}&nbsp;{/if}</td>
+</tr>
+<tr>
+<td class="narrow-label">投注内容:</td>
+<td><span style="line-break:break-all;">{$aProject.code}</span></td>
+</tr>
+{if $project.isdynamicprize == 0}
+<tr>
+<td class="narrow-label">倍数:</td>
+<td>{$aProject.multiple}倍</td>
+</tr>
+{/if}
+<tr>
+<td class="narrow-label">投注总金额:</td>
+<td>{$aProject.totalprice|escape:money:4}</td>
+</tr>
+<tr>
+<td class="narrow-label">奖金:</td>
+<td>{$aProject.bonus|escape:money:4}{if isset($description)}&nbsp;&nbsp;({$description}){/if}</td>
+</tr>
+<tr>
+<td class="narrow-label" >中奖号码:</td>
+<td>{$aProject.nocode}</td>
+</tr>
+{if $aProject.lotterytype == 3 && $aProject.codetype == 'dxds' && $aProject.nocode != ''}
+<tr>
+<td class="narrow-label" style="line-height:40px;">和值及盘面：</td>
+<td>{$nohepan}</td>
+</tr>
+{/if}
+<tr>
+<td class="narrow-label">状态:</td>
+<td>{if ($aProject.iscancel==0)}
+{if ($aProject.isgetprize==0)}
+未开奖
+{elseif ($aProject.isgetprize==2)}
+未中奖
+{elseif ($aProject.isgetprize==1)}
+{if $aProject.prizestatus==0}
+未派奖
+{else}
+已派奖
+{/if}
+{/if}
+{elseif ($aProject.iscancel==1)}
+本人撤单
+{elseif ($aProject.iscancel==2)}
+管理员撤单
+{elseif ($aProject.iscancel==3)}
+开错奖撤单
+{/if}</td>
+</tr>
+<tr>
+<td class="narrow-label"></td>
+<td><input type="button" class="button" value="关闭" onclick="self.close();">
+{if ($aProject.iscancel==0)}<input type="button" class="button" value="撤单" onclick="javascript:cancel();">{/if}
+</td>
+</tr>
+</table>
+</div>
+{if isset($projectprize)}
+<div class="list-div" style="margin-top:8px;">
+<table cellpadding="3" cellspacing="1">
+<tr>
+<td class="narrow-label">实际中奖情况</td>
+<td colspan="{if $levelcount > 1}5{else}4{/if}"><b><font color="Red">{$samecode}</font></b></td>
+</tr>
+<tr>
+<tr>
+<th>奖级</th>
+<th>倍数</th>
+<th>中奖注数</th>
+<th>总奖金(单倍奖金*倍数*中奖注数)</th>
+</tr>
+{foreach from=$projectprize.detail item=rp key=k}
+<tr align="center">
+<td>{$k}</td>
+<td>{$aProject.multiple}</td>
+<td>{$rp.times}</td>
+<td>{$rp.prize|escape:money:4}</td>
+</tr>
+{/foreach}
+<tr align="center">
+<td colspan="3"><b><font color="Red">总计</font></b></td>
+<td>{$projectprize.totalprize|escape:money:4}</td>
+</tr>
+</table>
+</div>
+{/if}
+{if $aProject.bonus > 0 && $aProject.lotterytype == 3 && $aProject.codetype == 'digital'}
+<div class="list-div" style="margin-top:8px;">
+<table cellpadding="3" cellspacing="1">
+<tr>
+<td class="narrow-label">实际中奖情况</td>
+<td colspan="{if $levelcount > 1}5{else}4{/if}"><b><font color="Red">{$samecode}</font></b></td>
+</tr>
+<tr>
+<tr>
+<th>奖级</th>
+{if $levelcount > 1}<th>奖级说明</th>{/if}
+<th>单倍奖金</th>
+<th>倍数</th>
+<th>中奖注数</th>
+<th>总奖金(单倍奖金*倍数*中奖注数)</th>
+</tr>
+{foreach from=$realprize item=rp key=k}
+<tr align="center">
+<td>{$rp.level}</td>
+{if $levelcount > 1}<td>{$rp.leveldesc}</td>{/if}
+<td>{$rp.singleprize|escape:money:4}</td>
+<td>{$rp.codetimes}</td>
+<td>{$rp.nocount}</td>
+<td>{$rp.prize|escape:money:4}</td>
+</tr>
+{/foreach}
+<tr align="center">
+<td colspan="{if $levelcount > 1}4{else}3{/if}"><b><font color="Red">总计</font></b></td>
+<td>{$totalcount}</td>
+<td>{$totalprize|escape:money:4}</td>
+</tr>
+</table>
+</div>
+{/if}
+<div class="list-div" style="margin-top:8px;">
+<table cellpadding="3" cellspacing="1">
+<tr>
+<td class="narrow-label">可能中奖情况</td>
+<td colspan="{if $levelcount > 1}6{else}5{/if}"></td>
+</tr>
+<tr>
+<th>编号</th>
+<th>奖级</th>
+{if $aProject.lotterytype == 3 && $aProject.codetype == 'digital' && $levelcount > 1}
+<th>奖级说明</th>
+{/if}
+<th>号码</th>
+<th>单倍奖金</th>
+<th>倍数</th>
+<th>总奖金</th>
+</tr>
+{foreach from=$prizelevel item=pl key=k}
+<tr align="center">
+<td>{$k}</td>
+<td>{$pl.level}</td>
+{if $aProject.lotterytype == 3 && $aProject.codetype == 'digital' && $levelcount > 1}
+<td>{$pl.leveldesc}</td>
+{/if}
+<td align="left">{$pl.expandcode}</td>
+<td>{$pl.singleprize|escape:money:4}</td>
+<td>{$pl.codetimes}</td>
+<td>{$pl.prize|escape:money:4}</td>
+</tr>
+{/foreach}
+</table>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,96 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-green.css"  />
+
+<script>
+$(document).ready(function(){
+    $('#form1').submit(function(){
+        var i = parseInt($('#rank').val());
+        $('#rank').val(i);
+        if ($('#rank').val() < 1 || $('#rank').val() > 100) {
+            alert('请正确输入权值！');
+            return false;
+        }
+        return true;
+    });
+    
+	$("#lotteryType").change(function(){
+		var lotteries = {$json_lotteries};
+//console.info(lotteries);
+		$("#lottery").html("");
+        //var shtml ="<select name='lottery' id='lottery'>";
+        var shtml = "<option value='-1'>选择彩种</option>";
+		if($("#lotteryType").val()>=0)
+		{
+            $.each(lotteries[$("#lotteryType").val()],function(i,v){
+                shtml = shtml + "<option value='"+v.lotteryid+"'>"+v.cnname+"</option>";
+            });
+		}
+        //shtml += "</select>";
+		$("#lottery").html(shtml);
+	});
+    {assign var=tmp value=$originalLotteries[$source.lotteryid]}
+    $("#lotteryType").val('{$tmp.lotterytype}').change();
+    $("#lottery").val('{$source.lotteryid}');
+});
+</script>
+
+<div class="list-div">
+<form id="form1" action="./index.php?controller=draw&action={if $form_action=='new'}newdrawsource{else}editdrawsource{/if}" method="post">
+    <!--<h3><b>修改：</h3>-->
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+    <td class="narrow-label">游戏名称</td>
+    <td><select name="lotteryType" id="lotteryType">
+            <option value="-1">彩种类型</option>
+            {foreach from=$lotteries item=lottery key=k}
+            <option value="{$k}">{$lotteryTypes.$k}</option>
+            {/foreach}
+        </select> &nbsp;
+        <select name="lottery" id="lottery">
+            <option value="-1">选择彩种</option>
+        </select>
+    </td>
+</tr
+<tr>
+    <td class="narrow-label">号源网站名称</td>
+    <td><input type="text" name="name" size="20" value="{$source.name}" />（推荐命名规则：网站名_彩种名，如：时时彩网_CQSSC）</td>
+</tr>
+<tr>
+    <td class="narrow-label">号源网址</td>
+    <td><input type="text" name="url" size="60" value="{$source.url}" />（必须是具体页面）</td>
+</tr>
+
+<tr>
+<td class="narrow-label">是否需要登录</td>
+<td><input type="checkbox" name="needlogin" value="1" {if $source.needlogin}checked{/if}/>
+</td>
+</tr>
+
+<tr>
+<td class="narrow-label">用户名</td>
+<td><input type="text" name="loginname" size="20" value="{$source.loginname}" />
+</td>
+</tr>
+
+<tr>
+<td class="narrow-label">密码</td>
+<td><input type="text" name="loginpwd" size="20" value="{$source.loginpwd}" />
+</td>
+</tr>
+<tr>
+<td class="narrow-label">接口实现</td>
+<td><input type="checkbox" name="interface" value="1" {if $source.interface}checked{/if}/>
+</td>
+</tr>
+<tr>
+	<td class="narrow-label"></td>
+	<td><input type="hidden" name="id" value="{$source.id}"><input type="hidden" name="sa" value="{if $form_action=='new'}addItem{else}updateItem{/if}"><input type="submit" class="button" value="提交"></td>
+</tr>
+</table>
+</form>
+</div>
+
+{include file="pagefooter.html"}

@@ -1,0 +1,46 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function CheckBoxSelectAll(obj, chk)
+{
+	  if (chk == null)
+	  {
+	    chk = 'checkboxes';
+	  }
+
+	  var elems = obj.form.getElementsByTagName("INPUT");
+
+	  for (var i=0; i < elems.length; i++)
+	  {
+	    if (elems[i].name == chk || elems[i].name == chk + "[]")
+	    {
+	      elems[i].checked = obj.checked;
+	    }
+	  }
+	}
+</script>
+<div class="list-div">
+<form method="POST" action="?controller=user&action=unlock">
+<table>
+<tr>
+<th><input type="checkbox" onclick="javaqscript:CheckBoxSelectAll(this,'entry');"></th>
+<th>用户名</th>
+<th>最后锁定时间</th>
+</tr>
+{if isset($users)}
+{foreach from=$users item=user key=k}
+<tr>
+    <td align="center"><input type="checkbox" value="{$user.entry}" name="entry[]"></td>
+    <td align="center">{$user.username|escape:html}</td>
+    <td align="center">{$user.lastupdatetime}</td>
+</tr>
+{/foreach}
+<tr>
+    <td colspan="3"><input type="submit" value="资金解锁" name="unlock" class="button"></td>
+</tr>
+{else}
+    <tr><td class="no-records" colspan="3">无相关数据</td></tr>
+{/if}
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

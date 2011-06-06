@@ -1,0 +1,132 @@
+{include file="pageheader.html"}
+{if $flag != update}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/common2.js"></script>
+{/if}
+{literal}
+<script type="text/javascript">
+function checkme(){
+		var bCheck = true;
+		var Vin = document.getElementById('balancein').value;
+		var Vout = document.getElementById('balanceout').value;
+		var Vcharge = document.getElementById('bankcharge').value;
+		var Vremark = document.getElementById('remarks').value;
+		if ( (Vin == '') && (Vout == '') ){
+			alert('请填写金额, Type amount. ');
+			bCheck = false;
+		}
+		if ( (Vout != '' ) && (Vcharge == '' ) ){
+			document.getElementById('bankcharge').focus();
+			alert('请填写手续费, Type bank charge. ');
+			bCheck = false;
+		}
+		
+		if ( Vremark == '' ){
+			document.getElementById('remarks').focus();
+			alert('请填写备注, Type Remarks. ');
+			bCheck = false;
+		}
+		
+	
+	if (bCheck == true) {
+		document.getElementById("listFormab").submit();
+	}
+	
+}
+</script>
+{/literal}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listFormab" id="listFormab" action="?controller=payportmgr&action={$action|default:balanceedit}">
+<input type="hidden" name="flag" value="save">
+<input type="hidden" name="id" value="{$PayAccountDetail.aid}">
+  <table cellspacing='2' cellpadding='5' id='list-table'>
+<tr>
+	<td class="narrow-label" nowrap>支付接口名称:Deposit Method:</td>
+	<td>{$PayAccountDetail.payport_nickname}
+	<input type="hidden" name="aid" value="{$PayAccountDetail.aid}">
+	</td>
+</tr>
+<tr>
+	<td class="narrow-label">财务识别名称:Account ID:</td>
+	<td>{$PayAccountDetail.acc_name}</td>
+</tr>
+<tr>
+	<td class="narrow-label">账户注册时间:Start:</td>
+	<td>{$PayAccountDetail.reg_time}</td>
+</tr>
+<!-- 
+<tr>
+	<td class="narrow-label">货币单位:Currency:</td>
+	<td>{$PayAccountDetail.acc_currency|escape:html}</td>
+</tr>
+ -->
+<tr>
+	<td class="narrow-label">账户余额:Balance:</td>
+	<td><font size=4>{$PayAccountDetail.balance|escape:money}</font></td>
+</tr>
+<tr>
+	<td class="narrow-label">充值次数:Deposit:</td>
+	<td>{$PayAccountDetail.total_load}(累计)</td>
+</tr>
+<!--
+<tr>
+	<td class="narrow-label">提款次数:Withdrawal:</td>
+	<td>{$PayAccountDetail.total_draw}(累计)</td>
+</tr>
+-->
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticebalancein');" title="转入值"><img src="./images/notice.gif" width="16" height="16" border="0"/></a><font color=green>转入值:Transfer In:</font></td>
+	<td><input name="balancein" id="balancein" size="20" value="" maxlength=20 onkeyup="checkWithdraw(this,'chineseMoney1',10000000.0000);">元 <span id="noticebalancein" style="display:none;color:#AAAAAA;font-size:13px">手工填写正整数,半角字符</span></td>
+</tr>
+<tr>
+  	<td class="narrow-label">(大写):</td>
+    <td><span id="chineseMoney1"></span></td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticebalanceout');" title="转出值"><img src="./images/notice.gif" width="16" height="16" border="0"/></a><font color=red>转出值:Transfer Out:</font></td>
+	<td><input name="balanceout" id="balanceout" size="20" value="" maxlength=20 onkeyup="checkWithdraw(this,'chineseMoney2',10000000.0000);">元 <span id="noticebalanceout" style="display:none;color:#AAAAAA;font-size:13px">手工填写正整数,半角字符</span></td>
+</tr>
+<tr>
+  	<td class="narrow-label">(大写):</td>
+    <td><span id="chineseMoney2"></span></td>
+</tr>
+<tr>
+	<td class="narrow-label"><a href="javascript:showNotice('noticebankcharge');" title="转出手续费"><img src="./images/notice.gif" width="16" height="16" border="0"/></a><font color=red>转出手续费:Bank Charge:</font></td>
+	<td><input name="bankcharge" id="bankcharge" size="20" value="" maxlength=20 onkeyup="checkWithdraw(this,'chineseMoney3',100000.0000);">元 <span id="noticebankcharge" style="display:none;color:#AAAAAA;font-size:13px">手工填写正整数,半角字符</span></td>
+</tr>
+<tr>
+  	<td class="narrow-label">(大写):</td>
+    <td><span id="chineseMoney3"></span></td>
+</tr>
+<tr>
+	<td class="narrow-label">备注:<br><br><br>Remarks:</td>
+	<td><textarea rows="6" cols="50" name="remarks" id="remarks" ></textarea></td>
+</tr>
+<tr>
+	<td class="narrow-label">&nbsp;</td>
+	<td><input type="submit" class="button" value="Save" onClick="javascript:checkme();return false"><input type="reset" class="button" value="Clear"><input type="button" class="button" value="Back" onclick="location.href='?controller=payportmgr&action=list';"></td>
+</tr>
+</table>
+</form>
+</div>
+<script>
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+
+</script>
+
+{include file="pagefooter.html"}

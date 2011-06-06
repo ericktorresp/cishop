@@ -1,0 +1,34 @@
+{include file="pageheader.html"}
+<div class="list-div">
+<table>
+<tr>
+	<th width="5%">ID</th>
+	<th>用户名</th>
+	<th>所属总代</th>
+	<th>现金余额 A</th>
+	<th>信用欠款 B</th>
+	<th>账户余额 C</th>	
+	<th>冻结金额 D</th>	
+	<th>可用余额 E</th>
+</tr>
+{foreach from=$users item=user key=k}
+<tr>
+	<td align="center">{$user.userid|escape:html}</td>
+	<td align="center">{$user.selfname|escape:html}</td>
+	<td align="center">{$user.topname|escape:html}</td>
+	<td align="right">{$user.cashbalance|escape:money}</td>
+	<td align="right">{$user.proxyvalue|escape:money}</td>
+	<td align="right">{$user.channelbalance|escape:money}</td>
+	<td align="right">{$user.holdbalance|escape:money}</td>	
+	<td align="right">{$user.availablebalance|escape:money}</td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="11" class="no-records" >当前没有用户出现帐户差额</td>
+</tr>
+{/foreach}
+
+</table>
+</div>
+
+{include file="pagefooter.html"}

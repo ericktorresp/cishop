@@ -1,0 +1,241 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery("#sdate").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#sdate").change(function(){
+			if(!validateInputDate(jQuery("#sdate").val()))
+			{
+				jQuery("#sdate").val('{$s.sdate|escape:html}');
+				alert("时间格式不正确,正确的格式为:2009-06-10 10:59");
+			}
+		});
+		jQuery("#edate").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#edate").change(function(){
+			if(!validateInputDate(jQuery("#edate").val()))
+			{
+				jQuery("#edate").val('{$s.edate|escape:html}');
+				alert("时间格式不正确,正确的格式为:2009-06-10 10:59");
+			}
+		});
+	});
+function CheckBoxSelectAll(obj, chk)
+{
+  if (chk == null)
+  {
+    chk = 'checkboxes';
+  }
+
+  var elems = obj.form.getElementsByTagName("INPUT");
+
+  for (var i=0; i < elems.length; i++)
+  {
+    if (elems[i].name == chk || elems[i].name == chk + "[]")
+    {
+      elems[i].checked = obj.checked;
+    }
+  }
+}
+
+ function confirmSubmit(frm, ext)
+  {
+      if (frm.elements['form_action'].value == '')
+      {
+          alert('请选择操作的类型');
+		  return false;
+      }
+	  else if(frm.elements['form_action'].value == 'del')
+	  {
+		  return confirm("确定要删除选中的数据?");
+	  }
+	  else
+      {
+          return true;
+      }
+  }
+</script>
+<div class="form-div">
+    <FORM name="searchForm" action="" METHOD='get'>
+    <input type='hidden' name="controller" value="message"/>
+    <input type='hidden' name="action" value="list"/>
+
+    <img src="./images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" /> 
+消息类型: 
+<select name="mt" style="background-color:#FFF;color:#000">
+<option value="" {if $s.mt=='-1'}SELECTED{/if} >不限类型</option>
+{$s.mtoptions}
+</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+消息标题: <input type="text" name="subject" size='24' value="{$s.subject|escape:html}" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+已读状态: <select name="isread" style="background-color:#A99;color:#FFF">
+<option value="-1" {if $s.isread=='-1'}SELECTED{/if} >不限</option>
+<option value="0" {if $s.isread=='0'}SELECTED{/if} >未读</option>
+<option value="1" {if $s.isread=='1'}SELECTED{/if} >已阅读</option></select>&nbsp;&nbsp;
+
+已删状态: <select name="isdel" style="background-color:#ADA;color:#960">
+<option value="-1" {if $s.isdel=='-1'}SELECTED{/if} >不限</option>
+<option value="0" {if $s.isdel=='0'}SELECTED{/if} >未删</option>
+<option value="1" {if $s.isdel=='1'}SELECTED{/if} >已删除</option></select>
+
+<div style='padding: 5px 20px 2px 29px;line-height:28px;'/>
+发 送 组:&nbsp;&nbsp;&nbsp;<select name="sendergrp" style="background-color:#690;color:#FFF">
+<option value="" {if $s.sendergrp=='-1'}SELECTED{/if} >选择..</option>
+<option value="0" {if $s.sendergrp=='0'}SELECTED{/if} >用户组</option>
+<option value="1" {if $s.sendergrp=='1'}SELECTED{/if} >管理组</option></select>&nbsp;
+发送用户名: <input type="text" name="sendername" size='16' value="{$s.sendername|escape:html}" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+接 收 组:&nbsp;&nbsp;&nbsp;<select name="receivegrp" style="background-color:#960;color:#FFF">
+<option value="" {if $s.receivegrp=='-1'}SELECTED{/if} >选择..</option>
+<option value="0" {if $s.receivegrp=='0'}SELECTED{/if} >用户组</option>
+<option value="1" {if $s.receivegrp=='1'}SELECTED{/if} >管理组</option></select>&nbsp;
+接收用户名: <input type="text" name="receivename" size='16' value="{$s.receivename|escape:html}" /><br/>
+
+开始时间: <input type="text" id="sdate" name="sdate" size='17' value='{$s.sdate|escape:html}' /> <img src="./images/calendar2.gif"> &nbsp;&nbsp;&nbsp;&nbsp;
+截止时间: <input type="text"id="edate" name="edate"  size='17' value='{$s.edate|escape:html}' /> <img src="./images/calendar2.gif" />
+&nbsp;&nbsp;
+每页记录数:<input name="pn" value="{if $s.pn > 0}{$s.pn}{else}{$syspagesizemax}{/if}" size="5" onKeyup="checkPageSize(this,'ipagesize',{$syspagesizemax});">
+ 
+<input style='margin-left:20px' type="submit" value=" 开始查询 " class="button" /> <a href="javascript:showNotice('noticeSearch');" title="帮助信息"><img src="./images/notice.gif" width="16" height="16" border="0" title="帮助信息"></a>
+<br />
+
+<span class="notice-span" style='line-height:18px;padding:8px 0px 2px 20px;color:#669900' 
+id="noticeSearch">搜索帮助: 消息标题, 发送用户名,接收用户名支持通配符 <b><font color=red>*</font></b> 号, 例: <b><font color=red>Dummy*</font></b> <br/></span>
+</div></FORM></div>
+
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action='./?controller=message&action=del' onsubmit="return confirmSubmit(this)">
+<table cellspacing='1' cellpadding='3' id='list-table'><tr>
+	<th><input onclick='CheckBoxSelectAll(this, "checkboxes")' type="checkbox"> ID</th>
+	<th>状态</th>
+	<th>标题</th>
+	<th>消息类型</th>
+	<th>发送用户</th>
+	<th>接收用户</th>
+	<th>发送时间</th>
+	<th>操作</th>
+</tr>
+{foreach from=$list item=d key=k}
+<tr>
+	<td align="center"><span><input name="checkboxes[]" type="checkbox" value="{$d.entry}" /> {$d.entry}</span></td>
+	<td align="center" style='color:#d0d0d0'>{if $d.deltime>0}<font color='red'>已删</font>{else}正常{/if}</td>
+	<td align="center">{if $d.readtime>0}<font color='#669900'>[已读]</font>{else}<font color=red>[未读]</font>{/if} &nbsp;<a href='./?controller=message&action=view&id={$d.entry}' TITLE='查看消息 ID = {$d.entry}'>{$d.subject|escape:html}</td>
+	<td align="center">{$d.title}</td>
+	<td align="center">{if $d.sendergroup==0}{$d.sendername}{else}<font color='red'>管理组</font>{/if}</td>
+	<td align="center">{if $d.receivergroup==0}{$d.receivename}{else}<font color='red'>管理组</font>{/if}</td>
+	<td align="center">{$d.sendtime}</td>
+	<td align="center"><a href="./?controller=message&action=view&id={$d.entry}">查看</a>
+	&nbsp; | &nbsp;
+	<a href="./?controller=message&action=del&id={$d.entry}" onclick="javascript:return confirm('您确定要删除消息: [{$d.entry}] {$d.subject|escape:html} ?');">删除</a></td>
+</tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">无相关数据</td></tr>
+{/foreach}
+</table>
+
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+
+<table id="page-table" cellspacing="0">
+  <tr>
+  <td>&nbsp;&nbsp;
+	<select style='background:#eaeaea;color:#333' name='form_action'>
+    <option value="">请选择操作类型...</option>
+	<option style='background:#333;color:#f30;' value="del">批量删除</option>
+  </select>
+    <input type="submit" value="确定" id="btnSubmit" name="btnSubmit" class="button" />
+</td>
+</tr>
+</table>
+
+</form>
+</div>
+
+
+
+<script language="JavaScript">
+{literal}
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#EEF8F9';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+
+{/literal}
+</script>
+{include file="pagefooter.html"}

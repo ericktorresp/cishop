@@ -1,0 +1,53 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkform(obj)
+{
+  if( !validateUserPss(obj.userpass.value) )
+  {
+  	alert("密码不符合规则，请重新输入");
+	obj.userpass.focus();
+	return false;
+  }
+  if( obj.userpass.value != obj.confimpass.value )
+  {
+  	alert("两次输入密码不相同");
+	obj.userpass.focus();
+	return false;
+  }
+  return true;
+}
+</script>
+<div class="list-div" id="listDiv">
+<table class="list-table">
+<form action="index.php" method="post" name="updateform" onsubmit="return checkform(this)">
+<input type="hidden" name="flag" value="update" />
+<input type="hidden" name="controller" value="useradmin" />
+<input type="hidden" name="action"	value="adminpass" />
+<input type="hidden" name="uid"	value="{$data.userid}" />
+  <tr>
+  	<td class="narrow-label">组别:</td>
+    <td>{$data.groupname|escape:html}</td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">帐户:</td>
+    <td>{$data.username|escape:html}</td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">呢称:</td>
+    <td>{$data.nickname|escape:html}</td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">密码:</td>
+    <td><input type="password" name="userpass" />(由字母和数字组成6-16个字符；且必须包含数字和字母，不允许连续三位相同)</td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">确认密码:</td>
+    <td><input type="password" name="confimpass" /></td>
+  </tr>
+  <tr>
+  <td></td>
+  <td><input type="submit" name="submit" value="提交" class="button" />&nbsp;&nbsp;<input type="button" value="返回列表" onclick="window.location='index.php?controller=useradmin&action=adminlist'" class="button" /></td></tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

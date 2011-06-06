@@ -1,0 +1,100 @@
+@charset "utf-8";
+/* CSS Document */
+/*警告窗样式*/
+.james_dialogUI_alert{
+	width:100%;
+	margin:0;
+	padding:5px 10px 10px 5px;
+	background:#222;
+	border:1px dotted #FFF;
+}
+.james_dialogUI_alert_title{
+  	height:20px;
+  	color:#FFF;
+  	background:#000;
+}
+.james_dialogUI_alert_close{
+	width:20px;
+  	height:20px;
+  	display:block;
+  	float:right;
+  	clear:right;
+  	background:transparent url(close_icon_double.png) 0 0 no-repeat;
+}
+.james_dialogUI_alert_close:hover{background-position: 0 -20px;}
+.james_dialogUI_alert_content{
+  	color:#FFF;
+  	font-size:12px;
+  	padding:5px 20px 5px;
+  	margin:5px;
+  	border:1px dotted #111;
+  	letter-spacing:0px;
+  	background:#111 url(../dilogUI/darkgrid.png);
+	text-align:left;
+}
+/*弹出窗样式*/
+.james_dialogUI_confirm{
+	width:100%;
+	margin:0;
+	padding:0;
+	background:#CCC;
+	border:1px dotted #FFF;
+}
+.james_dialogUI_confirm_title{
+  	height:20px;
+  	color:#FFF;
+  	background:#0099CC;
+}
+.james_dialogUI_confirm_close{
+	width:20px;
+  	height:20px;
+  	display:block;
+  	float:right;
+  	clear:right;
+  	background:transparent url(close_icon_double.png) 0 0 no-repeat;
+}
+.james_dialogUI_confirm_close:hover{background-position: 0 -20px;}
+.james_dialogUI_confirm_content{
+  	color:#000;
+  	font-size:12px;
+  	padding:5px 20px 5px;
+  	margin:5px;
+  	letter-spacing:0px;
+  	background:#FFF;
+	text-align:left;
+}
+.james_dialogUI_confirm_button{
+	margin:10px 10px 10px 0;
+}
+/*文件上传窗样式*/
+.james_dialogUI_upload{
+	width:100%;
+	margin:0;
+	padding:5px 10px 10px 5px;
+	background:#222;
+	border:1px dotted #FFF;
+}
+.james_dialogUI_upload_title{
+  	height:20px;
+  	color:#FFF;
+  	background:#000;
+}
+.james_dialogUI_upload_close{
+	width:20px;
+  	height:20px;
+  	display:block;
+  	float:right;
+  	clear:right;
+  	background:transparent url(close_icon_double.png) 0 0 no-repeat;
+}
+.james_dialogUI_upload_close:hover{background-position: 0 -20px;}
+.james_dialogUI_upload_content{
+  	color:#FFF;
+  	font-size:12px;
+  	padding:5px 20px 5px;
+  	margin:5px;
+  	border:1px dotted #111;
+  	letter-spacing:0px;
+  	background:#111 url(../dilogUI/darkgrid.png);
+	text-align:left;
+}

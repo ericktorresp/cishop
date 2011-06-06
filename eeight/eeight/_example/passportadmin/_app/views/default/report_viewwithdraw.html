@@ -1,0 +1,37 @@
+{include file="pageheader.html"}
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action="">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr><td class="narrow-label">提现发起人:</td><td>{$s.sendername|escape:html}</font></td></tr>
+<tr><td class="narrow-label">所属总代:</td><td>{$s.proxyname|escape:html}</font></td></tr>
+<tr><td class="narrow-label">银行名称:</td><td>{$s.bankname|escape:html}</td></tr>
+<tr><td class="narrow-label">银行卡号:</td><td>{$s.bankcard|escape:html}</td></tr>
+<tr><td class="narrow-label">所属省份:</td><td>{$s.province|escape:html}</td></tr>
+<tr><td class="narrow-label">所属城市:</td><td>{$s.city|escape:html}</td></tr>
+<tr><td class="narrow-label">真实姓名:</td><td>{$s.realname|escape:html}</td></tr>
+<tr><td class="narrow-label">提现金额:</td><td>{$s.amount|escape:money}</td></tr>
+<tr><td class="narrow-label">发起时间:</td><td>{$s.accepttime|escape:html}</td></tr>
+<tr><td class="narrow-label">用户IP:</td><td>{$s.clientip|escape:html}</td></tr>
+<tr><td class="narrow-label">CDN IP:</td><td>{$s.proxyip|escape:html}</td></tr>
+<tr><td class="narrow-label">用户备注:</td><td>{$s.description|escape:html}</td></tr>
+<tr><td class="narrow-label">出纳:</td><td>{$s.cashier|escape:html}</td></tr>
+<tr><td class="narrow-label">出纳处理时间:</td><td>{$s.pay_time}</td></tr>
+<tr><td class="narrow-label">会计:</td><td>{$s.verify_name|escape:html}</td></tr>
+<tr><td class="narrow-label">会计处理时间:</td><td>{$s.verify_time}</td></tr>
+<tr>
+	<td class="narrow-label">出纳处理：</td>
+	<td><pre>{$s.notes|escape:html}</pre></td>
+</tr>
+	<tr>
+	<td align="center" colspan="2"><input type="button" value="返回上一页" id="btnSubmit" name="btnSubmit" class="button" onclick="history.back(-1);" /></td><td>
+	</td></tr>
+
+</tr>
+  	<tr><td colspan=2>&nbsp;&nbsp;
+	<input type="hidden" name='withdrawelid' value="{$s.entry}"><br/><br/></td>
+  	</tr>
+  </table>
+</form>
+</div>
+{include file="pagefooter.html"}

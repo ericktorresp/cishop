@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>常见问题</title>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/jquery.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/css/default/helpfaq.css" type="text/css" />
+<script>
+{literal}
+(function($){
+$(document).ready(function(){
+    $("span[id^='general_tab_']").click(function(){
+        $("span[id^='general_tab_']").attr("class","tab-back");
+        $(this).attr("class","tab-front");
+        $("div[id^='general_table_']").hide();
+        id = $(this).attr("id").replace("general_tab_","")
+        $("#general_table_"+id).show();
+    });
+});
+})(jQuery);
+{/literal}
+</script>
+</head>
+<body>
+<a name='_top'></a>
+<div class="big">
+    <div class="menu">
+        <span class="menu_right"></span>
+        <span class="menu_left"></span>
+        {foreach from=$data item=d key=k}
+            {if $k==0}
+                <span id="general_tab_{$k}" class="tab-front">                
+                  <span class="menu_left"></span>
+                  <span class="menu_status">{$d.tagname|escape:html}</span>
+                  <span class="menu_right"></span>                             
+                </span>
+            {else}
+                <span id="general_tab_{$k}" class="tab-back">
+                   <span class="menu_left"></span>
+                   <span class="menu_status">{$d.tagname|escape:html}</span>
+                   <span class="menu_right"></span>
+                </span>
+            {/if}
+        {/foreach}
+    </div>
+    <div class="lottery_bigbox_middle">
+    {foreach from=$data item=d key=k}
+        <div id="general_table_{$k}" {if $k!=0}style="display:none;"{/if}>{$d.content}</div>
+    {/foreach}    
+    </div>
+    <div class="lottery_bigbox_bottom">
+        <span class="lottery_bigbox_bottom_right"></span>
+        <span class="lottery_bigbox_bottom_left"></span>
+    </div>
+</div>
+</body>
+</html>

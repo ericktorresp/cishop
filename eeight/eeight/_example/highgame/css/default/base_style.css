@@ -1,0 +1,341 @@
+body {
+	MARGIN: 0px;
+	font-family:Geneva, Arial, Helvetica, sans-serif;
+	padding:0;
+	font-size:12px;
+	BACKGROUND-COLOR:#878787;
+}
+/* 头部信息 */
+h1{
+	height:32px;
+	border:1px #860000 solid;
+	background:#AA0000;
+	font-size:14px;
+	margin: 0 0 6px 0;
+    overflow:hidden;
+}
+h1 span{
+	zoom:1;
+}
+/* 头部信息 尾部的快捷方式 */
+h1 .action-span{
+	float:right;
+	margin: 3px 10px 3px 10px;
+}
+/* 头部信息尾部的快捷方式  */
+h1 .action-span a {
+  color: #333333;
+  font-size: 12px;
+  text-decoration: none;
+  display:block;
+  text-align:center;
+  width:101px;
+  height:24px;
+  line-height:24px;
+  background:url({$sSystemImagesAndCssPath}/highgame/images/default/action_button.jpg) no-repeat;
+  *background:url({$sSystemImagesAndCssPath}/highgame/images/default/action_button.jpg) no-repeat;
+}
+/* 头部信息尾部的快捷方式的特效  */
+h1 .action-span a:hover {
+  background:url({$sSystemImagesAndCssPath}/highgame/images/default/action_button.jpg) no-repeat;
+  *background:url({$sSystemImagesAndCssPath}/highgame/images/default/action_button.jpg) no-repeat;
+  color:#333333;
+  text-decoration:none;
+}
+/* 头部信息 的当前位置 */
+h1 .action-span1{
+    color:#FFF;
+    margin-top:5px;
+    margin-left:10px;
+    line-height:20px;	
+    float:left;
+    font-weight:normal;
+    
+}
+h1 .action-span1 a{
+    color:#FFF; 
+    float:left;
+    font-weight:normal;
+    padding-right:5px;
+    text-decoration:none;
+}
+/* 底部信息 */
+#footer{
+    height:30px;
+    border:1px #860000 solid;
+    background:#AA0000;
+    color: #FFF;
+    font-size: 12px;
+    margin-top: 6px;
+    overflow:hidden;
+    text-align:center;
+    line-height:30px;	
+}
+/* 搜索区部分 */
+.list-div{
+	border:1px #860000 solid;
+	background:#aeaeae;
+	color:#FFFFFF;
+}
+.list-div div{
+	line-height:30px;
+    font-size:14px;
+    padding:20px;
+}
+.list-div input{
+    border:1px #808080 solid;
+    color:#000000;
+    background:#FFFFFF;
+    height:18px;
+    line-height:18px;
+    vertical-align: middle;
+}
+.list-div img{
+	vertical-align: middle;
+}
+.list-div .button{
+    height:20px;
+    padding-left:10px;
+    padding-right:10px;
+    border:1px #4A4A4A solid;
+    color:#000000;
+    text-align:center;
+    background:url({$sSystemImagesAndCssPath}/highgame/images/default/button_bg.jpg);	
+    background-repeat:repeat-x;
+}
+/* 列表部分 */
+.list-div table{
+	width:100%;
+	border:0px;
+	font-size:12px;
+}
+/* 列表部分  头部*/
+.list-div th{
+    color:#FFD21E;
+    text-align:center;
+    background:#323232;
+    height:25px;
+    font-size:12px;
+    font-weight:normal;
+    border:0px;
+}
+/* 列表部分  头部*/
+.list-div tr{
+    color:#FFFFFF;
+    background:#464747;
+    border:#313131 1px solid;
+}
+/* 列表部分 没有记录 */
+.list-div .no-records{
+	text-align:center;
+	height:50px;
+	background:#9d9d9d;
+	color:#000;
+	font-weight:bold;
+}
+/*列表部分 td*/
+.list-div td{
+	color:#000;
+    line-height: 22px;
+    background:#9d9d9d;
+}
+/* 列表部分的连接 */
+.list-div a{
+	color:#000;
+	text-decoration: none;
+}
+/* 列表部分的连接特效 */
+.list-div a:hover{
+    color:#FFD21E;  
+    text-decoration:underline;
+}
+/* 列表专用标签 */
+.list-div .narrow-label{
+	width:15%;
+	font-weight:bold;
+	color:#FFD21E;
+	text-align:right;
+	padding-right:10px;
+}
+
+.show {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	color: ffce7a;
+	filter:dropshadow(color=#000000,offx=1,offy=1)
+}
+
+.red,.red:link,.red:visited {
+	color: #FF0000;
+	font-weight: normal;
+	text-decoration: none;
+}
+.red:hover {
+	color: #.ff0000;
+	color: #FF0000;
+	text-decoration: underline;
+}
+.ffb83d {
+	color: #ffb83d;
+}
+.a1:link,.a1:visited {
+	color: #333333;
+	text-decoration:none;
+}
+.a1:hover {
+	background: #000000
+	color: #FFFFFF;
+	text-decoration: none;
+	background-color: #000000;
+	color: #FFFFFF;
+
+}
+.a2:link,.a2:visited {
+	color: #b84100;
+	text-decoration:none;
+	font-weight: bold;
+}
+.a2:hover {
+	background: #000000
+	color: #FFFFFF;
+	text-decoration: none;
+	background-color: #000000;
+	font-weight: bold;
+	color: #FFFFFF;
+
+}
+.ff6600,.ff6600:link,.ff6600:visited {
+	color: #ff6600;
+	text-decoration:none;
+}
+.ff6600:hover {
+	color: #.ff6600;
+	text-decoration: none;
+}
+
+.bcbcbc,.bcbcbc:link,.bcbcbc:visited {
+	color: #bcbcbc;
+	text-decoration:none;
+}
+.bcbcbc:hover {
+	color: #.bcbcbc;
+	text-decoration: underline;
+}
+
+.ffffff,.ffffff:link,.ffffff:visited {
+	color: #ffffff;
+	text-decoration:none;
+}
+.ffffff:hover {
+	color: #.ffffff;
+	text-decoration: underline;
+}
+.fff600,.fff600:link,.fff600:visited {
+	color: #fff600;
+	text-decoration:none;
+}
+.fff600:hover {
+	color: #.fff600;
+	text-decoration: underline;
+}
+.menu,.menu:link,.menu:visited {
+	color: #CCCCCC;
+	text-decoration:none;
+	font-size: 14px;
+	font-weight: bold;
+	filter:DropShadow(Color=#000000, OffX=1, OffY=1);
+}
+.menu:hover {
+	text-decoration: underline;
+	filter:DropShadow(Color=#000000, OffX=1, OffY=1);
+	font-size: 14px;
+	color: #CCCCCC;
+}
+.input1 {
+	margin: 0px;
+	padding: 0px;
+	width: 20px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: solid;
+	border-left-style: none;
+	border-bottom-width: 1px;
+	border-bottom-color: #000000;
+	font-weight: bold;
+	color: #FF0000;
+}
+.aaaa {
+	border: 1px solid #FF0000;
+}
+/*
+ 标签部分的样式
+ */
+.tab-div {
+  background: #F3F3E9;
+  border: 1px solid #B9B9B9;
+  margin: 0 0 10px 0;
+  padding: 1px;
+}
+#tabbar-div {
+  background: #8A8A8A;
+  padding-left: 10px;
+  height: 22px;
+  padding-top: 1px;
+}
+
+#tabbar-div p {
+  margin: 2px 0 0 0;
+}
+
+.tab-front {
+  background: #474747;
+  color: #FFF;
+  line-height: 20px;
+  font-weight: bold;
+  padding: 4px 15px 4px 18px;
+  border-right: 2px solid #000;
+  cursor: hand;
+  cursor: pointer;
+}
+
+.tab-back {
+  color: #FFF;
+  line-height: 20px;
+  padding: 4px 15px 4px 18px;
+  border-right: 1px solid #E46D83;
+  cursor: hand;
+  cursor: pointer;
+}
+
+.tab-hover {
+  color: #FFF;
+  background: #DA304E;
+  line-height: 20px;
+  padding: 4px 15px 4px 18px;
+  border-right: 1px solid #FFF;
+  cursor: hand;
+  cursor: pointer;
+}
+
+#tabbody-div {
+  border: 2px solid #DBDBBF;
+  padding: 10px;
+  background: #FFF;
+}
+
+#tabbody-div img {
+  vertical-align: middle;
+}
+
+.form-div {
+  background: #F5F5EF;
+  border: 1px solid #860000;
+  padding: 5px;
+  color: #808080;
+  margin: 0 0 10px 0;
+}
+
+.form-div select, .form-div input, .form-div img {
+  vertical-align: middle;
+}

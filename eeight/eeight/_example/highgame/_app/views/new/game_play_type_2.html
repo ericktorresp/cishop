@@ -1,0 +1,702 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><TITLE>{if $sSysTopMessage}[{$sSysTopMessage}] {/if}{$webtitle} {if $ur_here} - {$ur_here} {/if} </TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<META http-equiv="Pragma" content="no-cache" />
+{if $sSysMetaMessage}{$sSysMetaMessage}{/if}
+<link href="{$sSystemImagesAndCssPath}/highgame/css/new_higame/defaultright.2.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/css/new_higame/dialogUI.css" type="text/css" />
+
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/common.js"></script>
+
+<script language="javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/dialogUI/jquery.dragdrop.js"></script>
+<script language="javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/dialogUI/jquery.dialogUI.js"></script>
+<script language="javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/lottery/highgame_lang_zh.js"></script>
+<script language="javascript" src="{$sSystemImagesAndCssPath}/highgame/js/new_higame/lottery/jquery.highgame.2.js"></script>
+
+<style type="text/css">
+#task_div{
+	width:250px!important;width:295px;
+	height:100px;
+	line-weight:20px;
+	color:#FFF;
+	padding-left:5px;
+	background-image: url({$sSystemImagesAndCssPath}/highgame/images/new_higame/alertback.png);
+	background-color:#131E31;	
+	position:absolute;
+	text-align:left;
+	overflow:hidden;
+	border:1px #131E31 double;
+	padding:0px;
+}
+#task_div a{
+    color:#FFF;
+}
+#task_div a:visited{
+    color:#FFF;
+}
+.code1{
+	width:250px!important;width:295px;
+	height:80px;
+	line-weight:20px;
+	color:#000;
+	background:#FFF;	
+	text-align:left;
+	overflow-y:auto;
+	border:1px #131E31 double;
+	border-left:0px;
+}	
+
+</style>
+<script language="javascript">
+function show_on()
+{
+	$("#lt_help_div").show("slow");
+}
+function close_on()
+{
+	$("#lt_help_div").hide("slow");
+}
+(function($){
+$(document).ready(function(){
+	$.gameInit({
+		data_label: [
+					{foreach from=$aMenuData item=menu key=k}
+					{$menu}{if count($aMenuData) != ($k+1)},{/if}
+					{/foreach}
+					],
+		cur_issue : {issue:'{$aCurrentIssue.issue}',endtime:'{$aCurrentIssue.saleend}'},
+		issues    : {//所有的可追号期数集合
+                         today:[
+                                {foreach from=$aTaskIssue.today item=issue key=k}
+{issue:'{$issue.issue}',endtime:'{$issue.saleend}'}{if count($aTaskIssue.today) != ($k+1)},{/if}
+								{/foreach}
+                               ],
+                         tomorrow: [
+                                {foreach from=$aTaskIssue.tomorrow item=issue key=k}
+{issue:'{$issue.issue}',endtime:'{$issue.saleend}'}{if count($aTaskIssue.tomorrow) != ($k+1)},{/if}
+								{/foreach}
+                               ]
+                     },
+		servertime: '{$sNowTime}',
+		lotteryid : parseInt({$iLotteryId},10),
+		ajaxurl   : './?controller=game&action=play',
+		ontimeout : function(){
+							$.ajax({
+									type: 'POST',
+									url : './?controller=game&action=play&curmid={$curmid}',
+									data: "lotteryid={$iLotteryId}&flag=gethistory",
+									success: function(data){
+										var partn = /<script.*>.*<\/script>/;
+										if( data == 'empty' && partn.test(data) ){
+											return;
+										}
+										eval("data="+data);
+										processCode(data[0].issue,data[0].code);
+										/*$(".history_tr","#history_table").remove();
+										var html = '';
+										$.each(data,function(i,n){
+											html += '<tr class="history_tr">';
+											n.statuscode = parseInt(n.statuscode,10);
+											n.code = n.statuscode==2 ? n.code : '未开奖';
+											if( i%2 == 0 ){
+												html += '<td class="odd">'+n.issue+'</td><td class="odd">'+n.code+'</td>';
+											}else{
+												html += '<td>'+n.issue+'</td><td>'+n.code+'</td>';
+											}
+											html += '</tr>';
+											if(i == 0)
+											{
+												processCode(n.issue,n.code)
+											}
+										});
+										$(html).insertAfter("#history_title");*/
+									}
+								});
+					},
+			onfinishbuy : function(){
+								$.ajax({
+										type: 'POST',
+										url : './?controller=game&action=play&curmid={$curmid}',
+										data: "lotteryid={$iLotteryId}&flag=getprojects",
+										success: function(data){
+											var partn = /<script.*>.*<\/script>/;
+											if( data == 'empty' && partn.test(data) ){
+												return;
+											}
+											eval("data="+data);
+											$(".history_pro","#history_project").remove();
+											var html = '';
+											var selectedcss = '';
+											$.each(data,function(i,n){
+												html += '<tr class="history_pro">';
+												if( i%2 == 0 ){
+													selectedcss = ' class="odd" bgcolor="#CCCCCC" align="center"';
+												}else{
+													selectedcss = ' bgcolor="#CCCCCC" align="center"';
+												}
+												html += '<td'+selectedcss+' height="30"><a href="./index.php?controller=gameinfo&action=gamedetail&id='+n.projectid+'" target="_blank" title="查看注单详情" class="projectidarea">'+n.projectid+'</a></td>';
+												html += '<td'+selectedcss+'>'+n.writetime+'</td>';
+												html += '<td'+selectedcss+'>'+n.methodname+'</td>';
+												html += '<td'+selectedcss+'>'+n.issue+'</td>';
+												html += '<td'+selectedcss+'>'+n.modes+'</td>';
+												if( n.code.length>20 ){
+													html += '<td'+selectedcss+'><span class="project_more">号码详情</span><div style="display:none;">'+n.code+'</div></td>';
+												}else{
+													html += '<td'+selectedcss+'>'+n.code+'</td>';
+												}
+												html += '<td'+selectedcss+'>'+n.multiple+'</td>';
+												html += '<td'+selectedcss+'>'+moneyFormat(n.totalprice)+'</td>';
+												html += '<td'+selectedcss+'>'+(parseInt(n.taskid,10)>0 ? "是" : "否")+'</td>';
+												html += '</tr>';
+											});
+											$(html).insertAfter("#project_title");
+										}
+									});
+						}
+	});
+	if('{$ahistory.0.code}' != ''){
+	    processCode('{$ahistory.0.issue}','{$ahistory.0.code}');
+	}
+	$('span[class="project_more"]',"#history_project").live("click",function(){
+                var mme = this;
+                var $h = $('<span style="display: block;" id="task_div">号码详情[<span class="close">关闭</span>]<br><textarea readonly="readonly" class="code1">'+$(mme).next().html()+'</textarea></span>');
+                $(this).openFloat($h,"projects_more");
+                $("span",$(this).parent()).filter(".close").click(function(){
+                    $(mme).closeFloat();
+                });
+    });
+
+
+	
+
+	
+
+
+    
+	//
+	/*{foreach from=$aLottery item=lottery key=k}
+	{if $lottery.timeout>0}
+	function historyLotteryCode_{$lottery.lotteryid}(){
+		$.ajax({
+				type: 'POST',
+				url : './?controller=game&action=play&curmid={$curmid}',
+				data: "lotteryid={$lottery.lotteryid}&flag=getlotterycode",
+				success: function(data){
+					var partn = /<script.*>.*<\/script>/;
+					if( data == 'empty' && partn.test(data) ){
+						return;
+					}
+					eval("data="+data);
+					$("#history_lottery_issue_{$lottery.lotteryid}").html(data.issue);
+					$("#history_lottery_code_{$lottery.lotteryid}").html(data.code);
+					setTimeout(historyLotteryCode_{$lottery.lotteryid},parseInt(data.timeout));
+				}
+					
+		});
+	}
+	setTimeout(historyLotteryCode_{$lottery.lotteryid},{$lottery.timeout});
+	{/if}
+	{/foreach}
+*/
+//alert(parseInt({$iLotteryId},10));
+var iLid = parseInt({$iLotteryId},10);
+var position = -(iLid-1)*75;
+$("#right_top_01_02").css("background-position","0px "+position+"px");
+});
+})(jQuery);
+function processCode(issue,code)
+{
+	$('#last_issue').html(issue);
+	if( issue.length>=12 ){
+	    $('#last_issue').css("left","-6px");
+	    $('#last_issue').css("right","0px");
+	}
+	if( issue.length == 11 ){
+	    $('#last_issue').css("left","-4px");
+	    $('#last_issue').css("right","0px");
+	}
+	if( issue.length ==7 ){
+	    $('#last_issue').css("left","15px");
+	}
+	if( issue.length ==8 ){
+	    $('#last_issue').css("left","12px");
+	}
+	var cStr = '';
+	var aTmp = new Array;
+	//处理中奖号码
+	if(code.indexOf(' ') == -1)
+	{
+		//无空格
+		aTmp = code.split('');
+	}
+	else
+	{
+		//有空格
+		aTmp = code.split(' ');
+	}
+	for(var ci=0;ci<aTmp.length;ci++)
+	{
+		cStr += '<div class="right_top_02_05"><div class="';
+		switch(ci)
+		{
+			case 0:cStr += 'ball_blue';break;
+			case 1:cStr += 'ball_yellow';break;
+			case 2:cStr += 'ball_pink';break;
+			case 4:cStr += 'ball_gray';break;
+			default:cStr += 'ball_green';break;
+		}
+		cStr += '" ';
+		if(aTmp[ci].length > 1)
+		{
+			cStr += 'font-size:14px;';
+		}
+		cStr += ' >';
+		cStr += aTmp[ci];
+		cStr += '</div>';
+		if(aTmp[ci].length == 1)
+		{
+			cStr += '<div class="right_top_02_06">';
+			if(aTmp[ci]>=5)
+			{
+				cStr += '大';
+			}
+			else
+			{
+				cStr += '小';
+			}
+			cStr += '</div>';
+		}
+		if(aTmp[ci].length == 1){
+		    cStr += '<div class="right_top_02_06">';
+		}else if(aTmp[ci].length == 2){
+		    cStr += '<div class="right_top_02_062">';
+		}
+		if(parseInt(aTmp[ci],10)%2 == 0)
+		{
+			cStr += '双';
+		}
+		else
+		{
+			cStr += '单';
+		}
+		cStr += '</div></div>';
+		cStr += '<div class="line_01"></div>';
+	}
+	cStr = cStr.substring(0,cStr.length-28);
+	var width = (300-(32+24)*aTmp.length)/2+'px';
+	$('#last_code').html(cStr);
+	$('#last_code').css('margin-left',width);
+	
+	//alert(width);
+}
+</script>
+<style type="text/css">
+.project_more{
+	cursor:pointer;
+	color:#0000FF;
+}
+.projects_more{
+	width:250px;
+	background:#000000;	
+	position:absolute;
+	z-index:100;
+	border:1px #999999 double;
+	padding:0px;
+	color:#FFFFFF;
+	text-align:left;
+}
+.projects_more span{
+	height:20px;
+	line-height:20px;
+	color:#FFFFFF;
+	margin-left:0px;
+}
+.projects_more .code{
+	width:274px;
+	height:80px;
+	line-height:20px;
+	color:#FFFFFF;
+	background:#000000;	
+	text-align:left;
+	border:1px #999999 double;
+}
+.projects_more .close{
+	cursor:pointer;
+}
+.projectidarea{
+	text-decoration:none;
+	color:#000000;
+	}
+</style>
+<style type="text/css">
+/* Scroller Box */  
+ #scroller_container {  
+  position: relative;  
+  width: 120px;  
+  height: 200px;  
+  overflow: hidden;  
+ }  
+ #scroller p {  
+  padding: 0;  
+ }  
+ /* Scoller Box   */
+#last_issue{
+    position: absolute;
+    top:0px;
+    left:7px;
+}
+
+.alink a{
+	color: #192E32;
+	text-decoration: none;
+}
+.alink a:hover{
+	color: #9D7250;
+	text-decoration: underline;
+}
+
+</style>
+
+</HEAD>
+<form method="post" name="buyform" action="">
+  <input type="hidden" name="lotteryid" id="lotteryid" value="{$iLotteryId}" />
+  <input type="hidden" name="curmid" id="curmid" value="{$curmid}" />
+  <input type="hidden" name="flag" id="flag" value="save" />    
+<div id="right_01">
+
+<div class="right_01_01"><a href="./index.php" target='_top'>高频游戏</a> - {if $ur_here}  {$ur_here} {/if}</div>
+</div>
+
+<center>
+<!-- 顶部倒计时显示信息 -->
+<div class="right_02 height75" style="width:752px;">
+<div id="right_top_01">
+<div class="right_top_01_01"></div>
+<div id="right_top_01_02">
+<div id="right_top_01_03">第<span id="current_issue" style="color:#00FF00;font-weight:bold;"></span>期<br />
+    截至日期<span id="current_endtime"></span></div>
+</div>
+<div id="right_top_01_04"></div>
+<div id="right_top_01_05">
+<div id="right_top_01_07">离当前期截止还剩</div>
+<div id="right_top_01_08">
+<div id="right_top_01_09"></div>
+<div id="right_top_01_10"><span id="count_down">00:00:00</span></div>
+<div id="right_top_01_11"></div>
+</div>
+</div>
+<div class="right_top_01_06"></div>
+</div>
+<div id="right_top_02">
+<div class="right_top_01_01"></div>
+<div id="right_top_02_01" style="position: relative;"><span id="last_issue">{$ahistory.0.issue}</span><br /><a href="./?controller=game&action=bonuscode&lotteryid={$iLotteryId}"  target="_blank">开奖号码</a><br />
+<font class="green"><a href="./?controller=game&action=hotcode&lotteryid={$iLotteryId}" class="green" target="_blank">冷热</a><a href="./?controller=game&action=bonuscode&lotteryid={$iLotteryId}" class="green" target="_blank">遗漏</a></font></div>
+<div id="right_top_02_02">
+<div id="right_top_02_03" ></div>
+<div id="last_code"></div>
+<div id="right_top_02_04"></div>
+  </div>
+  <div class="right_top_01_06"></div>
+  </div>
+  </div>
+  <!--顶部倒计时显示信息结束 -->
+  
+<div class="right_02 d5d8de" style="background-image: url(/highgame/images/new_higame/right_02.png);
+	background-position: 0px -44px;
+	clear: both;
+	background-repeat: repeat-x;
+    width:752px;">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<!--大标签 -->
+<div class="right_02_03" id="lt_big_label" >
+
+    
+</div>
+<!--大标签结束-->
+<div class="right_02_04"></div>
+</div>
+<div class="margin10" id="lt_samll_label"></div>
+<div style="margin-left:20px;clear:both;">
+	<span id="lt_desc"></span><img src="{$sSystemImagesAndCssPath}/highgame/images/new_higame/icon_05.jpg" style="cursor:pointer;" id="lt_help" /><div id="lt_help_div"></div>
+</div>
+
+
+<div id="right_03">
+<div class="right_02_05"></div>
+<div class="right_02_06"></div>
+</div>
+<!--选号区 -->
+<div id="lt_selector">
+
+
+</div>
+<!--选号区结束 -->
+<div id="right_04">
+<div class="right_02_07"></div>
+<div class="right_02_08"></div>
+</div>
+
+<div class="right_06" id="lt_selbot">
+<div><span id="lt_sel_insert" class="button04" style="cursor:pointer;">添 加</span></div>
+<div class=" floatright" style="padding-right:5px;margin-top:7px;">&nbsp;模式</div>
+<div class="right_07">
+  <select name="lt_project_modes" id="lt_project_modes" class="select3">
+    <option>元</option>
+  </select>
+</div>
+<div class=" floatright" style="padding-right:5px;margin-top:7px;">&nbsp;倍数</div>
+<div class="right_07" >
+  <select name="select4"  class="select3" id="times" >
+  	<option>1倍</option>
+    <option>5倍</option>
+    <option>10倍</option>
+    <option>15倍</option>
+  </select>
+</div>
+<div class=" floatright" style="padding-right:5px;margin-top:7px;">&nbsp;倍</div>
+<div class="right_07">
+    <input type="text" class="input_01" value="" id="lt_sel_times" name="lt_sel_times" style="width:45px;" />
+</div>
+<div class="right_07" style="margin-top:7px;">
+    你选择了 <font class="red" id="lt_sel_nums">0</font> 注，共 
+    <font class="red"><span id="lt_sel_money">0</span></font> 游戏币，请填写或选择倍数：
+</div>
+</div>
+<!--  确认区，即购物栏区  -->
+<div class="right_02_27">
+<div class="right_02_12">
+<div class="right_02_13">
+<div class="right_02_14"><span style="float:left;">投注项　<font id="lt_cf_count" >0</font></span></div>
+<div id="button06"><span class="cftright" id="lt_cf_clear" title="删除全部">清空X</span></div>
+</div>
+<div class="right_09">
+<table cellpadding="0"  wrap="physical" id="lt_cf_content" width="692px" cellspacing="1"></table>
+
+
+</div>
+</div>
+</div>
+
+
+<!--  确认投注区信息  -->
+<div class="right_06">
+<div ><span id="lt_sendok" class="button07" style="cursor:pointer;">投 注</span></div>
+
+<div class="right_07">
+  <span id="lt_issues" class="select3"></span>
+</div>
+<div class="right_07">总注数 <font class="red" id="lt_cf_nums">0</font> 注，总金额 <font class="red" id="lt_cf_money">0</font> 游戏币，起始期：</div>
+
+</div>
+
+
+
+
+<div class="right_03_01">
+  <div class="right_03_02"></div>
+  <div class="right_02_18">
+  <div  class="button09" id="lt_trace_if"  style="cursor:pointer;" ><input type="hidden" name="lt_trace_if" id="lt_trace_if_button"  value="no" />我要追号</div>
+  <div class="right_02_19">
+    <input type="checkbox" name="lt_trace_stop" id="lt_trace_stop" disabled="disabled" value="yes" />&nbsp;中奖后停止追号</div>
+  </div>
+<div class="right_02_17"></div>
+</div>
+
+
+<div style="display:none;" id="lt_trace_box1" class="right_10">
+<div id="lt_trace_label"></div>
+<span class="red" id="lt_trace_alcount" style="display:none;">126</span>
+<!--<div id="button11">利润率追号</div>
+<div id="button12">同倍追号</div>
+<div id="button13">翻倍追号</div>
+
+-->
+<table width="100%" border="0" cellspacing="1" cellpadding="3">
+    <tr>
+      <td colspan="5" bgcolor="#CCCCCC">
+      
+	<table width="100%" border="0" cellspacing="0" cellpadding="3">
+        <tr>
+          <td align="left" width="140px">追号期数：
+          <select id="lt_trace_qissueno" class="select3">
+                    <option value="">请选择</option>
+                    <option value="5">5期</option>
+                    <option value="10">10期</option>
+                    <option value="15">15期</option>
+                    <option value="20">20期</option>
+                    <option value="25">25期</option>
+                    <option value="all">全部</option>
+          </select>         
+          </td>
+          <td align="left" width="90px">总期数： <span class="red" id="lt_trace_count">0</span>  期</td>
+          <td align="left">追号总金额： <span class="red" id="lt_trace_hmoney">0</span> 游戏币</td>
+          <td rowspan="2" width="10px"><span id="lt_trace_ok"><div id="button08">生 成</div></span></td>
+        </tr>
+    </table>
+        <table width="55%" border="0" cellspacing="0" cellpadding="3">
+		<tr id="lt_trace_labelhtml" >
+
+        </tr>
+      </table></td>
+      </tr>
+
+  </table>
+   <div class="tbclist" id="lt_trace_issues"></div>
+   
+   
+
+   
+</div>
+<div style="margin-bottom:10px;">
+
+</div>
+<div class="right_02_26">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+
+<div class="right_02 d5d8de" style="width:752px;">
+<div id="right_02_01" style="height:44px;">
+<div class="right_02_02"></div>
+<div class="title01">
+<div id="button10">游戏记录</div>
+</div>
+<div class="right_02_04 floatright"></div>
+</div>
+<div>
+  <table width="100%" border="0" cellpadding="0" cellspacing="1" id="history_project">
+    <tr id="project_title">
+      <td height="30" align="center" bgcolor="#8f98a3">注单编号</td>
+      <td align="center" bgcolor="#8f98a3">参与时间</td>
+      <td align="center" bgcolor="#8f98a3">玩法</td>
+      <td align="center" bgcolor="#8f98a3">奖期</td>
+      <td align="center" bgcolor="#8f98a3">模式</td>
+      <td align="center" bgcolor="#8f98a3">投注内容</td>
+      <td align="center" bgcolor="#8f98a3">倍数</td>
+      <td align="center" bgcolor="#8f98a3">金额</td>
+      <td align="center" bgcolor="#8f98a3">是否追号 </td>
+    </tr>
+    
+    
+{foreach from=$aProjects item=project key=kk}
+    {if $kk%2==0}
+    <tr class="history_pro">
+      <td height="30" align="center" bgcolor="#CCCCCC"><a href="./index.php?controller=gameinfo&action=gamedetail&id={$project.projectid}" target="_blank" title="查看注单详情" class="blue">{$project.projectid}</a></td>
+      <td align="center" bgcolor="#CCCCCC">{$project.writetime}</td>
+      <td align="center" bgcolor="#CCCCCC">{$project.methodname|escape:html}</td>
+      <td align="center" bgcolor="#CCCCCC">{$project.issue|escape:html}</td>
+      <td align="center" bgcolor="#CCCCCC">{$project.modes|escape:html}</td>
+      <td align="center" bgcolor="#CCCCCC">{if strlen($project.code)>20}<span class="project_more">号码详情</span><div style="display:none;">{$project.code|escape:html}</div>{else}{$project.code|escape:html}{/if}</td>
+      <td align="center" bgcolor="#CCCCCC">{$project.multiple}</td>
+      <td align="center" bgcolor="#CCCCCC">{$project.totalprice|escape:money:4}</td>
+      <td align="center" bgcolor="#CCCCCC">{if $project.taskid>0}是{else}否{/if}</td>
+    </tr>
+    {else}
+    <tr class="history_pro">
+      <td height="30" align="center" bgcolor="#CCCCCC"><a href="./index.php?controller=gameinfo&action=gamedetail&id={$project.projectid}" target="_blank" title="查看注单详情" class="blue">{$project.projectid}</a></td>
+      <td align="center" bgcolor="#CCCCCC">{$project.writetime}</td>
+      <td align="center" bgcolor="#CCCCCC">{$project.methodname|escape:html}</td>
+      <td align="center" bgcolor="#CCCCCC">{$project.issue|escape:html}</td>
+      <td align="center" bgcolor="#CCCCCC">{$project.modes|escape:html}</td>
+      <td align="center" bgcolor="#CCCCCC" >{if strlen($project.code)>20}<span class="project_more">号码详情</span><div style="display:none;">{$project.code|escape:html}</div>{else}{$project.code|escape:html}{/if}</td>
+      <td align="center" bgcolor="#CCCCCC">{$project.multiple}</td>
+      <td align="center" bgcolor="#CCCCCC">{$project.totalprice|escape:money:4}</td>
+      <td align="center" bgcolor="#CCCCCC">{if $project.taskid>0}是{else}否{/if}</td>
+    </tr>
+    {/if}
+{/foreach}
+  </table>
+</div>
+<div class="right_02_26">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</form>
+<!-- 右边历史号码以及即时开奖号码区 建议别删除 -->
+<!-- <div class="bodyright" style="display:none;">
+    	<div class="otherredtitle"><p><img src="{$sSystemImagesAndCssPath}/highgame/images/new_higame/icon_02.jpg" width="10" height="11" />历史号码</p></div>
+        <div class="othergrabox">
+        	<table cellpadding="0" cellspacing="1" id="history_table">
+            	<tr id="history_title">
+                 	<th width="50%">期号</th>
+              		<th>开奖号码</th>
+                </tr>
+                {foreach from=$ahistory item=history key=k}
+                <tr class="history_tr">
+                  <td {if $k%2==0}class="odd"{/if}>{$history.issue}</td>
+                  <td {if $k%2==0}class="odd"{/if}>{$history.code}</td>
+                </tr>
+                {/foreach}
+                <tr>
+                	<td colspan="2" class="more"><a href="./?controller=game&action=bonuscode&lotteryid={$iLotteryId}" target="_blank">更多号码 ...</a></td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="otherredtitle"><p><img src="{$sSystemImagesAndCssPath}/highgame/images/new_higame/icon_02.jpg" width="10" height="11" />即时开奖号码</p></div>
+        <div class="othergrabox">
+        	<table cellpadding="0" cellspacing="1">
+            	<tr>
+                 	<th>游戏</th>
+              		<th>奖期</th>
+                    <th>开奖号码</th>
+                </tr>
+                {foreach from=$aLottery item=lottery key=kkk}
+                {if $kk%2==0}
+                <tr>
+                  <td class="odd">{$lottery.cnname}</td>
+                  <td class="odd" id="history_lottery_issue_{$lottery.lotteryid}">{$lottery.issue}</td>
+                  <td class="odd" id="history_lottery_code_{$lottery.lotteryid}">{$lottery.code}</td>
+                </tr>
+                {else}
+                <tr>
+                  <td>{$lottery.cnname}</td>
+                  <td id="history_lottery_issue_{$lottery.lotteryid}">{$lottery.issue}</td>
+                  <td id="history_lottery_code_{$lottery.lotteryid}">{$lottery.code}</td>
+                </tr>
+                {/if}
+                {/foreach}
+            </table>
+        </div>
+    </div>
+ -->
+
+
+<div class="right_02 d5d8de" style="width:752px;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div class="center" id="footer">资金安全建议：为了您的资金安全，建议定期更换您的资金密码。      
+<br />
+浏览器建议：首选为IE6或IE7浏览器，其次为火狐和Google浏览器。 
+<br />
+分辨率建议：使用800×600以上的分辨率。</div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+
+
+{if $systemstatusreport > 0}
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://cache4.enginx.net:1999/piwik/" : "http://cache4.enginx.net:1999/piwik/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {
+var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+piwikTracker.trackPageView();
+piwikTracker.enableLinkTracking();
+} catch( err ) {}
+</script><noscript><p><img src="http://cache4.enginx.net:1999/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+<!-- End Piwik Tag -->
+{/if}
+</center>
+</body></html>

@@ -1,0 +1,57 @@
+{include file="pageheader.html"}
+<script src="./js/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+$(function(){
+    $("tr").hover(function(){
+        $(this).find("td").css("background-color","#F6F6EA");
+    },
+    function(){
+        $(this).find("td").css("background-color","#FFFFFF");
+    });
+    $(".secondmenu").click(function(){
+        if($(this).attr("checked")){
+            $(this).parent().siblings().find(".topmenu").attr("checked",true);
+        }
+    });
+    $(".thirddmenu").click(function(){
+        if($(this).attr("checked")){
+            $(this).parent().siblings().find(".secondmenu").attr("checked",true);
+        }
+    });
+});
+</script>
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action="?controller=usergroup&action=add">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td align="right" width="150"><b>用户组别名称</b></td>
+<td><input type="text" value="" name="groupname"></td>
+</tr>
+<tr>
+<td align="right" width="150"><b>用户权限</b></td>
+<td>&nbsp;</td>
+</tr>
+{foreach from=$menu.0 item=topmenu key=k}
+<tr>
+<td colspan="2" align="left">
+<input type="checkbox" value="{$topmenu.menuid}" name="menu[]" class="topmenu">{$topmenu.title}
+</td>
+</tr>
+{foreach from=$menu.$topmenu.menuid item=secondmenu key=k}
+<tr>
+<td align="right"><b><input type="checkbox" value="{$secondmenu.menuid}" name="menu[]"  class="secondmenu">{$secondmenu.title}</b></td>
+<td>
+{foreach from=$menu.$secondmenu.menuid item=thirddmenu key=k}
+<input type="checkbox" value="{$thirddmenu.menuid}" name="menu[]"  class="thirddmenu">{$thirddmenu.title}&nbsp;&nbsp;
+{/foreach}
+</td>
+</tr>
+{/foreach}
+{foreachelse}
+<tr><td colspan="2" align="center" style="color:#CCC">没有相关记录,请先添加信息。</td></tr>
+{/foreach}
+<tr><td>&nbsp;</td><td><input type="submit" value="保存用户组" class="button"></td></tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,35 @@
+{include file="pageheader.html"}
+<center>
+<div class="right_021">
+ <div id="right_02_01">
+    <div class="right_02_02"></div>
+    <div class="right_02_03" id="lt_big_label" >风格设置</div>
+    <div class="right_02_04"></div>
+</div>
+<div class="help">
+	<form action="?controller=default&action=changestyle" method="POST" >
+	<table>
+	<tr>
+	<td style="padding:10px 10px;">选择模板</td>
+	<td>
+	<select name="skin">
+		<option  value="default"{if  $sessionname == 'default' } selected{/if}>default</option>
+		<option value="new" {if  $sessionname == 'new'} selected{/if}>new</option>
+	</select>
+	</td>
+	</tr>
+	<tr>
+	<td style="padding:10px 30px;" colspan="2">
+	   <input type="submit" value="设置模版" class="buttonnormal"></div>
+	</td>
+	</tr>
+	</table>
+	</form>
+</div>
+<div class="height51">
+<div class="right_02_241"></div>
+<div class="right_02_251"></div>
+</div>
+</div>
+</center>
+{include file="pagefooter.html"}

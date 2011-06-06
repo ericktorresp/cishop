@@ -1,0 +1,168 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-green.css"  />
+
+<script>
+$(document).ready(function(){
+	$("#type_1").click(function(){
+		$("#show_1").show();
+		$("#show_2").hide();
+	});
+	$("#type_2").click(function(){
+		$("#show_2").show();
+		$("#show_1").hide();
+	});
+	$("#type_3").click(function(){
+		$("#show_2").hide();
+		$("#show_1").hide();
+	});
+	$("#lotteryType").change(function(){
+		var lotteries = {$json_lotteries};
+//console.info(lotteries);
+		$("#lottery").html("");
+        //var shtml ="<select name='lottery' id='lottery'>";
+        var shtml = "<option value='-1'>选择彩种</option>";
+		if($("#lotteryType").val()>=0)
+		{
+            $.each(lotteries[$("#lotteryType").val()],function(i,v){
+                shtml = shtml + "<option value='"+v.lotteryid+"'>"+v.cnname+"</option>";
+            });
+		}
+        //shtml += "</select>";
+		$("#lottery").html(shtml);
+	});
+    // POST载入奖期列表
+    $("#lottery").change(function(){
+        $.ajax({
+            type:"POST",
+            url:"./index.php?controller=draw&action=cancelbonus",
+            dataType:"json",
+            data:"sa=getIssue&lotteryId="+$(this).val(),
+            success:function(json_data)
+            {
+                var json = json_data;
+//console.info(json_data.length + ',' + typeof json_data);
+                var tmp = '<option value="-1">请选择奖期</option>';
+                $.each(json_data, function(i,v) {
+                    tmp += "<option value='"+v.issue+"'>"+v.issue+ " (" + v.salestart+ " 至 " + v.saleend + ")" +"</option>";
+                });
+                $('#issue').html(tmp);
+            }
+        });
+    });
+
+	jQuery("#starttime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#starttime").change(function(){
+		if(! validateInputDate(jQuery("#starttime").val()) )
+		{jQuery("#starttime").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+	});
+	$("#cancelbouns").submit(function(){
+	    if($("#lotteryType").val() == -1){
+	        alert("彩种类型不正确！");
+	        return false;
+	    }
+	    if($("#lottery").val() == -1){
+	        alert("彩种ID不正确！");
+	        return false;
+	    }
+	    if($("#issue").val() == -1){
+	        alert("奖期不正确！");
+	        return false;
+	    }
+	    var type = $(":radio:checked[name='type']").val();
+	    if( type == undefined )
+	    {
+	        alert("处理原因不正确,请选择处理类型");
+	        return false;
+	    }
+	    if(type == 1 && $("#starttime").val() == ''){
+	        alert("请输入官方实际开奖时间！");
+	        return false;
+	    }
+	    if(type == 2 && $("#issueno").val() == ''){
+	        alert("请输入正确开奖号码！");
+	        return false;
+	    }
+	    return true;
+	});
+});
+</script>
+<div class="list-div">
+<form method="POST" action="{$action}" id="cancelbouns">
+<table cellpadding="3" cellspacing="1">
+<tr>
+<td class="narrow-label"><strong>注意：</strong></td>
+<td><span style="color:#FF0000;">异常处理时间限制在 {$issueexceptiontime} 分钟内</span></td>
+</tr>
+<tr>
+<td class="narrow-label">游戏名称</td>
+<td><select name="lotteryType" id="lotteryType">
+        <option value="-1">彩种类型</option>
+        {foreach from=$lotteries item=lottery key=k}
+        <option value="{$k}">{$lotteryTypes.$k}</option>
+        {/foreach}
+    </select> &nbsp;
+    <select name="lottery" id="lottery">
+        <option value="-1">选择彩种</option>
+    </select>
+</td>
+</tr>
+
+<tr>
+<td class="narrow-label">游戏奖期</td>
+<td><span id="issuelist">
+    <select name='issue' id="issue">
+    <option value="-1">请选择奖期</option>
+    </select></span>
+</td>
+</tr>
+
+<tr>
+<td class="narrow-label">处理原因</td>
+<td>
+{foreach from=$ownerPrivileges item=ownerPrivilege key=k}
+{if $ownerPrivilege.controller == 'draw' && $ownerPrivilege.actioner == 'exceptionforward'}
+    <label for="type_1"><input type="radio" value="1" name="type" id="type_1">提前开奖</label>&nbsp;&nbsp;&nbsp;&nbsp;
+{/if}
+{if $ownerPrivilege.controller == 'draw' && $ownerPrivilege.actioner == 'exceptionerrorcode'}
+    <label for="type_2"><input type="radio" value="2" name="type" id="type_2">开奖号码错误</label>&nbsp;&nbsp;&nbsp;&nbsp;
+{/if}
+{if $ownerPrivilege.controller == 'draw' && $ownerPrivilege.actioner == 'exceptionnocode'}
+    <label for="type_3"><input type="radio" value="3" name="type" id="type_3">官方未开奖</label>&nbsp;&nbsp;&nbsp;&nbsp;
+{/if}
+{/foreach}
+<!--
+<label for="type_3"><input type="radio" value="3" name="type" id="type_3">CLI异常,没有处理完毕</label>
+//-->
+</td>
+</tr>
+<tr id="show_1" style="display:none;">
+<td class="narrow-label">官方实际开奖时间</td>
+<td><input type='text' id="starttime" name="starttime"><img align="absmiddle" src="./images/calendar2.gif">
+</td>
+</tr>
+<tr id="show_2" style="display:none;">
+<td class="narrow-label">正确的开奖号码</td>
+<td><input type="text" name="issueno" id="issueno" value="" style="">
+</td>
+</tr>
+<tr>
+<td></td>
+<td><input type="hidden" name="sa" value="cancelBonus"><input type="submit" value="{$ur_here}" class="button"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

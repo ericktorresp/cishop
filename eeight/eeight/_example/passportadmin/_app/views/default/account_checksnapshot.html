@@ -1,0 +1,45 @@
+{include file="pageheader.html"}
+<div class="form-div">
+    <FORM name="searchForm" action="" METHOD='get'>
+    <input type='hidden' name="controller" value="account"/>
+    <input type='hidden' name="action" value="checksnapshot"/>
+    <img src="./images/icon_search.gif" width="26" height="22" border="0" TITLE="SEARCH" />
+
+快照生成日期 : <select name="dates" style='width:120px;background:#eaeaea;'>
+<OPTION selected value="-1">请选择...</OPTION>
+{$s.dayopts}
+</select>&nbsp;&nbsp;
+
+<input type="submit" value="查 看" class="button" /> 
+<span class="notice-span" style='line-height:18px;padding:8px 0px 2px 20px;color:#669900' 
+id="noticeSearch"></span>
+</FORM>
+<br/>
+<span style='padding: 15px 0px 15px 15px;font-size:18px;'>
+<font {if $s.iflag==2}color=#669900{elseif $s.iflag==3}color=#FF0000{/if}>
+{$s.message}</font></span>
+</div>
+
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

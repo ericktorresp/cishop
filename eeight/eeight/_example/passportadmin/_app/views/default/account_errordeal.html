@@ -1,0 +1,146 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+<script>
+$(document).ready(function(){
+	// 全选/反选
+	$("#selectall").click(function(){
+		if(this.checked){  
+        	$("input[name='errors[]']").each(function(){
+        		if (this.disabled != true)
+        		this.checked=true;
+        	});
+	    }else{  
+	        $("input[name='errors[]']").each(function(){
+	        	if (this.disabled != true)
+	        	this.checked=false;
+	        });
+	    }   
+	});
+});
+
+// 检查复选框是否有选中值
+function get_checkbox_count(form,name){
+	var e = form.elements[name];
+/*	for (key in e){
+		document.writeln(key + ' = ' + e[key] + '<br>');
+	}*/
+	var count = 0;
+	if (e){
+		if (e.length){
+			for(var i=0;i<e.length;i++){
+				if (e[i].checked)
+					count ++;
+			}
+		}
+		else
+			count = e.checked ? 1 : 0;
+	}
+	return count;
+}
+
+function checkForm(){
+	var count_checked = get_checkbox_count(document.getElementById("listForm"),"errors[]");
+	if (count_checked <= 0){
+		alert("请至少选择一项");
+		return false;
+	}
+	if (!confirm("确认提交吗？")){
+		return false;
+	}
+	var Form = document.getElementById('listForm');
+	Form.submit();
+}
+</script>
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" id="listForm" onsubmit="return checkForm();">
+<input type="hidden" name="flag" value="deal" />
+<input type="hidden" name="controller" value="account" />
+<input type="hidden" name="action" value="errsyncprize" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th width="10%"></th>
+    <th width="16%">编号</th>
+    <th width="16%">上级用户</th>
+    <th width="16%">新用户</th>
+    <th width="16%">添加时间</th>
+    <th width="16%">频道</th>
+  </tr>
+{foreach from=$aError item=error key=k}
+  <tr>
+    <td align="center"><input name="errors[]" type="checkbox" value="{$error.id}"></td>
+    <td align="center">{$error.id}</td>
+    <td align="center">{$error.parent_name|escape:html}</td>
+    <td align="center" class="tdlist">{$error.child_name|escape:html}</td>
+    <td align="center" class="tdlist">{$error.created}</td>
+    <td align="center" class="tdlist">{if $error.channel == 1}低频{elseif $error.channel == 4}高频{/if}</td>
+  </tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">无异常数据</td></tr>
+{/foreach}
+</table>
+<table id="page-table" cellspacing="0">
+  <tr>
+  <td>&nbsp;&nbsp&nbsp;&nbsp;
+    <input type="checkbox" id="selectall">全选
+    <input type="submit" value="批量处理同步开户失败" id="btnSubmit" name="btnSubmit" class="button" />
+</td>
+</tr>
+</table>
+</form>
+</div>
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#EEF8F9';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{include file="pagefooter.html"}

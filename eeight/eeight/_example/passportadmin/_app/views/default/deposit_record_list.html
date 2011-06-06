@@ -1,0 +1,42 @@
+{include file="pageheader.html"}
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<th>序号:ID</th>
+<th>时间</th>
+<th><font color=green>转入值:Trandfer In</font></th>
+<th><font color=#CC0000>转出值:Transfer Out</font></th>
+<th><font color=#CC0000>转出手续费:Bank Charge</font></th>
+<th>备注:Remarks</th>
+<th>操作员:Opterator</th>
+</tr>
+
+{foreach from=$DepositList  item=Deposit key=Pi}
+
+<tr>
+<td align="center">{$Deposit.id}</td>
+<td align="center">{$Deposit.utime}</td>
+<td align="right"><font color=green>{if $Deposit.inamount > 0}{$Deposit.inamount|escape:money}{/if}</font></td>
+<td align="right"><font color=#CC0000>{if $Deposit.outamount > 0}{$Deposit.outamount|escape:money}{/if}</font></td>
+<td align="right"><font color=#CC0000>{if $Deposit.bankcharge > 0}{$Deposit.bankcharge|escape:money}{/if}</font></td>
+<td>{$Deposit.remark|escape:html}</td>
+<td>{$Deposit.opuser}</td>
+</tr>
+
+{/foreach}
+
+</table>
+</form>
+<table id="page-table" cellspacing="0">
+<tr>
+<td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div>
+</td>
+</tr>
+</table>
+
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

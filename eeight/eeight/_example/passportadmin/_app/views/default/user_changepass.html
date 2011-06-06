@@ -1,0 +1,182 @@
+{include file="pageheader.html"}
+
+<div class="tab-div">
+  <div id="tabbar-div"><span 
+	class="tab-front" id="general-tab">修改登陆密码</span>
+	<span 
+	 class="tab-back" id="detail-tab">修改资金密码</span>
+  </div>
+<div class="list-div">
+<FORM action="" method="POST" onsubmit="return checkpass(this);">
+<input type="hidden" name="controller" value="user">
+<input type="hidden" name="action" value="updatepass">
+<table id="general-table">
+<tr>
+<td class="narrow-label">登陆帐号:</td>
+<td>{$user.username|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">用户昵称:</td>
+<td>{$user.nickname|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticePass_1');"><img src="./images/notice.gif" title="用户密码格式" border="0"></a>用户登陆密码:</td>
+<td><input type="password" name="loginpwd"><span id="noticePass_1" style="display:none;">用户密码格式:密码长度6~16位，由字母数字混合组成，且连续三个字符不相同。用户的登陆密码和用户的安全密码不相等。</span></td>
+</tr>
+<tr>
+<td class="narrow-label">登陆密码确认:</td>
+<td><input type="password" name="loginpwd2"></td>
+</tr>
+<tr>
+<td class="narrow-label"></td>
+<td><input type="submit" value="修改密码" class="button"><input type="reset" value="重置密码" class="button"><input type="hidden" name="userid" value="{$user.userid}">
+</td>
+</tr>
+</table>
+<table id="detail-table" style="display:none;">
+<tr>
+<td class="narrow-label" width="20%">登陆帐号:</td>
+<td width="80%">{$user.username|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">用户昵称:</td>
+<td>{$user.nickname|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticePass_2');"><img src="./images/notice.gif" title="用户密码格式" border="0"></a>用户资金密码:</td>
+<td><input type="password" name="securitypwd"><span id="noticePass_2" style="display:none;">用户密码格式:密码长度6~16位，由字母数字混合组成，且连续三个字符不相同。用户的登陆密码和用户的安全密码不相等。</span></td>
+</tr>
+<tr>
+<td class="narrow-label">资金密码确认:</td>
+<td><input type="password" name="securitypwd2"></td>
+</tr>
+<tr>
+<td class="narrow-label"></td>
+<td><input type="submit" value="修改密码" class="button"><input type="reset" value="重置密码" class="button">
+</tr>
+</table>
+</FORM>
+</div>
+<script language="JavaScript">
+{literal}
+document.getElementById("tabbar-div").onmouseover = function(e)
+{
+    var obj = Utils.srcElement(e);
+    if (obj.className == "tab-back")
+    {
+        obj.className = "tab-hover";
+    }
+}
+
+document.getElementById("tabbar-div").onmouseout = function(e)
+{
+    var obj = Utils.srcElement(e);
+    if (obj.className == "tab-hover")
+    {
+        obj.className = "tab-back";
+    }
+}
+
+document.getElementById("tabbar-div").onclick = function(e)
+{
+    var obj = Utils.srcElement(e);
+    if (obj.className=='' || obj.className == "tab-front")
+    {
+        return;
+    }
+    else
+    {
+        objTable = obj.id.substring(0, obj.id.lastIndexOf("-")) + "-table";
+
+        var tables = document.getElementsByTagName("table");
+        var spans  = document.getElementsByTagName("span");
+
+        for (i = 0; i < tables.length; i++)
+        {
+            if (tables[i].id == objTable)
+            {
+                tables[i].style.display = (Browser.isIE) ? "block" : "table";
+            }
+            else
+            {
+                tables[i].style.display = "none";
+            }
+        }
+        for (i = 0; spans.length; i++)
+        {
+            if (spans[i].className != null && spans[i].className == "tab-front")
+            {
+                spans[i].className = "tab-back";
+                obj.className = "tab-front";
+                break;
+            }
+        }
+    }
+}
+
+function checkpass(obj)
+{
+	p1=/^[0-9a-zA-Z]{6,16}$/i;
+	p2=/^[0-9]+$/;
+	p3=/(.)\\1{2,}/i;
+	p4=/^[a-zA-Z]+$/i;
+	s = obj.loginpwd.value;
+	if(s!='')
+	{
+		if(!p1.test(s)||p2.test(s)||p3.test(s)||p4.test(s))
+		{
+			alert("登陆密码为6~16位,而且由数字和字母构成.");
+			return false;
+		}
+		s2 = obj.loginpwd2.value;
+		if(s!=s2)
+		{
+			alert("用户两次登陆密码不相同。");
+			return false;
+		}
+	}
+	s= obj.securitypwd.value;
+	if(s!='')
+	{
+		if(!p1.test(s)||p2.test(s)||p3.test(s)||p4.test(s))
+		{
+			alert("资金密码为6~16位,而且由数字和字母构成.");
+			return false;
+		}
+		s2 = obj.securitypwd2.value;
+		if(s!=s2)
+		{
+			alert("用户两次资金密码不相同。");
+			return false;
+		}
+	}
+	if(s==obj.loginpwd.value)
+	{
+		if((s=="")&&(obj.loginpwd.value==""))
+		{
+			alert("用户登陆密码和用户资金密码为空。");
+			return false;
+		}
+		else
+		{
+			alert("用户的登陆密码和资金密码相同。");
+			return false;
+		}
+	}
+	return true;
+}
+function showNotice(objId)
+{
+	var obj = document.getElementById(objId);
+	if(obj.style.display=="none")
+	{
+		obj.style.display="block";
+	}
+	else
+	{
+		obj.style.display="none";
+	}
+}
+{/literal}
+</script>
+{include file="pagefooter.html"}

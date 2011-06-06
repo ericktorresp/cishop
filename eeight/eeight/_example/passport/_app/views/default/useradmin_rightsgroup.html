@@ -1,0 +1,79 @@
+{include file="pageheader.html"}
+<script type="text/ecmascript">
+function check_top(thisid,topid)
+{
+	//alert(jQuery("#"+thisid).attr("checked"));
+	if( jQuery("#"+thisid).attr("checked") == true )
+	{
+		jQuery("#"+topid).attr("checked",true);
+	}
+}
+function clear_son( topid )
+{
+	if( jQuery("#"+topid).attr("checked") == false )
+	{
+		jQuery("#"+topid).parent().parent().find(":checkbox").attr("checked",false);
+	}
+}
+</script>
+<div class="list-div" id="listDiv">
+<table class="list-table">
+<form action="index.php" method="post">
+<input type="hidden" name="controller" value="useradmin" />
+<input type="hidden" name="action"	value="rightsgroup" />
+<input type="hidden" name="flag" value="update" />
+<input type="hidden" name="gid" value="{$groupid}" />
+<input type="hidden" name="gname" value="{$groupname|escape:html}" />
+	<tr>
+    	<th colspan="2">组别：{$groupname|escape:html}</th>
+    </tr>
+	{foreach from=$data1 item=d1 key=k1}
+	<tr>
+    	<td width="20%" height="20"><input id="top_{$d1.menuid}" type="checkbox" value="{$d1.menuid}" name="menustr[]" {if isset($menus.$d1.menuid) }checked="checked"{/if} onclick="clear_son('top_{$d1.menuid}')" /><label title="{$d1.description|escape:html}" for="top_{$d1.menuid}">{$d1.title|escape:html}</label></td>
+        <td width="80%">
+        	<table border="0" bordercolordark="#FFFFFF" bordercolorlight="#000000" width="100%">
+            	{foreach from=$data2.$k1 item=d2 key=k2}
+                {*if $d2.menuid!=38*}
+            	<tr>
+                	<td width="20%"><input id="top_{$d2.menuid}" type="checkbox" value="{$d2.menuid}" name="menustr[]" {if isset($menus.$d2.menuid) }checked="checked"{/if} onclick="check_top('top_{$d2.menuid}','top_{$d1.menuid}');clear_son('top_{$d2.menuid}')" /><label title="{$d2.description|escape:html}" for="top_{$d2.menuid}">{$d2.title|escape:html}</label></td>
+                    <td width="80%">
+                    {if isset($data3.$k2) }
+                    {foreach from=$data3.$k2 item=d3 key=k3}
+                    	<input id="top_{$d3.menuid}" type="checkbox" value="{$d3.menuid}" name="menustr[]" {if isset($menus.$d3.menuid) }checked="checked"{/if} onclick="check_top('top_{$d3.menuid}','top_{$d2.menuid}');check_top('top_{$d3.menuid}','top_{$d1.menuid}')" /><label title="{$d3.description|escape:html}" for="top_{$d3.menuid}">{$d3.title|escape:html}</label>&nbsp;
+                    {/foreach}
+                    {/if}
+                    </td>
+                </tr>
+                {*/if*}
+                {/foreach}
+            </table>
+        </td>
+    </tr>
+    {/foreach}
+    <tr>
+    	<td width="20%" height="20"><input id="top_other" type="checkbox" value="1" name="other" {if isset($menus.other) }checked="checked"{/if} onclick="clear_son('top_other')" /><label title="其他管理操作" for="top_other">其他</label></td>
+        <td width="80%">
+        	<table border="0" bordercolordark="#FFFFFF" bordercolorlight="#000000" width="100%">
+            	<tr>
+                	<td width="20%"><input id="top_bank" type="checkbox" value="1" name="isbank" {if isset($menus.isbank) }checked="checked"{/if} onclick="check_top('top_bank','top_other')" /><label title="可以查看银行余额" for="top_bank">银行余额</label></td>
+                    <td width="80%">&nbsp;</td>
+                </tr>
+               <!-- <tr>
+                	<td width="20%"><input id="top_star" type="checkbox" value="2" name="isstar" {if isset($menus.isstar) }checked="checked"{/if} onclick="check_top('top_star','top_other')" /><label title="可以查看星级" for="top_star">星&nbsp;&nbsp;&nbsp;&nbsp;级</label></td>
+                    <td width="80%">&nbsp;</td>
+                </tr>-->
+                <tr>
+                	<td width="20%"><input id="top_add" type="checkbox" value="4" name="isadd" {if isset($menus.isadd) }checked="checked"{/if} onclick="check_top('top_add','top_other')" /><label title="可以开户数额" for="top_add">开户数额</label></td>
+                    <td width="80%">&nbsp;</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+    	<td colspan="2" height="30" align="center">
+    	<input type="checkbox" name="selectall" id="selectall" onclick="selectAll('selectall')" /><label for="selectall">全选</label> &nbsp;&nbsp;<input type="submit" name="submit" value="提交" class="button"/>&nbsp;&nbsp;<input type="button" value="返回列表" onclick="window.location='index.php?controller=useradmin&action=grouplist'" class="button" /></td>
+    </tr>
+ </form>
+</table>
+</div>
+{include file="pagefooter.html"}

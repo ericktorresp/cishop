@@ -1,0 +1,88 @@
+{include file="pageheader.html"}
+<form method="POST" name="listForm" action="./?controller=firewall&action={$form_action}"  
+onsubmit="return validate()" >
+<div class="tab-div">
+
+  <div id="tabbody-div">
+    <table width="90%" id="general-table">
+	  <tr>
+        <td class="narrow-label">规则描述</td>
+        <td>
+			<input size='40' name="message" value="{if $form_action==updaterule}{$s.message|escape:html}{/if}" type="text"></td>
+      </tr>
+
+	  <tr>
+        <td class="narrow-label">受限范围</td>
+		 <td>
+<select name="ft" style="width:86px;background-color:#3D3D3D;color:#FFF">
+<option value="1" {if $s.rangetype=='1'}SELECTED{/if}>用户名</option>
+<option value="2" {if $s.rangetype=='2'}SELECTED{/if}>网络地址</option>
+</select>&nbsp;<input type="text" name="fv" size='27' 
+value="{if $s.rangetype=='1'}{$s.username|escape:html}{else}{$s.userip|escape:html}{/if}"/>
+ <a href="javascript:showNotice('noticeSort');" title="排序值"><img src="./images/notice.gif" width="16" height="16" border="0"/></a>
+ {if $s.rangetype=='1' && $s.username=='' }<font color=red>用户ID={$s.userid} 此用户已被删除</font>{/if}
+ <span class="notice-span" id="noticeSort">
+ 用户名, 一次输入一个. 例: <font color=#ff9900>Dummy</font><br/>
+ 网络地址, 若希望限制 <font color=#669900>192.168.1.*</font> 只需写入 <font color=#ff9900>192.168.1</font></span>
+		</td>
+      </tr>
+
+	  <tr>
+        <td class="narrow-label">处理行为</td>
+		 <td>
+<select name="faid" style="background-color:#FFF;color:#555">
+<option value="">请选择..</option>
+{$s.faid}</select>&nbsp;&nbsp;
+		</td>
+      </tr>
+
+	  <tr>
+        <td class="narrow-label">是否启用</td>
+        <td><select style='width:100px;' name="isdisabled">
+			   <option style='color:#690;' value="0" {if $s.isdisabled==0}selected=TRUE{/if}>正常</option>
+			   <option style='color:#f30;' value="1" {if $s.isdisabled!=0}selected=TRUE{/if}>禁用</option>
+			</select></td>
+      </tr>
+    </table>
+
+
+<div class="button-div"><br/>
+<input type="submit" value="提交" class="button"  />
+<input type="reset" value="重置" class="button" />
+<input type="hidden" name="ruleid" value='{$s.entry}'>
+    </div>
+  </div>
+
+</div>
+</form>
+
+{insert_scripts files="./js/validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+  /**
+   * 检查表单输入的内容
+   */
+	function validate()
+	{
+		var validator = new Validator('listForm');
+		validator.required('message', "规则描述不能为空!");
+		validator.required('faid', "处理行为未选");
+		if( document.forms['listForm'].elements['ft'].value == 1 
+			&& document.forms['listForm'].elements['fv'].value.length < 1 )
+		{
+			validator.addErrorMsg('用户名未填写');
+		}
+		if( document.forms['listForm'].elements['ft'].value == 2 
+			&& document.forms['listForm'].elements['fv'].value.length < 1 )
+		{
+			validator.addErrorMsg('网络地址未填写');
+		}
+
+		return validator.passed();  
+    }
+//-->
+</script>
+{/literal}
+
+{include file="pagefooter.html"}

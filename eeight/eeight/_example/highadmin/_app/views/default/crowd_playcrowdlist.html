@@ -1,0 +1,27 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<th>玩法群ID</th>
+<th>游戏</th>
+<th>玩法群名称</th>
+<th>操作</th>
+</tr>
+{foreach from=$aCrowd item=crowd key=k}
+<tr align="center">
+<td>{$crowd.crowdid}</td>
+<td>{$crowd.cnname}</td>
+<td>{$crowd.crowdname}</td>
+<td>
+<a href="./?controller=crowd&action=editplaycrowd&crowdid={$crowd.crowdid}">修改</a>
+<a href="./?controller=crowd&action=deleteplaycrowd&crowdid={$crowd.crowdid}" onclick="return confirm('确定要删除玩法群吗？');">删除</a>
+</td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="7" class="no-records">没有相关数据</td>
+</tr>
+{/foreach}
+</table>
+</div>
+{include file="pagefooter.html"}

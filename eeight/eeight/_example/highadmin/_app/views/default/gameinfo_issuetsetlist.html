@@ -1,0 +1,58 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td width="200" align="right"><b>中文平台游戏名称</b></td>
+<td colspan="7">{$aLottery.cnname}</td>
+</tr>
+<tr>
+<td width="200" align="right"><b>开奖周期</b></td>
+<td colspan="7">
+<label for="date_1"><input type="checkbox" name="date[]" id="date_1" value="1" {if isset($aLottery)&&($aLottery.weekcycle&1)>0}checked{/if}>&nbsp;星期一</label>&nbsp;
+<label for="date_2"><input type="checkbox" name="date[]" id="date_2" value="2" {if isset($aLottery)&&($aLottery.weekcycle&2)>0}checked{/if}>&nbsp;星期二</label>&nbsp;
+<label for="date_3"><input type="checkbox" name="date[]" id="date_3" value="4" {if isset($aLottery)&&($aLottery.weekcycle&4)>0}checked{/if}>&nbsp;星期三</label>&nbsp;
+<label for="date_4"><input type="checkbox" name="date[]" id="date_4" value="8" {if isset($aLottery)&&($aLottery.weekcycle&8)>0}checked{/if}>&nbsp;星期四</label>&nbsp;
+<label for="date_5"><input type="checkbox" name="date[]" id="date_5" value="16" {if isset($aLottery)&&($aLottery.weekcycle&16)>0}checked{/if}>&nbsp;星期五</label>&nbsp;
+<label for="date_6"><input type="checkbox" name="date[]" id="date_6" value="32" {if isset($aLottery)&&($aLottery.weekcycle&32)>0}checked{/if}>&nbsp;星期六</label>&nbsp;
+<label for="date_7"><input type="checkbox" name="date[]" id="date_7" value="64" {if isset($aLottery)&&($aLottery.weekcycle&64)>0}checked{/if}>&nbsp;星期日</label>
+</td>
+</tr>
+<tr>
+ <th width="80">游戏</th>
+ <th width="120">销售开始时间</th>
+ <th width="120">第一期截止时间</th>
+ <th width="120">销售截止时间</th>
+ <th width="120">开奖周期(秒)</th>
+ <th width="150">允许录入号码时间(秒)</th>
+ <th width="120">状态</th>
+ <th>操作</th>
+</tr>
+{foreach from=$aLottery.issueset item=issueset key=k}
+<tr>
+<td width="80" align="center">{$aLottery.cnname}</td>
+<td width="80" align="center">{$issueset.starttime}</td>
+<td width="80" align="center">{$issueset.firstendtime}</td>
+<td width="80" align="center">{$issueset.endtime}</td>
+<td width="80" align="center">{$issueset.cycle}</td>
+<td width="80" align="center">{$issueset.inputcodetime}</td>
+<td width="80" align="center">{if $issueset.status == 1}有效{else}<font color="Red">无效</font>{/if}</td>
+<td width="80" align="center">
+<a href="./?controller=gameinfo&action=editissueset&lotteryid={$aLottery.lotteryid}&id={$k}">修改</a>&nbsp;
+<a href="./?controller=gameinfo&action=delissueset&lotteryid={$aLottery.lotteryid}&id={$k}"  onclick="return confirm('您确定要删除该奖期时间规则吗?');">删除</a>
+</td>
+</tr>
+{foreachelse}
+<tr>
+<td class="no-records" colspan="8">没有相关记录,请先添加信息。</td>
+</tr>
+{/foreach}
+<tr>
+<td colspan="8" align="center">
+<input type="hidden" name="lotteryid" value="{$aLottery.lotteryid|escape:html}">
+<input type="button" class="button" value="新增奖期规则" onclick="window.location.href = './?controller=gameinfo&action=addissueset&lotteryid={$aLottery.lotteryid}'">
+<input type="button" class="button" value="返回列表"  onclick="window.location.href = './?controller=gameinfo&action=list'">
+</td>
+</tr> 
+</table>
+</div>
+{include file="pagefooter.html"}

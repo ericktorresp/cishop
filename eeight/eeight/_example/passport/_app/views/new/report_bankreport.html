@@ -1,0 +1,201 @@
+{include file="pageheader.html"}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/calendar/jquery.dyndatetime.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/js/calendar/css/calendar-blue2.css" type="text/css" />
+<script type="text/javascript">
+	jQuery("#loadhtml").hide();	//去掉loading界面
+	jQuery(document).ready(function() {		
+		jQuery("#ordertime_min").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#ordertime_max").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#helpimg").click(function(){
+			jQuery("#helpnotice").toggle();
+		});
+	});
+	
+function checkForm(obj)
+{
+	if( jQuery.trim(obj.ordertime_min.value) != "" )
+	{
+		if( false == validateInputDate(obj.ordertime_min.value) )
+		{
+			$.alert("时间格式不正确");
+			obj.ordertime_min.focus();
+			return false;
+		}
+	}
+	if( jQuery.trim(obj.ordertime_max.value) != "" )
+	{
+		if( false == validateInputDate(obj.ordertime_max.value) )
+		{
+			$.alert("时间格式不正确");
+			obj.ordertime_max.focus();
+			return false;
+		}
+	}
+}
+</script>
+
+<form action="index.php" method="get" name="search" onsubmit="return checkForm(this)">
+<input type="hidden" name="controller" value="report" />
+<input type="hidden" name="action" value="bankreport" />
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+
+<div class="neiye01"">
+<div class="margin_2px">{if $hassearch>0}用户名：&nbsp;</div>
+<div class="margin_2px"><input type="text" name="username" value="{$searchdata.username|escape:html}" size="10" />{/if}
+</div>
+
+<div class="margin_2px">类型：</div>
+<div class="margin_2px">
+<select name="ordertype">
+    <option value="0">所有类型</option>
+	{foreach from=$ordertypes item=ordertype key=sk}
+	<option value="{$ordertype.id}" {if $searchdata.ordertype==$ordertype.id}selected="selected"{/if}>{$ordertype.cntitle}</option>
+    {/foreach}
+</select>
+</div>
+<div class="margin_2px"><input type="text" size="18" name="ordertime_min" id="ordertime_min" value="{$searchdata.ordertime_min}" />
+  <img src="{$sSystemImagesAndCssPath}/images/new_passport/icon_06.jpg"  id="time_min_button" /></div>
+<div class="margin_2px">至</div>
+<div class="margin_2px">
+  <input type="text" size="18" name="ordertime_max" id="ordertime_max" value="{$searchdata.ordertime_max}" />
+<img src="{$sSystemImagesAndCssPath}/images/new_passport/icon_06.jpg"  /></div>
+  
+<div class="margin_2px">
+{$searchdata.range}
+</div>
+  
+  
+<div class="margin_2px">
+<input type="submit" name="submit" class="search_button" value="" />
+</div>
+</div>
+ 
+<div></div> 
+
+
+
+<div class="neiye01 center">
+
+<div class="margin_2px"><input type="hidden" name="lntype" id="lntype" value="" /></div>
+<div class="margin_2px">
+ <input type="submit" name="submit" value="我的充值" class="buttonnormal" onclick="document.getElementById('lntype').value='brcz';" />
+</div>
+<div class="margin_2px"><input type="submit" name="submit" class="buttonnormal" value="为下级充值" onclick="document.getElementById('lntype').value='xjcz';" /></div>
+<div class="margin_2px">
+ <input type="submit" name="submit" value="我的提现" class="buttonnormal" onclick="document.getElementById('lntype').value='brtx';" />
+</div>
+<div class="margin_2px"><input type="submit" name="submit" value="下级提现"  class="buttonnormal" onclick="document.getElementById('lntype').value='xjtx';" /></div>
+<div class="margin_2px"><a href="#" id="helpimg" style="text-decoration:none; color:#000000;"><img src="{$sSystemImagesAndCssPath}/images/new_passport/icon_05.jpg" style="cursor:pointer; border:0;" />小提示</a></div>
+</div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+
+</div>
+</form>
+
+<div class="right_02 d5d8de" style="width:98%;display:none;" id="helpnotice">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+
+<div class="margin10" style="margin-left:30px;line-height: 18px;">
+<div style="font-size:14px;margin-bottom:20px;"><strong>小提示：</strong></div>
+<div><strong>我的充值：</strong>您自己和上级给您的所有充值账变<br />
+<strong>为下级充值：</strong>您给直接和非直接下级的所有充值帐变<br />
+<strong>我的提现：</strong>您向上级和平台发起的所有提现账变<br />
+<strong>下级提现：</strong>下级向您发起的所有提现帐变<br /></div>
+</div>
+
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+
+
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%">
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+    
+    
+    <tr>
+      <td height="43" align="center">帐变编号</td>
+      <td align="center" class="line_03">用户名</td>
+      <td align="center" class="line_03">时间</td>
+      <td align="center" class="line_03">类型</td>
+	  <td align="center" class="line_03">收入</td>
+	  <td align="center" class="line_03">支出</td>
+	  <td align="center" class="line_03">银行余额</td>
+	  <td align="center" class="line_03">状态</td>
+	  <td align="center" class="line_03">备注</td>
+    </tr>
+    <tr align="center">
+  <td height="5" colspan="9" align="center"></td>
+  </tr>
+    {foreach from=$orders item=order key=k}
+   
+    <tr>
+        <td height="37" align="center" bgcolor="#CCCCCC">{$order.orderno}</td>
+        <td align="center" bgcolor="#CCCCCC"> {$order.username|escape:html}</td>
+        <td align="center" bgcolor="#CCCCCC">{$order.times}</td>
+        <td align="center" bgcolor="#CCCCCC">{$order.cntitle|escape:html}</td>
+        <td align="center" bgcolor="#CCCCCC">{if $order.operations>0}<font color="#669900">+{$order.amount|escape:money}</font>{else}&nbsp;{/if}</td>
+        <td align="center" bgcolor="#CCCCCC">{if $order.operations==0}<font color="#FF3300">-{$order.amount|escape:money}</font>{else}&nbsp;{/if}</td>
+        <td align="center" bgcolor="#CCCCCC">{$order.availablebalance|escape:money}</td>
+        <td align="center" bgcolor="#CCCCCC">{if $order.transferstatus == 1}失败{elseif $order.transferstatus == 3}失败{else}成功{/if}</td>
+        <td align="center" bgcolor="#CCCCCC">{if $order.allowdec == 1}{$order.description}{else}-----{/if}</td>
+    </tr>
+    {/foreach}
+    <tr>
+    	<td height="37" colspan="4" align="left" bgcolor="#999999">&nbsp;&nbsp;&nbsp;&nbsp;小结: 本页变动金额: <span style="font-size:14px; font-weight:bold; color:#FF0000;">{$icount.left|escape:money}</span> </td>
+        <td align="center" bgcolor="#999999"><font color="#669900"><strong>+{$icount.in|escape:money}</strong></font></td>
+        <td align="center" bgcolor="#999999"><font color="#FF3300"><strong>-{$icount.out|escape:money}</strong></font></td>
+        <td align="center" bgcolor="#999999">&nbsp;</td>
+        <td align="center" bgcolor="#999999">&nbsp;</td>
+        <td align="center" bgcolor="#999999">&nbsp;</td>
+    </tr>
+    <tr><td height="37" colspan="9" align="right">{$page}</td>
+    </tr>
+  </table>
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+
+{include file="pagefooter.html"}

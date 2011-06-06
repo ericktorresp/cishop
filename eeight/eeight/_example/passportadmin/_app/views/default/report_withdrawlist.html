@@ -1,0 +1,185 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+{literal}
+<script>
+$(document).ready(function(){
+	// 全选/反选
+	$("#selectall").click(function(){
+		if(this.checked){  
+        	$("input[name='withdraw[]']").each(function(){
+        		if (this.disabled != true)
+        		this.checked=true;
+        	});
+	    }else{  
+	        $("input[name='withdraw[]']").each(function(){
+	        	if (this.disabled != true)
+	        	this.checked=false;
+	        });
+	    }   
+	});
+});
+
+// 检查复选框是否有选中值
+function get_checkbox_count(form,name){
+	var e = form.elements[name];
+/*	for (key in e){
+		document.writeln(key + ' = ' + e[key] + '<br>');
+	}*/
+	var count = 0;
+	if (e){
+		if (e.length){
+			for(var i=0;i<e.length;i++){
+				if (e[i].checked)
+					count ++;
+			}
+		}
+		else
+			count = e.checked ? 1 : 0;
+	}
+	return count;
+}
+
+function checkForm(){
+	var count_checked = get_checkbox_count(document.getElementById("listForm"),"withdraw[]");
+	if (count_checked <= 0){
+		alert("请至少选择一项");
+		return false;
+	}
+	if (!confirm("确认提交吗？")){
+		return false;
+	}
+	var Form = document.getElementById('listForm');
+	Form.submit();
+}
+</script>
+<div class="form-div">
+<FORM name="searchForm" action="" METHOD='get'>
+<input type="hidden" name="controller" value="report" />
+<input type="hidden" name="action" value="withdrawlist" />
+&nbsp;&nbsp;&nbsp;&nbsp;
+处理状态：<select name="operate">
+	<option value="0" {if $aHtml.status == 0}selected{/if}>等待审核</option>
+	<option value="1" {if $aHtml.status == 1}selected{/if}>审核通过</option>
+	<option value="2" {if $aHtml.status == 2}selected{/if}>审核未通过</option>
+</select>
+&nbsp;&nbsp;&nbsp;&nbsp;
+审核员：<input type='test' name="verify_name" value="{$aHtml.verify_name}" />
+&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="submit" value="搜 索" class="button" />
+</FORM></div>
+<div class="list-div" id="listDiv">
+<FORM name="listForm" id="listForm" action="" METHOD='POST' onsubmit="return checkForm();">
+<input type="hidden" name="controller" value="report" />
+<input type="hidden" name="action" value="verifywithdraw" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+  	<th></th>
+  	<th>状态</th>
+  	<th>用户</th>
+  	<th>所属总代</th>
+  	<th>提现金额</th>
+  	<th>提现类型</th>
+  	<th>批注</th>
+  	<th>审核员</th>
+  	<th>审核时间</th>
+  	<th>操作</th>
+  </tr>
+  {foreach from=$aResult item=result key=k}
+  <tr align="center">
+  	<td><input type="checkbox" name="withdraw[]" value="{$result.id}#{$result.user_name}" /></td>
+  	<td>{if $result.status == 0}等待审核{elseif $result.status == 1}审核通过{else}审核未通过{/if}</td>
+  	<td>{$result.user_name|escape:html}</td>
+  	<td>{$result.topproxy|escape:html}</td>
+  	<td>{$result.fmoney|escape:money}</td>
+  	<td>{$result.type|escape:html}</td>
+  	<td>{if $result.description}{$result.description}{else}--{/if}</td>
+  	<td>{if $result.verify_name}{$result.verify_name}{else}--{/if}</td>
+  	<td>{if $result.verify_name}{$result.utime}{else}--{/if}</td>
+  	<td>
+  	{if $result.status == 0}
+  		<a href="?controller=report&action=verifywithdraw&id={$result.id}&status=1" onclick="return confirm('确认提交吗？');" >审核通过</a>&nbsp;|&nbsp;<a href="?controller=report&action=verifywithdraw&id={$result.id}&status=2" onclick="return confirm('确认提交吗？');" >审核未通过</a>
+  	{else}
+  		------
+  	{/if}
+  	</td>
+  </tr>
+  {foreachelse}
+  	<tr>
+  		<td colspan="10" align="center">无相关数据</td>
+  	</tr>
+  {/foreach}
+  <tr>
+  	<td align="center"><input type="checkbox" name="selectall" id="selectall" /></td>
+  	<td colspan="7"></td>
+  	<td colspan="2" align="center">
+  		<select name="verify">
+  			<option value="1">审核通过</option>
+  			<option value="2">审核未通过</option>
+  		</select>
+  	&nbsp;&nbsp;&nbsp;&nbsp;
+  	<input type="submit" value="提交" />
+  	</td>
+  </tr>
+</table>
+</form>
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+</div>
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

@@ -1,0 +1,62 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function changeform(id,flag)
+{
+	if( flag == 'delete' && false==confirm("确定要删除吗？") ){
+		return false;
+	}
+	document.getElementById("unid").value = id;
+	document.getElementById("flag").value = flag;
+	document.forms[0].submit();
+}
+</script>
+
+<form action="index.php" method="post" name="uniteform">
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action" value="setunite" />
+<input type="hidden" name="flag" id="flag" value="list" />
+<input type="hidden" name="check" value="{$check}" />
+<input type="hidden" name="unid" id="unid" value="" />
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%">
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+    
+    
+      <td height="43" align="center">合帐组名称</td>
+      <td align="center" class="line_03">合帐组用户</td>
+      <td align="center" class="line_03">操作</td>
+    </tr>
+      <tr>
+      <td height="5" colspan="3" align="center"></td>
+      </tr>
+    <tr>
+     {if !empty($unites) }
+    {foreach from=$unites item=unite key=k} 
+    <tr>
+      <td height="37" align="center" bgcolor="#CCCCCC">{$k|escape:html}</td>
+      <td align="center" bgcolor="#CCCCCC">{$unite.user|escape:html}</td>
+      <td align="center" bgcolor="#CCCCCC">
+        {if $unite.delrights == 1}
+        <a href="#" onclick="changeform('{$k}','delete')">删除</a>
+        {/if}</td>
+    </tr>
+    {/foreach}
+    {/if} 
+    <tr>
+    	<td height="37" colspan="3" align="center"><input type="button"  class="buttonnormal" name="button" value="增加合帐" onclick="changeform(0,'insert')" /></td>
+    </tr>
+  </table>
+  </div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+</form>
+{include file="pagefooter.html"}
+
+

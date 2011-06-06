@@ -1,0 +1,81 @@
+{include file="pageheader.html"}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/city.js"></script>
+<script type="text/javascript">
+function checkForm(obj)
+{
+	var isok = true;
+	if( obj.money.value < {$min_money} )
+	{
+		//alert("提现金额不能低于最低平台提现金额");
+		jQuery("#money").siblings("span").html("※提现金额不能低于最低平台提现金额");
+		isok = false;
+	}else{ jQuery("#money").siblings("span").html(""); }
+	
+	if( obj.bankinfo.value <= 0 )
+	{
+		jQuery("#bankinfo").siblings("span").html("※您忘记了选择银行卡信息");
+		isok = false;
+	}else{ jQuery("#bankinfo").siblings("span").html(""); }
+	
+	return isok;
+	//return true;
+}
+</script>
+<form action="index.php" method="post" name="drawform" onsubmit="return checkForm(this)">
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action" value="businesswithdraw" />
+<input type="hidden" name="flag" value="withdraw" />
+<input type="hidden" name="check" value="{$check}" />
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%">
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+    
+
+   
+    <tr>
+      <td height="43" colspan="2">商务提现</td>
+    </tr>
+    <tr>
+      <td height="5" colspan="2"></td>
+      </tr>
+    <tr>
+      <td height="37" align="right" bgcolor="#CCCCCC">用户名：</td>
+      <td align="left" bgcolor="#CCCCCC">{$user.username|escape:html}</td>
+    </tr>
+     <tr>  
+      <td width="200" height="37" align="right" bgcolor="#CCCCCC">可提现金额：</td>
+      <td align="left" bgcolor="#CCCCCC">{$user.availablebalance|escape:money}</td>
+    </tr>
+     <tr>
+      <td height="37" align="right" bgcolor="#CCCCCC">提现金额：</td>
+      <td align="left" bgcolor="#CCCCCC"><input type="text" name="money" id="money" size="20" onkeyup="checkWithdraw(this,'chineseMoney',{$user.availablebalance});" />(每次最少提现{$min_money})&nbsp;&nbsp;<span style="color:red;"></span></td>
+    </tr>
+     <tr>
+      <td height="37" align="right" bgcolor="#CCCCCC">提现金额(大写):</td>
+      <td align="left" bgcolor="#CCCCCC"><span id="chineseMoney"></span></td>
+    </tr>
+     <tr>
+      <td height="37" align="right" bgcolor="#CCCCCC">收款银行卡信息：</td>
+      <td align="left" bgcolor="#CCCCCC"><select name="bankinfo" id="bankinfo">
+    		{foreach from=$banks item=bank key=k}
+    			<option value="{$bank.id}">{if $bank.nickname != ""}{$bank.nickname}--{/if}{$bank.bank_name}--{$bank.account}</option>
+    		{/foreach}
+    	</select>&nbsp;&nbsp;<span style="color:red;"></span></td>
+    </tr>
+     <tr>
+    	<td height="37" align="right"></td>
+    	<td align="left"><input type="submit" name="submit"  class="buttonnormal" value="确定"  /></td>
+    </tr>
+  </table>
+  </div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+</form>
+{include file="pagefooter.html"}

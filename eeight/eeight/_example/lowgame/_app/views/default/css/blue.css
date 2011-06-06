@@ -1,0 +1,209 @@
+@CHARSET "UTF-8";
+*{
+	font-size:12px;
+}
+body{
+	background:#333333 url({$sSystemImagesAndCssPath}/lowgame/images/blue/bg.gif);
+	margin:0px auto;
+	font: 12px "sans-serif", "Arial", "Verdana","宋体";
+	padding:10px;
+	clear:both;
+}
+img{
+	border:0px;	
+    vertical-align: middle;
+}
+form{
+	padding:0px;
+	margin:0px;
+}
+/* 头部信息 */
+h1{
+	height:32px;
+	width:100%;
+	border:1px #B9B9B9 solid;
+	background:#8A8A8A;
+	font-size:14px;
+	margin: 0 0 6px 0;
+    overflow:hidden;
+}
+h1 span{
+	zoom:1;
+}
+/* 头部信息 尾部的快捷方式 */
+h1 .action-span{
+	float:right;
+	margin: 3px 10px 3px 10px;
+}
+/* 头部信息尾部的快捷方式  */
+h1 .action-span a {
+  color: #333333;
+  font-size: 12px;
+  text-decoration: none;
+  display:block;
+  text-align:center;
+  width:101px;
+  height:24px;
+  line-height:24px;
+  background:#8A8A8A url({$sSystemImagesAndCssPath}/lowgame/images/blue/action_button.jpg) no-repeat;
+  *background:#8A8A8A url({$sSystemImagesAndCssPath}/lowgame/images/blue/action_button.jpg) no-repeat;
+}
+/* 头部信息尾部的快捷方式的特效  */
+h1 .action-span a:hover {
+  background:#8A8A8A url({$sSystemImagesAndCssPath}/lowgame/images/blue/action_button.jpg) no-repeat 1px 1px;
+  *background:#8A8A8A url({$sSystemImagesAndCssPath}/lowgame/images/blue/action_button.jpg) no-repeat 3px 3px;
+  color:#333333;
+  text-decoration:none;
+}
+/* 头部信息 的当前位置 */
+h1 .action-span1{
+    color:#990000;
+    margin-top:5px;
+    margin-left:10px;
+    line-height:20px;	
+    float:left;
+    font-weight:normal;
+    
+}
+h1 .action-span1 a{
+    color:#000000; 
+    float:left;
+    font-weight:normal;
+    padding-right:5px;
+    text-decoration:none;
+}
+/* 底部信息 */
+#footer{
+    width:100%;
+    border:1px #B9B9B9 solid;
+    background:#8A8A8A;
+    font-size: 12px;
+    margin-top: 6px;
+    overflow:hidden;
+    text-align:center;
+    line-height:20px;	
+}
+/* 搜索区部分 */
+.list-div{
+	border:1px #474747 solid;
+	width:100%;
+	background:#5b5b5b;
+	color:#FFFFFF;
+}
+.list-div div{
+	line-height:30px;
+    font-size:14px;
+    padding:20px;
+}
+.list-div input{
+    border:1px #808080 solid;
+    color:#000000;
+    background:#FFFFFF;
+    height:18px;
+    line-height:18px;
+    vertical-align: middle;
+}
+.list-div img{
+	vertical-align: middle;
+}
+.list-div .button{
+    height:20px;
+    padding-left:10px;
+    padding-right:10px;
+    border:1px #4A4A4A solid;
+    color:#000000;
+    text-align:center;
+    background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/button_bg.jpg);	
+    background-repeat:repeat-x;
+}
+/* 列表部分 */
+.list-div table{
+	width:100%;
+	border:0px;
+	font-size:12px;
+}
+/* 列表部分  头部*/
+.list-div th{
+    color:#FFD21E;
+    text-align:center;
+    background:#323232;
+    height:25px;
+    font-size:12px;
+    font-weight:normal;
+    border:0px;
+}
+/* 列表部分  头部*/
+.list-div tr{
+    color:#FFFFFF;
+    background:#464747;
+    border:#313131 1px solid;
+}
+/* 列表部分 没有记录 */
+.list-div .no-records{
+	text-align:center;
+	height:50px;
+	background:#666666;
+	color:#FFFFFF;
+	font-weight:bold;
+}
+/*列表部分 td*/
+.list-div td{
+	color:#FFFFFF;
+    line-height: 22px;
+    background:#474747;
+}
+/* 列表部分的连接 */
+.list-div a{
+	color:#FFFFFF;
+	text-decoration: none;
+}
+/* 列表部分的连接特效 */
+.list-div a:hover{
+    color:#FFD21E;  
+    text-decoration:underline;
+}
+/* 列表专用标签 */
+.list-div .narrow-label{
+	width:15%;
+	font-weight:bold;
+	color:#FFD21E;
+	text-align:right;
+	padding-right:10px;
+}
+/*分页部分*/
+#tPages{
+	border:0px;
+	height:30px;
+	color:#FFFFFF;
+}
+#tPages strong{
+	height:30px;
+	padding: 2px;
+	border:#464647 solid 1px;
+	text-align:center;
+	color:#FFFFFF;
+	background:#C69100;
+	margin:1px;
+}
+#tPages a{
+	border:1px #C8CACD solid;
+	color:#917400;
+	height:30px;
+    padding: 2px;
+    text-align:center;
+	text-decoration:none;
+    background:#F3F3F3;
+    margin:1px;
+    font-weight:bold;
+}
+#tPages a:hover{
+    border:1px #FF9901 solid;
+    color:#917400;
+    height:30px;
+    padding: 2px;
+    text-align:center;
+    text-decoration:none;
+    background:#FFFFFF;
+    margin:1px;
+    font-weight:bold;
+}

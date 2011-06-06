@@ -1,0 +1,38 @@
+{include file="pageheader.html"}
+<script>
+function checkform(obj)
+{
+	var partn = /^(.){2,6}$/;
+	if( !partn.exec(obj.newname.value) )
+	{
+		alert("组别名称不合法");
+		obj.newname.focus();
+		return false;
+	}
+	return true;
+}
+</script>
+<div class="list-div" id="listDiv">
+<table align="center">
+<form action="index.php" method="post" name="updateform" onsubmit="return checkform(this)">
+<input type="hidden" name="gid" value="{$groupid}" />
+<input type="hidden" name="gname" value="{$groupname|escape:html}" />
+<input type="hidden" name="flag" value="update" />
+<input type="hidden" name="controller" value="useradmin" />
+<input type="hidden" name="action"	value="updategroup" />
+  <tr>
+  	<td class="narrow-label">原组别名称:</td>
+    <td>{$groupname|escape:html}</td>
+  </tr>
+  <tr>
+  	<td class="narrow-label">修改后组别名称:</td>
+    <td><input type="text" name="newname" />(2至6个字符组成)</td>
+  </tr>
+  <tr>
+  <td></td>
+  <td><input type="submit" name="submit" value="提交" class="button" />&nbsp;&nbsp;
+  <input type="button" value="返回列表" class="button" onclick="window.location='index.php?controller=useradmin&action=grouplist'" /></td></tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

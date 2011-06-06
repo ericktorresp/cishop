@@ -1,0 +1,48 @@
+{include file="pageheader.html"}
+<div class="form-div">
+<form method="POST" onsubmit="return check();">
+<input type="hidden" name="controller" value="user">
+<input type="hidden" name="action" value="savefreeze">
+<input type="hidden" name="userid" value="{$user.userid}">
+<table>
+	<tr>
+		<td class="narrow-label" width="20%">用户帐号</td>
+		<td width="80%">{$user.username|escape:html}</td>
+	</tr>
+	<tr>
+		<td class="narrow-label">冻结范围</td>
+		<td><label for="free_1"><input type="radio" name="free" id="free_1" value="1" checked="checked" />仅冻结此用户，不冻结其下级</label></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><label for="free_2"><input type="radio" name="free" id="free_2" value="2" />冻结此用户和所有下级</label></td>
+	</tr>
+	<tr>
+		<td class="narrow-label">冻结方式</td>
+		<td><label for="freetype_1"><input type="radio" name="freetype" id="freetype_1" value="1" checked="checked" />完全冻结</label></td>
+	</tr>
+		<tr>
+		<td></td>
+		<td><label for="freetype_2"><input type="radio" name="freetype" id="freetype_2" value="2" />可登录，不可投注，不可充提</label></td>
+	</tr>
+		<tr>
+		<td></td>
+		<td><label for="freetype_3"><input type="radio" name="freetype" id="freetype_3" value="3" />不可投注，可充提</label></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+		<input type="submit" class="button" value="用户冻结">
+		<input type="reset" class="button" value="重置冻结">
+		</td>
+	</tr>
+</table>
+</form>
+</div>
+<script>
+function check()
+{
+	return confirm("您确定要冻结用户吗?");
+}
+</script>
+{include file="pagefooter.html"}

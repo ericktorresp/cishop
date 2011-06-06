@@ -1,0 +1,36 @@
+{include file="pageheader.html"}
+<form action="index.php" method="post" name="listform">
+<input type="hidden" name="controller" value="useradmin" />
+<input type="hidden" name="action" value="adminproxy" />
+<input type="hidden" name="flag" value="update" />
+<div class="right_02 d5d8de">
+
+<div><table width="100%" border="0" cellspacing="1" cellpadding="4">
+
+    <tr>
+      <td align="center" bgcolor="#67686b">用户名</td>
+      <td align="center" bgcolor="#67686b">销售管理员</td>
+    </tr>
+   
+
+	{foreach from=$proxys item=proxy key=k}
+    <tr>
+      <td align="center" bgcolor="#CCCCCC">{$proxy.username|escape:html}</td>
+      <td align="center" bgcolor="#CCCCCC">{$proxy.adminname|escape:html}</td>
+    </tr>
+    {foreachelse}
+    <tr>
+		<td colspan="3" align="center" bgcolor="#CCCCCC">没有相关数据</td>
+	</tr>
+	{/foreach}
+  </table></div>
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</form>
+{include file="pagefooter.html"}
+
+
+

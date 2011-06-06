@@ -1,0 +1,196 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+<script>
+$(document).ready(function(){
+	jQuery("#starttime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		button: ".next()",
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#starttime").change(function(){
+		if(! validateInputDate(jQuery("#starttime").val()) )
+		{jQuery("#starttime").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+	});
+	jQuery("#endtime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		button: ".next()",
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#endtime").change(function(){
+		if(! validateInputDate(jQuery("#endtime").val()) )
+		{jQuery("#endtime").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+	});
+});
+function CheckBoxSelectAll(obj, chk)
+{
+  if (chk == null)
+  {
+    chk = 'checkboxes';
+  }
+
+  var elems = obj.form.getElementsByTagName("INPUT");
+
+  for (var i=0; i < elems.length; i++)
+  {
+    if (elems[i].name == chk || elems[i].name == chk + "[]")
+    {
+      elems[i].checked = obj.checked;
+    }
+  }
+}
+var seconds = {$sSysAutoReflushSec|default:60};
+onload = function()
+{
+	window.setInterval(redirection, 1000);
+}
+
+function redirection()
+{
+	seconds --;
+	document.title = '[{$sSysTopMessage}]['+seconds+'] PassPort 后台管理 {$ur_here}';
+}
+</script>
+<div class="form-div">
+<FORM name="searchForm" action="" METHOD='get'>
+<input type='hidden' name="controller" value="account"/>
+<input type='hidden' name="action" value="checkorder"/>
+<img src="./images/icon_search.gif">
+&nbsp;用户名：
+<input type="text" name="username" id = "username" value="{$username}" >
+&nbsp;转账类型：
+<select name="ordertypeid" id="ordertypeid">
+<option value="0" { if $ordertypeid == 0}selected{/if}>-所有转账类型-</option>
+{foreach from=$aOrderType item=ordertype key=id}
+<option value="{$id}" { if $ordertypeid == $id}selected{/if}>{$ordertype}</option>
+{/foreach}
+</select>
+<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日期：
+<input type="text" name="starttime" id="starttime" value="{$starttime}"><img src="./images/calendar2.gif">&nbsp;至
+<input type="text" name="endtime" id="endtime" value="{$endtime}"><img src="./images/calendar2.gif">
+<a href="javascript:showNotice('noticeSearch');" title="帮助信息">
+<img src="./images/notice.gif" width="16" height="16" border="0" title="帮助信息"></a>
+<input type="submit" value="立即搜索" class="button">
+<span class="notice-span" style='line-height:18px;padding:8px 0px 2px 20px;color:#669900' id="noticeSearch">
+搜索：如果没有指定用户的账变，则按后面的条件进行搜索<br>
+检测指定条件的账变异常数据
+</span>
+</FORM>
+</div>
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action='./?controller=account&action=erroroperation'>
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th>账变ID</th>
+    <th>用户名</th>
+    <th>账变标题</th>
+    <th>账变描述</th>
+    <th>账变频道</th>
+    <th>接收频道</th>
+    <th>账变发生时间</th>
+    <th>转账状态</th>
+    <th>转账金额</th>
+    <th>账变唯一KEY</th>
+  </tr>
+{foreach from=$aErrorOrder item=list key=k}
+  <tr>
+    <td align="center"><input name="checkboxes[]" type="checkbox" value="{$list.entry}">{$list.entry}</td>
+    <td align="center">{$list.username|escape:html}</td>
+	<td align="center">{$list.title}</td>
+	<td align="center">{$list.description}</td>
+	<td align="center">{if empty($list.channelname)}银行{else}{$list.channelname}{/if}</td>
+	<td align="center">{if empty($list.transferchannelname) && $list.transferchannelid == 99}高频{else}{$list.transferchannelname}{/if}</td>
+	<td align="center">{$list.times}</td>
+	<td align="center">未完成</td>
+	<td align="center">{$list.amount|escape:money}</td>
+	<td align="center">{$list.uniquekey}</td>
+  </tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">无异常账变</td></tr>
+{/foreach}
+<tfoot align="right">
+	<td colspan="10">{$pageinfo}</td>
+</tfoot>
+</table>
+<table id="page-table" cellspacing="0">
+  <tr>
+  <td>&nbsp;&nbsp&nbsp;&nbsp;
+    <input type="checkbox" id="selectall" onclick='CheckBoxSelectAll(this, "checkboxes")'>全选
+    <input type="submit" value="处理异常账变" id="btnSubmit" name="btnSubmit" class="button" />
+</td>
+</tr>
+</table>
+</form>
+</div>
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#EEF8F9';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{include file="pagefooter.html"}

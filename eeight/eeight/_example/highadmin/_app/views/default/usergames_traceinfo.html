@@ -1,0 +1,639 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><TITLE>{if $sSysTopMessage}[{$sSysTopMessage}] {/if}高频后台管理 {if $ur_here} - {$ur_here} {/if} </TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<META http-equiv="Pragma" content="no-cache" />
+{if $sSysMetaMessage}{$sSysMetaMessage}{/if}
+<link href="./css/general.css" rel="stylesheet" type="text/css" />
+<link href="./css/main.css" rel="stylesheet" type="text/css" />
+{insert_scripts files="./js/common.js"}
+</head>
+<body>
+<style>
+#maindiv{margin: 0 auto;}
+</style>
+<div id="maindiv">
+<H1>{if $actionlink}<SPAN class="action-span"><A 
+href="{$actionlink.href}">{$actionlink.text|escape:html}</a></SPAN>{/if}{if $actionlink2}<SPAN class="action-span"><A 
+href="{$actionlink2.href}">{$actionlink2.text|escape:html}</a></SPAN>{/if}{if $actionlink3}<SPAN class="action-span"><A 
+href="{$actionlink3.href}">{$actionlink3.text|escape:html}</a></SPAN>{/if}<SPAN class="action-span1"><A 
+href="./index.php" target='_top'>后台管理</a> {if $ur_here} - {$ur_here} {/if}</SPAN><DIV style="clear:both"></DIV></H1>
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-green.css"  />
+<style>
+.code_div{
+	width:300px;
+	height:100px;
+	line-weight:20px;
+	color:#000000;
+	background:#A6D2B9;	
+	position:absolute;
+	text-align:left;
+	display:none;
+	overflow:hidden;
+	border:1px solid #399677;
+}
+.code{
+	width:100%;
+	height:78px;
+	background:#A6D2B9;	
+	color:#000000;
+	word-break:break-all;
+	text-align:left;
+	border:1px solid #399677;	
+	overflow-y:auto;
+	overflow-x:hidden;
+}
+#method_message{
+    position:absolute;
+    top:18px!important;top:21px;
+    left:51px;
+    display:none;
+    border:1px solid #7F9DB9;
+    border-top:0px solid #7F9DB9;
+    background:#FFFFFF;
+    color:#000000;
+    width:142px!important;width:143px;
+    padding-top:3px;
+    min-height:80px;
+    max-height:350px;
+    list-style:none;
+    overflow-y:auto;
+	overflow-x:hidden;
+}
+#crowdname{
+   cursor:default;
+   background:url(./images/arrow_select.gif) no-repeat right top;
+   background-color:#FFFFFF;
+   border:1px solid #7F9DB9;
+}
+#method_message .allcrowd{
+}
+#method_message .crowdid{
+    cursor:default;
+    color:#289573;
+    padding-left:5px;
+    font-weight:bold;
+    heigth:16px;
+    line-height:16px;
+}
+#method_message .allgroup{
+    display:none;
+}
+#method_message .groupid{
+    color:#0000FF;
+    cursor:default;
+    padding-left:10px;
+    heigth:16px;
+    line-height:16px;
+}
+#method_message .allmethod{
+    display:none;
+}
+#method_message .methodid{
+    color:#FF0000;
+    cursor:default;
+    padding-left:15px;
+    heigth:16px;
+    line-height:16px;
+}
+#method_message .select{
+    background:#316AC5;
+    color:#FFFFFF;
+}
+</style>
+<script type="text/javascript">
+var modes = {$json_modes};
+function show_task_detail(id)
+{
+	$.ajax({
+		url:"",
+		type:"POST",
+		data:"id="+id,
+		dataType:"html",
+		success:function(data){
+			alert(data);
+			exit;
+		},
+		error:function(data){
+			alert(data);
+		}
+	});
+}
+function get_data( page )
+{
+	if(page=="")
+	{
+		page = 1;
+	}
+	
+   $("#tabloading").ajaxStart(function(){
+        $(this).show();
+        $("#task_list").hide();
+    }).ajaxStop(function(){
+        $(this).hide();
+    });
+	$.ajax({
+		type:"POST",
+		url:"./index.php?controller=usergames&action=traceinfo",
+		dataType:"json",
+		data:$("#query-form").serialize()+'&page='+page,
+		success:function(json_data){
+			if(json_data.affects==0)
+			{
+				html ="<tr><td colspan='16' class='no-records'>没有找到记录</td></tr>";
+			}
+			else
+			{
+				totalmoney = parseFloat('0.00');
+				finishmoney = parseFloat('0.00');
+				cancelmoney = parseFloat('0.00');
+				html ="";
+				$.each(json_data.results,function(id,task){
+					//页面构建
+					html = html + "<tr align='center'>";
+					html = html + "<td><a href='./index.php?controller=usergames&action=taskdetail&id="+task.encodetaskid+"' target='_blank' title='"+task.taskid+"'>"+task.encodetaskid+"</a></td>";//追号编号
+					html = html + "<td>"+task.username+"</td>";//用户名
+					html = html + "<td>"+task.begintime+"</td>";//开始时间
+					html = html + "<td>"+task.cnname+"</td>";//游戏名称
+					html = html + "<td>"+task.methodname+"</td>";//游戏玩法
+                    //元角模式
+                    if (typeof modes[task.modes] != 'undefined') {
+                        html += "<td>"+modes[task.modes].name+"</td>";
+                    }
+                    else {
+                        html += "<td>&nbsp;</td>";
+                    }
+					html = html + "<td>"+task.beginissue+"</td>";//开始期数
+					html = html + "<td>"+task.issuecount+"</td>";//追号总期数
+					html = html + "<td>"+task.finishedcount+"</td>";//完成期数
+					html = html + "<td>"+task.cancelcount+"</td>";//取消期数
+					html = html + "<td>";
+					code = task.codes;
+					if(code.length>20)
+					{
+						html = html + "<a href='javascript:show_code("+id+");'>详细号码</a>";
+						html = html + "<div class='code_div' id='code_"+id+"'>号码详情[<a href='javascript:hide_code("+id+");' style='color:#FF0000;'>关闭</a>]<br/>";
+						html = html +"<textarea  class='code' readonly='readonly'>"+code+"</textarea></div>";//追号号码(大小单双转化)
+					}
+					else
+					{
+						if( task.methodname.indexOf("大小单双") >= 0)
+						{
+							code = code.replace(/0/g,"大");
+							code = code.replace(/1/g,"小");
+							code = code.replace(/2/g,"单");
+							code = code.replace(/3/g,"双");
+							html = html+code;
+						}
+						else
+						{
+							html = html+task.codes;//投注内容
+						}					
+					}
+					html =html +"</td>";
+					totalmoney = totalmoney+parseFloat(task.taskprice);
+					finishmoney = finishmoney + parseFloat(task.finishprice);
+					cancelmoney = cancelmoney + parseFloat(task.cancelprice);
+					html = html + "<td>"+parseFloat(task.taskprice).toFixed(2)+"</td>";//追号总金额
+					html = html + "<td>"+parseFloat(task.finishprice).toFixed(2)+"</td>";//完成金额
+					html = html + "<td>"+parseFloat(task.cancelprice).toFixed(2)+"</td>";//取消金额
+					if(task.stoponwin==1)
+					{
+						html = html + "<td>是</td>"; //追中即停
+					}
+					else
+					{
+						html = html + "<td>否</td>"; //追中即停
+					}
+					if(task.status==0)
+					{
+						html = html + "<td><font color='green'>进行中</font></td>";//追号状态
+					}
+					else if(task.status==1)
+					{
+						html = html + "<td><font color='red'>已取消</font></td>";
+					}
+					else
+					{
+						html = html + "<td><font color='blue'>已完成</font></td>";
+					}
+					html = html + "</tr>";
+				});
+				//小结部分
+				html = html + "<tr align='center'><td>小结</td><td colspan='10'></td>";
+				html = html + "<td>"+totalmoney.toFixed(2)+"</td>";
+				html = html + "<td>"+finishmoney.toFixed(2)+"</td>";
+				html = html + "<td>"+cancelmoney.toFixed(2)+"</td>";
+				html = html + "<td colspan='2'></td>";
+				html = html + "</tr>";
+				//构造分页
+				html = html +"<tr id='page-table'><td colspan='16' align='right'><div style='padding-right:30px; padding-top:6px;'>共有"+json_data.affects+"条记录,";
+				i = Math.ceil(json_data.affects/25);
+				html = html +"共"+i.toString()+"页,当前第"+page+"页,<SPAN ID='tPages'>";
+				if(page>1)
+				{
+					html = html + "<a href='javascript:get_data(1);'>首页</a><a href='javascript:get_data("+(page-1).toString()+");'>上页</a>"
+				}
+				t = (page>5) ?(page-5):1;
+				k = (t+10)<i?(t+10):i;
+				for(j=t;j<=k;j++)
+				{
+					if(j==page)
+					{
+						html =html +"<b>"+j.toString()+"</b>";
+					}
+					else
+					{
+						html = html +"<a href='javascript:get_data("+j.toString()+")'>"+j.toString()+"</a>";
+					}	
+				}
+				if(page<i)
+				{
+					html =html + "<a href='javascript:get_data("+(page+1).toString()+");'>下页</a><a href='javascript:get_data("+i+");'>尾页</a>";
+				}
+				html = html + "</span>,第<select onchange='javascript:get_data(this.value);'>";
+				for(j=1;j<=i;j++)
+				{
+					if(j==page)
+					{
+						html = html +"<option value='"+j+"' selected='selected'>"+j+"</option>";
+					}
+					else
+					{
+						html = html +"<option value='"+j+"'>"+j+"</option>";
+					}
+				}
+				html =html +"</select>页</div></td></tr>";
+			}
+			$("#task_list").html(html);
+			$("#task_list").show();
+			var pageoldwidth = $(".list-div").find("table").width();
+			var pagewidth = $("#footer").width()+32;
+			if(pageoldwidth > pagewidth){
+			    $("#footer").css("width",(pageoldwidth-30)+"px");
+			    $("H1").css("width",(pageoldwidth-20)+"px");
+			    $(".list-div").css("width",pageoldwidth+"px");
+			    $(".form-div").css("width",(pageoldwidth-10)+"px");
+			    $("#maindiv").css("width",(pageoldwidth+10)+"px");
+			}
+		},
+		error:function(data){
+			$("#task_list").show();
+			return false;
+		}		
+	});
+}
+function show_code(id)
+{
+	$("#code_"+id).show("slow");
+}
+function hide_code(id)
+{
+	$("#code_"+id).hide("slow");
+}
+jQuery(document).ready(function() {
+	
+	jQuery("#starttime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#starttime").change(function(){
+		if(! validateInputDate(jQuery("#starttime").val()) )
+		{jQuery("#starttime").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+	});
+	jQuery("#endtime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#endtime").change(function(){
+		if(! validateInputDate(jQuery("#endtime").val()) )
+		{jQuery("#endtime").val('');alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+	});
+	var data_method = {$data_method};
+	var data_issue = {$data_issue};
+	$("#lotteryid").change(lotterychange);
+	//选择游戏
+	function lotterychange(){
+	    var i =  $("#lotteryid").val();
+	    var html = "";
+	    var issue_html = "";
+	    var nogroup = false;
+	    if( i > 0 ){
+	        html = "游戏玩法:<input name='select' id='crowdname' value='所有玩法' type='text' size=20 readonly>";
+	        html += "<input type=hidden name=crowdid value='' id=crowdid>";
+	        html += "<input type=hidden name=pid value='' id=pid>";
+	        html += "<input type=hidden name=methodid value='' id=methodid>";
+	        html += "<div id='method_message'>";
+	        if(data_method[i][0] == undefined){
+	            html += "<div class='allcrowd'><div class='crowdid' id='0'>所有玩法</div></div>";
+	        }
+	        $.each(data_method[i],function(j,k){
+	            if(k.crowdname == null){
+	                k.crowdname = '所有玩法';
+	            }
+	            html += "<div class='allcrowd'>";
+	            if(k.crowdid > 0){
+	                html += "<div class='crowdid' id='"+k.crowdid+"'>"+k.crowdname+"</div>";
+	            }else{
+	                html += "<div class='crowdid' id='0'>所有玩法</div>";
+	            }
+	            $.each(data_method[i][j].group,function(k,n){
+	                html += "<div class='allgroup'><div class='groupid' id='"+n.groupid+"'>"+n.groupname+"</div>";
+	                if(n.method.length>1){
+	                    html += "<div class='allmethod'>";
+	                    $.each(n.method,function(km,kn){
+	                        html += "<div class='methodid' id='"+kn.methodid+"'>"+kn.methodname+"</div>";
+	                    });
+	                    html += "</div>";
+	                }
+	                html += "</div>";
+	            });
+	            html += "</div>";
+	            if(k.crowdid == 0){
+	                nogroup = true;
+	            }
+	        });
+	        html += "</div>";
+	        issue_html = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;游戏奖期:<select name='issueid'><option value='-1'>所有奖期</option>";
+	        if(data_issue[i] != undefined){
+	            $.each(data_issue[i],function(j1,k1){
+	                issue_html += "<option value='"+k1.issue+"'>"+k1.issue+"</option>";
+	            });
+	        }
+	        issue_html += "</select>";
+	    }else{
+	        html = "游戏玩法:<input name='select' id='crowdname' value='所有玩法' type='text' size=20 readonly>";
+	        issue_html = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;游戏奖期:<select name='issueid'><option value='-1'>所有奖期</option></select>";
+	    }
+	    $("#game_method").html(html);
+	    $("#game_issue").html(issue_html);
+	    if(nogroup){
+	        $(".allgroup").show();
+	    }
+	    if($.browser.safari){
+	        $("#method_message").css("top","21px");
+	        $("#method_message").css("left","53px");
+	        $("#method_message").css("border-top","1px solid #7F9DB9");
+	    }
+	    //弹出层失去焦点
+	    $("body").click(function(){
+	        $("#method_message").hide();
+	        var methodname = $(".select").html();
+	        if(methodname == null){
+	            methodname = '所有玩法';
+	        }
+	        $("#crowdname").val(methodname);
+	    });
+	    //点击选择框
+	    $("#crowdname").toggle(function () {
+	        $("#method_message").show();
+	    },function () {
+	        $("#method_message").hide();
+	        if($(".select").html() != null){
+	            $("#crowdname").val($(".select").html());
+	        }
+	    });
+	    //点击玩法群
+	    $(".crowdid").toggle(function(){
+	        $("#method_message").find("div").removeClass("select");
+	        $(this).addClass("select");
+	        $("#crowdname").val($(".select").html());
+	        $("#crowdid").val($(this).attr("id"));
+	        $("#pid").val(0);
+	        $("#methodid").val(0);
+	        $(this).siblings().show();
+	        $(this).parent().siblings().find(".allgroup").hide();
+	    },function(){
+	        $("#method_message").find("div").removeClass("select");
+	        $(this).addClass("select");
+	        $("#crowdname").val($(".select").html());
+	        $("#crowdid").val($(this).attr("id"));
+	        $("#pid").val(0);
+	        $("#methodid").val(0);
+	        $(this).siblings().hide();
+	        $(this).parent().siblings().find(".allgroup").hide();
+	    });
+	    //点击玩法组
+	    $(".groupid").toggle(function(){
+	        $("#method_message").find("div").removeClass("select");
+	        $(this).addClass("select");
+	        $("#crowdname").val($(".select").html());
+	        $("#crowdid").val(0);
+	        $("#pid").val($(this).attr("id"));
+	        $("#methodid").val(0);
+	        $(this).siblings().show();
+	        $(this).parent().siblings().find(".allmethod").hide();
+	    },function(){
+	        $("#method_message").find("div").removeClass("select");
+	        $(this).addClass("select");
+	        $("#crowdname").val($(".select").html());
+	        $("#crowdid").val(0);
+	        $("#pid").val($(this).attr("id"));
+	        $("#methodid").val(0);
+	        $(this).siblings().hide();
+	        $(this).parent().siblings().find(".allmethod").hide();
+	    });
+	    //点击玩法
+	    $(".methodid").toggle(function(){
+	        $("#method_message").find("div").removeClass("select");
+	        $(this).addClass("select");
+	        $("#crowdname").val($(".select").html());
+	        $("#crowdid").val(0);
+	        $("#pid").val(0);
+	        $("#methodid").val($(this).attr("id"));
+	    },function(){
+	        $("#method_message").find("div").removeClass("select");
+	        $(this).addClass("select");
+	        $("#crowdname").val($(".select").html());
+	        $("#crowdid").val(0);
+	        $("#pid").val(0);
+	        $("#methodid").val($(this).attr("id"));
+	    });
+	};
+	jQuery(":radio[name='type']").click(function(){
+		if($("#type_1").attr("checked"))
+		{
+			$("#proxy_show").show();
+			$("#include").attr("checked",true);
+			$("#user_show").hide();
+		}
+		else if($("#type_2").attr("checked"))
+		{
+			$("#proxy_show").hide();
+			$("#include").attr("checked",false);
+			$("#user_show").show();
+		}
+		else
+		{
+			$("#proxy_show").hide();
+			$("#include").attr("checked",false);
+			$("#user_show").hide();
+		}
+	});
+	jQuery("#type_1").attr("checked",true);
+	jQuery(":radio[name='type'][value='1']").click();
+	jQuery("#lotteryid").val(0);
+	jQuery("#lotteryid").change();
+	//get_data(1);
+	html ="<tr><td colspan='16' class='no-records'>请选择查询条件之后进行查询</td></tr>";
+	$("#task_list").html(html);
+	$("#task_list").show();
+    // 设置默认参数
+    var d = new Date();
+    //var s = d.getYear() + '-' + d.getMonth() + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+    var s1 = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate() + ' ' + '02:00:00';
+    d = new Date(d.getTime() + 86400*1000);
+    var s2 = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate() + ' ' + '02:00:00';
+    $('#starttime').val(s1);
+    $('#endtime').val(s2);
+});
+</script>
+<div class="form-div" ID="formdiv">
+<form name="query-form" id="query-form">
+<img src="./images/icon_search.gif" border="0">
+游戏时间:<input type="text" name="starttime" id="starttime" value="" style="background-color:#FFF;color:#555;">
+<img src="./images/calendar2.gif">
+至<input type="text" name="endtime" id="endtime" value="" style="background-color:#FFF;color:#555;">
+<img src="./images/calendar2.gif">
+<label for="type_1"><input type="radio" id="type_1" name="type" value="1">总代列表</label>
+<label for="type_2"><input type="radio" id="type_2" name="type" value="2">手工指定</label>
+<span id="proxy_show" style="display:none;">
+总代ID:<select id="proxy" name="proxy">
+<option value="0">不指定</option>
+{foreach from=$aUser item=user key=k}
+<option value="{$user.userid}">{$user.username}</option>
+{/foreach}
+</select>
+</span>
+<span id="user_show" style="display:none;">
+游戏用户:<input type="text" name="username" value="" size="16" style="background-color:#FFF;color:#555;"/>
+</span>
+<label for="include"><input type="checkbox" name="include" id="include" value="1">包含下级</label>
+追号编号:<input type="text" name="taskid" id="taskid">
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;元角模式：<select name="modes">
+    <option value="0">不限</option>
+    {foreach from=$modes item=item key=k}
+    <option value="{$item.modeid}">{$item.name}</option>
+    {/foreach}
+</select>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;游戏名称:<select name="lotteryid" id="lotteryid">
+<option value="0">所有游戏</option>
+{foreach from=$lottery item=alottery key=k}
+<option value="{$k}">{$alottery}</option>
+{/foreach}
+</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span id="game_method" style="position:relative;"></span>&nbsp;
+<span id="game_issue"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;追号状态:
+<select name="taskstatus">
+<option value="-1">所有追号</option>
+<option value="0">追号进行</option>
+<option value="1">追号取消</option>
+<option value="2">追号完毕</option>
+</select>
+<input type="button" value="查询" class="button" onclick='javascript:get_data(1);'>
+</form>
+</div>
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+<tr>
+<th>追号编号</th>
+<th>游戏用户</th>
+<th>追号时间</th>
+<th>游戏</th>
+<th>玩法</th>
+<th>模式</th>
+<th>开始期号</th>
+<th>追号期数</th>
+<th>完成期数</th>
+<th>取消期数</th>
+<th>追号内容</th>
+<th>追号总金额</th>
+<th>完成金额</th>
+<th>取消金额</th>
+<th>追中即停</th>
+<th>追号状态</th>
+</tr>
+<tbody id="task_list">
+</tbody>
+<tr id="tabloading" style="display:none;">
+            <td colspan="16" height="100" align="center" valign="middle">正在加载数据......<br><img src="./images/loading.gif"></td>
+        </tr>
+</table>
+</div>
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+<div id="footer">{$sSystemMessagesByTom|escape:html} </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{include file="pageheader.html"}
+
+
+
+<div class="right_02 d5d8de">
+<div class="height5" style="overflow:hidden;">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+
+<table width="100%" border="0" cellspacing="1" cellpadding="4">
+  <tr>
+    <td width="200" align="right" bgcolor="#CCCCCC">用户级别：</td>
+    <td bgcolor="#CCCCCC">{$user.groupname}</td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#CCCCCC">高频游戏币：</td>
+    <td bgcolor="#CCCCCC">{$availablebalance|escape:money:4} 游戏币</td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#CCCCCC">今日参与游戏：</td>
+    <td bgcolor="#CCCCCC">{$userfund.totalin|escape:money:4} 游戏币</td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#CCCCCC">今日中奖：</td>
+    <td bgcolor="#CCCCCC">{$userfund.totalout|escape:money:4} 游戏币</td>
+  </tr>
+</table>
+
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+{include file="pagefooter.html"}

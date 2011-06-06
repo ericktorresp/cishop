@@ -1,0 +1,63 @@
+{include file="pageheader.html"}
+
+<form action="" method="post" name="addform" onsubmit="return checkform(this)">
+<input type="hidden" name="flag" value="{$flag}" />
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action"	value="adduserbank" />
+<input type="hidden" name="nickname"	value="{$nickname}" />
+<input type="hidden" name="bank_id"	value="{$bank_id}" />
+<input type="hidden" name="bank"	value="{$bank}" />
+<input type="hidden" name="province_id"	value="{$province_id}" />
+<input type="hidden" name="province"	value="{$province}" />
+<input type="hidden" name="city_id"	value="{$city_id}" />
+<input type="hidden" name="city"	value="{$city}" />
+<input type="hidden" name="branch"	value="{$branch}" />
+<input type="hidden" name="account_name"	value="{$account_name}" />
+<input type="hidden" name="account"	value="{$account}" />
+<input type="hidden" name="oldid"	value="{$oldid}" />
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div><table width="100%" border="0" cellspacing="1" cellpadding="4">
+  <tr>
+  	<td width="200" align="right" bgcolor="#CCCCCC" class="narrow-label">昵称:</td>
+    <td bgcolor="#CCCCCC">{$nickname}</td>
+  </tr>
+  <tr>
+  	<td align="right" bgcolor="#CCCCCC" >绑定银行:</td>
+    <td bgcolor="#CCCCCC">{$bank}</td>
+  </tr>
+  <tr>
+	<td align="right" bgcolor="#CCCCCC">开户银行省份：</td>
+	<td bgcolor="#CCCCCC">{$province}</td>
+   </tr>
+   <tr>
+	<td align="right" bgcolor="#CCCCCC" >开户银行城市：</td>
+	<td bgcolor="#CCCCCC">{$city}</td>
+   </tr>
+   <tr>
+  	<td align="right" bgcolor="#CCCCCC" >支行名称:</td>
+    <td bgcolor="#CCCCCC">{$branch}</td>
+  </tr>
+  <tr>
+  	<td align="right" bgcolor="#CCCCCC">开户人姓名:</td>
+    <td bgcolor="#CCCCCC">{$account_name}</td>
+  </tr>
+  <tr>
+  	<td align="right" bgcolor="#CCCCCC" >银行账号:</td>
+    <td bgcolor="#CCCCCC">{$account}</td>
+  </tr>
+  <tr><td align="right" bgcolor="#CCCCCC"></td><td bgcolor="#CCCCCC"><input type="submit" name="submit" value="确认提交"  class="buttonnormal" /> 
+      <input type="button" value="返回" onclick="history.back();"  class="buttonnormal" /></td></tr>
+  
+</table>
+</div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</form>
+{include file="pagefooter.html"}

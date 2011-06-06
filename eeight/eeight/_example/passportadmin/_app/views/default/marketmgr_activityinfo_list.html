@@ -1,0 +1,100 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="js/swfobject.js"></script>
+<div class="list-div">
+<table>
+<tr>
+<td class="narrow-label">活动主题</td>
+<td>{$aActivity.title}</td>
+</tr>
+<tr>
+<td class="narrow-label">活动类型</td>
+<td>{if $aActivity.type==0}问卷调查{else}有奖竞猜{/if}</td>
+</tr>
+<tr>
+<td></td>
+<td>{$aActivity.description}</td>
+</tr>
+
+</table>
+</div>
+<div>
+<div class="list-div"> 
+<table>
+<tr>
+<th>题目</th>
+</tr>
+{foreach from=$aActivityInfo key=k item=v}
+<tr>
+<td>{$v.infoid}、{$v.title|escape:html}{if $v.isrequire==1}[<b style="color:#FF0000;">必答</b>]{/if}<br/>
+{if $v.type==0}
+<div id="flashcontent_{$v.infoid}">
+        <strong>You need to upgrade your Flash Player</strong>
+    </div>
+<script type="text/javascript">
+	var rn = {$v.infoid};
+    var so = new SWFObject("./swf/ampie.swf", "ysfo{$v.infoid}", "760", "260", "8", "#FFFFFF");
+    so.addVariable("path", "./swf/");
+    so.addVariable("settings_file", escape("./?controller=marketmgr&action=activityviewxml&settings_file=1"));
+    so.addVariable("data_file", "./?controller=marketmgr%26action=activityviewxml%26data_file=1%26args={$v.count}|{$v.args}|{$v.value}&rn={$v.infoid}");
+    //so.addVariable("data_file", escape("swf/draw_pie.xml"));
+    so.addVariable("loading_settings", "loading settings ......");
+    so.addVariable("loading_data", "loading data ......");
+    so.addVariable("preloader_color", "#999999");
+    so.write("flashcontent_{$v.infoid}");
+</script>
+{if isset($v.other)}
+其他答案:
+{foreach from=$v.other item=tttt key=kkk}
+<span style="margin-right:10px; border:1px #FF0000 double; ">{$tttt}</span>
+{/foreach}
+{/if}
+</div>
+{elseif $v.type==1}
+<div id="flashcontent_{$v.infoid}">
+        <strong>You need to upgrade your Flash Player</strong>
+    </div>
+<script type="text/javascript">
+	var rn = {$v.infoid};
+    var so = new SWFObject("./swf/ampie.swf", "ysfo{$v.infoid}", "760", "260", "8", "#FFFFFF");
+    so.addVariable("path", "./swf/");
+    so.addVariable("settings_file", escape("./?controller=marketmgr&action=activityviewxml&settings_file=1"));
+    so.addVariable("data_file", "./?controller=marketmgr%26action=activityviewxml%26data_file=1%26args={$v.count}|{$v.args}|{$v.value}&rn={$v.infoid}");
+    //so.addVariable("data_file", escape("swf/draw_pie.xml"));
+    so.addVariable("loading_settings", "loading settings ......");
+    so.addVariable("loading_data", "loading data ......");
+    so.addVariable("preloader_color", "#999999");
+    so.write("flashcontent_{$v.infoid}");
+</script>
+{if isset($v.other)}
+其他答案:
+{foreach from=$v.other item=tttt key=kkk}
+<span style="margin-right:10px; border:1px #FF0000 double; ">{$tttt}</span>
+{/foreach}
+{/if}
+</div>{elseif $v.type==2}
+{if isset($v.other)}
+用户答案:
+{foreach from=$v.other item=tttt key=kkk}
+<span style="margin-right:10px; border:1px #FF0000 double; ">{$tttt}</span>
+{/foreach}
+{/if}
+{elseif $v.type==3}
+{if isset($v.other)}
+用户答案:
+{foreach from=$v.other item=tttt key=kkk}
+<span style="margin-right:10px; border:1px #FF0000 double; ">{$tttt}</span>
+{/foreach}
+{/if}
+{/if}
+
+
+</td>
+</tr>
+{foreachelse}
+<tr>
+<td class="no-records">没有相关题目</td>
+</tr>
+{/foreach}
+</table>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script language="javascript" type="text/javascript" src="lib/jquery-1.3.2.min.js"></script>
+<script language="javascript" type="text/javascript" src="lib/jquery.dragndrop.js"></script>
+<script language="javascript" type="text/javascript" src="lib/jquery.dragable.js"></script>
+<script language="javascript" type="text/javascript" src="lib/jquery.dialogUI.js"></script>
+<link rel="stylesheet" href="./lib/windowUI.css" type="text/css" />
+<script language="javascript" type="text/javascript">
+	function yes(){
+		jQuery.alert("你选择的是YES");
+	}
+	function no(){
+		jQuery.alert("你选择的是NO");
+	}
+	jQuery(document).ready(function(){
+		jQuery("#confirm").click(function(){
+			jQuery.confirm({
+				message: "确定要删除该文件吗？",
+				funyes: function(){alert("YES");},
+				funno:  function(){alert("NO");},
+			});
+		});
+		jQuery("#alert").click(function(){
+			jQuery.alert("你好，欢迎使用自定义弹出框");
+		});
+		jQuery("#blockUI").click(function(){
+			jQuery.ajaxUploadUI({
+						message :"请选择要载入的文件",
+						url	    : 'fileupload.php',
+						dataType: 'html',
+						filetype: ['txt','csv'],
+						title	: '载入文件',
+						success : function(data){
+									jQuery("#uploadback").val(data);
+								},
+						loadtext: "正在载入..."
+						});
+		});
+	});
+</script>
+<style type="text/css">
+<!--
+body {
+	font-size:12px;
+	margin: 0; /* 最好将 body 元素的边距和填充设置为 0 以覆盖不同的浏览器默认值 */
+	padding: 0;
+	text-align: center; /* 在 IE 5* 浏览器中，这会将容器居中。文本随后将在 #container 选择器中设置为默认左对齐 */
+	color: #000000;
+}
+-->
+</style></head>
+
+<body class="oneColElsCtrHdr">
+
+<div id="container">
+  <div><br /><br /><a href="#" id="alert">警告</a>&nbsp;&nbsp;&nbsp;<a href="#" id="confirm">询问提示</a>&nbsp;&nbsp;&nbsp;<a href="#" id="blockUI">文件上传</a></div>
+  <textarea name="uploadback" id="uploadback" rows="5" cols="50"></textarea>
+</div>
+
+</body>
+</html>

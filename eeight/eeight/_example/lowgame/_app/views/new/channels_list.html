@@ -1,0 +1,32 @@
+{include file="pageheader.html"}
+<div class="right_021">
+<div class="height51">
+<div class="right_02_281"></div>
+<div class="right_02_291"></div>
+</div>
+<div class="list-div">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="narrow-label">用户级别：</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;{$user.groupname}</td>
+</tr>
+<tr>
+<td class="narrow-label">低频游戏币：</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;{$availablebalance|escape:money}&nbsp;&nbsp;游戏币</td>
+</tr>
+<tr>
+<td class="narrow-label">今日参与游戏：</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;{$userfund.totalin|escape:money}&nbsp;&nbsp;游戏币</td>
+</tr>
+<tr>
+<td class="narrow-label">今日中奖：</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;{$userfund.totalout|escape:money}&nbsp;&nbsp;游戏币</td>
+</tr>
+</table>
+</div>
+<div class="height51">
+<div class="right_02_241"></div>
+<div class="right_02_251"></div>
+</div>
+</div>
+{include file="pagefooter.html"}

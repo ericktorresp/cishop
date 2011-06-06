@@ -1,0 +1,66 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkform(obj)
+{
+	var partn = /^[0-9a-zA-Z]{4,20}$/;
+	if( !partn.exec(obj.aliasname.value) )
+	{
+		$.alert("请填写正确的合并帐户别名");
+		obj.aliasname.focus();
+		return false;
+	}
+	if( obj.users.value == "" )
+	{
+		$.alert("请选择要合并的帐户");
+		return false;
+	}
+	return true;
+}
+</script>
+
+<form action="index.php" method="post" name="uniteform" onsubmit="return checkform(this)">
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action" value="setunite" />
+<input type="hidden" name="flag" id="flag" value="setunite" />
+<input type="hidden" name="check" value="{$check}" />
+
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%">
+<table width="100%" cellpadding="4" cellspacing="1" class="list-table">
+	<tr>
+    <th width="200" height="43"></th>
+    	<th align="left">合帐设置</th>
+    </tr>
+    <tr>
+    	<td align="right" bgcolor="#CCCCCC" class="narrow-label">合帐组名称:</td>
+        <td bgcolor="#CCCCCC"><input type="text" name="aliasname" id="aliasname" />(数字和字母组成，4至20位组成)</td>
+    </tr>
+    <tr>
+    	<td align="right" bgcolor="#CCCCCC" class="narrow-label">用户名:</td>
+        <td bgcolor="#CCCCCC"><select name="users[]" id="users" multiple="multiple" size="10">
+          
+            {foreach from=$users item=user key=uid}
+            
+          <option value="{$user.userid}">{$user.username|escape:html}</option>
+          
+            {/foreach}
+            
+        </select>
+        (按住键盘 Ctrl 键不放，点击名字可以进行多选)        </td>
+    </tr>
+    <tr>
+    	<td></td><td><input type="submit"  class="buttonnormal" name="submit" value="提交" class="button" />&nbsp;&nbsp;<input type="button" name="button" value="返回" onclick="history.back(-1);" class="buttonnormal" /></td>
+    </tr>
+</table>
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+</form>
+{include file="pagefooter.html"}

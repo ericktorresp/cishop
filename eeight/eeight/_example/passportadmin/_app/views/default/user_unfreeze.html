@@ -1,0 +1,31 @@
+{include file="pageheader.html"}
+<div class="list-div">
+<form method="POST" action="?controller=user&action=saveunfreeze" onsubmit="return check();">
+<input type="hidden" name="userid" value="{$user.userid}">
+<table>
+<tr>
+<td class="narrow-label" width="20%">用户帐号</td>
+<td width="80%">{$user.username|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">解冻行为</td>
+<td><label for="unfree_1"><input type="radio" id="unfree_1" value="1" name="unfree" checked="checked">仅解冻此会员，不解冻其下级</label></td>
+</tr>
+<tr>
+<td></td>
+<td><label for="unfree_2"><input type="radio" id="unfree_2" value="2" name="unfree">解冻此会员和所有下级</label></td>
+</tr>
+<tr>
+<td></td>
+<td><input type="submit" value="用户解冻" class="button"><input type="reset" class="button" value="重置解冻"></td>
+</tr>
+</table>
+</form>
+</div>
+<script>
+function check()
+{
+	return confirm("您确定要解冻用户?");
+}
+</script>
+{include file="pagefooter.html"}

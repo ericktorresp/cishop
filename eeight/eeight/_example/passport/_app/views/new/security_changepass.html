@@ -1,0 +1,142 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkform(obj)
+{
+  if( !validateUserPss(obj.newpass.value) )
+  {
+  	$.alert("密码不符合规则，请重新输入");
+	obj.newpass.focus();
+	return false;
+  }
+  if( obj.newpass.value != obj.confirm_newpass.value )
+  {
+  	$.alert("两次输入密码不相同");
+	obj.newpass.focus();
+	return false;
+  }
+  if( obj.oldpass == "" ){
+  	$.alert("请输入原始密码");
+	obj.oldpass.focus();
+	return false;
+  }
+  return true;
+}
+</script>
+
+<form action="index.php" method="post" name="changepass" onSubmit="return checkform(this)">
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%">
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+
+    <tr>
+      <td height="43" colspan="2" align="center">修改登陆密码</td>
+      </tr>
+    {if $displayflag != 'security' }
+    <tr>
+        <td width="200" height="37" align="right" bgcolor="#CCCCCC">输入旧登陆密码：</td>
+        <td align="left" bgcolor="#CCCCCC"><input type="password" name="oldpass" />
+        </td>
+    </tr>
+    {/if}
+    <tr>
+        <td width="200" height="37" align="right" bgcolor="#CCCCCC">输入新登陆密码：</td>
+        <td align="left" bgcolor="#CCCCCC"><input type="password" name="newpass" />
+        (由字母和数字组成6-16个字符；且必须包含数字和字母，不允许连续三位相同，不能和资金密码相同)
+        </td>
+        </tr>
+        <tr>
+        <td width="200" height="37" align="right" bgcolor="#CCCCCC" >确认新登陆密码：</td>
+        <td align="left" bgcolor="#CCCCCC">
+        <input type="password" name="confirm_newpass"   />
+        </td>
+    </tr>
+    <tr>
+    <td width="200" height="37" align="center"></td>
+        <td align="left">
+        <input type="submit" name="submit" value="修改" class="buttonnormal" />
+        <input type="reset" value="重置" onClick="this.form.reset()"  class="buttonnormal"/>
+        <input type="hidden" name="controller" value="security" />
+        <input type="hidden" name="action" value="changeloginpass" />
+        <input type="hidden" name="check" value="{$check}" />
+        <input type="hidden" name="flag" value="changepass" />
+        <input type="hidden" name="changetype" value="loginpass" />
+
+        {if $displayflag == 'security' }
+        <input type="button"  class="buttonnormal" value="重新登陆" onClick="top.location.href='/?controller=default&action=logout'" class="button" />
+        {/if}
+        </td>
+    </tr>
+  </table>
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+</form>
+
+
+
+
+
+
+{if $displayflag != 'security' }
+<form action="index.php" method="post" name="changepass" onSubmit="return checkform(this)">
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%">
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+
+    <tr>
+      <td height="43" colspan="2" align="center">修改资金密码</td>
+      </tr>
+    {if $securitypwd != ''}
+    <tr>
+        <td width="200" height="37" align="right" bgcolor="#CCCCCC">输入旧资金密码：</td>
+        <td align="left" bgcolor="#CCCCCC"><input type="password" name="oldpass" />
+        </td>
+    </tr>
+    {/if}
+    <tr>
+        <td width="200" height="37" align="right" bgcolor="#CCCCCC">确认新资金密码：</td>
+        <td align="left" bgcolor="#CCCCCC"><input type="password" name="newpass" />
+        (由字母和数字组成6-16个字符；且必须包含数字和字母，不允许连续三位相同，不能和资金密码相同)
+        </td>
+        </tr>
+        <tr>
+        <td width="200" height="37" align="right" bgcolor="#CCCCCC" >确认新资金密码：</td>
+        <td align="left" bgcolor="#CCCCCC">
+        <input type="password" name="confirm_newpass"   />
+        </td>
+    </tr>
+    <tr>
+    <td width="200" height="37" align="center"></td>
+        <td align="left">
+        <input type="submit" name="submit" value="修改" class="buttonnormal" />
+	<input type="hidden" name="controller" value="security" />
+	<input type="hidden" name="action" value="changeloginpass" />
+	<input type="hidden" name="check" value="{$check}" />
+	<input type="reset" value="重置" onClick="this.form.reset()"  class="buttonnormal"/>
+	<input type="hidden" name="flag" value="changepass" />
+	<input type="hidden" name="changetype" value="secpass" />
+
+       
+        </td>
+    </tr>
+  </table>
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+</form>
+{/if}
+{include file="pagefooter.html"}

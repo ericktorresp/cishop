@@ -1,0 +1,70 @@
+{include file="pageheader.html"}
+<LINK href="./css/label.css" rel="stylesheet" type="text/css" />
+<div id="tabbar-div">
+	<span class="tab-back">
+		<span class="tabbar-left"></span>
+		
+		<span class="content" onclick="window.location.href='?controller=emaildeposit&action=emailload'">我要充值</span>
+		<span class="tabbar-right"></span>
+	</span>
+	<!--<span class="tab-front">
+		<span class="tabbar-left"></span>
+		<span class="content" >充值记录</span>
+		<span class="tabbar-right"></span>
+	</span>-->
+</div>
+<div class="tabbar-bottom"></div>
+<div class="list-div" id="listDiv">
+<table width="100%" class="list-table">
+<form method="post" name="drawform" id="drawform">
+<input type="hidden" name="controller" value="emaildeposit" />
+<input type="hidden" name="action" value="cancelload" />
+<input type="hidden" name="id" value="{$result.id}" />
+<tr>
+	<td class="narrow-label">充值编号：</td>
+	<td>w{$result.key|escape:html}w</td>
+</tr>
+<tr>
+	<td class="narrow-label">用户名：</td>
+	<td>{$result.user_name|escape:html}</td>
+</tr>
+<tr>
+	<td class="narrow-label">充值金额：</td>
+	<td>{$result.money|escape:money}</td>
+</tr>
+<tr>
+	<td class="narrow-label">充值申请时间：</td>
+    <td>{$result.created}</td>
+</tr>
+<tr>
+	<td class="narrow-label">充值过期时间：</td>
+    <td>{$result.expire}</td>
+</tr>
+<tr>
+	<td class="narrow-label">状态：</td>
+    <td>
+    {if $result.status == 0}
+    处理中
+    {elseif $result.status == 1}
+    充值成功
+    {elseif $result.status == 2}
+    挂起单
+    {elseif $result.status == 3}
+    用户取消
+    {elseif $result.status == 4}
+    管理员处理
+    {elseif $result.status == 5}
+    已没收
+    {/if}
+    </td>
+</tr>
+<tr>
+	<td class="narrow-label"></td>
+	<td height="30"><input type="button" value="返回" onclick="history.back()" class="button" />
+	{if $result.status == 0}<input type="submit" value="取消" class="button" />{/if}
+	</td>
+</tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

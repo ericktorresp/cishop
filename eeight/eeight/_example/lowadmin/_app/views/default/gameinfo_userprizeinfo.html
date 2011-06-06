@@ -1,0 +1,230 @@
+{include file="pageheader.html"}
+{insert_scripts files="jquery.js"}
+<script>
+function jisuan(methodid,mode,level)
+{
+	var total =jQuery("#totalmoney_"+methodid).val();
+	if(mode==1)
+	{
+		val = jQuery("#prize_"+methodid+"_1").val();
+		t = jQuery("#nocount_"+methodid+"_1").val();
+		if(val=="")
+		{
+			val = 0.00;
+			jQuery("#prize_"+methodid+"_1").val("0.00"); 
+		}
+		x = (total -val*t)/total;
+		jQuery("#totalprofit_"+methodid).html(x.toFixed(3));
+	}
+	else if(mode==2)
+	{
+		//兼中兼得
+		var val = new Array();
+		var t = new Array();
+		//获取各个奖级奖金和对应转直价格
+		for(i=1;i<=level;i++)
+		{
+			val[i] = jQuery("#prize_"+methodid+"_"+i).val();
+			t[i] = jQuery("#nocount_"+methodid+"_"+i).val();
+			if(val[i]=="")
+			{
+				val[i] =0;
+				jQuery("#prize_"+methodid+"_"+i).val("0.00");
+			}
+			if(t[i]=="")
+			{
+				t[i] = 0;
+			}
+		}
+		moneys = 0;
+		for(i=1;i<=level;i++)
+		{
+			moneys = moneys + val[i]*t[i];
+		}//总返款
+		x = (total -moneys)/total;
+		jQuery("#totalprofit_"+methodid).html(x.toFixed(3));
+		
+	}
+	else if(mode==3)
+	{
+		val = jQuery("#prize_"+methodid+"_"+level).val();
+		if(val=="")
+		{
+			jQuery("#prize_"+methodid+"_"+level).val("0.00");
+		}
+		t = jQuery("#nocount_"+methodid+"_"+level).val();
+		x = (total -val*t)/total;
+		jQuery("#totalprofit_"+methodid+"_"+level).html(x.toFixed(3));
+	}
+	jQuery("#userpoint_"+methodid).change();
+}
+function fandian( methodid,level)
+{
+	if(level>1)
+	{ //非兼中兼得模式
+		for(i=1;i<=level;i++)
+		{
+			totalprofit = jQuery("#totalprofit_"+methodid+'_'+i).html();
+			userpoint=jQuery("#userpoint_"+methodid).val();
+			if(userpoint=="")
+			{
+				userpoint = 0.00;
+				jQuery("#userpoint_"+methodid).val("0.00");
+			}
+			x=totalprofit-userpoint;
+			jQuery("#lastprofit_"+methodid+'_'+i).html(x.toFixed(3));
+		}
+	}
+	else
+	{ //单个返点模式
+		totalprofit = jQuery("#totalprofit_"+methodid).html();
+		userpoint   = jQuery("#userpoint_"+methodid).val();
+		if(userpoint=="")
+		{
+			jQuery("#userpoint_"+methodid).val("0.00");
+			userpoint =0.00;
+		}
+		x           = totalprofit-userpoint;
+		jQuery("#lastprofit_"+methodid).html(x.toFixed(3));
+	}
+}
+jQuery(document).ready(function(){	
+	var data_method = {$data_method};
+	jQuery.each(data_method,function(i,v){
+		html ="<tr align='center'><td><input type='checkbox' name='methodid["+v.methodid+"]' id='methodid_"+v.methodid+"' value='"+v.methodid+"'></td>";
+		html = html +"<td>"+v.methodname+"<input type='hidden' id='totalmoney_"+v.methodid+"' value='"+v.totalmoney+"'></td>";
+		if(v.level==1)
+		{
+			mode =1;
+		}
+		else if((v.level>1) &&(v.nocount.type==1))
+		{
+			mode =2;
+		}
+		else
+		{
+			mode =3;
+		}		
+		html = html +"<td align='left'>";
+		for(k=1;k<=v.level;k++)
+		{
+			html = html +v.nocount[k].name+":<input type='text' name='prize["+v.methodid+"]["+k+"]' id='prize_"+v.methodid+"_"+k+"' size='8' value='' onchange='javascript:jisuan("+v.methodid+","+mode+",";
+			if(mode==3)
+			{
+				html = html+k;
+			}
+			else
+			{
+				html = html+v.level;
+			}
+			html = html+");'>("+v.nocount[k].count+"<input type='hidden' id='nocount_"+v.methodid+"_"+k+"' value='"+v.nocount[k].count+"'>注)";
+			if(v.nocount.isdesc==1)
+			{
+				html = html + "<input type='text' value='' name='description["+v.methodid+"]["+k+"]' id='description_"+v.methodid+"_"+k+"' size='60'>";
+			}
+			html = html+"<br/>";
+		}
+		html = html+"<td>";
+		if(mode==3)
+		{
+			for(k=1;k<=v.level;k++)
+			{
+				html=html+"<span id='totalprofit_"+v.methodid+"_"+k+"'></span><br/>";
+			}
+		}
+		else
+		{
+		 	html = html +"<span id='totalprofit_"+v.methodid+"'></span>";
+		};
+		html = html +"</td><td><input type='text' name='userpoint["+v.methodid+"]' id='userpoint_"+v.methodid+"' size='10' onchange='fandian("+v.methodid+",";
+		if(mode ==3)
+		{
+			html = html+v.level;
+		}
+		else
+		{
+			html = html+'1';
+		}
+		html = html+")'></td><td>";
+		if(mode ==3)
+		{
+			for(k=1;k<=v.level;k++)
+			{
+				html=html+"<span id='lastprofit_"+v.methodid+"_"+k+"'></span><br/>";
+			}
+		}
+		else
+		{
+			html=html+"<span id='lastprofit_"+v.methodid+"'></sapn>";
+		}
+		html = html+"</td></tr>";
+		jQuery("#userprizedetail").append(html);
+	});
+	var data_userprizelevel = {$data_userprize};
+	jQuery.each(data_userprizelevel,function(i,u){
+		$("#prize_"+u.methodid+"_"+u.level).val(u.prize);
+		$("#userpoint_"+u.methodid).val(u.userpoint);
+		$("#methodid_"+u.methodid).attr("checked",(u.isclose==0));
+		$("#description_"+u.methodid+"_"+u.level).val(u.description);
+	});
+	jQuery(":input").change();//数据默认加载	
+	jQuery("#userpgForm").submit(function(){
+		jQuery(":input").change();
+		b = true; 	
+		if($(":input[name^='description'][value!='']").size()!=$(":input[name^='description']").size())
+		{
+			b = false;
+		}
+		if(b==false)
+		{
+			alert("奖金描述描述为空");
+			return false;
+		}
+		b = true;
+		$.each($("span[id^='lastprofit_']"),function(){
+			if($(this).html()<{$minprofit})
+			{				
+				b = false;
+			};
+		});
+		if(b == false)
+		{
+			alert("公司留水计算错误.");
+			return false;
+		}
+		if($("#title").val()=="")
+		{
+			alert("奖金组别名称错误.");
+			$("#title").focus();
+			return false;
+		}
+		return true;
+	});
+	$("#checkall").click(function(){
+		$(":checkbox").attr("checked",$("#checkall").attr("checked"));
+	});
+});
+</script>
+<div class="list-div">
+<form name='userpgForm' id="userpgForm" action="./index.php?controller=gameinfo&action=userpgedit" method="POST">
+<table>
+<tr>
+<th><input type="checkbox" id="checkall"></th>
+<th>玩法</th>
+<th>奖金</th>
+<th>总利润</th>
+<th>总代返点</th>
+<th>公司留水</th>
+</tr>
+<tbody id="userprizedetail">
+</tbody>
+<tr>
+<td><input type="hidden" name="userpgid" value="{$aUserGroup.userpgid}"><input type="hidden" value="{$aUserGroup.userid}" name="userid"><input type="hidden" name="pgid" value="{$aUserGroup.pgid}"><input type="hidden" name="lotteryid" value="{$aUserGroup.lotteryid}"></td>
+<td colspan="2"><input type="text" name="title" id="title" value='{$aUserGroup.title}'></td>
+<td colspan="4"><input type="submit" value="确认修改" class="button"></td>
+
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

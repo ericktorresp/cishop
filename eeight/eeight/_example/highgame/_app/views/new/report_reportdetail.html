@@ -1,0 +1,100 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="{$sSystemImagesAndCssPath}/highgame/js/calendar/css/calendar-blue2.css"  />
+<p>
+  <script>
+function show_no(id)
+{
+	$("#code_"+id).show("slow");
+}
+function close_no(id)
+{
+	$("#code_"+id).hide("slow");
+}
+jQuery(document).ready(function() {
+	jQuery("#starttime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#starttime").change(function(){
+		if(! validateInputDate(jQuery("#starttime").val()) )
+		{jQuery("#starttime").val('');$.alert("时间格式不正确,正确的格式为:2009-06-10 10:59");}
+	});
+	jQuery("#endtime").dynDateTime({
+		ifFormat: "%Y-%m-%d %H:%M:00",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: false,
+		button: ".next()", //next sibling
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+});
+  </script>
+
+<div class="right_02 d5d8de" style="width:98%;margin-bottom:10px;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div class="list-div" style="margin-left:10px;margin-bottom:5px;">
+<form action="" method="get" class="list-form">
+<input type="hidden" name="controller" value="report">
+<input type="hidden" name="action" value="reportdetail">
+<input type="hidden" name="userid" value="{$s.userid}">
+<img src="{$sSystemImagesAndCssPath}/highgame/images/default/icon_search.gif">
+开始时间:<input type="text" name="starttime" id="starttime" value="{$s.starttime|escape:html}">
+<img src="{$sSystemImagesAndCssPath}/highgame/images/default/calendar2.gif">
+结束时间:<input type="text" name="endtime" id="endtime" value="{$s.endtime|escape:html}">
+<img src="{$sSystemImagesAndCssPath}/highgame/images/default/calendar2.gif">
+<input type="submit" value="查询" class="button">
+</form>
+</div>
+<div class="list-div">
+<table width="100%" cellpadding="0" cellspacing="1">
+<tr>
+<th height="37" align="center" bgcolor="#999999">游戏</th>
+<th align="center" bgcolor="#999999">玩法</th>
+<th align="center" bgcolor="#999999">总代购费</th>
+<th align="center" bgcolor="#999999">实际总代购费</th>
+<th align="center" bgcolor="#999999">中奖金额</th>
+<th align="center" bgcolor="#999999">总结算</th>
+</tr>
+{foreach from=$lottery item=l key=k}
+{foreach from=$l.methodid item=m key=k0}
+<tr align="center">
+{if $k0==0}
+<td rowspan="{$l.count}" bgcolor="#CCCCCC">{$l.cnname}</td>
+{/if}
+<td bgcolor="#CCCCCC">{$l.method.$m}</td>
+<td height="37" bgcolor="#CCCCCC">{$l.sum_prize.$m|escape:money:4}</td>
+<td bgcolor="#CCCCCC">{$l.real_prize.$m|escape:money:4}</td>
+<td bgcolor="#CCCCCC">{$l.sum_bonus.$m|escape:money:4}</td>
+<td bgcolor="#CCCCCC">{$l.total.$m|escape:money:4}</td>
+</tr>
+{/foreach}
+<tr align="center">
+<td height="37" colspan="2" bgcolor="#999999">小结</td>
+<td bgcolor="#999999">{$total.sum_prize.$k|escape:money:4}</td>
+<td bgcolor="#999999">{$total.real_prize.$k|escape:money:4}</td>
+<td bgcolor="#999999">{$total.sum_bonus.$k|escape:money:4}</td>
+<td bgcolor="#999999">{$total.total.$k|escape:money:4}</td>
+</tr>
+{/foreach}
+</table>
+</div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>  {include file="pagefooter.html"}

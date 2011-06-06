@@ -1,0 +1,164 @@
+{include file="pageheader.html"}
+<LINK href="./css/label.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+<script type="text/javascript">
+	jQuery("#loadhtml").hide();	//去掉loading界面
+	jQuery(document).ready(function() {		
+		jQuery("#time_min").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#time_max").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			//onUpdate: function(){alert('1');}
+			showsTime: true
+		});
+		jQuery("#helpimg").click(function(){
+			jQuery("#helpnotice").toggle();
+		});
+		
+		// 取消
+		cancelWithdraw = function(id){
+			if (confirm("确认取消吗？")){
+				$.ajax({
+					type:"POST",
+					url:'?controller=security&action=cancelwithdraw',
+					data:'id=' + id + '&flag=ajax',
+					success:function(data){
+						if (data == true){
+							$("#status" + id).html("已取消");
+							$("#cancel" + id).fadeOut("slow");
+							alert("取消成功");
+						} else if (data == -1){
+							alert("系统结算时间,暂停提现操作");
+						} else {
+							alert("取消失败");
+						}
+					}
+				});
+			}
+		}
+	});
+	
+function checkForm(obj)
+{
+	if( jQuery.trim(obj.time_min.value) != "" )
+	{
+		if( false == validateInputDate(obj.time_min.value) )
+		{
+			alert("时间格式不正确");
+			obj.time_min.focus();
+			return false;
+		}
+	}
+	if( jQuery.trim(obj.time_max.value) != "" )
+	{
+		if( false == validateInputDate(obj.time_max.value) )
+		{
+			alert("时间格式不正确");
+			obj.time_max.focus();
+			return false;
+		}
+	}
+}
+</script>
+<div id="tabbar-div">
+	<span class="tab-back">
+		<span class="tabbar-left"></span>
+		
+		<span class="content" onclick="window.location.href='?controller=security&action=onlinewithdraw'">发起提现</span>
+		<span class="tabbar-right"></span>
+	</span>
+	<span class="tab-front">
+		<span class="tabbar-left"></span>
+		<span class="content" >提现记录</span>
+		<span class="tabbar-right"></span>
+	</span>
+</div>
+<div class="tabbar-bottom"></div>
+<div class="list-Form">
+<form action="index.php" method="get" name="search" onsubmit="return checkForm(this)">
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action" value="withdrawlist" />
+<input type="text" size="15" name="time_min" id="time_min" value="{$time_min}" /><img src="./images/calendar2.gif" id="time_min_button" /> 至 <input type="text" size="15" name="time_max" id="time_max" value="{$time_max}" /><img src="./images/calendar2.gif" />&nbsp;&nbsp;
+<!--提现方式：<select name="api_id">
+	<option value="">全部</option>
+	{foreach from=$apilist item=api key=k}
+		<option value="{$api.id}" {if $api_id == $api.id}selected{/if}>{$api.payport_nickname}</option>
+	{/foreach}
+</select>&nbsp;&nbsp;-->
+<input type="submit" value="搜索" />
+</form>
+</div>
+<div class="list-div" id="listDiv">
+<table class="list-table">
+	<tr>
+    	<th>提现编号</th>
+        <th>时间</th>
+        <th>提现方式</th>
+        <th>发起金额</th>
+        <th>手续费</th>
+        <th>到账余额</th>
+        <th>状态</th>
+        <th>操作</th>
+    </tr>
+    {foreach from=$withdrawlist item=withdraw key=k}
+    <tr align="center">
+    	<td>{$withdraw.no}</td>
+    	<td>{$withdraw.request_time}</td>
+    	<td>{$withdraw.api_nickname}</td>
+    	<td>{$withdraw.source_money|escape:money}</td>
+    	<td>{$withdraw.charge|escape:money}</td>
+    	<td>{$withdraw.amount|escape:money}</td>
+    	<td id="status{$withdraw.id}">
+    	{if $withdraw.status == 1}
+	    	等待审核
+	    {elseif $withdraw.status == 2}
+	    	通过审核
+	    {elseif $withdraw.status == 3}
+	    	未通过审核
+	    {elseif $withdraw.status == 4}
+	    	已取消
+		{elseif $withdraw.status == 5}
+			提现成功
+		{elseif $withdraw.status == 6}
+			提现失败
+		{else}
+			正在处理中
+		{/if}   
+    	</td>
+    	<td>
+    	<a href="?controller=security&action=viewwithdraw&id={$withdraw.id}">查看</a>
+    	<span id="cancel{$withdraw.id}">{if $withdraw.status == 1}　|　<a onclick="cancelWithdraw({$withdraw.id});" onmouseover="this.style.textDecoration='underline'; this.style.cursor='pointer';" onmouseout="this.style.textDecoration='none'">取消</a>{/if}</span>
+    	</td>
+    </tr>
+    {/foreach}
+   <tr style="color:#FF3300">
+    	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;
+		<font color="#FF3300">合计: </font>&nbsp;&nbsp;</td>
+		<td align="center"><font color="#FF3300">{$total|escape:money}</font></td>
+		<td align="center"><font color="#FF3300">{$chargetotal|escape:money}</font></td>
+		<td align="center"><font color="#FF3300">{$amounttotal|escape:money}</font></td>
+	<td colspan=2></td>
+    </tr>
+<tr><td colspan="8" align="right" height="30">{$pages}</td></tr>
+</table>
+</div>
+{include file="pagefooter.html"}

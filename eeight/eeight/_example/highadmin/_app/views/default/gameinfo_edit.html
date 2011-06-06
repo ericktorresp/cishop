@@ -1,0 +1,501 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-green.css"  />
+<script>
+//时间的正则
+var timestr =/^([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/;
+function checkPoint(obj){
+	var value = obj.value;
+	var grep = /[^0-9.]{1,}/g;
+	value = value.replace(grep,'');
+	var point = /^\.{1,}/g;
+	value = value.replace(point,'');
+	value = value.split('');
+	var i=0;
+	var thisPoint = false;
+	var newValue = '';
+	for(i;i<value.length;i++){
+		if(thisPoint && value[i] == '.'){
+			continue;
+		}
+		if(value[i] == '.' && !thisPoint){
+			thisPoint = true;
+		}
+		newValue += value[i];
+	}
+	valuePart = newValue.split('.');
+	if(valuePart[0] != 0){
+	    valuePart[0] = 0;
+	    newValue = valuePart[0];
+	}
+	if(valuePart[1]){
+	    newValue = valuePart[0];
+		valuePointPart = valuePart[1].split('');
+		if(valuePointPart[0]){
+		    newValue += '.'+valuePointPart[0];
+		    if(valuePointPart[1]){
+		      newValue += valuePointPart[1];
+		      if(valuePointPart[2]){
+		          newValue += valuePointPart[2];
+		      }
+		    }	   
+		}
+	}
+	obj.value = newValue;	
+}
+function checkPointLast(obj){
+    var newValue = obj.value;
+    var valuePart = newValue.split('.');
+    if(valuePart[1]){
+        if( valuePart[0] !=0 ){
+            obj.value = "0."+valuePart[1];
+        }else{
+            obj.value = newValue;
+        }
+    }else{
+        obj.value = 0;
+    }
+}
+function limitnumerinput(obj){
+    obj.value = obj.value.replace(/\D/g,'');
+}
+jQuery(document).ready(function(){
+    jQuery("#yearlybreakstart").dynDateTime({
+		ifFormat: "%Y-%m-%d",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		//button: ".next()", //next sibling
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#yearlybreakstart").change(function(){
+		if(! validateInputDate(jQuery("#yearlybreakstart").val()) )
+		{jQuery("#yearlybreakstart").val('');alert("时间格式不正确,正确的格式为:2010-01-18");}
+	});
+	jQuery("#yearlybreakend").dynDateTime({
+		ifFormat: "%Y-%m-%d",
+		daFormat: "%l;%M %p, %e %m,  %Y",
+		align: "Br",
+		electric: true,
+		singleClick: true,
+		//button: ".this()", //next sibling
+		showOthers: true,
+		weekNumbers: true,
+		showsTime: true
+	});
+	jQuery("#yearlybreakend").change(function(){
+		if(! validateInputDate(jQuery("#yearlybreakend").val()) )
+		{jQuery("#yearlybreakend").val('');alert("时间格式不正确,正确的格式为:2010-01-18");}
+	});
+    $("#addissueset").mouseover(function(){
+        $(this).css('cursor','default');
+    });
+    $("#addissueset").click(function(){
+        var chinessnum = Array('一','二','三','四','五','六','七','八','九','十');
+        var issuesetnum = $(".issuesettitle").size();
+        var shtml = '<tr><td class="issuesettitle"  style="color:green"><hr><b>第'+chinessnum[issuesetnum];
+        shtml += '段销售时间设置 <span class="delissue"><font color="red">[删除]</font></span></b></td></tr>';
+        shtml += '<tr><td>';
+		shtml += '有效状态:<select name="status[]" class="status"><option value="0">无效</option><option value="1" selected>有效</option></select>&nbsp;&nbsp;&nbsp;';
+		shtml += '序号:<input value="'+issuesetnum+'" size="3" class="sort" type="text" name="sort[]" onkeyup="limitnumerinput(this)" onafterpaste="limitnumerinput(this)">&nbsp;&nbsp;&nbsp;';
+        shtml += '销售开始时间:&nbsp';
+        shtml += '<select name="starthour[]">{foreach from=$ahour item = hour key = k}<option value="{$hour}">{$hour}</option>{/foreach}</select>';
+        shtml += '：<select name="startminute[]">{foreach from=$aminuteorsecond item = minute key = k}<option value="{$minute}">{$minute}</option>{/foreach}</select>';
+        shtml += '：<select name="startsecond[]">{foreach from=$aminuteorsecond item = second key = k}<option value="{$second}">{$second}</option>{/foreach}</select><br/>';
+        shtml += '官方第一期销售截止时间:';
+        shtml += '<select name="firstendhour[]">{foreach from=$ahour item = hour key = k}<option value="{$hour}">{$hour}</option>{/foreach}</select>';
+        shtml += '：<select name="firstendminute[]">{foreach from=$aminuteorsecond item = minute key = k}<option value="{$minute}">{$minute}</option>{/foreach}</select>';
+        shtml += '：<select name="firstendsecond[]">{foreach from=$aminuteorsecond item = second key = k}<option value="{$second}">{$second}</option>{/foreach}</select>';
+        shtml += '&nbsp;&nbsp;官方销售结束时间:';
+        shtml += '<select name="endhour[]">{foreach from=$ahour item = hour key = k}<option value="{$hour}">{$hour}</option>{/foreach}</select>';
+        shtml += '：<select name="endminute[]">{foreach from=$aminuteorsecond item = minute key = k}<option value="{$minute}">{$minute}</option>{/foreach}</select>';
+        shtml += '：<select name="endsecond[]">{foreach from=$aminuteorsecond item = second key = k}<option value="{$second}">{$second}</option>{/foreach}</select>';
+        shtml += '<br>';
+        shtml += '销售周期:<input value="600" size="6" class="cycle" type="text" name="cycle[]" value=""  onkeyup="limitnumerinput(this)" onafterpaste="limitnumerinput(this)">&nbsp;秒, ';
+        shtml += "&nbsp;&nbsp;等待开奖时间:<input value='90' size='3' type='text' class = 'endsale' name='endsale[]' value='' onkeyup='limitnumerinput(this)' onafterpaste='limitnumerinput(this)'>&nbsp;秒, ";
+        shtml += "&nbsp;&nbsp;撤单时间:<input value='90' size='3' type='text'  class = 'droptime' name='droptime[]' value='' onkeyup='limitnumerinput(this)' onafterpaste='limitnumerinput(this)'>&nbsp;秒, ";
+		shtml += "&nbsp;&nbsp;号码录入时间:<input value='120' size='3' type='text' class='inputcodetime' name='inputcodetime[]' value='' onkeyup='limitnumerinput(this)' onafterpaste='limitnumerinput(this)'>&nbsp;秒";
+        shtml += '</td></tr>';
+        $("#issueset").append(shtml);
+        $(".delissue").click(function(){
+            var tempobj = $(this).parent().parent().parent().next();
+            $(this).parent().parent().parent().remove();
+            tempobj.remove();
+        });
+        $(".delissue").mouseover(function(){
+            $(this).css('cursor','default');
+        });
+    });
+    $(".delissue").click(function(){
+        var tempobj = $(this).parent().parent().parent().next();
+        $(this).parent().parent().parent().remove();
+        tempobj.remove();
+    });
+    $(".delissue").mouseover(function(){
+        $(this).css('cursor','default');
+    });
+	$("input:radio[name='type']").click(function(){
+		var i = $(":radio:checked[name='type']").val();
+		if(i==0 || i== 3 || i==4 || i==5)
+		{
+			jQuery("#no_rule").html("起始号码:<input type='text' size='4' name='norule[startno]' id='norule_startno' />,"
+			+"结束号码:<input type='text' size='4' name='norule[endno]' id='norule_endno'/>");
+		}
+		else if(i==2)
+		{
+			jQuery("#no_rule").html("起始号码:<input type='text' size='4' name='norule[startno]' id='norule_startno' />,"
+			+"结束号码:<input type='text' size='4' name='norule[endno]' id='norule_endno' />,"
+			+"先重复<input type='text' size='4' name='norule[startrepeat]' id='norule_startrepeat'"
+			+"onBlur=this.value=this.value.replace(/[^\\d]/g,\'\') onkeyup=this.value=this.value.replace(/[^\\d]/g,\'\') />次,"
+			+"<br/>然后从剩下号码中选出作为<input type='text' size='4' name='norule[splen]' id='norule_splen'"
+			+"onBlur=this.value=this.value.replace(/[^\\d]/g,\'\') onkeyup=this.value=this.value.replace(/[^\\d]/g,\'\') />位作为特别号码");
+		}
+		else if(i==1)
+		{
+			jQuery("#no_rule").html("普通起始号码:<input type='text' size='4' name='norule[startno]' id='norule_startno' />,"
+			+"结束号码:<input type='text' size='4' name='norule[endno]' id='norule_endno'/>,"
+			+"选出<input type='text' size='4' name='norule[startrepeat]' id='norule_startrepeat'"
+			+"onBlur=this.value=this.value.replace(/[^\\d]/g,\'\') onkeyup=this.value=this.value.replace(/[^\\d]/g,\'\') />次,"
+			+"<br/>特别起始号码:<input type='text' size='4' name='norule[spstartno]' id='norule_spstartno'/>,"
+			+"结束号码:<input type='text' size='4' name='norule[spendno]' id='norule_spendno'/>,"
+			+"选出<input type='text' size='4' name='norule[sprepeat]' id='norule_sprepeat'"
+			+"onBlur=this.value=this.value.replace(/[^\\d]/g,\'\') onkeyup=this.value=this.value.replace(/[^\\d]/g,\'\') />次,");
+		}
+	});
+	$("#lottery").submit(function(){
+		 if($("#cnname").val()=="")
+		  {
+			  alert("游戏的中文名称为空。");
+			  return false;
+		  }
+		  if($("#enname").val()=="")
+          {
+              alert("游戏的英文名称为空。");
+              return false;
+          }
+		  var i = $(":radio:checked[name='type']").val();
+		  if( $(":radio[name='type']").eq(1).val() == 1 && i == undefined )
+		  {
+		      alert("请选择游戏类型");
+		      return false;
+		  }
+		  if($("#norule_len").val()=="")
+		  {
+			  alert("号码的长度错误。");
+			  return false;
+	      }
+	      var re = /^[1-9][0-9]{0,2}$/
+	      if (!re.test($("#norule_len").val()))
+	      {
+	          alert("号码长度错误：必须为整数，且不超过三位数。");
+	          return false;
+	      }
+		  if($("#norule_startno").val()=="")
+          {
+              alert("起始号码为空.");
+              return false;
+          }
+          if($("#norule_endno").val()=="")
+          {
+              alert("结束号码为空.");
+              return false;
+          }
+		  if($("#issuerule").val()=="")
+		  {
+			  alert("奖期格式错误.");
+			  return false;
+		  }
+		  if($("#minprofit").val()=="")
+          {
+              alert("公司最小留水错误.");
+              return false;
+          }
+		  if($("#mincommissiongap").val()=="")
+		  {
+			  alert("上下级最小点差错误.");
+			  return false;
+		  }
+		  if($("#description").val()=="")
+		  {
+			  alert("描述为空.");
+			  return false;
+		  }
+		  var i = 0;
+		  $(".cycle").each(function(){
+		      if($(this).val()==""){
+		          i++;
+		      }
+		  });
+		  if(i > 0){
+		      alert("销售周期不正确.");
+		      return false;
+		  }
+		  $(".sort").each(function(){
+		      if($(this).val()==""){
+		          i++;
+		      }
+		  });
+		  if(i > 0){
+		      alert("序号不能不空.");
+		      return false;
+		  }
+		  $(".endsale").each(function(){
+		      if($(this).val()==""){
+		          i++;
+		      }
+		  });
+		  if(i > 0){
+		      alert("停止销售时间不正确.");
+		      return false;
+		  }
+		  $(".inputcodetime").each(function(){
+		      if($(this).val()==""){
+		          i++;
+		      }
+		  });
+		  if(i > 0){
+		      alert("号码录入时间不正确.");
+		      return false;
+		  }
+		  $(".droptime").each(function(){
+		      if($(this).val()==""){
+		          i++;
+		      }
+		  });
+		  if(i > 0){
+		      alert("撤单时间不正确.");
+		      return false;
+		  }
+		  if($("#yearlybreakstart").val=="")
+		  {
+		      alert("休市开始时间不能为空.");
+		      return false;
+		  }
+		  if($("#yearlybreakend").val=="")
+		  {
+		      alert("休市结束时间不能为空.");
+		      return false;
+		  }	  
+		 return true;
+	 });
+});
+function testTime(obj,str){		
+	if(jQuery("#"+obj).val()!='')
+	{
+		if(!timestr.test(jQuery("#"+obj).val()))
+		{
+			alert(str+"格式不正确。");
+			jQuery("#"+obj).val('');
+		}
+	}
+}
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+    if(obj.style.display=="none")
+    {
+        obj.style.display="block";
+    }
+    else
+    {
+        obj.style.display="none";   
+    }
+}
+</script>
+<div class="list-div" id="listDiv">
+<form name="lottery" id="lottery" method="post" action="./?controller=gameinfo&action={$action|default:add}">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('notice_cnname');"><img src="./images/notice.gif" border="0"></a>中文平台游戏名称</td>
+<td><input type="text" name="cnname" id="cnname" value="{if isset($lottery)}{$lottery.cnname|escape:html}{/if}">
+<span id="notice_cnname" style="display:none;">该游戏在平台中的中文名称.</span>
+</td>
+</tr>
+<tr>
+<td class="narrow-label">英文平台游戏名称</td>
+<td><input type="text" name="enname" id="enname" value="{if isset($lottery)}{$lottery.enname|escape:html}{/if}"></td>
+</tr>
+<tr>
+<td class="narrow-label">开奖周期</td>
+<td>
+<label for="date_1"><input type="checkbox" name="date[]" id="date_1" value="1" {if isset($lottery)&&($lottery.weekcycle&1)>0}checked{/if}>&nbsp;星期一</label>&nbsp;
+<label for="date_2"><input type="checkbox" name="date[]" id="date_2" value="2" {if isset($lottery)&&($lottery.weekcycle&2)>0}checked{/if}>&nbsp;星期二</label>&nbsp;
+<label for="date_3"><input type="checkbox" name="date[]" id="date_3" value="4" {if isset($lottery)&&($lottery.weekcycle&4)>0}checked{/if}>&nbsp;星期三</label>&nbsp;
+<label for="date_4"><input type="checkbox" name="date[]" id="date_4" value="8" {if isset($lottery)&&($lottery.weekcycle&8)>0}checked{/if}>&nbsp;星期四</label>&nbsp;
+<label for="date_5"><input type="checkbox" name="date[]" id="date_5" value="16" {if isset($lottery)&&($lottery.weekcycle&16)>0}checked{/if}>&nbsp;星期五</label>&nbsp;
+<label for="date_6"><input type="checkbox" name="date[]" id="date_6" value="32" {if isset($lottery)&&($lottery.weekcycle&32)>0}checked{/if}>&nbsp;星期六</label>&nbsp;
+<label for="date_7"><input type="checkbox" name="date[]" id="date_7" value="64" {if isset($lottery)&&($lottery.weekcycle&64)>0}checked{/if}>&nbsp;星期日</label>
+</td>
+</tr>
+<tr>
+<td class="narrow-label">游戏类型</td>
+<td>
+{if !isset($lottery)}
+<label for="type_0"><input type="radio" name="type" value="0" id="type_0">&nbsp;数字型</label>&nbsp;
+<label for="type_1"><input type="radio" name="type" value="1" id="type_1">&nbsp;乐透分区型</label>
+<label for="type_2"><input type="radio" name="type" value="2" id="type_2">&nbsp;乐透同区型</label>&nbsp;
+<label for="type_3"><input type="radio" name="type" value="3" id="type_3">&nbsp;基诺型</label>&nbsp;
+<label for="type_4"><input type="radio" name="type" value="4" id="type_4">&nbsp;排列型</label>
+<label for="type_5"><input type="radio" name="type" value="5" id="type_5">&nbsp;分组型</label>&nbsp;
+{else}
+{if $lottery.lotterytype==0}数字型{elseif $lottery.lotterytype==1}乐透分区型{elseif $lottery.lotterytype==2}乐透同区型
+{elseif $lottery.lotterytype==3}基诺型{elseif $lottery.lotterytype==4}排列型{elseif $lottery.lotterytype==5}分组型{/if}
+{/if}
+</td>
+</tr>
+<tr>
+<td class="narrow-label">号码形态</td>
+<td>号码总长度:<input type="text" size="4" name="norule[len]" id="norule_len" value="{if isset($lottery)}{$lottery.no_rule.len|escape:html}{/if}" onBlur="this.value=this.value.replace(/[^\d]/g,'');" onkeyup="this.value=this.value.replace(/[^\d]/g,'');">
+<div id="no_rule" style="display:;">
+{if isset($lottery)}
+{if $lottery.lotterytype==0 || $lottery.lotterytype==3 || $lottery.lotterytype==4 || $lottery.lotterytype==5}
+起始号码:<input type='text' size='4' name='norule[startno]' value="{$lottery.no_rule.startno|escape:html}" />,
+结束号码:<input type='text' size='4' name='norule[endno]' value="{$lottery.no_rule.endno|escape:html}"/>
+{elseif $lottery.lotterytype==2}
+起始号码:<input type='text' size='4' name='norule[startno]' value="{$lottery.no_rule.startno|escape:html}" />,
+结束号码:<input type='text' size='4' name='norule[endno]'  value="{$lottery.no_rule.endno|escape:html}"/>,
+先重复<input type='text' size='4' name='norule[startrepeat]'  value="{$lottery.no_rule.startrepeat|escape:html}" onBlur="this.value=this.value.replace(/[^\d]/g,'');" onkeyup="this.value=this.value.replace(/[^\d]/g,'');" />次,
+<br/>然后从剩下号码中选出作为<input type='text' size='4' name='norule[splen]'value="{$lottery.no_rule.splen|escape:html}">位作为特别号码
+{elseif $lottery.lotterytype==1}
+普通起始号码:<input type='text' size='4' name='norule[startno]' value="{$lottery.no_rule.startno|escape:html}" />,
+结束号码:<input type='text' size='4' name='norule[endno]' value="{$lottery.no_rule.endno|escape:html}"/>,
+选出<input type='text' size='4' name='norule[startrepeat]' value="{$lottery.no_rule.startrepeat|escape:html}" onBlur="this.value=this.value.replace(/[^\d]/g,'');" onkeyup="this.value=this.value.replace(/[^\d]/g,'');" />次,
+<br/>特别起始号码:<input type='text' size='4' name='norule[spstartno]'  value="{$lottery.no_rule.spstartno|escape:html}">,
+结束号码:<input type='text' size='4' name='norule[spendno]'  value="{$lottery.no_rule.spendno|escape:html}"/>,
+选出<input type='text' size='4' name='norule[sprepeat]'  value="{$lottery.no_rule.sprepeat|escape:html}" onBlur="this.value=this.value.replace(/[^\d]/g,'');" onkeyup="this.value=this.value.replace(/[^\d]/g,'');" />次
+{/if}
+{/if}
+</div>
+</td>
+</tr>
+<tr>
+<td class="narrow-label">奖期格式</td>
+<td><input type="text" name="issuerule" id="issuerule" value="{if isset($lottery)}{$issueformat|escape:html}{/if}"></td>
+</tr>
+<tr>
+<td class="narrow-label">清零规则</td>
+<td>
+    年：<select name="resetrule_year">
+        <option value="0" {if !$resetrule.0}selected{/if}>清零</option>
+        <option value="1" {if $resetrule.0}selected{/if}>不清零</option>
+    </select>
+    月：<select name="resetrule_month">
+        <option value="0" {if !$resetrule.1}selected{/if}>清零</option>
+        <option value="1" {if $resetrule.1}selected{/if}>不清零</option>
+    </select>
+    日：<select name="resetrule_day">
+        <option value="0" {if !$resetrule.2}selected{/if}>清零</option>
+        <option value="1" {if $resetrule.2}selected{/if}>不清零</option>
+    </select>
+</td>
+</tr>
+<tr>
+<td class="narrow-label">公司最小留水</td>
+<td><input type="text" name="minprofit" id="minprofit" size="6" value="{if isset($lottery)}{$lottery.minprofit|escape:html}{/if}"onblur="checkPointLast(this);" onkeyup="checkPoint(this);"></td>
+</tr>
+<tr>
+<td class="narrow-label">上下级最小点差</td>
+<td><input type="text" name="mincommissiongap" id="mincommissiongap" size="6" value="{if isset($lottery)}{$lottery.mincommissiongap|escape:html}{/if}" onBlur="checkPointLast(this);" onkeyup="checkPoint(this);"></td>
+</tr>
+<tr>
+<td class="narrow-label">游戏描述</td>
+<td><textarea name="description" rows="6" cols="60" id="description">{if isset($lottery)}{$lottery.description|escape:html}{/if}</textarea></td>
+</tr>
+<tr>
+    <td class="narrow-label">延后时间</td>
+    <td><input type="text" name="pushtime" value="{if isset($lottery)}{$lottery.pushtime}{/if}" /></td>
+</tr>
+<tr>
+    <td class="narrow-label">抓号次数</td>
+    <td><input type="text" name="retry" value="{if isset($lottery)}{$lottery.retry}{/if}" /></td>
+</tr>
+<tr>
+    <td class="narrow-label">抓号间隔时间</td>
+    <td><input type="text" name="delay" value="{if isset($lottery)}{$lottery.delay}{/if}" /><span><font color="red">抓号频率最低不得低于30秒，最高不得高于300秒</font></span></td>
+</tr>
+<tr>
+<td class="narrow-label">奖期时间设置<br/><span id="addissueset"><font color="Blue">[增加时间段]</font></span></td>
+<td>
+<table id="issueset">
+{if !isset($lottery.issueset) || $lottery.issueset == ''}
+<tr><td class="issuesettitle" style="color:green"><b>第一段销售时间设置</b></td></tr>
+<tr><td>
+有效状态:<select name="status[]" class="status"><option value="0">无效</option><option value="1" selected>有效</option></select>&nbsp;&nbsp;&nbsp;
+序号:<input size="3" class="sort" type="text" name="sort[]" value="0" onkeyup="limitnumerinput(this)" onafterpaste="limitnumerinput(this)">&nbsp;&nbsp;&nbsp;
+销售开始时间:
+<select name="starthour[]">{foreach from=$ahour item = hour key = k}<option value="{$hour}">{$hour}</option>{/foreach}</select>
+：<select name="startminute[]">{foreach from=$aminuteorsecond item = minute key = k}<option value="{$minute}">{$minute}</option>{/foreach}</select>
+：<select name="startsecond[]">{foreach from=$aminuteorsecond item = second key = k}<option value="{$second}">{$second}</option>{/foreach}</select><br/>
+官方第一期销售截止时间:
+<select name="firstendhour[]">{foreach from=$ahour item = hour key = k}<option value="{$hour}">{$hour}</option>{/foreach}</select>
+：<select name="firstendminute[]">{foreach from=$aminuteorsecond item = minute key = k}<option value="{$minute}">{$minute}</option>{/foreach}</select>
+：<select name="firstendsecond[]">{foreach from=$aminuteorsecond item = second key = k}<option value="{$second}">{$second}</option>{/foreach}</select>
+&nbsp;&nbsp;官方销售结束时间:
+<select name="endhour[]">{foreach from=$ahour item = hour key = k}<option value="{$hour}">{$hour}</option>{/foreach}</select>
+：<select name="endminute[]">{foreach from=$aminuteorsecond item = minute key = k}<option value="{$minute}">{$minute}</option>{/foreach}</select>
+：<select name="endsecond[]">{foreach from=$aminuteorsecond item = second key = k}<option value="{$second}">{$second}</option>{/foreach}</select>
+<br>
+销售周期:<input size="6" value="600" type="text"  class="cycle" name="cycle[]" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒, 
+等待开奖时间:<input size="3" value="90" type="text" class="endsale" name="endsale[]" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒, 
+&nbsp;&nbsp;撤单时间:<input value="90" size="3" type="text" class="droptime" name="droptime[]" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒, 
+&nbsp;&nbsp;号码录入时间:<input value="120" size="3" type="text" class="inputcodetime" name="inputcodetime[]" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒
+</td></tr>
+{else}
+{foreach from=$lottery.issueset item=aIssueSet key=k}
+<tr><td class="issuesettitle" style="color:green"><b>第{$chinesenumber.$k}段销售时间设置{if $k !=0 } <span class="delissue"><font color="red">[删除]</font></span>{/if}</b></td></tr>
+<tr><td>
+有效状态:<select name="status[]" class="status"><option value="0" {if $aIssueSet.status==0} selected{/if}>无效</option><option value="1" {if $aIssueSet.status==1} selected{/if}>有效</option></select>
+序号:<input size="3" class="sort" type="text" name="sort[]" value="{$aIssueSet.sort}" onkeyup="limitnumerinput(this)" onafterpaste="limitnumerinput(this)">&nbsp;&nbsp;&nbsp;
+销售开始时间:
+<select name="starthour[]">{foreach from=$ahour item = hour key = k}<option value="{$hour}" {if $aIssueSet.starthour == $hour} selected {/if}>{$hour}</option>{/foreach}</select>
+：<select name="startminute[]">{foreach from=$aminuteorsecond item = minute key = k}<option value="{$minute}" {if $aIssueSet.startminute == $minute} selected {/if}>{$minute}</option>{/foreach}</select>
+：<select name="startsecond[]">{foreach from=$aminuteorsecond item = second key = k}<option value="{$second}" {if $aIssueSet.startsecond == $second} selected {/if}>{$second}</option>{/foreach}</select><br/>
+官方第一期销售截止时间:
+<select name="firstendhour[]">{foreach from=$ahour item = hour key = k}<option value="{$hour}"  {if $aIssueSet.firstendhour == $hour} selected {/if}>{$hour}</option>{/foreach}</select>
+：<select name="firstendminute[]">{foreach from=$aminuteorsecond item = minute key = k}<option value="{$minute}"  {if $aIssueSet.firstendminute == $minute} selected {/if}>{$minute}</option>{/foreach}</select>
+：<select name="firstendsecond[]">{foreach from=$aminuteorsecond item = second key = k}<option value="{$second}"  {if $aIssueSet.firstendsecond == $second} selected {/if}>{$second}</option>{/foreach}</select>
+&nbsp;&nbsp;官方销售结束时间:
+<select name="endhour[]">{foreach from=$ahour item = hour key = k}<option value="{$hour}" {if $aIssueSet.endhour == $hour} selected {/if}>{$hour}</option>{/foreach}</select>
+：<select name="endminute[]">{foreach from=$aminuteorsecond item = minute key = k}<option value="{$minute}" {if $aIssueSet.endminute == $minute} selected {/if}>{$minute}</option>{/foreach}</select>
+：<select name="endsecond[]">{foreach from=$aminuteorsecond item = second key = k}<option value="{$second}" {if $aIssueSet.endsecond == $second} selected {/if}>{$second}</option>{/foreach}</select>
+<br>
+销售周期:<input type="text"  size="6" value="{$aIssueSet.cycle|default:600}"  class="cycle" name="cycle[]" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒, 
+等待开奖时间:<input type="text" size="3" value="{$aIssueSet.endsale|default:90}" class="endsale" name="endsale[]" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒, 
+&nbsp;&nbsp;撤单时间:<input type="text" size="3" value="{$aIssueSet.droptime|default:90}" class="droptime" name="droptime[]" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒, 
+&nbsp;&nbsp;号码录入时间:<input size="3" type="text" value="{$aIssueSet.inputcodetime|default:120}" class="inputcodetime" name="inputcodetime[]" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒
+
+</td></tr>
+{/foreach}
+{/if}
+</table>
+</td>
+</tr>
+<tr>
+<td class="narrow-label">休市开始时间</td>
+<td>
+<input type="text" name="yearlybreakstart" id="yearlybreakstart" value="{if isset($lottery)}{$lottery.yearlybreakstart|escape:html}{else}0000-00-00{/if}">
+</td>
+</tr>
+<tr>
+<td class="narrow-label">休市结束时间</td>
+<td>
+<input type="text" name="yearlybreakend" id="yearlybreakend" value="{if isset($lottery)}{$lottery.yearlybreakend|escape:html}{else}0000-00-00{/if}">
+</td>
+</tr>
+<tr>
+<td class="narrow-label">排序值</td>
+<td>
+<input size=4 type="text" name="sorts" id="sorts" value="{$lottery.sorts|default:0}">
+</td>
+</tr>
+<tr>
+<td class="narrow-label"></td>
+<td>{if isset($lottery)}<input type="hidden" name="lotteryid" value="{$lottery.lotteryid|escape:html}">{/if}<input type="submit" class="button" value="{if isset($action)&&($action==edit)}修改彩种{else}增加彩种{/if}"><input type="reset" class="button" value="重新设置"></td>
+</tr> 
+</table></form></div>
+{include file="pagefooter.html"}

@@ -1,0 +1,56 @@
+{include file="pageheader.html"}
+<script>
+{literal}
+(function($){
+$(document).ready(function(){
+    $(".help").find("table").css("width","90%");
+    $("div[id^='general_tab_']").click(function(){
+        $(".right_02_03").find(".menu_01a").attr("class","menu_01");
+        $(".right_02_03").find(".menu_02a").attr("class","menu_02");
+        $(".right_02_03").find(".menu_03a").attr("class","menu_03");
+        $(this).find(".menu_01").attr("class","menu_01a");
+        $(this).find(".menu_02").attr("class","menu_02a");
+        $(this).find(".menu_03").attr("class","menu_03a");
+        $("div[id^='general_table_']").hide();
+        id = $(this).attr("id").replace("general_tab_","")
+        $("#general_table_"+id).show();
+    });
+});
+})(jQuery);
+{/literal}
+</script>
+</head>
+<body>
+<div class="right_021">
+ <div id="right_02_01">
+    <div class="right_02_02"></div>
+    <div class="right_02_03" id="lt_big_label" >
+        {foreach from=$data item=d key=k}
+            {if $k==0}
+                <div id="general_tab_{$k}">
+          		    <div class="menu_01a"></div>
+    			    <div class="menu_02a">{$d.tagname|escape:html}</div>
+    			    <div class="menu_03a"></div>
+    			</div>
+            {else}
+                <div id="general_tab_{$k}">
+            	   <div class="menu_01"></div>
+    			   <div class="menu_02" id="general_tab_{$k}">{$d.tagname|escape:html}</div>
+            	   <div class="menu_03"></div>
+            	</div>
+            {/if}
+        {/foreach}
+    </div>
+    <div class="right_02_04"></div>
+</div>
+<div class="help">
+{foreach from=$data item=d key=k}
+        <div id="general_table_{$k}" {if $k!=0}style="display:none;"{/if}>{$d.content}</div>
+{/foreach}
+</div>  
+<div class="height51">
+<div class="right_02_241"></div>
+<div class="right_02_251"></div>
+</div>
+</div>
+{include file="pagefooter.html"}

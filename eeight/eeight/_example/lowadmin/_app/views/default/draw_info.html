@@ -1,0 +1,98 @@
+{include file="pageheader.html"}
+{insert_scripts files="jquery.js"}
+<script>
+jQuery(document).ready(function(){
+	jQuery("#codefrom").submit(function(){
+		var type={$aLottery.lotterytype};
+		var len={$aLottery.numberrule.len};
+		var start = {$aLottery.numberrule.startno};
+		var end = {$aLottery.numberrule.endno};
+		if(jQuery("#code").val()=="")
+		{
+			alert("号码为空.");
+			return false;
+		};
+		if(type==0)
+		{
+			var testMode = new RegExp("^(["+start+"-"+end+"]{"+len+"})$");
+			if(!testMode.test(jQuery("#code").val()))
+			{
+				alert("号码格式错误");
+				return false;
+			}
+			return true;
+		}
+		else
+		{
+			alert("对其他类型的号码暂时没有验证");
+			return false;
+		}		
+	});
+});
+</script>
+{if ($aLottery.statuscode<2)&&(date('H:i:s')>=$aLottery.edittime)&&(date("Y-m-d H:i:s")>=date("Y-m-d H:i:s",strtotime($aLottery.saleend)))}
+<div class="list-div">
+<form action="./index.php?controller=draw&action={$action}" method="POST" name="codefrom" id="codefrom">
+<table>
+<tr>
+<td class="narrow-label" width="15%">游戏</td>
+<td width="35%">{$aLottery.cnname}<input type="hidden" name="issue" value="{$aLottery.issue}"></td>
+<td class="narrow-label" width="15%">当前奖期</td>
+<td width="35%">{$aLottery.issue}<input type="hidden" name="issue" value="{$aLottery.issue}"><input type="hidden" name="issueid" value="{$aLottery.issueid}"></td>
+</tr>
+<tr>
+<td class="narrow-label">奖期号码</td>
+<td colspan="3"><input type="text" name="code" id="code" value=""><input type="submit" value="录入号码" class="button"></td>
+</tr>
+</table>
+</form>
+</div>
+<br/>
+{/if}
+<div class="list-div">
+<table>
+<tr>
+<th width="80">奖期</th>
+<th width="140">停售时间</th>
+<th>开奖号码</th>
+<th width="140">号码录入时间</th>
+<th>录入者</th>
+<th width="140">号码验证时间</th>
+<th>录入者</th>
+<th>号码</th>
+<th>扣款</th>
+<th>返点</th>
+<th>中奖</th>
+<th>派奖</th>
+<th>追号</th>
+<th>封锁</th>
+
+</tr>
+{foreach from=$aIssue item=issue key=k}
+<tr align="center">
+<td>{$issue.issue}</td>
+<td>{$issue.saleend}</td>
+<td>{if $issue.statuscode==0}&nbsp;{elseif $issue.statuscode==1}号码已输入，待验证{else}{$issue.code}{/if}</td>
+<td>{if $issue.writetime > 0}{$issue.writetime|truncate:10}{/if}</td>
+<td>{if $issue.writeid > 0}{$issue.writeid}{/if}</td>
+<td>{if $issue.verifytime > 0}{$issue.verifytime|truncate:10}{/if}</td>
+<td>{if $issue.verifyid > 0}{$issue.verifyid}{/if}</td>
+<td>{if $issue.statuscode==0}<font color="blue">未录入</font>{elseif $issue.statuscode==1}<font color="red">待验证</font>{elseif $issue.statuscode==2}<font color="green">已验证</font>{else}<b style="color:red;">官方未开</b>{/if}</td>
+<td>{if $issue.statusdeduct==0}<font color="blue">未开始</font>{elseif $issue.statusdeduct==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}</td>
+<td>{if $issue.statususerpoint==0}<font color="blue">未开始</font>{elseif $issue.statususerpoint==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}</td>
+<td>{if $issue.statuscheckbonus==0}<font color="blue">未开始</font>{elseif $issue.statuscheckbonus==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}</td>
+<td>{if $issue.statusbonus==0}<font color="blue">未开始</font>{elseif $issue.statusbonus==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}</td>
+<td>{if $issue.statustasktoproject==0}<font color="blue">未开始</font>{elseif $issue.statustasktoproject==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}</td>
+<td>{if $issue.statuslocks==0}<font color="blue">未开始</font>{elseif $issue.statuslocks==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}</td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="13" class="no-records">没有相关的奖期</td>
+</tr>
+{/foreach}
+<tr>
+<td colspan="13" align="right">{$pageinfo}</td>
+</tr>
+</table>
+</div>
+{include file="pagefooter.html"}

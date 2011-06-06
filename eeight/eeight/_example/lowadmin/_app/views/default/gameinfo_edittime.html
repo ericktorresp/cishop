@@ -1,0 +1,69 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+<script>
+//时间的正则
+var timestr =/^([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/;
+function testTime(obj,str){		
+	if(jQuery("#"+obj).val()!='')
+	{
+		if(!timestr.test(jQuery("#"+obj).val()))
+		{
+			alert(str+"格式不正确。");
+			jQuery("#"+obj).val('');
+		}
+	}
+}
+function showNotice(obj)
+{
+	jQuery("#"+obj).toggle();
+}
+</script>
+<div class="list-div" id="listDiv">
+<form name="lottery" method="post" action="./?controller=gameinfo&action=edittime">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td class="narrow-label">中文平台游戏名称</td>
+<td>{$lottery.cnname|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">开奖时间</td>
+<td>
+<label for="date_1"><input type="checkbox" name="date[]" id="date_1" value="1" {if ($lottery.weekcycle&1)>0}checked{/if}>&nbsp;星期一</label>&nbsp;
+<label for="date_2"><input type="checkbox" name="date[]" id="date_2" value="2" {if ($lottery.weekcycle&2)>0}checked{/if}>&nbsp;星期二</label>&nbsp;
+<label for="date_3"><input type="checkbox" name="date[]" id="date_3" value="4" {if ($lottery.weekcycle&4)>0}checked{/if}>&nbsp;星期三</label>&nbsp;
+<label for="date_4"><input type="checkbox" name="date[]" id="date_4" value="8" {if ($lottery.weekcycle&8)>0}checked{/if}>&nbsp;星期四</label>&nbsp;
+<label for="date_5"><input type="checkbox" name="date[]" id="date_5" value="16" {if ($lottery.weekcycle&16)>0}checked{/if}>&nbsp;星期五</label>&nbsp;
+<label for="date_6"><input type="checkbox" name="date[]" id="date_6" value="32" {if ($lottery.weekcycle&32)>0}checked{/if}>&nbsp;星期六</label>&nbsp;
+<label for="date_7"><input type="checkbox" name="date[]" id="date_7" value="64" {if ($lottery.weekcycle&64)>0}checked{/if}>&nbsp;星期日</label>
+</td>
+</tr>
+<tr>
+<td class="narrow-label">销售开始时间</td>
+<td><input type="text" name="dailystart" id="dailystart" value="{$lottery.dailystart|escape:html}" onchange="javascript:testTime('dailystart','销售开始时间');"></td>
+</tr>
+<tr>
+<td class="narrow-label">销售结束时间</td>
+<td><input type="text" name="dailyend" id="dailyend" value="{$lottery.dailyend|escape:html}" onchange="javascript:testTime('dailyend','销售结束时间');"></td>
+</tr>
+<tr>
+<td class="narrow-label">撤单结束时间</td>
+<td><input type="text" name="canceldeadline" id="canceldeadline" value="{$lottery.canceldeadline|escape:html}" onchange="javascript:testTime('canceldeadline','撤单结束时间');"></td>
+</tr>
+<tr>
+<td class="narrow-label">录入号码时间</td>
+<td><input type="text" name="edittime" id="edittime" value="{$lottery.edittime|escape:html}" onchange="javascript:testTime('edittime','录入号码时间');"></td>
+</tr>
+<tr>
+<td class="narrow-label">动态调价开始时间</td>
+<td><input type="text" name="dynamicprizestart" id="dynamicprizestart" value="{$lottery.dynamicprizestart|escape:html}" onchange="javascript:testTime('dynamicprizestart','动态调价开始时间');"></td>
+</tr>
+<tr>
+<td class="narrow-label">动态调价结束时间</td>
+<td><input type="text" name="dynamicprizeend" id="dynamicprizeend" value="{$lottery.dynamicprizeend|escape:html}" onchange="javascript:testTime('dynamicprizeend','动态调价结束时间');"></td>
+</tr>
+<tr>
+<td class="narrow-label"></td>
+<td><input type="hidden" name="lotteryid" value="{$lottery.lotteryid|escape:html}"><input type="submit" class="button" value="修改时间"><input type="reset" class="button" value="重新设置"></td>
+</tr> 
+</table></form></div>
+{include file="pagefooter.html"}

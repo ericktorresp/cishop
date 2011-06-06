@@ -1,0 +1,47 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+  <table cellspacing='1' cellpadding='3' id='list-table'>
+    <tr>
+  		<td class="narrow-label">公告编号:</td>
+  		<td>{$notice.id}</td>
+  	</tr>
+  	<tr>
+  		<td class="narrow-label">公告标题:</td>
+  		<td>{$notice.subject|escape:html}</td>
+  	</tr>
+  	<tr>
+  		<td class="narrow-label">发布栏目:</td>
+  		<td>{$title|escape:html}</td>
+  	</tr>
+	<tr>
+  		<td class="narrow-label">公告状态:</td>
+  		<td style='color:red'>{if $notice.checkid==0}未审核{else}<font color='#669900'>已审核</font>{/if} 
+		    {if $notice.isdel==0}<font color='#669900'>未删除</font>{else}已删除{/if}</td>
+  	</tr>
+	<tr>
+  		<td class="narrow-label">发布:</td>
+  		<td>{$notice.sendername|escape:html}</td>
+  	</tr>
+	{if $notice.checkid!=0 }
+	<tr>
+  		<td class="narrow-label">审核:</td>
+  		<td>{$notice.checkername|escape:html}</td>
+  	</tr>
+	{/if}
+	<tr>
+  		<td class="narrow-label">相关操作:</td>
+  		<td>{if $notice.checkid==0}
+			<input type="button" value="+ 对此公告进行审核" class='button' 
+			onclick="location.href='./?controller=notice&action=check&noticeid={$notice.id}';">
+  		{else}
+			<input type="button" value=" - 取消此公告的审核" class='button' 
+			onclick="location.href='./?controller=notice&action=cannel&noticeid={$notice.id}';">
+  		{/if}&nbsp;
+  	</tr>
+  	<tr>
+  		<td class="narrow-label">公告内容:</td>
+  		<td>{$notice.content}</td>
+  	</tr>
+  </table>
+</div>
+{include file="pagefooter.html"}

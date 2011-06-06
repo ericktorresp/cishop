@@ -1,0 +1,113 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+{literal}
+function confirmSubmit(frm, ext)
+{
+	if (frm.elements['form_action'].value == '')
+	{
+		  alert('请选择操作的类型');
+		  return false;
+	}
+	else if(frm.elements['form_action'].value == 'bat_delete')
+	{
+		return confirm("确定要删除选中的数据?");
+	}
+	else if( frm.elements['form_action'].value == 'bat_enableall' )
+	{
+		return confirm("确定启用全部组别?");
+	}
+	else
+	{
+		return true;
+	}
+}
+{/literal}
+</script>
+<div class="form-div">
+    <FORM name="searchForm" action="" METHOD='GET'>
+    <input type='hidden' name="controller" value="firewall"/>
+    <input type='hidden' name="action" value="rulelist"/>
+
+<img src="./images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" /> 
+受限范围: <select name="ft" style="width:86px;background-color:#3D3D3D;color:#FFF">
+<option value="" {if $s.ft=='-1'}SELECTED{/if}>不限</option>
+<option value="0" {if $s.ft=='0'}SELECTED{/if}>用户名</option>
+<option value="1" {if $s.ft=='1'}SELECTED{/if}>网络地址</option>
+</select>&nbsp;<input type="text" name="fv" size='24' value='{$s.fv|escape:html}'/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+受限菜单:<select name="fmid" style="background-color:#FFF;color:#555">
+<option value="">不限</option>{$s.fmidoptions}</select>&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+规则状态: <select name="fs" style="background-color:#FFF;color:#555">
+<option value="" {if $s.fs=='-1'}SELECTED{/if}>不限</option>
+<option value="0" {if $s.fs=='0'}SELECTED{/if}>启用中</option>
+<option value="1" {if $s.fs=='1'}SELECTED{/if}>禁用中</option>
+</select>&nbsp;&nbsp;
+
+<div style='padding: 5px 20px 2px 29px;'/>
+
+受限规则:
+<select name="faid" style="background-color:#FFF;color:#555">
+<option value="">不限</option>{$s.faid}</select>&nbsp;&nbsp;
+
+
+规则描述 <input type="text" name="fm" size='24' value="{$s.fm|escape:html}" />
+<input style='margin-left:20px' type="submit" value=" 开始查询 " class="button" /> <a href="javascript:showNotice('noticeSearch');" title="帮助信息"><img src="./images/notice.gif" width="16" height="16" border="0" title="帮助信息"></a><br />
+
+<span class="notice-span" style='line-height:18px;padding:8px 0px 2px 20px;color:#669900' 
+id="noticeSearch">受限范围 '网络地址'格式 <b style='color:red'>192.168.1*</b><br/>
+受限范围'用户名' 可以多填(逗号分隔)支持通配符 <b style='color:red'>*</b> 号, 例如 <b style='color:red'>Dummy1*,Dummy</b><br/>
+所有查询条件都是可组合的过滤条件. 可以一次选择多个进行组合过滤 <br/></span>
+</div>
+
+</FORM>
+</div>
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm">
+<table cellspacing='1' cellpadding='3' id='list-table'><tr>
+	<th><label><input onclick='CheckBoxSelectAll(this, "checkboxes")' type="checkbox">全</label></th>
+	<th>启用</th>
+	<th>规则描述</th>
+	<th colspan='2'>触发条件</th>
+	<th>应用规则名</th>
+	<th>封锁菜单编号</th>
+	<th>中断</th>
+	<th>操作</th>
+</tr>
+{foreach from=$aFwList item=d key=k}
+<tr>
+	<td align="center"><span><input name="checkboxes[]" type="checkbox" value="{$d.entry}" />{$d.entry}</span></td>
+	<td align="center">{if $d.rulestatus==0}<img src='./images/yes.gif'>{else}<font color='#eaeaea'><img src='./images/no.gif'></font>{/if}</td>
+	<td align="center">{$d.message|escape:html}</td>
+	<td align="center"><font color='#999999'>{if $d.rangetype=='1'}ID{else}<font color='red'>IP</font>{/if}</font> </td>
+	<td align="center">
+	{if $d.rangetype=='1'}
+		{if $d.username==''}
+			<font color='#a0a0a0'>**已删**</font>
+		{else}
+			<a href='#id={$d.userid}'>{$d.username|escape:html}</a>{/if} 
+	{else}
+		{$d.userip|escape:html}
+	{/if}</td>
+	<td align="center"><a href='./?controller=firewall&action=actionlist&aid={$d.actionid}' TITLE='查看行为'>{$d.actionname|escape:html}</a></td>
+	<td align="center">{$d.menustr|escape:html}</td>
+	<td align="center" style='color:#c0c0c0'>{if $d.isexit==1}<font color='red'>是</font>{else}否{/if}</td>
+	<td align="center"><a href="./?controller=firewall&action=editrule&id={$d.entry}">修改规则</a>
+	 &nbsp; | &nbsp; <a 
+	onclick="javascript:return confirm('您确定要删除防火墙规则: [{$d.message}] ?');"
+	href="./?controller=firewall&action=delrule&id={$d.entry}">删除</a></td>
+</tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">无相关数据</td></tr>
+{/foreach}
+
+</table>
+</form>
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

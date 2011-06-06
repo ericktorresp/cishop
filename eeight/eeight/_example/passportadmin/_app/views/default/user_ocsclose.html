@@ -1,0 +1,32 @@
+{include file="pageheader.html"}
+<div class="list-div">
+<form method="POST" action="?controller=user&action=saveocsclose" onsubmit="return check();">
+<input type="hidden" name="userid" value="{$user.userid}">
+<table>
+<tr>
+<td class="narrow-label" width="20%">用户帐号</td>
+<td width="80%">{$user.username|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">关闭操作</td>
+<td><label for="unfree_1"><input type="radio" id="ocsclose_1" value="1" name="ocsclose" checked="checked">仅关闭此用户，不包含其下级</label></td>
+</tr>
+<tr>
+<td></td>
+<td><label for="unfree_2"><input type="radio" id="ocsclose_2" value="2" name="ocsclose">关闭此用户和所有下级</label></td>
+</tr>
+<tr>
+<td></td>
+<td><input type="submit" value="关闭在线客服" class="button">
+<input type="reset" class="button" value="重置选择"></td>
+</tr>
+</table>
+</form>
+</div>
+<script>
+function check()
+{
+	return confirm("您确定要关闭该用户的在线客服功能?");
+}
+</script>
+{include file="pagefooter.html"}

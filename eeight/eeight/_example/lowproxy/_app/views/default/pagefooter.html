@@ -1,0 +1,21 @@
+<div id="footer">
+<table align="center">
+<tr><td align="left"><font color=#000000>资金安全建议：为了您的资金安全，建议定期更换您的资金密码。<br>浏览器建议：首选为IE6或IE7浏览器，其次为火狐和Google浏览器。<br>分辨率建议：使用800×600以上的分辨率。</font></td></tr>
+<tr><td>{$sSystemMessagesByTom|escape:html}</td></tr>
+</table>
+</div>
+{if $systemstatusreport > 0}
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://cache4.enginx.net:1999/piwik/" : "http://cache4.enginx.net:1999/piwik/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {
+var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+piwikTracker.trackPageView();
+piwikTracker.enableLinkTracking();
+} catch( err ) {}
+</script><noscript><p><img src="http://cache4.enginx.net:1999/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+<!-- End Piwik Tag -->
+{/if}
+</body></html>

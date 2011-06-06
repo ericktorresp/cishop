@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>left</title>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/lowgame/css/new/leftmenu.css" type="text/css" />
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/lowgame/js/common.js"></script>
+<script language="JavaScript">
+<!--
+var noHelp   = "<p align='center' style='color: #666'>暂时还没有该部分内容</p>";
+//金额逗号分隔格式化
+jQuery.noConflict();
+(function($){
+	$(document).ready(function(){
+	    $(".menu_09").each(function(){
+	        var backimg = $(this).prev().css("background-image");
+	        if($(this).html() == "参与游戏"){
+	            backimg = backimg.replace("icon_s.png","botton_19_01.png");
+	        }
+	        if($(this).html() == "游戏记录"){
+	            backimg = backimg.replace("icon_s.png","botton_19_02.png");
+	        }
+	        if($(this).html() == "频道信息"){
+	            backimg = backimg.replace("icon_s.png","botton_19.png");
+	        }
+	        if($(this).html() == "安全中心"){
+	            backimg = backimg.replace("icon_s.png","botton_19_03.png");
+	        }
+	        if($(this).html() == "帮助中心"){
+	            backimg = backimg.replace("icon_s.png","botton_19_04.png");
+	        }
+	        $(this).prev().css("background-image",backimg);
+	    });
+		$("#refreshimg").click(function(){
+			$("#leftusermoney").html("正在载入");
+			$.ajax({
+				type : 'POST',
+				url  : './?controller=default&action=menu',
+				data : 'flag=getmoney',
+				timeout : 10000,
+				success : function(data){
+					if( data == "error" ){//
+						$("#leftusermoney").html("<font color='#FF0000'>读取数据出错</font>");
+						return false;
+					}else{
+						var partn = /<(.*)>.*<\/\1>/;
+						if( partn.exec(data) ){
+							window.top.location.href="../index.php?controller=default&action=main";
+							return false;
+						}
+						data = moneyFormat(data);
+						$("#leftusermoney").html(data);
+						return true;
+					}
+				},
+				error: function(){
+					$("#leftusermoney").html("<font color='#FF0000'>读取数据出错</font>");
+				}
+			});
+		});
+	});
+})(jQuery);
+//-->
+</script>
+
+
+</head>
+
+<body style="overflow-y: hidden">
+<div class="menu" >
+<div class="menu_01">个人信息</div>
+<div class="menu_02" id="userswitchdiv">
+<ul style="list-style:none;"><li>昵称:{$user.nickname|escape:html}　<span id="userswitch" style="cursor:pointer;">展开</span><img src="{$sSystemImagesAndCssPath}/lowgame/images/newblue/icon_04a.jpg" width="9" height="11" /></li>
+  {if isset($viewrights.bank) }<li style="display:none;border-top:1px solid #474747;padding-top:8px;margin-top:5px;">余额:<span id="leftusermoney">{$user.availablebalance|escape:money:2}</span>　<img src="{$sSystemImagesAndCssPath}/lowgame/images/newblue/icon_03.jpg" id="refreshimg" width="15" height="18" style="cursor:pointer;margin-top:2px;" /></li>
+  {/if}
+  {if isset($viewrights.star) }
+            {if !empty($user.parentrank)}<li style="display:none;">上级星级:<img src="{$sSystemImagesAndCssPath}/lowgame/images/newblue/star0{$user.parentrank}a.png" /></li>{/if}
+            {if !empty($user.userrank)}<li style="display:none;">您的星级:<img src="{$sSystemImagesAndCssPath}/lowgame/images/newblue/star0{$user.userrank}.png" /></li>{/if}
+            {/if}
+  </ul>
+  </div>
+<div class="menu_06"></div>
+</div>
+<div class="menu">
+  <div class="menu_01" title="{$lang.collapse_all}" style="cursor:pointer;">功能菜单</div>
+  <div>
+
+<ul>
+{foreach from=$menus.0 item=menu key=k1}
+  <li class="explode" key="menu_{$k1}" id="menu_{$k1}" name="menu">
+  	<span title="menu" style="float:left;margin:0;">
+  	<div class="menu_08">
+  	<div class="menu_07"></div>
+    <div title="menu" class="menu_09">{$menu.title|escape:html}</div>
+    </div>
+    </span>
+    <div style="clear:both;"></div>
+    <ul>
+    {foreach from=$menus.$k1 item=child key=k2}
+      {if count($menus.$k2) > 0}{*有三级菜单*}
+      	  <li class="collapse" key="menu_{$k2}" id="menu_{$k2}" name="menu">
+               <span title="menu" class="menu_04">{if $child.islink==1}<a href="./?controller={$child.controller}&action={$child.actioner}" target="mainframe">{$child.title|escape:html}</a>{else}{$child.title|escape:html}{/if}</span>
+               <ul style='display:none;'>
+               		{foreach from=$menus.$k2 item=son key=k3}
+                    <li class="menu_05">{if $son.islink==1}<a href="./?controller={$son.controller}&action={$son.actioner}&curmid={$son.menuid}&pid={$son.menuid}" target="mainframe">{$son.title|escape:html}</a>{else}{$son.title|escape:html}{/if}</li>
+                    {/foreach}
+               </ul>
+          </li>
+      {else}
+          <li><span class="menu_04_04">{if $child.islink==1}<a href="./?controller={$child.controller}&action={$child.actioner}" target="mainframe">{$child.title|escape:html}</a>{else}{$child.title|escape:html}{/if}</span></li>
+      {/if}
+    {/foreach}
+    </ul>
+  </li>
+{/foreach}
+</ul>
+
+
+  </div>
+  <div class="menu_06"></div>
+</div>
+
+<script language="JavaScript">
+<!--
+jQuery(".menu_01").click(function(){
+	if( jQuery(this).attr("title") == "{$lang.collapse_all}" ){
+		jQuery(this).attr("title","{$lang.expand_all}");
+		jQuery("li[name='menu']").children("ul").slideUp("fast");
+	}else{
+		jQuery(this).attr("title","{$lang.collapse_all}");
+		jQuery("li[name='menu']").children("ul").slideDown("fast");
+	}
+});
+jQuery("span[title='menu']").click(function(){
+	if( jQuery(this).parent().attr("class") == "explode" ){
+		jQuery(this).parent().attr("class","collapse").children("ul").slideUp("fast");
+	}else{	
+		jQuery(this).parent().attr("class","explode").children("ul").slideDown("fast");
+	}
+});
+(function($){
+$(document).ready(function(){
+	var isopen = false;
+	$("#userswitch").click(function(){
+		if( isopen == false ){
+			isopen = true;
+			$(this).parent().nextAll().fadeIn('fast');
+			$(this).next().attr('src','{$sSystemImagesAndCssPath}/lowgame/images/newblue/icon_04.jpg');
+			$(this).html("隐藏");
+		}else{
+			isopen = false;
+			$(this).parent().nextAll().fadeOut('fast');
+			$(this).next().attr('src','{$sSystemImagesAndCssPath}/lowgame/images/newblue/icon_04a.jpg');
+			$(this).html("展开");
+		}
+	});
+	$(".menu_05").find("a").click(function(){
+        $(".menu_04_041").removeClass('menu_04_041');
+		$(".menu_05_05").removeClass('menu_05_05');
+	    $(this).parent().addClass('menu_05_05');
+        
+	});
+	$(".menu_04_04").find("a").click(function(){
+		$(".menu_04_041").removeClass('menu_04_041');
+		$(".menu_05_05").removeClass('menu_05_05');
+		$(this).parent().parent().addClass('menu_04_041');
+	});
+});
+})(jQuery);
+//-->
+</script>
+</body>
+</html>

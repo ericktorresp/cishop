@@ -1,0 +1,18 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table class="list-table">
+    <tr>
+    	<th>{$notice.subject|escape:html}</th>
+    </tr>
+    <tr>
+    	<td align="center" height="20" valign="top" style="color:#666666">时间：{$notice.sendtime}</td>
+    </tr>
+    <tr>
+    	<td align="left" height="40">{$notice.content}</td>
+    </tr>
+    <tr>
+    	<td align="center" height="40"><input type="button" value="返回" onclick="history.back(-1);" class="button" /></td>
+    </tr>
+</table>
+</div>
+{include file="pagefooter.html"}

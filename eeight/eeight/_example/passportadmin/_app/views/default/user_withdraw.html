@@ -1,0 +1,82 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/common2.js"></script>
+<div class="form-div">
+<form action="?controller=user&action=confirm&next={$action|default:savewithdraw}" method="POST">
+<input type="hidden" name="userid" value="{$userfund.userid}">
+<table>
+<tr>
+<td class="narrow-label" width="20%">用户帐号</td>
+<td width="80%">{$userfund.username|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticecash');"><img src="./images/notice.gif" border="0" title="现金余额"/></a>现金余额 A</td>
+<td>{$userfund.cashbalance|escape:money}<span id="noticecash" style="display:none;">现金余额:用户存入平台的真实货币剩余金额。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticecredit');"><img src="./images/notice.gif" border="0" title="信用欠款"/></a>信用欠款 B</td>
+<td>{if isset($credit)}{$credit|escape:money}{else}无{/if}<span id="noticecredit" style="display:none;">信用欠款:平台借给总代可透支的真实货币金额，此金额在转账中保持不变。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticechannel');"><img src="./images/notice.gif" border="0" title="账户余额"/></a>账户余额 C</td>
+<td>{$userfund.channelbalance|escape:money}<span id="noticechannel" style="display:none;">账户余额：用户账户中的真实余额。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticehold');"><img src="./images/notice.gif" border="0" title="冻结金额"/></a>冻结金额 D</td>
+<td>{$userfund.holdbalance|escape:money}<span id="noticehold" style="display:none;">冻结金额：用户在平台被冻结的游戏币金额。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticeavailable');"><img src="./images/notice.gif" border="0" title="可用余额"/></a>可用余额 E</td>
+<td>{$userfund.availablebalance|escape:money}<span id="noticeavailable" style="display:none;">可用余额：用户在平台可以用来游戏或转账的游戏币。</span></td>
+</tr>
+<tr>
+<td class="narrow-label"><a href="javascript:showNotice('noticewithdraw');"><img src="./images/notice.gif" border="0" title="提现金额"/></a>提现金额(小写)</td>
+<td>
+	<input type="text" name="money" value="" size="12"  onkeyup="checkWithdraw(this,'chineseMoney',{$userMax});">
+    <span id="noticewithdraw" style="display:none;">提现金额:当前最大提现金额为{$userMax|escape:money}元。<br/>计算方式:总代:(用户的团队资金-用户的信用资金)与(用户的可用资金)的最小值;普通代理+会员:用户的可用资金。<br/>
+    用户提现:<b style="color:#FF0000;">现金金额减少</b>,信用欠款不变,<b style="color:#FF0000;">帐户余额减少</b>,冻结金额不变,<b style="color:#FF0000;">可用余额减少</b>.
+    </span>
+    </td>
+</tr>
+<tr>
+<td class="narrow-label">提现金额(大写)</td>
+<td><span id="chineseMoney"></span></td>
+</tr>
+<tr>
+<td class="narrow-label"><label for="payment"><input type="checkbox" name="payment" id="payment" value="1" {if $userfund.parentid>0}checked="checked"{/if}>管理员扣减</label></td>
+<td><select name="channel">
+<option value="0">银行</option>
+{foreach from=$channels item=channel key=k}
+<option value="{$channel.id}">{$channel.channel}</option>
+{/foreach}
+</select></td>
+</tr>
+<tr>
+<td class="narrow-label">提现备注</td>
+<td><input type="text" size="30" name="description"></td>
+</tr>
+<tr>
+<td class="narrow-label"></td>
+<td>
+<input type="submit" value="{$caption|default:用户提现}" class="button">
+<input type="reset" class="button" value="重置提现">
+</td>
+</tr>
+</table>
+</form>
+</div>
+<script>
+function showNotice(objId)
+{
+	var obj = document.getElementById(objId);
+	if(obj.style.display=="none")
+	{
+		obj.style.display="block";
+	}
+	else
+	{
+		obj.style.display="none";
+	}
+}
+</script>
+{include file="pagefooter.html"}

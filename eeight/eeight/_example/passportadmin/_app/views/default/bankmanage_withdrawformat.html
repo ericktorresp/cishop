@@ -1,0 +1,299 @@
+{include file="pageheader.html"}
+{insert_scripts files="./js/jquery.js"}
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+	var re = /^\d{1,}$/;
+	delcol = function(id){
+		if (!re.test(id)){
+			alert("您提交的数据有误！");
+			return false;
+		}
+		if (!confirm("确认删除吗？")){
+			return false;
+		}
+		// 禁用提交按钮
+		$("#refer").attr("disabled", true);
+		$("#refer2").attr("disabled", true);
+		$("#row" + id).html("请稍等...");
+		$.ajax({
+			type:"POST",
+			url:'?controller=bankmanage&action=withdrawformat',
+			data:'id=' + id + '&flag=del',
+			success:function(data){
+				if (data == true){
+					alert("操作成功！");
+					// 恢复提交按钮
+					$("#refer").attr("disabled", false);
+					$("#refer2").attr("disabled", false);
+					$("#col" + id).fadeOut();
+					return true;
+				} else {
+					alert("操作失败！");
+					return false;
+				}
+			}
+		});
+	}
+	
+	change = function(id){
+		if (!re.test(id)){
+			alert("您提交的数据有误！");
+			return false;
+		}
+		if (!confirm("确认修改吗？")){
+			return false;
+		}
+		$("#hidden" + id).html("请稍等...");
+		$.ajax({
+			type:"POST",
+			url:'?controller=bankmanage&action=withdrawformat',
+			data:'id=' + id + '&flag=change',
+			success:function(data){
+				if (data >= 0){
+					alert("操作成功！");
+					if (data == 1){
+						// 启用
+						$("#check" + id).attr("disabled", false);
+						$("#input" + id).attr("disabled", false);
+						$("#status" + id).html("<font color='#669900'>启用</font>");
+						$("#hidden" + id).html("<font color='#FF3300'>禁用</font>");
+					} else {
+						// 禁用
+						$("#check" + id).attr("disabled", true);
+						$("#input" + id).attr("disabled", true);
+						$("#status" + id).html("<font color='#FF3300'>禁用</font>");
+						$("#hidden" + id).html("<font color='#669900'>启用</font>");
+					}
+					return true;
+				} else {
+					alert("操作失败");
+					return false;
+				}
+			}
+		});
+	}
+	
+	// 全选/反选(增加报表列)
+	$("#selectall").click(function(){
+		if(this.checked){  
+        	$("input[name='content[]']").each(function(){
+        		if (this.disabled != true)
+        		this.checked=true;
+        	});
+	    }else{  
+	        $("input[name='content[]']").each(function(){
+	        	if (this.disabled != true)
+	        	this.checked=false;
+	        });
+	    }   
+	});
+	
+	// 全选/反选(操作报表列)
+	$("#seltall").click(function(){
+		if(this.checked){  
+        	$("input[name='row[]']").each(function(){
+        		if (this.disabled != true)
+        		this.checked=true;
+        	});
+	    }else{  
+	        $("input[name='row[]']").each(function(){
+	        	if (this.disabled != true)
+	        	this.checked=false;
+	        });
+	    }   
+	});
+	
+	// 删除列表内容(表单提交)
+	$("#formdel").click(function(){
+		$("#flag").val("formdel");
+		if (checkform()){
+			document.getElementById('setform').submit();
+		}
+	});
+	
+	// 更改内容列状态(表单提交)
+	$("#formset").click(function(){
+		$("#flag").val("formset");
+		if (checkform()){
+			document.getElementById('setform').submit();
+		}
+	});
+	
+	
+	// 排序
+	$("#refer2").click(function(){
+		$("#flag").val("set");
+		if (checkform()){
+			document.getElementById('setform').submit();
+		}
+	});
+});
+
+// 表单提交检查
+function checkform(){
+	var count_checked = get_checkbox_count(document.getElementById("setform"),"row[]");
+	if (count_checked <= 0){
+		alert("请至少选择一项");
+		return false;
+	}
+	return true;
+}
+
+// 检查复选框是否有选中值
+function get_checkbox_count(form,name){
+	var e = form.elements[name];
+/*	for (key in e){
+		document.writeln(key + ' = ' + e[key] + '<br>');
+	}*/
+	var count = 0;
+	if (e){
+		if (e.length){
+			for(var i=0;i<e.length;i++){
+				if (e[i].checked)
+					count ++;
+			}
+		}
+		else
+			count = e.checked ? 1 : 0;
+	}
+	return count;
+}
+</script>
+{/literal}
+<div class="list-div">
+<form method="POST" name="listForm" id="listForm">
+<input type="hidden" name="controller" value="bankmanage" />
+<input type="hidden" name="action" value="withdrawformat" />
+<input type="hidden" name="flag" value="add" />
+<input type="hidden" name="id" value="{$id}" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+  	<td align="right" width="30%">报表名称：</td>
+  	<td>{$report_name}</td>
+  </tr>
+  <tr>
+  	<td align="right">管理员：</td>
+  	<td>{$admin_name}</td>
+  </tr>
+  <tr>
+  	<td align="right">报表添加时间：</td>
+  	<td>{$atime}</td>
+  </tr>
+  <tr>
+  	<td align="right">报表最后一次修改时间：</td>
+  	<td>{$utime}</td>
+  </tr>
+   <tr>
+    <td align="right">报表内容：</td>
+    <td>
+    	<table>
+    	<tr>{foreach from=$withdrawinfo item=content key=k }
+    	<input type="checkbox" name="content[]" value="{$content.title}#{$content.property}" {if $content.checked == 1}checked{/if} />{$content.title}{if ($k + 1) % 5 == 0}<br />{/if}
+    	{/foreach}</tr>
+    	<tr>
+    		<td>
+    			<input type="checkbox" name="selectall" id="selectall" />全选　　
+    			<input type="submit" name="refer" id="refer" value="提交" />　　
+    		</td>
+    	</tr>
+    	</table>
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+<div class="list-div" id="listDiv">
+<form method="POST" name="setform" id="setform" >
+<input type="hidden" name="controller" value="bankmanage" />
+<input type="hidden" name="action" value="withdrawformat" />
+<input type="hidden" name="flag" id="flag" value="set" />
+<input type="hidden" name="id" value="{$id}" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+   <tr>
+  	<th></th>
+  	<th align="center">报表列名称</th>
+  	<th align="center">排序</th>
+  	<th align="center">状态</th>
+  	<th align="center">操作</th>
+  </tr>
+  {foreach from=$report_content item=content key=k}
+  <tr id="col{$content.id}">
+  	<td align="center"><input type="checkbox" name="row[]" id="check{$content.id}" value="{$content.id}" /></td>
+  	<td align="center">{$content.title}</td>
+  	<td align="center">
+  		<input type="text" name="seq[{$content.id}]" id="input{$content.id}" value="{$content.seq}" {if $content.status == 0}disabled{/if} />
+  	</td>
+  	<td align="center" id="status{$content.id}">{if $content.status == 1}<font color="#669900">启用</font>{else}<font color="#FF3300">禁用</font>{/if}</td>
+  	<td align="center" id="row{$content.id}">
+  	<span style="cursor:pointer;text-decoration: underline; color: #000000;" onclick="delcol({$content.id});">删除</span>
+  	　　<span style="cursor:pointer;text-decoration: underline; color: #000000;" onclick="change({$content.id}, {$content.status})" id="hidden{$content.id}">{if $content.status == 0}<font color="#669900">启用</font>{else}<font color="#FF3300">禁用{/if}</span>
+  	</td>
+  </tr>
+  {/foreach}
+  <tr>
+    <td align="center"><input type="checkbox" name="seltall" id="seltall" /></td>
+    <td colspan="4" style="padding-left:100px;"><input type="button" value="排序" id="refer2" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="删除" id="formdel" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="更改状态" id="formset" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="edit" value="返回上一页" class="button" onclick="history.back();" /></td>
+  </tr>
+</table>
+</form>
+</div>
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

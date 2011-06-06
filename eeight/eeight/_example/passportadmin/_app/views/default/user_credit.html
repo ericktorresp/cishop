@@ -1,0 +1,177 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/common2.js"></script>
+<div class="tab-div">
+  <div id="tabbar-div"><span 
+	class="tab-front" id="general-tab">+ 增加信用</span><span 
+	 class="tab-back" id="detail-tab">- 扣减信用</span>
+  </div>
+  <div id="tabbody-div">
+  <form method="POST" action="?controller=user&action=confirm&next=savecredit">
+    <table width="90%" id="general-table">
+    <tr>
+    	<td class="narrow-label" width="20%">用户名称</td>
+    	<td><input type="hidden" name="userid" value="{$userfund.userid}"><input type="hidden" name="credit" value="add">{$userfund.username|escape:html}</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label"><a href="javascript:showNotice('noticecash');"><img src="./images/notice.gif" border="0" title="现金金额"></a>现金金额 A</td>
+    	<td>{$userfund.cashbalance|escape:money}<span id="noticecash" style="display:none;">现金余额:用户存入平台的真实货币剩余金额。</span></td>
+    </tr>
+    <tr>
+    	<td class="narrow-label"><a href="javascript:showNotice('noticeproxy');"><img src="./images/notice.gif" border="0" title="信用欠款"></a>信用欠款 B</td>
+    	<td>{$usercredit.proxyvalue|escape:money}
+    	<span id="noticeproxy" style="display:none;">信用欠款:平台借给总代可透支的真实货币金额，此金额在转账中保持不变。</span></td>
+    </tr>
+    <tr>
+		<td class="narrow-label"><a href="javascript:showNotice('noticechannelbalance');"><img src="./images/notice.gif" border="0" title="帐户余额"></a>账户余额 C</td>
+		<td>{$userfund.channelbalance|escape:money}<span id="noticechannelbalance" style="display:none;">账户余额：用户账户中的真实余额。</span></td>
+	</tr>
+	<tr>
+		<td class="narrow-label"><a href="javascript:showNotice('noticeholdbalance');"><img src="./images/notice.gif" border="0" title="冻结金额"></a>冻结金额 D</td>
+		<td>{$userfund.holdbalance|escape:money}<span id="noticeholdbalance" style="display:none;">冻结金额：用户在平台被冻结的游戏币金额。</span></td>
+	</tr>
+    <tr>
+    	<td class="narrow-label"><a href="javascript:showNotice('noticeavailablebalance');"><img src="./images/notice.gif" border="0" title="可用余额"></a>可用余额 E</td>
+    	<td>{$userfund.availablebalance|escape:money}
+    	<span id="noticeavailablebalance" style="display:none;">可用余额：用户在平台可以用来游戏或转账的游戏币。</span></td>
+    </tr>
+    <tr>
+    	<td class="narrow-label"><a href="javascript:showNotice('noticeadd');"><img src="./images/notice.gif" border="0" title="增加信用"></a><font color=#690>增加信用(小写)</font></td>
+    	<td><input type="text" name="money" onkeyup="checkWithdraw(this,'chineseMoney',10000000.0000);" />
+    	<span id="noticeadd" style="display:none;">增加用户信用欠款:<b style="color:#FF0000;">信用欠款增加</b>,现金金额不变,<b style="color:#FF0000;">帐户余额增加</b>,冻结金额不变,<b style="color:#FF0000;">可用余额增加</b>。</span></td>
+    </tr>
+    <tr>
+    	<td class="narrow-label"><font color=#690>增加信用(大写)</font></td>
+        <td><span id="chineseMoney"></span></td>
+    </tr>
+    <tr>
+    	<td class="narrow-label"></td>
+    	<td><input type="submit" value="增加信用欠款" class="button">
+    	<input type="reset" value="重置信用欠款" class="button">
+    </tr>
+    </table>
+    </form>
+    <form method="POST" action="?controller=user&action=confirm&next=savecredit">
+    <table width="90%" id="detail-table" style="display:none;">
+    <tr>
+    	<td class="narrow-label">用户名称</td>
+    	<td><input type="hidden" name="userid" value="{$userfund.userid}"><input type="hidden" name="credit" value="sub">{$userfund.username|escape:html}</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label"><a href="javascript:showNotice('noticecash2');"><img src="./images/notice.gif" border="0" title="现金金额"></a>现金金额 A</td>
+    	<td>{$userfund.cashbalance|escape:money}<span id="noticecash2" style="display:none;">现金余额:用户存入平台的真实货币剩余金额。</span></td>
+    </tr>
+    <tr>
+    	<td class="narrow-label"><a href="javascript:showNotice('noticeproxy2');"><img src="./images/notice.gif" border="0" title="信用欠款"></a>信用欠款 B</td>
+    	<td>{$usercredit.proxyvalue|escape:money}
+    	<span id="noticeproxy2" style="display:none;">信用欠款:平台借给总代可透支的真实货币金额，此金额在转账中保持不变。</span></td>
+    </tr>
+    <tr>
+		<td class="narrow-label"><a href="javascript:showNotice('noticechannelbalance2');"><img src="./images/notice.gif" border="0" title="帐户余额"></a>账户余额 C</td>
+		<td>{$userfund.channelbalance|escape:money}<span id="noticechannelbalance" style="display:none;">账户余额：用户账户中的真实余额。</span></td>
+	</tr>
+	<tr>
+		<td class="narrow-label"><a href="javascript:showNotice('noticeholdbalance2');"><img src="./images/notice.gif" border="0" title="冻结金额"></a>冻结金额 D</td>
+		<td>{$userfund.holdbalance|escape:money}<span id="noticeholdbalance" style="display:none;">冻结金额：用户在平台被冻结的游戏币金额。</span></td>
+	</tr>
+    <tr>
+    	<td class="narrow-label"><a href="javascript:showNotice('noticeavailablebalance2');"><img src="./images/notice.gif" border="0" title="可用余额"></a>可用余额 E</td>
+    	<td>{$userfund.availablebalance|escape:money}
+    	<span id="noticeavailablebalance2" style="display:none;">可用余额：用户在平台可以用来游戏或转账的游戏币。</span></td>
+    </tr>
+    <tr>
+    	<td class="narrow-label"><a href="javascript:showNotice('noticesub');"><img src="./images/notice.gif" border="0" title="扣减信用"></a><font color=#f30>扣减信用(小写)</font></td>
+    	<td><input type="text" name="money" onkeyup="checkWithdraw(this,'chineseMoney2',{$userMax});" />
+    	<span id="noticesub" style="display:none;">扣减用户信用欠款:<b style="color:#FF0000;">信用欠款减少</b>,现金金额不变,<b style="color:#FF0000;">帐户余额减少</b>,冻结资金不变,<b style="color:#FF0000;">可用余额减少</b>。</span>
+    	</td>
+    </tr>
+    <tr>
+    	<td class="narrow-label"><font color=#f30>扣减信用(大写)</font></td>
+    	<td><span id="chineseMoney2"></span></td>
+    </tr>
+    <tr>
+    	<td class="narrow-label"></td>
+    	<td>
+    	<input type="submit" value="扣减信用欠款" class="button">
+    	<input type="reset" value="重置信用欠款" class="button">
+    </tr>
+    </table>
+    </form>
+    </div>
+</div>
+<script language="JavaScript">
+{literal}
+document.getElementById("tabbar-div").onmouseover = function(e)
+{
+    var obj = Utils.srcElement(e);
+    if (obj.className == "tab-back")
+    {
+        obj.className = "tab-hover";
+    }
+}
+
+document.getElementById("tabbar-div").onmouseout = function(e)
+{
+    var obj = Utils.srcElement(e);
+    if (obj.className == "tab-hover")
+    {
+        obj.className = "tab-back";
+    }
+}
+
+document.getElementById("tabbar-div").onclick = function(e)
+{
+    var obj = Utils.srcElement(e);
+	//alert(obj.className);
+    if (obj.className=='' || obj.className == "tab-front")
+    {
+        return;
+    }
+    else
+    {
+        objTable = obj.id.substring(0, obj.id.lastIndexOf("-")) + "-table";
+
+        var tables = document.getElementsByTagName("table");
+        var spans  = document.getElementsByTagName("span");
+
+        for (i = 0; i < tables.length; i++)
+        {
+            if (tables[i].id == objTable)
+            {
+                tables[i].style.display = (Browser.isIE) ? "block" : "table";
+            }
+            else
+            {
+                tables[i].style.display = "none";
+            }
+        }
+        for (i = 0; spans.length; i++)
+        {
+            if (spans[i].className != null && spans[i].className == "tab-front")
+            {
+                spans[i].className = "tab-back";
+                obj.className = "tab-front";
+                break;
+            }
+        }
+    }
+}
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+{/literal}
+</script>
+{include file="pagefooter.html"}

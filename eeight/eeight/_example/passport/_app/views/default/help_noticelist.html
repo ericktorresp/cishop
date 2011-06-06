@@ -1,0 +1,9 @@
+{include file="pageheader.html"}
+<div class="notice-list">
+    <ul>
+     {foreach from=$notices item=notice key=k}
+        <li><a href="?controller=help&action=notice&nid={$notice.id}">{$notice.subject|escape:html}</a></li>
+     {/foreach}
+    </ul>
+</div>
+{include file="pagefooter.html"}

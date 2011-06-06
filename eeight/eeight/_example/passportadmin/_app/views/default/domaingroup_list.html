@@ -1,0 +1,105 @@
+{include file="pageheader.html"}
+<style type="text/css">
+#list-table tr:hover td{background:#EEF8F9;}
+</style>
+
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/jquery.impromptu.2.6.min.js"></script>
+<LINK href="./css/impromptu.css" rel="stylesheet" type="text/css" />
+
+<div  class="list-div" id="listDiv">
+<table>
+<tr>
+<th width="5%">ID</th>
+<th width="30%">域名组名称</th>
+<th width="50%">所辖域名</th>
+<th>组状态</th>
+</tr>
+{foreach from=$domaingroup item=v key=k}
+<tr>
+<td align="center">{$v.id}</td>
+<td>{$v.bygroup} </td>
+<td>
+<table class="list-div" id="list-table">
+<th width="65%">Domain</th>
+<th>Status</th>
+{foreach from=$v.domains item=domain}
+<tr>
+<td>{$domain.domain}</td>
+<td align="center"> 
+	<span id="{$domain.domain}"><img src="../images/no.gif" border=0></span>
+ </td>
+</tr> 
+{/foreach}
+</table>
+</td>
+<td align="center">{if $v.status == 1}正常{else}删除{/if}</td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="4" class="no-records">没有域名组名称</td>
+</tr>
+{/foreach}
+<tr>
+<td colspan="4">
+<font color=blue>Status 图例说明:</font> <br />
+<img src="images/yes.gif" border="0"> 检测本地访问正常的域名 <br />
+<img src="images/no.gif" border="0"> 未检测的域名 <br />
+&nbsp; &nbsp; &nbsp; 显示空白或图片无法载入的图标 则说明存在问题 <br />
+<span id="reftimetext"></span>
+</td>
+</tr>
+</table>
+</form>
+
+</div>
+<script type="text/javascript">
+<!--
+function getObjectByID(id) {
+  if (document.all) { // IE
+    return document.all[id];
+  } else { // Netscape
+    return document.getElementById(id);
+  }
+}
+
+function checkDomainStatus(pictureID)
+{
+	var photoLocation = getObjectByID(pictureID);
+  	var imgString = "<img border='0' src='http://"+ pictureID + "/{$domainimageurl}'>";
+  	//alert ( imgString );
+  	photoLocation.innerHTML = imgString;
+}
+
+var domainlist 	= {$domainlist};
+var totals 		= domainlist.length;
+var delayTime 	= 0;
+for (i=0; i<totals; i++)
+{
+	delayTime = getDelayTime(totals);
+	delayTime = 1000 + delayTime;
+	setTimeout( 'checkDomainStatus( "'+domainlist[i]+'" )', delayTime);
+	clearTimeout();
+}
+
+function getDelayTime(num){
+	var maxNumber = 1300 * num;
+	var randomNumber = Math.round(maxNumber * Math.random());
+	return  randomNumber;
+} 
+
+// self referense time
+var selfRefTime = 2000 * totals + 15000;
+if ( selfRefTime < 60000 )
+{
+	selfRefTime = 60000;
+}
+
+var reftimetexts = getObjectByID('reftimetext');
+reftimetexts.innerHTML = ' <font color=red>(本页刷新间隔:'+ (selfRefTime / 1000) + '秒)</font> ';
+
+setTimeout('window.location.reload()', selfRefTime );
+//-->
+</script>
+
+{include file="pagefooter.html"}

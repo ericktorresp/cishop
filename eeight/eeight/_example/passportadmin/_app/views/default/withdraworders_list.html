@@ -1,0 +1,143 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/calendar/jquery.dyndatetime.js"></script>
+<script type="text/javascript" src="./js/calendar/lang/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="./js/calendar/css/calendar-blue2.css"  />
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery("#startDate").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M:%S",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			showsTime: true
+		});
+		jQuery("#startDate").change(function(){
+			if(!validateInputDate(jQuery("#startDate").val()))
+			{
+				jQuery("#startDate").val('{$startDate|escape:html}');
+				alert("时间格式不正确,正确的格式为:2009-06-10 10:59");
+			}
+		});
+		jQuery("#endDate").dynDateTime({
+			ifFormat: "%Y-%m-%d %H:%M:59",
+			daFormat: "%l;%M %p, %e %m,  %Y",
+			align: "Br",
+			electric: true,
+			singleClick: false,
+			button: ".next()", //next sibling
+			showOthers: true,
+			weekNumbers: true,
+			showsTime: true
+		});
+		jQuery("#endDate").change(function(){
+			if(!validateInputDate(jQuery("#endDate").val()))
+			{
+				jQuery("#endDate").val('{$endDate|escape:html}');
+				alert("时间格式不正确,正确的格式为:2009-06-10 10:59");
+			}
+		});
+		$(".frozenuser").find("td").css("backgroundColor","#DDD");
+	});	
+</script>
+<div>
+    <table>
+        <tr><td>卡号：{$paycard.card_num}</td>
+            <td>姓名：{$paycard.name}</td>
+            <td>所在地：{$paycard.area}</td>
+        </tr>
+    </table>
+</div>
+<form name="form1" id="form1" method="get" action="">
+<div class="form-div" ID="formdiv">
+    <input type="hidden" name="dosubmit" value="search">
+    <input type="hidden" name="controller" value="netbankmanage">
+    <input type="hidden" name="action" value="getwithdraworders">
+    <input type="hidden" name="id" value="{$paycard_id}"/>
+    查询时间:&nbsp;&nbsp;<input type="text" name="startDate" id="startDate" size='20' value="{$startDate}"/> <img src="./images/calendar2.gif">
+    &nbsp;&nbsp;至&nbsp;&nbsp;<input name="endDate" id="endDate" size='20' value="{$endDate}"><img src="./images/calendar2.gif">
+    <input type="submit" class="button" value="搜索"><br/>
+</div>
+</form>
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr align="center">
+    <th>付款时间</th>
+    <th><font color="#669900">转入值:Transfer In</font></th>
+    <th><font color="#FF3300">转出值:Transfer Out</font></th>
+	<th><font color="#FF3300">转出手续费:Bank Charge</font></th>
+    <th>备注:Remarks</th>
+    <th>操作员:operator</th>
+  </tr>
+  {foreach from=$banklist item=bank key=k}
+  <tr align="center">
+	<td>{$bank.paydate}</td>
+	<td>{$bank.transfer_in}</td>
+    <td>{$bank.transfer_out}</td>
+    <td>{$bank.fee}</td>
+    <td>{if $bank.withdraw_id > 0}{$bank.withdraw_id}提现成功{else}{$bank.remark}{/if}</td>
+    <td>{$bank.cashier}</td>
+  </tr>
+  {foreachelse}
+    <tr><td class="no-records" colspan="7">无相关数据</td></tr>
+  {/foreach}
+</table>
+<form method="post" action="/?controller=netbankmanage&action=outputcsv">
+    <input type="hidden" name="paycard_id" value="{$paycard_id}"/>
+    <input type="hidden" name="startDate" value=""/>
+    <input type="hidden" name="endDate" value=""/>
+    <!-- 导出CSV -->
+    <table id="page-table" cellspacing="0">
+        <tr><td><input type="submit" class="button" value="导出CSV" onclick="this.form.startDate.value=$('#startDate').val();this.form.endDate.value=$('#endDate').val();"></td>
+            <td align="right" nowrap="true"><div style='padding-right:30px; padding-top:6px;'>{$pageinfo}</div></td>
+        </tr>
+    </table>
+</div>
+</form>
+
+{literal}
+<script language="JavaScript">
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

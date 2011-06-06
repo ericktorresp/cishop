@@ -1,0 +1,35 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+jQuery("document").ready( function(){
+	jQuery("#chineseMoney").html(changeMoneyToChinese({$teammoney}));
+});
+</script>
+<div class="right_02 d5d8de">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+ <table width="100%" border="0" cellspacing="1" cellpadding="4">
+  <tr>
+    <td width="200" align="right" bgcolor="#CCCCCC">用户名称：</td>
+    <td bgcolor="#CCCCCC">{$user.username|escape:html}</td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#CCCCCC">用户昵称：</td>
+    <td bgcolor="#CCCCCC">{$user.nickname|escape:html}</td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#CCCCCC">高频团队余额：</td>
+    <td bgcolor="#CCCCCC">{$teammoney|escape:money:4} 游戏币</td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#CCCCCC">高频团队余额（大写）：</td>
+    <td bgcolor="#CCCCCC"><span id="chineseMoney"></span></td>
+  </tr>
+</table>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+{include file="pagefooter.html"}

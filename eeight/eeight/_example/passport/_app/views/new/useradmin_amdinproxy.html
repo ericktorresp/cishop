@@ -1,0 +1,57 @@
+{include file="pageheader.html"}
+<form action="index.php" method="post" name="listform">
+<input type="hidden" name="controller" value="useradmin" />
+<input type="hidden" name="action" value="adminproxy" />
+<input type="hidden" name="flag" value="update" />
+
+
+
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft" style="width:98%">
+
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+    
+
+    <tr>
+      <td height="43" colspan="5" align="center">销售管理员
+       	  <select name="adminuser">
+            	<option value="0">无</option>
+                {if !empty($useradmins)}
+                {foreach from=$useradmins item=useradmin key=admin}
+                <option value="{$useradmin.userid}">{$useradmin.username|escape:html}</option>
+                {/foreach}
+                {/if}
+            </select>
+        	<input type="submit" name="submit"  class="buttonnormal" value="分配" /></td>
+      </tr>
+    <tr>
+      <td height="5" colspan="5" align="center"></td>
+    </tr>
+    <tr>
+      <td height="37" align="center" bgcolor="#CCCCCC"><input type="checkbox" name="selectall" id="selectall" onclick="selectAll('selectall')" /></td>
+      <td align="center" bgcolor="#CCCCCC">用户名</td>
+      <td align="center" bgcolor="#CCCCCC">销售管理员</td>
+    </tr>
+    {foreach from=$proxys item=proxy key=k}
+    <tr>
+      <td height="37" align="center" bgcolor="#CCCCCC"><input type="checkbox" name="select_rows[]" value="{$proxy.userid}" /></td>
+      <td align="center" bgcolor="#CCCCCC">{$proxy.username|escape:html}</td>
+      <td align="center" bgcolor="#CCCCCC">{$proxy.adminname|escape:html}</td>
+    </tr>
+    {/foreach}
+  </table>
+  
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+    </form>
+{include file="pagefooter.html"}
+
+

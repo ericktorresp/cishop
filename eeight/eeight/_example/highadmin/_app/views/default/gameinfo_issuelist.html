@@ -1,0 +1,99 @@
+{include file="pageheader.html"}
+<script>
+function doConverseCheck ( ckbox ) {
+    if( ckbox ) {
+        if( ckbox.length ) {
+            for(i = 0; i < ckbox.length; i++) {
+                ckbox[i].checked = !ckbox[i].checked;
+            }
+        }
+        else
+            ckbox.checked = !ckbox.checked;
+    }
+}
+function del( f ) {
+    var b = false;
+    if(f.idArr) {
+        if(f.idArr.length){
+            for(i = 0; i < f.idArr.length; i++) {
+                if(f.idArr[i].checked == true) {
+                    b = true;
+                    break;
+                }
+            }
+            if(!b){
+             alert('没有选中任何一项！');
+             return false;
+            }
+        }
+        else if(f.idArr.checked == false) {
+            alert('没有选中任何一项！');
+            return false;
+        }
+    }
+    else {
+        alert('没有选中任何一项！');
+        return false;
+    }
+
+    if(confirm("确认要删除选中的数据吗？")) {
+        return true;
+    }
+    else
+        return false;
+}
+</script>
+<div class="list-div" id="listDiv">
+<form method="POST" action="./?controller=gameinfo&action=deleteissue&lotteryId={$lotteryId}" name="form1" id="form1">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<th><input type="checkbox" onClick="doConverseCheck(this.form.idArr);">反选</th>
+<th>彩种</th>
+<th>期数</th>
+<th>周期开始时间</th>
+<th>周期结束时间</th>
+<th>开奖号码</th>
+<th>号码</th>
+<th>扣款</th>
+<th>返点</th>
+<th>中奖</th>
+<th>派奖</th>
+<th>追号</th>
+<th>封锁</th>
+<th>操作</th>
+</tr>
+{foreach from=$aIssue item=issue key=k}
+<tr align="center">
+<td><input type="checkbox" name="deleteItems[]" value="{$issue.issueid}" id="idArr">{$issue.issueid} &nbsp;</td>
+<td>{$issue.cnname}</td>
+<td>{$issue.issue}</td>
+<td>{$issue.salestart}</td>
+<td>{$issue.saleend}</td>
+<td>{if !empty($issue.code)}{$issue.code}{else}{/if}</td>
+<td>{if $issue.statuscode==0}<font color="blue">未录入</font>{elseif $issue.statuscode==1}<font color="red">待验证</font>{elseif $issue.statuscode==2}<font color="green">已验证</font>{else}<b style="color:red;">官方未开</b>{/if}</td>
+<td>{if $issue.statusdeduct==0}<font color="blue">未开始</font>{elseif $issue.statusdeduct==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}</td>
+<td>{if $issue.statususerpoint==0}<font color="blue">未开始</font>{elseif $issue.statususerpoint==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}</td>
+<td>{if $issue.statuscheckbonus==0}<font color="blue">未开始</font>{elseif $issue.statuscheckbonus==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}</td>
+<td>{if $issue.statusbonus==0}<font color="blue">未开始</font>{elseif $issue.statusbonus==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}</td>
+<td>{if $issue.statustasktoproject==0}<font color="blue">未开始</font>{elseif $issue.statustasktoproject==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}</td>
+<td>{if $issue.statuslocks==0}<font color="blue">未开始</font>{elseif $issue.statuslocks==1}<font color="red">进行中</font>{else}<font color="green">已完成</font>{/if}</td>
+<td><a href="./index.php?controller=gameinfo&action=editissue&lotteryId={$lotteryId}&issueId={$issue.issueid}">修改</a>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="14" class="no-records">没有相关记录</td>
+</tr>
+{/foreach}
+<tr>
+<td colspan="14" align="right">{$pageinfo}</td>
+</tr>
+</table>
+    <select name="op">
+        <option value="0" selected>请选择操作类型</option>
+        <option value="1">删除
+    </select>
+    <input type="button" value="确定" onClick="if (this.form.op.options[this.form.op.selectedIndex].value == '0') {alert('请选择操作！'); return false;} if(del(this.form)) {this.form.submit();}">
+</form>
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

@@ -1,0 +1,143 @@
+{include file="pageheader.html"}
+{insert_scripts files="jquery.js"}
+<script language="javascript" type="text/javascript">
+$(document).ready(function(){
+	setInterval("getData()", 30000);
+});
+</script>
+<script>
+function getData(){
+		$.ajax({
+			   type: "POST",
+			   url: "./?controller=draw&action=detect",
+			   timeout: 30000,
+			   data: "flag=ajax",
+			   success: function(msg){
+			   		eval("data="+msg);
+					var tt = data.errors.length;
+					if( tt > 0 ){//有需要报警处理的数据
+						var html = '<font color="#FF0000" size="+3"><b>Manual intervention is needed for</b></font><table><tr><th>Game</th><th>Draw periods</th><th>Open encoding time</th><th>Status</th><th>Weight point/Target point</th></tr>';
+						$.each(data.errors,function(i,n){
+							html += '<tr align="center"><td>'+n.cnname+'</td><td>'+n.issue+'</td><td>'+n.earliestwritetime+'</td><td>';
+							if( parseInt(n.statusfetch,10) == 0 ){
+								html += 'pending';
+							}else if( parseInt(n.statusfetch,10) == 1 ){
+								html += '<b>processing</b>';
+							}else{
+								html += 'Finished';
+							}
+							html += '</td><td><b style="color:red">'+n.rank+'</b>/'+n.least_score+'</td></tr>';
+						});
+						html += '</table>';
+						$("#error_body").empty();
+						$(html).appendTo("#error_body");
+						playWarning();
+					}else{
+						$("#error_body").empty();
+						stopWarning();
+					}
+					var htmlstr = '';
+					$.each(data.data,function(i,n){
+						htmlstr += '<tr align="center"><td>'+n.cnname+'</td><td>'+n.issue+'</td><td>'+n.code+'</td><td>'+n.earliestwritetime+'</td><td>';
+						if( parseInt(n.statusfetch,10) == 0 ){
+							htmlstr += 'pending';
+						}else if( parseInt(n.statusfetch,10) == 1 ){
+							htmlstr += '<b>processing</b>';
+						}else{
+							htmlstr += 'Finished';
+						}
+						htmlstr += '</td><td><b style="color:red">'+n.rank+'</b>/'+n.least_score+'</td></tr>';
+					});
+					htmlstr += '<tr id="end_button">'+$("#end_button").html()+'</tr>';
+					$("#first_title").nextAll().remove();
+					$(htmlstr).insertAfter("#first_title");
+			   }
+		});
+};
+</script>
+
+<div class="list-div">
+<table cellspacing='1' cellpadding='3' >
+<tr id="first_title">
+<th>Game</th>
+<th>Draw periods</th>
+<th>Winning Number</th>
+<th>Open encoding time</th>
+<th>Status</th>
+<th>Weight point/Target point</th>
+</tr>
+{foreach from=$drawInfos item=item key=k}
+<tr align="center">
+    <td>{$item.cnname}</td>
+    <td>{$item.issue}</td>
+    <td>{$item.code}</td>
+    <td>{$item.earliestwritetime}</td>
+    <td>{if $item.statusfetch==0}pending{elseif $item.statusfetch==1}<b>processing</b>{else}Finished{/if}</td>
+    <td><b style="color:red">{$item.rank}</b>/{$config.least_score}</td>
+</tr>
+{foreachelse}
+<tr>
+<td colspan="6" class="no-records">No relational periods</td>
+</tr>
+{/foreach}
+<tr id="end_button">
+<td colspan="6" class="no-records">
+<input  type="button" onclick="window.top.frames['main-frame'].document.location.reload();" name="" class="button" value="Refresh">&nbsp;&nbsp;
+<input  type="button"  onclick="pauseVoice();" name="pausevoice" id="pausevoice" class="button" value="Alarm Off" >
+</td>
+</tr>
+</table>
+</div>
+<div class="list-div" id="error_body" style="background:#FFF;margin-top:5px;">
+{if !empty($errors) }
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#FF0000" size="+3"><b>Manual intervention is needed for</b></font>
+<table cellspacing='1' cellpadding='3' style="background:#EBEBDC;">
+<tr>
+<th>Game</th>
+<th>Draw periods</th>
+<th>Open encoding time</th>
+<th>Status</th>
+<th>Weight point/Target point</th>
+</tr>
+{foreach from=$errors item=item key=k}
+<tr align="center">
+    <td>{$item.cnname}</td>
+    <td>{$item.issue}</td>
+    <td>{$item.earliestwritetime}</td>
+    <td>{if $item.statusfetch==0}pending{elseif $item.statusfetch==1}<b>processing</b>{else}Finished{/if}</td>
+    <td><b style="color:red">{$item.rank}</b>/{$config.least_score}</td>
+</tr>
+{/foreach}
+</table>
+{/if}
+</div>
+<div id="sound"><bgsound loop="-1" id="bgwarning"/></div>
+<script>
+var isstopvolume = false;
+function playWarning(){
+	if( isstopvolume == false ){
+		document.getElementById("bgwarning").src="./swf/alert.wav";
+	}else{
+		document.getElementById("bgwarning").src="";
+	}
+} 
+function stopWarning(){
+	document.getElementById("bgwarning").src="";
+}
+function pauseVoice(){
+	if( isstopvolume == false ){
+		isstopvolume = true;
+		stopWarning();
+		$("#pausevoice").val("Alarm On");
+	}else{
+		isstopvolume = false;
+		$("#pausevoice").val("Alarm Off");
+	}
+}
+{if !empty($errors) }
+playWarning();
+{else}
+stopWarning();
+{/if}
+</script>
+{include file="pagefooter.html"}

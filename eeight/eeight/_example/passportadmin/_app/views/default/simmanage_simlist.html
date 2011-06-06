@@ -1,0 +1,99 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" id="listForm" action=''>
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <th width="20%">运营商</th>
+	<th width="20%">号码</th>
+	<th width="20%">加密key</th>
+	<th width="10%">IP</th>
+	<th width="10%">状态</th>
+	<th width="20%">操作</th>
+  </tr>
+  {foreach from=$aSim item=sim key=k}
+  <tr align="center">
+	<td>{$sim.op}</td>
+	<td>{$sim.number}</td>
+	<td>{$sim.key}</td>
+	<td>{$sim.ip}</td>
+	<td>{if $sim.enabled == 1}<font color="#669900">启用</font>{else}<font color="#FF3300">禁用</font>{/if}</td>
+	<td>
+	<a href="?controller=simmanage&action=simlist&flag=edit&id={$sim.id}">修改</a>　|　
+	<a href="?controller=simmanage&action=simlist&flag=delete&id={$sim.id}" onclick="return confirm('确认删除吗？');">删除</a>　|　
+	{if $sim.enabled == 1}
+	<a href="?controller=simmanage&action=simlist&flag=set&status=0&id={$sim.id}" onclick="return confirm('确认修改吗？');"><font color="#FF3300">禁用</font></a>
+	{else}
+	<a href="?controller=simmanage&action=simlist&flag=set&status=1&id={$sim.id}" onclick="return confirm('确认修改吗？');"><font color="#669900">启用</font></a>
+	{/if}
+	</td>
+  </tr>
+  {foreachelse}
+    <tr><td class="no-records" colspan="5">无相关数据</td></tr>
+  {/foreach}
+</table>
+
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

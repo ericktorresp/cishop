@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>银行说明 {$systemversions}</title>
+<script type="text/javascript" src="./js/jquery.js"></script>
+<style type="text/css">
+body{font-size:12px;}
+/*
+ 标签部分的样式
+ */
+.tab-div {
+  background: #EEF8F9;
+  border: 1px solid #BBDDE5;
+  margin: 0 0 10px 0;
+  padding: 1px;
+}
+#tabbar-div {
+  background: #80BDCB;
+  padding-left: 10px;
+  height: 22px;
+  padding-top: 1px;
+}
+
+#tabbar-div p {
+  margin: 2px 0 0 0;
+}
+
+.tab-front {
+  background: #BBDDE5;
+  line-height: 20px;
+  font-weight: bold;
+  padding: 4px 15px 4px 18px;
+  border-right: 2px solid #278296;
+  cursor: hand;
+  cursor: pointer;
+}
+
+.tab-back {
+  color: #FFF;
+  line-height: 20px;
+  padding: 4px 15px 4px 18px;
+  border-right: 1px solid #FFF;
+  cursor: hand;
+  cursor: pointer;
+}
+
+.tab-hover {
+  color: #FFF;
+  background: #94C9D3;
+  line-height: 20px;
+  padding: 4px 15px 4px 18px;
+  border-right: 1px solid #FFF;
+  cursor: hand;
+  cursor: pointer;
+}
+
+#tabbody-div {
+  border: 2px solid #BBDDE5;
+  padding: 10px;
+  background: #FFF;
+}
+
+#tabbody-div img {
+  vertical-align: middle;
+}
+</style>
+<script>
+{literal}
+(function($){
+$(document).ready(function(){
+	$("span[id^='general_tab_']").click(function(){
+		$("span[id^='general_tab_']").attr("class","tab-back");
+		$(this).attr("class","tab-front");
+		$("table[id^='general_table_']").hide();
+		id = $(this).attr("id").replace("general_tab_","")
+		$("#general_table_"+id).show();
+	});
+});
+})(jQuery);
+{/literal}
+</script>
+
+</head>
+<body>
+<a name='_top'></a>
+<div class="tab-div">
+	<div id="tabbar-div">
+	{foreach from=$data item=d key=k}
+		<span {if $k==0}class="tab-front"{else}class="tab-back"{/if}  id="general_tab_{$k}">{$d.tagname|escape:html}</span>
+	{/foreach}
+	</div>
+
+{foreach from=$data item=d key=k}
+<div class="list-div">
+<table cellspacing='1' cellpadding='2' id="general_table_{$k}" {if $k!=0}style="display:none"{/if}>
+<tr><td>{$d.content}</td></tr></table></div>
+{/foreach}
+
+</div>
+</body>
+</html>

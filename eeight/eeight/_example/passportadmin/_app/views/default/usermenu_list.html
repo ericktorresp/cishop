@@ -1,0 +1,42 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action="?controller=usermenu&action=savesort">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<th>编号</th>
+<th>菜单名称</th>
+<th colspan="2">权限认证 ( C & A )</th>
+<th>排序</th>
+<th>状态</th>
+<th>访问日志</th>
+<th>子菜单</th>
+<th colspan="4">操作</th>
+</tr>
+{foreach from=$usermenu item=k key=v}
+<tr>
+<td align="center">{$k.menuid}</td>
+<td align="center">{$k.title|escape:html}</td>
+<td align="center">{$k.controller|escape:html}</td>
+<td align="center">{if $k.actioner}{$k.actioner|escape:html}{else}<font color=#d0d0d0>-----</font>{/if}</td>
+<td align="center"><input type="text" name="sort[{$k.menuid}]" value="{$k.sort}" size=4></td>
+<td align="center">{if $k.isdisabled}<b color="#999999">禁用</b>{else}<font color=#669900>启用</font>{/if}</td>
+<td align="center">{if $k.actionlog==0}<font color=#ff3300>不记录</font>{else}<font color=#669900>记录日志</font>{/if}</td>
+<td align="center">{if $k.ismenu}<a href="?controller=usermenu&action=list&menuid={$k.menuid}">下级菜单</a>{else}<font color=#808080>无</font>{/if}</td>
+<td align="center"><a href="?controller=usermenu&action=edit&menuid={$k.menuid}">修改</a></td>
+<td align="center">{if $k.isdisabled}<a href="?controller=usermenu&action=enable&menuid={$k.menuid}" style='color:#f93'>启用</a>{else}<a href="?controller=usermenu&action=disable&menuid={$k.menuid}" style='color:#690'>禁用</a>{/if}</td>
+<td align="center"><a href="?controller=usermenu&action=del&menuid={$k.menuid}" onclick="return confirm('您确定要删除这个菜单?');">删除</a></td>
+<td align="center">{if $k.ismenu}<a href="?controller=usermenu&action=add&menuid={$k.menuid}">增加</a>{else}<font color=#808080>----</font>{/if}</td>
+</tr>
+{/foreach}
+<tr>
+<td align="center">批量操作</td>
+<td align="center" colspan="4"><input type="button" class="button" value="启用全部" onclick="location.href='?controller=usermenu&action=enableall';"><input type="button" class="button" value="开启日志" onclick="location.href='?controller=usermenu&action=openlog';"><input type="button" class="button" value="关闭日志" onclick="location.href='?controller=usermenu&action=closelog';"></td>
+<td align="center"><input type="hidden" name="menuid" value="{$parentmenuid}"><input type="submit" name="savesort" value="保存" class="button"></td>
+<td></td>
+<td align="center">{if isset($id)}<input type="button" value="上级" onclick="location.href='?controller=usermenu&action=list&menuid={$id}';" class="button">{/if}</td>
+<td colspan="4" align="center"><input type="button" value="增加菜单" onclick="location.href='?controller=usermenu&action=add{if isset($sid)}&menuid={$sid}{/if}';" class="button"></td>
+</tr>
+</table>
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

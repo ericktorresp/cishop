@@ -1,0 +1,59 @@
+{include file="pageheader.html"}
+<script src="js/jquery.js"></script>
+<script>
+
+jQuery(document).ready(function(){
+	var menus ={$menustr};
+	for(i=0;i<menus.length;i++)
+	{
+		$("#menu_"+menus[i]).attr("checked",true);
+	}
+});
+function checkOneA(MenuPar,MenuId)
+{
+    if($("#menu_"+MenuId).attr("checked")==true)
+    {
+        menus = MenuPar.split(",");
+        for(i=0;i<menus.length;i++)
+        {
+            $("#menu_"+menus[i]).attr("checked",true);
+        }
+    }
+    else
+    {
+        $("#menus_"+MenuId).find(":checkbox").attr("checked",false);
+    }
+}
+</script>
+<div class="list-div" id="listDiv">
+<form method="post" action="./index.php?controller=developer&action={$action|default:userteamedit}">
+<table>
+<tr>
+<td class="narrow-label">用户组别名称</td>
+<td><input type="hidden" name="groupid" value="{$ug.groupid}"><input type="text" name="groupname" value="{$ug.groupname}" /></td>
+</tr>
+<tr>
+<td class="narrow-label">用户组权限</td>
+<td></td>
+</tr>
+{foreach from=$menu.0 item=menu_1 key=k1}
+<tr>
+<td colspan="2"><label for="menu_{$menu_1.menuid}" title="{$menu_1.description}"><input type="checkbox" name="menus[]" value="{$menu_1.menuid}" id="menu_{$menu_1.menuid}" onclick="javascript:checkOneA('{$menu_1.parentstr}','{$menu_1.menuid}');">{$menu_1.title}</label></td>
+</tr>
+<tbody id="menus_{$menu_1.menuid}">
+{foreach from=$menu.$k1 item=menu_2 key=k2}
+<tr>
+<td class="narrow-label"><label for="menu_{$menu_2.menuid}" title="{$menu_2.description}"><input type="checkbox" value="{$menu_2.menuid}" name="menus[]" id="menu_{$menu_2.menuid}" onclick="javascript:checkOneA('{$menu_2.parentstr}','{$menu_2.menuid}');">{$menu_2.title}</label></td>
+<td id="menus_{$menu_2.menuid}">{foreach from=$menu.$k2 item=menu_3 key=k3}<div style="float:left; width:120px;"><label for="menu_{$menu_3.menuid}"  title="{$menu_3.description}"><input type="checkbox" name="menus[]" value="{$menu_3.menuid}" id="menu_{$menu_3.menuid}" onclick="javascript:checkOneA('{$menu_3.parentstr}','{$menu_3.menuid}');">{$menu_3.title}</label></div>{/foreach}</td>
+</tr>
+{/foreach}
+</tbody>
+{/foreach}
+<tr>
+<td></td>
+<td><input type="submit" value="保存用户组" class="button"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

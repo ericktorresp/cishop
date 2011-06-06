@@ -1,0 +1,78 @@
+{include file="pageheader.html"}
+<script>
+{literal}
+(function($){
+$(document).ready(function(){
+	$(".help").find("table").css("width","710px");
+    $(".help").find("img").css("width","700px");
+	$("div[id^='general_tab_']").click(function(){
+        $(".right_02_031").find(".menu_01a").attr("class","menu_01");
+        $(".right_02_031").find(".menu_02a").attr("class","menu_02");
+        $(".right_02_031").find(".menu_03a").attr("class","menu_03");
+        $(this).find(".menu_01").attr("class","menu_01a");
+        $(this).find(".menu_02").attr("class","menu_02a");
+        $(this).find(".menu_03").attr("class","menu_03a");
+        $("div[id^='general_table_']").hide();
+        id = $(this).attr("id").replace("general_tab_","")
+        $("#general_table_"+id).show();
+    });
+});
+})(jQuery);
+
+
+
+{/literal}
+</script>
+</head>
+
+<body>
+<a name='_top'></a>
+
+
+	<div class="right_02 d5d8de">
+	<div id="right_02_01">
+	<div class="right_02_02"></div>
+	<div class="title01" id="title">
+	
+	<div style="margin-top:8px;cursor:pointer;">
+<div id="lt_big_label" class="right_02_031" >
+        {foreach from=$data item=d key=k}
+            {if $k==0}
+            <div id="general_tab_{$k}">
+          		<div class="menu_01a"></div>
+    			<div class="menu_02a">{$d.tagname|escape:html}</div>
+    			<div class="menu_03a"></div>
+            </div>
+            {else}
+            <div id="general_tab_{$k}">
+            	<div class="menu_01"></div>
+    			<div class="menu_02">{$d.tagname|escape:html}</div>
+            	<div class="menu_03"></div>
+            </div>
+            {/if}
+        {/foreach}
+	</div>
+	</div>
+	
+	</div>
+	<div class="right_02_04 floatright"></div>
+	<div class="help" style="clear:both; padding:20px;">
+	{foreach from=$data item=d key=k}
+	    <div id="general_table_{$k}" {if $k!= 0 } style="display:none;" {/if}>{$d.content}</div>
+	{/foreach}   
+	</div>
+	<div style="height:5px;">
+	<div class="right_02_24"></div>
+	<div class="right_02_25"></div>
+	</div>
+	</div>
+    
+    
+
+    <div class="lottery_bigbox_bottom">
+        <span class="lottery_bigbox_bottom_right"></span>
+        <span class="lottery_bigbox_bottom_left"></span>
+    </div>
+</div>
+</body>
+{include file="pagefooter.html"}

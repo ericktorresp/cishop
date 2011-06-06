@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>左侧菜单</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/css/default/style.css" type="text/css" />
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/highgame/css/default/defaultmenu.css" type="text/css" />
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/highgame/js/common.js"></script>
+<script language="JavaScript">
+<!--
+var noHelp   = "<p align='center' style='color: #666'>暂时还没有该部分内容</p>";
+//金额逗号分隔格式化
+jQuery.noConflict();
+(function($){
+	$(document).ready(function(){
+		$("#refreshimg").click(function(){
+			$("#leftusermoney").html("正在载入");
+			$.ajax({
+				type : 'POST',
+				url  : './?controller=default&action=menu',
+				data : 'flag=getmoney',
+				timeout : 10000,
+				success : function(data){
+					if( data == "error" ){//
+						$("#leftusermoney").html("<font color='#FF0000'>读取数据出错</font>");
+						return false;
+					}else{
+						var partn = /<(.*)>.*<\/\1>/;
+						if( partn.exec(data) ){
+							window.top.location.href="../index.php?controller=default&action=main";
+							return false;
+						}
+						$("#leftusermoney").html(moneyFormat(data));
+						return true;
+					}
+				},
+				error: function(){
+					$("#leftusermoney").html("<font color='#FF0000'>读取数据出错</font>");
+				}
+			});
+		});
+	});
+})(jQuery);
+//-->
+</script>
+</head>
+<body>
+<div id="main-div">
+<div class="userinfo" style='margin-bottom:10px;' id="userswitchdiv">
+	<ul>
+    	<li class="ffb83d firstli">呢称:{$user.nickname|escape:html}<span id="userswitch" style="cursor:pointer;margin-left:10px;">展开</span></li>
+        {if isset($viewrights.bank) }<li style="display:none;">余额:<span id="leftusermoney">{$user.availablebalance|escape:money:4}</span>&nbsp;<img src="{$sSystemImagesAndCssPath}/highgame/images/default/icon_01.jpg" id="refreshimg" style="cursor:pointer;margin-top:2px;" /></li>{/if}
+        {if isset($viewrights.star) }
+            {if !empty($user.userrank)}<li style="display:none;">您的星级:<img src="{$sSystemImagesAndCssPath}/highgame/images/default/star_{$user.userrank}.gif" /></li>{/if}
+        {/if}
+    </ul>
+</div>
+<div id="menu-list">
+<div><img src="{$sSystemImagesAndCssPath}/highgame/images/default/table_left_01.gif" border="0"></div>
+<ul>
+{foreach from=$menus.0 item=menu key=k1}
+  <li class="explode" key="menu_{$k1}" id="menu_{$k1}" name="menu">
+    <span title="menu">{$menu.title|escape:html}</span>
+    <ul>
+    {foreach from=$menus.$k1 item=child key=k2}
+      {if count($menus.$k2) > 0}{*有三级菜单*}
+      	  <li class="collapse" key="menu_{$k2}" id="menu_{$k2}" name="menu">
+               <span title="menu">{if $child.islink==1}<a href="./?controller={$child.controller}&action={$child.actioner}" target="mainframe">{$child.title|escape:html}</a>{else}{$child.title|escape:html}{/if}</span>
+               <ul style='display:none;'>
+               		{foreach from=$menus.$k2 item=son key=k3}
+                    <li class="menu-item">{if $son.islink==1}<a href="./?controller={$son.controller}&action={$son.actioner}&curmid={$son.menuid}&pid={$son.menuid}" target="mainframe">{$son.title|escape:html}</a>{else}{$son.title|escape:html}{/if}</li>
+                    {/foreach}
+               </ul>
+          </li>
+      {else}
+          <li class="menu-item">{if $child.islink==1}<a href="./?controller={$child.controller}&action={$child.actioner}" target="mainframe">{$child.title|escape:html}</a>{else}{$child.title|escape:html}{/if}</li>
+      {/if}
+    {/foreach}
+    </ul>
+  </li>
+{/foreach}
+</ul>
+<div style="background:#ea1816;"><img src="{$sSystemImagesAndCssPath}/highgame/images/default/table_left_02.jpg" border="0"></div>
+</div>
+<div id="help-div" style="display:none">
+<h1 id="help-title"></h1>
+<div id="help-content"></div>
+</div>
+</div>
+
+<script language="JavaScript">
+<!--
+jQuery("#menu-tab").click(function(){
+	if( jQuery("#toggleImg").attr("src") == "{$sSystemImagesAndCssPath}/highgame/images/default/menu_minus.gif" ){
+		jQuery(this).attr("title","{$lang.expand_all}");
+		jQuery("#toggleImg").attr("src","{$sSystemImagesAndCssPath}/highgame/images/default/menu_plus.gif").attr("title","{$lang.expand_all}");
+		jQuery("li[name='menu']").attr("class","collapse").children("ul").slideUp("fast");
+	}else{
+		jQuery(this).attr("title","{$lang.collapse_all}");
+		jQuery("#toggleImg").attr("src","{$sSystemImagesAndCssPath}/highgame/images/default/menu_minus.gif").attr("title","{$lang.collapse_all}");
+		jQuery("li[name='menu']").attr("class","explode").children("ul").slideDown("fast");
+	}
+});
+jQuery("span[title='menu']").click(function(){
+	if( jQuery(this).parent().attr("class") == "explode" ){
+		jQuery(this).parent().attr("class","collapse").children("ul").slideUp("fast");
+	}else{
+		jQuery(this).parent().attr("class","explode").children("ul").slideDown("fast");
+	}
+});
+
+(function($){
+$(document).ready(function(){
+	var isopen = false;
+	/*$("#userswitchdiv").hover(
+		function(){
+			$(this).find("li[id!='userswitch']").fadeIn('fast');
+		},function(){
+			if( isopen == false ){
+				$(this).find("li[id!='userswitch']").fadeOut('fast');
+			}
+		}
+	);*/
+	$("#userswitch").click(function(){
+		if( isopen == false ){
+			isopen = true;
+			$(this).parent().nextAll().fadeIn('fast');
+			$(this).html("隐藏");
+		}else{
+			isopen = false;
+			$(this).parent().nextAll().fadeOut('fast');
+			$(this).html("展开");
+		}
+	});
+	//$("span[title='menu']").click();
+	$(".menu-item").find("a").click(function(){
+	    $(".menu-item").find("a").css("color","#ffffff");
+	    $(".menu-item").find("img").remove();
+	    $(this).css("color","#ffffff");
+	    $(this).parent().append("<img src='{$sSystemImagesAndCssPath}/highgame/images/default/icon_01_selected.png' />");
+	});
+});
+})(jQuery);
+//-->
+</script>
+</body>
+</html>

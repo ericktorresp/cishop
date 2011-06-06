@@ -1,0 +1,152 @@
+{include file="pageheader.html"}
+<script>
+//生成玩法列表
+function create_method(data,x)
+{
+	jQuery("#method-detail-"+x).html();
+	jQuery.each(data,function(i,v){
+		html = "<tr align='center'>";
+		html = html+"<td>"+v.methodname+"</td>";
+		html = html+"<td>";
+		for(j=1;j<=v.level;j++)
+		{
+			html = html+v.name[j]+"<br/>";
+		}
+		html = html+"</td>";
+		html = html+"<td>";
+		for(j=1;j<=v.level;j++)
+		{
+			html = html+"<span id='bonus_"+v.methodid+"_"+j+"' name='bonus'>0.00</span><br/>";
+		}
+		html = html+"</td>";
+		html = html+"<td id='userpoint_"+v.methodid+"' name='userpoint'>0.000</td>";
+		html = html+"<td><span id='status_"+v.methodid+"' name='status'>未开通</span></td></tr>";
+		jQuery("#method-detail-"+x).append(html);		
+	});
+}
+function get_user_point(lotteryid,usergroupid)
+{
+	//初始化数据
+	var pl = {$aPL};
+	//效果切换
+	$("#pg_"+lotteryid+" span").removeClass("tab-front");
+	$("#pg_"+lotteryid+" span").addClass("tab-back");
+	$("#tabbar_"+lotteryid+"_"+usergroupid).removeClass("tab-back");
+	$("#tabbar_"+lotteryid+"_"+usergroupid).addClass("tab-front");
+	//数据初始化
+	$("#method-detail-"+lotteryid+" span[name='bonus']").html("0.00");
+	$("#method-detail-"+lotteryid+" span[name='userpoint']").html("");
+	$("#method-detail-"+lotteryid+" span[name='status']").html("未开通");
+    var totalUserPoint = 0;
+	//数据加载
+	$.each(pl[usergroupid],function(i,v){
+		$.each(v,function(i2,v2){
+			$("#bonus_"+i+"_"+i2).html(v2.bonus);
+			if(v2.userpoint == '0.0')
+			{
+			    
+			}
+			else
+			{
+    			totalUserPoint += parseFloat(v2.userpoint);
+			    $("#userpoint_"+i).html(v2.userpoint+"%");
+			}
+			if(v2.status==1)
+			{
+				$("#status_"+i).html("已经停用");
+			}
+			else
+			{
+				$("#status_"+i).html("使用中");
+			}
+		});
+	});
+	
+	if( totalUserPoint == 0 )
+	{
+	    $('#title_'+usergroupid+' th[id]').remove();
+	    $('#title_'+usergroupid+' th:eq(3)').attr('width','40%');
+		$('#method-detail-'+lotteryid+' tr').each(function(){
+			$(this).children('td[id]').remove();
+		});
+	}
+}
+jQuery(document).ready(function(){
+	{foreach from=$aMethod item=method key=k}
+	var methods_{$k} ={$method};
+	create_method(methods_{$k},{$k});
+	$("#pg_{$k} span:first-child").click();
+	{/foreach}
+});
+</script>
+<div class="list-div">
+<table>
+<tr>
+<th colspan="4">用户信息</th>
+</tr>
+<tr>
+<td class="narrow-label" width="15%">用户名称</td>
+<td width="35%">{$userinfo.username|escape:html}</td>
+<td class="narrow-label" width="15%">用户昵称</td>
+<td width="35%">{$userinfo.nickname|escape:html}</td>
+</tr>
+<tr>
+<td class="narrow-label">用户等级</td>
+<td>{if $userinfo.usertype==0}
+会员用户
+{elseif $userinfo.usertype==1}
+{if $userinfo.parentid==0}
+总代
+{else}
+代理用户
+{/if}
+{/if}</td>
+<td class="narrow-label"></td>
+<td></td>
+</tr>
+</table>
+</div>
+<br/>
+<div class="list-div">
+<table>
+<tr>
+<th colspan="4">帐户信息</th>
+</tr>
+<tr>
+<td class="narrow-label" width="15%">可用游戏币</td>
+<td width="35%">{$userinfo.availablebalance|escape:money:4}</td>
+<td class="narrow-label" width="15%">{if $show==1}奖金限额{/if}</td>
+<td width="35%">{if $show==1}{$bigMoney|escape:money:4}{/if}</td>
+</tr>
+</table>
+</div>
+<br/>
+{foreach from=$aLottery item=lottery key=k}
+<div class="list-div">
+<table>
+<tr>
+<th colspan="5">{$lottery}设定</th>
+</tr>
+<tr>
+<td colspan="5" id="pg_{$k}">
+  <div id="tabbar-div">
+  {foreach from=$aPg.$k item=pg key=k1}
+  	<span class="tab-back" id="tabbar_{$k}_{$k1}" onclick="get_user_point({$k},{$k1});">{$pg}</span>
+  {/foreach}
+  </div>
+</td>
+</tr>
+<tr align="center" id="title_{$k1}">
+	<th width="20%">玩法组</th>
+	<th width="20%">奖级</th>
+	<th width="20%">奖金</th>
+	<th width="20%" id="point_{$k1}">返点</th>
+	<th width="20%">状态</th>
+</tr>
+<tbody id="method-detail-{$k}">
+</tbody>
+</table>
+</div>
+<br/>
+{/foreach}
+{include file="pagefooter.html"}

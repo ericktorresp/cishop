@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>修改密码 {$systemversions}</title>
+<style type="text/css">
+body{font-size:12px;}
+</style>
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript">
+function checkform(obj)
+{
+  if( !validateUserPss(obj.userpass.value) )
+  {
+    alert("密码不符合规则，请重新输入");
+    obj.userpass.focus();
+    return false;
+  }
+  if( obj.userpass.value != obj.confimpass.value )
+  {
+    alert("两次输入密码不相同");
+    obj.userpass.focus();
+    return false;
+  }
+  return true;
+}
+</script>
+</head>
+<body>
+<table align="center">
+<form action="index.php" method="post" name="updateform" onsubmit="return checkform(this)">
+<input type="hidden" name="flag" value="update" />
+<input type="hidden" name="controller" value="useradmin" />
+<input type="hidden" name="action"	value="updatepass" />
+  <tr>
+  	<td>角色:</td>
+    <td>{$data.groupname|escape:html}</td>
+  </tr>
+  <tr>
+  	<td>帐户:</td>
+    <td>{$data.username|escape:html}</td>
+  </tr>
+  <tr>
+  	<td>呢称:</td>
+    <td>{$data.nickname|escape:html}</td>
+  </tr>
+  <tr>
+  	<td>密码:</td>
+    <td><input type="password" name="userpass" />(由字母和数字组成6-16个字符；且必须包含数字和字母，不允许连续三位相同)</td>
+  </tr>
+  <tr>
+  	<td>确认密码:</td>
+    <td><input type="password" name="confimpass" /></td>
+  </tr>
+  <tr><td colspan="2" align="center" height="40"><input type="submit" name="submit" value="提交" /></td></tr>
+</form>
+</table>
+</body>
+</html>

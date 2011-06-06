@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Demo</title>
+<link href="style/style.css" rel="stylesheet" type="text/css" />
+<script language="javascript" src="../jquery.js"></script>
+<script language="javascript" src="jquery.dragdrop.js"></script>
+<script language="javascript" src="jquery.dialogUI.js"></script>
+<link rel="stylesheet" href="dialogUI.css" type="text/css" />
+<style type="text/css">
+*{font-size:12px; padding:0; margin:0;}
+.box{width:400px; border:1px #006699 solid;}
+.box .title{width:100%; height:20px; text-align:center; background-color:#0066CC;}
+.box .content{width:100%; background-color:#CCCCCC; min-height:100px;}
+</style>
+<script language="javascript">
+(function($){
+$(document).ready(function(){
+	$("#blockalert").click(function(){
+		$.alert('这里是模拟window的alert效果\n\n支持换行符\\n和\\r','警告',function(){alert('已关闭警告窗口')});
+	});
+	$("#blockconfirm").click(function(){
+		$.confirm('这里是模拟window的confirm效果\n\n支持换行符\\n和\\r',function(){alert('你选择的是"确定"')},function(){alert('你选择的是"取消"');},"提示");
+	});
+	$("#blockui").click(function(){
+		$.blockUI({message:'<span style="font-size:20px; color:yellow; font-weight:bold;">覆盖整个窗口</span>的演示，3秒后自动恢复........',timeout:3000});
+	});
+	$("#blockels").click(function(){
+		$("#dialogtest").block({message:'<span style="font-size:20px; color:red; font-weight:bold;">覆盖局部窗口</span>的演示，3秒后自动恢复........',timeout:3000});
+	});
+	$("#ajaxupload").click(function(){
+		$.ajaxUploadUI({
+			url:'fileupload.php',
+			success:function(data){$("#ajaxuploadtext").val(data);}
+		});
+	});
+	$("#dragbox").DragDrop({handler:"#dragtitle"});
+});
+})(jQuery);
+</script>
+</head>
+<body>
+<br />
+<div class="box" id="dragbox">
+<div class="title" id="dragtitle">drag and drop demo</div>
+<div class="content">click title to drag</div>
+</div>
+<div><br />
+<input type="button" value="test alert" id="blockalert" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="test confirm" id="blockconfirm" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="test ajaxUpload" id="ajaxupload" /><br />
+<textarea style="width:500px; height:100px;" id="ajaxuploadtext"></textarea><br /><br /><br /><br /><br />
+<input type="button" value="click here to start body dialog" id="blockui" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="click here to start element dialog" id="blockels" />
+</div>
+<div style="width:70%; height:300px; border:1px #0033FF solid;" id="dialogtest">
+sfds
+</div>
+
+1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />1<br />
+</body>
+</html>

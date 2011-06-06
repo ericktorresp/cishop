@@ -1,0 +1,68 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkform(obj)
+{
+  if( !validateUserPss(obj.newpass.value) )
+  {
+  	$.alert("密码不符合规则，请重新输入");
+	obj.newpass.focus();
+	return false;
+  }
+  if( obj.newpass.value != obj.confirm_newpass.value )
+  {
+  	$.alert("两次输入密码不相同");
+	obj.newpass.focus();
+	return false;
+  }
+  if( obj.oldpass == "" ){
+  	$.alert("请输入原始密码");
+	obj.oldpass.focus();
+	return false;
+  }
+  return true;
+}
+</script>
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<form action="index.php" method="post" name="changepass" onsubmit="return checkform(this)">
+<div><table width="100%" border="0" cellspacing="1" cellpadding="4">
+	
+	<tr>
+	<td width="200" align="right" bgcolor="#CCCCCC">输入新登陆密码：</td>
+	<td align="left" bgcolor="#CCCCCC"><input type="password" name="newpass" />
+	(由字母和数字组成6-16个字符；且必须包含数字和字母，不允许连续三位相同，不能和资金密码相同)
+	</td>
+	</tr>
+	
+    <tr>
+      <td align="right" bgcolor="#CCCCCC">确认新登陆密码：</td>
+      <td align="left" bgcolor="#CCCCCC"><input type="password" name="confirm_newpass" /></td>
+    </tr>
+    <tr>
+      <td align="center">&nbsp;</td>
+      <td align="left">
+        <input type="submit" name="submit" value="修改" class="button" />
+		<input type="reset" value="重置" onclick="this.form.reset()" class="button" />
+		<input type="hidden" name="controller" value="security" />
+		<input type="hidden" name="action" value="changeloginpass" />
+		<input type="hidden" name="check" value="{$check}" />
+		<input type="hidden" name="flag" value="changepass" />
+		<input type="hidden" name="changetype" value="loginpass" />
+		
+		<input type="button"  class="buttonnormal" value="重新登陆" onclick="top.location.href='/?controller=default&action=logout'" class="button" />
+	  </td>
+    </tr>
+  </table></div>
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</form>
+</div>
+{include file="pagefooter.html"}
+
+
+

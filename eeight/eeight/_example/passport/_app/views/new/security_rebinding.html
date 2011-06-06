@@ -1,0 +1,55 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function checkform(){
+	var account_name = document.getElementById("account_name");
+	if (account_name.value == ""){
+		$.alert("您忘记了填写天户人姓名！");
+		account_name.focus();
+		return false;
+	}
+	var account = document.getElementById("account");
+	if(account.value == ""){
+		$.alert("您忘记了填写银行账号！");
+		account.focus();
+		return false;
+	}
+}
+</script>
+<form method="post" name="addform" onsubmit="return checkform()">
+<input type="hidden" name="flag" value="{$flag}" />
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action"	value="{$action}" />
+<input type="hidden" name="id"	value="{$id}" />
+<div class="right_02 d5d8de" style="width:98%;">
+<div class="height5">
+<div class="right_02_28"></div>
+<div class="right_02_29"></div>
+</div>
+<div><table width="100%" border="0" cellspacing="1" cellpadding="4">
+    
+    <tr>
+      <td width="200" align="right" bgcolor="#CCCCCC">别名:</td>
+      <td align="left" bgcolor="#CCCCCC">{if $nickname != ""}{$nickname}{else}--{/if}</td>
+    </tr>
+    <tr>
+      <td width="200" align="right" bgcolor="#CCCCCC">卡号：</td>
+      <td align="left" bgcolor="#CCCCCC">{$account}</td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#CCCCCC">开户人姓名:</td>
+      <td align="left" bgcolor="#CCCCCC"><input type="text" name="account_name" id="account_name" /><font color="#FF3300">(请输入旧的银行卡开户人姓名)</font></td>
+	</tr> 
+	<tr>
+	  <td align="right" bgcolor="#CCCCCC">银行账号:</td>
+      <td align="left" bgcolor="#CCCCCC"><input type="text" name="account" id="account" /><font color="#FF3300">(请输入旧的银行卡卡号)</font></td>
+
+    </tr>
+    <tr><td align="right" bgcolor="#CCCCCC"></td><td align="left" bgcolor="#CCCCCC"><input type="submit" name="submit" value="提交"  class="buttonnormal" />　<input type="button" value="取消" onclick="history.back();"  class="buttonnormal" /></td></tr>
+  </table></div>
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</form>
+{include file="pagefooter.html"}

@@ -1,0 +1,23 @@
+{include file="pageheader.html"}
+
+<div class="right_02 d5d8de">
+<div id="right_02_01" style="height:44px;">
+<div class="right_02_02"></div>
+<div class="title01">公告列表</div>
+<div class="right_02_04 floatright"></div>
+</div>
+<div><table width="100%" border="0" cellspacing="1" cellpadding="4" id='list-table'>
+    {foreach from=$notices item=notice key=k}
+    <tr>
+      <td align="center" bgcolor="#CCCCCC"><a href="?controller=help&action=notice&nid={$notice.id}" class="blue">{$notice.subject|escape:html}</a></td>
+      <td align="center" bgcolor="#CCCCCC">{$notice.sendday}</td>
+    </tr>
+	{/foreach}
+  </table></div>
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+
+{include file="pagefooter.html"}

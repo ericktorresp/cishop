@@ -1,0 +1,120 @@
+{include file="pageheader.html"}
+
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action="./?controller=adminuser&action=add" onsubmit="return validate()">
+  <table cellspacing='1' cellpadding='3' id='list-table'>
+    <tr>
+      <td width="150" align="right">管理员分组:</td>
+      <td><select name="adminteam" id="adminteam">
+      {$aAdminGroup}
+      </select></td>
+    </tr>
+    <tr>
+      <td width="150" align="right">管理员帐号:</td>
+      <td><input type="text" name="adminuser" id="adminuser"> (由0-9,a-z,A-Z组成的3-16个字符)</td>
+    </tr>
+    <tr>
+      <td width="150" align="right">管理员昵称:</td>
+      <td><input type="text" name="adminnick" id="adminnick"></td>
+    </tr>
+    <tr>
+      <td width="150" align="right">管理员语言:</td>
+      <td><select name="adminlang" id="adminlang">
+      <option value="utf8_zhcn" selected="selected">简体中文</option> 
+      <option value="utf8_enus">English(美国)</option>
+      </select></td>
+    </tr>
+    <tr>
+      <td width="150" align="right">管理员密码:</td>
+      <td><input type="password" name="adminpass" id="adminpass"> (6－16位数字和字母，不能只是数字，或者只是字母，不能连续三位相同)</td>
+    </tr>
+    <tr>
+      <td width="150" align="right">确认密码:</td>
+      <td><input type="password" name="adminpass2" id="adminpass2"></td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+	  <br/>
+	  &nbsp;&nbsp;&nbsp;&nbsp;
+	  <input type="submit" name="adminadd" id="adminadd" value="增加管理员" class='button'><input type="hidden" name="saveadmin" value="1">&nbsp;&nbsp;&nbsp;&nbsp;
+<br/><br/></td>
+    </tr>
+  </table>
+</form>
+</div>
+
+{insert_scripts files="./js/validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+  /**
+   * 检查表单输入的内容
+   */
+	function validate()
+	{
+		var validator = new Validator('listForm');
+		validator.required('adminuser', "管理员用户名不能为空!");
+		if( !validateUserName( document.forms['listForm'].elements['adminuser'].value) )
+		{
+			validator.addErrorMsg('用户名不符合规则');
+		}
+		validator.required('adminnick', "管理员昵称不能为空!");
+		validator.required('adminpass', "管理员密码不能为空!");
+		if( !validateUserPss( document.forms['listForm'].elements['adminpass'].value) )
+		{
+			validator.addErrorMsg('密码不符合规则');
+		}
+		validator.required('adminpass2', "管理员密码不能为空!");
+		validator.eqaul("adminpass", "adminpass2", "两次输入的密码不一致");
+		if( document.forms['listForm'].elements['adminpass'].value.length < 6 )
+		{
+			validator.addErrorMsg('密码长度小于6位');
+		}
+		return validator.passed();  
+    }
+
+//用户名验证(由0-9,a-z,A-Z组成的4~16个字符组成)
+function validateUserName( str )
+{
+	var patrn = /^[0-9a-zA-Z]{3,16}$/;
+	if( patrn.exec(str) )
+	{
+		return true;	
+	}
+	else
+	{
+		return false;
+	}
+}
+
+//密码验证(6－16位数字和字母，不能只是数字，或者只是字母，不能连续三位相同)
+function validateUserPss( str )
+{
+	var patrn = /^[0-9a-zA-Z]{6,16}$/;
+	if( !patrn.exec(str) )
+	{
+		return false;
+	}
+	patrn = /^\d+$/;
+	if( patrn.exec(str) )
+	{
+		return false;
+	}
+	patrn = /^[a-zA-Z]+$/;
+	if( patrn.exec(str) )
+	{
+		return false;
+	}
+	patrn = /(.)\1{2,}/;
+	if( patrn.exec(str) )
+	{
+		return false;
+	}
+	return true;
+}
+//-->
+</script>
+{/literal}
+
+{include file="pagefooter.html"}

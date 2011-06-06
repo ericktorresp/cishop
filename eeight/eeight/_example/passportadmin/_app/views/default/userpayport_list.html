@@ -1,0 +1,96 @@
+{include file="pageheader.html"}
+<style type="text/css">
+option.readOnly {background:#FF3300;color:#FFCC00;text-decoration:line-through;}
+a:hover.url,a:link.url,a:visited.url { font-size:15px; }
+a:hover.url { color: #FF3300;}
+a:hover.idx,a:link.idx,a:visited.idx { font-size:15px; weight:30px;text-decoration:none; padding:2px; border:1px solid #888888; background-color:#F4F4F4; color:#666666 }
+a:hover.idx { color: #000000; background-color:#FFCC00; border:1px solid #FF3300}
+</style> 
+{literal}
+<script type="text/javascript">
+function CheckBoxSelectAll(obj, chk)
+{
+  if (chk == null)
+  {
+    chk = 'checkboxes';
+  }
+
+  var elems = obj.form.getElementsByTagName("INPUT");
+
+  for (var i=0; i < elems.length; i++)
+  {
+    if (elems[i].name == chk || elems[i].name == chk + "[]")
+    {
+      elems[i].checked = obj.checked;
+    }
+  }
+}
+</script>
+{/literal}
+
+<div class="list-div" id="listDiv">
+<form method="POST" action='?controller=userpayport&action=save'  name="list-form" id="list-form">
+<input type="hidden" name="lvuser" value="{$htmlstr.userid}">
+<input type="hidden" name="lvusername" value="{$htmlstr.name}">  
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td colspan={$TA.colsth} style="font-size:18px;height:30px;">{$htmlstr.name}{$htmlstr.lvstr}与分账户关联设置</td>
+</tr>
+<tr>
+<td colspan={$TA.colsth} style="font-size:13px;height:30px;text-align:right;padding-right:30px">用户名字头索引:
+{foreach from=$userindex item=ui}
+<a class="idx" href=#{$ui.username_index}>{$ui.username_index}</a> 
+{/foreach}
+</td>
+</tr>
+	<tr>
+	<th rowspan="2">{$htmlstr.lvstr}列表</th>
+	<th colspan={$TA.cols}>支付接口及分账户</th>
+	</tr>
+	<tr>
+	{foreach from=$PAYPORT item=payname key=payid}
+	<th><input name="payports[{$payid}]" id="payports_{$payid}" type="checkbox" value="{$payname}" checked>{$payname}分账户</th>
+	{/foreach}
+	</tr>
+{foreach from=$AAA item=AA key=iA}
+<tr>
+<td>
+<a name="{$AA.usernameindex}"></a>
+<input name="users[]" id="users_{$iA}" type="checkbox" value="{$iA}|||{$AA.username}"/>
+{if $htmlstr.name == null}<a class="url" href="?controller=userpayport&action=edit&lv=1&user={$iA}&username={$AA.username}">{$AA.username}</a>{else}{$AA.username}{/if}
+</td>
+	{foreach from=$AA.ppArr item=PP key=iP}
+	<td>
+	<label for="dels_{$iA}_{$iP}">删除<input type="checkbox" name="dels[{$iA}][{$iP}]" id="dels_{$iA}_{$iP}" value="1"></label>
+		<select name="accids[{$iA}][{$iP}]" onChange="if(this.options[selectedIndex].className=='readOnly') this.selectedIndex = 0;">
+		<option value="">待选择</option>
+		{foreach from=$PP.accArr item=ACC key=iC}
+			{if $ACC.isvalid != 1}
+				<option value="{$iC}|||{$ACC.accname}" id="accids_{$iP}_{$iA}_{$iC}" {if $ACC.isactive == 1}SELECTED{/if}>{$ACC.accname} {if $ACC.isactive == 1} [Actived]{/if}</option>
+			{else}
+				<option value="{$iC}|||{$ACC.accname}" class="readOnly">{$ACC.accname} [inValid]</option>
+			{/if}
+		{/foreach}
+		</select>  
+	</td>	
+	{/foreach}
+</tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">无相关数据</td></tr>
+{/foreach}
+	
+<tr>
+<td>
+<input type="checkbox" onclick="javascript:CheckBoxSelectAll(this,'users');">全选
+</td>
+<td colspan={$TA.colsth}>
+<input type="submit" class="button" value="保存配置"> <input class="button" type="reset" value=" 还原 ">
+
+</td>
+</tr>
+</table>
+</form>
+
+</div>
+{insert_scripts files="./js/global.js"}
+{include file="pagefooter.html"}

@@ -1,0 +1,423 @@
+{include file="pageheader.html"}
+{literal}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/new_passport/alert/jquery.dialogUI.js"></script>
+<link rel="stylesheet" href="{$sSystemImagesAndCssPath}/js/new_passport/alert/dialogUI.css" type="text/css" />
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/new_passport/alert/jquery.dragndrop.js"></script>
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/new_passport/alert/jquery.jamesdragn.js"></script>
+<style type="text/css">
+#bankcode{
+    padding:0px;
+    padding-left:10px;
+}
+#bankcode td{
+    line-height:28px;
+    height:28px;
+    background-color:#D5D8DE;
+    border:0px;
+}
+#bankcode table{
+    margin:0px;
+}
+#bankcode form{
+    margin:0px;
+}
+</style>
+<script type="text/javascript">
+function checkLoadInput( obj,chineseid,maxnum ){
+	obj.value = formatFloat(obj.value);
+	if( parseFloat(obj.value) > parseFloat(maxnum) ) {
+		$.alert("充值金额不能高于最高充值限额");	
+		obj.value = maxnum;
+	}
+	jQuery("#"+chineseid).html( changeToChineseMoneyStr(obj.value) );
+}
+
+function changeToChineseMoneyStr( money )
+{
+	var cnNums	= new Array("零","壹","贰","叁","肆","伍","陆","柒","捌","玖");
+	var cnIntRadice = new Array("","拾","佰","仟");
+	var cnIntUnits = new Array("","万","亿");
+	var cnDecUnits = new Array("角","分");
+	var cnInteger = "整";
+	var cnIntLast = "元";
+	var maxNum = 999999.99;
+	
+	var IntegerNum;		//金额整数部分
+	var DecimalNum;		//金额小数部分
+	var ChineseStr="";	//输出的中文金额字符串
+	var parts;			//分离金额后用的数组，预定义
+	
+	if( money == "" ){
+		return "";	
+	}
+	
+	money = parseFloat(money);
+	if( money >= maxNum ){
+		$.alert('超出最大处理数字');
+		return "";
+	}
+	if( money == 0 ){
+		ChineseStr = cnNums[0]+cnIntLast+cnInteger;
+		return ChineseStr;
+	}
+	money = money.toString(); //转换为字符串
+	if( money.indexOf(".") == -1 ){
+		IntegerNum = money;
+		DecimalNum = '';
+	}else{
+		parts = money.split(".");
+		IntegerNum = parts[0];
+		DecimalNum = parts[1].substr(0,4);
+	}
+	if( parseInt(IntegerNum,10) > 0 ){//获取整型部分转换
+		zeroCount = 0;
+		IntLen = IntegerNum.length;
+		for( i=0;i<IntLen;i++ ){
+			n = IntegerNum.substr(i,1);
+			p = IntLen - i - 1;
+			q = p / 4;
+            m = p % 4;
+			if( n == "0" ){
+				zeroCount++;
+			}else{
+				if( zeroCount > 0 ){
+					ChineseStr += cnNums[0];
+				}
+				zeroCount = 0;	//归零
+				ChineseStr += cnNums[parseInt(n)]+cnIntRadice[m];
+			}
+			if( m==0 && zeroCount<4 ){
+				ChineseStr += cnIntUnits[q];
+			}
+		}
+		ChineseStr += cnIntLast;
+	//整型部分处理完毕
+	}
+	if( DecimalNum!= '' ){//小数部分
+		decLen = DecimalNum.length;
+		for( i=0; i<decLen; i++ ){
+			n = DecimalNum.substr(i,1);
+			if( n != '0' ){
+				ChineseStr += cnNums[Number(n)]+cnDecUnits[i];
+			}
+		}
+	}
+	if( ChineseStr == '' ){
+		ChineseStr += cnNums[0]+cnIntLast+cnInteger;
+	}
+	else if( DecimalNum == '' ){
+		ChineseStr += cnInteger;
+	}
+	return ChineseStr;
+	
+}
+
+function OnlinLoadConfirm()
+{
+	var cfmlayer = "";
+	var loadamount = document.getElementById("loadamount").value;
+	var usernamestr = '{$username}';
+	var currency = '{$Payportinfo.currency}';
+	var currencycn = '{$Payportinfo.currencycn}';
+	var transtype = {$Payportinfo.transtype};
+	var lmin = {$Payportinfo.minamount};
+	var lmax = {$Payportinfo.maxamount};
+	var feetype = {$Payportinfo.feetype};
+	var servicefee = parseFloat( FormatNumber( paymentFee(loadamount) ,2) );
+	var objbank = document.getElementsByName("bankcode");
+	var sBank = '';
+	
+    if ( (feetype > 0 ) && (loadamount < servicefee) ){
+        $.alert('扣除手续费后充值金额为零');
+        return false;
+    }
+    
+	for (var i=0; i<objbank.length; i++){
+		if (objbank[i].checked){
+			sBank = objbank[i].value;
+			break;
+		}
+	}
+	if (sBank == ''){
+		$.alert('请选择充值银行');
+		return false;
+	}
+	var aBank = sBank.split(',');
+	var bankc = aBank[0];
+	var bankname = aBank[1];
+	var loadamount_source = loadamount;
+	var loadamount = parseFloat( FormatNumber(loadamount,2) );
+
+	if (feetype == 0) {
+		showamount = loadamount + servicefee;
+        showamount = parseFloat( FormatNumber(showamount, 2) );
+        
+		var lh = '230px';
+	}else{
+		var lh = '235px';
+	}
+		
+	if( (loadamount_source == "") || (loadamount_source == 0) )
+	{
+		document.getElementById("loadamount").focus();
+		$.alert('请输入您的充值金额');
+		return false;
+		
+	}
+	else if (loadamount < parseFloat(lmin) )
+	{
+		document.getElementById("loadamount").focus();
+		$.alert('充值金额不能低于最低充值限额');
+		document.getElementById("loadamount").value = lmin;
+		return false;
+	}
+	else if (loadamount > parseFloat(lmax) )
+	{
+		document.getElementById("loadamount").focus();
+		$.alert('充值金额不能高于最高充值限额');
+		document.getElementById("loadamount").value = lmax;
+		return false;
+	}
+	else if (bankc == "")
+	{
+		$.alert('选择的充值银行代码有误');
+		return false;
+	}
+	else
+	{
+		cfmlayer="<div style='height: "+ lh +"; width:90%;' id='bankcode'><form action='index.php' method='GET' name='paymentnow' id='paymentnowform' target='onlineload' onsubmit='submit.disabled=1'>"
+			+"<input type='hidden' name='controller' value='security'> <input type='hidden' name='action' value='onlineload'><input type='hidden' name='flag' value='sent'>	<input type='hidden' name='transtype' value='"+ transtype +"'>"
+			+"<input type='hidden' name='bankcode' value='"+ bankc +"'><table  class='list-div' width='100%'  cellpadding='1' cellspacing='1'>"
+			+"<tr><td width='45%' align='right'>用户名：</td><td>"+ usernamestr +"</td></tr><tr><td align='right'>货币币种：</td><td>"+ currencycn +"</td></tr>"
+			+"<tr><td align='right'>充值金额：</td><td>"+ loadamount +"<input type='hidden' name='loadamount' value='"+ loadamount +"'></td></tr><tr><td align='right'>手续费：</td><td>"+ servicefee +"</td></tr>";
+		if (feetype == 0 ) cfmlayer += "<tr><td align='right'>实际将从银行划款：</td><td>"+ showamount  +"</td></tr>"
+		cfmlayer +="<tr><td align='right'>充值银行：</td><td>"+ bankname +"</td></tr><tr><td colspan=2 align='center'>点击 \"确认提交\" 进入您的网络银行完成充值交易<br>请确认以上信息，点击\"返回\"进行修改</td></tr>"
+			+"<tr><td colspan='2' align='center'><a class='lh' href='?controller=help&action=question'>如果充值遇到问题,请点这里</a></td></tr></table></form></div>";
+		$("#confirmdiv").html(cfmlayer);
+		$.confirm({
+         message: cfmlayer,
+         width: '400px',
+         title:'确认充值操作',
+         textyes:'确认提交',
+         textno:'返回',
+         funyes : function(){
+             $("#paymentnowform").submit();
+         },
+         funno  : function(){
+             return false;
+         } 
+       });
+	}
+	return false;
+}
+
+function CloseLayer(){
+	jQuery.prompt.close();
+	document.getElementById("bankcode").style.visibility = "visible";
+}
+
+/* display fee on table */
+function showPaymentFee(i){
+	
+	fee = parseFloat( FormatNumber( paymentFee(i) ,2) );
+	//if (fee > 0){
+		document.getElementById("paymentFees").innerHTML = fee;
+	//}
+}
+
+/* payment fee */
+function paymentFee(i){
+	
+	feedown = {$Payportinfo.feedown};
+	feeperdown = {$Payportinfo.feeperdown}; 
+	feestep = {$Payportinfo.feestep};
+	feeup = {$Payportinfo.feeup};
+	feeperup = {$Payportinfo.feeperup};
+
+	if (i <= feestep){
+		var num = i * feeperdown + feedown;
+	}else{
+		var num = i * feeperup + feeup;
+	}
+	return num;
+
+}
+
+/* format number 0.00 */
+function FormatNumber(srcStr, nAfterDot){
+	
+	var srcStr,nAfterDot;
+	var resultStr,nTen;
+	srcStr = ""+srcStr+"";
+	strLen = srcStr.length;
+	dotPos = srcStr.indexOf(".",0);
+	if (dotPos == -1){
+	   resultStr = srcStr+".";
+	   for (i=0; i<nAfterDot; i++){
+	    resultStr = resultStr+"0";
+	   }
+	   
+	}
+	else{
+	   if ((strLen - dotPos - 1) >= nAfterDot){
+		   
+	    nAfter = dotPos + nAfterDot + 1;
+	    nTen =1;
+	    for(j=0;j<nAfterDot;j++){
+	     nTen = nTen*10;
+	    }
+	    resultStr = Math.round(parseFloat(srcStr)*nTen)/nTen;
+	   }
+	   else{
+	    resultStr = srcStr;
+	    
+	    for (i=0;i<(nAfterDot - strLen + dotPos + 1);i++){
+	     resultStr = resultStr+"0";
+	    }
+	    
+	   }
+	}
+	return resultStr;
+}
+
+function fakeFees(m){
+	/*
+	var pr = document.getElementById("fakeper").value;
+	var ffee = m * pr;
+	ffee = parseFloat( FormatNumber( ffee, 2) );
+	document.getElementById("p3fees").innerHTML = '( 优惠期免收手续费 '+ffee+' )';
+	*/
+}
+
+</script>
+
+
+<style type="text/css">
+<!--
+.table_top_left {
+	background-image: url({$sSystemImagesAndCssPath}/images/notic_09.png);
+	background-repeat: no-repeat;
+}
+.table_top_right {
+	background-image: url({$sSystemImagesAndCssPath}/images/notic_09.png);
+	background-position: -12px 0px;
+}
+.table_top_center {
+	background-image: url({$sSystemImagesAndCssPath}/images/new_passport/notic_09.png);
+	background-repeat: repeat-x;
+	background-position: 0px -63px;
+	font-size: 12px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-indent: 10px;
+}
+.table_buttom_left {
+	background-image: url({$sSystemImagesAndCssPath}/images/notic_09.png);
+	background-position: 0px -51px;
+	height: 11px;
+	width: 11px;
+	overflow:hidden;
+}
+.table_buttom_right {
+	background-image: url({$sSystemImagesAndCssPath}/images/notic_09.png);
+	background-position: -12px -51px;
+	height: 11px;
+	width: 11px;
+	overflow:hidden;
+}
+.table_buttom_center {
+	background-image: url({$sSystemImagesAndCssPath}/images/notic_09.png);
+	background-repeat: repeat-x;
+	background-position: 0px -114px;
+	overflow:hidden;
+}
+-->
+</style>
+
+
+{/literal}
+<script language="javascript" type="text/javascript" src="{$sSystemImagesAndCssPath}/js/jquery.impromptu.2.6.min.js"></script>
+<div style="display:none;" id="confirmdiv"></div>
+<form onSubmit="OnlinLoadConfirm();return false;">
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action" value="onlineload" />
+<input type='hidden' name='flag' value='sent'>
+<input type="hidden" name="transtype" id="transtype" value="{$Payportinfo.transtype}" />
+<input type="hidden" name="currency" id="currency" value="{$Payportinfo.currency}" />
+<input type="hidden" name="feedown" id="feedown" value="{$Payportinfo.feedown}" />
+<input type="hidden" name="feeperdown" id="feeperdown" value="{$Payportinfo.feeperdown}" />
+<input type="hidden" name="feestep" id="feestep" value="{$Payportinfo.feestep}" />
+<input type="hidden" name="feeup" id="feeup" value="{$Payportinfo.feeup}" />
+<input type="hidden" name="feeperup" id="feeperup" value="{$Payportinfo.feeperup}" />
+<input type="hidden" name="feetype" id="feetype" value="{$Payportinfo.feetype}" />
+<input type="hidden" name="lmin" id="lmin" value="{$Payportinfo.minamount}" />
+<input type="hidden" name="lmax" id="lmax" value="{$Payportinfo.maxamount}" />
+<div class="right_02 d5d8de">
+<div id="right_02_01" style="height:44px;">
+<div class="right_02_02"></div>
+<div class="title01"></div>
+<div class="right_02_04 floatright"></div>
+</div>
+<div><table width="100%" border="0" cellspacing="1" cellpadding="4">
+   
+    <tr>
+      <td width="200" align="right" bgcolor="#CCCCCC">提示:</td>
+      <td align="left" bgcolor="#CCCCCC">请使用浏览器IE6或者IE7完成在线充值<br />{$Payportinfo.optnotice}</td>
+    </tr>
+    <tr> 
+      <td align="right" bgcolor="#CCCCCC">用户名:</td>
+      <td align="left" bgcolor="#CCCCCC">{$username}</td>
+
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#CCCCCC">货币币种:</td>
+      <td align="left" bgcolor="#CCCCCC">{$Payportinfo.currencycn}</td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#CCCCCC">充值金额:</td>
+      <td align="left" bgcolor="#CCCCCC">
+		<input type="text" name="loadamount" id="loadamount" size="20" maxlength="{$Payportinfo.limitlen}" onKeyup="checkLoadInput(this,'chineseMoney',{$Payportinfo.maxamount}); showPaymentFee(this.value);">
+    (单笔充值限额: 最低<span style="color:#FF0000;font-weight:bold">{$Payportinfo.minamount|escape:money}</span>元 最高<span style="color:#FF0000;font-weight:bold">{$Payportinfo.maxamount|escape:money}</span>元)
+	</td>
+
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#CCCCCC">充值金额(大写):</td>
+      <td align="left" bgcolor="#CCCCCC"><span id="chineseMoney"></span></td>
+   </tr>
+    <tr>   
+      <td align="right" bgcolor="#CCCCCC">手续费:</td>
+      <td align="left" bgcolor="#CCCCCC"><span id="paymentFees"></span> &nbsp; {if $Payportinfo.feeperup == 0} &nbsp; &nbsp; <span id="p3fees"></span> {/if}</td>
+
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#CCCCCC">请选择充值银行:</td>
+      <td align="left" bgcolor="#CCCCCC"> 
+	      <table id="banktable">
+		    <tr>
+		    {foreach from=$Banklist item=bl key=ik}
+		    <td><input type="radio" name="bankcode" id="bankcode_{$ik}" value="{$bl.bank_code},{$bl.bank_name}"><label for="bankcode_{$ik}">{if $bl.logo != ''}<img src="{$sSystemImagesAndCssPath}/images/bank/{$bl.logo}" width="125" height="35" border="0" alt="{$bl.bank_name}" disabled style="cursor:pointer">{else}{$bl.bank_name}{/if}</label></td>
+		    {if ($ik+1)%3 == 0 && ($ik+1) > 2}    </tr>
+            <tr>    
+             {/if}
+		    {/foreach}
+		    </tr>
+	      </table>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">&nbsp;</td>
+      <td align="left">
+      <input type="submit" name="submit"  class="buttonnormal" value=" 下一步 "  OnClick="javascript:return OnlinLoadConfirm(this)">&nbsp;&nbsp;
+  	  <input type="button"  class="buttonnormal" value=" 返 回 " onclick="self.location.href='index.php?controller=security&action=onlineload'"></td>
+
+    </tr>
+  </table></div>
+<div style="height:5px;">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+
+</div>
+</form>
+{include file="pagefooter.html"}

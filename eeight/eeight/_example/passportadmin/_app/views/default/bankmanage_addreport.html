@@ -1,0 +1,160 @@
+{include file="pageheader.html"}
+{literal}
+<script type="text/javascript">
+function changeType(){
+	var type = document.getElementById("platform_type");
+	var platform_tr = document.getElementById("platform_tr");
+	var platform_td	= document.getElementById("platform_td");
+	if (type.value == 1){
+		platform_td.innerHTML = "{$apiList}";
+	} else if(type.value == 2){
+		platform_td.innerHTML = "{$bankList}";
+	} else{
+		platform_td.innerHTML = "";
+		platform_tr.style.display = "none";
+	}
+	if (type.value > 0){
+		platform_tr.style.display = "";
+	}
+}
+
+// 表单提交数据检查
+function check(){
+	var platform_type = document.getElementById("platform_type");
+	if (platform_type.value == 0){
+		alert("您忘记了选择平台类型！");
+		return false;
+	}
+	var report_name = document.getElementById("report_name");
+	if (report_name.value == ""){
+		alert("您忘记了填写报表名称！");
+		report_name.focus();
+		return false;
+	}
+	var charset_type = document.getElementById("charset_type");
+	if (charset_type.value == ""){
+		alert("您忘记了填写银行接受的报表编码！");
+		charset_type.focus();
+		return false;
+	}
+}
+</script>
+{/literal}
+<div class="list-div" id="listDiv">
+<form method="POST" enctype="multipart/form-data" name="listForm" id="listForm" onsubmit="return check();">
+<input type="hidden" name="controller" value="bankmanage" />
+<input type="hidden" name="action" value="addreport" />
+<input type="hidden" name="flag" value="add" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <td align="right" width="40%">平台类型：</td>
+    <td>
+    <select name="platform_type" id="platform_type" onchange="changeType();">
+    	<option value="0">请选择</option>
+    	<option value="1">第三方平台</option>
+    	<option value="2">银行平台</option>
+    </select>
+    </td>
+  </tr>
+  <tr id="platform_tr" style="display:none">
+    <td align="right">平台名称：</td>
+    <td id="platform_td"></td>
+  </tr>
+  <tr>
+    <td align="right">报表名称：</td>
+    <td><input type="text" name="report_name" id="report_name" /></td>
+  </tr>
+  <tr>
+    <td align="right">平台接受的报表编码：</td>
+    <td><input type="text" name="charset_type" id="charset_type" /></td>
+  </tr>
+  <tr>
+    <td align="right">状态：</td>
+    <td>
+    <select name="status">
+    	<option value="1">启用</option>
+    	<option value="0">不启用</option>
+    </select>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">报表内容：</td>
+    <td>
+    <select size=7 multiple="multiple" name="content[]" style='background:#eaeaea;'>
+    	{foreach from=$reportcontent item=content key=k }
+    	<option value="{$content.title}#{$content.property}">{$content.title}</option>
+    	{/foreach}
+    </select><font color="Red">(按住ctrl键，可复选！可在报表编辑页中对报表内容列排序)</font>
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><input type="submit" name="submit" value="提交" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="edit" value="取消" class="button" onclick="history.back();" /></td>
+  </tr>
+</table>
+
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

@@ -1,0 +1,42 @@
+{include file="pageheader.html"}
+<script>
+jQuery("document").ready( function(){
+    jQuery("#chineseMoney").html(changeMoneyToChinese({$s.fmoney}));
+});
+function checkform()
+{
+    $("#startTran").attr("disabled","disabled");
+    $("#startTran").attr("value","正在转账中...");
+	$("#cancelTran").hide();
+    return true;
+}
+</script>
+<div class="list-div" id="listDiv">
+<form action="index.php" method="post" name="updateform" onsubmit="return checkform()">
+<input type="hidden" name="flag" value="doTranfer" />
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action"  {if $sign == 'in' }value="pickup"{else}value="tran"{/if} />
+<table width="100%" cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <td class="first-cell" style="padding-right:10px;text-align:right;width:15%">转{if $sign == 'in'}出{else}入{/if}频道:</td>
+    <td width="85%">{$aChannelData.$s.toChannelId}<input type="hidden" name="toChannelId" value="{$s.toChannelId}"></td>
+  </tr>
+  <tr>
+    <td class="first-cell" style="padding-right:10px;text-align:right;width:15%">转{if $sign == 'in'}入{else}出{/if}金额:</td>
+    <td>{$s.fmoney|escape:money:4}
+    <input type="hidden" name="fmoney" size="20" value="{$s.fmoney}" /></td>
+  </tr>
+  <tr>
+    <td class="first-cell" style="padding-right:10px;text-align:right;width:15%">转{if $sign == 'in'}入{else}出{/if}金额(大写)</td>
+    <td><span id="chineseMoney"></span></td>
+  </tr>
+  <tr>
+	<td colspan="2" align="center" height="40">
+		<input type="submit" name="submit" id="startTran" value="确认转账" class='button'>
+		&nbsp;&nbsp;
+		<input type="button" id="cancelTran" onclick="javascript:history.go(-1);" value="取消" class="button">
+	</td>
+  </tr>
+</table>
+</form>
+</div>

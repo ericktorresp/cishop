@@ -1,0 +1,80 @@
+table #chartsTable{
+	border:1px solid #FFFFFF;
+}
+tr{
+	text-align:center;
+}
+#chartsTable td{
+	border:1px solid #FFFFFF;
+}
+.redtext{
+	color:red;
+}
+#title{
+	width:55px;
+	height:25px;
+	background:#CD2903;
+	background:url({$sSystemImagesAndCssPath}/lowgame/images/bg_tb_02.gif);
+}
+#head{
+	background:#99CCFF;
+	background:url({$sSystemImagesAndCssPath}/lowgame/images/bg1.gif);
+}
+.ball01{
+	font-weight:bold;
+	color:#FFFFFF;
+	width:16px;
+	height:16px;
+	background:url({$sSystemImagesAndCssPath}/lowgame/images/chartBall02.gif) no-repeat center;
+}
+.ball02{
+	font-weight:bold;
+	color:#FFFFFF;
+	width:16px;
+	height:16px;
+	background:url({$sSystemImagesAndCssPath}/lowgame/images/chartBall01.gif) no-repeat center;
+}
+.ball03{
+	width:16px;
+	height:16px;
+	color:#33CCCC;
+}
+.ball04{
+	width:16px;
+	height:16px;
+	color:#FF9999;
+}
+.wdh{
+	width:16px;
+	height:25px;
+}
+#titlemessage{
+	height:35px;
+	background:url({$sSystemImagesAndCssPath}/lowgame/images/bg_tb_02.gif);
+}
+#showissue{
+	width:53px;
+	height:21px;
+	border:0px solid #FFFFFF;
+	background:url({$sSystemImagesAndCssPath}/lowgame/images/cx01.gif);
+}
+input{
+	border:1px solid #CCCCCC;
+}
+#quickbuy{
+	margin:20px 10px 20px 10px;
+	text-align:right;
+}
+#quickbuy a{
+	padding:13px 25px 13px 25px;
+	color:#FFFFFF;
+	font-weight:bold;
+	background:url({$sSystemImagesAndCssPath}/lowgame/images/quick_buy.jpg) no-repeat;
+}
+.tdleft{
+	padding-left:25px;
+	text-align:left;
+}
+.tdright{
+	text-align:right;
+}

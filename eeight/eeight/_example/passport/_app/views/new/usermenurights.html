@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>文档 {$systemversions}</title>
+</head>
+<body>
+<form action="" method="post">
+用户菜单授权:<br />
+<table border="1" bordercolordark="#FFFFFF" bordercolorlight="#000000" width="800">
+	<tr>
+    	<td colspan="2" height="30">选择组别：<select name="usergroup">
+        	{foreach from=$data item=d key=k}
+            <option value="{$d.groupid}">{$d.groupname|escape:html}</option>
+            {/foreach}
+        </select>&nbsp;&nbsp;<input type="submit" name="submit" value="提交" />
+        <input type="hidden" name="flag" value="insert" /></td>
+    </tr>
+	{foreach from=$data1 item=d1 key=k1}
+	<tr>
+    	<td width="20%" height="20"><input type="checkbox" value="{$d1.menuid}" name="menustr[]" />{$d1.title|escape:html}</td>
+        <td width="80%">
+        	<table border="1" bordercolordark="#FFFFFF" bordercolorlight="#000000" width="100%">
+            	{foreach from=$data2.$k1 item=d2 key=k2}
+            	<tr>
+                	<td width="20%"><input type="checkbox" value="{$d2.menuid}" name="menustr[]" />{$d2.title|escape:html}</td>
+                    <td width="80%">
+                    {if isset($data3.$k2) }
+                    {foreach from=$data3.$k2 item=d3 key=k3}
+                    	<input type="checkbox" value="{$d3.menuid}" name="menustr[]" />{$d3.title|escape:html}&nbsp;
+                    {/foreach}
+                    {/if}
+                    </td>
+                </tr>
+                {/foreach}
+            </table>
+        </td>
+    </tr>
+    {/foreach}
+</table>
+</form> 
+</body>
+</html>

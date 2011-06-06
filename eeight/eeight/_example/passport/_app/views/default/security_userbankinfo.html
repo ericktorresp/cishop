@@ -1,0 +1,35 @@
+{include file="pageheader.html"}
+<body>
+<div class="list-div">
+<table width="100%" class="list-table">
+<tr><td colspan="11"><font color="Red">提示：</font>一个游戏账户最多绑定&nbsp;<font style="font-size:16px;color:#FF3300">{$num}</font>&nbsp;张银行卡</td></tr>
+<tr>
+ <th width="10%">别名</th>
+ <th width="10%">用户名</th>
+ <th width="10%">银行名称</th>
+ <th width="15%">卡号</th>
+ <th width="15%">绑定时间</th>
+ <th width="20%">操作</th>
+</tr>
+{foreach from=$banklist item=bank key=k}
+<tr align="center">
+	<td>{$bank.nickname}</td>
+	<td>{$bank.user_name}</td>
+	<td>{$bank.bank_name}</td>
+	<td>{$bank.account}</td>
+	<td>{$bank.atime}</td>
+	<td>
+	<!--<a href="?controller=security&action=viewuserbankinfo&id={$bank.id}">查看</a>
+	　|　--><a href="?controller=security&action=rebinding&flag=reset&id={$bank.id}">重新绑定</a>
+	　|　<a href="?controller=security&action=deluserbank&flag=del&id={$bank.id}">删除</a>
+	</td>
+</tr>
+{/foreach}
+{if $binded < $num }
+<tr>
+	<td colspan="6"><input type="button" class="button" value="增加银行卡绑定" onclick="window.location.href='?controller=security&action=adduserbank'" /></td>
+</tr>
+{/if}
+</table>
+</div>
+{include file="pagefooter.html"}

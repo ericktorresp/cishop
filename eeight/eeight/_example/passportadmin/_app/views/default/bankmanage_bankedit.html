@@ -1,0 +1,123 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function changeimg(){
+	var fileimg = document.listForm.logo.value;
+	if (fileimg != ""){
+		document.getElementById("logo_view").src = fileimg;
+	}
+}
+</script>
+<div class="list-div" id="listDiv">
+<form method="POST" enctype="multipart/form-data" name="listForm" id="listForm" action='?controller=bankmanage&action=banklist'>
+<input type='hidden' name="flag" value="doEdit" />
+<input type='hidden' name="id" value="{$id}" />
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+    <td align="right">银行名称：</td>
+    <td><input type="text" name="bank_name" value="{$bank_name}" /></td>
+  </tr>
+  <tr>
+    <td align="right">卡类型：</td>
+    <td><input type="text" name="card_type" value="{$card_type}" /></td>
+  </tr>
+  <tr>
+    <td align="right">卡号长度：</td>
+    <td><input type="text" name="code_length" value="{$code_length}" /></td>
+  </tr>
+  <tr>
+    <td align="right">网银地址：</td>
+    <td><input type="text" name="url" value="{$url}" /></td>
+  </tr>
+  <tr>
+    <td align="right">银行logo：</td>
+    <td><img src="{$logo}" id="logo_view" width="125" height="35" /><br/><input type="file" name="logo" id="logo" onchange="changeimg();" />(为了显示美观，请尽量上传125 x 35尺寸的图片)</td>
+  </tr>
+  <tr>
+    <td align="right">是否接受批量提现：</td>
+    <td>
+    <select name="manual">
+    	<option value="0" {if $manual == 0}selected{/if}>不接受</option>
+    	<option value="1" {if $manual == 1}selected{/if}>接受</option>
+    </select>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">状态：</td>
+    <td>
+    <select name="status">
+    	<option value="1" {if $status == 1}selected{/if}>启用</option>
+    	<option value="0" {if $status == 0}selected{/if}>禁用</option>
+    </select>
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><input type="submit" name="edit" value="修改" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="edit" value="取消" class="button" onclick="history.back();" /></td>
+  </tr>
+</table>
+
+<table id="page-table" cellspacing="0"><tr><td align="right" nowrap="true">
+<div style='padding-right:30px; padding-top:6px;'>{$pages}</div></td></tr></table>
+
+</form>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

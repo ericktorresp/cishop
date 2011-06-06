@@ -1,0 +1,105 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+  <td colspan="4" align="center">抓取详情</td>
+  </tr>
+  <tr>
+  <td colspan="2" align="right">编号：</td>
+  <td colspan="2" align="left">{$id}</td>
+  </tr>
+  <tr>
+  <td align="right" width="30%">付款人：</td>
+  <td width="20%">{if $info.name != ""}{$info.name|escape:html}{else}--{/if}</td>
+  <td align="right" width="20%">收款人：</td>
+  <td width="30%">{if $info.accept_name != ""}{$info.accept_name|escape:html}{else}--{/if}</td>
+  </tr>
+  <tr>
+  <td align="right">付款人卡(账)号：</td>
+  <td>{if $info.card_num > 0}{$info.card_num}{else}--{/if}</td>
+  <td align="right">收款人卡(账)号：</td>
+  <td>{if $info.nickname != ""}{$info.nickname}{else}--{/if}</td>
+  </tr>
+  <tr>
+  <td align="right">付款地区：</td>
+  <td>{if $info.area != ""}{$info.area|escape:html}{else}--{/if}</td>
+  <td align="right">收款地区：</td>
+  <td>{if $info.accept_area != ""}{$info.accept_area|escape:html}{else}--{/if}</td>
+  </tr>
+  <tr>
+  <td align="right">付款金额：</td>
+  <td>{if $info.amount > 0}{$info.amount|escape:money}{else}--{/if}</td>
+  <td align="right">手续费金额：</td>
+  <td>{if $info.fee != ""}{$info.fee|escape:money}{else}--{/if}</td>
+  </tr>
+  <tr>
+  <td align="right">交易时间：</td>
+  <td>{if $info.pay_date > 0}{$info.pay_date}{else}--{/if}</td>
+  <td align="right">收款附言：</td>
+  <td>{if $info.notes != ""}{$info.notes|escape:html}{else}--{/if}</td>
+  </tr>
+  <tr>
+  <td colspan="4" align="center"><input type="button" value="返回上一页" onclick="history.back(-1);" /></td>
+  </tr>
+</table>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}

@@ -1,0 +1,32 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/dialog/jquery.thickbox.js"></script>
+<link rel="stylesheet" type="text/css" href="./js/dialog/thickbox.css"  />
+<script type="text/javascript">
+function RefreshMsglist()
+{
+	jQuery("#showmsglist").load("./index.php?controller=default&action=usermsg");
+}
+</script>
+</head>
+<body>
+<br />
+<br />
+<div id="showmsglist" class="list-div">
+<table class="list-table">
+    <tr>
+        <th>消息标题</td>
+        <th>消息类型</td>
+        <th>发送时间</td>
+        <th>操作</td>
+    </tr>
+    {foreach from=$msgs item=msg key=k}
+    <tr>
+        <td align="center" height="20">{$msg.subject}</td>
+        <td align="center">{$msg.title}</td>
+        <td align="center">{$msg.sendtime}</td>
+        <td align="center"><a href="./index.php?controller=default&action=usermsg&mid={$msg.entry}&height=300&width=400" title="消息">阅读</a></td>
+    </tr>
+    {/foreach}
+</table>
+</div>
+{include file="pagefooter.html"}

@@ -1,0 +1,193 @@
+﻿@charset "utf-8";
+html { overflow-y:scroll; } 
+body {
+	background-color: #ca0000;
+	margin: 0px;
+	font-size: 12px;
+	line-height: 18px;
+	font-family: "微软雅黑", "宋体";
+}
+ a,a:link,a:visited {
+        color: #333333;
+        text-decoration:none;
+}
+a:hover {
+        text-decoration: underline;
+        color: #000000;
+}
+ul{
+	list-style:none;
+        padding: 0px;
+        margin: 0px;
+}
+.menu{
+	margin: 10px;
+	width: 157px;
+	background-image: url({$sSystemImagesAndCssPath}/highgame/images/new_higame/left_red.png);
+	background-position: -160px 0px;
+	background-color: #FFFFFF;
+}
+.menu_01{
+	background-image: url({$sSystemImagesAndCssPath}/highgame/images/new_higame/red/left_01.jpg);
+	background-position: left top;
+	height: 27px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-align: left;
+	line-height: 27px;
+	text-indent: 30px;
+	background-color: #640021;
+}
+
+.menu_02{
+	background-repeat: repeat-y;
+	vertical-align: sub;
+	margin: 10px;
+	width: 135px;
+}
+.menu_03{
+	background-image: url({$sSystemImagesAndCssPath}/highgame/images/new_higame/red/left_02.jpg);
+	background-repeat: repeat-y;
+	line-height: 32px;
+	margin: 10px;
+	float: left;
+	clear: none;
+}
+.menu_04{
+	clear: none;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	margin-left: 50px;
+	font-weight: bold;
+	cursor:pointer;margin-top:2px;
+}
+.menu_04_04{
+	clear: none;
+    color: #FFFFFF;
+    width: 100px;
+    margin-top:0px;
+    padding: 5px 0 2px 0;
+    padding-left:50px;
+    height: 18px;
+    font-weight:bold;
+}
+
+
+.menu_04_041{
+    clear: none;
+    color: #FFFFFF;
+    width: 100px;
+    margin-top:0px;
+    padding: 5px 0 2px 0;
+    padding-left:50px;
+    background-image: url({$sSystemImagesAndCssPath}/highgame/images/new_higame/left_red.png);
+ 	background-position: 0px -40px;
+    background-color: #FF3300;
+    height: 18px;
+}
+.menu_04_041 a{
+    color:#FFF;
+}
+.menu_04_041 a:visited{
+    color:#FFF;
+}
+
+.menu_05_05 a{
+    color:#FFF;
+}
+.menu_05_05 a:visited{
+    color:#FFF;
+}
+.menu_05{
+	font-weight: normal;
+	color: #666666;
+	text-indent: 60px;
+	width: 140px;
+	padding: 5px 5px 0px 5px;
+	height: 18px;
+	cursor:pointer;margin-top:2px;
+	margin: 1px;
+}
+.menu_05_05{
+    clear: none;
+	color: #FFFFFF;
+	width: 140px;
+	padding: 5px 5px 0 5px;
+    text-indent: 60px;
+	background-image: url({$sSystemImagesAndCssPath}/highgame/images/new_higame/left_red.png);
+	background-position: 0px -40px;
+	background-color: #FF3300;
+	height: 18px;
+	margin: 1px;
+}
+
+.menu_05_05_01{
+    clear: none;
+	color: #FFFFFF;
+	width: 140px;
+	padding: 3px 5px 0px 5px;
+    text-indent: 50px;
+	background-image: url({$sSystemImagesAndCssPath}/highgame/images/new_higame/left_red.png);
+	background-position: 0px -40px;
+	background-color: #FF3300;
+	height: 20px;
+    font-weight: bold;
+	margin: 1px;
+}
+
+.menu_06{
+	width: 157px;
+	background-image: url({$sSystemImagesAndCssPath}/highgame/images/new_higame/left_red.png);
+	background-repeat: no-repeat;
+	background-position: 0px -30px;
+	height: 9px;
+	overflow:hidden;
+}
+.menu_07{
+	width: 36px;
+	background-image: url({$sSystemImagesAndCssPath}/highgame/images/new_higame/icon_s.png);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	height: 36px;
+	float: left;
+}
+.menu_08{
+	height: 36px;
+	width:140px;
+	padding: 5px;
+	background-color: #DBDCE8;
+	background-image: url({$sSystemImagesAndCssPath}/highgame/images/new_higame/right_01_repeat.png);
+	background-position: 0px -329px;
+}
+.menu_09{
+	height: 36px;
+	float: left;
+	line-height: 36px;
+	text-indent: 5px;
+	cursor:pointer;
+	font-size: 14px;
+	font-weight: bold;
+}
+.menu_05a{
+    clear: none;
+    color: #FFFFFF;
+    width: 100px;
+    margin-top:0px;
+    padding: 5px 0 2px 0;
+    padding-left:50px;
+    height: 18px;
+    font-weight:bold;
+    background-image: url({$sSystemImagesAndCssPath}/highgame/images/new_higame/right_01_repeat.png);
+    background-position: 0px -300px;
+}
+.menu_05aa{
+    	font-weight: normal;
+	color: #666666;
+	text-indent: 60px;
+	width: 140px;
+	padding: 5px 5px 0px 5px;
+	height: 18px;
+	cursor:pointer;
+    background-image: url({$sSystemImagesAndCssPath}/highgame/images/new_higame/right_01_repeat.png);
+    background-position: 0px -300px;
+}

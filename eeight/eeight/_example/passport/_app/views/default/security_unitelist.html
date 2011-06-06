@@ -1,0 +1,45 @@
+{include file="pageheader.html"}
+<script type="text/javascript">
+function changeform(id,flag)
+{
+	if( flag == 'delete' && false==confirm("确定要删除吗？") ){
+		return false;
+	}
+	document.getElementById("unid").value = id;
+	document.getElementById("flag").value = flag;
+	document.forms[0].submit();
+}
+</script>
+<div class="list-div" id="listDiv">
+<table cellpadding="0" cellspacing="0" width="80%" border="1" bordercolordark="#FFFFFF" bordercolorlight="#330000" align="center">
+<form action="index.php" method="post" name="uniteform">
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action" value="setunite" />
+<input type="hidden" name="flag" id="flag" value="list" />
+<input type="hidden" name="check" value="{$check}" />
+<input type="hidden" name="unid" id="unid" value="" />
+    <tr>
+    	<th width="30%" align="center" height="25">合帐组名称</th>
+        <th align="center" >合帐组用户</th>
+        <th align="center" >操作</th>
+    </tr>
+    {if !empty($unites) }
+    {foreach from=$unites item=unite key=k}
+    <tr>
+    	<td width="30%" align="center" height="25" valign="middle">{$k|escape:html}</td>
+        <td>{$unite.user|escape:html}</td>
+        <td align="center">
+        {if $unite.delrights == 1}
+        <a href="#" onclick="changeform('{$k}','delete')">删除</a>
+        {/if}
+        </td>
+    </tr>
+    {/foreach}
+    {/if}
+    <tr>
+    	<td colspan="3" align="center" height="30"><input type="button" name="button" class="button" value="增加合帐" onclick="changeform(0,'insert')" /></td>
+    </tr>
+</form>
+</table>
+</div>
+{include file="pagefooter.html"}

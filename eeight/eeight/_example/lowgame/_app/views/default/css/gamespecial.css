@@ -1,0 +1,187 @@
+*{
+    padding:0;
+    margin:0;
+    list-stytle:none;
+}
+.lottery_bigbox{
+	margin: 0 auto;
+	width:90%;
+	padding-bottom:30px;
+	
+}
+.lottery_box {	/* 购彩界面的外部大框架 */
+	width: 100%;  /* 当文本保持浏览器的默认字体大小时，此宽度将创建一个适合 800px 浏览器窗口的容器 */
+	text-align: left; /* 这将覆盖 body 元素上的“text-align: center”。 */
+}
+.lottery_lables { /*标签区*/
+	background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/menu_bg.jpg);
+	overflow:auto;
+	zoom:1;
+}
+.label_back_left{
+    background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/menu_off_left.jpg);
+    float:left;
+    height:46px;
+    width:14px;
+    margin-left:20px;
+    display:block;
+	line-height:46px;
+}
+.label_back_right{
+    background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/menu_off_right.jpg);
+    height:46px;
+    float:left;
+    width:14px;
+    display:block;
+	line-height:46px;
+}
+.label_front_left{
+    background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/menu_on_left.jpg);
+    height:46px;
+    float:left;
+    width:8px;
+    margin-left:20px;
+    display:block;
+	line-height:46px;
+}
+.label_front_right{
+    background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/menu_on_right.jpg);
+    height:46px;
+    float:left;
+    width:10px;
+    display:block;
+	line-height:46px;
+}
+.lottery_lables .label_front, .lottery_lables .label_back {
+	background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/menu_on.jpg);
+    padding:0 20px;
+	height:46px;
+	line-height:46px;
+	float:left;
+	text-align:center;
+	color:#FFFFFF;
+}
+.lottery_lables .label_back{
+	background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/menu_off.jpg);
+	cursor:pointer;
+	color:#000000;
+}
+.lottery_selectarea{
+    background:#474747;
+    border:1px solid #727272;
+    border-top:0;
+    padding:0 3px 3px 3px;
+	color:#FFF;
+}
+.lottery_selectarea table{
+    background:#727272;
+}
+.lottery_selectarea th{
+	background-color:#474747;
+	height:25px;
+	color:#FFFFFF;
+	text-align:center;
+}
+.lottery_selectarea td{
+	text-align:center;
+	height:20px;
+	background-color:#A0A0A0;
+	color:#333333;
+}
+.lottery_selectarea td#code{
+	background-color:#E0E0E0;
+}
+.lottery_selectarea td#upprize{
+	color:#FF0000;
+	font-weight:bold;
+}
+.lottery_selectarea td#downprize{
+	color:#009900;
+	font-weight:bold;
+}
+.menu_left{
+    background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/menu_left.jpg) -2px 0;
+    height:46px;
+    width:11px;
+    float:left;
+}
+.menu_right{
+    background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/menu_right.jpg) -1px 0;
+    height:46px;
+    width:10px;
+    float:right;
+}
+.lottery_fieldset{ /*所有fieldset的样式*/
+	border:1px dashed #727272;
+	text-align:center;
+	width: 95%;
+	margin:0 auto;
+}
+.lottery_legend{ /*所有的legend的样式*/
+    background-color: #474747;
+	color:#000000;
+	float:left;
+	font-size:14px;
+	font-weight:bold;
+	margin: 0px 6px 0px 26px;
+	padding: 0px 12px 0px 12px;
+}
+.lottery_legend .prizeup{
+	color:#FF0000;
+	font-size:20px;
+}
+.lottery_legend .prizenormal{
+	color:#000000;
+	font-size:20px;
+}
+.lottery_legend .prizedown{
+	color:#009900;
+	font-size:20px;
+}
+.lottery_contentbox{ /*每个区具体内容的外框*/
+    clear: both; 
+	float: none;
+	text-align:center;
+	*margin-top: 26px 0px 0px 0px !important;
+
+}
+.lottery_contentbox ul{
+	width:100%;
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+.lottery_contentbox ul li{
+	width:110px;
+	height:25px;
+	line-height:25px;
+	float:left;
+}
+.lottery_contentbox .codetimes, .lottery_contentbox .codetimes_disabled{
+	width:25px;
+	font-weight:bold;
+	color: #FF2F2F;
+	border:0px;
+	background-color: #474747;
+	border-bottom:1px #2F2F2F solid;
+	text-align:center;
+}
+.submit_div{
+    overflow:auto;
+    zoom:1;
+    border:1px solid #727272;
+    border-top:0;
+    padding:5px;
+    background:#3C3C3C;
+}
+#submitsave{
+    width:130px;
+    height:80px;
+    border:0;
+}
+.onover{
+    background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/button_confirm_f.jpg) no-repeat;
+}
+.offover{
+    background:url({$sSystemImagesAndCssPath}/lowgame/images/blue/button_confirm.jpg) no-repeat;
+}

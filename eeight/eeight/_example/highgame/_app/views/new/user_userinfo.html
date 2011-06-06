@@ -1,0 +1,196 @@
+{include file="pageheader.html"}
+<script>
+//生成玩法列表
+function create_method(data,x)
+{
+	jQuery("#method-detail-"+x).html();
+	jQuery.each(data,function(i,v){
+		html = "<tr align='center'>";
+		html = html+"<td bgcolor=\"#cccccc\" height=\"37px\">"+v.methodname+"</td>";
+		html = html+"<td bgcolor=\"#cccccc\">";
+		for(j=1;j<=v.level;j++)
+		{
+			html = html+v.name[j]+"<br/>";
+		}
+		html = html+"</td>";
+		html = html+"<td bgcolor=\"#cccccc\">";
+		for(j=1;j<=v.level;j++)
+		{
+			html = html+"<span id='bonus_"+v.methodid+"_"+j+"' name='bonus'>0.00</span><br/>";
+		}
+		html = html+"</td>";
+		html = html+"<td id='userpoint_"+v.methodid+"' name='userpoint' bgcolor=\"#cccccc\">0.000</td>";
+		html = html+"<td bgcolor=\"#cccccc\"><span id='status_"+v.methodid+"' name='status'>未开通</span></td></tr>";
+		jQuery("#method-detail-"+x).append(html);		
+	});
+}
+function get_user_point(lotteryid,usergroupid)
+{
+	//初始化数据
+	var pl = {$aPL};
+	//效果切换
+	$("#pg_"+lotteryid+" span").removeClass("tab-front");
+	$("#pg_"+lotteryid+" span").addClass("tab-back");
+	$("#tabbar_"+lotteryid+"_"+usergroupid).removeClass("tab-back");
+	$("#tabbar_"+lotteryid+"_"+usergroupid).addClass("tab-front");
+	//数据初始化
+	$("#method-detail-"+lotteryid+" span[name='bonus']").html("0.00");
+	$("#method-detail-"+lotteryid+" span[name='userpoint']").html("0.0%");
+	$("#method-detail-"+lotteryid+" span[name='status']").html("未开通");
+    var totalUserPoint = 0;
+	//数据加载
+	$.each(pl[usergroupid],function(i,v){
+		$.each(v,function(i2,v2){
+			$("#bonus_"+i+"_"+i2).html(v2.bonus);
+			if(v2.userpoint == '0.0')
+			{
+				$("#status_"+i).html("0.0%");
+			}
+			else
+			{
+    			totalUserPoint += parseFloat(v2.userpoint);
+			    $("#userpoint_"+i).html(v2.userpoint+"%");
+			}
+			if(v2.status==1)
+			{
+				$("#status_"+i).html("已经停用");
+			}
+			else
+			{
+				$("#status_"+i).html("使用中");
+			}
+		});
+	});
+	if( totalUserPoint == 0 )
+	{
+	    $('#title_'+usergroupid+' th[id]').remove();
+	    $('#title_'+usergroupid+' th:eq(3)').attr('width','40%');
+		$('#method-detail-'+lotteryid+' tr').each(function(){
+			$(this).children('td[id]').remove();
+		});
+	}
+}
+jQuery(document).ready(function(){
+	{foreach from=$aMethod item=method key=k}
+	var methods_{$k} ={$method};
+	create_method(methods_{$k},{$k});
+	$("#pg_{$k} span:first-child").click();
+	{/foreach}
+});
+</script>
+
+
+
+
+
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft " style="width:98%">
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+    <tr>
+      <td height="43" colspan="5">用户信息</td>
+      </tr>
+    <tr>
+      <td height="5" colspan="5" align="center"></td>
+      </tr>
+    <tr>
+      <td height="37" align="center" bgcolor="#999999">用户名称</td>
+      <td align="center" bgcolor="#999999">{$userinfo.username|escape:html}</td>
+      <td align="center" bgcolor="#999999">用户昵称</td>
+      <td align="center" bgcolor="#999999">{$userinfo.nickname|escape:html}</td>
+    </tr>
+    <tr>
+      <td height="37" align="center" bgcolor="#CCCCCC">用户等级</td>
+      <td align="center" bgcolor="#CCCCCC">{if $userinfo.usertype==0}会员用户{elseif $userinfo.usertype==1}{if $userinfo.parentid==0}总代{else}代理用户{/if}{/if}</td>
+      <td align="center" bgcolor="#CCCCCC">&nbsp;</td>
+      <td align="center" bgcolor="#CCCCCC">&nbsp;</td>
+    </tr>
+  </table>
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+
+
+
+
+
+<div class="right_02 d5d8de">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft " style="width:98%">
+<table width="100%" border="0" cellspacing="1" cellpadding="4">
+    <tr>
+      <td height="43" colspan="5">帐户信息</td>
+      </tr>
+    <tr>
+      <td height="5" colspan="5" align="center"></td>
+      </tr>
+    <tr>
+      <td height="37" align="center" bgcolor="#999999">可用游戏币：</td>
+      <td align="center" bgcolor="#999999">{$userinfo.availablebalance|escape:money:4}</td>
+    </tr>
+    <tr>
+      <td height="37" align="center" bgcolor="#CCCCCC">{if $show==1}奖金限额{/if}</td>
+      <td align="center" bgcolor="#CCCCCC">{if $show==1}{$bigMoney|escape:money:4}{/if}</td>
+    </tr>
+  </table>
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+
+
+
+
+
+{foreach from=$aLottery item=lottery key=k}
+<div class="right_02 d5d8de" id="lottery_{$k}">
+<div id="right_02_01">
+<div class="right_02_02"></div>
+<div class="floatleft " style="width:98%">
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+    <tr>
+      <td height="43" colspan="5" >{$lottery}设定</td>
+    </tr>
+    <tr>
+      <td height="5" colspan="5" align="center"></td>
+      </tr>
+    <tr id="pg_{$k}">
+      <td height="37" colspan="5" align="center" bgcolor="#CCCCCC">{foreach from=$aPg.$k item=pg key=k1}<span id="tabbar_{$k}_{$k1}" onclick="get_user_point({$k},{$k1});"> {$pg} </span>{/foreach}</td>
+      </tr>
+    <tr id="title_{$k1}">
+      <th height="37" width="20%" align="center" bgcolor="#999999">玩法组</th>
+      <th width="20%" align="center" bgcolor="#999999">奖级</th>
+      <th width="20%" align="center" bgcolor="#999999">奖金</th>
+      <th width="20%" align="center" bgcolor="#999999" id="point_{$k1}">返点</th>
+      <th width="20%" align="center" bgcolor="#999999">状态</th>
+    </tr>
+<tbody id="method-detail-{$k}">
+</tbody>
+  </table>
+</div>
+<div class="right_02_04 floatright"></div>
+<div class="height5">
+<div class="right_02_24"></div>
+<div class="right_02_25"></div>
+</div>
+</div>
+</div>
+{/foreach}
+
+
+
+
+
+
+{include file="pagefooter.html"}

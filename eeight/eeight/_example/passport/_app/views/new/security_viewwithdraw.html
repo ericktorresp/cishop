@@ -1,0 +1,115 @@
+{include file="pageheader.html"}
+<div class="right_02 d5d8de">
+<div id="right_02_01" style="height:44px;">
+<div class="right_02_02"></div>
+<div class="right_02_03">
+<div class="title01">
+        <span class="tab-front"  id="general_tab_0">
+		  <span class="menu_01a"></span>
+		  <span class="menu_02a">发起提现</span>
+		  <span class="menu_03a"></span>
+		</span>
+			<span class="tab-back"  id="general_tab_1">
+		  <span class="menu_01"></span>
+
+		  <span class="menu_02" onClick="self.location.href='index.php?controller=security&action=withdrawlist'">提现记录</span>
+		  <span class="menu_03"></span>
+		</span>
+
+</div>
+</div>
+<div class="right_02_04 floatright"></div>
+</div>
+
+<div>
+
+<form method="post" name="drawform" id="drawform">
+<input type="hidden" name="controller" value="security" />
+<input type="hidden" name="action" value="cancelwithdraw" />
+<input type="hidden" name="id" value="{$id}" />
+<table width="100%" cellpadding="4" cellspacing="1" class="list-table">
+<tr>
+	<td width="200" align="right" bgcolor="#CCCCCC" class="narrow-label">提现编号：</td>
+	<td align="left" bgcolor="#CCCCCC">{$no}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">用户名：</td>
+	<td align="left" bgcolor="#CCCCCC">{$user_name}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">汇款渠道：</td>
+	<td align="left" bgcolor="#CCCCCC">{$api_name}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">币种：</td>
+	<td align="left" bgcolor="#CCCCCC">{$money_type}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">提现金额：</td>
+	<td align="left" bgcolor="#CCCCCC">{$source_money|escape:money}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">提现手续费：</td>
+    <td align="left" bgcolor="#CCCCCC">{$charge|escape:money}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">到账金额：</td>
+    <td align="left" bgcolor="#CCCCCC">{$amount|escape:money}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">银行名称：</td>
+    <td align="left" bgcolor="#CCCCCC">{$bank_name}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">省份：</td>
+    <td align="left" bgcolor="#CCCCCC">{$province}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">城市：</td>
+    <td align="left" bgcolor="#CCCCCC">{$city}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">开户支行：</td>
+    <td align="left" bgcolor="#CCCCCC">{$branch}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">开户人姓名：</td>
+    <td align="left" bgcolor="#CCCCCC">{$account_name}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">开户银行账号：</td>
+    <td align="left" bgcolor="#CCCCCC">{$account}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">提现申请时间：</td>
+    <td align="left" bgcolor="#CCCCCC">{$request_time}</td>
+</tr>
+<tr>
+	<td align="right" bgcolor="#CCCCCC" class="narrow-label">状态：</td>
+    <td align="left" bgcolor="#CCCCCC">
+    {if $status == 1}
+    	等待审核
+    {elseif $status == 2}
+    	通过审核
+    {elseif $status == 3}
+    	未通过审核
+    {elseif $status == 4}
+    	已取消
+	{elseif $status == 5}
+		提现成功
+	{elseif $status == 6}
+		提现失败
+	{else}
+		正在处理中
+	{/if}    </td>
+</tr>
+<tr>
+	<td class="narrow-label"></td>
+	<td height="30"><input type="button" value="返回" onclick="history.back()"  class="buttonnormal" /></td>
+</tr>
+
+</table>
+</form>
+</div>
+</div>
+{include file="pagefooter.html"}

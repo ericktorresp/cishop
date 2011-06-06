@@ -1,0 +1,105 @@
+{include file="pageheader.html"}
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr>
+  <td colspan="8" align="center"><font color="Blue">邻近记录</font></td>
+  </tr>
+  <tr>
+  <td align="right">{$bankname}</td>
+  <td colspan="7" align="left"></td>
+  </tr>
+  <tr>
+  <td colspan="2" align="right">发起充值时分配的收款账号：</td>
+  <td colspan="2" align="left">{$request_card}</td>
+  <td colspan="2" align="right">实际收款账号：</td>
+  <td colspan="2" align="left">{$get_card}</td>
+  </tr>
+  <tr align="center">
+  <td>发生日期</td>
+  <td>交易地点</td>
+  <td>收入</td>
+  <td>账户余额</td>
+  <td>对方账号</td>
+  <td>对方户名</td>
+  <td>币种</td>
+  <td>摘要</td>
+  </tr>
+  {foreach from = $recordlist item=record key =k}
+  <tr {if $record.id === $id}style="color:red;"{/if}>
+  	<td align="center">{$record.pay_date}</td>
+	<td>{$record.area|escape:html}</td>
+	<td align="center">{$record.amount|escape:money}</td>
+	<td align="center">{$record.balance|escape:money}</td>
+	<td align="center">{$record.hidden_account}</td>
+	<td align="center">{$record.acc_name|escape:html}</td>
+	<td align="center">{$record.currency|escape:html}</td>
+	<td align="center">{$record.summary|escape:html}</td>
+  </tr>
+  {foreachelse}
+    <tr><td class="no-records" colspan="8">无相关数据</td></tr>
+  {/foreach}
+  <tr>
+  <td colspan="8" align="center"><input type="button" value="返回上一页" onclick="history.back(-1);" /></td>
+  </tr>
+</table>
+</div>
+
+
+{literal}
+<script language="JavaScript">
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+if (document.getElementById("listDiv"))
+{
+  document.getElementById("listDiv").onmouseover = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+        if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#E8F5F7';
+      }
+    }
+
+  }
+
+  document.getElementById("listDiv").onmouseout = function(e)
+  {
+    obj = Utils.srcElement(e);
+
+    if (obj)
+    {
+      if (obj.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode;
+      else if (obj.parentNode.parentNode.tagName.toLowerCase() == "tr") row = obj.parentNode.parentNode;
+      else return;
+
+      for (i = 0; i < row.cells.length; i++)
+      {
+          if (row.cells[i].tagName != "TH") row.cells[i].style.backgroundColor = '#FFF';
+      }
+    }
+  }
+}
+</script>
+{/literal}
+{include file="pagefooter.html"}
