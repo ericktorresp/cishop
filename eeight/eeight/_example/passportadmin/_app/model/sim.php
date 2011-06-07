@@ -7,22 +7,41 @@ class model_sim extends basemodel
 		$sSql = 'SELECT * FROM sim WHERE 1=1';
 		return $this->oDB->getALL($sSql);
 	}
-	public function add() 
+	
+	public function read($id)
+	{
+		if(!$id) return FALSE;
+		$sSql = 'SELECT * FROM sim WHERE id = ' . $id;
+		return $this->oDB->getOne($sSql);
+	}
+	
+	public function add($aData)
+	{
+		if(!is_array($aData))	return FALSE;
+		//@todo verify every field
+		return $this->oDB->insert('sim', $aData);
+	}
+	
+	public function update($id, $aData)
 	{
 	
 	}
 	
-	public function edit()
+	public function disable($id)
 	{
-	
+		if(!$id)	return FALSE;
+		$sSql = 'UPDATE sim SET enabled=0 WHERE id='.$id;
+		return $this->oDB->query($sSql);
+	}
+
+	public function enable($id)
+	{
+		if(!$id)	return FALSE;
+		$sSql = 'UPDATE sim SET enabled=1 WHERE id='.$id;
+		return $this->oDB->query($sSql);
 	}
 	
-	public function disable()
-	{
-	
-	}
-	
-	public function delete()
+	public function delete($id)
 	{
 	
 	}
