@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * 关联表 deposit_acc_set: +sms_number, +sms_key, +sms_ip
+ * deposit_set: +is_sms_notic, +is_sms_order_number
+ * user_deposit_card: +sms_number[, +sms_key, +sms_ip]
+ * [change]: email_deposit_record(order):key->order_number, +sms_number
+ * icbc_transfer(ccb_transfer): -> sms_log(银行短信记录)
+ *
+ * @author Floyd
+ *
+ */
 class controller_simmanage extends basecontroller
 {
 	public function actionSimList()
