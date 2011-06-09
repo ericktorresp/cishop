@@ -10,7 +10,7 @@
  * 1. 根据玩家所分配的卡，读取卡信息以及卡所绑定的手机号，显示给用户(deposit_acc_set)
  * 2. 玩家提交充值请求后，系统写入 email_deposit_record(ccb_deposit_record): key(order_number),pay_acc_id(如果该行不支持附言)
  * 3.1. 根据number获取该number对应加密key，根据sender获取银行(deposit_set.sms_regex, deposit_set.is_sms_order_number)
- * 3.2. 解密content, 正则匹配内容，获取：{depositer, account, numbertail, amount, order_number[!is_sms_order_number(ABC)]}
+ * 3.2. 解密content, 正则匹配内容，获取：{payor, payee, numbertail, amount, order_number[!is_sms_order_number(ABC)]}
  * 3.3. 写icbc_transfer(ccb_transfer)
  * 3.3. 查询email_deposit_record(ccb_deposit_record)并匹配; 成功: 更新充值记录的状态，写帐变，更新可用余额(事务);失败：记录具体原因
  * error_type: 1-附言违规，2-时间违规，3-账号违规，4-金额违规
