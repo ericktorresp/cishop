@@ -2,16 +2,16 @@
 /**
  * 文件 : /_app/controller/default.php
  * 功能 : 默认的控制器处理
- *  
+ *
  * 类中所有的以 action 开头+首字母大写的英文, 为 "动作方法"
- * 例如 URL 访问: 
+ * 例如 URL 访问:
  *     http://www.xxx.com/?controller=default&action=abc
  *     default 是控制器名
  *     abc     是动作方法
  *     定义动作方法函数的命名, 规则为 action+首字母大写的全英文字符串
  *        例: 为实现上例的 /?controller=default&action=abc 中的 abc 方法
  *            需要在类中定义 actionIndex() 函数
- * 
+ *
  * 功能:
  *     -- actionIndex          默认执行方法
  *     -- actionLogin          用户登陆
@@ -20,12 +20,12 @@
  *     -- actionUserMsg        用户消息
  *     -- actionWelcome        欢迎界面
  *     -- actionActivityList   用户活动列表
- *     -- 
- * 
+ *     --
+ *
  * @author    james
  * @version   1.2.0
  * @package   passport
- * 
+ *
  */
 
 class controller_default extends basecontroller
@@ -74,7 +74,7 @@ class controller_default extends basecontroller
     /**
      * 1, 显示用户登陆界面
      * 2, 处理用户登陆      ( if post data exists )
-     */ 
+     */
     function actionLogin()
     {
     	//$sUrl  = empty($_COOKIE['_GPCURL_']) ? "http://www.google.com" : "http://".$_COOKIE['_GPCURL_']."/logout.php";
@@ -89,7 +89,7 @@ class controller_default extends basecontroller
         { // 登陆过程
 			
         	// 5/31/2010  $_POST['validcode'] = md5($_SESSION['validateCode'])
-            if( empty($_POST['validcode']) || empty($_SESSION['validateCode']) 
+            if( empty($_POST['validcode']) || empty($_SESSION['validateCode'])
                 || strtolower($_POST['validcode']) != strtolower( md5($_SESSION['validateCode']) ) )
             {
                 sysMsg( "验证码错误!" ); // TODO: 生产版本需取消此行. FOR 维护部压力测试
@@ -103,7 +103,7 @@ class controller_default extends basecontroller
 
            
             // 根据用户登陆名, 检查是否符合域名检测
-            if( FALSE === $oUser->checkUserDomain( $_POST['username'], isset($_SERVER['HTTP_HOST']) ? 
+            if( FALSE === $oUser->checkUserDomain( $_POST['username'], isset($_SERVER['HTTP_HOST']) ?
                           $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'] ) )
             { // 使用了非自身总代的域名, 或用户名不存在, 则程序中断
                 @header("Location: http://www.google.com/");
@@ -162,7 +162,7 @@ class controller_default extends basecontroller
             	{
             	    $_SESSION['skins'] = $mAnswers['data']['skin'];
             	}
-                unset($oUserSkin);		
+                unset($oUserSkin);
                 $_SESSION['logintype'] = 'normal';
                 if( $mData['lastip'] != getRealIP() && $mData['lastip'] != '0.0.0.0' )
                 { // 最后一次登陆IP和本次不同
@@ -204,7 +204,7 @@ class controller_default extends basecontroller
                 {//最后一次登陆IP和本次不同
                     $aLinks = array();
                     $sMsg = "你本次登陆的IP和上次不同\\n您上次登陆的时间是\\n" . $mData['lasttime'];
-                    $aLinks[0] = array( 'url'=> url('security', 'changeloginpass') ); 
+                    $aLinks[0] = array( 'url'=> url('security', 'changeloginpass') );
                     sysMsg( $sMsg, 0, $aLinks, 'top' );
                 }
                 redirect( url('security', 'changeloginpass') );
@@ -241,7 +241,7 @@ class controller_default extends basecontroller
             $GLOBALS['oView']->display( "default_declare.html", 'declare' );
             EXIT;
         }
-    	else 
+    	else
     	{
     		if( $_SESSION['logintype'] == "security" )
     		{//资金密码登陆
@@ -511,7 +511,7 @@ class controller_default extends basecontroller
     {
         if( !empty($_POST['flag']) && $_POST['flag'] == "answer" )
         { // 问题提交
-            $iUserId     = ( isset($_SESSION["userid"]) && is_numeric($_SESSION["userid"]) ) ? 
+            $iUserId     = ( isset($_SESSION["userid"]) && is_numeric($_SESSION["userid"]) ) ?
                              intval($_SESSION["userid"]) : 0;
             $iActivityId = ( isset($_POST["actid"]) && is_numeric($_POST["actid"]) ) ? intval($_POST["actid"]) : 0;
             if( $iUserId == 0 || $iActivityId == 0 )
@@ -527,16 +527,16 @@ class controller_default extends basecontroller
                     sysMsg( "非法操作", 2, $aLinks , 'self' );
                     break;
                 case -2:
-                    sysMsg( "非法操作", 2, $aLinks, 'self' ); 
+                    sysMsg( "非法操作", 2, $aLinks, 'self' );
                     break;
                 case -3:
-                    sysMsg( "非法操作", 2, $aLinks, 'self' );  
+                    sysMsg( "非法操作", 2, $aLinks, 'self' );
                     break;
                 case -4:
                     sysMsg( "活动尚未开始", 2, $aLinks, 'self' );
                     break;
                 case -5:
-                    sysMsg( "活动已经结束", 2, $aLinks, 'self' ); 
+                    sysMsg( "活动已经结束", 2, $aLinks, 'self' );
                     break;
                 case -6:
                     sysMsg( "无权参加本次活动", 2, $aLinks, 'self');
@@ -559,7 +559,7 @@ class controller_default extends basecontroller
             EXIT;
         }
         $iActivityId   = ( isset($_GET["actid"]) && is_numeric($_GET["actid"]) ) ? intval($_GET["actid"]) : 0;
-        $iUserId       = ( isset($_SESSION["userid"]) && is_numeric($_SESSION["userid"]) ) ? 
+        $iUserId       = ( isset($_SESSION["userid"]) && is_numeric($_SESSION["userid"]) ) ?
                           intval($_SESSION["userid"]) : 0;
         if( empty($iActivityId) || $iActivityId < 0 )
         {
@@ -574,7 +574,7 @@ class controller_default extends basecontroller
                 $aActivity   = $aActivity[0];
                 $iActivityId = $aActivity['activityid'];
             }
-            else 
+            else
             {//显示活动列表
                 $GLOBALS['oView']->assign( 'aActivity', $aActivity );
                 $GLOBALS['oView']->display("default_activity_list.html");
@@ -585,7 +585,7 @@ class controller_default extends basecontroller
         {
             $oActivity  = new model_activity();
             $sFields    = "*";
-            $sCondition = " `activityid`='".$iActivityId."' AND `isdel`='0' AND `isverify`='1' 
+            $sCondition = " `activityid`='".$iActivityId."' AND `isdel`='0' AND `isverify`='1'
                           AND `starttime`<='".date('Y-m-d H:i:s')."' AND `endtime`>'".date('Y-m-d H:i:s')."' ";
             $aActivity  = $oActivity->activityGetOne( $sFields, $sCondition );
             if( empty($aActivity) )
@@ -597,7 +597,7 @@ class controller_default extends basecontroller
         $aActivityInfo = $oActivityInfo->activityInfoGetList( '*', " `activityid`='".$iActivityId."' " );
         foreach( $aActivityInfo as &$v )
         {
-            $v['options'] = $v['type'] < 2 ? unserialize( $v['options']) : $v['options']; 
+            $v['options'] = $v['type'] < 2 ? unserialize( $v['options']) : $v['options'];
             unset( $v['answer'] );
         }
         //输入
@@ -618,7 +618,7 @@ class controller_default extends basecontroller
 		{
 			$_SESSION['skins'] = $_GET['skin'];
 			$aData = array('iUserId'=>$_SESSION['userid'], 'iSkin'=>$_SESSION['skins']);
-			$oUpdateTem = new channelapi( 0, 'updateUserTemplate', FALSE ); 
+			$oUpdateTem = new channelapi( 0, 'updateUserTemplate', FALSE );
 			$oUpdateTem->setTimeOut(15);        // 整个转账过程的超时时间, 可能需要微调
 			$oUpdateTem->sendRequest( $aData ); // 发送转账请求给调度器
 			$aResult = $oUpdateTem->getDatas(); // 获取转账 API 返回的结果
@@ -635,11 +635,18 @@ class controller_default extends basecontroller
      }
 	/**
      * URL =  controller=default&action=Top
-     * @author jack 
+     * @author jack
      */
     function actionTop()
     {
     	$GLOBALS['oView']->display('default_top.html');
+    }
+    /**
+     * URL = controller=default&action=receive
+     */
+    function actionReceive()
+    {
+    	
     }
 }
 ?>
