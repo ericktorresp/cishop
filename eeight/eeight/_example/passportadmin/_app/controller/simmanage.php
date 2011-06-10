@@ -18,8 +18,8 @@
  * added receive action to default controller
  * [EDIT]
  *
- * 1. emaildeposit_confirm.html: 去掉自动刷新，改进点击复制[meanless, b'coz net bank uses ie]
- * 2. controller/emaildeposit.php: 去掉自动写充值记录，改为用户点击提交时写入，在新窗口打开后，弹出提示层：成功/失败
+ * 1. emaildeposit_confirm.html: 去掉自动刷新
+ * 2. controller/emaildeposit.php: 去掉自动写充值记录，改为用户点击提交时Ajax写入，在新窗口打开后，弹出提示层：成功/失败
  *
  * @author Floyd
  *
