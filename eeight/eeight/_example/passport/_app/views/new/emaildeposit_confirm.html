@@ -1,39 +1,52 @@
 {include file="pageheader.html"}
-<script type='text/javascript'>
-    function loadnotice(){
+<script type='text/javascript'><!--
+    function loadnotice()
+    {
         alert("务必复制“充值订单号”粘贴到工行汇款页面“附言”栏内，否则充值将无法到账。");
     }
-copyCode=function(id){
-try{
- var clipBoardContent=jQuery("#" + id).html();
- window.clipboardData.setData("Text",clipBoardContent);
- var title = jQuery("#" + id + "_title").html();
- alert( "【" + title + "】复制成功!" );
-}catch(e){
-	alert('您的firefox安全限制限制您进行剪贴板操作，请打开’about:config’将signed.applets.codebase_principal_support’设置为true’之后重试！');
-}
-}
-
-{if $flashtime}
-var startTime = new Date();
-var EndTime=startTime.getTime()+{$flashtime}*60*1000;
-function GetRTime(){
-var NowTime = new Date();
-var nMS =EndTime - NowTime.getTime();
-var nM=Math.floor(nMS/(1000*60)) % 60;
-var nS=Math.floor(nMS/1000) % 60;
- document.getElementById("RemainM").innerHTML=nM;
- document.getElementById("RemainS").innerHTML=nS;
- if (nM <= 0 && nS <= 0){
- 	top.location="/?controller=default&action=main";
- }
-setTimeout("GetRTime()",1000);
-}
-window.onload=function(){
-    GetRTime();
-    loadnotice();
-}
-{/if}
+	copyCode=function(id)
+	{
+		try
+		{
+			var clipBoardContent=jQuery("#" + id).html();
+			window.clipboardData.setData("Text",clipBoardContent);
+			var title = jQuery("#" + id + "_title").html();
+			alert( "【" + title + "】复制成功!" );
+		}
+		catch(e)
+		{
+			alert('您的firefox安全限制限制您进行剪贴板操作，请打开’about:config’将signed.applets.codebase_principal_support’设置为true’之后重试！');
+		}
+	}
+	{if $bankname == "icbc"}
+	loadnotice();
+	{/if}
+	var clicked = false;
+	$("document").ready( function(){
+	    $(".button").click(function(){
+		    if(clicked)	return false;
+		    $.ajax({
+	            type: 'POST',
+	            URL : './',
+	            timeout : 30000,
+	            data: $('#drawform').serialize(),
+	            success : function(data)
+	            {
+		            eval('data='+data);
+	                if(data.status == 'error')
+		            {
+			            alert(data.msg);
+			            return false;
+		            }
+	                else
+		            {
+			            clicked = true;
+						window.setTimeout(window.open('{$bank_url}'),1000);
+				    }
+	            }
+			});
+		});
+	});
 </script>
 <div class="right_02 d5d8de" style="width: 98%;">
 <div class="height5">
@@ -42,17 +55,18 @@ window.onload=function(){
 </div>
 <table width="100%" cellpadding="4" cellspacing="1" class="list-table">
 	<form action="index.php" method="post" name="drawform" id="drawform">
-	<input type="hidden" name="sign" value="{$id}" />
+	<input type="hidden" name="controller" value="emaildeposit" />
+	<input type="hidden" name="action" value="emailload" />
+	<input type="hidden" name="flag" value="deposit" />
+	<input type="hidden" name="bid" value="{$smarty.post.bid}" />
+	<input type="hidden" name="bank" value="{$smarty.post.bank}" />
+	<input type="hidden" name="amount" value="{$smarty.post.amount}" />
+	<input type="hidden" name="order_number" value="{$key}" />
 	<tr>
-		<td colspan="3" align="right" bgcolor="#CCCCCC" class="narrow-label"><span
-			style="color: #FF3300; text-align: left; padding-left: 30px;">{$loadstep}银行充值</span>
-		{if $flashtime} <span
-			style="color: #0700EE; text-align: left; padding-left: 260px;">页面刷新倒计时：<strong
-			id="RemainD"></strong><strong id="RemainM">XX</strong>:<strong
-			id="RemainS">XX</strong></span> {/if} <span
-			style="color: #0700EE; text-align: left; padding-left: 360px;"><a
-			href="{$help_url}{if $bankname == 'ccb'}&tag_id=1{/if}"
-			target="_blank">【{$loadstep}银行充值流程】</a></span></td>
+		<td colspan="3" align="right" bgcolor="#CCCCCC" class="narrow-label">
+			<span style="color: #FF3300; text-align: left; padding-left: 30px;">{$loadstep}银行充值</span>
+			<span style="color: #0700EE; text-align: left; padding-left: 360px;"><a href="{$help_url}{if $bankname == 'ccb'}&tag_id=1{/if}" target="_blank">【{$loadstep}银行充值流程】</a></span>
+		</td>
 	</tr>
 	<tr>
 		<td align="right" bgcolor="#CCCCCC" class="narrow-label"><span
@@ -110,10 +124,26 @@ window.onload=function(){
 		</table>
 		</td>
 	</tr>
-	{if $key}
+{if $bankname != "icbc"}
 	<tr>
 		<td align="right" bgcolor="#CCCCCC" class="narrow-label"><span
-			id="remark_title">附言(充值订单号)</span>：</td>
+			id="remark_title">短信通知</span>：</td>
+		<td bgcolor="#CCCCCC">
+		<table>
+			<tr>
+				<td width="130"><span id="sms_number"
+					style="color: #FF3300; font-size: 14px;">{$sms_number}</span></td>
+				<td><input type="button" value="点击复制" class="button"
+					onclick="copyCode('sms_number');return false;" />&nbsp;&nbsp;&nbsp;&nbsp;<span
+					style="color: #FF3300;">网银汇款页面 短信通知 手机号码 请使用键盘“CTRL+V”进行粘贴</span></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+{/if}
+	<tr>
+		<td align="right" bgcolor="#CCCCCC" class="narrow-label"><span
+			id="remark_title">{if $bankname == "icbc"}附言{else}短信通知留言{/if}(充值订单号)</span>：</td>
 		<td bgcolor="#CCCCCC">
 		<table>
 			<tr>
@@ -121,12 +151,11 @@ window.onload=function(){
 					style="color: #FF3300; font-size: 14px;">{$key}</span></td>
 				<td><input type="button" value="点击复制" class="button"
 					onclick="copyCode('remark');return false;" />&nbsp;&nbsp;&nbsp;&nbsp;<span
-					style="color: #FF3300;">工行汇款页面附言栏 请使用键盘“CTRL+V”进行粘贴</span></td>
+					style="color: #FF3300;">{if $bankname == "icbc"}工行汇款页面附言栏 请使用键盘“CTRL+V”进行粘贴{else}网银转账页面 短信通知 手机留言 请使用键盘“CTRL+V”进行粘贴{/if}</span></td>
 			</tr>
 		</table>
 		</td>
 	</tr>
-	{/if}
 	<tr>
 		<td align="right" bgcolor="#CCCCCC" class="narrow-label">充值说明：</td>
 		<td bgcolor="#CCCCCC"><span
@@ -145,8 +174,7 @@ window.onload=function(){
 	<tr>
 		<td align="right" bgcolor="#CCCCCC" class="narrow-label"></td>
 		<td bgcolor="#CCCCCC"><input type="button"
-			value="点击打开{$shortname}网银" class="button"
-			onclick="window.open('{$bank_url}');" /> {$bank_url}</td>
+			value="点击打开{$shortname}网银" class="button" /></td>
 	</tr>
 	</form>
 </table>

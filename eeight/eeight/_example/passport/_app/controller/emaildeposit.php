@@ -43,12 +43,11 @@ class controller_emaildeposit extends basecontroller{
 	 */
 	public function actionEmailLoad(){
 		$aLinks = array(
-		0 => array(
-				'title' => "返回上一页",
-		//				'url'	=> "?controller=default&action=main"
-		)
+			0 => array(
+					'title' => "返回上一页",
+			//				'url'	=> "?controller=default&action=main"
+			)
 		);
-
 		// 判断是否需要资金密码检查
 		$oEmailDeposit = new model_deposit_emaildeposit();
 		if ($oEmailDeposit->securityCheck() === false){
@@ -81,49 +80,59 @@ class controller_emaildeposit extends basecontroller{
 		// 检查用户是有绑定银行卡
 		$oUserBankCard = new model_withdraw_UserBank();
 		$oUserBankCard->UserId = $iUserId;
-		if ($oUserBankCard->getCount() <= 0){
+		if ($oUserBankCard->getCount() <= 0)
+		{
 			$aTempLinks = array(
-			0 => array(
-                        'title' => "卡号绑定页面",
-                        'url'	=> "?controller=security&action=userbankinfo&check=" . $_SESSION['checkcode']
-			)
+				0 => array(
+	                        'title' => "卡号绑定页面",
+	                        'url'	=> "?controller=security&action=userbankinfo&check=" . $_SESSION['checkcode']
+				)
 			);
 			sysMsg( "您尚未绑定银行卡，请先进行卡号绑定！", 2, $aTempLinks);
 		}
 
 		$_POST['flag'] = isset($_POST['flag']) ? $_POST['flag'] : "";
-		if ($_POST['flag'] == "load"){
+		if ($_POST['flag'] == "load")
+		{
 			// 数据检查
-			if (intval($_POST['bid']) <= 0){
-				sysMsg("参数提交错误！", 2, $aLinks);
+			if (intval($_POST['bid']) <= 0)
+			{
+				if($_POST['flag'] == "load") sysMsg("参数提交错误！", 2, $aLinks);
 			}
-			$oPayport     = new model_deposit_depositinfo();
+			$oPayport = new model_deposit_depositinfo();
 			$oPayport->getPayportData($_POST['bid'],"ccb", 1);
 			$aResult = $oPayport->getArrayData();
 			$sPrifix = $aResult['sysparam_prefix'];
 				
-			if (empty($sPrifix)){
-				sysMsg("参数提交错误！", 2, $aLinks);
+			if (empty($sPrifix))
+			{
+				if($_POST['flag'] == "load") sysMsg("参数提交错误！", 2, $aLinks);
+				if($_POST['flag'] == 'deposit') die(json_encode(array('status'=>'error','msg'=>"参数提交错误！")));
 			}
 				
 			// 如果是建行，必须选定建行卡
 			$iBankId = isset($_POST['bank']) ? $_POST['bank'] : "";
-			if ($sPrifix == CCB && $iBankId <= 0){
-				sysMsg("请选择绑定的银行卡！", 2, $aLinks);
+			if ($sPrifix == CCB && $iBankId <= 0)
+			{
+				if($_POST['flag'] == "load") sysMsg("请选择绑定的银行卡！", 2, $aLinks);
+				if($_POST['flag'] == 'deposit') die(json_encode(array('status'=>'error','msg'=>"请选择绑定的银行卡！")));
 			}
 			$oUserBank = new model_withdraw_UserBank($iBankId);
 			// 检查用户绑定卡重复性
 			$oWithdrawBank = new model_withdraw_ApiWithdrawBank();
 			$oWithdrawBank->Account = $oUserBank->Account;
-			if ($oWithdrawBank->bankExistByCard() === 1 && $sPrifix == CCB){
-				sysMsg("您选择的建行卡重复绑定，请选择另一张！", 2, $aLinks);
+			if ($oWithdrawBank->bankExistByCard() === 1 && $sPrifix == CCB)
+			{
+				if($_POST['flag'] == "load") sysMsg("您选择的建行卡重复绑定，请选择另一张！", 2, $aLinks);
+				if($_POST['flag'] == 'deposit') die(json_encode(array('status'=>'error','msg'=>"您选择的建行卡重复绑定，请选择另一张！")));
 				exit;
 			}
-			//			print_rr($aResult,1,1);
 				
 			// 检查系统开关
-			if (intval($oConfigd->getConfigs($sPrifix . 'deposit_turnauto')) === 0){
-				sysMsg("您没有操作权限！", 2, $aLinks);
+			if (intval($oConfigd->getConfigs($sPrifix . 'deposit_turnauto')) === 0)
+			{
+				if($_POST['flag'] == "load") sysMsg("您没有操作权限！", 2, $aLinks);
+				if($_POST['flag'] == 'deposit') die(json_encode(array('status'=>'error','msg'=>"您没有操作权限！")));
 				exit;
 			}
 				
@@ -134,28 +143,39 @@ class controller_emaildeposit extends basecontroller{
 
 			// 获取充值延迟周期
 			$sCycle = $oConfigd->getConfigs($sPrifix . 'deposit_cycletime');
-			if (!empty($sCycle)){
+			if (!empty($sCycle))
+			{
 				$aCycle = explode("|", $sCycle);
-				if (in_array(date("l"), $aCycle)){
+				if (in_array(date("l"), $aCycle))
+				{
 					$sStartTime += intval($oConfigd->getConfigs($sPrifix . 'deposit_delaytime')) * 60;
 				}
 			}
 
-			if ($sStartTime > $sEndTime){ // 开始时间大于结束时间，说明已跨天
-				if ($sRunNow >= $sEndTime && $sRunNow <= $sStartTime){
-					sysMsg('系统结算时间,暂停充值', 2, $aLinks);
+			if ($sStartTime > $sEndTime)
+			{ // 开始时间大于结束时间，说明已跨天
+				if ($sRunNow >= $sEndTime && $sRunNow <= $sStartTime)
+				{
+					if($_POST['flag'] == "load") sysMsg('系统结算时间,暂停充值', 2, $aLinks);
+					if($_POST['flag'] == 'deposit') die(json_encode(array('status'=>'error','msg'=>"系统结算时间,暂停充值")));
 					exit;
 				}
-			} else {
-				if ($sRunNow <= $sStartTime || $sRunNow >= $sEndTime){
-					sysMsg('系统结算时间,暂停充值', 2, $aLinks);
+			}
+			else
+			{
+				if ($sRunNow <= $sStartTime || $sRunNow >= $sEndTime)
+				{
+					if($_POST['flag'] == "load") sysMsg('系统结算时间,暂停充值', 2, $aLinks);
+					if($_POST['flag'] == 'deposit') die(json_encode(array('status'=>'error','msg'=>"系统结算时间,暂停充值")));
 					exit;
 				}
 			}
 
 			$fMoney = floor($_POST['amount']*100) / 100;
-			if ( $fMoney <= 0 ){
-				sysMsg("您输入的充值金额有误！", 2, $aLinks);
+			if ( $fMoney <= 0 )
+			{
+				if($_POST['flag'] == "load") sysMsg("您输入的充值金额有误！", 2, $aLinks);
+				if($_POST['flag'] == 'deposit') die(json_encode(array('status'=>'error','msg'=>"您输入的充值金额有误！")));
 			}
 
 			// 根据用户身份取出用户的充值最大最小金额
@@ -163,73 +183,75 @@ class controller_emaildeposit extends basecontroller{
 			$oCompanyCard->UserId = $iUserId;
 			$oCompanyCard->BankId = $_POST['bid'];
 			$oCompanyCard->getCard("check");
-			//    		print_rr(array($oCompanyCard),1,1);
-			//    		echo $oCompanyCard->PayCardId;die;
+
 			$fLoadMax = 0;
 			$fLoadMin = 0;
-			if (intval($oCompanyCard->UserType) === 2){ // black
+			if (intval($oCompanyCard->UserType) === 2)
+			{ // black
 				$fLoadMax = $oConfigd->getConfigs($sPrifix . 'deposit_blacklimitmax');
 				$fLoadMin = $oConfigd->getConfigs($sPrifix . 'deposit_blacklimitmin');
 				// 检查权限
-			} else if (intval($oCompanyCard->UserType) === 1){ // vip
+			}
+			else if (intval($oCompanyCard->UserType) === 1)
+			{ // vip
 				$fLoadMax = $oConfigd->getConfigs($sPrifix . 'deposit_viplimitmax');
 				$fLoadMin = $oConfigd->getConfigs($sPrifix . 'deposit_viplimitmin');
-			} else { // normal
+			}
+			else
+			{ // normal
 				$fLoadMax = $oConfigd->getConfigs($sPrifix . 'deposit_limitmax');
 				$fLoadMin = $oConfigd->getConfigs($sPrifix . 'deposit_limitmin');
 			}
 
 			// 检查充值数据是否超出限额
-			if ($fMoney > $fLoadMax || $fMoney < $fLoadMin){
-				sysMsg("您输入的充值超出充值限额！", 2, $aLinks);
+			if ($fMoney > $fLoadMax || $fMoney < $fLoadMin)
+			{
+				if($_POST['flag'] == "load") sysMsg("您输入的充值超出充值限额！", 2, $aLinks);
+				if($_POST['flag'] == 'deposit') die(json_encode(array('status'=>'error','msg'=>"您输入的充值超出充值限额！")));
 			}
 
 			// 检查用户当天支付中的订单数量是否到达系统上限
 			$oDepositAllBank->UserId = $iUserId;
 			$iCount = $oDepositAllBank->getcount();
-			if ( $iCount >= $oConfigd->getConfigs('maildeposit_times') ){
-				sysMsg("对不起，您今天的充值次数已达到充值上限！", 2, $aLinks);
+			if ( $iCount >= $oConfigd->getConfigs('maildeposit_times') )
+			{
+				if($_POST['flag'] == "load") sysMsg("对不起，您今天的充值次数已达到充值上限！", 2, $aLinks);
+				if($_POST['flag'] == 'deposit') die(json_encode(array('status'=>'error','msg'=>"对不起，您今天的充值次数已达到充值上限！")));
 			}
 			unset($oEmailDeposit);
 
 			// 通过公司卡id，获取公司分配给用户的卡号，与开卡人姓名
 			$aBankInfo = array();
 			$oPayPortInfo = new model_deposit_depositaccountinfo($oCompanyCard->PayCardId);
-			if ($oPayPortInfo->AId > 0){
+			if ($oPayPortInfo->AId > 0)
+			{
 				$aBankInfo = $oPayPortInfo->getAccountData();
 			}
 				
 			// 记录下总代名称
 			$sTopproxy_name = "";
 			$aTopProxy = $oUser->getTopProxyId($iUserId,true);
-			if ($aTopProxy['userid'] == $iUserId){
+			if ($aTopProxy['userid'] == $iUserId)
+			{
 				$sTopproxy_name = $sUserName;
-			} else {
+			}
+			else
+			{
 				$sTopproxy_name = $aTopProxy['username'];
 			}
-			switch ($sPrifix){
+			switch ($sPrifix)
+			{
 				case ICBC:
-					$oEmailDeposit = new model_deposit_emaildeposit();
-					$oEmailDeposit->AccountId		= $oCompanyCard->PayCardId; // 支付接口id
-					$oEmailDeposit->Account			= $aBankInfo['acc_bankacc']; // 收款卡账号
-					$oEmailDeposit->AccountName		= $aBankInfo['acc_ident'];	// 收款卡账户名
 					$GLOBALS['oView']->assign( 'email', $aBankInfo['acc_mail']);
-					$GLOBALS['oView']->assign( 'flashtime', $oConfigd->getConfigs($sPrifix . 'deposit_reftime'));
+					//$GLOBALS['oView']->assign( 'flashtime', $oConfigd->getConfigs($sPrifix . 'deposit_reftime'));
 					$GLOBALS['oView']->assign( 'loadstep', "工商");
 					$GLOBALS['oView']->assign( 'shortname', "工行");
 					$GLOBALS['oView']->assign( 'bankname', "icbc");
+					//$GLOBALS['oView']->assign( 'sms_number', $aBankInfo['sms_number'] ); //短信通知手机号码
 					break;
 				case CCB:
-					$oEmailDeposit = new model_deposit_ccbdeposit();
-					// 首先获取用户选定的建行卡信息$iBankId @todo remove this
-					$oEmailDeposit->AccountId		= $iBankId; // 绑定卡id
-					$oEmailDeposit->Account			= $oUserBank->Account; // 汇款卡账号
-					$oEmailDeposit->AccountName		= $oUserBank->AccountName;	// 汇款卡账户名
-					$oEmailDeposit->PayACCId		= $oCompanyCard->PayCardId; // 支付接口id
-					$oEmailDeposit->AcceptCard		= $aBankInfo['acc_bankacc']; // 收款卡账号
-					$oEmailDeposit->AcceptName		= $aBankInfo['acc_ident'];	// 收款卡账户名
 					$GLOBALS['oView']->assign( 'account', $aBankInfo['acc_bankacc']);
-					//$GLOBALS['oView']->assign( 'sms_number', $aBankInfo['sms_number'] );	//@todo add this
+					$GLOBALS['oView']->assign( 'sms_number', $aBankInfo['sms_number'] ); //短信通知手机号码
 					$GLOBALS['oView']->assign( 'bankname', "ccb");
 					$GLOBALS['oView']->assign( 'loadstep', "建设");
 					$GLOBALS['oView']->assign( 'shortname', "建行");
@@ -237,33 +259,218 @@ class controller_emaildeposit extends basecontroller{
 				default:
 					sysMsg("参数提交错误！", 2, $aLinks);
 			}
-			$oEmailDeposit->UserId 			= $iUserId;
-			$oEmailDeposit->UserName		= $sUserName;
-			$oEmailDeposit->TopProxyName	= $sTopproxy_name;
-			$oEmailDeposit->Money			= $fMoney;
-			$iLastId = $oEmailDeposit->insertRecord();  //@todo change to write record after submit
-			if ( $iLastId > 0 ){
-				$GLOBALS['oView']->assign( 'ur_here', '充值确认');
-				$GLOBALS['oView']->assign( 'acc_name', $aBankInfo['acc_ident']);
-				$GLOBALS['oView']->assign( 'amount', $fMoney);
-				if ($sPrifix == ICBC){	//@todo will remove this condition, and create a static method generateOrderNumber() instead
-					$GLOBALS['oView']->assign( 'key',  'w' . $oEmailDeposit->Key . 'w');
-				}
-				$GLOBALS['oView']->assign( 'bank_url', $oConfigd->getConfigs($sPrifix . 'deposit_icbcurl'));
-				$GLOBALS['oView']->assign( 'help_url', $oConfigd->getConfigs($sPrifix . 'deposit_loadstep'));
-				$oEmailDeposit->assignSysInfo();
-				$GLOBALS['oView']->display( "emaildeposit_confirm.html" );
-				EXIT;
-			} else {
-				sysMsg("操作错误，请联系客服！", 2, $aLinks);
+			$GLOBALS['oView']->assign( 'ur_here', '充值确认');
+			$GLOBALS['oView']->assign( 'acc_name', $aBankInfo['acc_ident']);
+			$GLOBALS['oView']->assign( 'amount', $fMoney);
+			$GLOBALS['oView']->assign( 'key',  self::generateOrserNumber());
+			$GLOBALS['oView']->assign( 'bank_url', $oConfigd->getConfigs($sPrifix . 'deposit_icbcurl'));
+			$GLOBALS['oView']->assign( 'help_url', $oConfigd->getConfigs($sPrifix . 'deposit_loadstep'));
+			$oUser->assignSysInfo();
+			$GLOBALS['oView']->display( "emaildeposit_confirm.html" );
+			EXIT;
+		}
+		/**
+		 * 增加点击“充值”按钮 ajax 提交，写入充值记录表，并开新窗口跳转到相应网银登录界面
+		 * 
+		 * [ICBC]
+		 * $oEmailDeposit = new model_deposit_emaildeposit();
+		 * $oEmailDeposit->AccountId		= $oCompanyCard->PayCardId; // 支付接口id
+		 * $oEmailDeposit->Account			= $aBankInfo['acc_bankacc']; // 收款卡账号
+		 * $oEmailDeposit->AccountName		= $aBankInfo['acc_ident'];	// 收款卡账户名
+		 * 
+		 * [CCB]
+		 * $oEmailDeposit = new model_deposit_ccbdeposit();
+		 * $oEmailDeposit->AccountId		= $iBankId; // 绑定卡id
+		 * $oEmailDeposit->Account			= $oUserBank->Account; // 汇款卡账号
+		 * $oEmailDeposit->AccountName		= $oUserBank->AccountName;	// 汇款卡账户名
+		 * $oEmailDeposit->PayACCId			= $oCompanyCard->PayCardId; // 支付接口id
+		 * $oEmailDeposit->AcceptCard		= $aBankInfo['acc_bankacc']; // 收款卡账号
+		 * $oEmailDeposit->AcceptName		= $aBankInfo['acc_ident'];	// 收款卡账户名
+		 * 
+		 * $oEmailDeposit->UserId 			= $iUserId;
+		 * $oEmailDeposit->UserName			= $sUserName;
+		 * $oEmailDeposit->TopProxyName		= $sTopproxy_name;
+		 * $oEmailDeposit->Money			= $fMoney;
+		 * 
+		 * $iLastId = $oEmailDeposit->insertRecord();
+		 */
+		else if($_POST['flag'] == 'deposit')
+		{
+			// 数据检查
+			if (intval($_POST['bid']) <= 0)
+			{
+				die(json_encode(array('status'=>'error','msg'=>"参数提交错误！")));
 			}
+			$oPayport = new model_deposit_depositinfo();
+			$oPayport->getPayportData($_POST['bid'],"ccb", 1);
+			$aResult = $oPayport->getArrayData();
+			$sPrifix = $aResult['sysparam_prefix'];
+				
+			if (empty($sPrifix))
+			{
+				die(json_encode(array('status'=>'error','msg'=>"参数提交错误！")));
+			}
+				
+			// 如果是建行，必须选定建行卡
+			$iBankId = isset($_POST['bank']) ? $_POST['bank'] : "";
+			if ($sPrifix == CCB && $iBankId <= 0)
+			{
+				die(json_encode(array('status'=>'error','msg'=>"请选择绑定的银行卡！")));
+			}
+			$oUserBank = new model_withdraw_UserBank($iBankId);
+			// 检查用户绑定卡重复性
+			$oWithdrawBank = new model_withdraw_ApiWithdrawBank();
+			$oWithdrawBank->Account = $oUserBank->Account;
+			if ($oWithdrawBank->bankExistByCard() === 1 && $sPrifix == CCB)
+			{
+				die(json_encode(array('status'=>'error','msg'=>"您选择的建行卡重复绑定，请选择另一张！")));
+			}
+				
+			// 检查系统开关
+			if (intval($oConfigd->getConfigs($sPrifix . 'deposit_turnauto')) === 0)
+			{
+				die(json_encode(array('status'=>'error','msg'=>"您没有操作权限！")));
+			}
+			// 在 系统参数"禁止充值时间" 禁止充值
+			$sStartTime = strtotime($oConfigd->getConfigs($sPrifix . 'deposit_starttime')); // 充值开始时间
+			$sEndTime = strtotime($oConfigd->getConfigs($sPrifix . 'deposit_stoptime'));	  // 充值结束时间
+			$sRunNow = strtotime(date('G:i')); // 当前时间
+
+			// 获取充值延迟周期
+			$sCycle = $oConfigd->getConfigs($sPrifix . 'deposit_cycletime');
+			if (!empty($sCycle))
+			{
+				$aCycle = explode("|", $sCycle);
+				if (in_array(date("l"), $aCycle))
+				{
+					$sStartTime += intval($oConfigd->getConfigs($sPrifix . 'deposit_delaytime')) * 60;
+				}
+			}
+
+			if ($sStartTime > $sEndTime)
+			{ // 开始时间大于结束时间，说明已跨天
+				if ($sRunNow >= $sEndTime && $sRunNow <= $sStartTime)
+				{
+					die(json_encode(array('status'=>'error','msg'=>"系统结算时间,暂停充值")));
+				}
+			}
+			else
+			{
+				if ($sRunNow <= $sStartTime || $sRunNow >= $sEndTime)
+				{
+					die(json_encode(array('status'=>'error','msg'=>"系统结算时间,暂停充值")));
+				}
+			}
+
+			$fMoney = floor($_POST['amount']*100) / 100;
+			if ( $fMoney <= 0 )
+			{
+				die(json_encode(array('status'=>'error','msg'=>"您输入的充值金额有误！")));
+			}
+
+			// 根据用户身份取出用户的充值最大最小金额
+			$oCompanyCard = new model_deposit_companycard();
+			$oCompanyCard->UserId = $iUserId;
+			$oCompanyCard->BankId = $_POST['bid'];
+			$oCompanyCard->getCard("check");
+
+			$fLoadMax = 0;
+			$fLoadMin = 0;
+			if (intval($oCompanyCard->UserType) === 2)
+			{ // black
+				$fLoadMax = $oConfigd->getConfigs($sPrifix . 'deposit_blacklimitmax');
+				$fLoadMin = $oConfigd->getConfigs($sPrifix . 'deposit_blacklimitmin');
+				// 检查权限
+			}
+			else if (intval($oCompanyCard->UserType) === 1)
+			{ // vip
+				$fLoadMax = $oConfigd->getConfigs($sPrifix . 'deposit_viplimitmax');
+				$fLoadMin = $oConfigd->getConfigs($sPrifix . 'deposit_viplimitmin');
+			}
+			else
+			{ // normal
+				$fLoadMax = $oConfigd->getConfigs($sPrifix . 'deposit_limitmax');
+				$fLoadMin = $oConfigd->getConfigs($sPrifix . 'deposit_limitmin');
+			}
+
+			// 检查充值数据是否超出限额
+			if ($fMoney > $fLoadMax || $fMoney < $fLoadMin)
+			{
+				die(json_encode(array('status'=>'error','msg'=>"您输入的充值超出充值限额！")));
+			}
+
+			// 检查用户当天支付中的订单数量是否到达系统上限
+			$oDepositAllBank->UserId = $iUserId;
+			$iCount = $oDepositAllBank->getcount();
+			if ( $iCount >= $oConfigd->getConfigs('maildeposit_times') )
+			{
+				die(json_encode(array('status'=>'error','msg'=>"对不起，您今天的充值次数已达到充值上限！")));
+			}
+			unset($oEmailDeposit);
+			
+			// 通过公司卡id，获取公司分配给用户的卡号，与开卡人姓名
+			$aBankInfo = array();
+			$oPayPortInfo = new model_deposit_depositaccountinfo($oCompanyCard->PayCardId);
+			if ($oPayPortInfo->AId > 0)
+			{
+				$aBankInfo = $oPayPortInfo->getAccountData();
+			}
+				
+			// 记录下总代名称
+			$sTopproxy_name = "";
+			$aTopProxy = $oUser->getTopProxyId($iUserId,true);
+			if ($aTopProxy['userid'] == $iUserId)
+			{
+				$sTopproxy_name = $sUserName;
+			}
+			else
+			{
+				$sTopproxy_name = $aTopProxy['username'];
+			}
+			switch ($sPrifix)
+			{
+				case ICBC:
+					$oEmailDeposit = new model_deposit_emaildeposit();
+		 			$oEmailDeposit->AccountId		= $oCompanyCard->PayCardId; // 支付接口id
+		 			$oEmailDeposit->Account			= $aBankInfo['acc_bankacc']; // 收款卡账号
+		 			$oEmailDeposit->AccountName		= $aBankInfo['acc_ident'];	// 收款卡账户名
+		 			$oEmailDeposit->Key				= $_POST['order_number'];
+					break;
+				case CCB:
+					$oEmailDeposit = new model_deposit_ccbdeposit();
+		 			$oEmailDeposit->AccountId		= $iBankId; // 绑定卡id
+		 			$oEmailDeposit->Account			= $oUserBank->Account; // 汇款卡账号
+		 			$oEmailDeposit->AccountName		= $oUserBank->AccountName;	// 汇款卡账户名
+		 			$oEmailDeposit->PayACCId		= $oCompanyCard->PayCardId; // 支付接口id
+		 			$oEmailDeposit->AcceptCard		= $aBankInfo['acc_bankacc']; // 收款卡账号
+		 			$oEmailDeposit->AcceptName		= $aBankInfo['acc_ident'];	// 收款卡账户名
+		 			$oEmailDeposit->OrderNumber		= $_POST['order_number'];
+					break;
+				default:
+					die(json_encode(array('status'=>'error','msg'=>"参数提交错误")));
+			}
+			$oEmailDeposit->UserId 			= $iUserId;
+		 	$oEmailDeposit->UserName			= $sUserName;
+		 	$oEmailDeposit->TopProxyName		= $sTopproxy_name;
+		 	$oEmailDeposit->Money			= $fMoney;
+
+		 	$iLastId = $oEmailDeposit->insertRecord();
+		 	if($iLastId > 0)
+		 	{
+				die(json_encode(array('status'=>'ok')));
+		 	}
+		 	else 
+		 	{
+		 		die(json_encode(array('status'=>'error','msg'=>'系统正忙，请稍候重试！')));
+		 	}
+			EXIT;
 		}
 
 		// 取出所有充值接口列表
 		$oPayport     = new model_deposit_depositlist(array('LoadStatus' => 1),'','array');
 		$aPayportList = $oPayport->Data;
 		if (empty($aPayportList)){
-			sysMsg("对不起，您没有操作权限！", 2, $aLinks)
+			sysMsg("对不起，您没有操作权限！", 2, $aLinks);
 		}
 
 		// 循环银行列表
@@ -333,7 +540,7 @@ class controller_emaildeposit extends basecontroller{
 		}
 		 
 		if (empty($aBankInfo)){
-			sysMsg("对不起，您没有操作权限！", 2, $aLinks)
+			sysMsg("对不起，您没有操作权限！", 2, $aLinks);
 		}
 
 		// 检查用户当天支付中的订单数量是否到达系统上限

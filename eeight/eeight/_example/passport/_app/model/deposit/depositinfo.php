@@ -227,7 +227,8 @@ class model_deposit_depositinfo extends model_pay_base_info
 	 * @var int
 	 */
 	public $PayportAttr;
-	
+	public $SmsSender;
+	public $SmsRegex;
 	// 由 PayportAttr 生成的属性
 	public $PayportAttrLoad;
 	public $PayportAttrDraw;
@@ -358,6 +359,9 @@ class model_deposit_depositinfo extends model_pay_base_info
 			$this->PayportAttrDrawlist = ($this->PayportAttr & 4);
 			$this->PayportAttrQues = ($this->PayportAttr & 8);
 			$this->PayportAttrDrawhand = ($this->PayportAttr & 16);
+			
+			$this->SmsRegex = $aTmpResult['sms_regex'];
+			$this->SmsSender = $aTmpResult['sms_sender'];
 			
 	}
 	
@@ -578,7 +582,9 @@ class model_deposit_depositinfo extends model_pay_base_info
 				'payport_attr_draw' => ($this->PayportAttr & 2),
 				'payport_attr_drawlist' => ($this->PayportAttr & 4),
 				'payport_attr_ques' 	=> ($this->PayportAttr & 8),
-				'payport_attr_drawhand' => ($this->PayportAttr & 16)
+				'payport_attr_drawhand' => ($this->PayportAttr & 16),
+				'sms_sender'=>$this->SmsSender,
+				'sms_regex'=>$this->SmsRegex
 			);
 			return $aTmpArray;
 	}

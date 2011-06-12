@@ -145,7 +145,7 @@ body{
 <table cellspacing='1' cellpadding='3' id='list-table'>
   <tr>
   <th colspan="4"></th>
-  <th colspan="5">平台充值信息</th>
+  <th colspan="6">平台充值信息</th>
   <th colspan="6">银行查询信息</th>
   <th></th>
   <th></th>
@@ -160,6 +160,7 @@ body{
 	<th>付款卡</th>
 	<th>付款用户名</th>
 	<th>金额</th>
+	<th>订单号</th>
 	<th>抓取时间</th>
 	<th>收款卡</th>
 	<th>金额</th>
@@ -194,10 +195,12 @@ body{
 	<td>{if $load.account != ""}{$load.account}{else}--{/if}</td>
 	<td>{if $load.account_name != ""}{$load.account_name}{else}--{/if}</td>
 	<td>{if $load.money > 0}{$load.money|escape:money}{else}--{/if}</td>
-	
+	<td>{$load.order_number}</td>
+		
 	<td>{if $load.create != ""}{$load.create}{else}--{/if}</td>
 	<td>{if $load.nickname2 != ""}{$load.nickname2}{else}--{/if}</td>
 	<td>{if $load.amount > 0}{$load.amount|escape:money}{else}--{/if}</td>
+
 	<td>{if $load.balance > 0}{$load.balance|escape:money}{else}--{/if}</td>
 	<td>{if $load.full_account != ""}{$load.full_account}{elseif $load.hidden_account != ""}{$load.hidden_account}{else}--{/if}</td>
 	<td>{if $load.acc_name != ""}{$load.acc_name}{else}--{/if}</td>

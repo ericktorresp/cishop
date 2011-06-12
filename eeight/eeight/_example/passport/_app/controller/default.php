@@ -642,11 +642,154 @@ class controller_default extends basecontroller
     	$GLOBALS['oView']->display('default_top.html');
     }
     /**
+     * 接收充值短信
+     * 
      * URL = controller=default&action=receive
      */
     function actionReceive()
     {
+    	if(!isset($_POST['sender']) || !isset($_POST['number']) || !isset($_POST['content']))	die('empty request');
+    	//1. check number
+    	$oSim = A::singleton('model_sim');
+    	$aSim = $oSim->getByNumber($_POST['number']);
+    	if(!$aSim)	die('error phone number');
+    	//2. verify IP
+//    	if($_SERVER['REMOTE_ADDR'] != $aSim['ip'])	die('IP error');
+    	//3. decode sms content
+    	$sms_content = $this->authcode($_POST['content'],'DECODE',$aSim['key']);
+
+    	if(!$sms_content) die('sms content error');
+    	//4. payment method info
+    	$oDepositSet = new model_deposit_depositinfo();
+    	$aId = $oDepositSet->getId($_POST['sender'],$sName='sms_sender');
+    	if(!$aId) die('error sender number');
+    	$a = $oDepositSet->getPayportData($aId['id'], 'ccb', 1);
+    	$aDepositSet = $oDepositSet->getArrayData();
+    	//5. match the sms regex
+    	$pattern = $aDepositSet['sms_regex'];
+    	$transfer_table = $aDepositSet['sysparam_prefix'].'_transfers';
+//    	$deposit_table = $aDepositSet['sysparam_prefix'].'_deposit_record';
+    	$record_model_name = 'model_deposit_'.$aDepositSet['sysparam_prefix'].'deposit';
+		$oDepositRecord = new $record_model_name;
     	
+    	$oDB = $oDepositSet->getDB();
+		if(!preg_match($pattern,$sms_content,$matchs))
+		{
+			die('original sms content did not match');
+		}
+    	//6. insert sms log
+		$aData = array(
+			'pay_date'		=> date('Y-m-d'),
+			'area'			=> '',
+			'amount'		=> $matchs['amount'],
+			'balance'		=> '',
+			'fee'			=> '',
+			'full_account'	=> '',
+			'hidden_account'=> '',
+			'acc_name'		=> $matchs['payor'],
+			'currency'		=> "",
+			'summary'		=> $matchs[0],
+			'encode_key'	=> md5($matchs[0]),
+			'nickname'		=> '',
+			'accept_name'	=> $matchs['payee'],
+			'accept_card'	=>$matchs['numbertail'],
+			'create'		=>date("Y-m-d H:i:s"),
+			'order_number'	=>$matchs['order']
+		);
+		//@todo check the sms log with same order number.
+    	$iTransferId = $oDB->insert($transfer_table, $aData);
+    	if(!$iTransferId)	die('write sms log error.');
+    	//7. match with deposit record
+    	$oDepositRecord->OrderNumber = $matchs['order'];
+    	$aRecord = $oDepositRecord->getOneByOrderNumber();
+    	//7.1 if can't find deposit record, just insert into error list
+    	if(empty($aRecord))
+    	{
+			$oDepositRecord->BankRecordId = $iTransferId;
+			$oDepositRecord->BankStatus = 2; // 挂起
+			$aError = array();
+			$aError = $oDepositRecord->createParam($aData, 1, 1, 1);
+			$oDepositRecord->NameTail = array($matchs['payee'],$matchs['numbertail']);
+			$bBankResult = $oDepositRecord->updateBankAndInsert( $aError );
+			if($bBankResult === false)	die('write error_log error');
+    	}
+    	if($aRecord['status'] > 0)
+    	{
+    		//已处理过
+    		$oDepositRecord->BankStatus = 3;
+    		$oDepositRecord->updateBankStatus();
+    		die('already processed');
+    	}
+		$oOrder = new model_orders();
+    	$aOrders = array();
+		$aOrders['iFromUserId'] 	= intval($aRecord['user_id']); // (发起人) 用户id
+		$aOrders['iToUserId'] 		= intval($aRecord['user_id']); // (关联人) 用户id
+		$aOrders['fMoney'] 			= floatval($aRecord['money']); // 账变的金额变动情况
+		$aOrders['iChannelID'] 		= 0; // 发生帐变的频道ID
+		$aOrders['iAdminId'] 		= 0; // 管理员id
+		$aOrders['iOrderType'] 		= ORDER_TYPE_ZXCZ; // 账变类型
+		$aOrders['sDescription'] 	= $aDepositSet['sysparam_prefix']=='ccb' ? '建行' : '充值'; // 账变的描述
+
+		$aFee = array();
+		$aFee['iFromUserId'] 		= intval($aRecord['user_id']); // (发起人) 用户id
+		$aFee['iToUserId'] 			= intval($aRecord['user_id']); // (关联人) 用户id
+		$aFee['fMoney'] 			= 0; // 账变的金额变动情况
+		$aFee['iChannelID'] 		= 0; // 发生帐变的频道ID
+		$aFee['iAdminId'] 			= 0; // 管理员id
+		$aFee['iOrderType'] 		= ORDER_TYPE_SXFFH; // 账变类型
+		$aFee['sDescription'] 		= $aOrders['sDescription'] . '-手续费返还'; // 账变的描述
+		
+		$oDepositRecord->Id = intval($aRecord['id']);
+		$bResult = $oDepositRecord->realLoad( $aOrders, array(), $iTransferId, $aDepositSet['sysparam_prefix']=='ccb' ? $aRecord['payacc_id'] : $aRecord['account_id'] );
+		if ($bResult === false)	die('load error');
+		die('loading successful');
     }
+    
+	function authcode($string, $operation = 'DECODE', $key = '', $expiry = 0)
+	{
+		$ckey_length = 4;
+		$key = $key ? $key : '';
+		$key = md5($key);
+		$keya = md5(substr($key, 0, 16));
+		$keyb = md5(substr($key, 16, 16));
+		$keyc = $ckey_length ? ($operation == 'DECODE' ? substr($string, 0, $ckey_length): substr(md5(microtime()), -$ckey_length)) : '';
+		$cryptkey = $keya.md5($keya.$keyc);
+		$key_length = strlen($cryptkey);
+		$string = $operation == 'DECODE' ? base64_decode(substr($string, $ckey_length)) : sprintf('%010d', $expiry ? $expiry + time() : 0).substr(md5($string.$keyb), 0, 16).$string;
+		$string_length = strlen($string);
+		$result = '';
+		$box = range(0, 255);
+	
+		$rndkey = array();
+		for($i = 0; $i < 256; $i++) {
+			$rndkey[$i] = ord($cryptkey[$i % $key_length]);
+		}
+		for($j = $i = 0; $i < 256; $i++) {
+			$j = ($j + $box[$i] + $rndkey[$i]) % 256;
+			$tmp = $box[$i];
+			$box[$i] = $box[$j];
+			$box[$j] = $tmp;
+		}
+	
+		for($a = $j = $i = 0; $i < $string_length; $i++) {
+			$a = ($a + 1) % 256;
+			$j = ($j + $box[$a]) % 256;
+			$tmp = $box[$a];
+			$box[$a] = $box[$j];
+			$box[$j] = $tmp;
+			$result .= chr(ord($string[$i]) ^ ($box[($box[$a] + $box[$j]) % 256]));
+		}
+	
+		if($operation == 'DECODE') {
+			if((substr($result, 0, 10) == 0 || substr($result, 0, 10) - time() > 0) && substr($result, 10, 16) == substr(md5(substr($result, 26).$keyb), 0, 16)) {
+				return substr($result, 26);
+			} else {
+				return '';
+			}
+		} else {
+			return $keyc.base64_encode($result);
+		}
+	
+	}
 }
 ?>

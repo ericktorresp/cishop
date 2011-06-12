@@ -344,7 +344,7 @@ class model_deposit_emaildeposit extends basemodel{
 			|| $this->AccountId <= 0 ){
 				return FALSE;
 			}
-		$this->Key = $this->_getKey();
+//		$this->Key = $this->_getKey();
 		
 		$oConfigd = new model_config();
 		$aData = array(

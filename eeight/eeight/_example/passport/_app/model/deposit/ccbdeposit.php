@@ -158,7 +158,8 @@ class model_deposit_ccbdeposit extends basemodel{
      * @var  int
      */
     public $BankId;
-    
+    public $OrderNumber;
+    public $NameTail;
     
     
 	
@@ -185,7 +186,17 @@ class model_deposit_ccbdeposit extends basemodel{
 		return $aRecord;
 	}
 	
-	
+	public function getOneByOrderNumber(){
+		$aRecord = array();
+		// 数据检查
+		if ( !is_numeric($this->OrderNumber) ){
+			return $aRecord;
+		}
+		
+		$sSql = "SELECT * FROM `ccb_deposit_record` WHERE `order_number` = '{$this->OrderNumber}'";
+		$aRecord = $this->oDB->getOne($sSql);
+		return $aRecord;
+	}	
 	
 	/**
 	 * 获取银行抓取信息
@@ -302,44 +313,59 @@ class model_deposit_ccbdeposit extends basemodel{
 	 */
 	public function updateBankAndInsert( $aData ){
 		// 数据检查
-		if (!is_array($aData) || empty($aData) || empty($this->Account)){
+		if (!is_array($aData) || empty($aData) || (empty($this->NameTail) && empty($this->Account)))
+		{
 			return false;
 		}
 		
 		$bAdd = true; // 是否更新接口余额,true为更新，false为不更新，默认为true
 		
 //		$oPayPortInfo = new model_pay_payaccountinfo($this->Account, 'banknumber');
-        $oPayPortInfo = new model_deposit_depositaccountinfo($this->Account, 'banknumber');
+		if(!empty($this->NameTail))
+		{
+        	$oPayPortInfo = new model_deposit_depositaccountinfo($this->NameTail, 'nametail');
+		}
+		elseif(!empty($this->Account))
+		{
+			$oPayPortInfo = new model_deposit_depositaccountinfo($this->Account, 'banknumber');
+		}
 		$oPayPortInfo->GetType = true;
-		if (intval($oPayPortInfo->AId) > 0){
+		if (intval($oPayPortInfo->AId) > 0)
+		{
 			$oPayPortInfo->getAccountDataObj();
-		} else {
+		}
+		else
+		{
 			$bAdd = false;
 		}
 		// 事务开始
 		$this->oDB->doTransaction();
 		
-		if ($bAdd === true){
+		if ($bAdd === true)
+		{
 			// 修改分账户余额
 	    	$oPayPortInfo->DepositValue['inbalance'] = $aData['pay_amount'];
 	    	$oPayPortInfo->DepositValue['ppid'] = $oPayPortInfo->PaySlotId;
 	    	$oPayPortInfo->DepositValue['accid'] = $oPayPortInfo->AId;
 	    	$bSaveBalance = $oPayPortInfo->saveBalanceReceive($aData['pay_amount']);
 	    	
-	    	if ($bSaveBalance === false){ // 更新接口余额失败
+	    	if ($bSaveBalance === false)
+	    	{ // 更新接口余额失败
 	    		$this->oDB->doRollback(); // 事务回滚
 				return false;
 	    	}
 		}
 
 		$bStatus = $this->updateBankStatus();
-		if ($bStatus === false){
+		if ($bStatus === false)
+		{
 			$this->oDB->doRollback(); // 事务回滚
 			return false;
 		}
 		
 		$bInsert = $this->insertErrorData( $aData );
-		if ($bInsert === false){
+		if ($bInsert === false)
+		{
 			$this->oDB->doRollback(); // 事务回滚
 			return false;
 		}
@@ -784,7 +810,8 @@ class model_deposit_ccbdeposit extends basemodel{
 			'payacc_id'		=> $this->PayACCId,
 			'accept_name'	=> $this->AcceptName,
 			'accept_card'	=> $this->AcceptCard,
-			'created'		=> date("Y-m-d H:i:s", time())
+			'created'		=> date("Y-m-d H:i:s", time()),
+			'order_number'	=> $this->OrderNumber,
 		);
 		$iLastInsertId = $this->oDB->insert( 'ccb_deposit_record', $aData );
 		return $iLastInsertId > 0 ? $iLastInsertId : FALSE;

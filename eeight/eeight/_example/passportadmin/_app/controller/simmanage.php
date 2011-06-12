@@ -4,7 +4,7 @@
  * deposit_acc_set:		+sms_number[sim_id]
  * deposit_set:			+is_sms_notic, +is_sms_order_number, +sms_regex, +sender
  * user_deposit_card:	+sms_number[, +sms_key, +sms_ip]
- * [change]:
+ * [CHANGE]:
  * email_deposit_record(order):		key->order_number, +sms_number
  * icbc_transfer(ccb_transfer):		-> sms_log(银行短信记录)
  * 1. 根据玩家所分配的卡，读取卡信息以及卡所绑定的手机号，显示给用户(deposit_acc_set)
@@ -19,7 +19,7 @@
  * [EDIT]
  *
  * 1. emaildeposit_confirm.html: 去掉自动刷新
- * 2. controller/emaildeposit.php: 去掉自动写充值记录，改为用户点击提交时Ajax写入，在新窗口打开后，弹出提示层：成功/失败
+ * 2. controller/emaildeposit.php: 去掉自动写充值记录，改为用户点击提交时Ajax写入，在新窗口打开后，[弹出提示层：已完成]
  *
  * @author Floyd
  *

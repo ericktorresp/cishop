@@ -231,7 +231,7 @@ body{
 	<td>{if $load.nickname1 != ""}{$load.nickname1}{else}--{/if}</td>
 	<td>{if $load.money > 0}{$load.money|escape:money}{else}--{/if}</td>
 	<!--<td>{if $load.status != 0}{if $load.key != ""}w{$load.key}w{else}--{/if}{else}--{/if}</td>-->
-	<td>w{$load.key}w</td>
+	<td>{$load.key}</td>
 	<td>{if $load.pay_date > 0}{$load.pay_date}{else}--{/if}</td>
 	<td>{if $load.nickname2 != ""}{$load.nickname2}{else}--{/if}</td>
 	<td>{if $load.amount > 0}{$load.amount|escape:money}{else}--{/if}</td>

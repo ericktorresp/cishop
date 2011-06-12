@@ -116,6 +116,7 @@ $GLOBALS['G_CLASS_FILES']['model_deposit_recordlist'] = PRJ_MODEL_DEPOSIT_PATH .
 $GLOBALS['G_CLASS_FILES']['model_message']		= PRJ_ADMIN_MODEL_PATH . 'message.php';
 $GLOBALS['G_CLASS_FILES']['model_banksnapshot'] = PRJ_ADMIN_MODEL_PATH . 'banksnapshot.php';
 $GLOBALS['G_CLASS_FILES']['model_errordeal'] = PRJ_ADMIN_MODEL_PATH . 'errordeal.php';
+$GLOBALS['G_CLASS_FILES']['model_sim'] = PRJ_ADMIN_MODEL_PATH . 'sim.php';
 
 //Live Customer模型
 $GLOBALS['G_CLASS_FILES']['model_livecustomer']= PRJ_MODEL_PATH . DS . 'livecustomer.php';

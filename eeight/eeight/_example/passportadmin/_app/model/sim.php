@@ -15,6 +15,13 @@ class model_sim extends basemodel
 		return $this->oDB->getOne($sSql);
 	}
 	
+	public function getByNumber($number)
+	{
+		if(!$number) return FALSE;
+		if(strlen($number) != 11) return FALSE;
+		return $this->oDB->getOne('select * from sim where number="'.$number.'"');
+	}
+	
 	public function add($aData)
 	{
 		if(!is_array($aData))	return FALSE;

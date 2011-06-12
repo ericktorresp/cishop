@@ -192,6 +192,9 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 				case 'identnumber': //兼容建行 证件号码查询 其他银行可使用任意$skey代码作为 acc_bankacc 字段的查询
 					$sFiledName = 'acc_bankacc';
 					break;
+				case 'nametail':
+					$sFiledName = array('acc_ident','acc_bankacc');
+					break;
 				default:
 					$sFiledName = NULL;
 					break;			
@@ -349,7 +352,14 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 	{
 		$aRe = array();
 		if ( empty($sKey) || empty($sVal)) return FALSE;
-		$sSql = "SELECT `aid`,`ads_payport_id` FROM `$this->TableName` WHERE `$sKey`='$sVal' ORDER BY `aid` DESC LIMIT 1";
+		if(is_array($sKey) && is_array($sVal))
+		{
+			$sSql = "SELECT `aid`,`ads_payport_id` FROM `$this->TableName` WHERE `".$sKey[0]."`='".$sVal[0]."' AND `".$sKey[1]."` REGEXP '[0-9]+".$sVal[1]."' ORDER BY `aid` DESC LIMIT 1";
+		}
+		else 
+		{
+			$sSql = "SELECT `aid`,`ads_payport_id` FROM `$this->TableName` WHERE `$sKey`='$sVal' ORDER BY `aid` DESC LIMIT 1";
+		}
 		$aRe  =  $this->oDB->getOne($sSql);
 		if ( $this->oDB->errno() > 0 ) return FALSE;
 		$aRe['aid'] = isset($aRe['aid']) ? $aRe['aid'] : "";
