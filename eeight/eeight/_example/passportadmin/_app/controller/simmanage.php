@@ -18,14 +18,14 @@
  * 3.2. 解密content, 正则匹配内容，获取：{payor, payee, numbertail, amount, order_number[!is_sms_order_number(ABC)]}
  * 3.3. 写icbc_transfer(ccb_transfer)
  * 3.3. 查询email_deposit_record(ccb_deposit_record)并匹配; 成功: 更新充值记录的状态，写帐变，更新可用余额(事务);失败：记录具体原因
- * error_type: 1-附言违规，2-时间违规，3-账号违规，4-金额违规
+ * error_type: 1-订单号违规，2-时间违规，3-账号违规，4-金额违规
  *
  * added receive action to default controller
  *
  * [EDIT]
  *
- * 1. emaildeposit_confirm.html: 去掉自动刷新
- * 2. controller/emaildeposit.php: 去掉自动写充值记录，改为用户点击提交时Ajax写入，再打开窗口，[弹出提示层：已完成]
+ * 1. emaildeposit_confirm.html: 去掉自动刷新	[√]
+ * 2. controller/emaildeposit.php: 去掉自动写充值记录，改为用户点击提交时Ajax写入，再打开窗口	[√]
  *
  * @author Floyd
  *
