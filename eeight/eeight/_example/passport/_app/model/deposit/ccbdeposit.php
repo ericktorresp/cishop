@@ -3,7 +3,7 @@
 /**
  * 路径:/_app/model/emaildeposit.php
  * 功能：email充值的相关操作
- * 
+ *
  * 方法：
  * --getOneById							通过id查询记录信息
  * --getOneBankRecord					获取银行抓取信息
@@ -23,12 +23,12 @@
  * --updateAllProcess                   修改所有的待处理的记录为挂起单并写入一条异常记录(供计划任务使用）
  * --cleanErrors                        清理指定天数以前的充值异常记录,只清除处理过的记录
  * --cleanRecords                       清理指定天数之前的建行充值记录,只清理处理过的记录
- * 
- * 
- * 
+ *
+ *
+ *
  * email_deposit_record表结构
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * id 				int(10) 
+ * id 				int(10)
  * user_id 			int(10) 		用户id
  * user_name 		varchar(50)		用户名
  * topproxy_name	varchar(50)		总代名
@@ -48,8 +48,8 @@
  * deal_time		datetimeCOMMENT	管理员处理时间
  * modified			timestamp		记录修改时间
  * add_money_time	datetime		加游戏币时间
- * 
- * 
+ *
+ *
  * @author 		louis
  * @version 	v1.0
  * @since 		2010-11-22
@@ -154,12 +154,13 @@ class model_deposit_ccbdeposit extends basemodel{
     
     /**
      * 银行id
-     * 
+     *
      * @var  int
      */
     public $BankId;
     public $OrderNumber;
     public $NameTail;
+    public $SmsNumber;
     
     
 	
@@ -170,9 +171,9 @@ class model_deposit_ccbdeposit extends basemodel{
 	 * @version 	v1.0
 	 * @since 		2010-09-03
 	 * @package 	passport
-	 * 
-	 * 
-	 * 
+	 *
+	 *
+	 *
 	 */
 	public function getOneById(){
 		$aRecord = array();
@@ -196,7 +197,7 @@ class model_deposit_ccbdeposit extends basemodel{
 		$sSql = "SELECT * FROM `ccb_deposit_record` WHERE `order_number` = '{$this->OrderNumber}'";
 		$aRecord = $this->oDB->getOne($sSql);
 		return $aRecord;
-	}	
+	}
 	
 	/**
 	 * 获取银行抓取信息
@@ -205,9 +206,9 @@ class model_deposit_ccbdeposit extends basemodel{
 	 * @version 	v1.0
 	 * @since 		2010-11-22
 	 * @package 	passport
-	 * 
+	 *
 	 * @return 		array
-	 * 
+	 *
 	 */
 	public function getOneBankRecord(){
 		$aResult = array();
@@ -231,7 +232,7 @@ class model_deposit_ccbdeposit extends basemodel{
 	 * @package 	passport
 	 *
 	 * @return 		array
-	 *  
+	 *
 	 */
 	public function getLastRecords(){
 		$aResult = array();
@@ -253,9 +254,9 @@ class model_deposit_ccbdeposit extends basemodel{
 	 * @version 	v1.0
 	 * @since 		2010-11-22
 	 * @package 	passport
-	 * 
+	 *
 	 * @return 		array			$aResult			// 记录集
-	 * 
+	 *
 	 */
 	public function getBankRecord(){
 		$sWhere = "";
@@ -269,18 +270,18 @@ class model_deposit_ccbdeposit extends basemodel{
 	
 	/**
 	 * 获取用户充值未处理的记录信息
-	 * 
+	 *
 	 * @author 		louis
-	 * @version 	v1.0	
+	 * @version 	v1.0
 	 * @since 		2010-11-22
 	 * @return 		array		$aResult
 	 * @package 	passport
-	 * 
+	 *
 	 */
 	public function getRecord() {
 		$aResult = array();
 		// 数据检查
-		if (floatval($this->Amount) <= 0 || (empty($this->Account) && empty($this->HiddenAccount)) || empty($this->AccName) || 
+		if (floatval($this->Amount) <= 0 || (empty($this->Account) && empty($this->HiddenAccount)) || empty($this->AccName) ||
 			empty($this->AcceptName) || empty($this->AcceptCard) || empty($this->PayDate)){
 			return false;
 		}
@@ -307,9 +308,9 @@ class model_deposit_ccbdeposit extends basemodel{
 	 * @version 	v1.0
 	 * @since 		2010-11-22
 	 * @package 	passport
-	 * 
+	 *
 	 * @return 		boolean
-	 * 
+	 *
 	 */
 	public function updateBankAndInsert( $aData ){
 		// 数据检查
@@ -384,9 +385,9 @@ class model_deposit_ccbdeposit extends basemodel{
 	 * @version 	v1.0
 	 * @since 		2010-11-22
 	 * @package 	passport
-	 * 
-	 * @return 		boolean			
-	 * 
+	 *
+	 * @return 		boolean
+	 *
 	 */
 	public function updateBankStatus(){
 		if (!is_numeric($this->BankStatus) || !is_numeric($this->BankRecordId) || $this->BankRecordId <= 0)			return false;
@@ -406,9 +407,9 @@ class model_deposit_ccbdeposit extends basemodel{
 	 * @version 	v1.0
 	 * @since 		2010-09-22
 	 * @package 	passport
-	 * 
+	 *
 	 * @return 		boolean
-	 * 
+	 *
 	 */
 	public function insertErrorData( $aData ){
 		// 数据检查
@@ -425,7 +426,7 @@ class model_deposit_ccbdeposit extends basemodel{
 	
 	/**
 	 * 组成写入异常充值列表的数据
-	 * 
+	 *
 	 * @param 		array		$value			// 数据内容
 	 * @param 		int			$style			// 封闭类型
 	 * 											   1为修改银行抓取信息为挂起状态时写入异常表的数据
@@ -433,12 +434,12 @@ class model_deposit_ccbdeposit extends basemodel{
 	 * 											   3为同时修改平台充值记录和银行抓取记录为挂起状态时写入异常表的数据
 	 * @param 		int			$error_type		// 违规类型，根据各银行表的定义有所不同
 	 * @param 		int			$status			// 记录状态，根据各银行表的定义有所不同
-	 * 
+	 *
 	 * @author 		louis
 	 * @version 	v1.0
 	 * @since 		2010-11-22
 	 * @package 	passport
-	 * 
+	 *
 	 * @return 		array
 	 *
 	 */
@@ -482,18 +483,18 @@ class model_deposit_ccbdeposit extends basemodel{
 	 *
 	 * @param 		array			$value			// 银行抓取信息
 	 * @param 		int				$id				// 平台充值申请记录id
-	 * 
+	 *
 	 * @author 		louis
 	 * @version 	v1.0
 	 * @since 		2010-11-22
 	 * @package 	passport
-	 * 
+	 *
 	 * @return 		int				0为未违规，1为时间违规，2为付款账号违规，3为付款户名违规，4为收款账户违规，5为金额违规
-	 * 
+	 *
 	 */
 	public function getWrondStyle($value, $id){
 		//  数据检查
-		if (empty($value['pay_date']) || (empty($value['full_account']) && empty($value['hidden_account'])) || 
+		if (empty($value['pay_date']) || (empty($value['full_account']) && empty($value['hidden_account'])) ||
 			empty($value['acc_name']) || empty($value['accept_card']) || floatval($value['amount']) <= 0){
 			return false;
 		}
@@ -532,12 +533,12 @@ class model_deposit_ccbdeposit extends basemodel{
 	 * @param string $account				// 账号
 	 * @param int	 $style					// 1为返回隐藏后的卡号，2为返回拆开后的数组
 	 * @return string						// 隐藏后的账号
-	 * 
+	 *
 	 * @author 		louis
 	 * @version 	v1.0
 	 * @since 		2010-11-22
 	 * @package 	passport
-	 * 
+	 *
 	 */
     public function hidAccount( $account, $style = 1){
     	$sFront = substr($account, 0, strlen($account) - HIDDEN_LENGTH - LEAVE_LENGTH);
@@ -562,9 +563,9 @@ class model_deposit_ccbdeposit extends basemodel{
 	 * @version 	v1.0
 	 * @since 		2010-11-22
 	 * @package 	passport
-	 * 
+	 *
 	 * @return 		boolean
-	 * 
+	 *
 	 */
 	public function unionUpdate( $aData = array() ){
 		if (!is_numeric($this->Status) || !is_numeric($this->BankStatus) || empty($this->Account))			return false;
@@ -638,14 +639,14 @@ class model_deposit_ccbdeposit extends basemodel{
 	
 	/**
 	 * 修改充值记录的状态
-	 * 
+	 *
 	 * @author 		louis
 	 * @version 	v1.0
 	 * @since 		2010-11-22
 	 * @package 	passport
-	 * 
+	 *
 	 * @return 		boolean
-	 * 
+	 *
 	 */
 	public function updateStatus(){
 		// 数据检查
@@ -684,9 +685,9 @@ class model_deposit_ccbdeposit extends basemodel{
 	 * @version 	v1.0
 	 * @since 		2010-11-22
 	 * @package 	passport
-	 * 
-	 * @return 		
-	 * 
+	 *
+	 * @return
+	 *
 	 */
 	public function realLoad( $aOrders, $aFee = array(), $recordId = 0, $acc_id = 0 ){
 		// 数据检查
@@ -781,20 +782,20 @@ class model_deposit_ccbdeposit extends basemodel{
 	
 	/**
 	 * 写入充值申请记录
-	 * 
+	 *
 	 * @author 		louis
 	 * @version 	v1.0
 	 * @since 		2010-11-23
 	 * @package 	passort
-	 * 
+	 *
 	 * @return 		int				$iLastInsertId;
-	 * 
+	 *
 	 */
 	public function insertRecord(){
 		// 数据检查
 		if ( !is_numeric( $this->UserId ) || $this->UserId <= 0 || empty( $this->UserName ) || !is_float( $this->Money )
-			|| $this->Money <= 0 || empty( $this->Account ) || empty( $this->AccountName ) || !is_numeric( $this->AccountId) 
-			|| $this->AccountId <= 0 || !is_numeric($this->PayACCId) || $this->PayACCId <= 0 || empty($this->AcceptCard) || 
+			|| $this->Money <= 0 || empty( $this->Account ) || empty( $this->AccountName ) || !is_numeric( $this->AccountId)
+			|| $this->AccountId <= 0 || !is_numeric($this->PayACCId) || $this->PayACCId <= 0 || empty($this->AcceptCard) ||
 				empty($this->AcceptName)){
 				return FALSE;
 			}
@@ -812,6 +813,7 @@ class model_deposit_ccbdeposit extends basemodel{
 			'accept_card'	=> $this->AcceptCard,
 			'created'		=> date("Y-m-d H:i:s", time()),
 			'order_number'	=> $this->OrderNumber,
+			'sms_number'	=> $this->SmsNumber;
 		);
 		$iLastInsertId = $this->oDB->insert( 'ccb_deposit_record', $aData );
 		return $iLastInsertId > 0 ? $iLastInsertId : FALSE;
@@ -827,10 +829,10 @@ class model_deposit_ccbdeposit extends basemodel{
 	 * @version 	v1.0
 	 * @since 		2010-12-10
 	 * @package 	passport
-	 * 
+	 *
 	 * @return 		mix					true			// 执行成功
 	 * 									$iError			// 失败的条数
-	 * 
+	 *
 	 */
 	public function updateAllProcess(){
 		$aResult = array();
@@ -907,9 +909,9 @@ class model_deposit_ccbdeposit extends basemodel{
 	 * @version 	v1.0
 	 * @since 		2010-12-12
 	 * @package 	passport
-	 * 
+	 *
 	 * @return 		boolean
-	 * 
+	 *
 	 */
 	public function cleanErrors(){
 		// 数据检查
@@ -936,9 +938,9 @@ class model_deposit_ccbdeposit extends basemodel{
 	 * @version 	v1.0
 	 * @since 		2010-12-12
 	 * @package 	passport
-	 * 
+	 *
 	 * @return 		boolean
-	 * 
+	 *
 	 */
 	public function cleanRecords(){
 		// 数据检查
@@ -959,14 +961,14 @@ class model_deposit_ccbdeposit extends basemodel{
     
     /**
      * 修改建行虚拟贡列表上一次抓取到的页码
-     * 
+     *
      * @author      louis
      * @version     v1.0
      * @since       2010-12-12
      * @package     passport
-     * 
+     *
      * @return      boolean
-     * 
+     *
      */
     public function updatePage(){
         // 数据检查

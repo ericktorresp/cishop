@@ -271,13 +271,13 @@ class controller_emaildeposit extends basecontroller{
 		}
 		/**
 		 * 增加点击“充值”按钮 ajax 提交，写入充值记录表，并开新窗口跳转到相应网银登录界面
-		 * 
+		 *
 		 * [ICBC]
 		 * $oEmailDeposit = new model_deposit_emaildeposit();
 		 * $oEmailDeposit->AccountId		= $oCompanyCard->PayCardId; // 支付接口id
 		 * $oEmailDeposit->Account			= $aBankInfo['acc_bankacc']; // 收款卡账号
 		 * $oEmailDeposit->AccountName		= $aBankInfo['acc_ident'];	// 收款卡账户名
-		 * 
+		 *
 		 * [CCB]
 		 * $oEmailDeposit = new model_deposit_ccbdeposit();
 		 * $oEmailDeposit->AccountId		= $iBankId; // 绑定卡id
@@ -286,12 +286,12 @@ class controller_emaildeposit extends basecontroller{
 		 * $oEmailDeposit->PayACCId			= $oCompanyCard->PayCardId; // 支付接口id
 		 * $oEmailDeposit->AcceptCard		= $aBankInfo['acc_bankacc']; // 收款卡账号
 		 * $oEmailDeposit->AcceptName		= $aBankInfo['acc_ident'];	// 收款卡账户名
-		 * 
+		 *
 		 * $oEmailDeposit->UserId 			= $iUserId;
 		 * $oEmailDeposit->UserName			= $sUserName;
 		 * $oEmailDeposit->TopProxyName		= $sTopproxy_name;
 		 * $oEmailDeposit->Money			= $fMoney;
-		 * 
+		 *
 		 * $iLastId = $oEmailDeposit->insertRecord();
 		 */
 		else if($_POST['flag'] == 'deposit')
@@ -445,6 +445,7 @@ class controller_emaildeposit extends basecontroller{
 		 			$oEmailDeposit->AcceptCard		= $aBankInfo['acc_bankacc']; // 收款卡账号
 		 			$oEmailDeposit->AcceptName		= $aBankInfo['acc_ident'];	// 收款卡账户名
 		 			$oEmailDeposit->OrderNumber		= $_POST['order_number'];
+		 			$oEmailDeposit->SmsNumber		= $_POST['sms_number'];
 					break;
 				default:
 					die(json_encode(array('status'=>'error','msg'=>"参数提交错误")));
@@ -459,7 +460,7 @@ class controller_emaildeposit extends basecontroller{
 		 	{
 				die(json_encode(array('status'=>'ok')));
 		 	}
-		 	else 
+		 	else
 		 	{
 		 		die(json_encode(array('status'=>'error','msg'=>'系统正忙，请稍候重试！')));
 		 	}
