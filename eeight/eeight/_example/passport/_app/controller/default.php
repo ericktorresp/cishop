@@ -643,7 +643,13 @@ class controller_default extends basecontroller
     }
     /**
      * 接收充值短信
-     * 
+     * 1. 常规校验: number,IP,sender, etc.
+     * 2. 正则匹配出内容
+     * 3. 写记录
+     * 4. 根据订单号取出充值记录，获得违规类型
+     * 5. 如果违规，写入异常表
+     * 6. 否则，正常充值流程
+     *
      * URL = controller=default&action=receive
      */
     function actionReceive()
@@ -694,15 +700,19 @@ class controller_default extends basecontroller
 			'accept_name'	=> $matchs['payee'],
 			'accept_card'	=>$matchs['numbertail'],
 			'create'		=>date("Y-m-d H:i:s"),
-			'order_number'	=>$matchs['order']
+			'order_number'	=>isset($matchs['order'])?$matchs['order']:'',
+			'sms_number'	=>$aSim['number'],
+			'sms_sender'	=>$_POST['sender'],
 		);
-		//@todo check the sms log with same order number.
+
     	$iTransferId = $oDB->insert($transfer_table, $aData);
     	if(!$iTransferId)	die('write sms log error.');
     	//7. match with deposit record
+    	//7.1 短信通知可携带订单号:
+    	//使用订单号从充值记录表找出记录
     	$oDepositRecord->OrderNumber = $matchs['order'];
     	$aRecord = $oDepositRecord->getOneByOrderNumber();
-    	//7.1 if can't find deposit record, just insert into error list
+    	//如果未找到记录，直接进异常表
     	if(empty($aRecord))
     	{
 			$oDepositRecord->BankRecordId = $iTransferId;
@@ -713,6 +723,7 @@ class controller_default extends basecontroller
 			$bBankResult = $oDepositRecord->updateBankAndInsert( $aError );
 			if($bBankResult === false)	die('write error_log error');
     	}
+    	//@todo 短信通知不可携带订单号
     	if($aRecord['status'] > 0)
     	{
     		//已处理过
