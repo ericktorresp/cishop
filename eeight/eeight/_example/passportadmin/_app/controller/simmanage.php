@@ -1,14 +1,15 @@
 <?php
 /**
  * 主表 [sim]
- * 
+ *
  * 关联表
  * deposit_acc_set:		+sms_number
  * deposit_set:			+sms_regex, +sms_sender[, +is_sms_notic, +is_sms_order_number]
  * user_deposit_card:	[+sms_number, +sms_key, +sms_ip]
- * 
+ * ccb_deposit_record:	+sms_number
+ *
  * [CHANGE]:
- * 
+ *
  * email_deposit_record(order):		[key->order_number, +sms_number]
  * icbc_transfer(ccb_transfer):		sms_log(银行短信记录)
  * 1. 根据玩家所分配的卡，读取卡信息以及卡所绑定的手机号，显示给用户(deposit_acc_set)
@@ -20,7 +21,7 @@
  * error_type: 1-附言违规，2-时间违规，3-账号违规，4-金额违规
  *
  * added receive action to default controller
- * 
+ *
  * [EDIT]
  *
  * 1. emaildeposit_confirm.html: 去掉自动刷新
