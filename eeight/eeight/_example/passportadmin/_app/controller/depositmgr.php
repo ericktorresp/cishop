@@ -964,7 +964,8 @@ class controller_depositmgr extends basecontroller
 		$iPayAccountId = (isset($_REQUEST["payaccountid"]) && is_numeric($_REQUEST["payaccountid"])) ? intval($_REQUEST["payaccountid"]) : 0;
 		$aLocation  = array(0 => array('text'=>'查看:受付银行列表','href'=>url('depositmgr','list')));
 		 
-		if ($iPayAccountId == 0) {
+		if ($iPayAccountId == 0) 
+		{
 			sysMessage('失败:ID丢失', 1, $aLocation);
 			exit;
 		}
@@ -977,16 +978,20 @@ class controller_depositmgr extends basecontroller
 			exit;
 		}
 			
-		if ($oPayAcc->IsEnable != 1){
-			if ($oPayAcc->delete()){
+		if ($oPayAcc->IsEnable != 1)
+		{
+			if ($oPayAcc->delete())
+			{
 				sysMessage('成功:删除银行账户', 0, $aLocation);
 			}
-			else{
+			else
+			{
 				sysMessage('失败', 1, $aLocation);
 			}
 		}
-		else{
-			sysMessage('失败:此银行账户已被激活,不能删除', 1, $aLocation)
+		else
+		{
+			sysMessage('失败:此银行账户已被激活,不能删除', 1, $aLocation);
 		}
 			
 	}
