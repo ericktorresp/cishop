@@ -290,6 +290,11 @@ checkme = function() {
 	<span id="noticereceive" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">回传接收域名(若此项有值,则将覆盖支付接口的接收域名配置) 默认留空</span></td>
 </tr>
 -->
+<tr>
+	<td class="narrow-label">短信通知号码:</td>
+	<td><input id="sms_number" name="sms_number" size="40" value="{$PayAccountDetail.sms_number|escape:html}" maxlength=20 onClick="javascript:resetOut('sms_number')"><span id="rOut_sms_number"></span>
+            <br /><span id="noticeident" style="display:{if $flag == update}none{else}block{/if};color:#AAAAAA;font-size:13px">录入短信通知接收号码</span></td>
+</tr>
 {if $flag == update}
 <tr>
 	<td class="narrow-label">状态:</td>

@@ -1,22 +1,22 @@
 <?php
 /**
  *  银行接口分账户 信息类
- * 
+ *
  *  已知ID的银行接口分账户信息 (可传入程序用名称获取信息)
  *  修改、添加、删除(逻辑)、日志
- *  
+ *
  * @name 	depositAccountInfo.php
  * @package deposit
  * @version 0.1 11/16/2010
  * @author 	Jim
- * 
+ *
  */
 
-class model_deposit_depositaccountinfo extends model_deposit_depositinfo 
+class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 {
 
 	/**
-	 * 银行接口 账户ID	
+	 * 银行接口 账户ID
 	 * @var int
 	 */
 	public $AId;
@@ -30,32 +30,32 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 	/**
 	 * 商家ID
 	 * @var string
-	 */		
+	 */
 	public $AccIdent;
 	
 	/**
 	 * 商家KEYS
 	 * @var string
-	 */					
+	 */
 	public $AccKey;
 
-	/** 
+	/**
 	 * 商家SITEID  兼容  工行:银行账户/电子邮件 建行:证件号码
 	 * @var string
-	 */				
-	public $AccBankAcc;	
+	 */
+	public $AccBankAcc;
 
 	/**
 	 * 商家EMAIL
 	 * @var string
-	 */				
-	public $AccMail;	
+	 */
+	public $AccMail;
 
 	/**
 	 * 分账户功能配置
 	 * @var int
 	 *  即 系统使用接口的何种属性， 充值 提现 查询(掉单处理)
-	 */				
+	 */
 	public $AccAttr;
 
 	/**
@@ -91,7 +91,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 	/**
 	 * 提现次数
 	 * @var int
-	 */	
+	 */
 	public $TotalDraw;
 	/**
 	 * 流量限制值
@@ -101,21 +101,21 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 	/**
 	 * 所属支付接口ID
 	 * @var int
-	 */	
+	 */
 	public $PaySlotId;
 
 	/**
 	 * 所属支付接口程序使用名称
 	 * @var string
 	 */
-	public $PaySlotName;	
+	public $PaySlotName;
 	/**
 	 * 回传接收域名
 	 * @var string (默认为空使用payport->ReceiveHost 的信息 )
 	 */
 	public $AccReceiveHost;
 	/**
-	 * 注册时间 (账户在第三方平台注册时间) 
+	 * 注册时间 (账户在第三方平台注册时间)
 	 * @var date
 	 */
 	public $RegTime;
@@ -124,7 +124,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 	 * 有效时间截止日 (按月算)  [暂不使用]
 	 * @var int
 	 */
-	public $ValidTime;	
+	public $ValidTime;
 
 	/**
 	 * 启用时间
@@ -159,17 +159,17 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 	
 	/**
 	 * 输入参数
-	 * @var array('acc_name') 
+	 * @var array('acc_name')
 	 */
 	public $InputArray;
     
     /**
      * 银行卡所属地区
-     * 
+     *
      * @var string
      */
     public $Area;
-	
+	public $SmsNumber;
 	/**
 	 * 构造
 	 * @param int $iPayAccId 接口分账户id
@@ -197,7 +197,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 					break;
 				default:
 					$sFiledName = NULL;
-					break;			
+					break;
 			}
 			$aTmpresult = $this->getPayportIdByKey($sFiledName,$iPayAccId);
 			if ($aTmpresult === FALSE)
@@ -229,7 +229,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 		if ( !empty($iPayAccId) ) {
 			
 			
-			if (  empty($this->Id) || empty($this->SysParamPrefix)  || empty($this->PayportName)   
+			if (  empty($this->Id) || empty($this->SysParamPrefix)  || empty($this->PayportName)
 				 )
 				{
 				  	 //关键信息不足 终止程序;
@@ -278,8 +278,8 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 		$this->AccName 		= trim($aTmp['acc_name']);
 		$this->AccIdent 	= trim($aTmp['acc_ident']);
 		$this->AccKey 		= trim($aTmp['acc_key']);
-		$this->AccBankAcc 	= trim($aTmp['acc_bankacc']);	
-		$this->AccMail 		= trim($aTmp['acc_mail']);	
+		$this->AccBankAcc 	= trim($aTmp['acc_bankacc']);
+		$this->AccMail 		= trim($aTmp['acc_mail']);
 		$this->AccAttr 		= $aTmp['acc_attr'];
 		$this->AccAttrLoad  = $aTmp['payport_attr_load'];
 		$this->AccAttrDraw  = $aTmp['payport_attr_draw'];
@@ -290,10 +290,10 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 		$this->Balance 		= $aTmp['balance'];
 		$this->BalanceLimit = $aTmp['balance_limit'];
 		$this->PaySlotId 		= $aTmp['ads_payport_id'];
-		$this->PaySlotName 		= $aTmp['ads_payport_name'];	
+		$this->PaySlotName 		= $aTmp['ads_payport_name'];
 		$this->AccReceiveHost 	= $aTmp['acc_receive_host'];
 		$this->RegTime 		= $aTmp['reg_time'];
-		$this->ValidTime 	= $aTmp['valid_time'];	
+		$this->ValidTime 	= $aTmp['valid_time'];
 		$this->OpenTime 	= $aTmp['open_time'];
 		$this->IsEnable 	= $aTmp['isenable'];
 		// TODO: isenable 有时变为 string ,使判断错误
@@ -309,7 +309,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 	
 	/**
 	 * 按payport_name 得到 aid 与 payport_id
-	 * 
+	 *
 	 */
 	public function getPayPortIdbyName($sPayName){
 		$sSql = "SELECT `aid`,`ads_payport_id` FROM ".$this->TableName." WHERE `ads_payport_name`='".$sPayName."'";
@@ -326,7 +326,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 	
 	/**
 	 * 获取所属支付接口ID
-	 * 
+	 *
 	 */
 	public function getPayPortId($iPayAccId){
 		$aRe['ads_payport_id'] = '';
@@ -342,10 +342,10 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 	
 	/**
 	 * 获取指定KEY=VAL查询得到的支付接口ID payport_id 与 分账户ID  aid
-	 * 
+	 *
 	 * @param string 	$skey 数据表对应字段
 	 * @param string	$sval 查询数据
-	 * 
+	 *
 	 * @return array	aid,ads_payport_id
 	 */
 	public function getPayportIdByKey($sKey,$sVal)
@@ -356,7 +356,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 		{
 			$sSql = "SELECT `aid`,`ads_payport_id` FROM `$this->TableName` WHERE `".$sKey[0]."`='".$sVal[0]."' AND `".$sKey[1]."` REGEXP '[0-9]+".$sVal[1]."' ORDER BY `aid` DESC LIMIT 1";
 		}
-		else 
+		else
 		{
 			$sSql = "SELECT `aid`,`ads_payport_id` FROM `$this->TableName` WHERE `$sKey`='$sVal' ORDER BY `aid` DESC LIMIT 1";
 		}
@@ -373,7 +373,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 	
 	/**
 	 * 获取同一支付接口下的所有accout id
-	 * 
+	 *
 	 * @param $iId		int		id值
 	 * @param $sType	string	id值的含义,(payport支付接口ID 或 account分账户ID)
 	 */
@@ -385,7 +385,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 			$iPayportid = $this->getPayPortId( intval($iId) );
 			
 		}
-		else 
+		else
 		{
 			$iPayportid = $iId;
 			
@@ -397,7 +397,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 		{
 			return FALSE;
 		}
-		else 
+		else
 		{
 			return $aResult;
 		}
@@ -406,7 +406,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 	
 	/**
 	 * 设置（更新）内容
-	 * 
+	 *
 	 * @return bool
 	 */
 	public function set(){
@@ -419,7 +419,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 		
 		// 更新
 		$aTempData = array();
-		$aTempData = array( 
+		$aTempData = array(
 				'acc_name'  => $this->AccName,
 				'acc_ident' => $this->AccIdent,
 				'acc_key' 	=> $this->AccKey,
@@ -430,6 +430,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 				'acc_attr'  => $this->AccAttr,
 				'acc_currency' 	   => $this->AccCurrency,
 				'acc_receive_host' => $this->AccReceiveHost,
+				'sms_number'	=> $this->SmsNumber,
 				'utime' => date('Y-m-d H:i:s')
 				);
 		
@@ -442,13 +443,13 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 			$sCond = '';
 			$sCond = ' `aid`='.$this->AId;
 			foreach ($aTempData AS $sKey => $sVal){
-				if (!empty($sVal)) $sUpset .= "`".$sKey."`='".$sVal."',"; 	
+				if (!empty($sVal)) $sUpset .= "`".$sKey."`='".$sVal."',";
 			}
 			
-			$sSql = "UPDATE ".$this->TableName." set ".substr($sUpset,0,-1)." WHERE ".$sCond;	
+			$sSql = "UPDATE ".$this->TableName." set ".substr($sUpset,0,-1)." WHERE ".$sCond;
 			
 			// 冗余修改SQL
-			if ( ($this->InputArray['acc_name'] != $this->AccName) 
+			if ( ($this->InputArray['acc_name'] != $this->AccName)
 				|| ($this->InputArray['acc_ident'] != $this->AccIdent)
 				|| ($this->InputArray['acc_mail'] != $this->AccMail) )  {
 
@@ -457,7 +458,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 				
 				$this->oDB->query($sSql);
 				if( $this->oDB->errno() > 0 ){
-					$this->oDB->doRollback(); 
+					$this->oDB->doRollback();
 					return false;
 				}
 			
@@ -521,7 +522,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 		$sCond = '';
 		// 仅在第一次激活时更新
 		if ($this->OpenTime <= 0){
-			$aTempData = array( 
+			$aTempData = array(
 				'open_time' => date('Y-m-d H:i:s'),
 				'utime' 	=> date('Y-m-d H:i:s')
 				);
@@ -535,7 +536,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 	
 	/**
 	 * 新增分账户 (默认可用)
-	 * 
+	 *
 	 *@return int lastInsertID
 	 */
 	public function add(){
@@ -552,7 +553,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
                                                                     return false;
         if ( $this->SrcBalance < 0 )                                return false;
 
-		$aTempData = array( 
+		$aTempData = array(
                     'acc_name'  => $this->AccName,
                     'acc_ident' => $this->AccIdent,
                     'acc_key'   => $this->AccKey,
@@ -575,7 +576,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
                     'isenable' 	=> intval('0'),
                     'utime' 	=> date('Y-m-d H:i:s'));
             if (  $this->checkArrayValue($aTempData,
-			array( 'area','branch_id','acc_attr','acc_currency','srcbalance', 'inbalance', 'outbalance', 'balance','balance_limit','ads_payport_id','ads_payport_name','acc_receive_host', 'acc_receive_host', 'valid_time','isenable') 
+			array( 'area','branch_id','acc_attr','acc_currency','srcbalance', 'inbalance', 'outbalance', 'balance','balance_limit','ads_payport_id','ads_payport_name','acc_receive_host', 'acc_receive_host', 'valid_time','isenable')
 				)  )
             {
         	$this->oDB->doTransaction();
@@ -584,7 +585,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
         		// 初始化 余额 充提次数记录多线程表
 			if ( $this->initBalanceTable($result, floatval($this->SrcBalance) ) ){
 				$this->oDB->doCommit();
-				return true;        	
+				return true;
 			}else{
 				$this->oDB->doRollback();
 				return false;
@@ -640,13 +641,13 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 	 *
 	 * @param int $iAmount
 	 * @param bool $sType	支付接口回调程序调用时为false,其他默认true
-	 * 
+	 *
 	 * @return bool
 	 */
 	public function saveBalance($iAmount=0,$sType=true){
 		if (($iAmount == 0) && !is_numeric($iAmount) ) 			return false;
 		// 0-4  5线程记录
-        $iThreadId = intval( substr($this->oDB->getThreadId(), -1) ) % 5;  
+        $iThreadId = intval( substr($this->oDB->getThreadId(), -1) ) % 5;
         if ( is_numeric($iThreadId) ){
         	$sSql0 = ' ';
         	// 后台余额修正不记充提次数
@@ -728,7 +729,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
     			if ( $oDeposit->add() <= 0 )
     			{
 	    			$this->oDB->doRollback();
-	    			return false;		
+	    			return false;
     			}
     		
         		$this->oDB->doCommit();
@@ -748,9 +749,9 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 	/**
 	 *  更新余额,仅供其他方法、程序调用
 	 * 		(不含事务)
-	 * 
+	 *
 	 * @param $iAmount	涉及金额
-	 * 
+	 *
 	 * @return bool
 	 */
 	public function saveBalanceReceive($iAmount=0){
@@ -788,9 +789,9 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
     				
     	if ( $oDeposit->add() <= 0 )
     	{
-	    	return false;		
+	    	return false;
     	}
-    	else 
+    	else
     	{
         	return true;
     	}
@@ -799,10 +800,10 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 	}
 	
 	/**
-	 * 记录 balance操作日志 
-	 * 
+	 * 记录 balance操作日志
+	 *
 	 * @param  array   $aLogs(text/日志内容 amount 涉及金额)
-	 * @param bool $bSilent 是否安静模式记录,(默认安静) 
+	 * @param bool $bSilent 是否安静模式记录,(默认安静)
 	 */
 	public function saveBalanceLogs($aLogs,$bSilent=true){
 		
@@ -845,7 +846,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 	/**
 	 * 获取余额统计,并更新到 分账户表
 	 *
-	 * @param  $bReturn 默认:false, 可选:true 返回合值数组 array(balance,totalload,totaldraw)	
+	 * @param  $bReturn 默认:false, 可选:true 返回合值数组 array(balance,totalload,totaldraw)
 	 */
 	public function getBalance($bReturn=false){
 		$sSql = "SELECT sum(balance) AS totalbalance,sum(load_time) AS totalload, sum(draw_time) AS totaldraw FROM `$this->BalanceTable` WHERE `payport_id`=$this->PaySlotId AND `acc_id`=$this->AId";
@@ -855,7 +856,7 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 		$this->TotalDraw = $fTtl['totaldraw'];
 		
 		//更新到分账户表相应字段
-		$aTempData = array( 
+		$aTempData = array(
 				'balance' 		=> floatval( $this->Balance ),
 				'total_load' 	=> intval( $this->TotalLoad ),
 				'total_draw' 	=> intval( $this->TotalDraw ),
@@ -1025,17 +1026,17 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 					return false;
 				}
 		}else{
-			return false;			
+			return false;
 		}
 	}
 	
 	
 	/**
-	 * ICONV 函数 
+	 * ICONV 函数
 	 *
 	 * @param string $str	待转换的字符
 	 * @param string $tag	转换方向,默认out为从UTF-8转为 $this->LangCode字符， 否则为从$this->LangCode 字符转换为utf-8
-	 * 
+	 *
 	 * @return string
 	 */
 	public function myIconv($str,$tag='out'){
@@ -1124,14 +1125,14 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
 	 * 检测一组ID是否有效  (未用)
 	 *
 	 * @param array $aId 一组account id,
-	 * 
+	 *
 	 * @return array() 处于激活状态的account id
 	 */
 	public function multiCheckIsEnable($aId){
 		if( !is_array($aId) ) return false;
 		
 		foreach ($aId AS $Id){
-			$sOrWhere .= ' `aid`='.$Id.' OR'; 
+			$sOrWhere .= ' `aid`='.$Id.' OR';
 		}
 		$sAndWhere = ' AND `isenable`=1';
 		$sSql = 'SELECT aid FROM '.$this->TableName.' WHERE ('.substr($sOrWhere,0,-2).')'.$sAndWhere;
