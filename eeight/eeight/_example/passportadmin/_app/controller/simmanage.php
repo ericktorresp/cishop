@@ -1,13 +1,16 @@
 <?php
 /**
  * 主表 [sim]
- *
+ * @TODO sim_add: automatic generate number's key
+ * 
+ * @TODO deposit_acc_set_add: drop down sim list.
+ * 
  * 关联表
- * deposit_acc_set:		+sms_number
+ * deposit_acc_set:		+sms_number														[√]
  * deposit_set:			+sms_regex, +sms_sender[, +is_sms_notic, +is_sms_order_number]
  * user_deposit_card:	[+sms_number, +sms_key, +sms_ip]
- * ccb_deposit_record:	+sms_number
- * ccb_transfers		+sms_number, +sms_sender
+ * ccb_deposit_record:	+sms_number, +order_number										[√]
+ * ccb_transfers		+sms_number, +sms_sender										[√]
  *
  * 1. 根据玩家所分配的卡，读取卡信息以及卡所绑定的手机号，显示给用户(deposit_acc_set)
  * 2. 玩家提交充值请求后，系统写入 email_deposit_record(ccb_deposit_record): key(order_number),pay_acc_id(如果该行不支持附言)
@@ -21,8 +24,8 @@
  *
  * [EDIT]
  *
- * 1. emaildeposit_confirm.html: 去掉自动刷新	[√]
- * 2. controller/emaildeposit.php: 去掉自动写充值记录，改为用户点击提交时Ajax写入，再打开窗口	[√]
+ * 1. emaildeposit_confirm.html: 去掉自动刷新												[√]
+ * 2. controller/emaildeposit.php: 去掉自动写充值记录，改为用户点击时Ajax写入，再打开窗口		[√]
  *
  * @author Floyd
  *
