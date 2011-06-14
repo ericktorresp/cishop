@@ -450,10 +450,10 @@ class controller_emaildeposit extends basecontroller{
 				default:
 					die(json_encode(array('status'=>'error','msg'=>"参数提交错误")));
 			}
-			$oEmailDeposit->UserId 			= $iUserId;
-		 	$oEmailDeposit->UserName			= $sUserName;
-		 	$oEmailDeposit->TopProxyName		= $sTopproxy_name;
-		 	$oEmailDeposit->Money			= $fMoney;
+			$oEmailDeposit->UserId = $iUserId;
+		 	$oEmailDeposit->UserName = $sUserName;
+		 	$oEmailDeposit->TopProxyName = $sTopproxy_name;
+		 	$oEmailDeposit->Money = $fMoney;
 
 		 	$iLastId = $oEmailDeposit->insertRecord();
 		 	if($iLastId > 0)

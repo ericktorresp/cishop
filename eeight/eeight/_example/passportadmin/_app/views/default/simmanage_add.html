@@ -1,0 +1,65 @@
+{include file="pageheader.html"}
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/jquery.md5.js"></script>
+<script type="text/javascript">
+function checkadd(obj)
+{
+	p=/^(13[0-9]|15[0|3|6|7|8|9]|18[6|7|8|9])\d{8}$/;
+	if(!p.test(obj.number.value))
+	{
+		alert("手机号码不正确.");
+		obj.number.focus();
+		return false;
+	}
+	p1=/^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$/i;
+	s= obj.ip.value;
+	if(!p1.test(s))
+	{
+		alert("IP 不正确");
+		obj.ip.focus();
+		return false;
+	}
+	p=/^[0-9a-z]{32}$/;
+	if(!p.test(obj.key.value))
+	{
+		alert("加密 key 不正确.");
+		obj.key.focus();
+		return false;
+	}
+	return true;
+}
+
+function genKey()
+{
+	if(!$('#number').val()||!'/^(13[0-9]|15[0|3|6|7|8|9]|18[6|7|8|9])\d{8}$/'.test($('#number').val()))
+	{
+		alert('请填写号码');
+	}
+	$('#key').val($.md5($('#number').val()+new Date().getTime()));
+	return false;
+}
+</script>
+<div class="list-div" id="listDiv">
+<form method="POST" name="listForm" action="?controller=simmanage&action=add" onsubmit="return checkadd(this);";>
+<table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+<td class="narrow-label" width="20%">手机号码</td>
+<td width="80%"><input type="text" name="number" maxlength="16" id="number"></td>
+</tr>
+<tr>
+<td class="narrow-label">加密key</td>
+<td><input type="text" name="key" maxlength="32" id="key" /> <input type="button" value="生成" onclick="genKey()" /></td>
+</tr>
+<tr>
+<td class="narrow-label">所在IP</td>
+<td><input type="text" name="ip" maxlength="15" id="ip"></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="1"><input type="submit" value="增加手机号" class="button">
+<input type="reset" value="重置增加" class="button"></td>
+</tr>
+</table>
+</form>
+</div>
+{include file="pagefooter.html"}

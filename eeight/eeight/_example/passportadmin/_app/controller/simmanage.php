@@ -2,12 +2,12 @@
 /**
  * 主表 [sim]
  * @TODO sim_add: automatic generate number's key
- * 
+ *
  * @TODO deposit_acc_set_add: drop down sim list.
- * 
+ *
  * 关联表
  * deposit_acc_set:		+sms_number														[√]
- * deposit_set:			+sms_regex, +sms_sender[, +is_sms_notic, +is_sms_order_number]
+ * deposit_set:			+sms_regex, +sms_sender, +is_sms_notic, +is_sms_order_number
  * user_deposit_card:	[+sms_number, +sms_key, +sms_ip]
  * ccb_deposit_record:	+sms_number, +order_number										[√]
  * ccb_transfers		+sms_number, +sms_sender										[√]
@@ -24,8 +24,9 @@
  *
  * [EDIT]
  *
- * 1. emaildeposit_confirm.html: 去掉自动刷新												[√]
+ * 1. emaildeposit_confirm.html: 去掉自动刷新
  * 2. controller/emaildeposit.php: 去掉自动写充值记录，改为用户点击时Ajax写入，再打开窗口		[√]
+ * 3. @TODO add window.setTimeout(写订单)?
  *
  * @author Floyd
  *
@@ -35,54 +36,78 @@ class controller_simmanage extends basecontroller
 	public function actionSimList()
 	{
 		$aLinks = array(
-			0 => array(
+		0 => array(
 				'text' => "手机号码列表",
 	        	'href' => "?controller=simmanage&action=simlist"
-        	),
-        );
-        $oSim = A::Singleton('model_sim');
-        $_GET['flag'] = isset($_GET['flag']) ? $_GET['flag'] : '';
-        if ($_GET['flag'] == 'edit'){
-        	// 编辑
-        	if (!is_numeric($_GET['id']) || intval($_GET['id']) <= 0){
-        		sysMessage("对不起，您提交的手机号码信息不正确，请核对后重新提交", 1, $aLinks);
-        	}
-        	$aSim = $oSim->read($_GET['id']);
-        	$GLOBALS['oView']->assign( 'ur_here', '修改手机号码信息' );
-        	$GLOBALS['oView']->assign( 'id', $aSim['id'] );
-        	$GLOBALS['oView']->assign( 'op', $aSim['op'] );
-        	$GLOBALS['oView']->assign( 'number', $aSim['number'] );
-        	$GLOBALS['oView']->assign( 'key', $aSim['key'] );
-        	$GLOBALS['oView']->assign( 'ip', $aSim['ip'] );
-        	$GLOBALS['oView']->assign( 'enabled', $aSim['enabled'] );
-        	$oSim->assignSysInfo();
-        	$GLOBALS['oView']->display("simmanage_simedit.html");
-        	EXIT;
-        }
-        // 修改状态操作
-        if ($_GET['flag'] == 'set') {
-        	if (!is_numeric($_GET['id']) || intval($_GET['id']) <= 0){
-        		sysMessage("对不起，您提交的手机号码信息不正确，请核对后重新提交", 1, $aLinks);
-        	}
-        	if($_GET['status'] == 0)
-        	{
-        		$oSim->disable($_GET['id']);
-        	}
-        	else
-        	{
-        		$oSim->enable($_GET['id']);
-        	}
-        }
-        $GLOBALS['oView']->assign( 'ur_here', '手机号码列表' );
-        $GLOBALS['oView']->assign('actionlink',   array( 'href'=>url("simmanage","addsim"), 'text'=>'增加手机号码' ) );
-        $GLOBALS['oView']->assign( 'aSim', $oSim->simlist() );
-        $GLOBALS['oView']->display("simmanage_simlist.html");
-        EXIT;
+	        	),
+	        	);
+	        	$oSim = A::Singleton('model_sim');
+	        	$_GET['flag'] = isset($_GET['flag']) ? $_GET['flag'] : '';
+	        	if ($_GET['flag'] == 'edit'){
+	        		// 编辑
+	        		if (!is_numeric($_GET['id']) || intval($_GET['id']) <= 0){
+	        			sysMessage("对不起，您提交的手机号码信息不正确，请核对后重新提交", 1, $aLinks);
+	        		}
+	        		$aSim = $oSim->read($_GET['id']);
+	        		$GLOBALS['oView']->assign( 'ur_here', '修改手机号码信息' );
+	        		$GLOBALS['oView']->assign( 'id', $aSim['id'] );
+	        		$GLOBALS['oView']->assign( 'op', $aSim['op'] );
+	        		$GLOBALS['oView']->assign( 'number', $aSim['number'] );
+	        		$GLOBALS['oView']->assign( 'key', $aSim['key'] );
+	        		$GLOBALS['oView']->assign( 'ip', $aSim['ip'] );
+	        		$GLOBALS['oView']->assign( 'enabled', $aSim['enabled'] );
+	        		$oSim->assignSysInfo();
+	        		$GLOBALS['oView']->display("simmanage_simedit.html");
+	        		EXIT;
+	        	}
+	        	// 修改状态操作
+	        	if ($_GET['flag'] == 'set') {
+	        		if (!is_numeric($_GET['id']) || intval($_GET['id']) <= 0){
+	        			sysMessage("对不起，您提交的手机号码信息不正确，请核对后重新提交", 1, $aLinks);
+	        		}
+	        		if($_GET['status'] == 0)
+	        		{
+	        			$oSim->disable($_GET['id']);
+	        		}
+	        		else
+	        		{
+	        			$oSim->enable($_GET['id']);
+	        		}
+	        	}
+	        	$GLOBALS['oView']->assign( 'ur_here', '手机号码列表' );
+	        	$GLOBALS['oView']->assign('actionlink',   array( 'href'=>url("simmanage","addsim"), 'text'=>'增加手机号码' ) );
+	        	$GLOBALS['oView']->assign( 'aSim', $oSim->simlist() );
+	        	$GLOBALS['oView']->display("simmanage_simlist.html");
+	        	EXIT;
 	}
 
 	public function actionAddSim()
 	{
-
+		$sFlag =  isset($_POST['flag']) ? trim($_POST['flag']) : false;
+		if(!$sFlag)
+		{
+			$GLOBALS['oView']->display("simmanage_add.html");
+			EXIT;
+		}
+		else
+		{
+			$oSim = A::Singleton('model_sim');
+			$aData = array(
+				'number'	=> $_POST['number'],
+				'key'		=> $_POST['key'],
+				'ip'		=> $_POST['ip'],
+			);
+			$aLocation  = array(
+			0 => array('text'=>'继续:增加手机号码','href'=>url('simmanage','add')),
+			1 => array('text'=>'查看:受付手机号码列表','href'=>url('simmanage','simlist'))
+			);
+			if($oSim->add($aData))
+			{
+				sysMessage('成功',0,$aLocation);
+			}else{
+				sysMessage('增加失败',1,$aLocation);
+			}
+		}
 	}
 
 	public function actionEditSim()

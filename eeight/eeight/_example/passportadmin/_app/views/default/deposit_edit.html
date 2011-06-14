@@ -237,13 +237,31 @@ function checkme(){
 	<td class="narrow-label">状态:</td>
 	<td>{if $PayportDetail.status == 0 }<font color=red>默认禁用</font>{elseif $PayportDetail.status == 1 }<font color=green>启用中</font>{else}<font color=gray>已删除</font>{/if}</td>
 </tr> 
- 
+<tr>
+	<td class="narrow-label">是否使用短信通知</td>
+	<td><label for="is_sms_notic_1"><input type="radio" name="is_sms_notic" value="1" id="is_sms_notic_1"{if $PayportDetail.is_sms_notic==1} checked{/if} />是</label>
+	<label for="is_sms_notic_0"><input type="radio" name="is_sms_notic" value="0" id="is_sms_notic_0"{if $PayportDetail.is_sms_notic==0} checked{/if} />否</label></td>
+</tr> 
+<tr>
+	<td class="narrow-label">短信通知是否可留言</td>
+	<td><label for="is_sms_order_number_1"><input type="radio" name="is_sms_order_number" value="1" id="is_sms_order_number_1"{if $PayportDetail.is_sms_order_number==1} checked{/if} />是</label>
+	<label for="is_sms_order_number_0"><input type="radio" name="is_sms_order_number" value="0" id="is_sms_order_number_0"{if $PayportDetail.is_sms_order_number==0} checked{/if} />否</label></td>
+</tr> 
+<tr>
+	<td class="narrow-label">短信通知发送号码</td>
+	<td><input type="text" name="sms_sender" value="{$PayportDetail.sms_sender}" /></td>
+</tr>
+<tr>
+	<td class="narrow-label">短信通知内容正则表达式</td>
+	<td><textarea name="sms_regex">{$PayportDetail.sms_regex}</textarea></td>
+</tr>
 <tr>
 	<td class="narrow-label">&nbsp;</td>
 	<td><input type="button"  class="button" value="保存配置" onClick="javascript:checkme();return false"><input type="reset" class="button" value="重新设置"><input type="button" class="button" value="返回列表" onclick="location.href='?controller=depositmgr&action=list';">
 	<br /><font color=red>* 点击保存后如无错误提示，请等待后端程序运行完成。不要重复刷新与点击。</font>
 	</td>
 </tr>
+
 </table>
 </form>
 </div>

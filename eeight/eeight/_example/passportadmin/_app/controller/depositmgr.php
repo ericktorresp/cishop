@@ -12,7 +12,7 @@ define("BRANCHID_FILE", dirname(__FILE__)."/../../_data/branchid/branchid.ini");
 class controller_depositmgr extends basecontroller
 {
 
-	 
+
 	/**
 	 * 查看受付银行列表
 	 * URL = ./?controller=depositmgr&action=list
@@ -29,10 +29,10 @@ class controller_depositmgr extends basecontroller
 				return $str;
 			}
 		}
-		 
+			
 		$oPayport     = new model_deposit_depositlist(array(),'','array');
 		$aPayportList = $oPayport->Data;
-		 
+			
 		foreach ($aPayportList AS &$aPL){
 			// 获取配属权限各值
 			$aPL['payport_attr_load']		= ($aPL['payport_attr'] & 1);
@@ -65,7 +65,7 @@ class controller_depositmgr extends basecontroller
 	public function actionDetail()
 	{
 		$aLocat = array(0 => array('text'=>'查看:受付银行列表','href'=>url('depositmgr','list')));
-		 
+			
 		$iPayportId = (isset($_GET["id"]) && is_numeric($_GET["id"])) ? intval($_GET["id"]) : 0;
 		$oPayport   = new model_deposit_depositinfo();
 		$oPayport->getPayportData($iPayportId,'','-1',true);
@@ -116,13 +116,13 @@ class controller_depositmgr extends basecontroller
 			$oPayport   = new model_deposit_depositinfo();
 			$oPayport->getPayportData($iPayportId,'','-1',true);
 			$aPayportInfo = stripslashes_deep($oPayport->getArrayData());
-				
+
 			if ( empty($aPayportInfo['payport_name']) ){
 				sysMessage('失败:数据读取错误',1,$aLocat);
 				unset($oPayport,$oConfig);
 				exit;
 			}
-				
+
 			require_once PDIR.DS.'js'.DS.'fckeditor'.DS.'fckeditor.php';
 			$editor = new FCKeditor( 'payport_intro' );
 			$editor->BasePath   = './js/fckeditor/';
@@ -146,7 +146,7 @@ class controller_depositmgr extends basecontroller
 			//整理数据 mysql_real_escape_string
 			$iPayportId = (isset($_POST["id"]) && is_numeric($_POST["id"])) ? intval($_POST["id"]) : 0;
 			$oPayport   = new model_deposit_depositinfo();
-				
+
 			if ( !isset($_POST['payport_attr_load']) ) 		$_POST['payport_attr_load'] = 0;
 			if ( !isset($_POST['payport_attr_draw']) ) 		$_POST['payport_attr_draw'] = 0;
 			if ( !isset($_POST['payport_attr_ques']) ) 		$_POST['payport_attr_ques'] = 0;
@@ -170,6 +170,12 @@ class controller_depositmgr extends basecontroller
 			$oPayport->LangCode 		= daddslashes($_POST['lang_code']);
 			$oPayport->PayportAttr 		= intval($_POST['payport_attr_load'] + $_POST['payport_attr_draw'] + $_POST['payport_attr_ques'] + $_POST['payport_attr_drawlist'] + $_POST['payport_attr_drawhand']);
 
+			
+			$oPayport->IsSmsNotice = $_POST['is_sms_notice'] ? 1 : 0;
+			$oPayport->IsSmsOrderNumber = $_POST['is_sms_order_number'] ? 1 : 0;
+			$oPayport->SmsRegex = $_POST['sms_regex'];
+			$oPayport->SmsSender = $_POST['sms_sender'];
+			
 			$aLocation  = array(0 => array('text'=>'查看:受付银行列表','href'=>url('depositmgr','list')));
 
 			//各项填写限制
@@ -191,7 +197,7 @@ class controller_depositmgr extends basecontroller
 			}
 		}
 		else{
-			sysMessage('What‘s your want?');
+			sysMessage('What do your want?');
 		}
 	}
 
@@ -222,13 +228,13 @@ class controller_depositmgr extends basecontroller
 			$oPayport   	= new model_deposit_depositinfo();
 			$oPayport->getPayportData($iPayportId,'','-1',true);
 			$aPayportInfo 	= stripslashes_deep( $oPayport->getArrayData() );
-				
+
 			if ( empty($oPayport->Id) ){
 				sysMessage('失败:数据读取错误',0,$aLocat);
 				unset($oPayport,$oConfig);
 				exit;
 			}
-				
+
 			$GLOBALS['oView']->assign( 'actionlink2', array( 'href'=>url("depositmgr","add"), 'text'=>'增加受付银行' ) );
 			$GLOBALS['oView']->assign( 'actionlink',  array( 'href'=>url("depositmgr","list"), 'text'=>'受付银行列表' ) );
 			$GLOBALS['oView']->assign( "ur_here", "编辑受付银行充提参数");
@@ -361,6 +367,11 @@ class controller_depositmgr extends basecontroller
 			$oPayport->PayportIntro 	= daddslashes( $_POST['payport_intro'] );
 			$oPayport->LangCode 		= daddslashes( $_POST['lang_code'] );
 			$oPayport->PayportAttr 		= intval($iPayport_attr);
+			
+			$oPayport->IsSmsNotice		= $_POST['is_sms_notice'] ? 1 : 0;
+			$oPayport->IsSmsOrderNumber	= $_POST['is_sms_order_number'] ? 1 : 0;
+			$oPayport->SmsRegex			= $_POST['sms_regex'];
+			$oPayport->SmsSender		= $_POST['sms_sender'];
 
 			$aLocation  = array(
 			0 => array('text'=>'继续:增加受付银行','href'=>url('depositmgr','add')),
@@ -373,7 +384,7 @@ class controller_depositmgr extends basecontroller
 			}
 		}
 		else{
-			sysMessage('What‘s your want?');
+			sysMessage('What do your want?');
 		}
 	}
 
@@ -385,14 +396,14 @@ class controller_depositmgr extends basecontroller
 	 */
 	public function actionDisable(){
 		$aLocation  = array(0 => array('text'=>'查看:受付银行列表','href'=>url('depositmgr','list')));
-		 
+			
 		$iPayportId = (isset($_GET["id"]) && is_numeric($_GET["id"])) ? intval($_GET["id"]) : 0;
-		 
+			
 		if ( !is_numeric($iPayportId) || ($iPayportId <= 0) ){
 			sysMessage('失败:ID丢失',1,$aLocation);
 			exit;
 		}
-		 
+			
 		$oPayport   = new model_deposit_depositinfo();
 		$oPayport->getPayportData($iPayportId,'account','-1');
 
@@ -411,18 +422,18 @@ class controller_depositmgr extends basecontroller
 	 */
 	public function actionEnable(){
 		$aLocation  = array(0 => array('text'=>'查看:受付银行列表','href'=>url('depositmgr','list')));
-		 
+			
 		$iPayportId = (isset($_GET["id"]) && is_numeric($_GET["id"])) ? intval($_GET["id"]) : 0;
-		 
+			
 		if ( !is_numeric($iPayportId) || ($iPayportId <= 0) ){
 			sysMessage('失败:ID丢失',1,$aLocation);
 			exit;
 		}
-		 
+			
 		$oPayport   = new model_deposit_depositinfo();
 		$oPayport->getPayportData($iPayportId,'account','-1');
 		$oPayport->Id = $iPayportId;
-		 
+			
 		if ($oPayport->enable()){
 			sysMessage('成功:启用受付银行',0,$aLocation);
 		}else{
@@ -437,9 +448,9 @@ class controller_depositmgr extends basecontroller
 	 */
 	public function actionDelete(){
 		$aLocation  = array(0 => array('text'=>'查看:受付银行列表','href'=>url('depositmgr','list')));
-		 
+			
 		$iPayportId = (isset($_GET["id"]) && is_numeric($_GET["id"])) ? intval($_GET["id"]) : 0;
-		 
+			
 		if ( !is_numeric($iPayportId) || ($iPayportId <= 0) ){
 			sysMessage('失败:ID丢失',1,$aLocation);
 			exit;
@@ -475,12 +486,12 @@ class controller_depositmgr extends basecontroller
 		if ( !$sFlag ) {
 			$iGetPayaccountid 	= isset($_REQUEST['payaccountid']) ? intval($_REQUEST['payaccountid']) : false;
 			$iPayAccId 			= $iGetPayaccountid ? $iGetPayaccountid : intval($_SESSION['accidforadd']);
-			 
+
 			if ( !is_numeric($iPayAccId) || ($iPayAccId <= 0) ){
 				sysMessage('失败:ID丢失',1,$aLocation);
 				exit;
 			}
-			 
+
 			$_SESSION['accidforadd'] = $iPayAccId;
 
 			$oPayAcc = new model_deposit_depositaccountinfo($iPayAccId);
@@ -564,13 +575,13 @@ class controller_depositmgr extends basecontroller
     				'opuser' 	=> $sOpuser,
     				'remark' 	=> daddslashes( $_REQUEST['remarks'] )
 			);
-			 
+
 			$ttmmpp = $oPayAcc->saveBalance($iNewBalance);
-			 
+
 			if($ttmmpp){
 				sysMessage('成功:记录转帐金额',0,$aLocation);
 			}else{
-				 
+					
 				sysMessage('失败:记录转帐',1,$aLocation);
 			}
 
@@ -592,7 +603,7 @@ class controller_depositmgr extends basecontroller
 				$oChlidPayAcc->getBalance();
 				unset($oChlidPayAcc);
 			}
-				
+
 			// 刷新受付银行总余额
 			$result = $oPayport->refTotalBalance(true);
 			if($result){
@@ -614,10 +625,10 @@ class controller_depositmgr extends basecontroller
 	 *
 	 */
 	public function actionAccAdd(){
-		 
+			
 		$aLocation  = array(0 => array('text'=>'继续:增加受付银行其下账户','href'=>url('depositmgr','accadd')),
 		1 => array('text'=>'查看:受付银行列表','href'=>url('depositmgr','list')));
-		 
+			
 		$sFlag =  isset($_POST['flag']) ? trim($_POST['flag']) : false;
 		if($sFlag == false){
 			//显示界面 PayportIdforAdd
@@ -665,7 +676,7 @@ class controller_depositmgr extends basecontroller
 			// 模板显示辨识 复用字段
 			$sbankname = $aPayAccountDetail['payport_name'] == 'mdeposit' ?  'icbc'
 			: strtolower($aPayAccountDetail['payport_name']);
-				
+
 			$GLOBALS['oView']->assign( 'actionlink', array( 'href'=>url("depositmgr","list"), 'text'=>'受付银行列表' ) );
 			$GLOBALS['oView']->assign( "ur_here", "新增受付银行账户");
 			$GLOBALS['oView']->assign( "PayAccountDetail", $aPayAccountDetail);
@@ -690,18 +701,18 @@ class controller_depositmgr extends basecontroller
 				exit;
 			}
 
-			 
+
 			if ( empty($_POST['acc_key']) && empty($_POST['acc_mail']) ){
 				sysMessage('失败:提交数据不完整(KEY或MAIL必须填写一项)',1,$aLocation);
 				exit;
 			}
-			 
+
 			if ( !isset($_POST['payport_attr_load']) ) $_POST['payport_attr_load'] = 0;
 			if ( !isset($_POST['payport_attr_draw']) ) $_POST['payport_attr_draw'] = 0;
 			if ( !isset($_POST['payport_attr_ques']) ) $_POST['payport_attr_ques'] = 0;
 			if ( !isset($_POST['payport_attr_drawlist']) ) $_POST['payport_attr_drawlist'] = 0;
 			if ( !isset($_POST['payport_attr_drawhand']) ) $_POST['payport_attr_drawhand'] = 0;
-			 
+
 			/*if (  ( $_POST['payport_attr_draw'] || $_POST['payport_attr_drawlist'] ) && $_POST['payport_attr_drawhand'] ){
 			 sysMessage('失败:矛盾的设置',0,$aLocation);
 			 exit;
@@ -714,10 +725,10 @@ class controller_depositmgr extends basecontroller
 				exit;
 			}
 
-			 
+
 			//保存数据
 			$iAccAttr = $_POST['payport_attr_load'] + $_POST['payport_attr_draw'] + $_POST['payport_attr_drawlist'] + $_POST['payport_attr_ques'] + $_POST['payport_attr_drawhand'];
-				
+
 			$oPayAccount->PaySlotId 	= daddslashes( $_POST['ads_payport_id'] );
 			$oPayAccount->PaySlotName 	= daddslashes( $_POST['ads_payport_name'] );
 			$oPayAccount->AccName 		= daddslashes( $_POST['acc_name'] );
@@ -735,7 +746,7 @@ class controller_depositmgr extends basecontroller
 			if ($oPayport->PayportName == 'ccb'){
 				$oPayAccount->Area      = trim($_POST['area']);
 			}
-				
+
 			$bReAdd = $oPayAccount->add();
 			if ($bReAdd){
 				sysMessage('成功:增加银行账户',0,$aLocation);
@@ -789,7 +800,7 @@ class controller_depositmgr extends basecontroller
 	 *
 	 */
 	public function actionAccEdit(){
-		 
+			
 		//获取休市时间，只许可在休市时间修改;
 		$aLocat = array(0 => array('text'=>'查看:受付银行列表','href'=>url('depositmgr','list')));
 		$oConfig = new model_config();
@@ -808,7 +819,7 @@ class controller_depositmgr extends basecontroller
 		$aLocation  = array(0 => array('text'=>'继续:增加受付银行','href'=>url('depositmgr','accadd')),
 		1 => array('text'=>'查看:受付银行列表','href'=>url('depositmgr','list')));
 		$sFlag =  isset($_POST['flag']) ? trim($_POST['flag']) : false;
-		 
+			
 		if ($sFlag == false){
 			$iPayAccountId = (isset($_GET['payaccountid']) && is_numeric($_GET['payaccountid'])) ? intval($_GET['payaccountid']) : 0;
 			$oPayAccount   = new model_deposit_depositaccountinfo($iPayAccountId);
@@ -832,7 +843,7 @@ class controller_depositmgr extends basecontroller
 				}
 				$GLOBALS['oView']->assign( "area", $aBranch);
 			}
-			
+				
 			$GLOBALS['oView']->assign( 'actionlink', array( 'href'=>url("depositmgr","list"), 'text'=>'受付银行列表' ) );
 			$GLOBALS['oView']->assign( "ur_here", "编辑银行账户");
 			$GLOBALS['oView']->assign( "PayAccountDetail", $aPatAccount);
@@ -861,7 +872,7 @@ class controller_depositmgr extends basecontroller
 			if ( !isset($_POST['payport_attr_ques']) ) $_POST['payport_attr_ques'] = 0;
 			if ( !isset($_POST['payport_attr_drawlist']) ) $_POST['payport_attr_drawlist'] = 0;
 			if ( !isset($_POST['payport_attr_drawhand']) ) $_POST['payport_attr_drawhand'] = 0;
-			 
+
 			$oPayAcc->AId 		= $iPayAccountId;
 			$oPayAcc->AccName 	= daddslashes( $_POST['acc_name'] );
 			$oPayAcc->AccIdent 	= daddslashes( $_POST['acc_ident'] );
@@ -904,14 +915,14 @@ class controller_depositmgr extends basecontroller
 	 * (受付银行非激活时，不可激活银行账户)
 	 */
 	public function actionAccActive(){
-		 
+			
 		$aLocation  = array(0 => array('text'=>'查看:受付银行列表','href'=>url('depositmgr','list')));
 		$optModel = $_REQUEST['opt'];
 		if ( !($optModel) ){
 			sysMessage('失败:没有操作模式',1,$aLocation);
 			exit;
 		}
-		 
+			
 		$iPayAccountId = (isset($_GET['payaccountid']) && is_numeric($_GET['payaccountid'])) ? intval($_GET['payaccountid']) : 0;
 		if ( !is_numeric($iPayAccountId) || ($iPayAccountId <= 0) ){
 			sysMessage('失败:ID丢失',1,$aLocation);
@@ -947,7 +958,7 @@ class controller_depositmgr extends basecontroller
 				$sMsg = '所属受付银行处于非启用状态,不可操作';
 			}
 		}
-		 
+			
 		if ($bReturn){
 			sysMessage('成功:'.$sMsg,0,$aLocation);
 		}else{
@@ -963,8 +974,8 @@ class controller_depositmgr extends basecontroller
 	public function actionAccDelete(){
 		$iPayAccountId = (isset($_REQUEST["payaccountid"]) && is_numeric($_REQUEST["payaccountid"])) ? intval($_REQUEST["payaccountid"]) : 0;
 		$aLocation  = array(0 => array('text'=>'查看:受付银行列表','href'=>url('depositmgr','list')));
-		 
-		if ($iPayAccountId == 0) 
+			
+		if ($iPayAccountId == 0)
 		{
 			sysMessage('失败:ID丢失', 1, $aLocation);
 			exit;
@@ -991,7 +1002,7 @@ class controller_depositmgr extends basecontroller
 		}
 		else
 		{
-			sysMessage('失败:此银行账户已被激活,不能删除', 1, $aLocation);
+			sysMessage('失败:此银行账户已被激活,不能删除', 1, $aLocation)
 		}
 			
 	}
@@ -1007,24 +1018,24 @@ class controller_depositmgr extends basecontroller
 		if (!isset($_POST['id'])) $_POST['id'] = false;
 		if (!isset($_POST['ajax'])) $_POST['ajax'] = false;
 		if (!isset($_POST['json'])) $_POST['json'] = false;
-		 
+			
 		$iPPId = $_POST['id'] ? intval($_POST['id']) : intval($_GET['id']);
 		$bAjax = $_POST['ajax'] ? true : false;
 		$bJason= $_POST['json'] ? true : false;
 		if ( !is_numeric($iPPId) || (empty($iPPId)) ){
 			echo false;
 		}
-		 
+			
 		$oPayAccount = new model_deposit_depositaccountlist();
 		$aPayAccount = $oPayAccount->singleList($iPPId, 0);
-		 
+			
 		if ($bAjax === true){
 			if ( count($aPayAccount) >= 1){
 				//array to string
 				$sPA = '';
 				$aPattren = array('/,/','/.0000/','/0000-00-00 00:00:00/');
 				$aReplace = array('，','','');
-				 
+					
 				if ($bJason === false){
 					foreach ($aPayAccount AS $aPay){
 						//    	$aPay = preg_replace($aPattren,$aReplace,$aPay);
@@ -1036,10 +1047,10 @@ class controller_depositmgr extends basecontroller
 				else{
 					echo json_encode($aPayAccount);
 				}
-				 
+					
 			}
 			else{
-				 
+					
 				echo false;
 			}
 
@@ -1058,7 +1069,7 @@ class controller_depositmgr extends basecontroller
 	 */
 	public function actionTransferRecord()
 	{
-		 
+			
 		$sWhere = ' `isop`=1 ';
 		if ( $_REQUEST['payaccountid'] > 0)
 		$sWhere .= ' AND accid='.intval($_REQUEST['payaccountid']);

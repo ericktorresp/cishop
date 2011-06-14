@@ -1,14 +1,14 @@
 <?php
 /**
- *   
+ *
  * 支付银行信息类
  * 	--对单条信息 	增 删 改 显示
- * 
+ *
  * @name depositInfo.php
  * @package deposit
  * @version 0.1  11/16/2010
  * @author Jim
- * 
+ *
  **/
 
 class model_deposit_depositinfo extends model_pay_base_info
@@ -19,7 +19,7 @@ class model_deposit_depositinfo extends model_pay_base_info
 	 */
 	public $Id=NULL;
 	/**
-	 * 接口名称	
+	 * 接口名称
 	 * @var string
 	 */
 	public $PayportName;
@@ -49,7 +49,7 @@ class model_deposit_depositinfo extends model_pay_base_info
 	 */
 	public $DrawTimeNote;
 	/**
-	 * 单次最低充值额	
+	 * 单次最低充值额
 	 * @var float
 	 */
 	public $LoadLimitMinPer;
@@ -216,9 +216,9 @@ class model_deposit_depositinfo extends model_pay_base_info
 	 */
 	public $PayportIntro;
 	/**
-	 * 该接口所要求的语言编码,依支付平台手册确定 
-	 * @var string 
-	 * 默认UTF-8, 
+	 * 该接口所要求的语言编码,依支付平台手册确定
+	 * @var string
+	 * 默认UTF-8,
 	 *  可能值 gb2312 gbk
 	 */
 	public $LangCode;
@@ -227,8 +227,7 @@ class model_deposit_depositinfo extends model_pay_base_info
 	 * @var int
 	 */
 	public $PayportAttr;
-	public $SmsSender;
-	public $SmsRegex;
+
 	// 由 PayportAttr 生成的属性
 	public $PayportAttrLoad;
 	public $PayportAttrDraw;
@@ -248,14 +247,18 @@ class model_deposit_depositinfo extends model_pay_base_info
 	private $TableName 		 = 'deposit_set';	//Db table name
 	
 	private $PayAccountTable = 'deposit_acc_set';
+	public $IsSmsNotice;
+	public $IsSmsOrderNumber;
+	public $SmsRegex;
+	public $SmsSender;
 	
 	/**
 	 * 获取信息
-	 * 
+	 *
 	 * @param int $Keys
 	 * @param string $KeyMark	(PP_ID=id,PP_NAME=payport_name,PP_NICKNAME=payport_nickname)
 	 * @param string $sOptType	(onlineload充值,withdraw提现)
-	 * 
+	 *
 	 * @return array();
 	 */
 	public function __construct(){
@@ -302,7 +305,7 @@ class model_deposit_depositinfo extends model_pay_base_info
 				default:
 					// 用于后台修改
 					$sField = '*';
-					break;	
+					break;
 			}
 			
 			
@@ -360,6 +363,8 @@ class model_deposit_depositinfo extends model_pay_base_info
 			$this->PayportAttrQues = ($this->PayportAttr & 8);
 			$this->PayportAttrDrawhand = ($this->PayportAttr & 16);
 			
+			$this->IsSmsNotice = $aTmpResult['is_sms_notice'];
+			$this->IsSmsOrderNumber = $aTmpResult['is_sms_order_number'];
 			$this->SmsRegex = $aTmpResult['sms_regex'];
 			$this->SmsSender = $aTmpResult['sms_sender'];
 			
@@ -368,7 +373,7 @@ class model_deposit_depositinfo extends model_pay_base_info
 	
 	/**
 	 * 设置值,Update
-	 * 
+	 *
 	 *@return bool
 	 */
 	public function set(){
@@ -385,24 +390,28 @@ class model_deposit_depositinfo extends model_pay_base_info
 		}
 		$aTmpDate = array(
 				//'payport_name' 	=> $this->PayportName, 		//不提供程序用名称修改
-				'payport_nickname' 	=> $this->PayportNickname,
-				'payport_host' 		=> $this->PayportHost,
-				'payport_url_load' 	=> $this->PayportUrlLoad,
-				'payport_url_draw' 	=> $this->PayportUrlDraw,
-				'payport_url_ques' 	=> $this->PayportUrlQues,
-				'receive_host' 		=> $this->ReceiveHost,
-				'receive_url' 		=> $this->ReceiveUrl,
-				'receive_url_keep' 	=> $this->ReceiveUrlKeep,
-				'payport_intro' 	=> $this->PayportIntro,
-				'lang_code' 		=> $this->LangCode,
-				'payport_attr' 		=> $this->PayportAttr,
-				'utime' => date('Y-m-d H:i:s')
+				'payport_nickname' 		=> $this->PayportNickname,
+				'payport_host' 			=> $this->PayportHost,
+				'payport_url_load' 		=> $this->PayportUrlLoad,
+				'payport_url_draw' 		=> $this->PayportUrlDraw,
+				'payport_url_ques' 		=> $this->PayportUrlQues,
+				'receive_host' 			=> $this->ReceiveHost,
+				'receive_url' 			=> $this->ReceiveUrl,
+				'receive_url_keep' 		=> $this->ReceiveUrlKeep,
+				'payport_intro' 		=> $this->PayportIntro,
+				'lang_code' 			=> $this->LangCode,
+				'payport_attr' 			=> $this->PayportAttr,
+				'utime' 				=> date('Y-m-d H:i:s'),
+				'is_sms_notice'			=> $this->IsSmsNotice,
+				'is_sms_order_number'	=> $this->IsSmsOrderNumber,
+				'sms_regex'				=> $this->SmsRegex,
+				'sms_sender'			=> $this->SmsSender,
 			);
 			
 		//return $this->_save($aTmpDate);
-		if ( $this->checkArrayValue($aTmpDate, 
-			array('payport_host', 'payport_url_load', 'payport_url_draw','payport_url_ques','receive_host','receive_url','receive_url_keep','lang_code','payport_attr','payport_intro') 
-		) ){			
+		if ( $this->checkArrayValue($aTmpDate,
+			array('payport_host', 'payport_url_load', 'payport_url_draw','payport_url_ques','receive_host','receive_url','receive_url_keep','lang_code','payport_attr','payport_intro')
+		) ){
 			$bResult =  $this->_save($aTmpDate);
 			if ($bResult === false){
 				$this->oDB->doRollback();
@@ -426,7 +435,7 @@ class model_deposit_depositinfo extends model_pay_base_info
 	public function setlimit(){
 		
 		$this->oDB->doTransaction();
-		//更新 payport_acc_set 表冗余字段 
+		//更新 payport_acc_set 表冗余字段
 		$sSql = "UPDATE `payport_acc_set` SET `acc_currency`='".$this->Currency."', `utime`='".date('Y-m-d H:i:s')."' WHERE `ads_payport_id` =".$this->Id;
 		$this->oDB->query($sSql);
 		if ( $this->oDB->errno() ){
@@ -462,7 +471,7 @@ class model_deposit_depositinfo extends model_pay_base_info
 				'opt_limit_times' 	=> $this->OptLimitTimes,
 				'utime' => date('Y-m-d H:i:s')
 			);
-		if ( $this->checkArrayValue($aTmpDate, array('currency','load_time_note','draw_time_note') ) ){			
+		if ( $this->checkArrayValue($aTmpDate, array('currency','load_time_note','draw_time_note') ) ){
 			$bResult =  $this->_save($aTmpDate);
 			if ($bResult === false){
 				$this->oDB->doRollback();
@@ -506,7 +515,7 @@ class model_deposit_depositinfo extends model_pay_base_info
 		if ($fTtl['totalbalance'] != 0){
 			$this->TotalBalance = $fTtl['totalbalance'];
 			//更新到payport支付接口表
-			$aTempData = array( 
+			$aTempData = array(
 				'total_balance' => floatval( $this->TotalBalance ),
 				'utime' => date('Y-m-d H:i:s')
 				);
@@ -515,7 +524,7 @@ class model_deposit_depositinfo extends model_pay_base_info
         	$this->oDB->update( $this->TableName, $aTempData, $sCond );
 		}
 		
-        if ($bReturn) return ($fTtl['totalbalance'] != 0 )  ?  number_format($fTtl['totalbalance'],'2','.','')  :  0; 
+        if ($bReturn) return ($fTtl['totalbalance'] != 0 )  ?  number_format($fTtl['totalbalance'],'2','.','')  :  0;
         
 	}
 	
@@ -596,49 +605,53 @@ class model_deposit_depositinfo extends model_pay_base_info
 	 */
 	public function add(){
 		//插入数据
-		$aTempData = array( 
-				'payport_name' 	=> $this->PayportName,
-				'sysparam_prefix' 	=> $this->SysParamPrefix,
-				'payport_nickname' 	 => $this->PayportNickname,
-				'currency' 			 => $this->Currency,
-				'load_time_note' 	 => $this->LoadTimeNote,
-				'draw_time_note' 	 => $this->DrawTimeNote,
-				'load_limit_min_per' => $this->LoadLimitMinPer,
-				'load_limit_max_per' => $this->LoadLimitMaxPer,
-				'load_fee_per_down'	 => $this->LoadFeePerDown,
+		$aTempData = array(
+				'payport_name' 			=> $this->PayportName,
+				'sysparam_prefix' 		=> $this->SysParamPrefix,
+				'payport_nickname' 	 	=> $this->PayportNickname,
+				'currency' 			 	=> $this->Currency,
+				'load_time_note' 	 	=> $this->LoadTimeNote,
+				'draw_time_note' 	 	=> $this->DrawTimeNote,
+				'load_limit_min_per' 	=> $this->LoadLimitMinPer,
+				'load_limit_max_per' 	=> $this->LoadLimitMaxPer,
+				'load_fee_per_down'	 	=> $this->LoadFeePerDown,
 				'load_fee_percent_down' => $this->LoadFeePercentDown,
-				'load_fee_step' 	 => $this->LoadFeeStep,
-				'load_fee_per_up'	 => $this->LoadFeePerUp,
-				'load_fee_percent_up' => $this->LoadFeePercentUp,
-				'draw_limit_min_per'  => $this->DrawLimitMinPer,
-				'draw_limit_max_per'  => $this->DrawLimitMaxPer,
-				'draw_fee_per_down'   => $this->DrawFeePerDown,
+				'load_fee_step' 	 	=> $this->LoadFeeStep,
+				'load_fee_per_up'	 	=> $this->LoadFeePerUp,
+				'load_fee_percent_up' 	=> $this->LoadFeePercentUp,
+				'draw_limit_min_per'  	=> $this->DrawLimitMinPer,
+				'draw_limit_max_per'  	=> $this->DrawLimitMaxPer,
+				'draw_fee_per_down'   	=> $this->DrawFeePerDown,
 				'draw_fee_percent_down' => $this->DrawFeePercentDown,
-				'draw_fee_min' 		=> $this->DrawFeeMin,
-				'draw_fee_max' 		=> $this->DrawFeeMax,
-				'draw_fee_step' 	=> $this->DrawFeeStep,
-				'draw_fee_per_up' 	=> $this->DrawFeePerUp,
-				'draw_fee_percent_up' => $this->DrawFeePercentUp,
-				'plat_load_percent' => $this->PlatLoadPercent,
-				'plat_load_min' 	=> $this->PlatLoadMin,
-				'plat_load_max' 	=> $this->PlatLoadMax,
-				'plat_draw_percent' => $this->PlatDrawPercent,
-				'plat_draw_min' 	=> $this->PlatDrawMin,
-				'plat_draw_max' 	=> $this->PlatDrawMax,
-				'total_balance' 	=> $this->TotalBalance,
-				'opt_limit_times' 	=> $this->OptLimitTimes,
-				'payport_host' 		=> $this->PayportHost,
-				'payport_url_load'  => $this->PayportUrlLoad,
-				'payport_url_draw'  => $this->PayportUrlDraw,
-				'payport_url_ques'  => $this->PayportUrlQues,
-				'receive_host' 		=> $this->ReceiveHost,
-				'receive_url' 		=> $this->ReceiveUrl,
-				'receive_url_keep' 	=> $this->ReceiveUrlKeep,
-				'status' 		=> $this->Status,
-				'payport_intro' => $this->PayportIntro,
-				'lang_code' 	=> $this->LangCode,
-				'payport_attr' 	=> $this->PayportAttr,
-				'utime' 		=> date('Y-m-d H:i:s')
+				'draw_fee_min' 			=> $this->DrawFeeMin,
+				'draw_fee_max' 			=> $this->DrawFeeMax,
+				'draw_fee_step' 		=> $this->DrawFeeStep,
+				'draw_fee_per_up' 		=> $this->DrawFeePerUp,
+				'draw_fee_percent_up' 	=> $this->DrawFeePercentUp,
+				'plat_load_percent' 	=> $this->PlatLoadPercent,
+				'plat_load_min' 		=> $this->PlatLoadMin,
+				'plat_load_max' 		=> $this->PlatLoadMax,
+				'plat_draw_percent' 	=> $this->PlatDrawPercent,
+				'plat_draw_min' 		=> $this->PlatDrawMin,
+				'plat_draw_max' 		=> $this->PlatDrawMax,
+				'total_balance' 		=> $this->TotalBalance,
+				'opt_limit_times' 		=> $this->OptLimitTimes,
+				'payport_host' 			=> $this->PayportHost,
+				'payport_url_load'  	=> $this->PayportUrlLoad,
+				'payport_url_draw'  	=> $this->PayportUrlDraw,
+				'payport_url_ques'  	=> $this->PayportUrlQues,
+				'receive_host' 			=> $this->ReceiveHost,
+				'receive_url' 			=> $this->ReceiveUrl,
+				'receive_url_keep' 		=> $this->ReceiveUrlKeep,
+				'status' 				=> $this->Status,
+				'payport_intro' 		=> $this->PayportIntro,
+				'lang_code' 			=> $this->LangCode,
+				'payport_attr' 			=> $this->PayportAttr,
+				'utime' 				=> date('Y-m-d H:i:s'),
+				'is_sms_notice'			=> $this->IsSmsNotice,
+				'is_sms_order_number'	=> $this->IsSmsOrderNumber,
+				'sms_regex'				=> $this->SmsRegex,
+				'sms_sender'			=> $this->SmsSender,
              );
         if ( empty($this->PayportName) ){
         	return -1;
@@ -822,7 +835,7 @@ class model_deposit_depositinfo extends model_pay_base_info
 
 	/**
 	 * 手续费计算
-	 * 
+	 *
 	 * @param int $iAmount 金额
 	 * @param str $sOptType 提现/充值
 	 * @return array(扣除手续费之后的金额,手续费)
@@ -937,7 +950,7 @@ class model_deposit_depositinfo extends model_pay_base_info
 	 * @param int/fool $rmb
 	 * @return string
 	 */
-	public function NumtoRMB($rmb){ 
+	public function NumtoRMB($rmb){
    		//把数字金额转换成中文大写数字的函数
    		$rmb=str_replace(",","",$rmb); 		//格式化类似1,000,000的金额
 		if (!ereg("^[0-9.]",$rmb))	return $rmb;
@@ -1007,9 +1020,9 @@ class model_deposit_depositinfo extends model_pay_base_info
 		if ($ikey === false) return $sSource;
 		
 		if ($sTag == 'cn'){
-			 return $aCurrency[$aCurrencyKey[$ikey]][1];			
+			 return $aCurrency[$aCurrencyKey[$ikey]][1];
 		}elseif($sTag == 'eng'){
-			 return $aCurrency[$aCurrencyKey[$ikey]][2];			
+			 return $aCurrency[$aCurrencyKey[$ikey]][2];
 		}else{
 			return $sSource;
 		}
@@ -1046,9 +1059,9 @@ class model_deposit_depositinfo extends model_pay_base_info
 		if ($ikey === false) return $sSource;
 		
 		if ($sTag == 'cn'){
-			 return $aCurrency[$aCurrencyKey[$ikey]][0];			
+			 return $aCurrency[$aCurrencyKey[$ikey]][0];
 		}elseif($sTag == 'eng'){
-			 return $aCurrency[$aCurrencyKey[$ikey]][1];			
+			 return $aCurrency[$aCurrencyKey[$ikey]][1];
 		}else{
 			return $sSource;
 		}
@@ -1072,7 +1085,7 @@ class model_deposit_depositinfo extends model_pay_base_info
 	
 	/**
 	 * 检测数组变量，每个键值有效
-	 * 	
+	 *
 	 * @param array $aArray 被检查的数组
 	 * @param array	$aZero  本次检查中允许为空、为0的键名数组
 	 */
