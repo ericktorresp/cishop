@@ -31,7 +31,7 @@ class model_sim extends basemodel
 	
 	public function update($id, $aData)
 	{
-	
+		return $this->oDB->update('sim', $aData, 'id='.$id);
 	}
 	
 	public function disable($id)

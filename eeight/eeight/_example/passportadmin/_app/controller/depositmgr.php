@@ -1002,7 +1002,7 @@ class controller_depositmgr extends basecontroller
 		}
 		else
 		{
-			sysMessage('失败:此银行账户已被激活,不能删除', 1, $aLocation)
+			sysMessage('失败:此银行账户已被激活,不能删除', 1, $aLocation);
 		}
 			
 	}

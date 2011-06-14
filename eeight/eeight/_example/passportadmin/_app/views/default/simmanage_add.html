@@ -31,9 +31,11 @@ function checkadd(obj)
 
 function genKey()
 {
-	if(!$('#number').val()||!'/^(13[0-9]|15[0|3|6|7|8|9]|18[6|7|8|9])\d{8}$/'.test($('#number').val()))
+	p=/^(13[0-9]|15[0|3|6|7|8|9]|18[6|7|8|9])\d{8}$/;
+	if(!$('#number').val()||!p.test($('#number').val()))
 	{
 		alert('请填写号码');
+		return false;
 	}
 	$('#key').val($.md5($('#number').val()+new Date().getTime()));
 	return false;
@@ -41,18 +43,31 @@ function genKey()
 </script>
 <div class="list-div" id="listDiv">
 <form method="POST" name="listForm" action="?controller=simmanage&action=add" onsubmit="return checkadd(this);";>
+<input type="hidden" name="flag" value="insert" />
 <table cellspacing='1' cellpadding='3' id='list-table'>
+<tr>
+	<td class="narrow-label">运营商</td>
+	<td><select name="op"><option value="CMCC">中国移动</option><option value="CUCC">中国联通</option></select></td>
+</tr>
 <tr>
 <td class="narrow-label" width="20%">手机号码</td>
 <td width="80%"><input type="text" name="number" maxlength="16" id="number"></td>
 </tr>
 <tr>
 <td class="narrow-label">加密key</td>
-<td><input type="text" name="key" maxlength="32" id="key" /> <input type="button" value="生成" onclick="genKey()" /></td>
+<td><input type="text" name="key" size="40" maxlength="32" id="key" /> <input type="button" value="生成" onclick="genKey()" /></td>
 </tr>
 <tr>
 <td class="narrow-label">所在IP</td>
 <td><input type="text" name="ip" maxlength="15" id="ip"></td>
+</tr>
+<tr>
+<td class="narrow-label">卡内余额</td>
+<td><input type="text" name="amount" maxlength="15" id="amount"></td>
+</tr>
+<tr>
+<td class="narrow-label">每月费用</td>
+<td><input type="text" name="monthly" maxlength="15" id="monthly"></td>
 </tr>
 <tr>
 <td></td>
