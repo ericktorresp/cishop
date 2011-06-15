@@ -406,8 +406,7 @@ class model_deposit_depositinfo extends model_pay_base_info
 				'is_sms_order_number'	=> $this->IsSmsOrderNumber,
 				'sms_regex'				=> $this->SmsRegex,
 				'sms_sender'			=> $this->SmsSender,
-			);
-			
+			);	
 		//return $this->_save($aTmpDate);
 		if ( $this->checkArrayValue($aTmpDate,
 			array('payport_host', 'payport_url_load', 'payport_url_draw','payport_url_ques','receive_host','receive_url','receive_url_keep','lang_code','payport_attr','payport_intro')
@@ -494,7 +493,6 @@ class model_deposit_depositinfo extends model_pay_base_info
 		if (!$aTmpDate) return false;
 		$sCond = ' id = '.$this->Id;
 		$this->oDB->update($this->TableName,$aTmpDate,$sCond);
-		
 		if ( $this->oDB->errno() > 0){
 			return false;
 		}else{
@@ -547,53 +545,55 @@ class model_deposit_depositinfo extends model_pay_base_info
 	public function getArrayData(){
 		$aTmpArray = array(
     			'id' => $this->Id,
-    			'payport_name' 		=> $this->PayportName,
+    			'payport_name' 			=> $this->PayportName,
 				'sysparam_prefix' 		=> $this->SysParamPrefix,
-				'payport_nickname' 	=> $this->PayportNickname,
-				'currency' 			=> $this->Currency,
-				'load_time_note' 	=> $this->LoadTimeNote,
-				'draw_time_note' 	=> $this->DrawTimeNote,
+				'payport_nickname' 		=> $this->PayportNickname,
+				'currency' 				=> $this->Currency,
+				'load_time_note' 		=> $this->LoadTimeNote,
+				'draw_time_note' 		=> $this->DrawTimeNote,
 				'load_limit_min_per' 	=> $this->LoadLimitMinPer,
 				'load_limit_max_per' 	=> $this->LoadLimitMaxPer,
 				'load_fee_per_down'		=> $this->LoadFeePerDown,
 				'load_fee_percent_down' => $this->LoadFeePercentDown,
-				'load_fee_step' 	=> $this->LoadFeeStep,
-				'load_fee_per_up' 	=> $this->LoadFeePerUp,
+				'load_fee_step' 		=> $this->LoadFeeStep,
+				'load_fee_per_up' 		=> $this->LoadFeePerUp,
 				'load_fee_percent_up' 	=> $this->LoadFeePercentUp,
 				'draw_limit_min_per' 	=> $this->DrawLimitMinPer,
 				'draw_limit_max_per' 	=> $this->DrawLimitMaxPer,
 				'draw_fee_per_down' 	=> $this->DrawFeePerDown,
 				'draw_fee_percent_down' => $this->DrawFeePercentDown,
-				'draw_fee_min' 		=> $this->DrawFeeMin,
-				'draw_fee_max' 	 	=> $this->DrawFeeMax,
-				'draw_fee_step' 	=> $this->DrawFeeStep,
-				'draw_fee_per_up' 	=> $this->DrawFeePerUp,
+				'draw_fee_min' 			=> $this->DrawFeeMin,
+				'draw_fee_max' 	 		=> $this->DrawFeeMax,
+				'draw_fee_step' 		=> $this->DrawFeeStep,
+				'draw_fee_per_up' 		=> $this->DrawFeePerUp,
 				'draw_fee_percent_up' 	=> $this->DrawFeePercentUp,
-				'plat_load_percent' => $this->PlatLoadPercent,
-				'plat_load_min' 	=> $this->PlatLoadMin,
-				'plat_load_max' 	=> $this->PlatLoadMax,
-				'plat_draw_percent' => $this->PlatDrawPercent,
-				'plat_draw_min' 	=> $this->PlatDrawMin,
-				'plat_draw_max' 	=> $this->PlatDrawMax,
-				'total_balance' 	=> $this->TotalBalance,
-				'opt_limit_times' 	=> $this->OptLimitTimes,
-				'payport_host' 		=> $this->PayportHost,
-				'payport_url_load' 	=> $this->PayportUrlLoad,
-				'payport_url_draw' 	=> $this->PayportUrlDraw,
-				'payport_url_ques' 	=> $this->PayportUrlQues,
-				'receive_host' 		=> $this->ReceiveHost,
-				'receive_url' 		=> $this->ReceiveUrl,
-				'receive_url_keep' 	=> $this->ReceiveUrlKeep,
-				'status' 			=> $this->Status,
-				'payport_intro' 	=> $this->PayportIntro,
-				'lang_code' 		=> $this->LangCode,
-				'payport_attr_load' => ($this->PayportAttr & 1),
-				'payport_attr_draw' => ($this->PayportAttr & 2),
+				'plat_load_percent' 	=> $this->PlatLoadPercent,
+				'plat_load_min' 		=> $this->PlatLoadMin,
+				'plat_load_max' 		=> $this->PlatLoadMax,
+				'plat_draw_percent' 	=> $this->PlatDrawPercent,
+				'plat_draw_min' 		=> $this->PlatDrawMin,
+				'plat_draw_max' 		=> $this->PlatDrawMax,
+				'total_balance' 		=> $this->TotalBalance,
+				'opt_limit_times' 		=> $this->OptLimitTimes,
+				'payport_host' 			=> $this->PayportHost,
+				'payport_url_load' 		=> $this->PayportUrlLoad,
+				'payport_url_draw' 		=> $this->PayportUrlDraw,
+				'payport_url_ques' 		=> $this->PayportUrlQues,
+				'receive_host' 			=> $this->ReceiveHost,
+				'receive_url' 			=> $this->ReceiveUrl,
+				'receive_url_keep' 		=> $this->ReceiveUrlKeep,
+				'status' 				=> $this->Status,
+				'payport_intro' 		=> $this->PayportIntro,
+				'lang_code' 			=> $this->LangCode,
+				'payport_attr_load' 	=> ($this->PayportAttr & 1),
+				'payport_attr_draw' 	=> ($this->PayportAttr & 2),
 				'payport_attr_drawlist' => ($this->PayportAttr & 4),
 				'payport_attr_ques' 	=> ($this->PayportAttr & 8),
 				'payport_attr_drawhand' => ($this->PayportAttr & 16),
-				'sms_sender'=>$this->SmsSender,
-				'sms_regex'=>$this->SmsRegex
+				'sms_sender'			=> $this->SmsSender,
+				'sms_regex'				=> $this->SmsRegex,
+				'is_sms_notice'			=> $this->IsSmsNotice,
+				'is_sms_order_number'	=> $this->IsSmsOrderNumber,
 			);
 			return $aTmpArray;
 	}

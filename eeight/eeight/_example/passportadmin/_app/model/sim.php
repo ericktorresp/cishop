@@ -2,9 +2,9 @@
 
 class model_sim extends basemodel
 {
-	public function simlist(enabled=FALSE)
+	public function simlist($enabled=FALSE)
 	{
-		$sSql = 'SELECT * FROM sim WHERE 1=1' . (enabled ? ' AND enabled=1' : '');
+		$sSql = 'SELECT * FROM sim WHERE 1=1' . ($enabled ? ' AND enabled=1' : '');
 		return $this->oDB->getALL($sSql);
 	}
 	

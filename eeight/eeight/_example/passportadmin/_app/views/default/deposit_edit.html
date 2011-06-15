@@ -239,8 +239,8 @@ function checkme(){
 </tr> 
 <tr>
 	<td class="narrow-label">是否使用短信通知</td>
-	<td><label for="is_sms_notic_1"><input type="radio" name="is_sms_notic" value="1" id="is_sms_notic_1"{if $PayportDetail.is_sms_notic==1} checked{/if} />是</label>
-	<label for="is_sms_notic_0"><input type="radio" name="is_sms_notic" value="0" id="is_sms_notic_0"{if $PayportDetail.is_sms_notic==0} checked{/if} />否</label></td>
+	<td><label for="is_sms_notice_1"><input type="radio" name="is_sms_notice" value="1" id="is_sms_notice_1"{if $PayportDetail.is_sms_notice==1} checked{/if} />是</label>
+	<label for="is_sms_notice_0"><input type="radio" name="is_sms_notice" value="0" id="is_sms_notice_0"{if $PayportDetail.is_sms_notice==0} checked{/if} />否</label></td>
 </tr> 
 <tr>
 	<td class="narrow-label">短信通知是否可留言</td>
@@ -248,12 +248,12 @@ function checkme(){
 	<label for="is_sms_order_number_0"><input type="radio" name="is_sms_order_number" value="0" id="is_sms_order_number_0"{if $PayportDetail.is_sms_order_number==0} checked{/if} />否</label></td>
 </tr> 
 <tr>
-	<td class="narrow-label">短信通知发送号码</td>
+	<td class="narrow-label">短信通知特服号码</td>
 	<td><input type="text" name="sms_sender" value="{$PayportDetail.sms_sender}" /></td>
 </tr>
 <tr>
 	<td class="narrow-label">短信通知内容正则表达式</td>
-	<td><textarea name="sms_regex">{$PayportDetail.sms_regex}</textarea></td>
+	<td><textarea name="sms_regex" cols="50" rows="3">{$PayportDetail.sms_regex}</textarea></td>
 </tr>
 <tr>
 	<td class="narrow-label">&nbsp;</td>
