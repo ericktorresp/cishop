@@ -843,7 +843,9 @@ class controller_depositmgr extends basecontroller
 				}
 				$GLOBALS['oView']->assign( "area", $aBranch);
 			}
-				
+			
+			$oSim = A::singleton('model_sim');
+			$GLOBALS['oView']->assign( 'sims', $oSim->simlist(TRUE) );
 			$GLOBALS['oView']->assign( 'actionlink', array( 'href'=>url("depositmgr","list"), 'text'=>'受付银行列表' ) );
 			$GLOBALS['oView']->assign( "ur_here", "编辑银行账户");
 			$GLOBALS['oView']->assign( "PayAccountDetail", $aPatAccount);
