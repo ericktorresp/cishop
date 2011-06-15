@@ -677,6 +677,8 @@ class controller_depositmgr extends basecontroller
 			$sbankname = $aPayAccountDetail['payport_name'] == 'mdeposit' ?  'icbc'
 			: strtolower($aPayAccountDetail['payport_name']);
 
+			$oSim = A::singleton('model_sim');
+			$GLOBALS['oView']->assign( 'sims', $oSim->simlist(TRUE) );
 			$GLOBALS['oView']->assign( 'actionlink', array( 'href'=>url("depositmgr","list"), 'text'=>'受付银行列表' ) );
 			$GLOBALS['oView']->assign( "ur_here", "新增受付银行账户");
 			$GLOBALS['oView']->assign( "PayAccountDetail", $aPayAccountDetail);

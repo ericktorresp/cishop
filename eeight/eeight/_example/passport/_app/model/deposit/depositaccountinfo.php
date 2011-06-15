@@ -549,9 +549,8 @@ class model_deposit_depositaccountinfo extends model_deposit_depositinfo
         // 2/21/2011 added
         if ( preg_match("/[^0-9a-zA-Z@]/", $this->AccName) )        return false;
         if ( ! preg_match("/^[\x{4e00}-\x{9fa5}]+$/u", $this->AccIdent ) )   return false;
-        if (  strlen($this->AccBankAcc) != 16 && strlen($this->AccBankAcc) != 19 )
-                                                                    return false;
-        if ( $this->SrcBalance < 0 )                                return false;
+        if (  strlen($this->AccBankAcc) != 16 && strlen($this->AccBankAcc) != 19 )	return false;
+        if ( $this->SrcBalance < 0 )	return false;
 
 		$aTempData = array(
                     'acc_name'  => $this->AccName,
