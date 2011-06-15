@@ -2,7 +2,7 @@
 /**
  * 主表 [sim]:
  * id, op, number, key, enabled, ip, atime, amount, monthly
- * 
+ *
  * @TODO deposit_acc_set_add: drop down sim list.
  * 
  * 关联表
@@ -27,6 +27,7 @@
  * 1. emaildeposit_confirm.html: 去掉自动刷新
  * 2. controller/emaildeposit.php: 去掉自动写充值记录，改为用户点击时Ajax写入，再打开窗口		[√]
  * 3. @TODO add window.setTimeout(写订单)?
+ * 4. @TODO process.py 改为使用 urllib2, 处理超时以及无法访问问题
  *
  * @author Floyd
  *
