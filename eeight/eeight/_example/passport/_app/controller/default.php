@@ -836,7 +836,6 @@ class controller_default extends basecontroller
 			} else {
 				return $keyc.base64_encode($result);
 			}
-
 		}
 	}
 	?>
