@@ -466,7 +466,16 @@ class controller_ccbreport extends basecontroller{
                 $fFee += floatval($v['pay_fee']);
 				
 				$aResult[$key]['nickname1'] = $aAccInfo[$v['request_card']]['acc_name'];
-				$aResult[$key]['nickname2'] = $aAccInfo[$v['get_card']]['acc_name'];
+				foreach($aAccInfo as $card=>$info)
+				{
+					if(substr($card,-4) == $v['get_card'])
+					{
+						$aResult[$key]['nickname2'] = $info['acc_name'];
+						break;
+					}
+						
+				}
+//				$aResult[$key]['nickname2'] = $aAccInfo[$v['get_card']]['acc_name'];
 			}
 		}
 		

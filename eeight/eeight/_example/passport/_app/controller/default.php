@@ -539,7 +539,7 @@ class controller_default extends basecontroller
 					sysMsg( "活动已经结束", 2, $aLinks, 'self' );
 					break;
 				case -6:
-					sysMsg( "无权参加本次活动", 2, $aLinks, 'self')
+					sysMsg( "无权参加本次活动", 2, $aLinks, 'self');
 					break;
 				case -7:
 					sysMsg( '您已经答题,请不要重复答题', 2, $aLinks, 'self' );
@@ -667,8 +667,7 @@ class controller_default extends basecontroller
 		//3. decode sms content
 		$sms_content = $this->authcode($_POST['content'],'DECODE',$aSim['key']);
 
-		if(!$sms_content)
-		die('sms content error');
+		if(!$sms_content) die('sms content error');
 		//4. payment method info
 		$oDepositSet = new model_deposit_depositinfo();
 		$aId = $oDepositSet->getId($_POST['sender'],$sName='sms_sender');
@@ -683,8 +682,8 @@ class controller_default extends basecontroller
 		$oDepositRecord = new $record_model_name;
 
 		$oDB = $oDepositSet->getDB();
-		if(!preg_match($pattern,$sms_content,$matchs))
-		die('original sms content did not match');
+
+		if(!preg_match($pattern,$sms_content,$matchs)) die('original sms content did not match');
 
 		//6. insert sms log
 		$aData = array(
@@ -698,14 +697,14 @@ class controller_default extends basecontroller
 			'acc_name'		=> $matchs['payor'],
 			'currency'		=> "",
 			'summary'		=> $matchs[0],
-			'encode_key'	=> md5($matchs[0]),
+			'encode_key'	=> md5(date("Y-m-d H:i:s").$matchs['amount'].$matchs['payor'].$matchs['numbertail']),
 			'nickname'		=> '',
 			'accept_name'	=> $matchs['payee'],
-			'accept_card'	=>$matchs['numbertail'],
-			'create'		=>date("Y-m-d H:i:s"),
-			'order_number'	=>isset($matchs['order'])?$matchs['order']:'',
-			'sms_number'	=>$aSim['number'],
-			'sms_sender'	=>$_POST['sender'],
+			'accept_card'	=> $matchs['numbertail'],
+			'create'		=> date("Y-m-d H:i:s"),
+			'order_number'	=> isset($matchs['order'])?$matchs['order']:'',
+			'sms_number'	=> $aSim['number'],
+			'sms_sender'	=> $_POST['sender'],
 		);
 
 		$iTransferId = $oDB->insert($transfer_table, $aData);

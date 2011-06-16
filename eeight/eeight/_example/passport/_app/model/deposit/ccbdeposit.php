@@ -494,8 +494,10 @@ class model_deposit_ccbdeposit extends basemodel{
 	 */
 	public function getWrondStyle($value, $id){
 		//  数据检查
-		if (empty($value['pay_date']) || (empty($value['full_account']) && empty($value['hidden_account'])) ||
-			empty($value['acc_name']) || empty($value['accept_card']) || floatval($value['amount']) <= 0){
+		if (empty($value['pay_date']) ||
+			empty($value['acc_name']) || 
+			empty($value['accept_card']) || 
+			floatval($value['amount']) <= 0){
 			return false;
 		}
 		
@@ -508,14 +510,14 @@ class model_deposit_ccbdeposit extends basemodel{
 		$aTemp = explode(" ", $aResult['created']);
 		if ($value['pay_date']  > $aTemp[0] . " 23:59:59"){ // 时间违规
 			return 1;
-		} else if(trim( $value['full_account'] ) !== trim( $aResult['account'] )) { // 付款账号违规
-			$temp = $this->hidAccount($aResult['account']);
-			if (trim( $value['hidden_account'] ) !== trim( $temp )){
-				return 2;
-			}
+//		} else if(trim( $value['full_account'] ) !== trim( $aResult['account'] )) { // 付款账号违规
+//			$temp = $this->hidAccount($aResult['account']);
+//			if (trim( $value['hidden_account'] ) !== trim( $temp )){
+//				return 2;
+//			}
 		} else if (trim( $value['acc_name'] ) != trim( $aResult['account_name'] )){ // 付款户名违规
 			return 3;
-		} else if (trim( $value['accept_card'] ) != trim( $aResult['accept_card'] )){ // 收款账户违规
+		} else if (trim( $value['accept_card'] ) != substr(trim( $aResult['accept_card'] ),-4)){ // 收款账户违规
 			return 4;
 		} else if (floatval( $value['amount'] ) != floatval( $aResult['money'] )){
 			return 5;
@@ -813,7 +815,7 @@ class model_deposit_ccbdeposit extends basemodel{
 			'accept_card'	=> $this->AcceptCard,
 			'created'		=> date("Y-m-d H:i:s", time()),
 			'order_number'	=> $this->OrderNumber,
-			'sms_number'	=> $this->SmsNumber;
+			'sms_number'	=> $this->SmsNumber,
 		);
 		$iLastInsertId = $this->oDB->insert( 'ccb_deposit_record', $aData );
 		return $iLastInsertId > 0 ? $iLastInsertId : FALSE;
