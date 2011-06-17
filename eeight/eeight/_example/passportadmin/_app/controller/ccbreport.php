@@ -441,7 +441,7 @@ class controller_ccbreport extends basecontroller{
 		$aHtml['endtime'] 		= $oCCBDeposit->EndTime		= isset($_GET['endtime']) ? trim($_GET['endtime']) : '';
 		$aHtml['startdeal'] 	= $oEmailDeposit->StartExpire	= isset($_GET['startdeal']) ? trim($_GET['startdeal']) : '';
 		$aHtml['enddeal'] 		= $oEmailDeposit->EndExpire		= isset($_GET['enddeal']) ? trim($_GET['enddeal']) : '';
-								  $oCCBDeposit->Pages		= intval($p);
+		$oCCBDeposit->Pages		= intval($p);
 								  
 		$oCCBDeposit->PageSize = $iPageSize; // 每页显示条数
 		$aResult = $oCCBDeposit->getErrorList();

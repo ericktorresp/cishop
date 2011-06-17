@@ -11,8 +11,9 @@
  * user_deposit_card:	[+sms_number, +sms_key, +sms_ip]
  * ccb_deposit_record:	+sms_number, +order_number										[√]
  * ccb_transfers		+sms_number, +sms_sender										[√]
+ * ccb_deposit_error:	+order_number													[√]
  *
- * 1. 根据玩家所分配的卡，读取卡信息以及卡所绑定的手机号，显示给用户(deposit_acc_set)
+ * 1. 根据玩家所分配的卡，读取卡信息以及卡所绑定的手机号，显示给用户
  * 2. 玩家提交充值请求后，系统写入 email_deposit_record(ccb_deposit_record): key(order_number),pay_acc_id(如果该行不支持附言)
  * 3.1. 根据number获取该number对应加密key，根据sender获取银行(deposit_set.sms_regex, deposit_set.is_sms_order_number)
  * 3.2. 解密content, 正则匹配内容，获取：{payor, payee, numbertail, amount, order_number[!is_sms_order_number(ABC)]}

@@ -459,7 +459,7 @@ class model_deposit_ccbdeposit extends basemodel{
 				$aResult['balance'] = $value['balance'];
 				$aResult['pay_fee'] = $value['fee'];
 				$aResult['encode_key'] = $value['encode_key'];
-				$aResult['transfer_id'] = $value['id'];
+				$aResult['transfer_id'] = $this->BankRecordId;
 				$aResult['error_type'] = $error_type;
 				$aResult['status'] = $status;
 				$aResult['created'] = date("Y-m-d H:i:s", time());
@@ -467,6 +467,31 @@ class model_deposit_ccbdeposit extends basemodel{
 			case 2:
 				break;
 			case 3:
+				$aResult['get_time'] = $value['create'];
+				$aResult['pay_card'] = $value['hidden_account'];
+				$aResult['pay_acc_name'] = $value['acc_name'];
+				$aResult['get_card'] = $value['accept_card'];
+				$aResult['pay_amount'] = $value['amount'];
+				$aResult['balance'] = $value['balance'];
+				$aResult['pay_fee'] = $value['fee'];
+				$aResult['encode_key'] = $value['encode_key'];
+				$aResult['transfer_id'] = $this->BankRecordId;
+				$aResult['error_type'] = $error_type;
+				$aResult['status'] = $status;
+				$aResult['created'] = date("Y-m-d H:i:s", time());
+				$record = $this->getOneById();
+				$aResult['request_time'] = $record['created'];
+				$aResult['request_card'] = $record['accept_card'];
+				$aResult['binding_card'] = $record['account'];
+				$aResult['account_name'] = $record['account_name'];
+				$aResult['transfer_id'] = $this->BankRecordId;
+				$aResult['request_amount'] = $record['money'];
+				$aResult['order_number'] = $record['order_number'];
+				$aResult['record_id'] = $this->Id;
+				$aResult['user_id'] = $record['user_id'];
+				$aResult['user_name'] = $record['user_name'];
+				$aResult['topproxy_name'] = $record['topproxy_name'];
+				$aResult['order_number'] = $record['order_number'];
 				break;
 			default:
 				return false;
@@ -570,14 +595,22 @@ class model_deposit_ccbdeposit extends basemodel{
 	 *
 	 */
 	public function unionUpdate( $aData = array() ){
-		if (!is_numeric($this->Status) || !is_numeric($this->BankStatus) || empty($this->Account))			return false;
+		if (!is_numeric($this->Status) || !is_numeric($this->BankStatus) || (empty($this->Account)  && empty($this->NameTail)))			return false;
 		if (!is_numeric($this->Id) || $this->Id <= 0)														return false;
 		if (!is_numeric($this->BankRecordId) || $this->BankRecordId <= 0)									return false;
 		
 		$bAdd = true; // 是否更新接口余额,true为更新，false为不更新，默认为true
 		
 //		$oPayPortInfo = new model_pay_payaccountinfo($this->Account, 'banknumber');
-        $oPayPortInfo = new model_deposit_depositaccountinfo($this->Account, 'banknumber');
+//        $oPayPortInfo = new model_deposit_depositaccountinfo($this->Account, 'banknumber');
+		if(!empty($this->NameTail))
+		{
+        	$oPayPortInfo = new model_deposit_depositaccountinfo($this->NameTail, 'nametail');
+		}
+		elseif(!empty($this->Account))
+		{
+			$oPayPortInfo = new model_deposit_depositaccountinfo($this->Account, 'banknumber');
+		}
 		$oPayPortInfo->GetType = true;
 		if ($oPayPortInfo->AId > 0){
 			$oPayPortInfo->getAccountDataObj();

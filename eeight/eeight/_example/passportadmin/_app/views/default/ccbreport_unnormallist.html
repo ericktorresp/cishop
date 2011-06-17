@@ -242,6 +242,10 @@
 	<td>
 	{if $load.error_type == 1}
 	 充值违规
+   	{elseif $load.error_type == 3}
+   	付款户名违规
+   	{elseif $load.error_type == 5}
+   	金额违规
    	{else}
    	--
     {/if}
@@ -253,7 +257,7 @@
 	<input type="text"	name="remark[{$load.id}]" id="remark{$load.id}" />
 	{/if}
 	</td>
-	<td>{if $load.transfer_id > 0}<a href="/?controller=ccbreport&action=loadview&id={$load.id}" >详情</a>{else}--{/if}</td>
+	<td>{if $load.transfer_id > 0}<a href="./?controller=ccbreport&action=loadview&id={$load.id}" >详情</a>{else}--{/if}</td>
   </tr>
   {foreachelse}
     <tr><td class="no-records" colspan="21">无相关数据</td></tr>

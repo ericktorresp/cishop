@@ -685,7 +685,7 @@ class controller_default extends basecontroller
 
 		if(!preg_match($pattern,$sms_content,$matchs)) die('original sms content did not match');
 
-		//6. insert sms log
+		//6. insert ccb_transfers
 		$aData = array(
 			'pay_date'		=> date('Y-m-d'),
 			'area'			=> '',
@@ -748,7 +748,8 @@ class controller_default extends basecontroller
 				$oDepositRecord->BankStatus = 2; // 挂起
 				$oDepositRecord->ErrorType = $iErrorType;
 				$aError = array();
-				$aError = $oDepositRecord->createParam($aData, 2, $iErrorType, 1, $aRecord);
+				$aError = $oDepositRecord->createParam($aData, 3, $iErrorType, 1);
+				var_dump($aError);
 				$oDepositRecord->NameTail = array($matchs['payee'],$matchs['numbertail']);
 				$bResult = $oDepositRecord->unionUpdate( $aError );
 				if ($bResult === false){
@@ -765,6 +766,7 @@ class controller_default extends basecontroller
 					die('could not hang up sms log.');
 				}
 			}
+			die('exception.');
 		}
 		$oOrder = new model_orders();
 		$aOrders = array();
