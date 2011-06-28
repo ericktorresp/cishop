@@ -728,7 +728,10 @@ class controller_security extends basecontroller
         	if ($oUserBank->UserId != $iUserId || $oUserBank->Status != 1){
         		sysMsg("您提交的银行信息有误，请核对后重新提交！", 2);
         	}
-			
+	        if(time()-strtotime($oUserBank->AddTime)<3600*intval(getConfigValue('bind_time_limit',2)))
+			{
+				sysMsg("银行卡新绑定".getConfigValue('bind_time_limit',2)."小时内不允许提款！", 2);
+			}	
         	// 卡号只显示后四位
         	$oFODetail = new model_withdraw_fundoutdetail();
         	$oFODetail->Digit = 4; // 只显示四位卡号
@@ -987,7 +990,10 @@ class controller_security extends basecontroller
         	if ($oUserBank->UserId != $iUserId || $oUserBank->Status != 1){
         		sysMsg("您提交的银行信息有误，请核对后重新提交！", 2);
         	}
-			
+	        if(time()-strtotime($oUserBank->AddTime)<3600*intval(getConfigValue('bind_time_limit',2)))
+			{
+				sysMsg("银行卡新绑定".getConfigValue('bind_time_limit',2)."小时内不允许提款！", 2);
+			}			
         	// 卡号只显示后四位
         	$oFODetail = new model_withdraw_fundoutdetail();
         	$oFODetail->Digit = 4; // 只显示四位卡号
