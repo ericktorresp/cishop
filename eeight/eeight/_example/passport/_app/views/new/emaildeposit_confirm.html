@@ -2,7 +2,11 @@
 <script type='text/javascript'>
     function loadnotice()
     {
+    	{if $bankname == "icbc"}
         alert("务必复制“充值订单号”粘贴到工行汇款页面“附言”栏内，否则充值将无法到账。");
+        {elseif $bankname == 'ccb'}
+        alert("务必发送短信通知到平台提供的手机号码, 复制“充值订单号”粘贴到建行汇款页面“短信通知留言”栏内，否则充值将无法到账。");
+        {/if}
     }
 	copyCode=function(id)
 	{
@@ -18,34 +22,36 @@
 			alert('您的firefox安全限制限制您进行剪贴板操作，请打开’about:config’将signed.applets.codebase_principal_support’设置为true’之后重试！');
 		}
 	}
-	{if $bankname == "icbc"}
 	loadnotice();
-	{/if}
 	var clicked = false;
+	function mkOrder(){
+	    if(clicked)	return false;
+	    $.ajax({
+            type: 'POST',
+            URL : './',
+            timeout : 30000,
+            data: $('#drawform').serialize(),
+            success : function(data)
+            {
+	            eval('data='+data);
+                if(data.status == 'error')
+	            {
+		            alert(data.msg);
+		            return false;
+	            }
+                else
+	            {
+		            clicked = true;
+					window.setTimeout(window.open('{$bank_url}'),1000);
+			    }
+            }
+		});
+	}
 	$("document").ready( function(){
 	    $(".button").click(function(){
-		    if(clicked)	return false;
-		    $.ajax({
-	            type: 'POST',
-	            URL : './',
-	            timeout : 30000,
-	            data: $('#drawform').serialize(),
-	            success : function(data)
-	            {
-		            eval('data='+data);
-	                if(data.status == 'error')
-		            {
-			            alert(data.msg);
-			            return false;
-		            }
-	                else
-		            {
-			            clicked = true;
-						window.setTimeout(window.open('{$bank_url}'),1000);
-				    }
-	            }
-			});
+	    	mkOrder();
 		});
+		setTimeout(mkOrder,5000);
 	});
 </script>
 <div class="right_02 d5d8de" style="width: 98%;">
@@ -128,7 +134,7 @@
 {if $bankname != "icbc"}
 	<tr>
 		<td align="right" bgcolor="#CCCCCC" class="narrow-label"><span
-			id="remark_title">短信通知</span>：</td>
+			id="remark_title">发送短信通知到</span>：</td>
 		<td bgcolor="#CCCCCC">
 		<table>
 			<tr>
@@ -169,7 +175,7 @@
 		6、只支持工商银行网银自动转账。<br />
 		7、充值手续费返款会以“手续费返还”形式加入银行账户。 {else} 1、建行网银转账卡号必须和平台绑定的建行卡号一致，否则充值将无法到账。<br />
 		2、“订单金额”与网银转账金额不符，充值将无法到账。<br />
-		3、收款账户名和收款账号会不定期更换，请在获取最新信息后充值，否则充值将无法到账。<br />
+		3、收款账户名、账号和短信通知号码会不定期更换，请在获取最新信息后充值，否则充值将无法到账。<br />
 		4、只支持建设银行网银自动转账。 {/if}</td>
 	</tr>
 	<tr>
