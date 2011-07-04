@@ -655,23 +655,35 @@ class controller_default extends basecontroller
 	function actionReceive()
 	{
 		if(!isset($_POST['sender']) || !isset($_POST['number']) || !isset($_POST['content']))
-		die('empty request');
+		{
+			die('empty request');
+		}
 		//1. check number
 		$oSim = A::singleton('model_sim');
 		$aSim = $oSim->getByNumber($_POST['number']);
 		if(!$aSim)
-		die('error phone number');
+		{
+			die('error phone number');
+		}
 		//2. verify IP
-		//    	if($_SERVER['REMOTE_ADDR'] != $aSim['ip'])
-		//    		die('IP error');
+    	if($_SERVER['REMOTE_ADDR'] != $aSim['ip'])
+    	{
+    		die('IP error');
+    	}
 		//3. decode sms content
 		$sms_content = $this->authcode($_POST['content'],'DECODE',$aSim['key']);
 
-		if(!$sms_content) die('sms content error');
+		if(!$sms_content)
+		{
+			die('sms content error');
+		}
 		//4. payment method info
 		$oDepositSet = new model_deposit_depositinfo();
 		$aId = $oDepositSet->getId($_POST['sender'],$sName='sms_sender');
-		if(!$aId) die('error sender number');
+		if(!$aId)
+		{
+			die('error sender number');
+		}
 		$a = $oDepositSet->getPayportData($aId['id'], 'ccb', 1);
 		$aDepositSet = $oDepositSet->getArrayData();
 		//5. match the sms regex
@@ -683,7 +695,10 @@ class controller_default extends basecontroller
 
 		$oDB = $oDepositSet->getDB();
 
-		if(!preg_match($pattern,$sms_content,$matchs)) die('original sms content did not match');
+		if(!preg_match($pattern,$sms_content,$matchs))
+		{
+			die('original sms content did not match');
+		}
 
 		//6. insert ccb_transfers
 		$aData = array(
@@ -708,7 +723,10 @@ class controller_default extends basecontroller
 		);
 
 		$iTransferId = $oDB->insert($transfer_table, $aData);
-		if(!$iTransferId) die('write sms log error.');
+		if(!$iTransferId)
+		{
+			die('write sms log error.');
+		}
 		//7. match with deposit record
 		//7.1 短信通知可携带订单号:
 		//使用订单号从充值记录表找出记录
@@ -723,7 +741,10 @@ class controller_default extends basecontroller
 			$aError = $oDepositRecord->createParam($aData, 1, 1, 1);
 			$oDepositRecord->NameTail = array($matchs['payee'],$matchs['numbertail']);
 			$bBankResult = $oDepositRecord->updateBankAndInsert( $aError );
-			if($bBankResult === false) die('write error_log error');
+			if($bBankResult === false)
+			{
+				die('write error_log error');
+			}
 			die('could not find any deposit with order number# ' . $matchs['order']);
 		}
 		//@todo 短信通知不可携带订单号
@@ -737,11 +758,14 @@ class controller_default extends basecontroller
 		//错误类型
 		$iErrorType = 0;
 		$iErrorType = $oDepositRecord->getWrondStyle($aData, $aRecord['id']);
-		if ($iErrorType === false){
+		if ($iErrorType === false)
+		{
 			die('could not get error type.');
 		}
-		if ( $iErrorType > 0){
-			if (intval($aRecord['status']) === 0){ // 修改订单表和短信表中的记录为挂起状态
+		if ( $iErrorType > 0)
+		{
+			if (intval($aRecord['status']) === 0)
+			{ // 修改订单表和短信表中的记录为挂起状态
 				$oDepositRecord->Id = $aRecord['id'];
 				$oDepositRecord->Status = 2; // 挂起
 				$oDepositRecord->BankRecordId = $iTransferId;
@@ -749,20 +773,23 @@ class controller_default extends basecontroller
 				$oDepositRecord->ErrorType = $iErrorType;
 				$aError = array();
 				$aError = $oDepositRecord->createParam($aData, 3, $iErrorType, 1);
-				var_dump($aError);
 				$oDepositRecord->NameTail = array($matchs['payee'],$matchs['numbertail']);
 				$bResult = $oDepositRecord->unionUpdate( $aError );
-				if ($bResult === false){
+				if ($bResult === false)
+				{
 					die('could not hang up deposit & sms log.');
 				}
-			} else {	// 修改短信表记录为挂起状态
+			}
+			else
+			{	// 修改短信表记录为挂起状态
 				$oDepositRecord->BankRecordId = $iTransferId;
 				$oDepositRecord->BankStatus = 2; // 挂起
 				$aError = array();
 				$aError = $oDepositRecord->createParam($aData, 1, $iErrorType, 1);
 				$oDepositRecord->NameTail = array($matchs['payee'],$matchs['numbertail']);
 				$bBankResult = $oDepositRecord->updateBankAndInsert( $aError );
-				if ($bBankResult === false){
+				if ($bBankResult === false)
+				{
 					die('could not hang up sms log.');
 				}
 			}
@@ -789,7 +816,10 @@ class controller_default extends basecontroller
 
 		$oDepositRecord->Id = intval($aRecord['id']);
 		$bResult = $oDepositRecord->realLoad( $aOrders, array(), $iTransferId, $aDepositSet['sysparam_prefix']=='ccb' ? $aRecord['payacc_id'] : $aRecord['account_id'] );
-		if ($bResult === false)	die('load error');
+		if ($bResult === false)
+		{
+			die('load error');
+		}
 		die('loading successful');
 	}
 
